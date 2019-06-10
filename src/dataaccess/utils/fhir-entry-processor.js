@@ -27,7 +27,7 @@ export default function(responses, patientId, resourceMapper = null) {
     const referencesOut = [];
     const allObjects = entries.map(entry => {
         try {
-            const result = ObjectFactory.createInstanceFromFHIR(entry.resource, null, patientId, entries, mappedResources, referencesOut);
+            const result = ObjectFactory.createInstanceFromFHIR(null, entry.resource, entry.resource.resourceType, patientId, entries, mappedResources, referencesOut);
 
             // shortId here is the standard "resourceType/resourceID" ID format
             const shortId = `${entry.resource.resourceType}/${entry.resource.id}`;

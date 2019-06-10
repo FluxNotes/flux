@@ -3,8 +3,6 @@ import Study from '../shr/research/Study';
 import Title from '../shr/core/Title';
 import Details from '../shr/core/Details';
 import Identifier from '../shr/core/Identifier';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import EffectiveTimePeriod from '../shr/core/EffectiveTimePeriod';
 import TimePeriodStart from '../shr/core/TimePeriodStart';
 import TimePeriodEnd from '../shr/core/TimePeriodEnd';
@@ -15,10 +13,7 @@ class FluxStudy extends FluxEntry {
         super(json);
         this._entry = this._study = Study.fromJSON(json);
         if (!this._study.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/research/Study';
-            this._study.entryInfo = entry;
+            this._study.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/research/Study');
         }
     }
 

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Lang from 'lodash';
 
+import '../model/init.js';
 import NavBar from '../nav/NavBar';
 import FormList from '../forms/FormList';
 import ShortcutViewer from '../viewer/ShortcutViewer';

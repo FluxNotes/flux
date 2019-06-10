@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 import Role from './Role';
 
@@ -119,7 +124,8 @@ class Practitioner extends Role {
    * @returns {Practitioner} An instance of Practitioner populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Practitioner();
+    const klass = ClassRegistry.get('shr.entity', 'Practitioner');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -157,6 +163,7 @@ class Practitioner extends Role {
    * Deserializes FHIR JSON data to an instance of the Practitioner class.
    * The FHIR must be valid against the Practitioner FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -164,91 +171,92 @@ class Practitioner extends Role {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Practitioner} An instance of Practitioner populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Practitioner();
-    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
-    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
-    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
-    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/Practitioner');
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.entity', 'Practitioner');
+    const inst = new klass();
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/Practitioner', 'uri');
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], 'id', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['meta']['lastUpdated'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
       }
       for (const fhir_meta_security of fhir['meta']['security'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
         inst.metadata.securityLabel = inst.metadata.securityLabel || [];
-        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
         inst.metadata.securityLabel.push(inst_metadata_securityLabel);
       }
       for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
         inst.metadata.tag = inst.metadata.tag || [];
-        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
         inst.metadata.tag.push(inst_metadata_tag);
       }
     }
     if (fhir['language'] != null) {
-      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['text'] != null) {
-      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], 'Narrative', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['identifier'] != null && fhir['identifier'][0] != null) {
-      inst.nationalProviderIdentifier = FHIRHelper.createInstanceFromFHIR('shr.entity.NationalProviderIdentifier', fhir['identifier'][0], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.nationalProviderIdentifier = FHIRHelper.createInstanceFromFHIR('shr.entity.NationalProviderIdentifier', fhir['identifier'][0], 'Identifier', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['active'] != null) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
-      inst.person.reference.activeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
+      inst.person.reference.activeFlag = FHIRHelper.createInstanceFromFHIR('shr.entity.ActiveFlag', fhir['active'], 'boolean', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['name'] != null) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
       inst.person.reference.humanName = inst.person.reference.humanName || [];
-      const inst_person_reference_humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', fhir['name'], shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_person_reference_humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', fhir['name'], 'HumanName', shrId, allEntries, mappedResources, referencesOut, false);
       inst.person.reference.humanName.push(inst_person_reference_humanName);
     }
     for (const fhir_telecom of fhir['telecom'] || []) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
       inst.person.reference.contactPoint = inst.person.reference.contactPoint || [];
-      const inst_person_reference_contactPoint = FHIRHelper.createInstanceFromFHIR('shr.core.ContactPoint', fhir_telecom, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_person_reference_contactPoint = FHIRHelper.createInstanceFromFHIR('shr.core.ContactPoint', fhir_telecom, 'ContactPoint', shrId, allEntries, mappedResources, referencesOut, false);
       inst.person.reference.contactPoint.push(inst_person_reference_contactPoint);
     }
     for (const fhir_address of fhir['address'] || []) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
       inst.person.reference.address = inst.person.reference.address || [];
-      const inst_person_reference_address = FHIRHelper.createInstanceFromFHIR('shr.core.Address', fhir_address, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_person_reference_address = FHIRHelper.createInstanceFromFHIR('shr.core.Address', fhir_address, 'Address', shrId, allEntries, mappedResources, referencesOut, false);
       inst.person.reference.address.push(inst_person_reference_address);
     }
     if (fhir['gender'] != null) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
-      inst.person.reference.administrativeGender = FHIRHelper.createInstanceFromFHIR('shr.entity.AdministrativeGender', fhir['gender'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
+      inst.person.reference.administrativeGender = FHIRHelper.createInstanceFromFHIR('shr.entity.AdministrativeGender', fhir['gender'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_photo of fhir['photo'] || []) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
       inst.person.reference.photographicImage = inst.person.reference.photographicImage || [];
-      const inst_person_reference_photographicImage = FHIRHelper.createInstanceFromFHIR('shr.core.PhotographicImage', fhir_photo, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_person_reference_photographicImage = FHIRHelper.createInstanceFromFHIR('shr.core.PhotographicImage', fhir_photo, 'Attachment', shrId, allEntries, mappedResources, referencesOut, false);
       inst.person.reference.photographicImage.push(inst_person_reference_photographicImage);
     }
     for (const fhir_qualification of fhir['qualification'] || []) {
       inst.qualification = inst.qualification || [];
-      const inst_qualification = FHIRHelper.createInstanceFromFHIR('shr.entity.Qualification', fhir_qualification, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_qualification = FHIRHelper.createInstanceFromFHIR('shr.entity.Qualification', fhir_qualification, 'BackboneElement', shrId, allEntries, mappedResources, referencesOut, false);
       inst.qualification.push(inst_qualification);
       if (fhir_qualification['code'] != null) {
-        inst_qualification.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir_qualification['code'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_qualification.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir_qualification['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_qualification['period'] != null) {
-        inst_qualification.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir_qualification['period'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_qualification.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir_qualification['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_qualification['issuer'] != null) {
         const entryId = fhir_qualification['issuer']['reference'];
         if (!mappedResources[entryId]) {
           const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
           if (referencedEntry) {
-            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Organization', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Organization', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
           }
         }
         if (mappedResources[entryId]) {
@@ -261,11 +269,11 @@ class Practitioner extends Role {
       }
     }
     for (const fhir_communication of fhir['communication'] || []) {
-      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, shrId), referencesOut);
+      inst.person = inst.person || FHIRHelper.createReference( FHIRHelper.createInstanceFromFHIR('shr.entity.Person', {}, null, shrId), referencesOut);
       inst.person.reference.languageUsed = inst.person.reference.languageUsed || [];
-      const inst_person_reference_languageUsed = FHIRHelper.createInstanceFromFHIR('shr.entity.LanguageUsed', {}, shrId);
+      const inst_person_reference_languageUsed = FHIRHelper.createInstanceFromFHIR('shr.entity.LanguageUsed', {}, null, shrId);
       inst.person.reference.languageUsed.push(inst_person_reference_languageUsed);
-      inst_person_reference_languageUsed.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir_communication, shrId, allEntries, mappedResources, referencesOut, false);
+      inst_person_reference_languageUsed.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir_communication, 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.entity.SpecimenTreatment.
@@ -62,7 +67,8 @@ class SpecimenTreatment {
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new SpecimenTreatment();
+    const klass = ClassRegistry.get('shr.entity', 'SpecimenTreatment');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -85,6 +91,7 @@ class SpecimenTreatment {
    * Deserializes FHIR JSON data to an instance of the SpecimenTreatment class.
    * The FHIR must be valid against the SpecimenTreatment FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -92,16 +99,17 @@ class SpecimenTreatment {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SpecimenTreatment} An instance of SpecimenTreatment populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new SpecimenTreatment();
-    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
-    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
-    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
-    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment');
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.entity', 'SpecimenTreatment');
+    const inst = new klass();
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/SpecimenTreatment', 'uri');
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-Additive-extension') {
         inst.additive = inst.additive || [];
-        const inst_additive = FHIRHelper.createInstanceFromFHIR('shr.entity.Additive', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        const inst_additive = FHIRHelper.createInstanceFromFHIR('shr.entity.Additive', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
         inst.additive.push(inst_additive);
       }
     }

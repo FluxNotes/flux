@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.Annotation.
@@ -93,7 +98,8 @@ class Annotation {
    * @returns {Annotation} An instance of Annotation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Annotation();
+    const klass = ClassRegistry.get('shr.core', 'Annotation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -121,6 +127,7 @@ class Annotation {
    * Deserializes FHIR JSON data to an instance of the Annotation class.
    * The FHIR must be valid against the Annotation FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -128,16 +135,17 @@ class Annotation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Annotation} An instance of Annotation populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Annotation();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'Annotation');
+    const inst = new klass();
     if (fhir['authorString'] != null) {
-      inst.author = FHIRHelper.createInstanceFromFHIR('shr.core.Author', fhir['authorString'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.author = FHIRHelper.createInstanceFromFHIR('shr.core.Author', fhir['authorString'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['time'] != null) {
-      inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['time'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['time'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['text'] != null) {
-      inst.text = FHIRHelper.createInstanceFromFHIR('shr.core.Text', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.text = FHIRHelper.createInstanceFromFHIR('shr.core.Text', fhir['text'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueAnnotation'];

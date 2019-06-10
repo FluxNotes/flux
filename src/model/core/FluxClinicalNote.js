@@ -1,17 +1,15 @@
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import Reference from '../Reference';
 import Metadata from '../shr/base/Metadata';
 import Lang from 'lodash';
+import FluxEntry from '../base/FluxEntry';
 
-class FluxClinicalNote {
+class FluxClinicalNote extends FluxEntry {
     constructor(json) {
+        super(json);
         if (json) {
-            this._entryInfo = new Entry();
+            this._entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/ClinicalNote');
             this._entryInfo.shrId = json.ShrId;
             this._entryInfo.entryId = json.EntryId;
-            this._entryInfo.entryType = new EntryType();
-            this._entryInfo.entryType.value = 'http://standardhealthrecord.org/spec/shr/core/ClinicalNote';
             if (json.signedOn) this._signedOn = json.signedOn;
             if (json.subject) this._subject = json.subject;
             if (json.hospital) this._hospital = json.hospital;

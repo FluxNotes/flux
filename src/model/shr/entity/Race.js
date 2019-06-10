@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.entity.Race.
@@ -62,7 +67,8 @@ class Race {
    * @returns {Race} An instance of Race populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Race();
+    const klass = ClassRegistry.get('shr.entity', 'Race');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -87,6 +93,7 @@ class Race {
    * Deserializes FHIR JSON data to an instance of the Race class.
    * The FHIR must be valid against the Race FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -94,16 +101,17 @@ class Race {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Race} An instance of Race populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Race();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.entity', 'Race');
+    const inst = new klass();
     if (asExtension) {
-      const match_1 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceCode-extension');
-      if (match_1 != null) {
-        inst.raceCode = FHIRHelper.createInstanceFromFHIR('shr.entity.RaceCode', match_1, shrId, allEntries, mappedResources, referencesOut, true);
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceCode-extension');
+      if (match_3 != null) {
+        inst.raceCode = FHIRHelper.createInstanceFromFHIR('shr.entity.RaceCode', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_2 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceDetail-extension');
-      if (match_2 != null) {
-        inst.raceDetail = FHIRHelper.createInstanceFromFHIR('shr.entity.RaceDetail', match_2, shrId, allEntries, mappedResources, referencesOut, true);
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-entity-RaceDetail-extension');
+      if (match_4 != null) {
+        inst.raceDetail = FHIRHelper.createInstanceFromFHIR('shr.entity.RaceDetail', match_4, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

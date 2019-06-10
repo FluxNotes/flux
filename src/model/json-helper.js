@@ -1,11 +1,5 @@
 import Reference from './Reference';
-import Entry from './shr/base/Entry';
-import ShrId from './shr/base/ShrId';
-import EntryId from './shr/base/EntryId';
-import EntryType from './shr/base/EntryType';
-
 import { ALL_KNOWN_VALUE_SETS } from './valueSets';
-
 
 // A variable to hold the root ObjectFactory.  This can be set via the exported setObjectFactory function,
 // but should typically be set by importing the module's init file.
@@ -25,7 +19,7 @@ export function setObjectFactory(factory) {
 /**
  * Parses the JSON and/or type to return an object with the namespace and elementName.
  * @param {Object} json - The element data in JSON format (use `{}` and provide `type` for a blank instance)
- * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/demographics/PersonOfRecord').  This is only used if the type cannot be extracted from the JSON.
+ * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/base/Patient' or 'shr.base.Patient').  This is only used if the type cannot be extracted from the JSON.
  * @returns {{namespace: string, elementName: string}} An object representing the element
  */
 export function getNamespaceAndName(json={}, type) {
@@ -44,6 +38,12 @@ export function getNamespaceAndName(json={}, type) {
   if (uriMatch) {
     const namespace = uriMatch[1].split('/').join('.');
     const elementName = uriMatch[2];
+    return { namespace, elementName };
+  } else if (type.indexOf('.') !== -1) {
+    // assume it's of the form namespace.ClassName
+    const lastDot = type.lastIndexOf('.');
+    const namespace = type.slice(0, lastDot);
+    const elementName = type.slice(lastDot + 1); // don't include the dot
     return { namespace, elementName };
   }
   // No match, so throw an error
@@ -64,11 +64,7 @@ export function getNamespaceAndNameFromFHIR(fhir, type) {
     } else if (type.indexOf('.') === -1) {
       return { namespace: 'primitive', elementName: type };
     }
-  } else if (!fhir['resourceType'] && !type) {
-    // it's not a FHIR resource, so it's likely a general purpose FHIR data type
-    return FHIRHelper.getGeneralPurposeFHIRType(fhir);
   }
-
   // Get the type from the JSON if we can
   if (fhir['meta'] && fhir['meta']['profile']) {
     type = fhir['meta']['profile'][0];
@@ -89,6 +85,7 @@ export function getNamespaceAndNameFromFHIR(fhir, type) {
   const namespace = mappingStringArray.join('.');
   return { namespace, elementName };
 }
+
 
 /**
  * Given a (presumably) blank instance of an ES6 class representing an element, and JSON that adheres to the
@@ -157,7 +154,8 @@ function findSetterForEntryProperty(inst, property) {
   if (entryInfoSetter) {
     // Now see if there is an existing entryInfo, and if not, set it to a new instance
     if (typeof inst.entryInfo === 'undefined') {
-      entryInfoSetter.call(inst, new Entry());
+      const newEntry = createInstance('shr.base.Entry', {});
+      entryInfoSetter.call(inst, newEntry);
     }
     // Now find the setter for the property on the entry
     return findSetterForProperty(inst.entryInfo, property);
@@ -177,7 +175,6 @@ function createInstance(key, value) {
   if (Array.isArray(value)) {
     return value.map(v => createInstance(key, v));
   }
-  if (value == null) return null;
   if (typeof value === 'object') {
     if (value._ShrId && value._EntryId && value._EntryType) {
       // It's a reference, so just return the reference
@@ -195,76 +192,6 @@ function createInstance(key, value) {
   return value;
 }
 
-const FHIR_GENERAL_PURPOSE_TYPES = {
-  'Attachment': {
-    fields: ['contentType', 'language', 'data', 'url', 'size', 'hash', 'title', 'creation'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Media' }
-  },
-  'Coding': {
-    fields: ['system', 'version', 'code', 'display', 'userSelected'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Coding' }
-  },
-  'CodeableConcept': {
-    fields: ['coding', 'text'],
-    mapsTo: { namespace: 'shr.core', elementName: 'CodeableConcept' }
-  },
-  'Quantity': {
-    fields: ['value', 'comparator', 'unit', 'system', 'code'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Quantity' }
-  },
-  'Range': {
-    fields: ['low', 'high'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Range' }
-  },
-  'Ratio': {
-    fields: ['numerator', 'denominator'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Ratio' }
-  },
-  'Period': {
-    fields: ['start', 'end'],
-    mapsTo: { namespace: 'shr.core', elementName: 'TimePeriod' }
-  },
-  'SampledData': {
-    fields: ['origin', 'period', 'factor', 'lowerLimit', 'upperLimit', 'dimensions', 'data'],
-    mapsTo: { namespace: 'shr.core', elementName: 'SampledData' }
-  },
-  'Identifier': {
-    fields: ['use', 'type', 'system', 'value', 'period', 'assigner'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Identifier' }
-  },
-  'HumanName': {
-    fields: ['use', 'text', 'family', 'given', 'prefix', 'suffix', 'period'],
-    mapsTo: { namespace: 'shr.core', elementName: 'HumanName' }
-  },
-  'Address': {
-    fields: ['use', 'type', 'text', 'line', 'city', 'district', 'state', 'postalCode', 'country', 'period'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Address' }
-  },
-  'ContactPoint': {
-    fields: ['system', 'value', 'use', 'rank', 'period'],
-    mapsTo: { namespace: 'shr.core', elementName: 'ContactPoint' }
-  },
-  'Timing': {
-    fields: ['event', 'repeat', 'code'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Timing' }
-  },
-  'Signature': {
-    fields: ['type', 'when', 'whoUri', 'whoReference', 'contentType', 'blob'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Signature' }
-  },
-  'Annotation': {
-    fields: ['authorReference', 'authorString', 'time', 'text'],
-    mapsTo: { namespace: 'shr.core', elementName: 'Annotation' }
-  },
-
-  // references may not be the best fit here but it works
-  'Reference': {
-    fields: ['reference', 'type', 'identifier', 'display'],
-    mapsTo: { namespace: '', elementName: 'Reference' }
-   }
-};
-
-
 /**
  * Wrapper object to contain multiple functions, so that generated classes don't have to pre-determine which functions to specifically import.
  */
@@ -272,20 +199,20 @@ export const FHIRHelper = {
 
   /**
    * Creates an ES6 class instance based on a value extracted from the JSON.
-   * @param {string} key - the original key under which the value was stored.  This is used as a backup in case the value
-   *   does not declare its type.
-   * @param {object} value - the FHIR data to create an ES6 class instance for
+   * @param {string} shrType - the fqn of the class to be instantiated
+   * @param {object} fhir - the FHIR data to create an ES6 class instance for
+   * @param {string} fhirType - the type of the FHIR object passed in, just in case it's not otherwise available by inspecting the object
    * @returns {object} an instance of an ES6 class representing the data
    * @private
    */
-  createInstanceFromFHIR: function(key, value, shrId, allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    if (Array.isArray(value)) {
-      return value.map(v => FHIRHelper.createInstanceFromFHIR(key, v, shrId, allEntries, mappedResources, referencesOut, asExtension));
+  createInstanceFromFHIR: function(shrType, fhir, fhirType, shrId, allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    if (Array.isArray(fhir)) {
+      return fhir.map(v => FHIRHelper.createInstanceFromFHIR(shrType, v, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension));
     }
     if (OBJECT_FACTORY == null) {
       throw new Error(`SHR ES6 module is not initialized.  Import 'init' before using the ES6 factories and classes`);
     }
-    return OBJECT_FACTORY.createInstanceFromFHIR(value, key, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    return OBJECT_FACTORY.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
   },
 
   /**
@@ -303,11 +230,11 @@ export const FHIRHelper = {
   },
 
   createReferenceWithoutObject: function(shrId, entryId, entryType) {
-    return new Reference(
-      new ShrId().withValue(shrId),
-      new EntryId().withValue(entryId),
-      new EntryType().withValue(entryType)
-    );
+     return new Reference(
+      createInstance('shr.base.ShrId', { Value: shrId }),
+      createInstance('shr.base.EntryId', { Value: entryId }),
+      createInstance('shr.base.EntryType', { Value: entryType })
+     );
   },
 
   /**
@@ -319,28 +246,6 @@ export const FHIRHelper = {
    */
   conformsToProfile: function(fhirEntry = {}, targetProfile = '') {
     return fhirEntry.resource && fhirEntry.resource.meta && fhirEntry.resource.meta.profile && fhirEntry.resource.meta.profile.some(p => p === targetProfile);
-  },
-
-  getGeneralPurposeFHIRType: function (fhir) {
-    // https://www.hl7.org/fhir/DSTU2/datatypes.html
-    // the good news is that these do not have much overlap in their field names
-
-    for (const typeName in FHIR_GENERAL_PURPOSE_TYPES) {
-      // if all fields in the given fhir object are fields from a general purpose type, then this object is an instance of that type
-      // ignore extension and modifierExtension
-      const definition = FHIR_GENERAL_PURPOSE_TYPES[typeName]
-      const fieldsInDefinition = definition['fields'];
-      const fieldsInInstance = Object.keys(fhir).filter(f => f !== 'extension' && f !== 'modifierExtension');
-
-      const isMatch = fieldsInInstance.every(f => fieldsInDefinition.includes(f));
-
-      if (isMatch) {
-        return definition['mapsTo'];
-      }
-    }
-
-    // didn't find a match, so we have no idea what this object is
-    throw new Error(`Couldn't find type for FHIR: ${JSON.stringify(fhir)}`); 
   },
 
   /**

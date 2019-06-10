@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 import Identifier from '../core/Identifier';
 
@@ -15,7 +20,8 @@ class AccessionIdentifier extends Identifier {
    * @returns {AccessionIdentifier} An instance of AccessionIdentifier populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AccessionIdentifier();
+    const klass = ClassRegistry.get('shr.entity', 'AccessionIdentifier');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -49,6 +55,7 @@ class AccessionIdentifier extends Identifier {
    * Deserializes FHIR JSON data to an instance of the AccessionIdentifier class.
    * The FHIR must be valid against the AccessionIdentifier FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -56,22 +63,23 @@ class AccessionIdentifier extends Identifier {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {AccessionIdentifier} An instance of AccessionIdentifier populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AccessionIdentifier();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.entity', 'AccessionIdentifier');
+    const inst = new klass();
     if (fhir['use'] != null) {
-      inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
-      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['system'] != null) {
-      inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['value'] != null) {
-      inst.text = FHIRHelper.createInstanceFromFHIR('shr.core.Text', fhir['value'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.text = FHIRHelper.createInstanceFromFHIR('shr.core.Text', fhir['value'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

@@ -1,5 +1,4 @@
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
+import FluxEntry from '../base/FluxEntry';
 import * as lookup from '../../lib/receptor_lookup.jsx';
 import TumorMarker from './TumorMarker';
 import Reference from '../Reference';
@@ -7,14 +6,12 @@ import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
 import FindingResult from '../shr/base/FindingResult';
 import FindingTopicCode from '../shr/base/FindingTopicCode';
 
-class FluxTumorMarker {
+class FluxTumorMarker extends FluxEntry {
     constructor(json) {
+        super(json);
         this._entry = this._tumorMarker = TumorMarker.fromJSON(json);
         if (!this._tumorMarker.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/genetics/TumorMarker';
-            this._tumorMarker.entryInfo = entry;
+            this._tumorMarker.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/genetics/TumorMarker');
         }
     }
 

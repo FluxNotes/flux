@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.Timing.
@@ -137,7 +142,8 @@ class Timing {
    * @returns {Timing} An instance of Timing populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Timing();
+    const klass = ClassRegistry.get('shr.core', 'Timing');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -171,6 +177,7 @@ class Timing {
    * Deserializes FHIR JSON data to an instance of the Timing class.
    * The FHIR must be valid against the Timing FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -178,63 +185,64 @@ class Timing {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Timing} An instance of Timing populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Timing();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'Timing');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-RecurrenceRange-extension') {
-        inst.recurrenceRange = FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceRange', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.recurrenceRange = FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceRange', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     for (const fhir_event of fhir['event'] || []) {
       inst.occurrenceTime = inst.occurrenceTime || [];
-      const inst_occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir_event, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir_event, 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
       inst.occurrenceTime.push(inst_occurrenceTime);
     }
     if (fhir['repeat'] != null) {
       if (fhir['repeat']['duration'] != null) {
-        inst.eventDuration = inst.eventDuration || FHIRHelper.createInstanceFromFHIR('shr.core.EventDuration', {}, shrId);
-        inst.eventDuration.value = inst.eventDuration.value || FHIRHelper.createInstanceFromFHIR('shr.core.DurationRange', {}, shrId);
-        inst.eventDuration.value.lowerBound = inst.eventDuration.value.lowerBound || FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', {}, shrId);
-        inst.eventDuration.value.lowerBound.value = inst.eventDuration.value.lowerBound.value || FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', {}, shrId);
-        inst.eventDuration.value.lowerBound.value.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['repeat']['duration'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.eventDuration = inst.eventDuration || FHIRHelper.createInstanceFromFHIR('shr.core.EventDuration', {}, null, shrId);
+        inst.eventDuration.value = inst.eventDuration.value || FHIRHelper.createInstanceFromFHIR('shr.core.DurationRange', {}, null, shrId);
+        inst.eventDuration.value.lowerBound = inst.eventDuration.value.lowerBound || FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', {}, null, shrId);
+        inst.eventDuration.value.lowerBound.value = inst.eventDuration.value.lowerBound.value || FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', {}, null, shrId);
+        inst.eventDuration.value.lowerBound.value.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['repeat']['duration'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
         if (fhir['repeat']['durationMax'] != null) {
-          inst.eventDuration.value.upperBound = inst.eventDuration.value.upperBound || FHIRHelper.createInstanceFromFHIR('shr.core.UpperBound', {}, shrId);
-          inst.eventDuration.value.upperBound.value = inst.eventDuration.value.upperBound.value || FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', {}, shrId);
+          inst.eventDuration.value.upperBound = inst.eventDuration.value.upperBound || FHIRHelper.createInstanceFromFHIR('shr.core.UpperBound', {}, null, shrId);
+          inst.eventDuration.value.upperBound.value = inst.eventDuration.value.upperBound.value || FHIRHelper.createInstanceFromFHIR('shr.core.SimpleQuantity', {}, null, shrId);
         }
         if (fhir['repeat']['durationUnits'] != null) {
-          inst.eventDuration.value.lowerBound.value.units = inst.eventDuration.value.lowerBound.value.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
-          inst.eventDuration.value.lowerBound.value.units.value = inst.eventDuration.value.lowerBound.value.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
-          inst.eventDuration.value.lowerBound.value.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['repeat']['durationUnits'], shrId, allEntries, mappedResources, referencesOut, false);
+          inst.eventDuration.value.lowerBound.value.units = inst.eventDuration.value.lowerBound.value.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
+          inst.eventDuration.value.lowerBound.value.units.value = inst.eventDuration.value.lowerBound.value.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
+          inst.eventDuration.value.lowerBound.value.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['repeat']['durationUnits'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
         }
       }
       if (fhir['repeat']['frequency'] != null) {
-        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
-        inst.recurrencePattern.countPerInterval = inst.recurrencePattern.countPerInterval || FHIRHelper.createInstanceFromFHIR('shr.core.CountPerInterval', {}, shrId);
-        inst.recurrencePattern.countPerInterval.minCount = FHIRHelper.createInstanceFromFHIR('shr.core.MinCount', fhir['repeat']['frequency'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, null, shrId);
+        inst.recurrencePattern.countPerInterval = inst.recurrencePattern.countPerInterval || FHIRHelper.createInstanceFromFHIR('shr.core.CountPerInterval', {}, null, shrId);
+        inst.recurrencePattern.countPerInterval.minCount = FHIRHelper.createInstanceFromFHIR('shr.core.MinCount', fhir['repeat']['frequency'], 'integer', shrId, allEntries, mappedResources, referencesOut, false);
         if (fhir['repeat']['frequencyMax'] != null) {
-          inst.recurrencePattern.countPerInterval.maxCount = FHIRHelper.createInstanceFromFHIR('shr.core.MaxCount', fhir['repeat']['frequencyMax'], shrId, allEntries, mappedResources, referencesOut, false);
+          inst.recurrencePattern.countPerInterval.maxCount = FHIRHelper.createInstanceFromFHIR('shr.core.MaxCount', fhir['repeat']['frequencyMax'], 'integer', shrId, allEntries, mappedResources, referencesOut, false);
         }
       }
       if (fhir['repeat']['period'] != null) {
-        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
-        inst.recurrencePattern.recurrenceInterval = inst.recurrencePattern.recurrenceInterval || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceInterval', {}, shrId);
-        inst.recurrencePattern.recurrenceInterval.value = inst.recurrencePattern.recurrenceInterval.value || FHIRHelper.createInstanceFromFHIR('shr.core.Duration', {}, shrId);
-        inst.recurrencePattern.recurrenceInterval.value.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['repeat']['period'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, null, shrId);
+        inst.recurrencePattern.recurrenceInterval = inst.recurrencePattern.recurrenceInterval || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrenceInterval', {}, null, shrId);
+        inst.recurrencePattern.recurrenceInterval.value = inst.recurrencePattern.recurrenceInterval.value || FHIRHelper.createInstanceFromFHIR('shr.core.Duration', {}, null, shrId);
+        inst.recurrencePattern.recurrenceInterval.value.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir['repeat']['period'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
         if (fhir['repeat']['periodUnits'] != null) {
-          inst.recurrencePattern.recurrenceInterval.value.units = inst.recurrencePattern.recurrenceInterval.value.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, shrId);
-          inst.recurrencePattern.recurrenceInterval.value.units.value = inst.recurrencePattern.recurrenceInterval.value.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, shrId);
-          inst.recurrencePattern.recurrenceInterval.value.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['repeat']['periodUnits'], shrId, allEntries, mappedResources, referencesOut, false);
+          inst.recurrencePattern.recurrenceInterval.value.units = inst.recurrencePattern.recurrenceInterval.value.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
+          inst.recurrencePattern.recurrenceInterval.value.units.value = inst.recurrencePattern.recurrenceInterval.value.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
+          inst.recurrencePattern.recurrenceInterval.value.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['repeat']['periodUnits'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
         }
       }
       if (fhir['repeat']['when'] != null) {
-        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, shrId);
+        inst.recurrencePattern = inst.recurrencePattern || FHIRHelper.createInstanceFromFHIR('shr.core.RecurrencePattern', {}, null, shrId);
         inst.recurrencePattern.dailyLifeEvent = inst.recurrencePattern.dailyLifeEvent || [];
-        const inst_recurrencePattern_dailyLifeEvent = FHIRHelper.createInstanceFromFHIR('shr.core.DailyLifeEvent', fhir['repeat']['when'], shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_recurrencePattern_dailyLifeEvent = FHIRHelper.createInstanceFromFHIR('shr.core.DailyLifeEvent', fhir['repeat']['when'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
         inst.recurrencePattern.dailyLifeEvent.push(inst_recurrencePattern_dailyLifeEvent);
       }
     }
     if (fhir['code'] != null) {
-      inst.timingCode = FHIRHelper.createInstanceFromFHIR('shr.core.TimingCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.timingCode = FHIRHelper.createInstanceFromFHIR('shr.core.TimingCode', fhir['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

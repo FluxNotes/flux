@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 import Ratio from './Ratio';
 
@@ -65,7 +70,8 @@ class Frequency extends Ratio {
    * @returns {Frequency} An instance of Frequency populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Frequency();
+    const klass = ClassRegistry.get('shr.core', 'Frequency');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -90,6 +96,7 @@ class Frequency extends Ratio {
    * Deserializes FHIR JSON data to an instance of the Frequency class.
    * The FHIR must be valid against the Frequency FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -97,13 +104,14 @@ class Frequency extends Ratio {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Frequency} An instance of Frequency populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Frequency();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'Frequency');
+    const inst = new klass();
     if (fhir['numerator'] != null) {
-      inst.numerator = FHIRHelper.createInstanceFromFHIR('shr.core.Numerator', fhir['numerator'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.numerator = FHIRHelper.createInstanceFromFHIR('shr.core.Numerator', fhir['numerator'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['denominator'] != null) {
-      inst.denominator = FHIRHelper.createInstanceFromFHIR('shr.core.Denominator', fhir['denominator'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.denominator = FHIRHelper.createInstanceFromFHIR('shr.core.Denominator', fhir['denominator'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

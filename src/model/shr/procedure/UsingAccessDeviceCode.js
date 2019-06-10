@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.procedure.UsingAccessDeviceCode.
@@ -66,7 +71,8 @@ class UsingAccessDeviceCode {
    * @returns {UsingAccessDeviceCode} An instance of UsingAccessDeviceCode populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new UsingAccessDeviceCode();
+    const klass = ClassRegistry.get('shr.procedure', 'UsingAccessDeviceCode');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -88,6 +94,7 @@ class UsingAccessDeviceCode {
    * Deserializes FHIR JSON data to an instance of the UsingAccessDeviceCode class.
    * The FHIR must be valid against the UsingAccessDeviceCode FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -95,13 +102,14 @@ class UsingAccessDeviceCode {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {UsingAccessDeviceCode} An instance of UsingAccessDeviceCode populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new UsingAccessDeviceCode();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.procedure', 'UsingAccessDeviceCode');
+    const inst = new klass();
     if (asExtension) {
       inst.value = fhir['valueCodeableConcept'];
     }
     if (!asExtension && fhir != null) {
-      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, shrId, allEntries, mappedResources, referencesOut);
+      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }

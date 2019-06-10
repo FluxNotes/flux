@@ -1,16 +1,13 @@
+import FluxEntry from '../base/FluxEntry';
 import FindingResult from '../shr/base/FindingResult';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import TNMStagePanelMember from './TNMStagePanelMember';
 
-class FluxTNMStagePanelMember {
+class FluxTNMStagePanelMember extends FluxEntry {
     constructor(json) {
+        super(json);
         this._tnmStagePanelMember = TNMStagePanelMember.fromJSON(json);
         if (!this._tnmStagePanelMember.entryInfo) {
-            const entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/TNMStagePanelMember';
-            this._tnmStagePanelMember.entryInfo = entry;
+            this._tnmStagePanelMember.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/oncocore/TNMStagePanelMember');
         }
     }
 

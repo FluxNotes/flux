@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.Geoposition.
@@ -91,7 +96,8 @@ class Geoposition {
    * @returns {Geoposition} An instance of Geoposition populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Geoposition();
+    const klass = ClassRegistry.get('shr.core', 'Geoposition');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -119,6 +125,7 @@ class Geoposition {
    * Deserializes FHIR JSON data to an instance of the Geoposition class.
    * The FHIR must be valid against the Geoposition FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -126,17 +133,18 @@ class Geoposition {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Geoposition} An instance of Geoposition populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Geoposition();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'Geoposition');
+    const inst = new klass();
     if (fhir['position'] != null) {
       if (fhir['position']['longitude'] != null) {
-        inst.longitude = FHIRHelper.createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.longitude = FHIRHelper.createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['position']['latitude'] != null) {
-        inst.latitude = FHIRHelper.createInstanceFromFHIR('shr.core.Latitude', fhir['position']['latitude'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.latitude = FHIRHelper.createInstanceFromFHIR('shr.core.Latitude', fhir['position']['latitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['position']['altitude'] != null) {
-        inst.altitude = FHIRHelper.createInstanceFromFHIR('shr.core.Altitude', fhir['position']['altitude'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.altitude = FHIRHelper.createInstanceFromFHIR('shr.core.Altitude', fhir['position']['altitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     return inst;

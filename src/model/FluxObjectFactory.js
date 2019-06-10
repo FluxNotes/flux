@@ -43,7 +43,7 @@ export default class FluxObjectFactory {
         }
     }
 
-    static createInstanceFromFHIR(fhir, type, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-        return ObjectFactory.createInstanceFromFHIR(fhir, type, shrId, allEntries, mappedResources, referencesOut, asExtension);
+    static createInstanceFromFHIR(shrType, fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+        return ObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     }
 }

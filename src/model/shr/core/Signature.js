@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.Signature.
@@ -172,7 +177,8 @@ class Signature {
    * @returns {Signature} An instance of Signature populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Signature();
+    const klass = ClassRegistry.get('shr.core', 'Signature');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -209,6 +215,7 @@ class Signature {
    * Deserializes FHIR JSON data to an instance of the Signature class.
    * The FHIR must be valid against the Signature FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -216,29 +223,30 @@ class Signature {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Signature} An instance of Signature populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Signature();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'Signature');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension') {
-        inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     for (const fhir_type of fhir['type'] || []) {
       inst.signatureType = inst.signatureType || [];
-      const inst_signatureType = FHIRHelper.createInstanceFromFHIR('shr.core.SignatureType', fhir_type, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_signatureType = FHIRHelper.createInstanceFromFHIR('shr.core.SignatureType', fhir_type, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
       inst.signatureType.push(inst_signatureType);
     }
     if (fhir['when'] != null) {
-      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['when'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['when'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['whoUri'] != null) {
-      inst.signatory = FHIRHelper.createInstanceFromFHIR('shr.core.Signatory', fhir['whoUri'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.signatory = FHIRHelper.createInstanceFromFHIR('shr.core.Signatory', fhir['whoUri'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['contentType'] != null) {
-      inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.contentType = FHIRHelper.createInstanceFromFHIR('shr.core.ContentType', fhir['contentType'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['blob'] != null) {
-      inst.binaryData = FHIRHelper.createInstanceFromFHIR('shr.core.BinaryData', fhir['blob'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.binaryData = FHIRHelper.createInstanceFromFHIR('shr.core.BinaryData', fhir['blob'], 'base64Binary', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

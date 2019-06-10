@@ -62,7 +62,6 @@ describe('SMART on FHIR data source', function() {
         const dataSource = new McodeV05SmartOnFhirDataSource();
 
         dataSource.getPatient('1078857', (record, error) => {
-            debugger;
             if (record) {
                 scope.done(); // assert that all specified calls on the scope were performed
                 done();

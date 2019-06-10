@@ -1,12 +1,8 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the classes are generated.
+
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from '../../json-helper';
-import Study from './Study';
-import Enrollment from './Enrollment';
-import Sponsor from './Sponsor';
-import Jurisdiction from './Jurisdiction';
-import PrincipalInvestigator from './PrincipalInvestigator';
-import TerminationReason from './TerminationReason';
-import StudyArm from './StudyArm';
-import ResearchSubject from './ResearchSubject';
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated object factory for the shr.research namespace.
@@ -23,40 +19,29 @@ export default class ShrResearchObjectFactory {
     if (namespace !== 'shr.research') {
       throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
-    switch (elementName) {
-    case 'Study': return Study.fromJSON(json);
-    case 'Enrollment': return Enrollment.fromJSON(json);
-    case 'Sponsor': return Sponsor.fromJSON(json);
-    case 'Jurisdiction': return Jurisdiction.fromJSON(json);
-    case 'PrincipalInvestigator': return PrincipalInvestigator.fromJSON(json);
-    case 'TerminationReason': return TerminationReason.fromJSON(json);
-    case 'StudyArm': return StudyArm.fromJSON(json);
-    case 'ResearchSubject': return ResearchSubject.fromJSON(json);
-    default: throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
+    const klass = ClassRegistry.get('shr.research', elementName);
+    if (!klass) {
+      throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
     }
+    return klass.fromJSON(json);
   }
 
   /**
    * Convert an instance of a class from its FHIR representation.
-   * @param {Object} fhir - The element data in JSON format (use `{}` and provide `type` for a blank instance)
-   * @param {string} [type] - The (optional) type of the element (e.g., 'http://standardhealthrecord.org/spec/shr/demographics/PersonOfRecord').  This is only used if the type cannot be extracted from the JSON.
+   * @param {string} shrType - The type of the element (e.g., 'shr.core.CodeableConcept').  This is only used if the type cannot be extracted from the JSON.
+   * @param {Object} fhir - The element data in JSON format (use `{}` and provide `shrType` for a blank instance)
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @returns {Object} An instance of the requested class populated with the provided data
    */
-  static createInstanceFromFHIR(fhir, type, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const { namespace, elementName } = getNamespaceAndNameFromFHIR(fhir, type);
+  static createInstanceFromFHIR(shrType, fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const { namespace, elementName } = getNamespaceAndNameFromFHIR(fhir, shrType);
     if (namespace !== 'shr.research') {
-      throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
+      throw new Error(`Unsupported type in ShrResearchObjectFactory: ${shrType}`);
     }
-    switch (elementName) {
-    case 'Study': return Study.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'Enrollment': return Enrollment.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'Sponsor': return Sponsor.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'Jurisdiction': return Jurisdiction.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'PrincipalInvestigator': return PrincipalInvestigator.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'TerminationReason': return TerminationReason.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'StudyArm': return StudyArm.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'ResearchSubject': return ResearchSubject.fromFHIR(fhir, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    default: throw new Error(`Unsupported type in ShrResearchObjectFactory: ${type}`);
+    const klass = ClassRegistry.get('shr.research', elementName);
+    if (!klass) {
+      throw new Error(`Unsupported type in ShrResearchObjectFactory: ${shrType}`);
     }
+    return klass.fromFHIR(fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
   }
 }

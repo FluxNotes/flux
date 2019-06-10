@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.Coding.
@@ -112,7 +117,8 @@ class Coding {
    * @returns {Coding} An instance of Coding populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Coding();
+    const klass = ClassRegistry.get('shr.core', 'Coding');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -143,6 +149,7 @@ class Coding {
    * Deserializes FHIR JSON data to an instance of the Coding class.
    * The FHIR must be valid against the Coding FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -150,24 +157,20 @@ class Coding {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Coding} An instance of Coding populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Coding();
-    if (typeof fhir === 'string') {
-        inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir, shrId, allEntries, mappedResources, referencesOut, false);
-        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir, shrId, allEntries, mappedResources, referencesOut, false);
-    } else {
-      if (fhir['system'] != null) {
-        inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['version'] != null) {
-        inst.codeSystemVersion = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['code'] != null) {
-        inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['display'] != null) {
-        inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['display'], shrId, allEntries, mappedResources, referencesOut, false);
-      }
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'Coding');
+    const inst = new klass();
+    if (fhir['system'] != null) {
+      inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['version'] != null) {
+      inst.codeSystemVersion = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['code'] != null) {
+      inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    if (fhir['display'] != null) {
+      inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['display'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

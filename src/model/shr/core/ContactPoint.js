@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.ContactPoint.
@@ -137,7 +142,8 @@ class ContactPoint {
    * @returns {ContactPoint} An instance of ContactPoint populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new ContactPoint();
+    const klass = ClassRegistry.get('shr.core', 'ContactPoint');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -171,6 +177,7 @@ class ContactPoint {
    * Deserializes FHIR JSON data to an instance of the ContactPoint class.
    * The FHIR must be valid against the ContactPoint FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -178,22 +185,23 @@ class ContactPoint {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {ContactPoint} An instance of ContactPoint populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new ContactPoint();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'ContactPoint');
+    const inst = new klass();
     if (fhir['system'] != null) {
-      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['system'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['system'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['value'] != null) {
-      inst.telecomNumberOrAddress = FHIRHelper.createInstanceFromFHIR('shr.core.TelecomNumberOrAddress', fhir['value'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.telecomNumberOrAddress = FHIRHelper.createInstanceFromFHIR('shr.core.TelecomNumberOrAddress', fhir['value'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['use'] != null) {
-      inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.purpose = FHIRHelper.createInstanceFromFHIR('shr.core.Purpose', fhir['use'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['rank'] != null) {
-      inst.priorityRank = FHIRHelper.createInstanceFromFHIR('shr.core.PriorityRank', fhir['rank'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.priorityRank = FHIRHelper.createInstanceFromFHIR('shr.core.PriorityRank', fhir['rank'], 'positiveInt', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
-      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueContactPoint'];
