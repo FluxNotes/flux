@@ -120,7 +120,7 @@ export default class NoteParser {
                     textInAngleBrackets = note.substring(hashPos, nextPos + 1).toLowerCase();
                     if (styleTags.includes(textInAngleBrackets)) {
                         // style
-                        matches.push({ style: textInAngleBrackets });
+                        //matches.push({ style: textInAngleBrackets });
                     } else {
                         let possibleValue = note.substring(nextPos + 1);
                         let selectedValue = null;
