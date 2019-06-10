@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
+import _ from 'lodash';
 
 
 export default class LongitudinalViewVisualizerTable extends Component {
@@ -11,23 +12,41 @@ export default class LongitudinalViewVisualizerTable extends Component {
     /*
     Assigns an id to each row
     */
-    createData(labName, unit, datesOrData, id = 0) { //datesOrData is dates if it's the first row of the table and data if not
-        return { labName, unit, datesOrData, id }; //the names given here are the keys and the values passed into those parameters become the key's values
+    createData(labName, unit, data, id) { //datesOrData is dates if it's the first row of the table and data if not
+        return { labName, unit, data, id }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
-
-
+    gatherTableValues() {
+        const tableValues = [];
+        const predates = [];
+        for (let labIndex = 0; labIndex < this.props.labDataInfo.length; labIndex++) {
+            tableValues.push(this.createData(this.props.labDataInfo[labIndex].labName, this.props.labDataInfo[labIndex].labUnit, Object.values(this.props.labDataInfo[labIndex].datesAndData), labIndex));
+            predates.push(Object.keys(this.props.labDataInfo[labIndex].datesAndData));
+        }
+        const dates = _.uniq(_.flattenDeep(predates));
+        // const dates = middates.sort((a,b) => {
+        //     return a.getTime() -b.getTime()
+        // });
+        console.log(dates);
+        return [tableValues, dates];
+    }
+    // compareByDate(date1, date2){
+    //     const year1 = date1.substring(7);
+    //     const year2 = date2.substring(7);
+    //     const month1 = date1.substring(3,6);
+    //     const month2 = date2.substring(3,6);
+    //     const day1 = date1.substring(0,2);
+    //     const day2 = date2.substring(0,2);
+    //     if(year1 != year2){
+    //         return year1.compareTo(year2);
+    //     } else if(month1 != month2){
+    //         return month1.compareTo(month2);
+    //     } else {
+    //         return day1.compareTo(day2);
+    //     }
+    // } 
     render() {
-        //in place of 'Frozen yoghurt' will be the name of the lab (labs[id]?), 159 will be the unit (units[id]?, etc.), this.dates will be the data (or date if first row) (could be an array
-        //of all the data for that lab or could be data[column_number] a bunch of times/for each data column in the row if the data is stored by date/column instead of by lab/row)
-        const tableValues = [ //tableValues is every value in the table, row by row
-            this.createData('Frozen yoghurt', 159, this.columns), //id for this one is 0 since 0 is the default and no id is given in calling createData
-            this.createData('Frozen', 159, this.columns, 1),
-            this.createData('Frozen yoghurt', 159, this.columns, 2),
-            this.createData('Frozen yoghurt', 159, this.columns, 3),
-            this.createData('Frozen yoghurt', 159, this.columns, 4),
-        ]; //there's one this.createData call for each row in the table (for each lab)
-
-        const dates = Object.keys(this.columns); //an array of all the dates
+        const { labDataInfo } = this.props;
+        const [tableValues, dates] = this.gatherTableValues();
         return (
             <div className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
                 <Table>
@@ -50,8 +69,8 @@ export default class LongitudinalViewVisualizerTable extends Component {
                                         {n.labName}
                                     </TableCell>
                                     <TableCell>{n.unit}</TableCell>
-                                    {Object.entries(this.dates).map(function (key) {
-                                        return <TableCell key={key} > {key[1][n.id]}</TableCell>;
+                                    {Object.entries(n)[2][1].map((value, newkey) => {
+                                        return <TableCell key={newkey}>{value}</TableCell>; //why not just put n in the table cell?
                                     })}
                                 </TableRow>
                             );
