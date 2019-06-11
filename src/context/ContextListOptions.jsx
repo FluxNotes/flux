@@ -1,5 +1,4 @@
 import React from 'react';
-import Portal from 'react-portal';
 import PropTypes from 'prop-types';
 import ContextItem from './ContextItem';
 import Lang from 'lodash';
@@ -8,11 +7,6 @@ import './ContextListOptions.css';
 const UP_ARROW_KEY = 38;
 const DOWN_ARROW_KEY = 40;
 const ENTER_KEY = 13;
-
-const UP_ARROW_KEY = 38
-const DOWN_ARROW_KEY = 40
-const ENTER_KEY = 13
-const RESULT_SIZE = 5
 
 class ContextListOptions extends React.Component {
     constructor(props) {
