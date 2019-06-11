@@ -89,7 +89,7 @@ export default class TabularListVisualizer extends Visualizer {
             return this.renderedSubsection(subsection, ind++, false, subsections.length === 1);
         });
         const renderedSecondHalf = secondHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++, false, subsections.lenth === 1);
+            return this.renderedSubsection(subsection, ind++, false, subsections.length === 1);
         });
 
         // Display the data in 2 columns. The first column displays the first half
