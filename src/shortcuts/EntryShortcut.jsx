@@ -94,25 +94,31 @@ export default class EntryShortcut extends Shortcut {
     }
 
     establishParentContext(contextManager, relativeToShortcut = undefined) {
+        console.log('establish parent context')
         super.initialize(contextManager);
         const knownParent = this.metadata["knownParentContexts"];
 
         if (Lang.isUndefined(relativeToShortcut)) {
             if (knownParent) {
+                console.log('known parent')
                 this.parentContext = contextManager.getActiveContextOfType(knownParent);
             } else {
+                console.log('not known')
                 this.parentContext = contextManager.getCurrentContext();
             }
         } else {
             const potentialParents = contextManager.getContextsBeforeShortcut(this, knownParent);
             if (potentialParents && potentialParents.length > 0) {
+                console.log('parents big')
                 this.parentContext = potentialParents[0];
             } else {
+                console.log('parent context undefined')
                 this.parentContext = undefined;
             }
         }
 
         if (!Lang.isUndefined(this.parentContext)) {
+            console.log('add this')
             this.parentContext.addChild(this);
         }
     }

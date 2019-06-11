@@ -149,11 +149,12 @@ class ContextManager {
                 }
             }
         });
+        console.log(contextsBeforeShortcut)
         return contextsBeforeShortcut;
     }
 
     addShortcutToContext(shortcut) {
-        if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
+        //if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
 
         let insertionIndex = this.contexts.length;
         if (shortcut.initialContextPosition === -1) {

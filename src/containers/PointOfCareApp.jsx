@@ -103,7 +103,7 @@ export class PointOfCareApp extends Component {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
-                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                this.contextManager = new ContextManager(patient);
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
@@ -115,7 +115,7 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
-                this.contextManager = new ContextManager(patient, this.onContextUpdate);
+                this.contextManager = new ContextManager(patient);
                 this.setState({
                     patient,
                     loading: false
@@ -135,6 +135,12 @@ export class PointOfCareApp extends Component {
                 loadingErrorObject: supportedError
             });
         }
+        this.contextManager.setIsBlock1BeforeBlock2(() => {
+            return true;
+        });
+        this.contextManager.setGetContextsBeforeSelection(() => {
+            return [];
+        });
     }
 
     componentDidMount = () => {

@@ -276,7 +276,7 @@ export class FullApp extends Component {
 
     // Given a shortcutClass, a type and an object, create a new shortcut and change errors as needed.
     newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true, source) => {
-
+        console.log(this.contextManager)
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.state.patient, shortcutData, this.handleShortcutUpdate);
         console.log(newShortcut)
         console.log(this.contextManager)
@@ -296,6 +296,7 @@ export class FullApp extends Component {
 
     // Update shortcuts and update patients accordingly
     handleShortcutUpdate = (s) => {
+        console.log(s)
         let p = this.state.patient;
         let note = this.state.openClinicalNote;
         s.updatePatient(p, this.contextManager, note);

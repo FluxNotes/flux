@@ -85,6 +85,7 @@ class Placeholder {
     }
 
     setAttributeValue(name, value, index = 0, source) {
+        console.log("here")
         if (!this._entryShortcuts[index].hasParentContext()) {
             this._entryShortcuts[index].establishParentContext(this._contextManager, this);
         }
@@ -97,7 +98,9 @@ class Placeholder {
             return "No parent context to set values within. Create a context before " + this._placeholderText + " using " +
                 parentContextOptions + ".";
         } else {
+            console.log(this._entryShortcuts[index])
             this._entryShortcuts[index].setAttributeValue(name, value);
+            console.log(value)
             this._entryShortcuts[index].setSource(source);
             this._setForceRefresh();
             return null;
@@ -105,7 +108,6 @@ class Placeholder {
     }
 
     getTextWithStylingToDisplayInNote(index = 0) {
-        console.log(this)
         let isSigned = this._clinicalNote.signed;
 
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
