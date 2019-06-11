@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
-import _ from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import CompletionPortal from  '../context/EditorPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
