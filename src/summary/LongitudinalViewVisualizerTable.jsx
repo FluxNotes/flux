@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
 import moment from 'moment';
+import './LongitudinalViewVisualizerTable.css';
 
 
 export default class LongitudinalViewVisualizerTable extends Component {
@@ -55,9 +56,9 @@ export default class LongitudinalViewVisualizerTable extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>Lab Name</TableCell>
-                            <TableCell>Unit</TableCell>
-                            {dates.map(date => { //makes a new date column-heading for each date in the dates array defined in the constructor
-                                return <TableCell key={date}>{date}</TableCell>;
+                            <TableCell className='table-header'>Unit</TableCell>
+                            {dates.map(function (date) { //makes a new date column-heading for each date in the dates object defined in the constructor
+                                return <TableCell className='table-header' key={date}>{date}</TableCell>;
                             }
                             )}
                         </TableRow>
