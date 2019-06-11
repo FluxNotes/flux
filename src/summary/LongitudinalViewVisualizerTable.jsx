@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
+import moment from 'moment';
 
 
 export default class LongitudinalViewVisualizerTable extends Component {
@@ -12,44 +13,45 @@ export default class LongitudinalViewVisualizerTable extends Component {
     /*
     Assigns an id to each row
     */
-    createData(labName, unit, data, id) { //datesOrData is dates if it's the first row of the table and data if not
-        return { labName, unit, data, id }; //the names given here are the keys and the values passed into those parameters become the key's values
+    createData(labName, unit, data, id, bands) {
+        return { labName, unit, data, id, bands }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
     gatherTableValues() {
         const tableValues = [];
         const predates = [];
+        const { labDataInfo } = this.props;
         for (let labIndex = 0; labIndex < this.props.labDataInfo.length; labIndex++) {
-            tableValues.push(this.createData(this.props.labDataInfo[labIndex].labName, this.props.labDataInfo[labIndex].labUnit, Object.values(this.props.labDataInfo[labIndex].datesAndData), labIndex));
+            tableValues.push(this.createData(this.props.labDataInfo[labIndex].labName, this.props.labDataInfo[labIndex].labUnit, Object.values(this.props.labDataInfo[labIndex].datesAndData), labIndex, this.props.labDataInfo[labIndex].bands));
             predates.push(Object.keys(this.props.labDataInfo[labIndex].datesAndData));
         }
         const dates = _.uniq(_.flattenDeep(predates));
-        // const dates = middates.sort((a,b) => {
-        //     return a.getTime() -b.getTime()
-        // });
-        console.log(dates);
+        const sortFunction = (date1,date2) => {
+            const moment1 = new moment(date1, "DD MMM YYYY");
+            const moment2 = new moment(date2, "DD MMM YYYY");
+            if (moment1 < moment2) {
+                return -1;
+            }
+            if (moment1 > moment2) {
+                return 1;
+            }
+            return 0;
+        };
+        dates.sort(sortFunction);
+        for (let dateIndex = 0; dateIndex < dates.length; dateIndex++) { //for each lab, check to see if each date is in its list of dates.  If it is not, add an empty string to its array of lab data, at the dataIndex
+            labDataInfo.forEach((labObj) => {
+                if (!Object.keys(labObj.datesAndData).includes(dates[dateIndex])) {
+                    tableValues[labDataInfo.indexOf(labObj)].data.splice(dateIndex, 0, "");
+                }
+            });
+        }
         return [tableValues, dates];
     }
-    // compareByDate(date1, date2){
-    //     const year1 = date1.substring(7);
-    //     const year2 = date2.substring(7);
-    //     const month1 = date1.substring(3,6);
-    //     const month2 = date2.substring(3,6);
-    //     const day1 = date1.substring(0,2);
-    //     const day2 = date2.substring(0,2);
-    //     if(year1 != year2){
-    //         return year1.compareTo(year2);
-    //     } else if(month1 != month2){
-    //         return month1.compareTo(month2);
-    //     } else {
-    //         return day1.compareTo(day2);
-    //     }
-    // } 
+
     render() {
-        const { labDataInfo } = this.props;
         const [tableValues, dates] = this.gatherTableValues();
         return (
-            <div className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
-                <Table>
+            <div className='tabular-list' > {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+                <Table style={{width: 'fit-content'}}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Lab Name</TableCell>
@@ -70,7 +72,11 @@ export default class LongitudinalViewVisualizerTable extends Component {
                                     </TableCell>
                                     <TableCell>{n.unit}</TableCell>
                                     {Object.entries(n)[2][1].map((value, newkey) => {
-                                        return <TableCell key={newkey}>{value}</TableCell>; //why not just put n in the table cell?
+                                        if (value < tableValues[tableValues.indexOf(n)].bands[1].high && value > tableValues[tableValues.indexOf(n)].bands[1].low) {
+                                            return <TableCell style={{color: 'black'}} key={newkey}>{value}</TableCell>;
+                                        } else {
+                                            return <TableCell style={{color: 'red'}} key={newkey}>{value}</TableCell>;
+                                        }
                                     })}
                                 </TableRow>
                             );
