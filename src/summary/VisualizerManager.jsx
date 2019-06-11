@@ -374,13 +374,14 @@ export default class VisualizerManager {
 
     _longitudinalViewIcon = (isSelected) => {
         const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
+        const fillColor = isSelected ? "#8d9196" : "#C4C4C4";
         return (
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <g id="Group-39" stroke={strokeColor} strokeWidth="1.62">
+                <g id="Page-1" stroke="none" strokeWidth=".5" fill="none" fillRule="evenodd">
+                    <g id="Group-39" stroke={strokeColor} strokeWidth=".75">
                         <rect x="10" y="1" width="5" height="3" fill="#C4C4C4" />
-                        <rect y="14.5" width="16" height="1.5" fill="#C4C4C4" />
-                        <rect width="1.5" height="15" transform="matrix(1 0 0 -1 0 15)" fill="#C4C4C4" />
+                        <rect y="14.5" width="16" height="0.3" fill={fillColor} />
+                        <rect width="1.25" height="15" transform="matrix(1 0 0 -1 0 15)" fill={fillColor} />
                         <rect x="10" y="5.5" width="5" height="3" fill="#C4C4C4" />
                         <rect x="10" y="10" width="5" height="3" fill="#C4C4C4" />
                         <rect x="3" y="1" width="5" height="3" fill="#C4C4C4" />
