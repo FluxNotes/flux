@@ -93,7 +93,6 @@ export default class CreatorChild extends Shortcut {
     }
 
     setText(text, updatePatient = true) {
-        console.log(text, this.parentContext)
         const prefix = this.getPrefixCharacter();
         if (text.startsWith(prefix)) {
             text = text.substring(prefix.length);

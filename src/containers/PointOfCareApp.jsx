@@ -244,7 +244,7 @@ export class PointOfCareApp extends Component {
     onContextUpdate = () => {
         this.setState({contextManager: this.contextManager});
     }
-    
+
     renderLoadingInformation = () => {
         // Note well: The renders below fade in or out based on state of the loading in the app
         // We define a loading error as occuring when:

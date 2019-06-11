@@ -19,7 +19,7 @@ export default class PointOfCareDashboard extends Component {
         this.placeholderList = [];
         nodes.forEach((node, i) => {
             if (node.type === 'shortcut') {
-                this.createShortcut(node.trigger, i)
+                this.createShortcut(node.trigger, i);
             } else if (node.type === 'placeholder') {
                 let newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
                 this.placeholderList.push(newPlaceholder);
@@ -195,7 +195,7 @@ export default class PointOfCareDashboard extends Component {
             "width": "100%",
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
-        };    
+        };
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
                 <PointOfCare placeholders={this.placeholderList} />
