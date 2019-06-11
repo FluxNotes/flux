@@ -260,6 +260,8 @@ class FluxNotesEditor extends React.Component {
         });
         this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
         this.plugins.push(this.structuredFieldPlugin);
+        // Lastly, set state to the initial editor state
+        this.state = initialEditorState;
     }
 
     updateFetchingStatus = (isFetchingAsyncData) => {
