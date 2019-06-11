@@ -51,12 +51,12 @@ export default class LongitudinalViewVisualizerTable extends Component {
     render() {
         const [tableValues, dates] = this.gatherTableValues();
         return (
-            <div className='tabular-list' > {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
-                <Table style={{width: 'fit-content'}}>
+            <div className='tabular-list table-scrollable'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+                <Table >
                     <TableHead>
                         <TableRow>
                             <TableCell>Lab Name</TableCell>
-                            <TableCell className='table-header'>Unit</TableCell>
+                            <TableCell>Unit</TableCell>
                             {dates.map(function (date) { //makes a new date column-heading for each date in the dates object defined in the constructor
                                 return <TableCell className='table-header' key={date}>{date}</TableCell>;
                             }
