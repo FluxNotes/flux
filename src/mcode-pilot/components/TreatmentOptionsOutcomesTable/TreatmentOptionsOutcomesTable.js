@@ -85,19 +85,20 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         this.setState({ sideEffectSelection: effect.target.value });
     }
 
-    toggleTreatment = (treatmentType) => (event, selected) => {
+    toggleTreatment = (treatmentType, similarTreatments) => (event, selected) => {
         const treatment = event.target.value;
         const key = `${treatmentType}Treatments`;
 
         if (!selected) {
-            const index = this.props[key].indexOf(treatment);
+            const index = this.props[key].findIndex((element) => { return (element.code?`${element.code},${element.codeSystem}`:element) === treatment; });
             if (index !== -1) {
                 const treatments = this.props[key].slice();
                 treatments.splice(index, 1);
                 this.props.selectTreatments(key, treatments);
             }
         } else if (!this.props[key].includes(treatment)) {
-            this.props.selectTreatments(key, [...this.props[key], treatment]);
+            const treatmentObject = similarTreatments.find((el) => { return el.key === treatment; });
+            this.props.selectTreatments(key, [...this.props[key], treatmentObject.reference]);
         }
     }
 
@@ -229,7 +230,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                                         title="include these treatments"
                                         treatments={similarPatientTreatments}
                                         selectedTreatments={includedTreatments}
-                                        toggleTreatments={this.toggleTreatment('included')}
+                                        toggleTreatments={this.toggleTreatment('included', similarPatientTreatments)}
                                     />
                                 }
                             </span>
@@ -253,7 +254,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                                         title="compare across these treatments"
                                         treatments={similarPatientTreatments}
                                         selectedTreatments={comparedTreatments}
-                                        toggleTreatments={this.toggleTreatment('compared')}
+                                        toggleTreatments={this.toggleTreatment('compared', similarPatientTreatments)}
                                     />
                                 }
                             </span>

@@ -2,9 +2,9 @@
     "totalPatients": 0,
     "totalSimilarPatients": 0,
     "similarPatientTreatments": [],
-    "includedTreatments": ["radiation"],
+    "includedTreatments": [],
     "includedTreatmentData": [],
-    "comparedTreatments": ["chemotherapy", "hormonal", "surgery"],
+    "comparedTreatments": [],
     "comparedTreatmentData": [],
     "similarPatientProps": {}
 }
