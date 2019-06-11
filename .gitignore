@@ -41,6 +41,7 @@ yarn-error.log*
 /src/styles/LandingPage.css
 /src/styles/PointOfCareApp.css
 /src/summary/ConditionSelection.css
+/src/summary/LongitudinalViewVisualizerTable.css
 /src/summary/NarrativeNameValuePairsVisualizer.css
 /src/summary/ProgressionLineChartVisualizer.css
 /src/summary/TabularListVisualizer.css
