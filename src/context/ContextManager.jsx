@@ -149,7 +149,6 @@ class ContextManager {
                 }
             }
         });
-        console.log(contextsBeforeShortcut)
         return contextsBeforeShortcut;
     }
 

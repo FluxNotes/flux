@@ -135,8 +135,8 @@ export class PointOfCareApp extends Component {
                 loadingErrorObject: supportedError
             });
         }
-        this.contextManager.setIsBlock1BeforeBlock2(() => {
-            return true;
+        this.contextManager.setIsBlock1BeforeBlock2((key1, offset1, key2, offset2, state) => {
+            return key1 < key2;
         });
         this.contextManager.setGetContextsBeforeSelection(() => {
             return [];

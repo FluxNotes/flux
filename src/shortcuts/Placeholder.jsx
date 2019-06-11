@@ -11,15 +11,20 @@ class Placeholder {
         this._setForceRefresh = setForceRefresh;
         this.uniqueId = v4();
         let shortcuts = [];
+        let newShortcut;
         if (data) {
             let parsedData = JSON.parse(data);
-            parsedData.entryIds.forEach((id) => {
-                shortcuts.push(shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this)));
+            parsedData.entryIds.forEach((id, index) => {
+                newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this));
+                newShortcut.setKey("" + index);
+                shortcuts.push(newShortcut);
             });
             this._entryShortcuts = shortcuts;
             this._numUpdates = 1;
         } else {
-            this._entryShortcuts = [shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this))];
+            newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
+            newShortcut.setKey("foo");
+            this._entryShortcuts = [ newShortcut ];
             this._entryShortcuts[0].initialize();
             this._numUpdates = 0;
         }
@@ -85,7 +90,6 @@ class Placeholder {
     }
 
     setAttributeValue(name, value, index = 0, source) {
-        console.log("here")
         if (!this._entryShortcuts[index].hasParentContext()) {
             this._entryShortcuts[index].establishParentContext(this._contextManager, this);
         }
@@ -98,9 +102,7 @@ class Placeholder {
             return "No parent context to set values within. Create a context before " + this._placeholderText + " using " +
                 parentContextOptions + ".";
         } else {
-            console.log(this._entryShortcuts[index])
             this._entryShortcuts[index].setAttributeValue(name, value);
-            console.log(value)
             this._entryShortcuts[index].setSource(source);
             this._setForceRefresh();
             return null;

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Lang from 'lodash';
-import InsertValue from '../shortcuts/InsertValue';
-import CreatorBase from '../shortcuts/CreatorBase';
-import UpdaterBase from '../shortcuts/UpdaterBase';
-import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword';
 import TargetedDataPanel from '../panels/TargetedDataPanel';
 import PointOfCare from '../notes/PointOfCare';
 import Button from '../elements/Button';
@@ -15,6 +11,20 @@ import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
         super(props);
+
+        const note = this.getFirstInProgressNote();
+        const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
+        inMemoryClinicalNote.parse(note.content);
+        const nodes = inMemoryClinicalNote.getNodes();
+        this.placeholderList = [];
+        nodes.forEach((node, i) => {
+            if (node.type === 'shortcut') {
+                this.createShortcut(node.trigger, i)
+            } else if (node.type === 'placeholder') {
+                let newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
+                this.placeholderList.push(newPlaceholder);
+            }
+        });
 
         this.state = {
             showPOC: false
@@ -92,29 +102,6 @@ export default class PointOfCareDashboard extends Component {
         return notes[0];
     }
 
-    parseClinicalNoteForPlaceholders = (placeholderList, text) => {
-        const placeholderStartIndex = text.indexOf('<');
-        if (placeholderStartIndex >= 0) {
-            const placeholderEndIndex = text.indexOf('>', placeholderStartIndex);
-            const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
-            if (this.placeholderCheck(placeholderText)) {
-                let remainder = text.slice(placeholderEndIndex + 1);
-                let end;
-                let after = "";
-                let returnStr = text.substring(placeholderEndIndex + 1);
-                if (remainder.startsWith("[[")) {
-                    end = remainder.indexOf("]]");
-                    after = remainder.substring(2, end);
-                    returnStr = remainder.substring(end + 2);
-                }
-                const placeholder = this.newPlaceholder(placeholderText, after);
-                placeholderList.push(placeholder);
-                return this.parseClinicalNoteForPlaceholders(placeholderList, returnStr);
-            }
-        }
-        return placeholderList;
-    }
-
     placeholderCheck = (text) => {
         const { shortcutManager } = this.props;
 
@@ -132,46 +119,21 @@ export default class PointOfCareDashboard extends Component {
         });
     }
 
-    newPlaceholder = (placeholderText, data) => {
+    newPlaceholder = (placeholderText, data, key) => {
         const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
-        return this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, data, this.props.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
+        const result = this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, data, this.props.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
+        result.setKey(key);
+        return result;
     }
 
-   /*  newShortcut = (shortcutC, shortcutType, patient, shortcutData) => {  
-      
-        //const currentState = this.state.state;
-        //const transform = currentState.transform();
-        //const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
-        let shortcut = this.props.shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
-        //shortcut.initialContextPosition = shortcutsUntilSelection.length;
-        shortcut.setSource('loaded note');
-        
-        shortcut.initialize(this.props.contextManager, shortcutType, true, shortcutData);
-        
-        return shortcut;
-    }
- */
-
-    createShortcut(triggerOrKeywordObject) {
-        console.log(triggerOrKeywordObject)
+    createShortcut(triggerOrKeywordObject, key) {
         const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger;
         const shortcut = this.props.shortcutManager.createShortcut(
             triggerOrKeywordObject.definition, triggerOrKeywordText, this.props.patient,
             triggerOrKeywordObject.selectedValue, this.handleShortcutUpdate);
         shortcut.setSource("parsed note");
         shortcut.initialize(this.props.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
-
-        if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword || shortcut instanceof UpdaterBase) {
-            shortcut.updatePatient(this.props.patient, this.props.contextManager, null);
-        }
-
-        if (shortcut instanceof InsertValue) {
-           // const object = shortcut.createObjectForParsing(triggerOrKeywordObject.selectedValue, this.props.contextManager);
-            //this.props.patient.addEntryToPatient(object);
-            //shortcut.setValueObject(object);
-        }
-
-        shortcut.setKey("1");
+        shortcut.setKey(key);
 
         return shortcut;
     }
@@ -234,36 +196,9 @@ export default class PointOfCareDashboard extends Component {
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };    
-        const note = this.getFirstInProgressNote();
-        console.log(note)
-        const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
-        inMemoryClinicalNote.parse(note.content);
-        const nodes = inMemoryClinicalNote.getNodes();
-        nodes.forEach((node, i) => {
-            if (node.type === 'shortcut') {
-                //let newShortcut = this.newShortcut(node.trigger.definition, node.trigger.trigger, this.props.patient, node.trigger.selectedValue);
-               
-                let newShortcut = this.createShortcut(node.trigger)
-                console.log(newShortcut)
-              
-               
-                //newShortcut.setKey(i);
-               // this.props.contextManager.addShortcutToContext(newShortcut);
-
-                console.log(this.props.contextManager);
-               /*  this.props.contextManager.adjustActiveContexts((context) => {
-                    return true;
-                }); */
-            } 
-        });
-        
-        
-        const placeholderList = inMemoryClinicalNote.getPlaceholders().map(placeholder => this.newPlaceholder(placeholder.placeholder, placeholder.selectedValue));
-       
-        console.log(placeholderList);
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
-                <PointOfCare placeholders={placeholderList} />
+                <PointOfCare placeholders={this.placeholderList} />
             </div>
         );
     }
