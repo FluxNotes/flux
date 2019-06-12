@@ -47,52 +47,69 @@ export default class LongitudinalViewVisualizerTable extends Component {
         }
         return [tableValues, dates];
     }
+    renderHeader(dates) {
+        console.log(this.props.tdpSearchSuggestions);
+        let currYear = null;
+        return (
+            <TableHead>
+                <TableRow>
+                    <TableCell></TableCell><TableCell></TableCell>
+                    {dates.map((date) => {
+                        if (date.substring(7) !== currYear) {
+                            currYear = date.substring(7);
+                            return <TableCell key={date} className='table-header'>{currYear}</TableCell>;
+                        }
+                        return <TableCell key={date}></TableCell>;
+                    })}
+                </TableRow>
+                <TableRow>
+                    <TableCell className='table-header'>Lab Name</TableCell>
+                    <TableCell className='table-header'>Unit</TableCell>
+                    {dates.map(function (date) { //makes a new date column-heading for each date in the dates object defined in the constructor
+                        return <TableCell className='table-header' key={date}>{date.substring(0, 7)}</TableCell>;
+                    }
+                    )}
+                </TableRow>
+            </TableHead>
 
+        );
+    }
+    renderData(tableValues) {
+        return tableValues.map(n => { //n is a row in the table
+            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
+                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.labName;
+            });
+            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            return (
+                <TableRow key={n.id}>
+                    <TableCell className={subsectionClassName}>
+                        {n.labName}
+                    </TableCell>
+                    <TableCell>{n.unit}</TableCell>
+                    {Object.entries(n)[2][1].map((value, newkey) => {
+                        const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+                            return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+                        });
+                        const cellClassName = matchingDataPoint ? 'highlighted' : '';
+                        if (value < tableValues[tableValues.indexOf(n)].bands[1].high && value > tableValues[tableValues.indexOf(n)].bands[1].low) {
+                            return <TableCell style={{color: 'black'}} key={newkey} className={cellClassName}>{value}</TableCell>;
+                        } else {
+                            return <TableCell style={{color: 'red'}} key={newkey} className = {cellClassName}>{value}</TableCell>;
+                        }
+                    })}
+                </TableRow>
+            );
+        });
+    }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
-        let currYear = null;
+
         return (
             <div className='tabular-list table-scrollable'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
                 <Table >
-                    <TableHead>
-                        <TableRow>
-                            <TableCell></TableCell><TableCell></TableCell>
-                            {dates.map((date) => {
-                                if (date.substring(7) !== currYear) {
-                                    currYear = date.substring(7);
-                                    return <TableCell key={date} className='table-header'>{currYear}</TableCell>;
-                                }
-                                return <TableCell key={date}></TableCell>;
-                            })}
-                        </TableRow>
-                    </TableHead>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className='table-header'>Lab Name</TableCell>
-                            <TableCell className='table-header'>Unit</TableCell>
-                            {dates.map(function (date) { //makes a new date column-heading for each date in the dates object defined in the constructor
-                                return <TableCell className='table-header' key={date}>{date.substring(0, 7)}</TableCell>;
-                            }
-                            )}
-                        </TableRow>
-                    </TableHead>
+                    {this.renderHeader(dates)}
                     <TableBody>
-                        {tableValues.map(n => { //n is a row in the table
-                            console.log("n: " + n);
-                            return (
-                                <TableRow key={n.id}>
-                                    <TableCell>{n.labName}</TableCell>
-                                    <TableCell>{n.unit}</TableCell>
-                                    {Object.entries(n)[2][1].map((value, newkey) => {
-                                        if (value < tableValues[tableValues.indexOf(n)].bands[1].high && value > tableValues[tableValues.indexOf(n)].bands[1].low) {
-                                            return <TableCell style={{color: 'black'}} key={newkey}>{value}</TableCell>;
-                                        } else {
-                                            return <TableCell style={{color: 'red'}} key={newkey}>{value}</TableCell>;
-                                        }
-                                    })}
-                                </TableRow>
-                            );
-                        })}
+                        {this.renderData(tableValues)}
                     </TableBody>
                 </Table>
             </div>
@@ -102,4 +119,6 @@ export default class LongitudinalViewVisualizerTable extends Component {
 
 LongitudinalViewVisualizerTable.propTypes = {
     labDataInfo: propTypes.array.isRequired,
+    tdpSearchSuggestions: propTypes.array,
+    conditionSectionName: propTypes.string
 };

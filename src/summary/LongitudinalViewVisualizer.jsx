@@ -43,7 +43,7 @@ export default class LongitudinalViewVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalViewVisualizerTable labDataInfo={this.state.labData} />
+                <LongitudinalViewVisualizerTable labDataInfo={this.state.labData} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name}/>
             </div>
         );
     }
