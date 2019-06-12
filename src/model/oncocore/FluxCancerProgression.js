@@ -53,7 +53,6 @@ export default class FluxCancerProgression extends FluxEntry {
      *  The method will lookup the corresponding coding/codesystem and set the _codeableConcept property
      */
     set status(status) {
-        console.log("************************************** FluxCancerProgression.status set to " + status);
         if (!this._cancerProgression.findingResult) this._cancerProgression.findingResult = new FindingResult();
         this._cancerProgression.findingResult.value = lookup.getStatusCodeableConcept(status);
     }
