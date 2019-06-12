@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import PointOfCare from '../notes/PointOfCare';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ShortcutManager from '../shortcuts/ShortcutManager';
-import ContextManager from '../context/ContextManager';
-
 
 export default class PointOfCarePanel extends Component {
 
@@ -14,24 +11,24 @@ export default class PointOfCarePanel extends Component {
         this.shortcutManager = new ShortcutManager();
         const patient = this.props.appState.patient;
         this.contextManager = this.props.contextManager;
-        console.log('contextManager ', this.contextManager)
+        console.log('contextManager ', this.contextManager);
         let noteContent = '@Condition[[{"text":"Gastrointestinal stromal tumor","entryId":"8"}]]';
         const entryId = patient.addClinicalNote('', '', '', '', '', noteContent, false);
         const updatedEditorNote = patient.getEntryById(entryId);
-        console.log(updatedEditorNote)
+        console.log(updatedEditorNote);
         const def =  { "type": "InsertValue",
-        "id": "ConditionInserter",
-        "getData": {"object": "patient", "method": "getConditions", "itemKey": "entryInfo.entryId", "itemContext":"type", "dateLabel": "diagnosisDate"},
-        "isContext": true,
-        "isGlobalContext": true,
-        "stringTriggers": [{"name":"@condition", "description": "Select a condition of the patient to insert and support capturing further information about.", "picker": true }],
-        "knownParentContexts": "Patient"
-        }
-        let shortcut = this.shortcutManager.createShortcut(def, '@condition', patient, {"text":"Gastrointestinal stromal tumor", "entryId":"8"}, true);
-        shortcut.setText("Gastrointestinal stromal tumor")
-        console.log(shortcut)
+            "id": "ConditionInserter",
+            "getData": {"object": "patient", "method": "getConditions", "itemKey": "entryInfo.entryId", "itemContext": "type", "dateLabel": "diagnosisDate"},
+            "isContext": true,
+            "isGlobalContext": true,
+            "stringTriggers": [{"name": "@condition", "description": "Select a condition of the patient to insert and support capturing further information about.", "picker": true }],
+            "knownParentContexts": "Patient"
+        };
+        let shortcut = this.shortcutManager.createShortcut(def, '@condition', patient, {"text": "Gastrointestinal stromal tumor", "entryId": "8"}, true);
+        shortcut.setText("Gastrointestinal stromal tumor");
+        console.log(shortcut);
 
-        
+
         const errors = shortcut.validateInCurrentContext(this.contextManager);
         if (errors.length > 0) {
             errors.forEach((error) => {
@@ -39,14 +36,14 @@ export default class PointOfCarePanel extends Component {
             });
             shortcut = null;
         } else {
-            shortcut.initialize(this.contextManager,'@condition', true, {"text":"Gastrointestinal stromal tumor", "entryId":"8"});
+            shortcut.initialize(this.contextManager,'@condition', true, {"text": "Gastrointestinal stromal tumor", "entryId": "8"});
         }
         shortcut.isInContext = true;
         //this.contextManager.contextUpdated();
         this.contextManager.addShortcutToContext(shortcut);
 
-        
-       
+
+
         const placeholder = this.shortcutManager.createPlaceholder('#disease status', '<disease status>', undefined, this.contextManager, patient, updatedEditorNote, false);
         this.structuredFieldMapManager.addPlaceholder(placeholder);
     }
@@ -73,7 +70,7 @@ export default class PointOfCarePanel extends Component {
         console.log(shortcut)
         shortcut.initialize(contextManager, '@condition', true, {"text":"Gastrointestinal stromal tumor", "entryId":"8"})
         contextManager.addShortcutToContext(shortcut);
-      
+
         shortcut.isInContext = true;
         console.log(contextManager)
         const placeholder = shortcutManager.createPlaceholder('#disease status', '<disease status>', undefined, contextManager, patient, updatedEditorNote, false);
