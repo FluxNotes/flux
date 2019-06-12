@@ -145,6 +145,8 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                     }
                 } else if (mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
+                } else if (mcodeElement === 'onco.core.TNMPathologicStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                    return false;
                 } else if ((mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory' || mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory' || mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
                                         && (diseaseStatus.tnm.filter((e) => { return (_.lowerCase(e.codeSystem) === _.lowerCase(reference.codeSystem.value) &&  _.lowerCase(e.code) === _.lowerCase(reference.code.value)); }).length===0)) { // no data available
                     return false;
