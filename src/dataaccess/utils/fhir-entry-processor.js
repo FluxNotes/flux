@@ -26,11 +26,16 @@ export default function(responses, patientId, resourceMapper = null) {
     const mappedResources = {};
     const referencesOut = [];
     const allObjects = entries.map(entry => {
+        const resource = entry.resource;
+        // if there's no profile on this resource we can't determine what class to convert it into
+        // so rather than error out just ignore it
+        if (!resource || !resource.meta || !resource.meta.profile || !resource.meta.profile[0]) return null;
+
         try {
-            const result = ObjectFactory.createInstanceFromFHIR(null, entry.resource, entry.resource.resourceType, patientId, entries, mappedResources, referencesOut);
+            const result = ObjectFactory.createInstanceFromFHIR(null, resource, resource.resourceType, patientId, entries, mappedResources, referencesOut);
 
             // shortId here is the standard "resourceType/resourceID" ID format
-            const shortId = `${entry.resource.resourceType}/${entry.resource.id}`;
+            const shortId = `${resource.resourceType}/${resource.id}`;
 
             // this format and the entry fullURL are 2 formats that are used for references
             // so add this object to the map with both keys, so either one could be used for lookups
