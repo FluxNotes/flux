@@ -8,6 +8,7 @@ import CodingFix from './fluxExtensions/CodingFix';
 import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import ReasonFix from './fluxExtensions/ReasonFix';
 import MedicationRequestedFix from './fluxExtensions/MedicationRequestedFix';
+import FindingResultFix from './fluxExtensions/FindingResultFix';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -26,6 +27,7 @@ function init() {
   ClassRegistry.set('shr.core', 'CodeableConcept', CodeableConceptFix);
   ClassRegistry.set('shr.base', 'Reason', ReasonFix);
   ClassRegistry.set('shr.medication', 'MedicationRequested', MedicationRequestedFix);
+  ClassRegistry.set('shr.base', 'FindingResult', FindingResultFix);
 }
 
 init();
