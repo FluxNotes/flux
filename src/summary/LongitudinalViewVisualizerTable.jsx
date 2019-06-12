@@ -7,10 +7,6 @@ import propTypes from 'prop-types';
 
 export default class LongitudinalViewVisualizerTable extends Component {
 
-    constructor(props) {
-        super(props);
-        this.columns = { 'date 1': [1, 2, 3, 4, 5], 'date 2': [4, 5, 6, 7, 8], 'date 3': [7, 8, 9, 10, 11], 'date 4': [10, 11, 12, 13, 14], 'date 5': [13, 14, 15, 16, 17] };//where our array of dates will go (have to combine dates from all mini tables, sort, and delete duplicates)
-    }
     /*
     Assigns an id to each row
     */
@@ -48,7 +44,6 @@ export default class LongitudinalViewVisualizerTable extends Component {
         return [tableValues, dates];
     }
     renderHeader(dates) {
-        console.log(this.props.tdpSearchSuggestions);
         let currYear = null;
         return (
             <TableHead>
