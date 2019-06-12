@@ -2,8 +2,9 @@ import React from 'react';
 import Visualizer from './Visualizer';
 import LongitudinalViewVisualizerTable from './LongitudinalViewVisualizerTable';
 import _ from 'lodash';
+import propTypes from 'prop-types';
 
-class LongitudinalViewVisualizer extends Visualizer {
+export default class LongitudinalViewVisualizer extends Visualizer {
 
     constructor(props) {
         super(props);
@@ -48,4 +49,16 @@ class LongitudinalViewVisualizer extends Visualizer {
     }
 }
 
-export default LongitudinalViewVisualizer;
+LongitudinalViewVisualizer.propTypes = {
+    actions: propTypes.array,
+    allowItemClick: propTypes.bool,
+    condition: propTypes.object,
+    conditionSection: propTypes.object,
+    highlightedSearchSuggestion: propTypes.object,
+    isWide: propTypes.bool.isRequired,
+    loginUser: propTypes.object.isRequired,
+    patient: propTypes.object,
+    sectionTransform: propTypes.func,
+    tdpSearchSuggestions: propTypes.array,
+    visualizerManager: propTypes.object,
+};

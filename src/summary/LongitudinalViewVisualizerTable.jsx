@@ -3,7 +3,7 @@ import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Ta
 import _ from 'lodash';
 import moment from 'moment';
 import './LongitudinalViewVisualizerTable.css';
-
+import propTypes from 'prop-types';
 
 export default class LongitudinalViewVisualizerTable extends Component {
 
@@ -100,3 +100,6 @@ export default class LongitudinalViewVisualizerTable extends Component {
     }
 };
 
+LongitudinalViewVisualizerTable.propTypes = {
+    labDataInfo: propTypes.array.isRequired,
+};
