@@ -1,0 +1,80 @@
+
+{
+    "total": 30000, 
+    "outcomes": {  
+      "survival": { 
+        "total": 15000, 
+        "data": [
+          {
+            "treatments": 
+              [{
+                "code": "A",
+                "displayName": "A",
+                "codeSystem": "2.16.840.1.113883.6.88",
+                "codeSystemName": "RXNORM"
+              },
+              {
+                "code": "B",
+                "displayName": "B",
+                "codeSystem": "2.16.840.1.113883.6.88",
+                "codeSystemName": "RXNORM"
+              }]
+            ,
+            "sufficiency": true, 
+            "total": 2039, 
+            "outcomes": [{
+                "survivalRate": "12", 
+                "interval" : "months", 
+                "total" : 100,
+                "proportion_surviving": 97.0 
+              },
+              {
+                "survivalRate": "36",
+                "interval" : "months",
+                "total" : 99,
+                "proportion_surviving": 94.4 
+              },
+              {
+                "survivalRate": "60",
+                "interval" : "months",
+                "total": 98,
+                "proportion_surviving": 92.3 
+              }
+            ]
+          },
+          {
+            "treatments": 
+              [{
+                "code": "A",
+                "displayName": "A",
+                "codeSystem": "2.16.840.1.113883.6.88",
+                "codeSystemName": "RXNORM"
+              }]
+            ,
+            "sufficiency": true, 
+            "total": 4028, 
+            "outcomes": [
+              {
+                "survivalRate": "12", 
+                "interval" : "months", 
+                "total" : 200,
+                "proportion_surviving": 97.0 
+              },
+              {
+                "survivalRate": "36",
+                "interval" : "months",
+                "total" : 201,
+                "proportion_surviving": 94.4 
+              },
+              {
+                "survivalRate": "60",
+                "interval" : "months",
+                "total" : 200,
+                "proportion_surviving": 92.3 
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }

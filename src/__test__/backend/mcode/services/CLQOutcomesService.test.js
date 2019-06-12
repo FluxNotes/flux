@@ -7,6 +7,8 @@ import PatientRecord from '../../../../patient/PatientRecord.jsx';
 import getProps from '../../../../mcode-pilot/utils/recordToProps'
 import '../../../../model/init.js';
 import expectedFilter from './filter.json'
+import response from './response.json'
+import rows from './rows.json'
 describe("CLQOutcomesService", () => {
   
     let clqService = new CLQOutcomesService({});
@@ -38,8 +40,9 @@ describe("CLQOutcomesService", () => {
     });
 
     it("Should be able to translate results to rows", () => {
-        let serviceResults = {} 
-        let clqResults = clqService.processResults(serviceResults)
-        expect(clqResults).to.equal({})
+        
+        let clqResults = clqService.generateOutcomeData(response.outcomes.survival.data)
+        expect(_.isEqual(clqResults,rows) ).to.be.true
+        
     });
   });

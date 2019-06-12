@@ -98,8 +98,6 @@ export default class CLQOutcomesService extends IOutcomesService {
         let markers = this.findMcodeElements(pathologyProps, "onco.core.TumorMarkerTest")
         for (let x in markers) {
             let option = markers[x];
-            console.log(option.reference);
-            
             let code = option.reference.receptorTypeCodeableConcept;
             let value = option.value;
             filter.push({
@@ -131,8 +129,8 @@ export default class CLQOutcomesService extends IOutcomesService {
         };
     }
 
-    generateTreatmentDisplayName(treatment) {
-        return treatment.join(' & ')
+    generateTreatmentDisplayName(treatments) {
+        return treatments.map((treatment) => {return treatment.displayName}).join(" & ")
     }
 
     generateOutcomeData(data) {
@@ -143,11 +141,11 @@ export default class CLQOutcomesService extends IOutcomesService {
             let row = this.initializeTreatmentData(this.generateTreatmentDisplayName(item.treatments), item.treatments)
             row.totalPatients = item.total
             item.outcomes.forEach((outcome) => {
-                if (outcome.survivalRate === '1Y') {
+                if (outcome.survivalRate === '12') {
                     row.oneYrSurvival = outcome.total
-                } else if (outcome.survivalRate === '3Y') {
+                } else if (outcome.survivalRate === '36') {
                     row.threeYrSurvival = outcome.total
-                } else if (outcome.survivalRate === '5Y') {
+                } else if (outcome.survivalRate === '60') {
                     row.fiveYrSurvival = outcome.total
                 }
             })
