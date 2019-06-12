@@ -915,8 +915,9 @@ class PatientRecord {
         const conditionEntryId = this._getConditionEntryId(condition);
         progressions = progressions.filter((progression) => {
             return progression.relatedCancerCondition
-                && progression.relatedCancerCondition.entryId === conditionEntryId;
+                && this._entryIdsMatch(progression.relatedCancerCondition.entryId, conditionEntryId);
         });
+
         return progressions;
     }
 
@@ -924,11 +925,12 @@ class PatientRecord {
         const result = this.entries.filter((item) => {
             if (item instanceof FluxCondition) {
                 const conditionEntryId = this._getConditionEntryId(item);
-                return progression.relatedCancerCondition.entryId === conditionEntryId;
-            } else {
-                return false;
+                return progression.relatedCancerCondition
+                    && this._entryIdsMatch(progression.relatedCancerCondition.entryId, conditionEntryId);
             }
+            return false;
         });
+
         return result[0];
     }
 
