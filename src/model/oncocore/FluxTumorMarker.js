@@ -59,6 +59,11 @@ class FluxTumorMarker extends FluxEntry {
     }
 
 
+    get receptorTypeCodeableConcept(){
+        if (!this._tumorMarker.findingTopicCode || !this._tumorMarker.findingTopicCode.value) return null;
+        return this._tumorMarker.findingTopicCode.value.coding[0];
+    }
+    
     // Returns a human-readable display text string
     get receptorType() { 
         if (!this._tumorMarker.findingTopicCode || !this._tumorMarker.findingTopicCode.value) return null;

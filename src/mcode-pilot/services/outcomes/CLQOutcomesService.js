@@ -7,6 +7,7 @@ import {
 import IOutcomesService from './IOutcomesService'
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
+        super();
         this.serviceUrl = params.serviceUrl;
     }
 
@@ -15,7 +16,7 @@ export default class CLQOutcomesService extends IOutcomesService {
     */
     findMcodeElements(props, mcodeType, single = false) {
         let found = [];
-        _.forIn(obj, function (value, key) {
+        _.forIn(props, function (value, key) {
             if (value.mcodeElement === mcodeType && value.selected) {
                 found.push(value);
             }
@@ -26,13 +27,12 @@ export default class CLQOutcomesService extends IOutcomesService {
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria 
      */
     buildDemographicsFilter(similarPatientProps) {
-        let demoProps = similarPatientProps.demographic
-        let options = demoProps.options
+        let demoProps = similarPatientProps.demographic.options
         let filter = {}
-        let gender = findMcodeElements(similarPatientProps, "shr.core.BirthSex", true)
-        let race = findMcodeElements(similarPatientProps, "shr.core.Race", true)
-        let age = findMcodeElements(similarPatientProps, "shr.core.DateOfBirth", true)
-        let age_at_diagnosis = findMcodeElements(similarPatientProps, "shr.core.DateOfDiagnosis", true)
+        let gender = this.findMcodeElements(demoProps, "shr.core.BirthSex", true)
+        let race = this.findMcodeElements(demoProps, "shr.core.Race", true)
+        let age = this.findMcodeElements(demoProps, "shr.core.DateOfBirth", true)
+        let age_at_diagnosis = this.findMcodeElements(demoProps, "shr.core.DateOfDiagnosis", true)
         if (gender) {
             filter.gender = {
                 codeSystemName: "AdministrativeGender",
@@ -48,8 +48,8 @@ export default class CLQOutcomesService extends IOutcomesService {
         }
         if (age_at_diagnosis) {
             filter.age_at_diagnosis = {
-                min: diagnosedAge.minValue,
-                max: diagnosedAge.maxValue
+                min: age_at_diagnosis.minValue,
+                max: age_at_diagnosis.maxValue
             }
         }
         if (race) {
@@ -65,17 +65,26 @@ export default class CLQOutcomesService extends IOutcomesService {
     /* Build the CLQ diagnosis filter based off of the Comapss Filter options 
      */
     buildDiagnosisFilter(similarPatientProps) {
-        let pathologyProps = similarPatientProps.pathology
-        let options = pathologyProps.options
+        let pathologyProps = similarPatientProps.pathology.options
         let filter = {}
-        let stage = findMcodeElements(similarPatientProps, "onco.core.TNMClinicalStageGroup", true);
-        let grade = findMcodeElements(similarPatientProps, "onco.core.CancerHistologicGrade", true)
+        let stage = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalStageGroup", true);
+        let t = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalPrimaryTumorCategory", true);
+        let n = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalRegionalNodesCategory", true);
+        let m = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalDistantMetastasesCategory", true);
+        
+        let grade = this.findMcodeElements(pathologyProps, "onco.core.CancerHistologicGrade", true)
         if (stage) {
-            filter.stage = stage.reference.getStageCoding()
+          filter.stage = stage.reference.stage
         }
         if (grade) {
-            filter.grade = grade.reference.getGradeCoding()
+            filter.grade = grade.reference.getGradeAsSimpleNumber()
         }
+        if(t && m && n ){
+          filter.tmn = {t: t.value,
+                        n: n.value,
+                        m: m.value}
+        }
+        
         return filter
     }
 
@@ -83,15 +92,20 @@ export default class CLQOutcomesService extends IOutcomesService {
       patient properties 
     */
     buildTumorMakersFilter(similarPatientProps) {
-        let pathologyProps = similarPatientProps.pathology
-        let options = pathologyProps.options
+        let pathologyProps = similarPatientProps.pathology.options
         let filter = []
         // loop over options look for tumor markers and add to filter
-        for (let option in findMcodeElements(similarPatientProps, "onco.core.TumorMarkerTest")) {
-            let code = option.reference.code;
+        let markers = this.findMcodeElements(pathologyProps, "onco.core.TumorMarkerTest")
+        for (let x in markers) {
+            let option = markers[x];
+            console.log(option.reference);
+            
+            let code = option.reference.receptorTypeCodeableConcept;
             let value = option.value;
             filter.push({
-                ...code,
+                code: code.code.code,
+                codeSystem: code.codeSystem.uri,
+                displayName: code.displayText.string,
                 value: value
             })
         }

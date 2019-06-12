@@ -1,0 +1,43 @@
+{
+    "demographics": {
+        "gender": {
+            "codeSystemName": "AdministrativeGender",
+            "codeSystem": "2.16.840.1.113883.4.642.2.1",
+            "code": "female"
+        },
+        "age": {
+            "min": 43,
+            "max": 63
+        },
+        "age_at_diagnosis": {
+            "min": 42,
+            "max": 62
+        },
+        "race": {
+            "codeSystemName": "HL7 v3 Code System Race",
+            "codeSystem": "2.16.840.1.113883.5.104",
+            "code": "white"
+        }
+    },
+    "diagnosis" : { "stage": "IA", "grade": 3, "tmn": { "t": "T1c", "m": "M0", 
+      "n" : "N0" } },
+    "tumorMarkers": [{
+            "code": "16112-5",
+            "codeSystem": "http://fhir.loinc.org",
+            "displayName": "Estrogen Receptor",
+            "value": "positive"
+        },
+        {
+            "code": "16113-3",
+            "codeSystem": "http://fhir.loinc.org",
+            "displayName": "Progesterone Receptor",
+            "value": "negative"
+        },
+        {
+            "code": "48676-1",
+            "codeSystem": "http://fhir.loinc.org",
+            "displayName": "HER2 Receptor",
+            "value": "positive"
+        }
+    ]
+}
