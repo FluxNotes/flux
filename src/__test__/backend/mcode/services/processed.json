@@ -1,0 +1,73 @@
+{
+    "includedTreatmentData": [{
+        "id": "row_4",
+        "displayName": "A",
+        "treatments": [{
+            "code": "A",
+            "displayName": "A",
+            "codeSystem": "2.16.840.1.113883.6.88",
+            "codeSystemName": "RXNORM"
+        }],
+        "totalPatients": 4028,
+        "oneYrSurvival": 200,
+        "threeYrSurvival": 201,
+        "fiveYrSurvival": 200,
+        "sideEffects": {
+            "totalReporting": 0,
+            "effects": {}
+        }
+    }],
+    "comparedTreatmentData": [{
+        "id": "row_3",
+        "displayName": "A & B",
+        "treatments": [{
+            "code": "A",
+            "displayName": "A",
+            "codeSystem": "2.16.840.1.113883.6.88",
+            "codeSystemName": "RXNORM"
+        }, {
+            "code": "B",
+            "displayName": "B",
+            "codeSystem": "2.16.840.1.113883.6.88",
+            "codeSystemName": "RXNORM"
+        }],
+        "totalPatients": 2039,
+        "oneYrSurvival": 100,
+        "threeYrSurvival": 99,
+        "fiveYrSurvival": 98,
+        "sideEffects": {
+            "totalReporting": 0,
+            "effects": {}
+        }
+    }],
+    "includedTreatments": [{
+        "code": "A",
+        "displayName": "A",
+        "codeSystem": "2.16.840.1.113883.6.88",
+        "codeSystemName": "RXNORM"
+    }],
+    "comparedTreatments": [{
+        "code": "A",
+        "displayName": "A",
+        "codeSystem": "2.16.840.1.113883.6.88",
+        "codeSystemName": "RXNORM"
+    }, {
+        "code": "B",
+        "displayName": "B",
+        "codeSystem": "2.16.840.1.113883.6.88",
+        "codeSystemName": "RXNORM"
+    }],
+    "similarPatientTreatments": [{
+        "code": "A",
+        "displayName": "A",
+        "codeSystem": "2.16.840.1.113883.6.88",
+        "codeSystemName": "RXNORM"
+    }, {
+        "code": "B",
+        "displayName": "B",
+        "codeSystem": "2.16.840.1.113883.6.88",
+        "codeSystemName": "RXNORM"
+    }],
+    "totalPatients": 30000,
+    "totalSimilarPatients": 15000
+}
