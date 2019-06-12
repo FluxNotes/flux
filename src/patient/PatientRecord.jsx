@@ -968,29 +968,30 @@ class PatientRecord {
 
     getProgressionsForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
-        return this.entries.filter((item) => {
-            return item instanceof FluxCancerProgression && item.specificFocusOfFinding.entryId === conditionEntryId;
-        });
+
+        return this.entries.filter(item => item instanceof FluxCancerProgression && item.specificFocusOfFinding && item.specificFocusOfFinding.entryId === conditionEntryId);
     }
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         progressions = progressions.filter((progression) => {
-            return progression.specificFocusOfFinding.entryId === conditionEntryId;
+            return progression.specificFocusOfFinding && progression.specificFocusOfFinding.entryId === conditionEntryId;
         });
+
         return progressions;
     }
 
     getFocalConditionForProgression(progression) {
-        let result = this.entries.filter((item) => {
+        const result = this.entries.filter((item) => {
             if (item instanceof FluxConditionPresentAssertion) {
                 const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
-                return progression.specificFocusOfFinding.entryId === conditionEntryId;
-            } else {
-                return false;
+                return progression.specificFocusOfFinding && progression.specificFocusOfFinding.entryId === conditionEntryId;
             }
+
+            return false;
         });
+
         return result[0];
     }
 
