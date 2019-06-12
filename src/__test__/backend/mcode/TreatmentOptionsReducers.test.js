@@ -43,7 +43,7 @@ describe('Reducer function', ()=>{
             expect(demographics.diagnosedAge.minValue).to.equal(testPatientObj.getAgeAsOf(new Date(fluxCondition.diagnosisDate))-10);
             expect(demographics.diagnosedAge.maxValue).to.equal(testPatientObj.getAgeAsOf(new Date(fluxCondition.diagnosisDate))+10);
             expect(pathology.grade.value).to.equal(3);
-            expect(pathology.stage.value).to.equal("IIA");
+            expect(pathology.clinical_stage.value).to.equal("IIA");
             expect(pathology.EstrogenReceptor.value).to.equal("positive");
             expect(pathology.ProgesteroneReceptor.value).to.equal("negative");
 
