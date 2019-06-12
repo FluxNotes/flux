@@ -23,7 +23,7 @@ export default class DataAccess {
         } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
             this.dataSource = new HardCodedMcodeV05DataSource();
         } else if (dataSourceName === 'McodeV05SmartOnFhirDataSource') {
-            this.dataSource = new McodeV05SmartOnFhirDataSource();
+            this.dataSource = new McodeV05SmartOnFhirDataSource(dataSourceProps);
         } else if (dataSourceName === 'GenericSmartOnFhirDstu2DataSource') {
             this.dataSource = new GenericSmartOnFhirDstu2DataSource(dataSourceProps);
         } else if (dataSourceName === 'HardcodedTabletMcodeV01DataSource') {

@@ -31,6 +31,12 @@ const samplePatientSearchData = {
     entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Patient')
 };
 
+const sampleObservationSearchData = {
+    resourceType: 'Bundle',
+    type: 'searchset',
+    entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Observation')
+};
+
 
 describe('SMART on FHIR data source', function() {
     const originalWindowFHIR = window.FHIR;
@@ -60,6 +66,27 @@ describe('SMART on FHIR data source', function() {
           .reply(200, samplePatientSearchData);
 
         const dataSource = new McodeV05SmartOnFhirDataSource();
+
+        dataSource.getPatient('1078857', (record, error) => {
+            if (record) {
+                scope.done(); // assert that all specified calls on the scope were performed
+                done();
+            }
+            if (error) {
+                 fail(JSON.stringify(error));
+            }
+        });
+    });
+
+    it('should fetch resource types defined in data source props', function (done) {
+        const scope = nock('http://localhost/')
+          .get('/fhir/Patient?_id=1078857')
+          .reply(200, samplePatientSearchData)
+          .get('/fhir/Observation?patient=1078857')
+          .reply(200, sampleObservationSearchData);
+          // in this case it doesn't need to fetch the metadata since the resourceTypes are manually specified
+
+        const dataSource = new McodeV05SmartOnFhirDataSource({ resourceTypes: ['Patient', 'Observation'] });
 
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {

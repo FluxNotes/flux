@@ -4,7 +4,7 @@ import mappers from 'fhir-mapper';
 
 class GenericSmartOnFhirDstu2DataSource extends McodeV05SmartOnFhirDataSource {
     constructor(props) {
-        super();
+        super(props);
         this.mapper = props && props.mapper ? mappers[props.mapper] : null;
     }
 
