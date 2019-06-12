@@ -46,8 +46,12 @@ export default class CreatorIntermediary extends Shortcut {
 
     onBeforeDeleted() {
         const result = super.onBeforeDeleted();
-        this.parentContext.setAttributeValue(this.metadata["parentAttribute"], false, false);
-        this.parentContext.removeChild(this);
+
+        if (this.parentContext) {
+            this.parentContext.setAttributeValue(this.metadata["parentAttribute"], false, false);
+            this.parentContext.removeChild(this);
+        }
+
         return result;
     }
 
@@ -57,7 +61,7 @@ export default class CreatorIntermediary extends Shortcut {
             return item.name === name;
         });
         if (result && result[0]) {
-            return this.parentContext.getAttributeIsSet(result[0].toParentAttribute);
+            if (this.parentContext) return this.parentContext.getAttributeIsSet(result[0].toParentAttribute);
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }
@@ -69,7 +73,7 @@ export default class CreatorIntermediary extends Shortcut {
             return item.name === name;
         });
         if (result && result[0]) {
-            return this.parentContext.getAttributeValue(result[0].toParentAttribute);
+            if (this.parentContext) return this.parentContext.getAttributeValue(result[0].toParentAttribute);
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }
@@ -89,7 +93,7 @@ export default class CreatorIntermediary extends Shortcut {
             return item.name === name;
         });
         if (result && result[0]) {
-            this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges, updatePatient);
+            if (this.parentContext) this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges, updatePatient);
             if (this.isContext()) this.updateContextStatus();
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
@@ -121,6 +125,6 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     get isComplete() {
-        return this.hasChildren();
+        return this.parentContext && this.hasChildren();
     }
 }
