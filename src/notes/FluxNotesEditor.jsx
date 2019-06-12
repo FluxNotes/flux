@@ -486,6 +486,8 @@ class FluxNotesEditor extends React.Component {
 
     insertStructuredFieldTransform = (transform, shortcut) => {
         if (Lang.isNull(shortcut)) return transform.focus();
+        const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
+        shortcut.initialContextPosition = shortcutsUntilSelection.length;
         const result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
         let resultTransform = result[0];
         this.scrollToAnchorElement();
@@ -680,19 +682,21 @@ class FluxNotesEditor extends React.Component {
 
     /**
      * TODO Issues:
-     * - Deleting GIST gives error that toxicity depends on it
      * - Where should we re-establish parent context?
      * - As soon as you insert @condition, #toxicity is completed because there is a parent context.
      *      - Maybe wait to establish parent context only if valid
      * - Need to update children of shortcuts (not just contexts)
+     * - Need to only update shortcuts that come after the one just added. Potentially use isBlock1BeforeBlock2 to calculate "Following"?
      */
     resetSubsequentShortcuts = (shortcut, transform) => {
         if (shortcut.metadata.isGlobalContext) {
             // Global - Re-render all shortcuts following
-            // TODO Potentially use isBlock1BeforeBlock2 to calculate "Following"?
             const allContexts = this.props.contextManager.contexts; // TODO Should be a getter
             allContexts.forEach(context => {
-                if (context.establishParentContext) context.establishParentContext(this.props.contextManager);
+                context.determineParentContext(this.props.contextManager, context.metadata["knownParentContexts"], context.metadata["parentAttribute"]);
+                if (!Lang.isUndefined(context.parentContext) && context.parentContext.children.indexOf(context) === -1) {
+                    context.parentContext.addChild(context);
+                }
                 const key = context.getKey();
                 transform = transform.setNodeByKey(key, {
                     data: {
@@ -704,7 +708,11 @@ class FluxNotesEditor extends React.Component {
             // Local context - re-render all shortcuts in the block (context)
             const activeContexts = this.props.contextManager.getActiveContexts();
             activeContexts.forEach(context => {
-                if (context.establishParentContext) context.establishParentContext(this.props.contextManager);
+                // TODO Still need to add children that are not contexts to parent shortcut. Ex: add #stable to children of #disease status.
+                context.determineParentContext(this.props.contextManager, context.metadata["knownParentContexts"], context.metadata["parentAttribute"]);
+                if (!Lang.isUndefined(context.parentContext) && context.parentContext.children.indexOf(context) === -1) {
+                    context.parentContext.addChild(context);
+                }
                 const key = context.getKey();
                 transform = transform.setNodeByKey(key, {
                     data: {
