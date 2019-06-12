@@ -33,7 +33,6 @@ let noteParser = new NoteParser();
 let perFileFunc = (file) => {
     let content;
     let result;
-    //console.log(content);
     fs.readFile(file, 'utf8', function (err,data) {
         if (err) {
             return console.error(err);

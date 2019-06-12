@@ -6,9 +6,7 @@ import moment from 'moment';
 
 export default class UpdaterBase extends EntryShortcut {
     constructor(onUpdate, metadata, object) {
-        super();
-        this.metadata = metadata;
-        //this.text = "#" + this.metadata["name"];
+        super(metadata);
         if (Lang.isUndefined(object)) {
             this.object = null;
         } else {
@@ -68,42 +66,6 @@ export default class UpdaterBase extends EntryShortcut {
         });
     }
 
-    isContext() {
-        return this.metadata.isContext;
-    }
-
-    // should this shortcut instance be in context right now (in other words, should it be a tab in context tray)
-    shouldBeInContext() {
-        const voaList = this.metadata["valueObjectAttributes"].concat(this.metadata["idAttributes"]);
-        let value, isSettable;
-        let result = false;
-        voaList.forEach((voa) => {
-            value = this.getAttributeValue(voa.name);
-            isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
-            if (isSettable) {
-                if (Lang.isArray(value)) {
-                    if (value.length < voa.numberOfItems) {
-                        result = true;
-                        return true;
-                    }
-                } else if (!(this.isSet[voa.name])) {
-                    result = true;
-                    return;
-                }
-            } else {
-                if (value.length > 0) {
-                    result = true;
-                    return;
-                }
-            }
-        });
-        return result;
-    }
-
-    getShortcutType() {
-        return this.metadata["id"];
-    }
-
     getFormSpec() {
         return {
             tagName: this.metadata["form"],
@@ -116,35 +78,8 @@ export default class UpdaterBase extends EntryShortcut {
         };
     }
 
-    onBeforeDeleted() {
-        let result = super.onBeforeDeleted();
-        if (result && this.parentContext) {
-            this.parentContext.removeChild(this);
-        }
-        return result;
-    }
-
-    getAttributeIsSet(name) {
-        return this.isSet[name];
-    }
-
     getAttributeValue(name) {
         return this.values[name];
-    }
-
-    _getAttributeValue(obj, name) {
-        const voa = this.valueObjectAttributes[name];
-
-        if (Lang.isNull(voa["attributePath"])) {
-            return this.values[voa["name"]];
-        } else {
-            const attributePath = voa["attributePath"];
-            return this._followPath(obj, attributePath, 0);
-        }
-    }
-
-    isAttributeSupported(name) {
-        return !Lang.isUndefined(this.valueObjectAttributes[name]);
     }
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
@@ -199,84 +134,6 @@ export default class UpdaterBase extends EntryShortcut {
                 PatientRecord[patientSetMethod](this.object, value);
             }
         }
-    }
-
-
-    getLabel() {
-        return this.metadata["name"];
-    }
-
-    getText() {
-        return this.metadata["name"];
-    }
-
-    getId() {
-        return this.metadata["id"];
-    }
-
-    callMethod(patient, spec, clinicalNote) {
-        //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
-        const obj = spec["object"];
-        const method = spec["method"];
-        const listAttribute = spec["listAttribute"];
-        const attribute = spec["attribute"];
-        const argSpecs = spec["args"];
-        let args = argSpecs.map((argSpec) => {
-            if (argSpec === "$valueObject") return this.object;
-            if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
-            if (argSpec === "$clinicalNote") return clinicalNote;
-            return argSpec;
-        });
-        if (Lang.isUndefined(listAttribute) && Lang.isUndefined(attribute)) {
-            if (obj === "patient") {
-                return patient[method](...args);
-            } else if (obj === "$clinicalNote") {
-                return clinicalNote[method](...args);
-            } else if (obj === "$valueObject") {
-                return this.object[method](...args);
-            } else if (obj === "$parentValueObject") {
-                return this.parentContext.getValueObject()[method](...args);
-            } else {
-                console.error("unsupported object type: " + obj + " for updatePatient");
-            }
-        } else if (Lang.isUndefined(listAttribute)) {
-            if (args.length !== 1) {
-                console.warn("attribute only supports a single argument which is the new value for the attribute: " + spec["id"]);
-            }
-            if (obj === "patient") {
-                return patient[attribute] = args[0];
-            } else if (obj === "$clinicalNote") {
-                return clinicalNote[attribute] = args[0];
-            } else if (obj === "$valueObject") {
-                return this.object[attribute] = args[0];
-            } else if (obj === "$parentValueObject") {
-                return this.parentContext.getValueObject()[attribute] = args[0];
-            } else {
-                console.error("unsupported object type: " + obj + " for updatePatient");
-            }
-        } else {
-            if (obj === "patient") {
-                let list = Lang.get(patient, listAttribute);
-                args.forEach((a) => list.push(a));
-                Lang.set(patient, listAttribute, list);
-                return this.object;
-            } else if (obj === "$valueObject") {
-                let list = Lang.get(this.object, listAttribute);
-                args.forEach((a) => list.push(a));
-                Lang.set(this.object, listAttribute, list);
-                return this.object;
-            } else if (obj === "$parentValueObject") {
-                if (!Lang.isUndefined(this.parentContext)) {
-                    let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
-                    args.forEach((a) => list.push(a));
-                    Lang.set(this.parentContext.getValueObject(), listAttribute, list);
-                    return this.object;
-                }
-            } else {
-                console.error("unsupported object type: " + obj + " for updatePatient");
-            }
-        }
-        return null;
     }
 
     getValueObject() {
@@ -361,9 +218,5 @@ export default class UpdaterBase extends EntryShortcut {
         }*/
 
         this.patient = patient;
-    }
-
-    getPrefixCharacter() {
-        return "#";
     }
 }

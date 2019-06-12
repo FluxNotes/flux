@@ -19,12 +19,51 @@ class Shortcut extends Context {
         super.initialize(contextManager, trigger, updatePatient);
     }
 
+    onBeforeDeleted() {
+        if (this.isContext() && this.hasChildren()) {
+            return false;
+        }
+        if (this.isContext() && this.contextManager) {
+            this.contextManager.removeShortcutFromContext(this);
+        }
+        return true;
+    }
+
     setConfiguration(config) {
         this.configuration = config;
     }
 
+    // by default shortcuts are not Contexts.
+    isContext() {
+        return false;
+    }
+
+    getDisplayText() {
+        return this.getText();
+    }
+
+    getId() {
+        return this.metadata["id"];
+    }
+
+    getLabel() {
+        throw new Error("Invalid context. " + this.constructor.name);
+    }
+
     getPrefixCharacter() {
         throw new TypeError("Primitive shortcut has no prefix character");
+    }
+
+    getShortcutType() {
+        throw new TypeError("Base Shortcut has no type");
+    }
+
+    setSource(source) {
+        this._source = source;
+    }
+
+    getSource() {
+        return this._source;
     }
 
     // Slim App
@@ -32,32 +71,16 @@ class Shortcut extends Context {
         return "#null";
     }
 
-    getShortcutType() {
-        throw new TypeError("Base Shortcut has no type");
-    }
-
     getText() {
         return this.getShortcutType();
     }
 
-    getDisplayText() {
-        return this.getText();
+    clearValueSelectionOptions() {
+        this.optionsToSelectFrom = null;
     }
 
-    serialize() {
-        return this.getText();
-    }
-
-    getLabel() {
-        throw new Error("Invalid context. " + this.constructor.name);
-    }
-
-    updatePatient(patient, contextManager) {
-        throw new Error("update patient not implemented for " + this.constructor.name);
-    }
-
-    validateInCurrentContext(contextManager) {
-        return []; // no errors
+    getValueSelectionOptions() {
+        return this.optionsToSelectFrom;
     }
 
     //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
@@ -67,6 +90,22 @@ class Shortcut extends Context {
             options.sort(this._optionsTimeSorter);
         }
         this.optionsToSelectFrom = options;
+    }
+
+    needToSelectValueFromMultipleOptions() {
+        return !Lang.isNull(this.optionsToSelectFrom);
+    }
+
+    serialize() {
+        return this.getText();
+    }
+
+    updatePatient(patient, contextManager) {
+        throw new Error("update patient not implemented for " + this.constructor.name);
+    }
+
+    validateInCurrentContext(contextManager) {
+        return []; // no errors
     }
 
     // Sorts array items by time with most recent item first
@@ -81,36 +120,6 @@ class Shortcut extends Context {
             return -1;
         }
         return 0;
-    }
-
-    getValueSelectionOptions() {
-        return this.optionsToSelectFrom;
-    }
-
-    needToSelectValueFromMultipleOptions() {
-        return !Lang.isNull(this.optionsToSelectFrom);
-    }
-
-    clearValueSelectionOptions() {
-        this.optionsToSelectFrom = null;
-    }
-
-    // by default shortcuts are not Contexts.
-    isContext() {
-        return false;
-    }
-
-    onBeforeDeleted() {
-        if (this.isContext() && this.hasChildren()) {
-            return false;
-        }
-        if (this.isContext() && this.contextManager) {
-            this.contextManager.removeShortcutFromContext(this);
-        }
-        return true;
-    }
-    static getTriggerRegExp() {
-        return null;
     }
 
     determineParentContext(contextManager, knownParent, parentAttribute) {
@@ -138,14 +147,6 @@ class Shortcut extends Context {
                 this.parentContext = foundParentContext;
             }
         }
-    }
-
-    setSource(source) {
-        this._source = source;
-    }
-
-    getSource() {
-        return this._source;
     }
 }
 

@@ -343,40 +343,6 @@ describe('5 FullApp', function() {
         const contextTray = wrapper.find('.context-tray');
         expect(contextTray.exists()).to.equal(true);
     });
-    // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
-    //     const wrapper = mount(<FullApp
-    //         display='Flux Notes'
-    //         dataSource='HardCodedMcodeV01DataSource'
-    //         patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
-
-    //     // click new note button
-    //     const newNoteButton = wrapper.find('.note-new');
-    //     newNoteButton.at(0).props().onClick();
-    //     wrapper.update();
-
-    //     // editor
-    //     //const e1 = wrapper.find('div.editor-content');
-    //     const e1 = wrapper.find('Editor.editor-panel');
-    //     expect(e1.exists()).to.equal(true);
-    //     // console.log(e1.at(0).debug());
-
-    //     // Enter some text in the editor
-    //     e1.at(0).props().onInput(null, "@name ");
-
-    //     // Select clinical notes
-    //     const clinicalNotesButton = wrapper.find('#notes-btn');
-    //     clinicalNotesButton.at(0).props().onClick();
-    //     wrapper.update();
-
-    //     // Click on new note button to clear the editor
-    //     newNoteButton.at(0).props().onClick();
-    //     wrapper.update();
-
-    //     //console.log(e1.at(0).debug());
-    //     // await t
-    //     //     .expect(editor.textContent)
-    //     //     .eql("Enter your clinical note here or choose a template to start from...");
-    // });
 });
 
 describe('6 FluxNotesEditor', function() {
@@ -486,87 +452,6 @@ describe('6 FluxNotesEditor', function() {
         // Check full text
         expect(replaceZeroWidthSpace(wrapper.find('.editor-content').text())).to.contain('Test Name is a 49 year old Female coming in for follow up.');
     });
-
-    // it.only('In pre-encounter mode, clicking the "New Note" button clears the editor content', () => {
-    //     let patient = new PatientRecord(mcodePatientJson);
-    //     const contextManager = new ContextManager(patient, () => {});
-    //     const structuredFieldMapManager = new StructuredFieldMapManager();
-    //     const shortcutManager = new ShortcutManager();
-
-    //     // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
-    //     let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
-    //         let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, {}, shortcutData, this.handleShortcutUpdate);
-    //         newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
-    //         return newShortcut;
-    //     }
-
-    //     let appState = { documentText : ''};
-    //     let setFullAppStateWithCallback = (state, callback) => {
-    //         appState = state;
-    //     };
-
-    //     const notesPanelWrapper = mount(<NotesPanel
-    //         patient={patient}
-    //         contextManager={contextManager}
-    //         structuredFieldMapManager={structuredFieldMapManager}
-    //         shortcutManager={shortcutManager}
-    //         newCurrentShortcut={mockNewCurrentShortcut}
-    //         setFullAppState={jest.fn()}
-    //         isNoteViewerVisible={true}
-    //         isNoteViewerEditable={true}
-    //         //Others that are required but not used in test
-    //         currentViewMode={''}
-    //         dataAccess={{}}
-    //         documentText={appState.documentText}
-    //         errors={[]}
-    //         handleSummaryItemSelected={jest.fn()}
-    //         itemInserted={jest.fn()}
-    //         loginUsername={''}
-    //         noteClosed={false}
-    //         setDocumentText={jest.fn()}
-    //         setDocumentTextWithCallback={jest.fn()}
-    //         setFullAppStateWithCallback={setFullAppStateWithCallback}
-    //         setLayout={jest.fn()}
-    //         setOpenClinicalNote={jest.fn()}
-    //         setNoteClosed={jest.fn()}
-    //         setNoteViewerEditable={jest.fn()}
-    //         setNoteViewerVisible={jest.fn()}
-    //         setSearchSelectedItem={jest.fn()}
-    //         summaryItemToInsert={''}
-    //         updateErrors={jest.fn()}
-    //     />);
-    //     expect(notesPanelWrapper).to.have.lengthOf(1);
-    //     expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
-    //     notesPanelWrapper.setState({ updatedEditorNote: { content: '@name' } });
-
-    //     expect(notesPanelWrapper.find('.structured-field')).to.have.length(1);
-    //     expect(notesPanelWrapper.find('.structured-field').text()).to.contain(patient.getName());
-
-    //     // clinical notes button is selected
-    //     const clinicalNotesButton = notesPanelWrapper.find('#notes-btn');
-    //     expect(clinicalNotesButton.exists()).to.equal(true);
-    //     clinicalNotesButton.at(0).props().onClick();
-    //     notesPanelWrapper.update();
-
-    //     // Click on new note button to open the editor
-    //     // const newNoteButton = notesPanelWrapper.find('.note-new');
-    //     // newNoteButton.at(0).props().onClick();
-    //     // notesPanelWrapper.update();
-
-    //     // simulate new note button being clicked
-    //     const noteAssistant = notesPanelWrapper.find(NoteAssistant);
-    //     //console.log(noteAssistant.at(0).instance());
-    //     noteAssistant.at(0).instance().handleOnNewNoteButtonClick();
-    //     notesPanelWrapper.update();
-
-    //     //expect(notesPanelWrapper.find('.structured-field')).to.have.length(0);
-    //     /*expect(notesPanelWrapper.find('span[contenteditable=false]').at(0).text()).
-    //         to.contain("Enter your clinical note here or choose a template to start from...");*/
-
-    //     console.log(notesPanelWrapper.find('div[data-slate-editor=true]').debug());
-    //     expect(notesPanelWrapper.find('div[data-slate-editor=true]').text()).to.
-    //         contain("Enter your clinical note here or choose a template o start from...");
-    // });
 
     it('6.2 renders notes panel and typing an inserterShortcut in the editor results in a structured data insertion', () => {
         let patient = new PatientRecord(mcodePatientJson);

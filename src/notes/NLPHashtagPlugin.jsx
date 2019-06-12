@@ -73,10 +73,8 @@ function NLPHashtagPlugin(opts) {
             isBackward: false,
         };
         const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection));
-        // console.log(relevantFragment)
         // Need this list of nodes in a JSON representation.
         const textRepresentationOfNodes = convertToTextForNLPEngine(relevantFragment.nodes.map(node => node.toJSON()));
-        // console.log(textRepresentationOfNodes)
         return textRepresentationOfNodes;
     }
 
@@ -143,7 +141,6 @@ function NLPHashtagPlugin(opts) {
     // Given an array of phrases, parse each one, create shortcuts, and insert them into the editorTransform.
     // Return the updated editorTransform
     function parseArryOfPhrases(arrayOfPhrases, editorTransform, NLPShortcut) {
-        // console.log(arrayOfPhrases);
         if (Lang.isUndefined(arrayOfPhrases)) {
             return editorTransform;
         } else {
@@ -175,7 +172,6 @@ function NLPHashtagPlugin(opts) {
 
     // Returns a single array containing all phrases, listed in reverse order of appearance.
     function orderPhrasesForReverseInsertion(phrases) {
-        // console.log(phrases);
         return Collection.reduce(phrases, (result, value, key) => {
             // Value should be an array of phrases of type 'key' (e.g. of type 'ATTRIBUTION')
             return result.concat(value);
@@ -220,7 +216,6 @@ function NLPHashtagPlugin(opts) {
 
     // Process the NLP HTTP Response so we can get the data we care about off of it
     function processNLPEngineResponse(res) {
-        // console.log(res)
         return res.json();
     }
 

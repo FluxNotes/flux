@@ -129,8 +129,6 @@ export default class InsertValue extends Shortcut {
                 //     const numListItems = listItems.length - 1;
                 //     let strResult = "";
                 //     result.forEach((item, itemIndex) => {
-                //         console.log("---item")
-                //         console.log(item)
                 //         listItems.forEach((itemKey, attrIndex) => {
                 //             let nextSubstring = this._getValueUsingPath(item, itemKey);
                 //             if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
@@ -188,16 +186,20 @@ export default class InsertValue extends Shortcut {
         return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
-    getId() {
-        return this.metadata["id"];
-    }
-
     getText() {
         return this.text;
     }
 
-    getArrayOfText() {
-        return Lang.isArray(this.text) ? this.text : [];
+    setText(text) {
+        this.text = text;
+    }
+
+    setOriginalText(text) {
+        this.originalText = text;
+    }
+
+    getOriginalText() {
+        return this.originalText;
     }
 
     serialize(displayText) {
@@ -240,18 +242,6 @@ export default class InsertValue extends Shortcut {
 
     setWasRemovedFromContext(value) {
         this.wasRemovedFromContext = value;
-    }
-
-    setText(text) {
-        this.text = text;
-    }
-
-    setOriginalText(text) {
-        this.originalText = text;
-    }
-
-    getOriginalText() {
-        return this.originalText;
     }
 
     setValueObject(valueObject) {

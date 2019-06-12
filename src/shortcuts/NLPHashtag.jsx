@@ -241,10 +241,6 @@ export default class NLPHashtag extends Shortcut {
         return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
     }
 
-    getId() {
-        return this.metadata["id"];
-    }
-
     callMethod(patient, spec, clinicalNote) {
         //{"object":"patient", "method": "addObservationToCondition", "args": [ "$valueObject", "$parentValueObject"]}
         const obj = spec["object"];

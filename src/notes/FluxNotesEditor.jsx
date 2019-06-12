@@ -26,6 +26,7 @@ import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
 import NoteContentIndexer from '../patientControl/NoteContentIndexer';
+import InMemoryClinicalNote from './InMemoryClinicalNote';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -211,10 +212,8 @@ class FluxNotesEditor extends React.Component {
             triggerRegExp = def.regexpTrigger;
             if (!Lang.isNull(triggerRegExp) && !Lang.isUndefined(triggerRegExp)) {
                 // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
-                //console.log(triggerRegExp);
                 //const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
                 const triggerRegExpModified = triggerRegExp;
-                //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
                     "trigger": /[\s\r\n.!?;,)}\]]/,
                     // "trigger": 'space',
@@ -301,7 +300,7 @@ class FluxNotesEditor extends React.Component {
 
         let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
         shortcut.initialContextPosition = initialContextPosition;
-        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && text.length === 0) {
+        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && (Lang.isNull(text) || text.length === 0)) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
         }
         return this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText().focus();
@@ -653,7 +652,7 @@ class FluxNotesEditor extends React.Component {
 
         // Update text on the node
         const shortcutNode = transform.state.document.getNode(shortcut.getKey());
-        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getText());
+        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
 
         // Move to previous anchor block to not lose the valid selection
         transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
@@ -964,10 +963,10 @@ class FluxNotesEditor extends React.Component {
             this.getSearchResultInlines(this.state.state.document).forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
                 // TODO: handle highlighting of placeholder text -- should happen in the highlight fn
-                if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
+                if (shortcut.getDisplayText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase()) && newHighlightedSearchSuggestion.indexOfMatch === indexOfCurrentMatch) {
                     transform = this.selectedHighlightStructuredField(transform, inline);
                     indexOfCurrentMatch += 1;
-                } else if (shortcut.getText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
+                } else if (shortcut.getDisplayText().toLowerCase().includes(newHighlightedSearchSuggestion.inputValue.toLowerCase())) {
                     indexOfCurrentMatch += 1;
                 }
             });
@@ -1006,7 +1005,7 @@ class FluxNotesEditor extends React.Component {
             // regular highlighting of structured fields
             this.getSearchResultInlines(this.state.state.document).forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
-                if (shortcut.getText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
+                if (shortcut.getDisplayText().toLowerCase().includes(prevHighlightedSuggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, inline);
                 }
             });
@@ -1036,7 +1035,7 @@ class FluxNotesEditor extends React.Component {
             this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
                 const shortcut = inline.get('data').get('shortcut');
                 // Handle highlighting of placeholder text should happen in the highlight fn
-                if (shortcut.getText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
+                if (shortcut.getDisplayText().toLowerCase().includes(suggestion.inputValue.toLowerCase())) {
                     transform = this.regularHighlightStructuredField(transform, inline);
                 } else {
                     transform = this.unhighlightStructuredField(transform, inline);
@@ -1102,7 +1101,7 @@ class FluxNotesEditor extends React.Component {
         } else if (node.characters) {
             length += node.characters.length;
         } else if (node.type === 'structured_field') {
-            length += node.data.shortcut.getText().length;
+            length += node.data.shortcut.getDisplayText().length;
         }
         return length;
     }
@@ -1343,7 +1342,6 @@ class FluxNotesEditor extends React.Component {
         if (returnIndex === -1) {
             divReturnIndex = text.indexOf('</div>');
         }
-        const placeholderStartIndex = text.indexOf('<');
 
         if (returnIndex >= 0) {
             let result = this.insertPlainText(transform, text.substring(0, returnIndex));
@@ -1354,25 +1352,6 @@ class FluxNotesEditor extends React.Component {
             let result = this.insertPlainText(transform, text.substring(0, divReturnIndex));
             result = this.insertNewLine(result);
             return this.insertPlainText(result, text.substring(divReturnIndex + 6)); // cuts off </div>
-        }
-        if (placeholderStartIndex >= 0) {
-            const placeholderEndIndex = text.indexOf('>', placeholderStartIndex);
-            const placeholderText = text.slice(placeholderStartIndex, placeholderEndIndex + 1);
-
-            if (this.placeholderCheck(placeholderText)) {
-                let remainder = text.slice(placeholderEndIndex + 1);
-                let end;
-                let after = "";
-                let returnStr = text.substring(placeholderEndIndex + 1);
-                if (remainder.startsWith("[[")) {
-                    end = remainder.indexOf("]]");
-                    after = remainder.substring(2, end);
-                    returnStr = remainder.substring(end + 2);
-                }
-                let result = this.insertPlainText(transform, text.substring(0, placeholderStartIndex));
-                result = this.insertPlaceholder(placeholderText, transform, after);
-                return this.insertPlainText(result, returnStr);
-            }
         }
 
         this.insertTextWithStyles(transform, text);
@@ -1389,66 +1368,31 @@ class FluxNotesEditor extends React.Component {
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
-        let remainder = textToBeInserted;
-        let start, end;
-        let before = '', after = '';
 
-        // Open div tags don't trigger any action now, so just remove them.
-        if (!Lang.isUndefined(remainder)) {
-            remainder = remainder.split('<div>').join('');
-        }
-        const triggers = this.noteParser.getListOfTriggersFromText(textToBeInserted)[0];
+        const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
+        inMemoryClinicalNote.parse(textToBeInserted);
+        const nodes = inMemoryClinicalNote.getNodes();
+
         let pickListCount = 0;
 
-        if (!Lang.isNull(triggers)) {
-            triggers.forEach((trigger) => {
-
-                start = remainder.indexOf(trigger.trigger);
-                if (start > 0) {
-                    before = remainder.substring(0, start);
-                    transform = this.insertPlainText(transform, before);
-                }
-                remainder = remainder.substring(start + trigger.trigger.length);
-
-                // // FIXME: Temporary work around that adds spaces when needed to @-phrases inserted via mic
-                // if (start !== 0 && trigger.trigger.startsWith('@') && !before.endsWith(' ')) {
-                //     transform = this.insertPlainText(transform, ' ');
-                // }
-
-                // Deals with @condition phrases inserted via data summary panel buttons.
-                if (remainder.startsWith("[[")) {
-                    end = remainder.indexOf("]]");
-                    after = remainder.substring(2, end);
-                    // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
-                    remainder = remainder.substring(end + 2);
-                    // If there were brackets, but nothing in the brackets, add a space to be inserted, otherwise pulls current data.
-                    if (after.length === 0) {
-                        after = ' ';
+        if (!Lang.isNull(nodes)) {
+            nodes.forEach((node) => {
+                if (node.type === 'text') {
+                    this.insertPlainText(transform, node.content);
+                } else if (node.type === 'shortcut') {
+                    // Update the context position based on selection
+                    const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
+                    if (arrayOfPickLists && node.trigger.isPickList && !node.trigger.selectedValue) {
+                        transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
+                        pickListCount++;
+                    } else {
+                        transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, node.trigger.selectedValue, transform, updatePatient, source, shortcutsUntilSelection.length);
+                        this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
                     }
-                    // FIXME: Temporary work around that can parse '@condition's inserted via mic with extraneous space
-                } else if (remainder.startsWith(" [[")) {
-                    remainder = remainder.replace(/\s+(\[\[\S*\s*.*)/g, '$1');
-                    end = remainder.indexOf("]]");
-                    // FIXME: 2 is a magic number based on ' [[' length, ditto for 2 below for ]]
-                    after = remainder.charAt(2).toUpperCase() + remainder.substring(3, end);
-                    remainder = remainder.substring(end + 2);
-                } else {
-                    after = "";
-                }
-
-                // Update the context position based on selection
-                const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
-                if (arrayOfPickLists && this.noteParser.isPickList(trigger) && !trigger.selectedValue) {
-                    transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
-                    pickListCount++;
-                } else {
-                    transform = this.insertShortcut(trigger.definition, trigger.trigger, after, transform, updatePatient, source, shortcutsUntilSelection.length);
-                    this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
+                } else if (node.type === 'placeholder') {
+                    this.insertPlaceholder(node.placeholder.placeholder, transform, node.placeholder.selectedValue);
                 }
             });
-        }
-        if (!Lang.isUndefined(remainder) && remainder.length > 0) {
-            transform = this.insertPlainText(transform, remainder);
         }
 
         const state = transform.apply();
@@ -1490,7 +1434,7 @@ class FluxNotesEditor extends React.Component {
 
                 // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
                 // If no option is selected, then push the shortcut to the array
-                if (this.noteParser.isPickList(trigger) && !(remainder.startsWith("[["))) {
+                if (trigger.isPickList && !(remainder.startsWith("[["))) {
                     localArrayOfPickLists.push(trigger);
                 }
 
