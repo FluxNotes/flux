@@ -41,7 +41,6 @@ export default class LongitudinalViewVisualizer extends Visualizer {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <LongitudinalViewVisualizerTable dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel}/>

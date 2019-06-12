@@ -34,7 +34,7 @@ export default class LongitudinalViewVisualizerTable extends Component {
             return 0;
         };
         dates.sort(sortFunction);
-        for (let dateIndex = 0; dateIndex < dates.length; dateIndex++) { //for each section, check to see if each date is in its list of dates.  If it is not, add an empty string to its array of lab data, at the dataIndex
+        for (let dateIndex = 0; dateIndex < dates.length; dateIndex++) { //for each section, check to see if each date is in its list of dates.  If it is not, add an empty string to its array of data, at the dataIndex
             dataInfo.forEach((obj) => {
                 if (!Object.keys(obj.datesAndData).includes(dates[dateIndex])) {
                     tableValues[dataInfo.indexOf(obj)].data.splice(dateIndex, 0, "");
@@ -98,7 +98,6 @@ export default class LongitudinalViewVisualizerTable extends Component {
         });
     }
     render() {
-        console.log("table props: ", this.props)
         const [tableValues, dates] = this.gatherTableValues();
 
         return (
