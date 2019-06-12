@@ -33,7 +33,6 @@ export default class NoteParser {
 
         // build up all trigger string regular expression
         let allTriggers = this.shortcutManager.getAllStringTriggers();
-        //console.log(allTriggers);
         let allShortcuts = this.shortcutManager.getAllShortcutDefinitions();
 
         this.allStringTriggersRegExp = new RegExp("(" + allTriggers.join("|") + ")", 'i');
@@ -104,14 +103,12 @@ export default class NoteParser {
         let checkForTriggerRegExpMatch = (tocheck) => {
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
-                //console.log("matched " + tocheck.regexp);
                 matches.push({trigger: match[0], definition: tocheck.definition, isPickList: tocheck.definition.getData && tocheck.definition.getData.itemKey});
                 found = true;
             }
         };
         let hashPos = this.getNextTriggerIndex(note, triggerChars, 0);
         while (hashPos !== -1) {
-            //console.log(hashPos);
             if (note.charAt(hashPos) === '<') {
                 nextPos = note.indexOf(">", hashPos+1);
                 if (nextPos === -1) { // not a template
@@ -149,7 +146,6 @@ export default class NoteParser {
                 found = false;
                 this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
                 if (!found) {
-                    //console.log("not a recognized structured phrase: " + substr);
                     unrecognizedTriggers.push(substr);
                 }
             } else {
@@ -178,14 +174,12 @@ export default class NoteParser {
         let checkForTriggerRegExpMatch = (tocheck) => {
             match = substr.match(tocheck.regexp);
             if (!Lang.isNull(match)) {
-                //console.log("matched " + tocheck.regexp);
                 matches.push({trigger: match[0], definition: tocheck.definition});
                 found = true;
             }
         };
         let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
         while (hashPos !== -1) {
-            //console.log(hashPos);
             nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
             if (nextPos === -1) {
                 substr = note.substring(hashPos);
@@ -197,7 +191,6 @@ export default class NoteParser {
                 found = false;
                 this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
                 if (!found) {
-                    //console.log("not a recognized structured phrase: " + substr);
                     unrecognizedTriggers.push(substr);
                 }
             } else {

@@ -26,19 +26,13 @@ export default class CreatorChild extends Shortcut {
 
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
-        //console.log("set parent context to " + this.parentContext);
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
         var found = false;
         var picker = false;
-        //console.log(trigger);
-        /*        const triggerNoPrefix = trigger.substring(1);
-         console.log("trigger no prefix = " + triggerNoPrefix);*/
-        //console.log(this.metadata.stringTriggers);
         if (this.metadata.stringTriggers) {
             for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
-                //console.log("  is string trigger? " + this.metadata.stringTriggers[i].name);
                 if (this.metadata.stringTriggers[i].name === trigger) {
                     found = true;
                     if (this.metadata.stringTriggers[i].picker) {
@@ -49,7 +43,6 @@ export default class CreatorChild extends Shortcut {
             }
         }
         if (!found || !picker) {
-            //console.log("not found: " + trigger);
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
         }
@@ -59,7 +52,6 @@ export default class CreatorChild extends Shortcut {
         let result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
             if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
-                //console.log("onBeforeDeleted of a list item");
                 const parentAttributeName = this.metadata.parentAttribute;
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
@@ -94,10 +86,8 @@ export default class CreatorChild extends Shortcut {
         let category = spec["category"];
         let valueSet = spec["valueSet"];
         if (args) {
-            //console.log(category + "/" + valueSet + " with " + args);
             return ValueSetManager.getValueList(category, valueSet, ...args);
         } else {
-            //console.log(category + "/" + valueSet);
             return ValueSetManager.getValueList(category, valueSet);
         }
     }
@@ -108,15 +98,11 @@ export default class CreatorChild extends Shortcut {
             text = text.substring(prefix.length);
         }
         this.text = text;
-        // console.log("CreatorChild.setText: " + this.metadata.picker);
-        // console.log("Metadata ")
-        // console.log(this.metadata);
         let value = text;
         if (this.metadata.picker === 'date-id') {
             value = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
         }
         if (!Lang.isUndefined(this.parentContext)) {
-            // console.log("set " + this.metadata.parentAttribute + " to " + value);
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient);
         }
     }

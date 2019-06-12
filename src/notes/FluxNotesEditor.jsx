@@ -212,10 +212,8 @@ class FluxNotesEditor extends React.Component {
             triggerRegExp = def.regexpTrigger;
             if (!Lang.isNull(triggerRegExp) && !Lang.isUndefined(triggerRegExp)) {
                 // Modify regex to ensure this pattern only gets replaced if it's right before the cursor.
-                //console.log(triggerRegExp);
                 //const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
                 const triggerRegExpModified = triggerRegExp;
-                //console.log(triggerRegExpModified);
                 this.plugins.push(AutoReplace({
                     "trigger": /[\s\r\n.!?;,)}\]]/,
                     // "trigger": 'space',

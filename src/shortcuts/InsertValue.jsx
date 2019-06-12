@@ -129,8 +129,6 @@ export default class InsertValue extends Shortcut {
                 //     const numListItems = listItems.length - 1;
                 //     let strResult = "";
                 //     result.forEach((item, itemIndex) => {
-                //         console.log("---item")
-                //         console.log(item)
                 //         listItems.forEach((itemKey, attrIndex) => {
                 //             let nextSubstring = this._getValueUsingPath(item, itemKey);
                 //             if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
