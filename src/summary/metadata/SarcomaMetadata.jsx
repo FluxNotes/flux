@@ -39,6 +39,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 {
                     name: "Vitals",
                     shortName: "Vitals",
+                    subsectionLabel: "Vital Name",
                     clinicalEvents: ["pre-encounter"],
                     type: "ValueOverTime",
                     data: [
@@ -51,6 +52,7 @@ export default class SarcomaMetadata extends MetadataSection {
                 {
                     name: "Labs",
                     shortName: "Labs",
+                    subsectionLabel: "Lab Name",
                     clinicalEvents: ["pre-encounter"],
                     type: "ValueOverTime",
                     data: [

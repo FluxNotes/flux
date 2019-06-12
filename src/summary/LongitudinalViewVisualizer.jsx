@@ -8,42 +8,43 @@ export default class LongitudinalViewVisualizer extends Visualizer {
 
     constructor(props) {
         super(props);
-        this.state = { labData: this.formatLabData(this.props.conditionSection.data) };
+        this.state = { data: this.formatData(this.props.conditionSection.data) };
     }
-    formatLabData(labSection) { //creates an array with one object for each lab (wbc, platelets, etc.)
-        const labData = [];
-        for (let conditionIndex = 0; conditionIndex < labSection.length; conditionIndex++) {
-            if (labSection[conditionIndex].data_cache) {
-                labData.push(
+    formatData(section) { //creates an array with one object for each section (wbc, platelets, etc.)
+        const data = [];
+        for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
+            if (section[conditionIndex].data_cache) {
+                data.push(
                     {
-                        labName: labSection[conditionIndex].name,
-                        labUnit: labSection[conditionIndex].data_cache[0].unit,
-                        datesAndData: this.buildDataObject(conditionIndex, labSection),
-                        bands: labSection[conditionIndex].bands
+                        name: section[conditionIndex].name,
+                        unit: section[conditionIndex].data_cache[0].unit,
+                        datesAndData: this.buildDataObject(conditionIndex, section),
+                        bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
                     }
                 );
             }
         }
-        return labData;
+        return data;
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {
-            const labData = this.formatLabData(nextProps.conditionSection.data);
-            this.setState({ labData: labData });
+            const data = this.formatData(nextProps.conditionSection.data);
+            this.setState({ data: data });
         }
     }
-    buildDataObject(conditionIndex, labSection) {
+    buildDataObject(conditionIndex, section) {
         const datesAndData = {};
-        labSection[conditionIndex].data_cache.forEach((labDay) => {
-            datesAndData[labDay.start_time] = labDay[labSection[conditionIndex].name];
+        section[conditionIndex].data_cache.forEach((day) => {
+            datesAndData[day.start_time] = day[section[conditionIndex].name];
         });
         return datesAndData;
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
-                <LongitudinalViewVisualizerTable labDataInfo={this.state.labData} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name}/>
+                <LongitudinalViewVisualizerTable dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel}/>
             </div>
         );
     }
