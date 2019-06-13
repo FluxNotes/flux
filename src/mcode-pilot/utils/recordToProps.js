@@ -56,7 +56,7 @@ export default function getProps(patient, condition) {
                 })(),
                 "reference": condition.getMostRecentHistologicalGrade()
             },
-            "stage": {
+            "clinical_stage": {
                 "display": "stage",
                 "mcodeElement": "onco.core.TNMClinicalStageGroup",
                 // NOTE: the section is titled pathology but all the fields referenced in it are clinical, not pathologic
@@ -64,6 +64,13 @@ export default function getProps(patient, condition) {
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentClinicalStaging(), "stage"),
                 "reference": condition.getMostRecentClinicalStaging()
+            },
+            "pathologic_stage": {
+                "display": "stage",
+                "mcodeElement": "onco.core.TNMPathologicStageGroup",
+                "valueType": "string",
+                "value": _safeGet(condition.getMostRecentPathologicStaging(), "stage"),
+                "reference": condition.getMostRecentPathologicStaging()
             },
             "t_stage": {
                 "display": "primary tumor",
@@ -121,6 +128,11 @@ export default function getProps(patient, condition) {
             };
         });
     }
+
+    if (propDict.pathology.pathologic_stage.value) {
+        delete propDict.pathology.clinical_stage;
+    }
+
 
     return _mapProp(propDict);
 }
