@@ -77,6 +77,7 @@
   },
   { "type": "CreatorChild",
     "id": "StagingTCreator",
+    "subtype": "choice",
     "parentAttribute": "T",
     "stringTriggers": {"category":"staging", "valueSet":"T", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"T", "args":"7", "prefix": ""},
@@ -86,6 +87,7 @@
   },
   { "type": "CreatorChild",
     "id": "StagingNCreator",
+    "subtype": "choice",
     "parentAttribute": "N",
     "stringTriggers": {"category":"staging", "valueSet":"N", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"N", "args":"7", "prefix": ""},
@@ -94,6 +96,7 @@
     "shortcutGroupName":"Node Size"
   },
   { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "StagingMCreator",
     "parentAttribute": "M",
     "stringTriggers": {"category":"staging", "valueSet":"M", "args":"7", "prefix": "#"},
@@ -133,6 +136,7 @@
     "structuredPhraseDocumentation": "diseaseStatusSheet.pdf"
   },
   { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "ProgressionStatusCreator",
     "parentAttribute": "status",
     "label": "#status",
@@ -144,7 +148,7 @@
     "shortcutGroupName":"Status"
   },
   { "type": "CreatorChild",
-    "subtype": "list",
+    "subtype": "multi-choice",
     "id": "ProgressionReasonsCreator",
     "parentAttribute": "reasons",
     "label": "#reasons",
@@ -207,6 +211,7 @@
     "structuredPhraseDocumentation": "toxicitySheet.pdf"
   },
   { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "ToxicityGradeCreator",
     "idForNLPEngine": "GRADE",
     "pathToCanonicalization": "",
@@ -218,6 +223,7 @@
     "shortcutGroupName":"Grade"
   },
   { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "ToxicityAdverseEventCreator",
     "idForNLPEngine": "CTCAE",
     "pathToCanonicalization": "ctcae",
@@ -229,6 +235,7 @@
     "shortcutGroupName":"Adverse Event"
   },
   { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "ToxicityAttributionCreator",
     "idForNLPEngine": "ATTRIBUTION",
     "pathToCanonicalization": "",
@@ -303,6 +310,7 @@
     "structuredPhraseDocumentation": "deceasedSheet.pdf"
   },
   { "type": "CreatorChild",
+    "subtype": "date",
     "id": "DateCreator",
     "parentAttribute": "date",
     "stringTriggers": [{ "name": "#date", "description": "A date", "picker": true }],
@@ -312,6 +320,7 @@
     "shortcutGroupName":"Date"
   },
   { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "ClinicalTrialTitleCreator",
     "parentAttribute": "title",
     "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": "#"},
@@ -322,6 +331,7 @@
     "shortcutGroupName":"Clinical Trial"
   },
   { "type": "InsertValue",
+    "subtype": "choice",
     "id": "ConditionInserter",
     "getData": {"object": "patient", "method": "getConditions", "itemKey": "entryInfo.entryId.id", "itemContext":"type", "dateLabel": "diagnosisDate"},
     "isContext": true,
@@ -330,6 +340,7 @@
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
+    "subtype": "choice",
     "id": "ProcedureInserter",
     "getData": {"object": "patient", "method": "getProcedures", "itemKey": "entryInfo.entryId.id", "itemContext":"name", "dateLabel": "dateLabel"},
     "isContext": true,
@@ -337,6 +348,7 @@
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
+    "subtype": "choice",
     "id": "MedicationInserter",
     "getData": {"object": "patient", "method": "getMedications", "itemKey": "entryInfo.entryId.id", "itemContext":"medication", "dateLabel": "startDate"},
     "isContext": true,
@@ -369,6 +381,7 @@
     "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."
   },
    { "type": "CreatorChild",
+    "subtype": "choice",
     "id": "ReceptorStatusCreator",
     "parentAttribute": "status",
     "stringTriggers": {
@@ -542,6 +555,7 @@
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
+    "subtype": "choice",
     "id": "ActiveMedicationInserter",
     "parentAttribute": "medication",
     "getData": {"object": "patient", "method": "getActiveMedications", "itemKey": "entryInfo.entryId.id", "itemContext":"medication", "dateLabel": "startDate"},
@@ -562,6 +576,7 @@
     "shortcutGroupName":"To"
   },
   { "type": "CreatorChild",
+    "subtype": "number",
     "id": "NumberCreator",
     "parentAttribute": "number",
     "regexpTrigger": "(#[0-9]+(?![0-9]*\/))",
