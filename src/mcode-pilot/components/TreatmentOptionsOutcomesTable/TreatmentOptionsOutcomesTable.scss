@@ -21,6 +21,22 @@
                 background-color: $shr-context-dark;
             }
         }
+
+        .sort-arrows {
+            visibility:hidden;
+            color:$interface-blue;
+            font-size: 12px;
+            padding-left:5px;
+        }
+
+        .sort-selected {
+            visibility:visible;
+            color:$icons-teal;
+        }
+
+        .header-space:hover .sort-arrows {
+            visibility:visible;
+        }
     }
 
     &__table {
@@ -64,7 +80,10 @@
                 text-align: center;
             }
         }
+
+
     }
+
 
     .flex { display: flex; }
     .flex-1 { flex: 1; }

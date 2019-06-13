@@ -17,7 +17,10 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         this.state = {
             includedOpen: false,
             comparedOpen: false,
-            sideEffectSelection: 'Most Common'
+            sideEffectSelection: 'Most Common',
+            sideEffects: [],
+            sortColumn: "",
+            sortDirection: 0
         };
     }
 
@@ -77,6 +80,23 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     handleChangeEffect = (effect) => {
         this.setState({ sideEffectSelection: effect.target.value });
+    }
+
+    handleChangeSort = (column) => {
+        // sort direction is represented by a 0,1, or 2.
+        // 0 - no sorting
+        // 1 - asceneding
+        // 2 - descending
+
+        if (column === this.state.sortColumn) {
+            this.setState(prevState => ({
+                sortDirection: (prevState.sortDirection + 1) % 3
+            }));
+        } else {
+            this.setState({sortColumn: column});
+            // reset to 1 when a different column is clicked
+            this.setState({sortDirection: 1});
+        }
     }
 
     toggleTreatment = (treatmentType, similarTreatments) => (event, selected) => {
@@ -154,20 +174,40 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderHeader = () => {
-        const { sideEffectSelection } = this.state;
-
-        const sideEffects = this.gatherSideEffects(this.props.comparedTreatmentData, this.props.includedTreatmentData);
+        const { sideEffectSelection, sideEffects, sortColumn, sortDirection } = this.state;
+        const sortName = sortDirection === 1 ? "sort-up" : sortDirection === 2 ? "sort-down" : "sort";
+        const sort1 = sortColumn === "oneYrSurvival";
+        const sort3 = sortColumn === "threeYrSurvival";
+        const sort5 = sortColumn === "fiveYrSurvival";
+        const sortP = sortColumn === "totalPatients";
         return (
             <div className="treatment-options-outcomes-table__header">
                 <div className="flex-2 flex-padding"></div>
-                <div className="flex-1 flex-padding user-icon"><FontAwesome name="user" /></div>
+                <div className="flex-1 flex-padding user-icon">
+                    <span onClick={ () => { this.handleChangeSort("totalPatients"); }} className="header-space">
+                        <FontAwesome name="user" />
+                        <FontAwesome className={(sortP && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sortP?sortName: "sort"} />
+                    </span>
+                </div>
 
                 <div className="flex-6 flex-padding">
                     <div className="header-title">Overall survival rates</div>
                     <div className="flex">
-                        <div className="flex-1">1 yr</div>
-                        <div className="flex-1">3 yr</div>
-                        <div className="flex-1">5 yr</div>
+                        <div className="flex-1">
+                            <span onClick={ () => { this.handleChangeSort("oneYrSurvival"); }} className="header-space">
+                                1 yr  <FontAwesome className={(sort1 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort1?sortName: "sort"} />
+                            </span>
+                        </div>
+                        <div className="flex-1">
+                            <span onClick={ () => { this.handleChangeSort("threeYrSurvival"); }} className="header-space">
+                                3 yr  <FontAwesome className={(sort3 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort3?sortName: "sort"} />
+                            </span>
+                        </div>
+                        <div className="flex-1">
+                            <span onClick={ () => { this.handleChangeSort("fiveYrSurvival"); }} className="header-space">
+                                5 yr  <FontAwesome className={(sort5 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort5?sortName: "sort"} />
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -198,6 +238,32 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
+    sortTreatments(propName) {
+        if (propName==="totalPatients") {
+            // sort by number of patients, no need to get ratio
+            return function(a,b) {
+                return b[propName] - a[propName];
+            };
+        } else {
+            return function(a,b) {
+                return b[propName]/b["totalPatients"] - a[propName]/a["totalPatients"];
+            };
+        }
+
+    }
+
+    sortAlphabetically(a,b) {
+        const displayA = a.displayName;
+        const displayB = b.displayName;
+        if (displayA < displayB) {
+            return -1;
+        } else if (displayA > displayB) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     render() {
         const { includedOpen, comparedOpen } = this.state;
         const {
@@ -208,6 +274,17 @@ export default class TreatmentOptionsOutcomesTable extends Component {
             comparedTreatmentData
         } = this.props;
         const noIncludedRow = includedTreatmentData.length === 0;
+
+        if (this.state.sortDirection) {
+            // it could be ascending or descending, but its sorted
+            comparedTreatmentData.sort(this.sortTreatments(this.state.sortColumn));
+            if (this.state.sortDirection === 2) {
+                // descending
+                comparedTreatmentData.reverse();
+            }
+        } else {
+            comparedTreatmentData.sort(this.sortAlphabetically);
+        }
 
         return (
             <div className="treatment-options-outcomes-table">
