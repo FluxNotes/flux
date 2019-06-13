@@ -2,11 +2,8 @@ import MetadataSection from "./MetadataSection";
 import ActiveConditionsSection from './ActiveConditionsSection';
 import AllergiesSection from './AllergiesSection';
 import DiseaseStatusSection from './DiseaseStatusSection';
-import HemoglobinSubsection from './HemoglobinSubsection';
 import MedicationsSection from './MedicationsSection';
-import NeutrophilCountSubsection from './NeutrophilCountSubsection';
 import PathologySection from './PathologySection';
-import PlateletSubsection from "./PlateletSubsection";
 import ProceduresSection from './ProceduresSection';
 import ReviewOfSystemsSection from './ReviewOfSystemsSection';
 import SarcomaSummarySection from './SarcomaSummarySection';
@@ -14,13 +11,9 @@ import TimelineSection from './TimelineSection';
 import TreatmentOptionsSection from './TreatmentOptionsSection';
 import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
 import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
-import WhiteBloodCellCountSubsection from './WhiteBloodCellCountSubsection';
 import ImagingSection from "./ImagingSection";
-import BloodPressureSubsection from './BloodPressureSubsection';
-import TemperatureSubsection from './TemperatureSubsection';
-import WeightSubsection from './WeightSubsection';
-import HeartRateSubsection from './HeartRateSubsection';
-
+import VitalsSection from "./VitalsSection";
+import SarcomaLabsSection from "./SarcomaLabsSection";
 
 
 export default class SarcomaMetadata extends MetadataSection {
@@ -36,32 +29,8 @@ export default class SarcomaMetadata extends MetadataSection {
                 ProceduresSection,
                 ImagingSection,
                 DiseaseStatusSection,
-                {
-                    name: "Vitals",
-                    shortName: "Vitals",
-                    subsectionLabel: "Vital Name",
-                    clinicalEvents: ["pre-encounter"],
-                    type: "ValueOverTime",
-                    data: [
-                        BloodPressureSubsection,
-                        TemperatureSubsection,
-                        WeightSubsection,
-                        HeartRateSubsection
-                    ]
-                },
-                {
-                    name: "Labs",
-                    shortName: "Labs",
-                    subsectionLabel: "Lab Name",
-                    clinicalEvents: ["pre-encounter"],
-                    type: "ValueOverTime",
-                    data: [
-                        WhiteBloodCellCountSubsection,
-                        NeutrophilCountSubsection,
-                        HemoglobinSubsection,
-                        PlateletSubsection
-                    ]
-                },
+                VitalsSection,
+                SarcomaLabsSection,
                 PathologySection,
                 {
                     name: "Genetics",

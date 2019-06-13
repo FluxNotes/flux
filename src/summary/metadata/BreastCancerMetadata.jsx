@@ -285,7 +285,8 @@ export default class BreastCancerMetadata extends MetadataSection {
                         WhiteBloodCellCountSubsection,
                         NeutrophilCountSubsection,
                         HemoglobinSubsection
-                    ]
+                    ],
+                    subsectionLabel: "Lab Name",
                 },
                 PathologySection,
                 {
