@@ -24,7 +24,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
                         unit: section[conditionIndex].data_cache[0].unit,
                         datesAndData: this.buildDataObject(conditionIndex, section),
                         bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
-                        favorite: false
+                        favorite: false,
                     }
                 );
             }
