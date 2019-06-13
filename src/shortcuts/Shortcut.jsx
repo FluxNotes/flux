@@ -213,6 +213,24 @@ class Shortcut extends Context {
         console.warn("isComplete getter not implemented by " + this.constructor.name);
         return true;
     }
+
+    get completionComponent() {
+        switch (this.metadata.subtype) {
+        case "number":
+            console.error("We don't currently support a completion component for number-subtypes like ", this.metadata.id);
+            return null;
+        case "date":
+            return ContextCalendar;
+        case "choice":
+            return ContextListOptions;
+        case "multi-choice":
+            console.error("We don't currently support a completion component for list-subtypes like ", this.metadata.id);
+            return null;
+        default:
+            console.error("We don't currently support a completion component for number-subtypes like ", this.metadata.id);
+            return null;
+        }
+    }
 }
 
 export default Shortcut;
