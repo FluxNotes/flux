@@ -2,8 +2,6 @@ import Shortcut from './Shortcut';
 import ValueSetManager from '../lib/ValueSetManager';
 import moment from 'moment';
 import Lang from 'lodash';
-import ContextCalendar from '../context/ContextCalendar';
-import ContextListOptions from '../context/ContextListOptions';
 
 export default class CreatorChild extends Shortcut {
     constructor(onUpdate, metadata) {
@@ -65,7 +63,7 @@ export default class CreatorChild extends Shortcut {
     onBeforeDeleted() {
         const result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
-            if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
+            if (this.metadata["subtype"] && this.metadata["subtype"] === "multi-choice") {
                 const parentAttributeName = this.metadata.parentAttribute;
                 const currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 const oneToDelete = this.text;
@@ -150,12 +148,5 @@ export default class CreatorChild extends Shortcut {
         }
 
         return false;
-    }
-
-    get completionComponent() {
-        if (this.metadata.picker === 'date-id') {
-            return ContextCalendar;
-        }
-        return ContextListOptions;
     }
 }
