@@ -6,14 +6,19 @@
 .table-scrollable {
     overflow-x: scroll !important;
 }
-
 .name {
     &:hover {
         color: blue !important;
         cursor: pointer !important;
         background-color: $feature-gray !important;
     }
-    &.clicked {
-        border: 2px solid blue;
-    }
+}
+.star {
+    color: #b7d2ff;
+}
+.star-cell {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    text-align: center !important;
+    min-width: 30px !important;
 }

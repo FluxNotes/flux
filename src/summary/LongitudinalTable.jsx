@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import './LongitudinalTable.css';
 import propTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 
 export default class LongitudinalTable extends Component {
 
@@ -77,7 +78,9 @@ export default class LongitudinalTable extends Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell></TableCell><TableCell></TableCell>
+                    <TableCell className='star-cell'></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
                     {dates.map((date) => {
                         if (date.substring(7) !== currYear) {
                             currYear = date.substring(7);
@@ -87,6 +90,7 @@ export default class LongitudinalTable extends Component {
                     })}
                 </TableRow>
                 <TableRow>
+                    <TableCell className='star-cell'></TableCell>
                     <TableCell className='table-header'>{this.props.subsectionLabel}</TableCell>
                     <TableCell className='table-header'>Unit</TableCell>
                     {dates.map(function (date) { //makes a new date column-heading for each date in the dates object defined in the constructor
@@ -108,6 +112,7 @@ export default class LongitudinalTable extends Component {
             return (
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
+                    <TableCell className='star-cell'> {_.includes(this.state.favorites, n.name) ? <FontAwesome className='star' name='star' /> : <div></div> }</TableCell>
                     <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); }}>
                         {n.name}
                     </TableCell>
