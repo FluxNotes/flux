@@ -66,21 +66,21 @@ describe("TreatmentOptionsOutcome", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
             expect(treatmentRows).to.have.lengthOf(2);
-            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('hormonal therapy');
-            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
         });
 
         it("renders the total number of patients", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            expect(treatmentRows.at(0).find('.total-patients').text()).to.eql('(12)');
-            expect(treatmentRows.at(1).find('.total-patients').text()).to.eql('(20)');
+            expect(treatmentRows.at(0).find('.total-patients').text()).to.eql('(20)');
+            expect(treatmentRows.at(1).find('.total-patients').text()).to.eql('(12)');
         });
 
         it("hormonal therapy: calculates the correct one, three, and five survival rates with comparisons", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
+            const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
 
             expect(barChartTexts).to.have.lengthOf(6);
 
@@ -103,7 +103,7 @@ describe("TreatmentOptionsOutcome", () => {
         it("chemotherapy: calculates the correct one, three, and five survival rates with comparisons", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
+            const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
 
             expect(barChartTexts).to.have.lengthOf(6);
 
