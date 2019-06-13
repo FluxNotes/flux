@@ -7,18 +7,36 @@ import propTypes from 'prop-types';
 
 export default class LongitudinalTable extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            favorites: props.dataInfo.filter(data => data.favorite).map((obj) => {
+                return obj.name;
+            }),
+        };
+        this.toggleFavorites = this.toggleFavorites.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        if (!_.isEqual(this.props.dataInfo, nextProps.dataInfo)) {
+            this.setState({
+                favorites: nextProps.dataInfo.filter(data => data.favorite).map((obj) => {
+                    return obj.name;
+                })});
+        }
+    }
     /*
     Assigns an id to each row
     */
-    createData(name, unit, data, id, bands) {
-        return { name, unit, data, id, bands }; //the names given here are the keys and the values passed into those parameters become the key's values
+    createData(name, unit, data, id, bands, favorite) {
+        return { name, unit, data, id, bands, favorite }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
     gatherTableValues() {
         const tableValues = [];
         const predates = [];
         const { dataInfo } = this.props;
         for (let index = 0; index < this.props.dataInfo.length; index++) {
-            tableValues.push(this.createData(this.props.dataInfo[index].name, this.props.dataInfo[index].unit, Object.values(this.props.dataInfo[index].datesAndData), index, this.props.dataInfo[index].bands));
+            const data = this.props.dataInfo[index];
+            tableValues.push(this.createData(data.name, data.unit, Object.values(data.datesAndData), index, data.bands, data.favorite));
             predates.push(Object.keys(this.props.dataInfo[index].datesAndData));
         }
         const dates = _.uniq(_.flattenDeep(predates));
@@ -42,6 +60,17 @@ export default class LongitudinalTable extends Component {
             });
         }
         return [tableValues, dates];
+    }
+    toggleFavorites(section) {
+        const newFavorites = this.state.favorites;
+        if (_.includes(this.state.favorites, section.name)) {
+            newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
+            this.setState({favorites: newFavorites});
+        }
+        else {
+            newFavorites.push(section.name);
+            this.setState({ favorites: newFavorites });
+        }
     }
     renderHeader(dates) {
         let currYear = null;
@@ -74,10 +103,12 @@ export default class LongitudinalTable extends Component {
             const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
                 return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
             });
+            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
             const subsectionClassName = matchingSubsection ? 'highlighted' : '';
             return (
                 <TableRow key={n.id}>
-                    <TableCell className={subsectionClassName}>
+                    {/* Names and Units Cells */}
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
@@ -87,6 +118,7 @@ export default class LongitudinalTable extends Component {
                         });
                         const cellClassName = matchingDataPoint ? 'highlighted' : '';
                         const bands = tableValues[tableValues.indexOf(n)].bands;
+                        // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
                             return <TableCell style={{color: 'black'}} key={newkey} className={cellClassName}>{value}</TableCell>;
                         } else {
@@ -99,10 +131,9 @@ export default class LongitudinalTable extends Component {
     }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
-
         return (
             <div className='tabular-list table-scrollable'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
-                <Table >
+                <Table>
                     {this.renderHeader(dates)}
                     <TableBody>
                         {this.renderData(tableValues)}

@@ -1,7 +1,19 @@
+@import "../styles/variables";
 
 .table-header {
     padding-left: 10px !important;
 }
-.table-scrollable{
+.table-scrollable {
     overflow-x: scroll !important;
+}
+
+.name {
+    &:hover {
+        color: blue !important;
+        cursor: pointer !important;
+        background-color: $feature-gray !important;
+    }
+    &.clicked {
+        border: 2px solid blue;
+    }
 }
