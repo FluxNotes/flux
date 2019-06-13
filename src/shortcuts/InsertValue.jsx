@@ -274,8 +274,4 @@ export default class InsertValue extends Shortcut {
     get isComplete() {
         return this.getDisplayText() !== this.metadata.stringTriggers[0].name;
     }
-
-    get completionComponent() {
-        return ContextListOptions;
-    }
 }
