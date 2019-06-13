@@ -57,7 +57,7 @@ export default function getProps(patient, condition) {
                 "reference": condition.getMostRecentHistologicalGrade()
             },
             "clinical_stage": {
-                "display": "clinical stage",
+                "display": "stage",
                 "mcodeElement": "onco.core.TNMClinicalStageGroup",
                 // NOTE: the section is titled pathology but all the fields referenced in it are clinical, not pathologic
                 // (all sample data in the fixtures is clinical staging)
@@ -66,8 +66,8 @@ export default function getProps(patient, condition) {
                 "reference": condition.getMostRecentClinicalStaging()
             },
             "pathologic_stage": {
-                "display": "pathologic stage",
-                "mcodeElement": "onco.core.TNMCPathologicStageGroup",
+                "display": "stage",
+                "mcodeElement": "onco.core.TNMPathologicStageGroup",
                 "valueType": "string",
                 "value": _safeGet(condition.getMostRecentPathologicStaging(), "stage"),
                 "reference": condition.getMostRecentPathologicStaging()
