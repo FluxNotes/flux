@@ -32,13 +32,6 @@ class ContextGetHelp extends React.Component {
         this.props.closePortal();
     }
 
-    getHelpSelected = () => {
-        // TO-DO: WHY DOES THIS THROW AN ERROR
-        // needed for case when clicked
-        // this.setState({ getHelpSelected: true });
-        console.log('SELECTED GET HELP: open second portal');
-    }
-
     expand = () => {
         console.log('the expand option has been selected, expanding ' + this.props.shortcut.initiatingTrigger);
         this.props.closePortal();
@@ -101,12 +94,10 @@ class ContextGetHelp extends React.Component {
                 {this.state.getHelpOptions.map((option, index) => {
                     let updatedIndex = index + 1;
                     return (
-                        <li
-                            // className="context-get-help-option"
-                            key={updatedIndex}
+                        <li key={updatedIndex}
                             data-active={this.state.selectedIndex === updatedIndex}
                             onClick={option.onSelect}
-                            // onMouseEnter={function() {this.setSelectedIndex(updatedIndex)}}
+                            onMouseEnter={() => { this.setSelectedIndex(updatedIndex); }}
                         >
                             {option.text}
                         </li>);
@@ -122,8 +113,8 @@ class ContextGetHelp extends React.Component {
                 <li
                     className="context-get-help-li"
                     data-active={this.state.selectedIndex === 0}
-                    // onClick={this.setSelectedIndex(0)}
-                    // onMouseEnter={this.setSelectedIndex(0)}
+                    onClick={() => { this.setSelectedIndex(0); }}
+                    onMouseEnter={() => { this.setSelectedIndex(0); }}
                 >
                     <span className="context-get-help-text">
                         <i>get help with {initiatingTrigger}</i>
