@@ -378,14 +378,14 @@ export default class VisualizerManager {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="Page-1" stroke="none" strokeWidth=".5" fill="none" fillRule="evenodd">
                     <g id="Group-39" stroke={strokeColor} strokeWidth=".75">
-                        <rect x="10" y="1" width="5" height="3" fill="#C4C4C4" />
-                        <rect y="14.5" width="16" height="0.3" fill="#C4C4C4" />
-                        <rect width="1.25" height="15" transform="matrix(1 0 0 -1 0 15)" fill="#C4C4C4" />
-                        <rect x="10" y="5.5" width="5" height="3" fill="#C4C4C4" />
-                        <rect x="10" y="10" width="5" height="3" fill="#C4C4C4" />
-                        <rect x="3" y="1" width="5" height="3" fill="#C4C4C4" />
-                        <rect x="3" y="5.5" width="5" height="3" fill="#C4C4C4" />
-                        <rect x="3" y="10" width="5" height="3" fill="#C4C4C4" />
+                        <rect x="10" y="1" width="5" height="3" fill={strokeColor} />
+                        <rect y="14.5" width="16" height="0.3" fill={strokeColor} />
+                        <rect width="1.25" height="15" transform="matrix(1 0 0 -1 0 15)" fill={strokeColor} />
+                        <rect x="10" y="5.5" width="5" height="3" fill={strokeColor} />
+                        <rect x="10" y="10" width="5" height="3" fill={strokeColor} />
+                        <rect x="3" y="1" width="5" height="3" fill={strokeColor} />
+                        <rect x="3" y="5.5" width="5" height="3" fill={strokeColor} />
+                        <rect x="3" y="10" width="5" height="3" fill={strokeColor} />
                     </g>
                 </g>
             </svg>
