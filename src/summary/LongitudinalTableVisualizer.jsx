@@ -1,10 +1,10 @@
 import React from 'react';
 import Visualizer from './Visualizer';
-import LongitudinalViewVisualizerTable from './LongitudinalViewVisualizerTable';
+import LongitudinalTable from './LongitudinalTable';
 import _ from 'lodash';
 import propTypes from 'prop-types';
 
-export default class LongitudinalViewVisualizer extends Visualizer {
+export default class LongitudinalTableVisualizer extends Visualizer {
 
     constructor(props) {
         super(props);
@@ -43,13 +43,13 @@ export default class LongitudinalViewVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalViewVisualizerTable dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel}/>
+                <LongitudinalTable dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel}/>
             </div>
         );
     }
 }
 
-LongitudinalViewVisualizer.propTypes = {
+LongitudinalTableVisualizer.propTypes = {
     actions: propTypes.array,
     allowItemClick: propTypes.bool,
     condition: propTypes.object,

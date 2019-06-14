@@ -21,7 +21,7 @@ import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesInd
 import ReviewOfSystemsValuesIndexer from '../patientControl/ReviewOfSystemsValuesIndexer';
 import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
 import BaseIndexer from '../patientControl/BaseIndexer';
-import LongitudinalViewVisualizer from './LongitudinalViewVisualizer';
+import LongitudinalTableVisualizer from './LongitudinalTableVisualizer';
 
 export default class VisualizerManager {
     constructor(user) {
@@ -225,7 +225,7 @@ export default class VisualizerManager {
         { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
         { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
         { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns, renderedFormat: "Columns" },
-        { "dataType": "ValueOverTime", "visualizerType": "longitudinal-view", "visualizer": LongitudinalViewVisualizer },
+        { "dataType": "ValueOverTime", "visualizerType": "longitudinal-view", "visualizer": LongitudinalTableVisualizer },
         { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
         { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
         { "dataType": "ReviewOfSystemsValues", "visualizerType": "chart", "visualizer": ExpandedTableVisualizer },

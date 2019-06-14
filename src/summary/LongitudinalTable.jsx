@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
 import moment from 'moment';
-import './LongitudinalViewVisualizerTable.css';
+import './LongitudinalTable.css';
 import propTypes from 'prop-types';
 
-export default class LongitudinalViewVisualizerTable extends Component {
+export default class LongitudinalTable extends Component {
 
     /*
     Assigns an id to each row
@@ -113,7 +113,7 @@ export default class LongitudinalViewVisualizerTable extends Component {
     }
 };
 
-LongitudinalViewVisualizerTable.propTypes = {
+LongitudinalTable.propTypes = {
     dataInfo: propTypes.array.isRequired,
     tdpSearchSuggestions: propTypes.array,
     conditionSectionName: propTypes.string
