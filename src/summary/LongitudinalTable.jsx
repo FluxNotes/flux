@@ -113,7 +113,7 @@ export default class LongitudinalTable extends Component {
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
                     <TableCell className='star-cell'> {_.includes(this.state.favorites, n.name) ? <FontAwesome className='star' name='star' /> : <div></div> }</TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); }}>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.onClick(n.name); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>

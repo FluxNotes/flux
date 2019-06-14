@@ -8,7 +8,12 @@ export default class LongitudinalTableVisualizer extends Visualizer {
 
     constructor(props) {
         super(props);
-        this.state = { data: this.formatData(this.props.conditionSection.data) };
+        const formattedData = this.formatData(this.props.conditionSection.data);
+        this.state = {
+            data: formattedData,
+            dataArray: [...this.props.conditionSection.data], //clone
+        };
+        this.onClick = this.onClick.bind(this);
     }
     formatData(section) { //creates an array with one object for each section (wbc, platelets, etc.)
         const data = [];
@@ -20,12 +25,28 @@ export default class LongitudinalTableVisualizer extends Visualizer {
                         unit: section[conditionIndex].data_cache[0].unit,
                         datesAndData: this.buildDataObject(conditionIndex, section),
                         bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
-                        favorite: false,
+                        favorite: false
                     }
                 );
             }
         }
         return data;
+    }
+    onClick(clickedSection) {
+        const data = [...this.state.data];
+        const element = data.find((section) => { //element is the row that was clicked
+            return (section.name === clickedSection);
+        });
+        element.favorite = !element.favorite;
+        const finalArray = [];
+        data.forEach((section) => { //to get the favorites in front of the not favorites
+            if (section.favorite) {
+                finalArray.unshift(section);
+            } else {
+                finalArray.push(section);
+            }
+        });
+        this.setState({ data: finalArray });
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {
@@ -44,7 +65,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalTable dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel}/>
+                <LongitudinalTable onClick={this.onClick} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} />
             </div>
         );
     }
