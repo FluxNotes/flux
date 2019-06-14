@@ -11,7 +11,6 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         const formattedData = this.formatData(this.props.conditionSection.data);
         this.state = {
             data: formattedData,
-            dataArray: [...this.props.conditionSection.data], //clone
         };
         this.onClick = this.onClick.bind(this);
     }
