@@ -60,7 +60,7 @@ export class CompassApp extends Component {
         if (Lang.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
         } else {
-            this.dataAccess = new DataAccess(this.props.dataSource);
+            this.dataAccess = new DataAccess(this.props.dataSource, this.props.dataSourceProps);
         }
 
         //        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);

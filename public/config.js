@@ -31,6 +31,9 @@
         app: "CompassApp",
         isExact: true,
         dataSource: 'McodeV05SmartOnFhirDataSource',
+        dataSourceProps: {
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure']
+        },
         logoObject: {
             path: './compass-logo.png',
             altText: 'Compass logo',

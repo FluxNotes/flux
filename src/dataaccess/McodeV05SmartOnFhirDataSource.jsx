@@ -4,7 +4,7 @@ import processFHIRResources from './utils/fhir-entry-processor';
 import 'fhirclient';
 
 class McodeV05SmartOnFhirDataSource extends IDataSource {
-    constructor() {
+    constructor(props) {
         super();
         this._gestalt = {
             create: {
@@ -24,6 +24,8 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
                 sync: false
             }
         };
+
+        this.resourceTypes = props && props.resourceTypes;
     }
     getGestalt() {
         return this._gestalt;
@@ -85,8 +87,17 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
     }
 
     fetchResources() {
-        return this._getClientAsync().then(client => client.patient.api.conformance({}))
-            .then(metadata => metadata.data.rest[0].resource.map(res => res.type))
+        let promise = this._getClientAsync(); // have to ensure the client is loaded first
+
+        if (this.resourceTypes) {
+            promise = promise.then((_) => this.resourceTypes);
+        } else {
+            promise = promise
+                .then(client => client.patient.api.conformance({}))
+                .then(metadata => metadata.data.rest[0].resource.map(res => res.type));
+        }
+
+        return promise
             .then(resourceTypes => {
                 // the FHIR client library does not seem to support calling Patient$everything,
                 // so we fake it by manually fetching all the resource types.
