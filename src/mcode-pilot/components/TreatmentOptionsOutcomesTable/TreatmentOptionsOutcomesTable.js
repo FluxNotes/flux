@@ -24,6 +24,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     componentDidMount() {
         document.addEventListener('click', this.closePoppers);
+        const sideEffects = this.gatherSideEffects(this.props.comparedTreatmentData, this.props.includedTreatmentData);
+        this.setState({ sideEffects });
     }
 
     componentWillUnmount() {
