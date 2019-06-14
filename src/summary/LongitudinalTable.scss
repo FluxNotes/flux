@@ -8,13 +8,13 @@
 }
 .name {
     &:hover {
-        color: blue !important;
+        color: #028DEA !important;
         cursor: pointer !important;
         background-color: $feature-gray !important;
     }
 }
 .star {
-    color: #b7d2ff;
+    color: #028DEA;
 }
 .star-cell {
     padding-left: 0px !important;
