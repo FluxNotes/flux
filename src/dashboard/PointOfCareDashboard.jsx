@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Lang from 'lodash';
 import TargetedDataPanel from '../panels/TargetedDataPanel';
-import PointOfCarePanel from '../panels/PointOfCarePanel';
+import PointOfCare from '../notes/PointOfCare';
 import Button from '../elements/Button';
 import './PointOfCareDashboard.css';
+import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
 
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
         super(props);
+
+        const note = this.getFirstInProgressNote();
+        const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
+        inMemoryClinicalNote.parse(note.content);
+        const nodes = inMemoryClinicalNote.getNodes();
+        this.placeholderList = [];
+        nodes.forEach((node, i) => {
+            if (node.type === 'shortcut') {
+                this.createShortcut(node.trigger, i);
+            } else if (node.type === 'placeholder') {
+                let newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
+                this.placeholderList.push(newPlaceholder);
+            }
+        });
 
         this.state = {
             showPOC: false
@@ -81,6 +97,46 @@ export default class PointOfCareDashboard extends Component {
         );
     }
 
+    getFirstInProgressNote() {
+        const notes = this.props.patient.getInProgressNotes();
+        return notes[0];
+    }
+
+    placeholderCheck = (text) => {
+        const { shortcutManager } = this.props;
+
+        if (!text.startsWith("<") || !text.endsWith(">")) return false;
+        const placeholderShortcuts = shortcutManager.getAllPlaceholderShortcuts();
+        const remainderText = text.slice(1, -1).toLowerCase();
+
+        return placeholderShortcuts.some((placeholderShortcut) => {
+            const triggers = shortcutManager.getTriggersForShortcut(placeholderShortcut.id);
+
+            return triggers.some((trigger) => {
+                const triggerNoPrefix = trigger.name.slice(1);
+                return triggerNoPrefix.toLowerCase() === remainderText;
+            });
+        });
+    }
+
+    newPlaceholder = (placeholderText, data, key) => {
+        const shortcutName = "#" + placeholderText.substring(1, placeholderText.length-1); // strip off < and > and add #
+        const result = this.props.shortcutManager.createPlaceholder(shortcutName, placeholderText, data, this.props.contextManager, this.props.patient, this.props.selectedNote, this.props.setForceRefresh);
+        result.setKey(key);
+        return result;
+    }
+
+    createShortcut(triggerOrKeywordObject, key) {
+        const triggerOrKeywordText = (Lang.isUndefined(triggerOrKeywordObject.trigger)) ? triggerOrKeywordObject.keyword : triggerOrKeywordObject.trigger;
+        const shortcut = this.props.shortcutManager.createShortcut(
+            triggerOrKeywordObject.definition, triggerOrKeywordText, this.props.patient,
+            triggerOrKeywordObject.selectedValue, this.handleShortcutUpdate);
+        shortcut.setSource("parsed note");
+        shortcut.initialize(this.props.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
+        shortcut.setKey(key);
+
+        return shortcut;
+    }
     renderPocIcon() {
         return this.state.showPOC ? this._selectedPocIcon() : this._unselectedPocIcon();
     }
@@ -140,10 +196,9 @@ export default class PointOfCareDashboard extends Component {
             "WebkitTransition": "width .5s", /* Safari */
             "transition": "width .5s",
         };
-
         return (
             <div className="right-border-box point-of-care-container" style={PointOfCarePanelStyles}>
-                <PointOfCarePanel />
+                <PointOfCare placeholders={this.placeholderList} />
             </div>
         );
     }
@@ -161,16 +216,20 @@ export default class PointOfCareDashboard extends Component {
 PointOfCareDashboard.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.object.isRequired,
+    contextManager: PropTypes.object.isRequired,
     dataAccess: PropTypes.object.isRequired,
     forceRefresh: PropTypes.bool,
     loginUser: PropTypes.object.isRequired,
+    patient: PropTypes.object.isRequired,
     preferenceManager: PropTypes.object.isRequired,
     searchSelectedItem: PropTypes.object,
     setForceRefresh: PropTypes.func.isRequired,
     setFullAppStateWithCallback: PropTypes.func.isRequired,
     setSearchSelectedItem: PropTypes.func.isRequired,
+    shortcutManager: PropTypes.object.isRequired,
     summaryMetadata: PropTypes.object.isRequired,
     searchIndex: PropTypes.object.isRequired,
+    structuredFieldMapManager: PropTypes.object.isRequired,
     searchSuggestions: PropTypes.array,
-    highlightedSearchSuggestion: PropTypes.object
+    highlightedSearchSuggestion: PropTypes.object,
 };

@@ -301,7 +301,7 @@ export default class NotesPanel extends Component {
                             </Row>
                             <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
                                 <PointOfCare
-                                    structuredFieldMapManager={this.props.structuredFieldMapManager}
+                                    placeholders={this.props.structuredFieldMapManager.placeholders}
                                     isAppBlurred={this.props.isAppBlurred}
                                     ref={(poc) => { this.pointOfCare = poc; }} />
                             </Row>

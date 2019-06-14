@@ -11,15 +11,20 @@ class Placeholder {
         this._setForceRefresh = setForceRefresh;
         this.uniqueId = v4();
         let shortcuts = [];
+        let newShortcut;
         if (data) {
             let parsedData = JSON.parse(data);
-            parsedData.entryIds.forEach((id) => {
-                shortcuts.push(shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this)));
+            parsedData.entryIds.forEach((id, index) => {
+                newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this));
+                newShortcut.setKey("" + index);
+                shortcuts.push(newShortcut);
             });
             this._entryShortcuts = shortcuts;
             this._numUpdates = 1;
         } else {
-            this._entryShortcuts = [shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this))];
+            newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
+            newShortcut.setKey("foo");
+            this._entryShortcuts = [ newShortcut ];
             this._entryShortcuts[0].initialize();
             this._numUpdates = 0;
         }

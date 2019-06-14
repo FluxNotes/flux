@@ -37,6 +37,7 @@ export default class InsertValue extends Shortcut {
             const shortcutDataObj = JSON.parse(shortcutData);
             this.text = shortcutDataObj.text;
             if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
+
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
             this.setWasRemovedFromContext(shortcutDataObj.wasRemovedFromContext);
@@ -108,7 +109,6 @@ export default class InsertValue extends Shortcut {
                     const itemKey = callSpec["itemKey"].split(".");
                     const itemContext = callSpec["itemContext"].split(".");
                     const dateLabel = callSpec["dateLabel"];
-
                     return result.map((item) => {
                         return {
                             key: this._getValueUsingPath(item, itemKey),

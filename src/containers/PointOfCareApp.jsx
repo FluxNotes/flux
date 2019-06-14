@@ -23,6 +23,9 @@ import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
 import LoadingAnimation from '../loading/LoadingAnimation';
 import LoadingError from '../loading/LoadingError';
+import ShortcutManager from '../shortcuts/ShortcutManager';
+import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
+import ContextManager from '../context/ContextManager';
 
 import '../styles/PointOfCareApp.css';
 
@@ -58,7 +61,7 @@ export class PointOfCareApp extends Component {
         this.timeoutDuration = 1000;
 
         if (Lang.isUndefined(this.props.dataSource)) {
-            this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
+            this.dataAccess = new DataAccess("HardcodedTabletMcodeV01DataSource");
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
@@ -66,6 +69,8 @@ export class PointOfCareApp extends Component {
         this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
         this.securityManager = new SecurityManager();
         this.searchIndex = new SearchIndex();
+        this.shortcutManager = new ShortcutManager(this.props.shortcuts);
+        this.structuredFieldMapManager = new StructuredFieldMapManager();
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -98,6 +103,7 @@ export class PointOfCareApp extends Component {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
+                this.contextManager = new ContextManager(patient);
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
@@ -109,6 +115,7 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
+                this.contextManager = new ContextManager(patient);
                 this.setState({
                     patient,
                     loading: false
@@ -128,6 +135,12 @@ export class PointOfCareApp extends Component {
                 loadingErrorObject: supportedError
             });
         }
+        this.contextManager.setIsBlock1BeforeBlock2((key1, offset1, key2, offset2, state) => {
+            return key1 < key2;
+        });
+        this.contextManager.setGetContextsBeforeSelection(() => {
+            return [];
+        });
     }
 
     componentDidMount = () => {
@@ -228,6 +241,10 @@ export class PointOfCareApp extends Component {
         this.setState({ isAppBlurred });
     }
 
+    onContextUpdate = () => {
+        this.setState({contextManager: this.contextManager});
+    }
+
     renderLoadingInformation = () => {
         // Note well: The renders below fade in or out based on state of the loading in the app
         // We define a loading error as occuring when:
@@ -288,11 +305,16 @@ export class PointOfCareApp extends Component {
                                     <PointOfCareDashboard
                                         // App default settings
                                         actions={[]}
+                                        shortcutManager={this.shortcutManager}
+                                        structuredFieldMapManager={this.structuredFieldMapManager}
+                                        contextManager={this.contextManager}
                                         forceRefresh={this.state.forceRefresh}
                                         appState={this.state}
+                                        onContextUpdate={this.onContextUpdate}
                                         dataAccess={this.dataAccess}
                                         highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                                         loginUser={this.state.loginUser}
+                                        patient={this.state.patient}
                                         preferenceManager={this.preferenceManager}
                                         searchSelectedItem={this.state.searchSelectedItem}
                                         setForceRefresh={this.setForceRefresh}
