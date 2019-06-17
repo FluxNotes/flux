@@ -174,7 +174,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderHeader = () => {
-        const { sideEffectSelection, sideEffects, sortColumn, sortDirection } = this.state;
+        const { sideEffectSelection, sortColumn, sortDirection } = this.state;
         const sortName = sortDirection === 1 ? "sort-up" : sortDirection === 2 ? "sort-down" : "sort";
         const sort1 = sortColumn === "oneYrSurvival";
         const sort3 = sortColumn === "threeYrSurvival";
