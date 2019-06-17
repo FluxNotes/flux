@@ -79,11 +79,6 @@ class ContextGetHelp extends React.Component {
                 this.props.closePortal();
             }
 
-            // TO-DO what to do if getHelp is selected... nothing? close the portal?
-            else if (this.state.selectedIndex === 0) {
-                console.log('get help selected');
-            }
-
             // one of the get help options is selected via enter key
             else if (this.state.selectedIndex > 0) {
                 e.preventDefault();
@@ -116,7 +111,11 @@ class ContextGetHelp extends React.Component {
     }
 
     render() {
-        const initiatingTrigger = this.props.shortcut.initiatingTrigger.replace('#','');
+        const initiatingTrigger = this.props.shortcut.initiatingTrigger.replace('#', '');
+        let iconClass = 'fa fa-angle-';
+        if (this.state.selectedIndex === -1) iconClass += 'down';
+        else iconClass += 'up';
+
         return (
             <ul className="context-get-help" ref="contextGetHelp">
                 <li
@@ -127,7 +126,7 @@ class ContextGetHelp extends React.Component {
                 >
                     <span className="context-get-help-text">
                         <i>get help with {initiatingTrigger}</i>
-                        <span className="fa fa-angle-down"></span>
+                        <span className={iconClass}></span>
                     </span>
                 </li>
                 {this.renderOptions()}
