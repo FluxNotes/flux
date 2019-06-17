@@ -180,6 +180,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const sort3 = sortColumn === "threeYrSurvival";
         const sort5 = sortColumn === "fiveYrSurvival";
         const sortP = sortColumn === "totalPatients";
+        const sideEffects = this.gatherSideEffects(this.props.comparedTreatmentData, this.props.includedTreatmentData);
+
         return (
             <div className="treatment-options-outcomes-table__header">
                 <div className="flex-2 flex-padding"></div>
