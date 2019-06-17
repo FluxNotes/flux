@@ -252,7 +252,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     }
 
-    sortAlphabetically(a,b) {
+    alphabeticalCompare(a,b) {
         const displayA = a.displayName;
         const displayB = b.displayName;
         if (displayA < displayB) {
@@ -278,12 +278,12 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         if (this.state.sortDirection) {
             // it could be ascending or descending, but its sorted
             comparedTreatmentData.sort(this.treatmentCompare(this.state.sortColumn));
-            if (this.state.sortDirection === 2) {
+            if (this.state.sortDirection === 1) {
                 // descending
                 comparedTreatmentData.reverse();
             }
         } else {
-            comparedTreatmentData.sort(this.sortAlphabetically);
+            comparedTreatmentData.sort(this.alphabeticalCompare);
         }
 
         return (
