@@ -21,6 +21,7 @@ import DiseaseStatusValuesIndexer from '../patientControl/DiseaseStatusValuesInd
 import ReviewOfSystemsValuesIndexer from '../patientControl/ReviewOfSystemsValuesIndexer';
 import ClusterPointsIndexer from '../patientControl/ClusterPointsIndexer';
 import BaseIndexer from '../patientControl/BaseIndexer';
+import LongitudinalTableVisualizer from './LongitudinalTableVisualizer';
 
 export default class VisualizerManager {
     constructor(user) {
@@ -224,6 +225,7 @@ export default class VisualizerManager {
         { "dataType": "Medications", "visualizerType": "chart", "visualizer": MedicationRangeChartVisualizer },
         { "dataType": "ValueOverTime", "visualizerType": "chart", "visualizer": BandedLineChartVisualizer },
         { "dataType": "ValueOverTime", "visualizerType": "tabular", "visualizer": TabularListVisualizer, "transform": this.transformValuesOverTimeToColumns, renderedFormat: "Columns" },
+        { "dataType": "ValueOverTime", "visualizerType": "longitudinal-view", "visualizer": LongitudinalTableVisualizer },
         { "dataType": "NarrativeOnly", "visualizerType": "narrative", "visualizer": NarrativeNameValuePairsVisualizer },
         { "dataType": "DiseaseStatusValues", "visualizerType": "chart", "visualizer": ProgressionLineChartVisualizer },
         { "dataType": "ReviewOfSystemsValues", "visualizerType": "chart", "visualizer": ExpandedTableVisualizer },
@@ -285,6 +287,8 @@ export default class VisualizerManager {
             return this._chartIcon(isSelected);
         } else if (visualizerType === 'scatterplot') {
             return this._scatterplotIcon(isSelected);
+        } else if (visualizerType === 'longitudinal-view') {
+            return this._longitudinalViewIcon(isSelected);
         }
         return null;
     }
@@ -362,6 +366,26 @@ export default class VisualizerManager {
                         <circle cx="5.125" cy="6.69152832" r=".75" strokeWidth=".5" fill={strokeColor} />
                         <circle cx="9.5" cy="11.2852783" r=".75" strokeWidth=".5" fill={strokeColor} />
                         <circle cx="12.34375" cy="7.97277832" r=".75" strokeWidth=".5" fill={strokeColor} />
+                    </g>
+                </g>
+            </svg>
+        );
+    }
+
+    _longitudinalViewIcon = (isSelected) => {
+        const strokeColor = isSelected ? "#3F3F3F" : "#CCCCCC";
+        return (
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Page-1" stroke="none" strokeWidth=".5" fill="none" fillRule="evenodd">
+                    <g id="Group-39" stroke={strokeColor} strokeWidth=".75">
+                        <rect x="10" y="1" width="5" height="3" fill={strokeColor} />
+                        <rect y="14.5" width="16" height="0.3" fill={strokeColor} />
+                        <rect width="1.25" height="15" transform="matrix(1 0 0 -1 0 15)" fill={strokeColor} />
+                        <rect x="10" y="5.5" width="5" height="3" fill={strokeColor} />
+                        <rect x="10" y="10" width="5" height="3" fill={strokeColor} />
+                        <rect x="3" y="1" width="5" height="3" fill={strokeColor} />
+                        <rect x="3" y="5.5" width="5" height="3" fill={strokeColor} />
+                        <rect x="3" y="10" width="5" height="3" fill={strokeColor} />
                     </g>
                 </g>
             </svg>

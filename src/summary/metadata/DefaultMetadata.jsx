@@ -78,7 +78,8 @@ export default class DefaultMetadata extends MetadataSection {
                     type: "ValueOverTime",
                     data: [
                         WhiteBloodCellCountSubsection
-                    ]
+                    ],
+                    subsectionLabel: "Lab Name",
                 },
                 TimelineSection
             )
