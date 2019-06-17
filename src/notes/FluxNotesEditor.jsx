@@ -28,6 +28,7 @@ import './FluxNotesEditor.css';
 import { setTimeout } from 'timers';
 import NoteContentIndexer from '../patientControl/NoteContentIndexer';
 import InMemoryClinicalNote from './InMemoryClinicalNote';
+import InsertValue from '../shortcuts/InsertValue';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -302,9 +303,9 @@ class FluxNotesEditor extends React.Component {
         }
 
         const shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
-
+        shortcut.initialContextPosition = initialContextPosition;
         transform = this.insertStructuredFieldTransform(transform, shortcut).collapseToStartOfNextText();
-        if (shortcut.isComplete === false) {
+        if (shortcut instanceof InsertValue && shortcut.isComplete === false) {
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
@@ -1390,7 +1391,9 @@ class FluxNotesEditor extends React.Component {
                         transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
                         pickListCount++;
                     } else {
-                        transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, node.trigger.selectedValue, transform, updatePatient, source, shortcutsUntilSelection.length);
+                        // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
+                        const nodeText = node.trigger.selectedValue || "";
+                        transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
                         this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
                     }
                 } else if (node.type === 'placeholder') {
