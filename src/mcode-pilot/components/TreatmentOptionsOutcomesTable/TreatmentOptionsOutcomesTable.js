@@ -238,7 +238,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
-    sortTreatments(propName) {
+    treatmentCompare(propName) {
         if (propName==="totalPatients") {
             // sort by number of patients, no need to get ratio
             return function(a,b) {
@@ -277,7 +277,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
         if (this.state.sortDirection) {
             // it could be ascending or descending, but its sorted
-            comparedTreatmentData.sort(this.sortTreatments(this.state.sortColumn));
+            comparedTreatmentData.sort(this.treatmentCompare(this.state.sortColumn));
             if (this.state.sortDirection === 2) {
                 // descending
                 comparedTreatmentData.reverse();
