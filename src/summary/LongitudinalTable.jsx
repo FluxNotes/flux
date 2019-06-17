@@ -167,7 +167,6 @@ export default class LongitudinalTable extends Component {
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
                 </TableRow>
-
             );
         });
     }
