@@ -156,5 +156,7 @@ export default class LongitudinalTable extends Component {
 LongitudinalTable.propTypes = {
     dataInfo: propTypes.array.isRequired,
     tdpSearchSuggestions: propTypes.array,
-    conditionSectionName: propTypes.string
+    conditionSectionName: propTypes.string,
+    onClick: propTypes.func,
+    subsectionLabel: propTypes.string,
 };
