@@ -262,6 +262,12 @@ export class Minimap extends React.Component {
   synchronize(options) {
       const {width, height} = this.state;
 
+      if (!this.source) {
+        // unexpected condition here, likely caused by re-rendering due to an async data chance
+        // which resulted in the `source` ref getting unset and it has not yet been reset.
+        return;
+      }
+
       const rect = this.source.getBoundingClientRect();
 
       const dims = [ rect.width, rect.height ];
