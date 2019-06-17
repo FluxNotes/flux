@@ -17,8 +17,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         this.state = {
             includedOpen: false,
             comparedOpen: false,
-            sideEffectSelection: 'Most Common',
-            sideEffects: []
+            sideEffectSelection: 'Most Common'
         };
     }
 
@@ -28,11 +27,6 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.closePoppers);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const sideEffects = this.gatherSideEffects(nextProps.comparedTreatmentData, nextProps.includedTreatmentData);
-        this.setState({ sideEffects });
     }
 
     gatherSideEffects = (comparedTreatmentData, includedTreatmentData) => {
@@ -160,8 +154,9 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderHeader = () => {
-        const { sideEffectSelection, sideEffects } = this.state;
+        const { sideEffectSelection } = this.state;
 
+        const sideEffects = this.gatherSideEffects(this.props.comparedTreatmentData, this.props.includedTreatmentData);
         return (
             <div className="treatment-options-outcomes-table__header">
                 <div className="flex-2 flex-padding"></div>
