@@ -29,6 +29,7 @@ class ContextGetHelp extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log('here');
         this.props.closePortal();
     }
 
@@ -50,8 +51,7 @@ class ContextGetHelp extends React.Component {
      * Change the menu position based on the amount of places to move
      */
     changeMenuPosition = (change) => {
-        // TO-DO what do do after last one
-        const optionsCount = this.state.getHelpOptions.length + 1;
+        const optionsCount = this.state.getHelpOptions.length;
         let newSelectedIndex = this.state.selectedIndex;
         if ((change === -1 && this.state.selectedIndex > -1) || (change === 1 && this.state.selectedIndex < optionsCount)) {
             newSelectedIndex = this.state.selectedIndex + change;
@@ -72,15 +72,23 @@ class ContextGetHelp extends React.Component {
         } else if (keyCode === ENTER_KEY) {
             // NOTE: This operations might not work on SyntheticEvents which are populat in react
 
-            // TO-DO what to do if getHelp is selected... nothing? close the portal?
-            if (this.state.selectedIndex > 0) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
-            } else if (this.state.selectedIndex === -1) {
+            // close portal if enter key is pressed but no dropdown option is in focus
+            if (this.state.selectedIndex === -1) {
                 e.preventDefault();
                 e.stopPropagation();
                 this.props.closePortal();
+            }
+
+            // TO-DO what to do if getHelp is selected... nothing? close the portal?
+            else if (this.state.selectedIndex === 0) {
+                console.log('get help selected');
+            }
+
+            // one of the get help options is selected via enter key
+            else if (this.state.selectedIndex > 0) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
             }
         }
     }
@@ -100,7 +108,8 @@ class ContextGetHelp extends React.Component {
                             onMouseEnter={() => { this.setSelectedIndex(updatedIndex); }}
                         >
                             {option.text}
-                        </li>);
+                        </li>
+                    );
                 })}
             </span>
         );
