@@ -6,8 +6,7 @@
     min-width: 60px;
 }
 .table-scrollable {
-    // overflow-x: scroll !important;
-    overflow: hidden;
+    overflow-x: scroll !important;
 }
 .name {
     &:hover {
