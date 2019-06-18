@@ -119,11 +119,6 @@ export default class LongitudinalTable extends Component {
     }
     renderData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
-            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
-                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
-            });
-            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
-            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
             return (
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
@@ -169,24 +164,23 @@ export default class LongitudinalTable extends Component {
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
                 </TableRow>
+
             );
         });
     }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
-        let currYear = null;
-        const matchingSubsection = null;
         return (
-            <div className='tabular-list table-scrollable'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
-                <div className='floatLeft'>
-                    <Table style={{ float: 'left' }}>
+            <div className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+                <div>
+                    <Table style={{ float: 'left' }} className = 'longitudinal-table'>
                         <TableHead>
-                            <TableRow className='table-left'>
-                                <TableCell className='star-cell'></TableCell>
+                            <TableRow className='left-table-top'>
+                                <TableCell className='star-cell'>&nbsp;</TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
-                            <TableRow className='table-left-two'>
+                            <TableRow>
                                 <TableCell className='star-cell'></TableCell>
                                 <TableCell className='table-header'>{this.props.subsectionLabel}</TableCell>
                                 <TableCell className='table-header'>Unit</TableCell>
@@ -197,8 +191,8 @@ export default class LongitudinalTable extends Component {
                         </TableBody>
                     </Table>
                 </div>
-                <div className='floatRight'>
-                    <Table>
+                <div className='table-scrollable'>
+                    <Table className = 'longitudinal-table'>
                         {this.renderHeader(dates)}
                         <TableBody>
                             {this.renderData(tableValues)}

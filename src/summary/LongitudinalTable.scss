@@ -2,11 +2,11 @@
 
 .table-header {
     padding-left: 10px !important;
-
+    padding-right: 10px !important;
+    min-width: 60px;
 }
 .table-scrollable {
-    // overflow-x: scroll !important;
-    overflow: hidden;
+    overflow-x: scroll !important;
 }
 .name {
     &:hover {
@@ -27,18 +27,6 @@
     text-align: center !important;
     min-width: 30px !important;
 }
-.floatLeft {
-    // display: inline-block
-    float: left !important;
-    width: 25% !important;
-}
-.floatRight{
-    float: right !important;
-    width: 75% !important;
-}
-.table-left{
-    min-height: 23px;
-}
-.table-left-two{
-    min-height: 28px;
+.longitudinal-table{
+    padding-right: 10px !important;
 }
