@@ -5,6 +5,7 @@ import moment from 'moment';
 import { v4 } from 'uuid';
 import ContextCalendar from '../context/ContextCalendar';
 import ContextListOptions from '../context/ContextListOptions';
+import ContextGetHelp from '../context/ContextGetHelp';
 
 class Shortcut extends Context {
     constructor() {
@@ -172,6 +173,11 @@ class Shortcut extends Context {
     }
 
     get completionComponent() {
+        // If a single hashtag keyword or creator intermediary, completion component is get help
+        if (this.metadata.type === 'SingleHashtagKeyword' || this.metadata.type === 'CreatorIntermediary') {
+            return ContextGetHelp;
+        }
+
         switch (this.metadata.subtype) {
         case "number":
             console.error(`We don't currently support a completion component for ${this.metadata.subtype}-subtypes; trying to get a completionComponent for ${this.metadata.id}`);
