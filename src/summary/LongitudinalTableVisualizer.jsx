@@ -29,22 +29,42 @@ export default class LongitudinalTableVisualizer extends Visualizer {
                 );
             }
         }
+        this.sortData(data);
         return data;
+    }
+    sortData(formattedData){
+        formattedData.sort((section1, section2) => {
+            if(section1.name < section2.name){
+                return -1;
+            } else if (section1.name > section2.name){
+                return 1;
+            } else{
+                return 0;
+            }
+            });
+        return formattedData;
     }
     onClick(clickedSection) {
         const data = [...this.state.data];
-        const element = data.find((section) => { //element is the row that was clicked
+        const element = data.find((section) => { //element is the formatted data object for the row that was clicked
             return (section.name === clickedSection);
         });
         element.favorite = !element.favorite;
-        const finalArray = [];
+        const separatedArray = [];
+        let numFavs = 0;
         data.forEach((section) => { //to get the favorites in front of the not favorites
             if (section.favorite) {
-                finalArray.unshift(section);
+                separatedArray.unshift(section);
+                numFavs ++;
             } else {
-                finalArray.push(section);
+                separatedArray.push(section);
             }
         });
+        const favsArray = _.slice(separatedArray, 0,numFavs); //take just the favs and sort them alphabetically
+        this.sortData(favsArray);
+        const notFavsArray = _.slice(separatedArray,numFavs,separatedArray.length); //take just the not favs and sort them alphabetically
+        this.sortData(notFavsArray);
+        const finalArray = _.concat(favsArray,notFavsArray); //but the favs back together with the not favs in one array
         this.setState({ data: finalArray });
     }
     componentWillReceiveProps(nextProps) {
