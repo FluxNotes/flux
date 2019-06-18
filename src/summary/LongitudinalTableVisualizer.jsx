@@ -32,16 +32,16 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         this.sortData(data);
         return data;
     }
-    sortData(formattedData){
+    sortData(formattedData) {
         formattedData.sort((section1, section2) => {
-            if(section1.name < section2.name){
+            if (section1.name < section2.name) {
                 return -1;
-            } else if (section1.name > section2.name){
+            } else if (section1.name > section2.name) {
                 return 1;
-            } else{
+            } else {
                 return 0;
             }
-            });
+        });
         return formattedData;
     }
     onClick(clickedSection) {
