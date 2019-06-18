@@ -25,7 +25,6 @@ class ContextGetHelp extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log('here');
         this.props.closePortal();
     }
 
