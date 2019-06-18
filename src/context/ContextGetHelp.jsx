@@ -15,10 +15,6 @@ class ContextGetHelp extends React.Component {
             {
                 text: 'expand',
                 onSelect: this.expand
-            },
-            {
-                text: 'open GUI',
-                onSelect: this.openGui
             }
         ];
 
@@ -35,11 +31,6 @@ class ContextGetHelp extends React.Component {
 
     expand = () => {
         console.log('the expand option has been selected, expanding ' + this.props.shortcut.initiatingTrigger);
-        this.props.closePortal();
-    }
-
-    openGui = () => {
-        console.log('the open gui option has been selected');
         this.props.closePortal();
     }
 
