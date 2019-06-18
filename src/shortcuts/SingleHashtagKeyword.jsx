@@ -1,4 +1,5 @@
 import EntryShortcut from './EntryShortcut';
+
 export default class SingleHashtagKeyword extends EntryShortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
         super(metadata);
@@ -20,16 +21,5 @@ export default class SingleHashtagKeyword extends EntryShortcut {
 
     get isComplete() {
         return this.parentContext && this.hasChildren();
-    }
-
-    get isComplete() {
-        return this.hasChildren();
-    }
-
-    get completionComponent() {
-        if (!this.isComplete) {
-            return ContextGetHelp;
-        }
-        return null;
     }
 }
