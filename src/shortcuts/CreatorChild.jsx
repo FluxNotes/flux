@@ -64,7 +64,9 @@ export default class CreatorChild extends Shortcut {
         let result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
             const parentAttributeName = this.metadata.parentAttribute;
-            if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
+
+            if (this.metadata["subtype"] && this.metadata["subtype"] === "multi-choice") {
+                //console.log("onBeforeDeleted of a list item");
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
                 let newList = currentList.filter((item) => {

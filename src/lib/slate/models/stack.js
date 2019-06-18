@@ -155,6 +155,7 @@ for (const method of EVENT_HANDLER_METHODS) {
 
     for (const plugin of this.plugins) {
       if (!plugin[method]) continue
+      // NOTE: This is where we iterate over over all our plugins calling the current event handler method
       const next = plugin[method](...args, state, editor)
       if (next == null) continue
       assertState(next)
@@ -177,7 +178,7 @@ for (const method of EVENT_HANDLER_METHODS) {
 for (const method of STATE_ACCUMULATOR_METHODS) {
   Stack.prototype[method] = function (state, editor, ...args) {
     debug(method)
-
+    // NOTE: This is where onChange gets called over all our plugins
     for (const plugin of this.plugins) {
       if (!plugin[method]) continue
       const next = plugin[method](...args, state, editor)

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Slate from '../lib/slate';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
-import ContextPortal from '../context/ContextPortal';
+import CompletionPortal from  '../context/EditorPortal';
 import SuggestionPortalShortcutSearchIndex from './SuggestionPortalShortcutSearchIndex';
 import SuggestionPortalPlaceholderSearchIndex from './SuggestionPortalPlaceholderSearchIndex';
 // versions 0.20.3-0.20.7 of Slate seem to have an issue.
@@ -21,6 +21,7 @@ import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
+import CompletionPortalPlugin from './CompletionPortalPlugin';
 import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -68,6 +69,31 @@ const initialEditorState = {
 };
 
 class FluxNotesEditor extends React.Component {
+    openCompletionPortal = (completionComponentShortcut) => {
+        // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
+        const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
+        this.setState({
+            completionComponentShortcut: completionComponentShortcut,
+            portalOptions: portalOptions,
+            completionComponent: completionComponentShortcut.completionComponent,
+            openedPortal: "CompletionPortal",
+        });
+    }
+
+    closeCompletionPortal = () => {
+        // Clean up some variables stored at the Editor level
+        this.setState({
+            completionComponentShortcut: null,
+            portalOptions: [],
+            completionComponent: null,
+            openedPortal: null,
+        });
+    }
+
+    getCompletionComponent = () => {
+        return this.refs.completionComponent;
+    }
+
     constructor(props) {
         super(props);
 
@@ -82,7 +108,6 @@ class FluxNotesEditor extends React.Component {
         this.editorHasFocus = false;
         this.lastPosition = { top: 0, left: 0 };
 
-        this.selectingForShortcut = null;
         this.onChange = this.onChange.bind(this);
         this.onSelectionChange = this.onSelectionChange.bind(this);
 
@@ -92,22 +117,14 @@ class FluxNotesEditor extends React.Component {
 
         this.noteContentIndexer = new NoteContentIndexer();
 
-        // setup structured field plugin
-        const structuredFieldPluginOptions = {
-            contextManager: this.contextManager,
-            structuredFieldMapManager: this.structuredFieldMapManager,
-            updateErrors: this.updateErrors,
-            insertText: this.insertTextWithStructuredPhrases,
-            suppressKeysIntoEditor: this.getOpenedPortal,
-            createShortcut: this.props.newCurrentShortcut
+        // CompletionPortalPluginOptions
+        const completionPortalPluginOptions = {
+            openPortal: this.openCompletionPortal,
+            closePortal: this.closeCompletionPortal,
+            getCompletionComponent: this.getCompletionComponent
         };
-        structuredFieldTypes.forEach((type) => {
-            const typeName = type.name;
-            const typeValue = type.value;
-            structuredFieldPluginOptions[typeName] = typeValue;
-        });
-        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
-        this.plugins.push(this.structuredFieldPlugin);
+        this.completionPortalPlugin = CompletionPortalPlugin(completionPortalPluginOptions);
+        this.plugins.push(this.completionPortalPlugin);
 
         // setup single hashtag structured field plugin
         const singleHashtagKeywordStructuredFieldPluginOptions = {
@@ -147,6 +164,7 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: creatorSuggestionPortalSearchIndex.search,
             trigger: '#',
+            typesToIgnore: structuredFieldTypes.map((obj) => obj.value),
         });
         this.plugins.push(this.suggestionsPluginCreators);
 
@@ -159,6 +177,7 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedShortcut.bind(this),
             suggestions: inserterSuggestionPortalSearchIndex.search,
             trigger: '@',
+            typesToIgnore: structuredFieldTypes.map((obj) => obj.value),
         });
         this.plugins.push(this.suggestionsPluginInserters);
 
@@ -171,6 +190,7 @@ class FluxNotesEditor extends React.Component {
             onEnter: this.choseSuggestedPlaceholder.bind(this),
             suggestions: placeholderSuggestionPortalSearchIndex.search,
             trigger: '<',
+            typesToIgnore: structuredFieldTypes.map((obj) => obj.value),
         });
         this.plugins.push(this.suggestionsPluginPlaceholders);
 
@@ -223,6 +243,24 @@ class FluxNotesEditor extends React.Component {
                 }));
             }
         });
+
+        // setup structured field plugin
+        const structuredFieldPluginOptions = {
+            contextManager: this.contextManager,
+            structuredFieldMapManager: this.structuredFieldMapManager,
+            updateErrors: this.updateErrors,
+            insertText: this.insertTextWithStructuredPhrases,
+            suppressKeysIntoEditor: this.getOpenedPortal,
+            createShortcut: this.props.newCurrentShortcut
+        };
+        structuredFieldTypes.forEach((type) => {
+            const typeName = type.name;
+            const typeValue = type.value;
+            structuredFieldPluginOptions[typeName] = typeValue;
+        });
+        this.structuredFieldPlugin = StructuredFieldPlugin(structuredFieldPluginOptions);
+        this.plugins.push(this.structuredFieldPlugin);
+        // Lastly, set state to the initial editor state
         this.state = initialEditorState;
     }
 
@@ -273,7 +311,7 @@ class FluxNotesEditor extends React.Component {
             const transform = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform).apply();
+            return transform.apply();
         } else {
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transformAfterInsert = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();
@@ -305,10 +343,6 @@ class FluxNotesEditor extends React.Component {
             this.contextManager.removeShortcutFromContext(shortcut);
             this.contextManager.contextUpdated();
         }
-        if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && (Lang.isNull(text) || text.length === 0)) {
-            return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
-        }
-
         return transform;
     }
 
@@ -373,27 +407,11 @@ class FluxNotesEditor extends React.Component {
         return this.lastPosition;
     }
 
-    openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
-        let portalOptions = shortcut.getValueSelectionOptions();
-
-        this.setState({
-            openedPortal: "ContextPortal",
-            portalOptions: portalOptions,
-            needToDelete: needToDelete,
-        });
-        this.selectingForShortcut = shortcut;
-        return transform.blur();
-    }
-
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
-    onPortalSelection = (state, selection) => {
-        let shortcut = this.selectingForShortcut;
-        this.selectingForShortcut = null;
-        this.setState({
-            openedPortal: null,
-            portalOptions: null,
-        });
+    onCompletionComponentValueSelection = (state, selection) => {
+        const shortcut = this.state.completionComponentShortcut;
+        // TODO: Why is this happening?
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
@@ -411,7 +429,12 @@ class FluxNotesEditor extends React.Component {
         }
 
         transform = this.resetShortcutData(shortcut, transform);
-        return transform.apply();
+        const newState = transform.apply();
+        this.setState({
+            state: newState
+        });
+        // Need to return state so we can use that to short circuit any plugins that rely on this change
+        return newState;
     }
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
@@ -647,17 +670,20 @@ class FluxNotesEditor extends React.Component {
                 shortcut
             }
         });
-
         // Save anchor block to reset selection after updating shortcut text
-        const {anchorBlock} = transform.state;
+        const { anchorBlock } = transform.state;
 
         // Update text on the node
         const shortcutNode = transform.state.document.getNode(shortcut.getKey());
         transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
 
         // Move to previous anchor block to not lose the valid selection
-        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
-
+        transform = transform
+            .moveToRangeOf(anchorBlock)
+            .collapseToEnd()
+            .insertText(' ')    // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
+            .deleteBackward(1)  // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
+            .focus();
         return transform;
     }
 
@@ -1792,16 +1818,14 @@ class FluxNotesEditor extends React.Component {
                 </div>
             );
         }
-
-        const callback = {};
         const editorClassName = (this.props.selectedNote && this.props.selectedNote.signed)
             ? "editor-panel"
             : "editor-panel in-progress-note";
+        // We use this variable a bit in the render logic, so let's pull it out
+        const CompletionComponent = this.state.completionComponent;
         /**
          * Render the editor, toolbar, dropdown and description for note
          */
-
-
         return (
             <div id="clinical-notes" className={`dashboard-panel ${disabledEditorClassName}`}>
                 {this.renderNoteDescriptionContent()}
@@ -1856,18 +1880,20 @@ class FluxNotesEditor extends React.Component {
                         setOpenedPortal={this.setOpenedPortal}
                         state={this.state.state}
                     />
-                    <ContextPortal
-                        capture={/@([\w]*)/}
-                        callback={callback}
-                        contextManager={this.contextManager}
-                        contexts={this.state.portalOptions}
-                        getPosition={this.getTextCursorPosition}
-                        onChange={this.onChange}
-                        openedPortal={this.state.openedPortal}
-                        onSelected={this.onPortalSelection}
-                        state={this.state.state}
-                        trigger={"@"}
-                    />
+                    {CompletionComponent &&
+                        <CompletionPortal
+                            closePortal={this.closeCompletionPortal}
+                            getPosition={this.getTextCursorPosition}
+                        >
+                            <CompletionComponent
+                                ref="completionComponent"
+                                contexts={this.state.portalOptions}
+                                onSelected={this.onCompletionComponentValueSelection}
+                                closePortal={this.closeCompletionPortal}
+                                state={this.state.state}
+                            />
+                        </CompletionPortal>
+                    }
                 </div>
             </div>
         );
