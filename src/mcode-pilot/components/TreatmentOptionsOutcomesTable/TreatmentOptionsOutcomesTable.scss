@@ -23,19 +23,23 @@
         }
 
         .sort-arrows {
-            visibility:hidden;
-            color:$interface-blue;
+            visibility: hidden;
+            color: $interface-blue;
             font-size: 12px;
-            padding-left:5px;
+            padding-left: 5px;
         }
 
         .sort-selected {
             visibility:visible;
-            color:$icons-teal;
+            color: $icons-teal;
         }
 
         .header-space:hover .sort-arrows {
-            visibility:visible;
+            visibility: visible;
+        }
+
+        .header-space {
+            cursor: pointer;
         }
     }
 

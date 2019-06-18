@@ -175,7 +175,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     renderHeader = () => {
         const { sideEffectSelection, sortColumn, sortDirection } = this.state;
-        const sortName = sortDirection === 1 ? "sort-up" : sortDirection === 2 ? "sort-down" : "sort";
+        const sortName = sortDirection === 2 ? "sort-up" : sortDirection === 1 ? "sort-down" : "sort";
         const sort1 = sortColumn === "oneYrSurvival";
         const sort3 = sortColumn === "threeYrSurvival";
         const sort5 = sortColumn === "fiveYrSurvival";
@@ -280,7 +280,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         if (this.state.sortDirection) {
             // it could be ascending or descending, but its sorted
             comparedTreatmentData.sort(this.treatmentCompare(this.state.sortColumn));
-            if (this.state.sortDirection === 1) {
+            if (this.state.sortDirection === 2) {
                 // descending
                 comparedTreatmentData.reverse();
             }
