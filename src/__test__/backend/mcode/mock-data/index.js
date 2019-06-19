@@ -83,5 +83,24 @@ export const comparedTreatmentData = [
                 "Hot Flashes": 1
             }
         }
+    },
+    {
+        "id": "row_4",
+        "displayName": "test therapy",
+        "totalPatients": 10,
+        "oneYrSurvival": 9,
+        "threeYrSurvival": 9,
+        "fiveYrSurvival": 10,
+        "sideEffects": {
+            "totalReporting": 82,
+            "effects": {
+                "Nausea/Vomiting": 77,
+                "Fatigue": 70,
+                "Anemia": 48,
+                "Weight Loss": 42,
+                "Bowel Dysfunction": 1,
+                "Hot Flashes": 1
+            }
+        }
     }
 ];

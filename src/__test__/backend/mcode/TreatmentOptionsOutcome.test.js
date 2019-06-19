@@ -65,22 +65,22 @@ describe("TreatmentOptionsOutcome", () => {
         it("renders the `hormonal therapy` and `chemotherapy` treatment rows", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            expect(treatmentRows).to.have.lengthOf(2);
-            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('hormonal therapy');
-            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows).to.have.lengthOf(3);
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
         });
 
         it("renders the total number of patients", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            expect(treatmentRows.at(0).find('.total-patients').text()).to.eql('(12)');
-            expect(treatmentRows.at(1).find('.total-patients').text()).to.eql('(20)');
+            expect(treatmentRows.at(0).find('.total-patients').text()).to.eql('(20)');
+            expect(treatmentRows.at(1).find('.total-patients').text()).to.eql('(12)');
         });
 
         it("hormonal therapy: calculates the correct one, three, and five survival rates with comparisons", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
+            const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
 
             expect(barChartTexts).to.have.lengthOf(6);
 
@@ -103,7 +103,7 @@ describe("TreatmentOptionsOutcome", () => {
         it("chemotherapy: calculates the correct one, three, and five survival rates with comparisons", () => {
             const treatmentRows = outcome().find('.compared-treatments .table-row');
 
-            const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
+            const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
 
             expect(barChartTexts).to.have.lengthOf(6);
 
@@ -122,5 +122,48 @@ describe("TreatmentOptionsOutcome", () => {
             expect(barChartTexts.at(5).text()).to.eql('50%');
             expect(barChartTexts.at(5).find('span').hasClass('fa-caret-up')).to.eql(true);
         });
+
+        it("sorts rows based on survival", () => {
+            const header = outcome().find('.header-space');
+            header.at(0).simulate('click');
+            let treatmentRows = outcome().find('.compared-treatments .table-row');
+
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('test therapy');
+
+            // sort by 1 yr survival
+            header.at(1).simulate('click');
+
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
+
+
+            // sort by 5 yr survival
+            header.at(3).simulate('click');
+
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
+
+            // sort by 3 yr opposite direction
+            header.at(2).simulate('click');
+            header.at(2).simulate('click');
+
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('hormonal therapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('chemotherapy');
+
+            // return to normal
+            header.at(2).simulate('click');
+
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('test therapy');
+
+
+
+        })
     });
 });
