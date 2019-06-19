@@ -46,6 +46,10 @@ class ContextGetHelp extends React.Component {
         if ((change === -1 && this.state.selectedIndex > -1) || (change === 1 && this.state.selectedIndex < optionsCount)) {
             newSelectedIndex = this.state.selectedIndex + change;
         }
+        // wrap back to top on down arrow of last option
+        if (change === 1 && this.state.selectedIndex === optionsCount) {
+            newSelectedIndex = 0;
+        }
         this.setSelectedIndex(newSelectedIndex);
     }
 
@@ -101,10 +105,9 @@ class ContextGetHelp extends React.Component {
     }
 
     render() {
-        const initiatingTrigger = this.props.shortcut.initiatingTrigger.replace('#', '');
+        const initiatingTrigger = this.props.shortcut.getDisplayText().replace('#', '');
         let iconClass = 'fa fa-angle-';
-        if (this.state.selectedIndex === -1) iconClass += 'down';
-        else iconClass += 'up';
+        this.state.selectedIndex === -1 ? iconClass += 'down' : iconClass += 'up';
 
         return (
             <ul className="context-get-help" ref="contextGetHelp">
