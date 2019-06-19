@@ -15,7 +15,6 @@ export default class LongitudinalTable extends Component {
                 return obj.name;
             }),
         };
-        this.toggleFavorites = this.toggleFavorites.bind(this);
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.dataInfo, nextProps.dataInfo)) {
@@ -62,7 +61,7 @@ export default class LongitudinalTable extends Component {
         }
         return [tableValues, dates];
     }
-    toggleFavorites(section) {
+    toggleFavorites = (section) => {
         const newFavorites = this.state.favorites;
         if (_.includes(this.state.favorites, section.name)) {
             newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
@@ -117,7 +116,7 @@ export default class LongitudinalTable extends Component {
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
                     <TableCell className='star-cell'> {_.includes(this.state.favorites, n.name) ? <FontAwesome className='star' name='star' /> : <div></div> }</TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.onClick(n.name); }}>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
@@ -157,6 +156,6 @@ LongitudinalTable.propTypes = {
     dataInfo: propTypes.array.isRequired,
     tdpSearchSuggestions: propTypes.array,
     conditionSectionName: propTypes.string,
-    onClick: propTypes.func,
+    reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
 };

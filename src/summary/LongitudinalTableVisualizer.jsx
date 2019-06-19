@@ -12,7 +12,6 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         this.state = {
             data: formattedData,
         };
-        this.onClick = this.onClick.bind(this);
     }
     formatData(section) { //creates an array with one object for each section (wbc, platelets, etc.)
         const data = [];
@@ -44,7 +43,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         });
         return formattedData;
     }
-    onClick(clickedSection) {
+    reorderRows = (clickedSection) => {
         const data = [...this.state.data];
         const element = data.find((section) => { //element is the formatted data object for the row that was clicked
             return (section.name === clickedSection);
@@ -84,7 +83,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalTable onClick={this.onClick} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} />
+                <LongitudinalTable reorderRows={this.reorderRows} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} />
             </div>
         );
     }
