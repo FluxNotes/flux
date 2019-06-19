@@ -80,9 +80,6 @@ export default class LongitudinalTable extends Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell className='star-cell' />
-                    <TableCell />
-                    <TableCell />
                     {dates.map((date) => {
                         const year = moment(date, 'DD MMM YYYY').year();
                         if (year !== currYear) {
@@ -93,9 +90,6 @@ export default class LongitudinalTable extends Component {
                     })}
                 </TableRow>
                 <TableRow>
-                    <TableCell className='star-cell' />
-                    <TableCell className='table-header'>{this.props.subsectionLabel}</TableCell>
-                    <TableCell className='table-header'>Unit</TableCell>
                     {dates.map((date) => { //makes a new date column-heading for each date in the dates object defined in the constructor
                         const curr = new moment(date, 'DD MMM YYYY');
                         const day = curr.format('DD');
