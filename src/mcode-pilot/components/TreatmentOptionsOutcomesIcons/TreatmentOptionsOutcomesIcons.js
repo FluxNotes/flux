@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
+import { cumulativeAdd } from '../../utils/arrayOperations';
 
 import IconsChart from '../../visualizations/IconsChart/IconsChart';
 
@@ -31,12 +32,14 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         let totalPatients;
         let index = -1;
         if (!treatment || treatment === includedTreatmentData[0].displayName) {
-            totalNumSurvive = includedTreatmentData[0][timescale];
             totalPatients = includedTreatmentData[0].totalPatients;
+            totalNumSurvive = totalPatients - cumulativeAdd(includedTreatmentData[0].survivalYears, timescale);
+
         } else {
             index = comparedTreatmentData.findIndex(el => el.displayName === treatment);
-            totalNumSurvive = comparedTreatmentData[index][timescale];
             totalPatients = comparedTreatmentData[index].totalPatients;
+            totalNumSurvive = totalPatients - cumulativeAdd(comparedTreatmentData[index].survivalYears, timescale);
+
         }
 
         const numSurvive = Math.floor(totalNumSurvive / totalPatients * 100);
@@ -51,12 +54,11 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
             return <div className="treatment-options-outcomes-icons note">No included treatment chosen.</div>;
         }
 
-        const survivalMap = { 1: 'oneYrSurvival', 3: 'threeYrSurvival', 5: 'fiveYrSurvival' };
         const includedTreatmentName = includedTreatmentData[0].displayName;
         const treatment = selectedTreatment ? selectedTreatment : includedTreatmentName;
         const combinedTreatmentNames = _.map(comparedTreatmentData, 'displayName');
-        const { numSurvive: includedNumSurvive } = this.getNumSurvive(includedTreatmentName, survivalMap[timescaleToggle]);
-        const { numSurvive: selectedNumSurvive, index: selectedIndex } = this.getNumSurvive(treatment, survivalMap[timescaleToggle]);
+        const { numSurvive: includedNumSurvive } = this.getNumSurvive(includedTreatmentName, timescaleToggle);
+        const { numSurvive: selectedNumSurvive, index: selectedIndex } = this.getNumSurvive(treatment, timescaleToggle);
         const additionalNumSurvive = selectedNumSurvive - includedNumSurvive;
 
         let normalizedNumSideEffects = 0;

@@ -7,6 +7,7 @@ import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
+import { cumulativeAdd } from '../../utils/arrayOperations';
 
 import './TreatmentOptionsOutcomesTable.css';
 
@@ -22,6 +23,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
             sortColumn: "",
             sortDirection: 0
         };
+        this.treatmentCompare = this.treatmentCompare.bind(this);
     }
 
     componentDidMount() {
@@ -117,13 +119,14 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
-        const { totalPatients } = row;
-
+        const { totalPatients, survivalYears } = row;
+        const numerator = totalPatients - cumulativeAdd(survivalYears, survivalRate);
+        const compareNumerator = compareRow ? compareRow.totalPatients - cumulativeAdd(compareRow.survivalYears, survivalRate): null;
         return (
             <BarChart
-                numerator={row[survivalRate]}
+                numerator={numerator}
                 denominator={totalPatients}
-                compareToNumerator={compareRow ? compareRow[survivalRate] : null}
+                compareToNumerator={compareNumerator}
                 compareToDenominator={compareRow ? compareRow.totalPatients : null}
             />
         );
@@ -131,6 +134,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     renderRow(row, compareRow) {
         const { sideEffectSelection } = this.state;
+        const { timeScales } = this.props;
         if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
@@ -144,9 +148,9 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, 'oneYrSurvival')}</div>
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, 'threeYrSurvival')}</div>
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, 'fiveYrSurvival')}</div>
+                    <div className="flex-1">{this.renderBarChart(row, compareRow, timeScales[0])}</div>
+                    <div className="flex-1">{this.renderBarChart(row, compareRow, timeScales[1])}</div>
+                    <div className="flex-1">{this.renderBarChart(row, compareRow, timeScales[2])}</div>
                 </div>
 
                 <div className="flex flex-4 flex-padding flex-center top-side-effects">
@@ -176,9 +180,6 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     renderHeader = () => {
         const { sideEffectSelection, sortColumn, sortDirection } = this.state;
         const sortName = sortDirection === 2 ? "sort-up" : sortDirection === 1 ? "sort-down" : "sort";
-        const sort1 = sortColumn === "oneYrSurvival";
-        const sort3 = sortColumn === "threeYrSurvival";
-        const sort5 = sortColumn === "fiveYrSurvival";
         const sortP = sortColumn === "totalPatients";
         const sideEffects = this.gatherSideEffects(this.props.comparedTreatmentData, this.props.includedTreatmentData);
 
@@ -195,21 +196,15 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 <div className="flex-6 flex-padding">
                     <div className="header-title">Overall survival rates</div>
                     <div className="flex">
-                        <div className="flex-1">
-                            <span onClick={ () => { this.handleChangeSort("oneYrSurvival"); }} className="header-space">
-                                1 yr  <FontAwesome className={(sort1 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort1?sortName: "sort"} />
-                            </span>
-                        </div>
-                        <div className="flex-1">
-                            <span onClick={ () => { this.handleChangeSort("threeYrSurvival"); }} className="header-space">
-                                3 yr  <FontAwesome className={(sort3 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort3?sortName: "sort"} />
-                            </span>
-                        </div>
-                        <div className="flex-1">
-                            <span onClick={ () => { this.handleChangeSort("fiveYrSurvival"); }} className="header-space">
-                                5 yr  <FontAwesome className={(sort5 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort5?sortName: "sort"} />
-                            </span>
-                        </div>
+                        {this.props.timeScales.map((e) => {
+                            return (
+                                <div className="flex-1" key={e}>
+                                    <span onClick={ () => { this.handleChangeSort(e); }} className="header-space">
+                                        {e} yr  <FontAwesome className={(sortColumn === e && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sortColumn === e?sortName: "sort"} />
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -244,11 +239,12 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         if (propName==="totalPatients") {
             // sort by number of patients, no need to get ratio
             return function(a,b) {
-                return b[propName] - a[propName];
+                return a[propName]-b[propName];
             };
         } else {
+
             return function(a,b) {
-                return b[propName]/b["totalPatients"] - a[propName]/a["totalPatients"];
+                return cumulativeAdd(b.survivalYears, propName)/b["totalPatients"] - cumulativeAdd(a.survivalYears, propName)/a["totalPatients"];
             };
         }
 
@@ -280,7 +276,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         if (this.state.sortDirection) {
             // it could be ascending or descending, but its sorted
             comparedTreatmentData.sort(this.treatmentCompare(this.state.sortColumn));
-            if (this.state.sortDirection === 2) {
+            if (this.state.sortDirection === 1) {
                 // descending
                 comparedTreatmentData.reverse();
             }

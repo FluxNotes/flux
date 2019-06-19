@@ -43,7 +43,18 @@ function getCombinations(array, includedTreatments) {
     return combinations;
 }
 
+function cumulativeAdd(array, index) {
+    let k = 0;
+    for (var i = 0; i < index; i++) {
+        if (array[i] !== undefined) {
+            k+=array[i];
+        }
+    }
+    return k;
+}
+
 export {
     isSame,
-    getCombinations
+    getCombinations,
+    cumulativeAdd
 };

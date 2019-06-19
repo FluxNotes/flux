@@ -8,11 +8,11 @@ export default function filterTreatmentData(similarPatientProps, includedTreatme
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments);
+    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments, [1, 2, 3]);
     const comparedTreatmentCombinations = getCombinations(comparedTreatments, includedTreatments).filter(treatments =>
         treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
     );
-    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
+    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments, [1, 2, 3]);
     return {
         totalPatients,
         totalSimilarPatients,
@@ -27,9 +27,7 @@ function initializeTreatmentData(displayName) {
         id: _.uniqueId('row_'),
         displayName,
         totalPatients: 0,
-        oneYrSurvival: 0,
-        threeYrSurvival: 0,
-        fiveYrSurvival: 0,
+        survivalYears: [],
         sideEffects: {
             totalReporting: 0,
             effects: {}
@@ -37,8 +35,9 @@ function initializeTreatmentData(displayName) {
     };
 }
 
-function generateTreatmentData(similarPatients, treatments, includedTreatments) {
+function generateTreatmentData(similarPatients, treatments, includedTreatments, timescale) {
     if (similarPatients.length === 0) return [];
+    timescale.sort(); // maybe unnecessary
     let treatmentData = [];
     treatments.forEach(treatment => {
         const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments.map((e) => { return typeof e === 'object' ?e.code : e; }), treatment.map(treat => { return treat.code; })));
@@ -57,9 +56,13 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
             row.totalPatients += 1;
 
             const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-            if (survivalYears >= 1) row.oneYrSurvival += 1;
-            if (survivalYears >= 3) row.threeYrSurvival += 1;
-            if (survivalYears >= 5) row.fiveYrSurvival += 1;
+            if (row.survivalYears[survivalYears] !== undefined) {
+                row.survivalYears[survivalYears] += 1;
+            } else {
+                row.survivalYears[survivalYears] = 1;
+            }
+
+
             if (patient.sideEffects.length > 0) {
                 row.sideEffects.totalReporting += 1;
                 patient.sideEffects.forEach(sideEffectKey => {

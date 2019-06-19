@@ -12,7 +12,8 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             outcomesToggle: 'table',
-            timescaleToggle: 5
+            timescaleToggle: 5,
+            timeScales: [1,3,5]
         };
     }
 
@@ -44,8 +45,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     renderToggleButtons = () => {
-        const { outcomesToggle, timescaleToggle } = this.state;
-        const timeScales = [1, 3, 5];
+        const { outcomesToggle, timescaleToggle, timeScales} = this.state;
 
         return (
             <div className="treatment-options-outcomes__toggle">
@@ -78,7 +78,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     render() {
-        const { outcomesToggle, timescaleToggle } = this.state;
+        const { outcomesToggle, timescaleToggle, timeScales } = this.state;
         const {
             includedTreatmentData,
             comparedTreatmentData,
@@ -100,12 +100,14 @@ export default class TreatmentOptionsOutcomes extends Component {
                         comparedTreatments={comparedTreatments}
                         comparedTreatmentData={comparedTreatmentData}
                         selectTreatments={selectTreatments}
+                        timeScales = {timeScales}
                     />
                     :
                     <TreatmentOptionsOutcomesIcons
                         includedTreatmentData={includedTreatmentData}
                         comparedTreatmentData={comparedTreatmentData}
                         timescaleToggle={timescaleToggle}
+                        timeScales = {timeScales}
                     />
                 }
             </div>
