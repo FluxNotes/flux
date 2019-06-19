@@ -37,7 +37,7 @@ export default class LongitudinalTable extends Component {
         const { dataInfo } = this.props;
         for (let index = 0; index < this.props.dataInfo.length; index++) {
             const data = this.props.dataInfo[index];
-            tableValues.push(this.createData(data.name, data.unit, Object.values(data.datesAndData), index, data.bands, data.favorite));
+            tableValues.push(this.createData(data.name, data.unit, Object.values(data.datesAndData), `${index} - ${data.name}`, data.bands, data.favorite));
             predates.push(Object.keys(this.props.dataInfo[index].datesAndData));
         }
         const dates = _.uniq(_.flattenDeep(predates));
@@ -106,11 +106,11 @@ export default class LongitudinalTable extends Component {
 
         );
     }
-    renderStar(name) {
+    renderStar(name, id) {
         if (_.includes(this.state.favorites, name)) {
             return <FontAwesome className='star-clicked' name='star' />;
         }
-        else if (this.state.hovered === name) {
+        else if (this.state.hovered === id) {
             return <FontAwesome className='star-hovered' name='star' />;
         }
         return <div />;
@@ -126,10 +126,9 @@ export default class LongitudinalTable extends Component {
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
                     <TableCell className='star-cell'>
-                        {/* {_.includes(this.state.favorites, n.name) ? <FontAwesome className='star' name='star' /> : <div></div> } */}
-                        {this.renderStar(n.name)}
+                        {this.renderStar(n.name, n.id)}
                     </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseEnter={() => { this.setState({hovered: n.name}); }} onMouseLeave={() => { this.setState({hovered: null}); }}>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseEnter={() => { this.setState({hovered: n.id}); }} onMouseLeave={() => { this.setState({hovered: null}); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
