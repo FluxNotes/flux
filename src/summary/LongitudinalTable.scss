@@ -13,8 +13,11 @@
         background-color: $feature-gray !important;
     }
 }
-.star {
-    color: #028DEA;
+.star-clicked {
+    color: #028DEA !important;
+}
+.star-hovered {
+    color: #b3b3b3 !important;
 }
 .star-cell {
     padding-left: 0px !important;

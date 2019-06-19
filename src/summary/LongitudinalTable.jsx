@@ -14,6 +14,7 @@ export default class LongitudinalTable extends Component {
             favorites: props.dataInfo.filter(data => data.favorite).map((obj) => {
                 return obj.name;
             }),
+            hovered: null,
         };
     }
     componentWillReceiveProps(nextProps) {
@@ -105,6 +106,15 @@ export default class LongitudinalTable extends Component {
 
         );
     }
+    renderStar(name) {
+        if (_.includes(this.state.favorites, name)) {
+            return <FontAwesome className='star-clicked' name='star' />;
+        }
+        else if (this.state.hovered === name) {
+            return <FontAwesome className='star-hovered' name='star' />;
+        }
+        return <div />;
+    }
     renderData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
             const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
@@ -115,8 +125,11 @@ export default class LongitudinalTable extends Component {
             return (
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
-                    <TableCell className='star-cell'> {_.includes(this.state.favorites, n.name) ? <FontAwesome className='star' name='star' /> : <div></div> }</TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }}>
+                    <TableCell className='star-cell'>
+                        {/* {_.includes(this.state.favorites, n.name) ? <FontAwesome className='star' name='star' /> : <div></div> } */}
+                        {this.renderStar(n.name)}
+                    </TableCell>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseEnter={() => { this.setState({hovered: n.name}); }} onMouseLeave={() => { this.setState({hovered: null}); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
