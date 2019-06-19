@@ -22,7 +22,8 @@ export default class LongitudinalTable extends Component {
             this.setState({
                 favorites: nextProps.dataInfo.filter(data => data.favorite).map((obj) => {
                     return obj.name;
-                })});
+                })
+            });
         }
     }
     /*
@@ -41,7 +42,7 @@ export default class LongitudinalTable extends Component {
             predates.push(Object.keys(this.props.dataInfo[index].datesAndData));
         }
         const dates = _.uniq(_.flattenDeep(predates));
-        const sortFunction = (date1,date2) => {
+        const sortFunction = (date1, date2) => {
             const moment1 = new moment(date1, "DD MMM YYYY");
             const moment2 = new moment(date2, "DD MMM YYYY");
             if (moment1 < moment2) {
@@ -66,7 +67,7 @@ export default class LongitudinalTable extends Component {
         const newFavorites = this.state.favorites;
         if (_.includes(this.state.favorites, section.name)) {
             newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
-            this.setState({favorites: newFavorites});
+            this.setState({ favorites: newFavorites });
         }
         else {
             newFavorites.push(section.name);
@@ -128,7 +129,7 @@ export default class LongitudinalTable extends Component {
                     <TableCell className='star-cell'>
                         {this.renderStar(n.name, n.id)}
                     </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseEnter={() => { this.setState({hovered: n.id}); }} onMouseLeave={() => { this.setState({hovered: null}); }}>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id, mouseOn: true }); }} onMouseOut={() => { this.setState({ hovered: null, mouseOn: false }); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
@@ -140,9 +141,9 @@ export default class LongitudinalTable extends Component {
                         const bands = tableValues[tableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <TableCell style={{color: 'black'}} key={newkey} className={cellClassName}>{value}</TableCell>;
+                            return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
                         } else {
-                            return <TableCell style={{color: 'red'}} key={newkey} className = {cellClassName}>{value}</TableCell>;
+                            return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
                         }
                     })}
                 </TableRow>
