@@ -26,9 +26,9 @@ export const includedTreatmentData = [
         "id": "row_1",
         "displayName": "surgery & radiation therapy",
         "totalPatients": 10,
-        "oneYrSurvival": 6,
-        "threeYrSurvival": 4,
-        "fiveYrSurvival": 2,
+        // 4 people die year 0, so the oneYrSurvival is 6.  This is how the numbers are calculated.  
+        // Years 1,3,5 are set to 0 to make things easier, but could be any number.
+        "survivalYears":[4,0,2,0,2,0],
         "sideEffects": {
             "totalReporting": 8,
             "effects": {
@@ -48,9 +48,7 @@ export const comparedTreatmentData = [
         "id": "row_2",
         "displayName": "hormonal therapy",
         "totalPatients": 12,
-        "oneYrSurvival": 10,
-        "threeYrSurvival": 8,
-        "fiveYrSurvival": 2,
+        "survivalYears":[2,0,2,0,6,0],
         "sideEffects": {
             "totalReporting": 170,
             "effects": {
@@ -69,9 +67,7 @@ export const comparedTreatmentData = [
         "id": "row_3",
         "displayName": "chemotherapy",
         "totalPatients": 20,
-        "oneYrSurvival": 20,
-        "threeYrSurvival": 20,
-        "fiveYrSurvival": 14,
+        "survivalYears":[0,0,0,0,6,0],
         "sideEffects": {
             "totalReporting": 82,
             "effects": {
@@ -88,9 +84,7 @@ export const comparedTreatmentData = [
         "id": "row_4",
         "displayName": "test therapy",
         "totalPatients": 10,
-        "oneYrSurvival": 9,
-        "threeYrSurvival": 9,
-        "fiveYrSurvival": 10,
+        "survivalYears":[1,0,0,0,-1,0],
         "sideEffects": {
             "totalReporting": 82,
             "effects": {
