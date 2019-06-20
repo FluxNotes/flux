@@ -5,6 +5,7 @@ import moment from 'moment';
 import './LongitudinalTable.css';
 import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { Button } from 'material-ui';
 
 export default class LongitudinalTable extends Component {
 
@@ -25,6 +26,39 @@ export default class LongitudinalTable extends Component {
                 })
             });
         }
+    }
+    updateInput(key, value) {
+        // update react state
+        this.setState({ [key]: value });
+
+        // update localStorage
+        localStorage.setItem(key, value);
+    }
+    hydrateStateWithLocalStorage() {
+        // for all items in state
+        if (localStorage.hasOwnProperty('favorites')) {
+            // get the key's value from localStorage
+            let value = localStorage.getItem('favorites');
+            if (value === '') {
+                this.setState({'favorites': []});
+                return;
+            }
+            // parse the localStorage string and setState
+            try {
+                value = JSON.parse(value);
+                const valueArray = value.split(',');
+                console.log('value2 :', valueArray);
+                this.setState({ 'favorites': valueArray });
+            } catch (e) {
+                // handle empty string
+                const valueArray = value.split(',');
+                console.log('value2 :', valueArray);
+                this.setState({ 'favorites': valueArray });
+            }
+        }
+    }
+    componentDidMount() {
+        this.hydrateStateWithLocalStorage();
     }
     /*
     Assigns an id to each row
@@ -68,11 +102,13 @@ export default class LongitudinalTable extends Component {
         const newFavorites = this.state.favorites;
         if (_.includes(this.state.favorites, section.name)) {
             newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
-            this.setState({ favorites: newFavorites });
+            // this.setState({ favorites: newFavorites });
+            this.updateInput('favorites', newFavorites);
         }
         else {
             newFavorites.push(section.name);
-            this.setState({ favorites: newFavorites });
+            // this.setState({ favorites: newFavorites });
+            this.updateInput('favorites', newFavorites);
         }
     }
     renderStar(name, id) {
