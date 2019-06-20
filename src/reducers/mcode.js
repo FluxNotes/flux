@@ -3,7 +3,7 @@ import getProps from '../mcode-pilot/utils/recordToProps';
 import { transformedTreatmentData } from '../mcode-pilot/mock-data/mock-data.js';
 import { isSimilarPatient, generateSimilarPatientTreatments } from '../mcode-pilot/utils/filterTreatmentData.js';
 
-const defaultState = {
+export const defaultState = {
     similarPatientProps: {},
     similarPatientTreatments: [],
     similarPatientTreatmentsData: [],
