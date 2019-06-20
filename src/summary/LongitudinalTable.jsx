@@ -116,13 +116,6 @@ export default class LongitudinalTable extends Component {
             return (
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
-                    <TableCell className='star-cell'>
-                        {this.renderStar(n.name, n.id)}
-                    </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                        {n.name}
-                    </TableCell>
-                    <TableCell>{n.unit}</TableCell>
                     {Object.entries(n)[2][1].map((value, newkey) => {
                         const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
                             return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
@@ -169,7 +162,7 @@ export default class LongitudinalTable extends Component {
                     <TableCell className='star-cell'>
                         {this.renderStar(n.name)}
                     </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseEnter={() => { this.setState({ hovered: n.name }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
