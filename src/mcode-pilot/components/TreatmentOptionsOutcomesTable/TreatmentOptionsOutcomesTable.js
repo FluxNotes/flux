@@ -36,13 +36,17 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     handleChangeSort = (column) => {
         const { sortColumn } = this.state;
+
         // sort direction is represented by a 0 (no sorting), 1 (ascending), or 2 (descending)
         if (column === sortColumn) {
-            this.setState(prevState => ({ sortDirection: (prevState.sortDirection + 1) % 3 }));
+            this.setState({
+                sortDirection: (this.state.sortDirection + 1) % 3
+            });
         } else {
-            this.setState({ sortColumn: column });
-            // reset to 1 when a different column is clicked
-            this.setState({ sortDirection: 1 });
+            this.setState({
+                sortColumn: column,
+                sortDirection: 1 // reset to 1 when a different column is clicked
+            });
         }
     }
 

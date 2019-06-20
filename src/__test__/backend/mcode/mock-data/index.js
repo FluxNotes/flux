@@ -21,29 +21,7 @@ export const similarPatientTreatments = [
     }
 ];
 
-// export const includedTreatmentData = [
-//     {
-//         "id": "row_1",
-//         "displayName": "surgery & radiation therapy",
-//         "totalPatients": 10,
-//         "oneYrSurvival": 6,
-//         "threeYrSurvival": 4,
-//         "fiveYrSurvival": 2,
-//         "sideEffects": {
-//             "totalReporting": 8,
-//             "effects": {
-//                 "Decreased Libido": 4,
-//                 "Fatigue": 8,
-//                 "Weight Loss": 6,
-//                 "Urinary Dysfunction": 3,
-//                 "Erectile Dysfunction": 1,
-//                 "Anemia": 1
-//             }
-//         }
-//     }
-// ];
-
-export const comparedTreatmentData = [
+export const similarPatientTreatmentsData = [
     {
         "id": "row_2",
         "displayName": "hormonal therapy",
@@ -52,10 +30,10 @@ export const comparedTreatmentData = [
         "threeYrSurvival": 8,
         "fiveYrSurvival": 2,
         "sideEffects": {
-            "totalReporting": 170,
+            "totalReporting": 12,
             "effects": {
-                "Hot Flashes": 150,
-                "Decreased Libido": 148,
+                "Hot Flashes": 10,
+                "Decreased Libido": 9,
                 "Urinary Dysfunction": 4,
                 "Erectile Dysfunction": 2,
                 "Anemia": 3,
@@ -68,10 +46,10 @@ export const comparedTreatmentData = [
     {
         "id": "row_3",
         "displayName": "chemotherapy",
-        "totalPatients": 20,
-        "oneYrSurvival": 20,
-        "threeYrSurvival": 20,
-        "fiveYrSurvival": 14,
+        "totalPatients": 82,
+        "oneYrSurvival": 81,
+        "threeYrSurvival": 76,
+        "fiveYrSurvival": 72,
         "sideEffects": {
             "totalReporting": 82,
             "effects": {
@@ -80,7 +58,7 @@ export const comparedTreatmentData = [
                 "Anemia": 48,
                 "Weight Loss": 42,
                 "Bowel Dysfunction": 1,
-                "Hot Flashes": 1
+                "Hot Flashe Caused By Medication": 1
             }
         }
     },
@@ -90,14 +68,14 @@ export const comparedTreatmentData = [
         "totalPatients": 10,
         "oneYrSurvival": 9,
         "threeYrSurvival": 9,
-        "fiveYrSurvival": 10,
+        "fiveYrSurvival": 8,
         "sideEffects": {
-            "totalReporting": 82,
+            "totalReporting": 9,
             "effects": {
-                "Nausea/Vomiting": 77,
-                "Fatigue": 70,
-                "Anemia": 48,
-                "Weight Loss": 42,
+                "Nausea/Vomiting": 7,
+                "Fatigue": 7,
+                "Anemia": 6,
+                "Weight Loss": 2,
                 "Bowel Dysfunction": 1,
                 "Hot Flashes": 1
             }
