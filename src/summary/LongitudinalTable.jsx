@@ -160,7 +160,7 @@ export default class LongitudinalTable extends Component {
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
                     <TableCell className='star-cell'>
-                        {this.renderStar(n.name)}
+                        {this.renderStar(n.name, n.id)}
                     </TableCell>
                     <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
                         {n.name}
