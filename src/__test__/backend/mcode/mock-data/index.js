@@ -21,27 +21,27 @@ export const similarPatientTreatments = [
     }
 ];
 
-export const includedTreatmentData = [
-    {
-        "id": "row_1",
-        "displayName": "surgery & radiation therapy",
-        "totalPatients": 10,
-        "oneYrSurvival": 6,
-        "threeYrSurvival": 4,
-        "fiveYrSurvival": 2,
-        "sideEffects": {
-            "totalReporting": 8,
-            "effects": {
-                "Decreased Libido": 4,
-                "Fatigue": 8,
-                "Weight Loss": 6,
-                "Urinary Dysfunction": 3,
-                "Erectile Dysfunction": 1,
-                "Anemia": 1
-            }
-        }
-    }
-];
+// export const includedTreatmentData = [
+//     {
+//         "id": "row_1",
+//         "displayName": "surgery & radiation therapy",
+//         "totalPatients": 10,
+//         "oneYrSurvival": 6,
+//         "threeYrSurvival": 4,
+//         "fiveYrSurvival": 2,
+//         "sideEffects": {
+//             "totalReporting": 8,
+//             "effects": {
+//                 "Decreased Libido": 4,
+//                 "Fatigue": 8,
+//                 "Weight Loss": 6,
+//                 "Urinary Dysfunction": 3,
+//                 "Erectile Dysfunction": 1,
+//                 "Anemia": 1
+//             }
+//         }
+//     }
+// ];
 
 export const comparedTreatmentData = [
     {

@@ -6,7 +6,6 @@ import BarChart from '../../visualizations/BarChart/BarChart';
 import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
-import TreatmentsPopover from '../TreatmentsPopover/TreatmentsPopover';
 
 import './TreatmentOptionsOutcomesTable.css';
 
@@ -15,25 +14,40 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         super(props);
 
         this.state = {
-            includedOpen: false,
-            comparedOpen: false,
             sideEffectSelection: 'Most Common',
             sideEffects: [],
-            sortColumn: "",
+            sortColumn: '',
             sortDirection: 0
         };
     }
 
     componentDidMount() {
         document.addEventListener('click', this.closePoppers);
+        this.handleChangeSort('totalPatients');
     }
 
     componentWillUnmount() {
         document.removeEventListener('click', this.closePoppers);
     }
 
-    gatherSideEffects = (comparedTreatmentData, includedTreatmentData) => {
-        const allTreatmentData = [...includedTreatmentData, ...comparedTreatmentData];
+    handleChangeEffect = (effect) => {
+        this.setState({ sideEffectSelection: effect.target.value });
+    }
+
+    handleChangeSort = (column) => {
+        const { sortColumn } = this.state;
+        // sort direction is represented by a 0 (no sorting), 1 (ascending), or 2 (descending)
+        if (column === sortColumn) {
+            this.setState(prevState => ({ sortDirection: (prevState.sortDirection + 1) % 3 }));
+        } else {
+            this.setState({ sortColumn: column });
+            // reset to 1 when a different column is clicked
+            this.setState({ sortDirection: 1 });
+        }
+    }
+
+    gatherSideEffects = (similarPatientTreatmentsData) => {
+        const allTreatmentData = [...similarPatientTreatmentsData];
         const allEffects = allTreatmentData.map((e) => (Object.keys(e.sideEffects.effects)));
         const result = allEffects.reduce((p, c) => {
             // concat the arrays, filter out duplicate entries
@@ -42,78 +56,26 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         return result;
     }
 
-    closePoppers = ({ target }) => {
-        if (this.state.includedOpen) {
-            let el = target;
-            while (el) {
-                if (el === this.refs['included-popper-target']) {
-                    break;
-                }
-                el = el.parentNode;
-            }
-            if (!el) {
-                this.setState({ includedOpen: false });
-            }
-        }
-
-        if (this.state.comparedOpen) {
-            let el = target;
-            while (el) {
-                if (el === this.refs['compare-popper-target']) {
-                    break;
-                }
-                el = el.parentNode;
-            }
-            if (!el) {
-                this.setState({ comparedOpen: false });
-            }
-        }
-    };
-
-    handleOpenIncluded = () => {
-        this.setState({ includedOpen: true });
-    }
-
-    handleOpenCompared = () => {
-        this.setState({ comparedOpen: true });
-    }
-
-    handleChangeEffect = (effect) => {
-        this.setState({ sideEffectSelection: effect.target.value });
-    }
-
-    handleChangeSort = (column) => {
-        // sort direction is represented by a 0,1, or 2.
-        // 0 - no sorting
-        // 1 - asceneding
-        // 2 - descending
-
-        if (column === this.state.sortColumn) {
-            this.setState(prevState => ({
-                sortDirection: (prevState.sortDirection + 1) % 3
-            }));
+    treatmentCompare(propName) {
+        if (propName === 'totalPatients') {
+            // sort by number of patients, no need to get ratio
+            return function(a,b) {
+                return b[propName] - a[propName];
+            };
         } else {
-            this.setState({sortColumn: column});
-            // reset to 1 when a different column is clicked
-            this.setState({sortDirection: 1});
+            return function(a,b) {
+                return b[propName] / b['totalPatients'] - a[propName] / a['totalPatients'];
+            };
         }
+
     }
 
-    toggleTreatment = (treatmentType, similarTreatments) => (event, selected) => {
-        const treatment = event.target.value;
-        const key = `${treatmentType}Treatments`;
-
-        if (!selected) {
-            const index = this.props[key].findIndex((element) => { return (element.code?`${element.code},${element.codeSystem}`:element) === treatment; });
-            if (index !== -1) {
-                const treatments = this.props[key].slice();
-                treatments.splice(index, 1);
-                this.props.selectTreatments(key, treatments);
-            }
-        } else if (!this.props[key].includes(treatment)) {
-            const treatmentObject = similarTreatments.find((el) => { return el.key === treatment; });
-            this.props.selectTreatments(key, [...this.props[key], treatmentObject.reference]);
-        }
+    alphabeticalCompare(a, b) {
+        const displayA = a.displayName;
+        const displayB = b.displayName;
+        if (displayA < displayB) return -1;
+        if (displayA > displayB) return 1;
+        return 0;
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
@@ -129,17 +91,17 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
-    renderRow(row, compareRow) {
+    renderTreatmentRow(row, compareRow = null) {
         const { sideEffectSelection } = this.state;
         if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
-        const topSideEffects = Object.keys(sideEffects.effects).map((sideEffect) => {
+        const topSideEffects = Object.keys(sideEffects.effects).map(sideEffect => {
             return { sideEffect, occurrences: sideEffects.effects[sideEffect] };
         }).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
 
         return (
-            <div className="table-row flex">
+            <div className="table-row flex" key={row.id}>
                 <div className="flex-2 flex-padding treatment-name">{displayName}</div>
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
@@ -149,38 +111,36 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     <div className="flex-1">{this.renderBarChart(row, compareRow, 'fiveYrSurvival')}</div>
                 </div>
 
-                <div className="flex flex-4 flex-padding flex-center top-side-effects">
-                    <div>
-                        {sideEffectSelection === "Most Common" ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                <div className="flex flex-4 flex-padding top-side-effects">
+                    {sideEffectSelection === "Most Common"
+                        ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
-                                {`${sideEffect} `}
+                                {`${sideEffect.toLowerCase()} `}
                                 ({Math.floor(occurrences / totalPatients * 100)}%)
                             </div>
                         )
-                            :
-                            <div>{sideEffects.effects[sideEffectSelection] ? Math.floor(sideEffects.effects[this.state.sideEffectSelection] / totalPatients * 100) : 0}%</div>}
-                    </div>
+                        :
+                        <div className="side-effect-percent">
+                            {sideEffects.effects[sideEffectSelection]
+                                ? Math.floor(sideEffects.effects[sideEffectSelection] / totalPatients * 100)
+                                : 0
+                            }%
+                        </div>
+                    }
                 </div>
             </div>
         );
     }
 
-    renderComparedRow = (treatmentData, i, includedRow) => {
-        return (
-            <div key={i}>
-                {this.renderRow(treatmentData, includedRow)}
-            </div>
-        );
-    }
-
     renderHeader = () => {
+        const { similarPatientTreatmentsData } = this.props;
         const { sideEffectSelection, sortColumn, sortDirection } = this.state;
         const sortName = sortDirection === 2 ? "sort-up" : sortDirection === 1 ? "sort-down" : "sort";
         const sort1 = sortColumn === "oneYrSurvival";
         const sort3 = sortColumn === "threeYrSurvival";
         const sort5 = sortColumn === "fiveYrSurvival";
         const sortP = sortColumn === "totalPatients";
-        const sideEffects = this.gatherSideEffects(this.props.comparedTreatmentData, this.props.includedTreatmentData);
+        const sideEffects = this.gatherSideEffects(similarPatientTreatmentsData);
 
         return (
             <div className="treatment-options-outcomes-table__header">
@@ -188,7 +148,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 <div className="flex-1 flex-padding user-icon">
                     <span onClick={ () => { this.handleChangeSort("totalPatients"); }} className="header-space">
                         <FontAwesome name="user" />
-                        <FontAwesome className={(sortP && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sortP?sortName: "sort"} />
+                        <FontAwesome className={(sortP && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sortP ? sortName : "sort"} />
                     </span>
                 </div>
 
@@ -197,17 +157,17 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     <div className="flex">
                         <div className="flex-1">
                             <span onClick={ () => { this.handleChangeSort("oneYrSurvival"); }} className="header-space">
-                                1 yr  <FontAwesome className={(sort1 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort1?sortName: "sort"} />
+                                1 yr  <FontAwesome className={(sort1 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort1 ? sortName : "sort"} />
                             </span>
                         </div>
                         <div className="flex-1">
                             <span onClick={ () => { this.handleChangeSort("threeYrSurvival"); }} className="header-space">
-                                3 yr  <FontAwesome className={(sort3 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort3?sortName: "sort"} />
+                                3 yr  <FontAwesome className={(sort3 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort3 ? sortName : "sort"} />
                             </span>
                         </div>
                         <div className="flex-1">
                             <span onClick={ () => { this.handleChangeSort("fiveYrSurvival"); }} className="header-space">
-                                5 yr  <FontAwesome className={(sort5 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort5?sortName: "sort"} />
+                                5 yr  <FontAwesome className={(sort5 && sortDirection?"sort-selected":"") + " sort-arrows fas"} name={sort5 ? sortName : "sort"} />
                             </span>
                         </div>
                     </div>
@@ -222,14 +182,14 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                             name="sideEffect"
                             className="custom-select"
                         >
-                            <MenuItem value="Most Common">
+                            <MenuItem value="Most Common" className="side-effect-option">
                                 <em>Most Common</em>
                             </MenuItem>
 
                             {sideEffects.map(effect => {
                                 return (
-                                    <MenuItem value={effect} key={effect}>
-                                        {effect}
+                                    <MenuItem value={effect} key={effect} className="side-effect-option">
+                                        {effect.toLowerCase()}
                                     </MenuItem>
                                 );
                             })}
@@ -240,52 +200,17 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
-    treatmentCompare(propName) {
-        if (propName==="totalPatients") {
-            // sort by number of patients, no need to get ratio
-            return function(a,b) {
-                return b[propName] - a[propName];
-            };
-        } else {
-            return function(a,b) {
-                return b[propName]/b["totalPatients"] - a[propName]/a["totalPatients"];
-            };
-        }
-
-    }
-
-    alphabeticalCompare(a,b) {
-        const displayA = a.displayName;
-        const displayB = b.displayName;
-        if (displayA < displayB) {
-            return -1;
-        } else if (displayA > displayB) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
     render() {
-        const { includedOpen, comparedOpen } = this.state;
-        const {
-            similarPatientTreatments,
-            includedTreatments,
-            includedTreatmentData,
-            comparedTreatments,
-            comparedTreatmentData
-        } = this.props;
-        const noIncludedRow = includedTreatmentData.length === 0;
+        const { compareRow, sortDirection, sortColumn } = this.state;
+        const { similarPatientTreatmentsData } = this.props;
 
-        if (this.state.sortDirection) {
-            // it could be ascending or descending, but its sorted
-            comparedTreatmentData.sort(this.treatmentCompare(this.state.sortColumn));
-            if (this.state.sortDirection === 2) {
-                // descending
-                comparedTreatmentData.reverse();
+        if (sortDirection) { // it could be ascending or descending, but it's sorted
+            similarPatientTreatmentsData.sort(this.treatmentCompare(sortColumn));
+            if (sortDirection === 2) { // descending
+                similarPatientTreatmentsData.reverse();
             }
         } else {
-            comparedTreatmentData.sort(this.alphabeticalCompare);
+            similarPatientTreatmentsData.sort(this.alphabeticalCompare);
         }
 
         return (
@@ -293,56 +218,10 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 {this.renderHeader()}
 
                 <div className="treatment-options-outcomes-table__table">
-                    <div className="included-treatments">
-                        <div>
-                            <span className="treatments-title">include only:</span>
-                            <span className="select-treatments" onClick={this.handleOpenIncluded} ref="included-popper-target">
-                                <span className="popover-text">add/remove</span>
-                                {includedOpen &&
-                                    <TreatmentsPopover
-                                        className="included-popover"
-                                        title="include these treatments"
-                                        treatments={similarPatientTreatments}
-                                        selectedTreatments={includedTreatments}
-                                        toggleTreatments={this.toggleTreatment('included', similarPatientTreatments)}
-                                    />
-                                }
-                            </span>
-                        </div>
-
-                        {!noIncludedRow ? this.renderRow(includedTreatmentData[0], includedTreatmentData[0]) :
-                            <div className="table-row flex helper-text">
-                                No data. Choose a different selection or similar patients criteria.
-                            </div>
-                        }
-                    </div>
-
-                    <div className="compared-treatments">
-                        <div>
-                            <span className="treatments-title">combine with:</span>
-                            <span className="select-treatments" onClick={this.handleOpenCompared} ref="compare-popper-target">
-                                <span className="popover-text">select treatments</span>
-                                {comparedOpen &&
-                                    <TreatmentsPopover
-                                        className="compared-popover"
-                                        title="compare across these treatments"
-                                        treatments={similarPatientTreatments}
-                                        selectedTreatments={comparedTreatments}
-                                        toggleTreatments={this.toggleTreatment('compared', similarPatientTreatments)}
-                                    />
-                                }
-                            </span>
-                        </div>
-
-                        {comparedTreatmentData.map((treatmentData, i) =>
-                            this.renderComparedRow(treatmentData, i, noIncludedRow ? null : includedTreatmentData[0])
-                        )}
-                    </div>
+                    {similarPatientTreatmentsData.map(treatmentData => this.renderTreatmentRow(treatmentData))}
                 </div>
 
-                {!noIncludedRow &&
-                    <TableLegend includedRow={includedTreatmentData[0]} />
-                }
+                <TableLegend compareRow={compareRow} />
             </div>
         );
     }
@@ -350,9 +229,5 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
 TreatmentOptionsOutcomesTable.propTypes = {
     similarPatientTreatments: PropTypes.array.isRequired,
-    includedTreatments: PropTypes.array.isRequired,
-    includedTreatmentData: PropTypes.array.isRequired,
-    comparedTreatments: PropTypes.array.isRequired,
-    comparedTreatmentData: PropTypes.array.isRequired,
-    selectTreatments: PropTypes.func.isRequired
+    similarPatientTreatmentsData: PropTypes.array.isRequired,
 };

@@ -79,14 +79,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     render() {
         const { outcomesToggle, timescaleToggle } = this.state;
-        const {
-            includedTreatmentData,
-            comparedTreatmentData,
-            similarPatientTreatments,
-            includedTreatments,
-            comparedTreatments,
-            selectTreatments
-        } = this.props;
+        const { similarPatientTreatmentsData, similarPatientTreatments } = this.props;
 
         return (
             <div className="treatment-options-outcomes">
@@ -95,16 +88,11 @@ export default class TreatmentOptionsOutcomes extends Component {
                 {outcomesToggle === "table" ?
                     <TreatmentOptionsOutcomesTable
                         similarPatientTreatments={similarPatientTreatments}
-                        includedTreatments={includedTreatments}
-                        includedTreatmentData={includedTreatmentData}
-                        comparedTreatments={comparedTreatments}
-                        comparedTreatmentData={comparedTreatmentData}
-                        selectTreatments={selectTreatments}
+                        similarPatientTreatmentsData={similarPatientTreatmentsData}
                     />
                     :
                     <TreatmentOptionsOutcomesIcons
-                        includedTreatmentData={includedTreatmentData}
-                        comparedTreatmentData={comparedTreatmentData}
+                        similarPatientTreatmentsData={similarPatientTreatmentsData}
                         timescaleToggle={timescaleToggle}
                     />
                 }
@@ -115,9 +103,5 @@ export default class TreatmentOptionsOutcomes extends Component {
 
 TreatmentOptionsOutcomes.propTypes = {
     similarPatientTreatments: PropTypes.array.isRequired,
-    includedTreatments: PropTypes.array.isRequired,
-    includedTreatmentData: PropTypes.array.isRequired,
-    comparedTreatments: PropTypes.array.isRequired,
-    comparedTreatmentData: PropTypes.array.isRequired,
-    selectTreatments: PropTypes.func.isRequired
+    similarPatientTreatmentsData: PropTypes.array.isRequired,
 };

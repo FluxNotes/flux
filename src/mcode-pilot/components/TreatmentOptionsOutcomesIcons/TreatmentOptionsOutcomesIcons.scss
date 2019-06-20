@@ -1,5 +1,3 @@
-@import '../../../styles/mixins/colors';
-
 .treatment-options-outcomes-icons {
     display: flex;
     margin: 40px 0;
@@ -18,17 +16,23 @@
     }
 
     .icons-interaction {
-        min-width: 300px;
+        min-width: 350px;
+        margin-right: 20px;
 
         .interaction-selection {
             position: relative;
             font-size: 1em;
             margin: 0 0 5px 8px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid transparent;
+
+            &.active {
+                border-color: $interface-blue;
+            }
 
             .treatment-name-group {
                 cursor: pointer;
-
-                &.index { @include index-colors; }
 
                 .treatment-name {
                     font-size: 1.2em;
@@ -46,8 +50,6 @@
                 font-weight: 600;
                 border-bottom: 2px solid;
 
-                &.index { @include index-colors('border-color'); }
-
                 div {
                     margin: 5px 0;
                 }
@@ -56,8 +58,6 @@
                     .additional-survive {
                         margin-right: 5px;
                         font-size: 1.2em;
-
-                        &.index { @include index-colors; }
                     }
                 }
 
@@ -72,10 +72,6 @@
                             margin: 0;
                             padding: 0 10px;
 
-                            &:nth-child(odd) {
-                                &.index { @include index-colors('background-color', '-', 0.1); }
-                            }
-
                             .item-name {
                                 flex: 2;
                             }
@@ -88,10 +84,6 @@
                     }
                 }
             }
-        }
-
-        .interaction-included {
-            margin-bottom: 20px;
         }
 
         .selected-icon {
