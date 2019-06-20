@@ -38,7 +38,8 @@ export default class LongitudinalTable extends Component {
         const { dataInfo } = this.props;
         for (let index = 0; index < this.props.dataInfo.length; index++) {
             const data = this.props.dataInfo[index];
-            tableValues.push(this.createData(data.name, data.unit, Object.values(data.datesAndData), `${index} - ${data.name}`, data.bands, data.favorite));
+            const id = `${index}-${data.name}`;
+            tableValues.push(this.createData(data.name, data.unit, Object.values(data.datesAndData), id, data.bands, data.favorite));
             predates.push(Object.keys(this.props.dataInfo[index].datesAndData));
         }
         const dates = _.uniq(_.flattenDeep(predates));
