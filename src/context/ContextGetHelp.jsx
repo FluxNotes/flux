@@ -77,7 +77,12 @@ class ContextGetHelp extends React.Component {
             else if (this.state.selectedIndex > 0) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                // the parent 'get help' option is not included in the getHelpOptions array
+                // but it is included as a selectedIndex, so there is an off by one that needs
+                // to be calculated, hence the -1
                 this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
+                return this.props.state;
             }
         }
     }
@@ -130,7 +135,8 @@ class ContextGetHelp extends React.Component {
 
 ContextGetHelp.propTypes = {
     closePortal: PropTypes.func.isRequired,
-    shortcut: PropTypes.object.isRequired
+    shortcut: PropTypes.object.isRequired,
+    state: PropTypes.object.isRequired
 };
 
 export default ContextGetHelp;
