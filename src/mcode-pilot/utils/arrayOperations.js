@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'lodash';
 // returns true if arrayOne contains the same elements as arrayTwo and false if not
 function isSame(arrayOne, arrayTwo) {
     if (arrayOne===null || arrayTwo===null || arrayOne.length !== arrayTwo.length) return false;
