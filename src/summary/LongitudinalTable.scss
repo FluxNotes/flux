@@ -10,22 +10,27 @@
 }
 .name {
     &:hover {
-        color: #028DEA !important;
-        cursor: pointer !important;
         background-color: $feature-gray !important;
     }
 }
 .star-clicked {
-    color: #028DEA !important;
+    color: #028dea !important;
 }
 .star-hovered {
-    color: #b3b3b3 !important;
+    color: white;
+    text-shadow: 0 0 1px #028dea;
 }
 .star-cell {
     padding-left: 0px !important;
     padding-right: 0px !important;
     text-align: center !important;
     min-width: 30px !important;
+    &.star-body {
+        &:hover {
+            cursor: pointer !important;
+            background-color: $feature-gray !important;
+        }
+    }
 }
 .left-table {
     float: left;

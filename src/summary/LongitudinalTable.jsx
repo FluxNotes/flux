@@ -15,6 +15,7 @@ export default class LongitudinalTable extends Component {
                 return obj.name;
             }),
             hovered: null,
+            onStar: false,
         };
     }
     componentWillReceiveProps(nextProps) {
@@ -75,7 +76,16 @@ export default class LongitudinalTable extends Component {
             this.setState({ favorites: newFavorites });
         }
     }
-    renderRightTableHeader = (dates) => {
+    renderStar(name, id) {
+        if (_.includes(this.state.favorites, name)) {
+            return <FontAwesome className='star-clicked' name='star' />;
+        }
+        else if (this.state.hovered === id) {
+            return <FontAwesome className='star-hovered' name='star' />;
+        }
+        return <div />;
+    }
+    renderRightTableHeader(dates) {
         let currYear = null;
         return (
             <TableHead>
@@ -102,16 +112,7 @@ export default class LongitudinalTable extends Component {
 
         );
     }
-    renderStar = (name, id) => {
-        if (_.includes(this.state.favorites, name)) {
-            return <FontAwesome className='star-clicked' name='star' />;
-        }
-        else if (this.state.hovered === id) {
-            return <FontAwesome className='star-hovered' name='star' />;
-        }
-        return <div />;
-    }
-    renderRightTableData = (tableValues) => {
+    renderRightTableData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
             return (
                 <TableRow key={n.id}>
@@ -138,11 +139,11 @@ export default class LongitudinalTable extends Component {
             <TableHead>
                 <TableRow>
                     <TableCell className='star-cell'>&nbsp;</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell className='table-header'></TableCell>
+                    <TableCell className='table-header'></TableCell>
                 </TableRow>
                 <TableRow>
-                    <TableCell className='star-cell'></TableCell>
+                    <TableCell className='star-cell'>Starred</TableCell>
                     <TableCell className='table-header'>{this.props.subsectionLabel}</TableCell>
                     <TableCell className='table-header'>Unit</TableCell>
                 </TableRow>
@@ -151,18 +152,13 @@ export default class LongitudinalTable extends Component {
     }
     renderLeftTableData = (tableValues) => {
         return tableValues.map(n => { //n is a row in the table
-            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
-                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
-            });
-            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
-            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
             return (
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
-                    <TableCell className='star-cell'>
+                    <TableCell className='star-cell star-body' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
                         {this.renderStar(n.name, n.id)}
                     </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                    <TableCell>
                         {n.name}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
