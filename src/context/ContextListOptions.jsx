@@ -104,7 +104,7 @@ ContextListOptions.propTypes = {
     closePortal: PropTypes.func,
     contexts: PropTypes.array.isRequired,
     onSelected: PropTypes.func.isRequired,
-    state: PropTypes.object.isRequired,
+    state: PropTypes.object.isRequired
 };
 
 export default ContextListOptions;
