@@ -202,7 +202,7 @@ export default class NoteParser {
                     selectedValue = possibleValue.substring(2, posOfEndBrackets);
                 }
                 const def = this.shortcutManager.getMetadataForTrigger(match[0]);
-                matches.push({trigger: match[0], definition: def, selectedValue: selectedValue, isPickList: def.getData && def.getData.itemKey });
+                matches.push({trigger: match[0], definition: def, selectedValue: selectedValue, isPickList: def.getData && def.getData.itemKey, startIndex: hashPos, endIndex: hashPos+match[0].length });
             }
             pos = hashPos + 1;
             hashPos = nextPos;
@@ -289,5 +289,44 @@ export default class NoteParser {
         foundKeywords.map(this.createShortcut.bind(this));
 
         return [this.patient.getEntries(), result[1]];
+    }
+
+    replaceTextWithSingleHashtagKeyword(text) {
+        const triggerChars = ['#'];
+        let pos = 0;
+        let matches = [];
+        let match, substr, nextPos, found;
+        let checkForTriggerRegExpMatch = (tocheck) => {
+            match = substr.match(tocheck.regexp);
+            if (!Lang.isNull(match)) {
+                matches.push({trigger: match[0], definition: tocheck.definition});
+                console.log(match);
+                found = true;
+            }
+        };
+        let hashPos = this.getNextTriggerIndex(text, triggerChars, pos);
+        while (hashPos !== -1) {
+            nextPos = this.getNextTriggerIndex(text, triggerChars, hashPos + 1);
+            if (nextPos === -1) {
+                substr = text.substring(hashPos);
+            } else {
+                substr = text.substring(hashPos, nextPos);
+            }
+            match = substr.match(this.allStringTriggersRegExp);
+            if (Lang.isNull(match)) {
+                found = false;
+                this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
+            } else {
+                let selectedValue = null;
+                const def = this.shortcutManager.getMetadataForTrigger(match[0]);
+                matches.push({trigger: match[0], definition: def, selectedValue: selectedValue, isPickList: def.getData && def.getData.itemKey, startIndex: hashPos, endIndex: hashPos +  match[0].length});
+
+                //replace the text with shortcut here
+
+            }
+            pos = hashPos + 1;
+            hashPos = nextPos;
+        }
+        return [matches];
     }
 }
