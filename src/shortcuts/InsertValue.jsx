@@ -16,7 +16,9 @@ export default class InsertValue extends Shortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
         super.initialize(contextManager, trigger, updatePatient);
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
-
+        if (Lang.isNull(shortcutData)) {
+            shortcutData = "";
+        }
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
