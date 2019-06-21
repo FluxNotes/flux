@@ -94,6 +94,9 @@ class ContextGetHelp extends React.Component {
         return (
             <span className="context-get-help-options">
                 {this.state.getHelpOptions.map((option, index) => {
+                    // the parent 'get help' option is not included in the getHelpOptions array
+                    // but it is included as a selectedIndex, so there is an off by one that needs
+                    // to be calculated, hence the updatedIndex + 1 from the index of the getHelpOptions
                     let updatedIndex = index + 1;
                     return (
                         <li key={updatedIndex}
@@ -119,7 +122,6 @@ class ContextGetHelp extends React.Component {
                 <li
                     className="context-get-help-li"
                     data-active={this.state.selectedIndex === 0}
-                    onClick={() => { this.setSelectedIndex(0); }}
                     onMouseEnter={() => { this.setSelectedIndex(0); }}
                 >
                     <span className="context-get-help-text">
