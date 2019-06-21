@@ -222,6 +222,12 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 {this.renderHeader()}
 
                 <div className="treatment-options-outcomes-table__table">
+                    {similarPatientTreatmentsData.length === 0 &&
+                        <div className="helper-text">
+                            No data. Choose a different selection or similar patients criteria.
+                        </div>
+                    }
+
                     {similarPatientTreatmentsData.map(treatmentData => this.renderTreatmentRow(treatmentData))}
                 </div>
 

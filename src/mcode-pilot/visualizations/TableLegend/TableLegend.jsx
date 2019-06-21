@@ -45,7 +45,7 @@ export default class TableLegend extends Component {
                         <div className="prog-fill-container">
                             <div className="progress-bar cancer" />
                         </div>
-                        <span className="legend-text">cancer related deaths</span>
+                        <span className="legend-text">all deaths</span>
                     </div>
                 </div>
             </div>

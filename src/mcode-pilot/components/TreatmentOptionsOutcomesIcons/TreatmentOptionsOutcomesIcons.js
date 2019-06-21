@@ -23,6 +23,10 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     render() {
         const { similarPatientTreatmentsData, timescaleToggle } = this.props;
         const { selectedTreatment } = this.state;
+        if (!selectedTreatment) {
+            return <div className="helper-text">No data. Choose a different selection or similar patients criteria.</div>;
+        }
+
         const survivalMap = { 1: 'oneYrSurvival', 3: 'threeYrSurvival', 5: 'fiveYrSurvival' };
         const timescale = survivalMap[timescaleToggle];
         const similarPatientTreatmentNames = _.map(similarPatientTreatmentsData, 'displayName');
