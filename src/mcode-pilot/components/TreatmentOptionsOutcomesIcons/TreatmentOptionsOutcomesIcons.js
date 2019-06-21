@@ -23,8 +23,6 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     resetSelectedTreatment = () => {
         const { similarPatientTreatmentsData } = this.props;
         const { selectedTreatment } = this.state;
-        console.debug('selectedTreatment', selectedTreatment);
-        console.debug('similarPatientTreatmentsData', similarPatientTreatmentsData);
         if (similarPatientTreatmentsData.length === 0) return;
 
         let newSelectedTreatment;
