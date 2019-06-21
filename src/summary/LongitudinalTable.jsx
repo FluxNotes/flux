@@ -159,15 +159,9 @@ export default class LongitudinalTable extends Component {
         return (
             <TableHead>
                 <TableRow>
-<<<<<<< HEAD
-                    <TableCell className='star-cell'>&nbsp;</TableCell>
-                    <TableCell className='table-header'></TableCell>
-                    <TableCell className='table-header'></TableCell>
-=======
                     <TableCell className='star-cell'>starred</TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
->>>>>>> added new section for favorites
                 </TableRow>
                 <TableRow>
                     <TableCell className='star-cell'>Starred</TableCell>
@@ -216,27 +210,27 @@ export default class LongitudinalTable extends Component {
         });
     }
     renderRightFavoriteData() {
-    const starTableValues = this.gatherTableValues()[2];
-    return starTableValues.map(n => { //n is a row in the table
-        return (
-            <TableRow key={n.id}>
-                {/* Names and Units Cells */}
-                {Object.entries(n)[2][1].map((value, newkey) => {
-                    const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-                        return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-                    });
-                    const cellClassName = matchingDataPoint ? 'highlighted' : '';
-                    const bands = starTableValues[starTableValues.indexOf(n)].bands;
-                    // Data Cells
-                    if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                        return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
-                    } else {
-                        return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
-                    }
-                })}
-            </TableRow>
-        );
-    });
+        const starTableValues = this.gatherTableValues()[2];
+        return starTableValues.map(n => { //n is a row in the table
+            return (
+                <TableRow key={n.id}>
+                    {/* Names and Units Cells */}
+                    {Object.entries(n)[2][1].map((value, newkey) => {
+                        const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+                            return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+                        });
+                        const cellClassName = matchingDataPoint ? 'highlighted' : '';
+                        const bands = starTableValues[starTableValues.indexOf(n)].bands;
+                        // Data Cells
+                        if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                            return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                        } else {
+                            return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                        }
+                    })}
+                </TableRow>
+            );
+        });
     }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
@@ -278,9 +272,6 @@ LongitudinalTable.propTypes = {
     conditionSectionName: propTypes.string,
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
-<<<<<<< HEAD
     preferenceManager: propTypes.object,
-=======
-    starredData: propTypes.array,
->>>>>>> added new section for favorites
+    pluralLabel: propTypes.string,
 };
