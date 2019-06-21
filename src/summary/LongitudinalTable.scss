@@ -2,6 +2,8 @@
 
 .table-header {
     padding-left: 10px !important;
+    padding-right: 10px !important;
+    min-width: 60px;
 }
 .table-scrollable {
     overflow-x: scroll !important;
@@ -24,4 +26,7 @@
     padding-right: 0px !important;
     text-align: center !important;
     min-width: 30px !important;
+}
+.left-table {
+    float: left;
 }
