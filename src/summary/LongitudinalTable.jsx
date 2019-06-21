@@ -61,7 +61,13 @@ export default class LongitudinalTable extends Component {
                 }
             });
         }
-        return [tableValues, dates];
+        const starTableValues = [];
+        tableValues.forEach((section) => {
+            if (section.favorite) {
+                starTableValues.push(section);
+            }
+        });
+        return [tableValues, dates, starTableValues];
     }
     // updates current favorites and local storage
     toggleFavorites = (section) => {
@@ -153,9 +159,15 @@ export default class LongitudinalTable extends Component {
         return (
             <TableHead>
                 <TableRow>
+<<<<<<< HEAD
                     <TableCell className='star-cell'>&nbsp;</TableCell>
                     <TableCell className='table-header'></TableCell>
                     <TableCell className='table-header'></TableCell>
+=======
+                    <TableCell className='star-cell'>starred</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+>>>>>>> added new section for favorites
                 </TableRow>
                 <TableRow>
                     <TableCell className='star-cell'>Starred</TableCell>
@@ -180,6 +192,52 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
+    renderLeftFavoriteData() {
+        const starTableValues = this.gatherTableValues()[2];
+        return starTableValues.map(n => { //n is a row in the table
+            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
+                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
+            });
+            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
+            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            return (
+                <TableRow key={n.id}>
+                    {/* Names and Units Cells */}
+                    <TableCell className='star-cell'>
+                        {this.renderStar(n.name, n.id)}
+                    </TableCell>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                        {n.name}
+                    </TableCell>
+                    <TableCell>{n.unit}</TableCell>
+                </TableRow>
+
+            );
+        });
+    }
+    renderRightFavoriteData() {
+    const starTableValues = this.gatherTableValues()[2];
+    return starTableValues.map(n => { //n is a row in the table
+        return (
+            <TableRow key={n.id}>
+                {/* Names and Units Cells */}
+                {Object.entries(n)[2][1].map((value, newkey) => {
+                    const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+                        return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+                    });
+                    const cellClassName = matchingDataPoint ? 'highlighted' : '';
+                    const bands = starTableValues[starTableValues.indexOf(n)].bands;
+                    // Data Cells
+                    if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                        return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                    } else {
+                        return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                    }
+                })}
+            </TableRow>
+        );
+    });
+    }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
         return (
@@ -188,14 +246,23 @@ export default class LongitudinalTable extends Component {
                     <Table className='left-table'>
                         {this.renderLeftTableHeader()}
                         <TableBody>
+                            {/*starred body*/}
+                            {this.renderLeftFavoriteData()}
+                            <TableCell className='list-subsection-header list-column-heading star-cell'>all {this.props.pluralLabel}</TableCell>
+                            {/*all labs/data body*/}
                             {this.renderLeftTableData(tableValues)}
+
                         </TableBody>
                     </Table>
                 </div>
-                <div className='table-scrollable'>
+                <div className='table-scrollable'> {/*right table*/}
                     <Table>
                         {this.renderRightTableHeader(dates)}
                         <TableBody>
+                            {/*starred body*/}
+                            {this.renderRightFavoriteData()}
+                            <TableCell>&nbsp;</TableCell>
+                            {/*all labs/data body*/}
                             {this.renderRightTableData(tableValues)}
                         </TableBody>
                     </Table>
@@ -211,5 +278,9 @@ LongitudinalTable.propTypes = {
     conditionSectionName: propTypes.string,
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
+<<<<<<< HEAD
     preferenceManager: propTypes.object,
+=======
+    starredData: propTypes.array,
+>>>>>>> added new section for favorites
 };

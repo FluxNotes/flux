@@ -48,3 +48,32 @@
         overflow-x: scroll;
     }
 }
+.star-clicked {
+    color: #028DEA !important;
+}
+.star-hovered {
+    color: #b3b3b3 !important;
+}
+.star-cell {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    text-align: center !important;
+    min-width: 30px !important;
+}
+.left-table {
+    float: left;
+
+}
+.list-column-heading {
+    color: $body-gray;
+    background-color: $background;
+    padding: 1px 10px 2px 10px;
+    border-bottom: 1px solid $line-gray;
+    font-weight: $weight-semibold !important;
+    font-family: "Open Sans", Arial, sans-serif;
+    text-align: left;
+}
+.list-subsection-header {
+    color: $body-gray !important;
+    font-weight: $weight-semibold;
+}

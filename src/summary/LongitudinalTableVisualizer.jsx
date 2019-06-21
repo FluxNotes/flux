@@ -11,6 +11,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         const formattedData = this.formatData(this.props.conditionSection.data);
         this.state = {
             data: formattedData,
+            starredData: [],
         };
     }
     formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
@@ -70,8 +71,8 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         this.sortData(favsArray);
         const notFavsArray = _.slice(separatedArray, numFavs, separatedArray.length); //take just the not favs and sort them alphabetically
         this.sortData(notFavsArray);
-        const finalArray = _.concat(favsArray, notFavsArray); //but the favs back together with the not favs in one array
-        this.setState({ data: finalArray });
+        const finalArray = _.concat(favsArray,notFavsArray); //but the favs back together with the not favs in one array
+        this.setState({ data: finalArray, starredData: favsArray });
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {
@@ -90,13 +91,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalTable
-                    reorderRows={this.reorderRows}
-                    dataInfo={this.state.data}
-                    tdpSearchSuggestions={this.props.tdpSearchSuggestions}
-                    conditionSectionName={this.props.conditionSection.name}
-                    subsectionLabel={this.props.conditionSection.subsectionLabel}
-                    preferenceManager={this.props.preferenceManager} />
+                <LongitudinalTable starredData = {this.state.starredData} reorderRows={this.reorderRows} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} pluralLabel={this.props.conditionSection.name.toLowerCase()}/>
             </div>
         );
     }
