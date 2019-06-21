@@ -30,6 +30,7 @@ import { setTimeout } from 'timers';
 import NoteContentIndexer from '../patientControl/NoteContentIndexer';
 import InMemoryClinicalNote from './InMemoryClinicalNote';
 import InsertValue from '../shortcuts/InsertValue';
+import ContextGetHelp from '../context/ContextGetHelp';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -71,6 +72,8 @@ const initialEditorState = {
 
 class FluxNotesEditor extends React.Component {
     openCompletionPortal = (completionComponentShortcut) => {
+        console.log("open completion portal")
+        console.log(completionComponentShortcut)
         // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
         const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
         this.setState({
@@ -415,6 +418,7 @@ class FluxNotesEditor extends React.Component {
     // selection (selection is null)
     onCompletionComponentValueSelection = (state, selection) => {
         const shortcut = this.state.completionComponentShortcut;
+        console.log(shortcut)
         // TODO: Why is this happening?
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
@@ -423,15 +427,18 @@ class FluxNotesEditor extends React.Component {
         }
         let transform;
         transform = this.state.state.transform();
-
-        shortcut.setText(selection.context);
-        if (shortcut.isContext()) {
-            shortcut.setValueObject(selection.object);
-            if (!Lang.includes(this.contextManager.contexts, shortcut)) this.contextManager.addShortcutToContext(shortcut);
-            this.contextManager.contextUpdated();
+        shortcut.clearValueSelectionOptions();
+        if (shortcut.setText) {
+            shortcut.setText(selection.context);
+            if (shortcut.isContext()) {
+                shortcut.setValueObject(selection.object);
+                if (!Lang.includes(this.contextManager.contexts, shortcut)) this.contextManager.addShortcutToContext(shortcut);
+                this.contextManager.contextUpdated();
+            }
         }
 
-        transform = this.resetShortcutData(shortcut, transform);
+       transform = this.resetShortcutData(shortcut, transform);
+      
         const newState = transform.apply();
         this.setState({
             state: newState
@@ -451,6 +458,7 @@ class FluxNotesEditor extends React.Component {
         const anchorKey = state.anchorBlock.key;
         // All the text in this block
         let text = anchorText.text;
+        console.log(text)
         if (text.length === 0) {
             const block = state.document.getPreviousSibling(anchorKey);
             if (block) {
