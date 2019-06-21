@@ -88,23 +88,67 @@ export default class LongitudinalTable extends Component {
             return <FontAwesome className='star-clicked' name='star' />;
         }
         else if (this.state.hovered === id) {
-            return <FontAwesome className='star-hovered' name='star-o' />;
+            return <FontAwesome className='star-hovered' name='star' />;
         }
         return <div />;
     }
-    renderNameCell(name) {
+    renderLeftTableHeader() {
         return (
-            <Tooltip
-                placement='right'
-                overlayClassName={`name-tooltip`}
-                overlay={`${name}`}
-                mouseEnterDelay={0.5}
-            >
-                <TableCell className='name'>
-                    <span>{name}</span>
-                </TableCell>
-            </Tooltip>
+            <TableHead>
+                <TableRow>
+                    <TableCell className='star-cell'>starred {this.props.pluralLabel}</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell className='star-cell'>&nbsp;</TableCell>
+                    <TableCell className='table-header'></TableCell>
+                    <TableCell className='table-header'></TableCell>
+                </TableRow>
+            </TableHead>
         );
+    }
+    renderLeftFavoriteData() {
+        const starTableValues = this.gatherTableValues()[2];
+        return starTableValues.map(n => { //n is a row in the table
+            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
+                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
+            });
+            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
+            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            return (
+                <TableRow key={n.id}>
+                    {/* Names and Units Cells */}
+                    <TableCell className={`star-cell star-body ${hoverable}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
+                        {this.renderStar(n.name, n.id)}
+                    </TableCell>
+                    {this.renderNameCell(n.name)}
+                    <TableCell>{n.unit}</TableCell>
+                </TableRow>
+            );
+        });
+    }
+    renderLeftTableData(tableValues) {
+        return tableValues.map(n => { //n is a row in the table
+            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
+                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
+            });
+            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
+            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            return (
+                <TableRow key={n.id}>
+                    {/* Names and Units Cells */}
+                    <TableCell className='star-cell'>
+                        {this.renderStar(n.name, n.id)}
+                    </TableCell>
+                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                        {n.name}
+                    </TableCell>
+                    <TableCell>{n.unit}</TableCell>
+                </TableRow>
+
+            );
+        });
     }
     renderRightTableHeader(dates) {
         let currYear = null;
@@ -133,82 +177,6 @@ export default class LongitudinalTable extends Component {
 
         );
     }
-    renderRightTableData(tableValues) {
-        return tableValues.map(n => { //n is a row in the table
-            return (
-                <TableRow key={n.id}>
-                    {/* Names and Units Cells */}
-                    {Object.entries(n)[2][1].map((value, newkey) => {
-                        const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-                            return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-                        });
-                        const cellClassName = matchingDataPoint ? 'highlighted' : '';
-                        const bands = tableValues[tableValues.indexOf(n)].bands;
-                        // Data Cells
-                        if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
-                        } else {
-                            return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
-                        }
-                    })}
-                </TableRow>
-            );
-        });
-    }
-    renderLeftTableHeader = () => {
-        return (
-            <TableHead>
-                <TableRow>
-                    <TableCell className='star-cell'>starred</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell className='star-cell'>Starred</TableCell>
-                    <TableCell className='table-header'>{this.props.subsectionLabel}</TableCell>
-                    <TableCell className='table-header'>Unit</TableCell>
-                </TableRow>
-            </TableHead>
-        );
-    }
-    renderLeftTableData = (tableValues) => {
-        return tableValues.map(n => { //n is a row in the table
-            const hoverable = n.favorite ? 'hoverable' : '';
-            return (
-                <TableRow key={n.id}>
-                    {/* Names and Units Cells */}
-                    <TableCell className={`star-cell star-body ${hoverable}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
-                        {this.renderStar(n.name, n.id)}
-                    </TableCell>
-                    {this.renderNameCell(n.name)}
-                    <TableCell>{n.unit}</TableCell>
-                </TableRow>
-            );
-        });
-    }
-    renderLeftFavoriteData() {
-        const starTableValues = this.gatherTableValues()[2];
-        return starTableValues.map(n => { //n is a row in the table
-            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
-                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
-            });
-            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
-            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
-            return (
-                <TableRow key={n.id}>
-                    {/* Names and Units Cells */}
-                    <TableCell className='star-cell'>
-                        {this.renderStar(n.name, n.id)}
-                    </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                        {n.name}
-                    </TableCell>
-                    <TableCell>{n.unit}</TableCell>
-                </TableRow>
-
-            );
-        });
-    }
     renderRightFavoriteData() {
         const starTableValues = this.gatherTableValues()[2];
         return starTableValues.map(n => { //n is a row in the table
@@ -232,17 +200,53 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
+    renderRightTableData(tableValues) {
+        const dates = this.gatherTableValues()[1];
+        return (
+            <TableBody>
+                <TableRow> {/*space between starred section and not-starred section*/}
+                    {dates.map((date,key) => {
+                        return <TableCell className='list-subsection-header list-column-heading' key={key}>&nbsp;</TableCell>;
+                    })}
+                </TableRow>
+                {tableValues.map(n => { //n is a row in the table
+                    return (
+                        <TableRow key={n.id}>
+                            {/* Names and Units Cells */}
+                            {Object.entries(n)[2][1].map((value, newkey) => {
+                                const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+                                    return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+                                });
+                                const cellClassName = matchingDataPoint ? 'highlighted' : '';
+                                const bands = tableValues[tableValues.indexOf(n)].bands;
+                                // Data Cells
+                                if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                                    return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                                } else {
+                                    return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                                }
+                            })}
+                        </TableRow>
+                    );
+                })}
+            </TableBody>
+        );
+    }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
         return (
-            <div id='longitudinal-table' className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+            <div className='tabular-list vertical-scroll'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
                 <div>
                     <Table className='left-table'>
                         {this.renderLeftTableHeader()}
                         <TableBody>
                             {/*starred body*/}
                             {this.renderLeftFavoriteData()}
-                            <TableCell className='list-subsection-header list-column-heading star-cell'>all {this.props.pluralLabel}</TableCell>
+                            <TableRow>
+                                <TableCell className='list-subsection-header list-column-heading section-header'>all {this.props.pluralLabel}</TableCell>
+                                <TableCell className='list-subsection-header list-column-heading'></TableCell>
+                                <TableCell className='list-subsection-header list-column-heading'></TableCell>
+                            </TableRow>
                             {/*all labs/data body*/}
                             {this.renderLeftTableData(tableValues)}
 
@@ -252,13 +256,13 @@ export default class LongitudinalTable extends Component {
                 <div className='table-scrollable'> {/*right table*/}
                     <Table>
                         {this.renderRightTableHeader(dates)}
-                        <TableBody>
-                            {/*starred body*/}
-                            {this.renderRightFavoriteData()}
-                            <TableCell>&nbsp;</TableCell>
-                            {/*all labs/data body*/}
-                            {this.renderRightTableData(tableValues)}
-                        </TableBody>
+                        {/* <TableBody> */}
+                        {/*starred body*/}
+                        {this.renderRightFavoriteData()}
+
+                        {/*all labs/data body*/}
+                        {this.renderRightTableData(tableValues)}
+                        {/* </TableBody> */}
                     </Table>
                 </div>
             </div>

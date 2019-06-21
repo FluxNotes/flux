@@ -1,51 +1,22 @@
 @import "../styles/variables";
 
-.name-tooltip .rc-tooltip-inner {
-    width: auto;
-    border-radius: 6px;
-    text-align: center;
-    min-height: 0px;
+.table-header {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    min-width: 60px;
 }
-
-#longitudinal-table {
-    .left-table {
-        float: left;
-        .name {
-            max-width: 135px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .star-cell {
-            padding-left: 0px !important;
-            padding-right: 0px !important;
-            text-align: center !important;
-            min-width: 30px !important;
-            .star-clicked {
-                color: $interface-blue;
-            }
-            .star-hovered {
-                color: $interface-blue;
-            }
-            &.star-body {
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-            &.hoverable {
-                &:hover {
-                    font-size: 17px;
-                }
-            }
-        }
-    }
-    .table-header {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        min-width: 60px;
-    }
-    .table-scrollable {
-        overflow-x: scroll;
+.table-scrollable {
+    overflow-x: scroll !important;
+}
+.vertical-scroll {
+    overflow-y: scroll !important;
+    max-height: 300px;
+}
+.name {
+    &:hover {
+        color: #028DEA !important;
+        cursor: pointer !important;
+        background-color: $feature-gray !important;
     }
 }
 .star-clicked {
@@ -64,16 +35,25 @@
     float: left;
 
 }
-.list-column-heading {
-    color: $body-gray;
-    background-color: $background;
-    padding: 1px 10px 2px 10px;
-    border-bottom: 1px solid $line-gray;
-    font-weight: $weight-semibold !important;
-    font-family: "Open Sans", Arial, sans-serif;
-    text-align: left;
+// .list-column-heading {
+//     //color: $body-gray;
+//     background-color: $background;
+//     padding: 1px 10px 2px 10px;
+//     border-bottom: 1px solid $line-gray;
+//     //font-weight: $weight-semibold !important;
+//     font-family: "Open Sans", Arial, sans-serif;
+//     text-align: left;
+// }
+// .list-subsection-header {
+//     color: $body-gray !important;
+//     font-weight: $weight-semibold;
+// }
+.section-header {
+    font-size: .75rem;
+    font-weight: 500;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
-.list-subsection-header {
+#section-header {
     color: $body-gray !important;
     font-weight: $weight-semibold;
 }
