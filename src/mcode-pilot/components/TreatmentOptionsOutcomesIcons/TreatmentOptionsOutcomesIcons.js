@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import _ from 'lodash';
 
 import IconsChart from '../../visualizations/IconsChart/IconsChart';
 
@@ -14,41 +13,63 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         this.state = { selectedTreatment: props.similarPatientTreatmentsData[0] };
     }
 
+    componentDidUpdate(prevProps) {
+        const { similarPatientTreatmentsData } = this.props;
+        if (similarPatientTreatmentsData !== prevProps.similarPatientTreatmentsData) {
+            this.resetSelectedTreatment();
+        }
+    }
+
+    resetSelectedTreatment = () => {
+        const { similarPatientTreatmentsData } = this.props;
+        const { selectedTreatment } = this.state;
+        if (similarPatientTreatmentsData.length === 0) return;
+        const newSelectedTreatment = similarPatientTreatmentsData.filter(treatment =>
+            treatment.displayName === selectedTreatment.displayName)[0];
+        this.setState({ selectedTreatment: newSelectedTreatment });
+    }
+
     selectIconsTreatment = treatmentName => {
         const { similarPatientTreatmentsData } = this.props;
         const treatment = similarPatientTreatmentsData.filter(treatmentData => treatmentData.displayName === treatmentName)[0];
         this.setState({ selectedTreatment: treatment });
     }
 
+    renderTreatmentSelector = treatment => {
+        const { selectedTreatment } = this.state;
+        const treatmentName = treatment.displayName;
+        const treatmentClass =
+            `interaction-selection interaction-combined ${selectedTreatment.displayName === treatmentName ? 'active' : ''}`;
+
+        return (
+            <div className={treatmentClass} key={treatment.id}>
+                <div
+                    className="treatment-name-group"
+                    onClick={() => this.selectIconsTreatment(treatmentName)}>
+                    {selectedTreatment === treatmentName && <FontAwesome className="selected-icon" name="caret-right" />}
+                    <span className={`treatment-name ${selectedTreatment === treatmentName ? 'selected' : ''}`}>
+                        {treatmentName}
+                    </span>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         const { similarPatientTreatmentsData, timescaleToggle } = this.props;
         const { selectedTreatment } = this.state;
-        if (!selectedTreatment) {
+        if (!selectedTreatment || similarPatientTreatmentsData.length === 0) {
             return <div className="helper-text">No data. Choose a different selection or similar patients criteria.</div>;
         }
 
         const survivalMap = { 1: 'oneYrSurvival', 3: 'threeYrSurvival', 5: 'fiveYrSurvival' };
         const timescale = survivalMap[timescaleToggle];
-        const similarPatientTreatmentNames = _.map(similarPatientTreatmentsData, 'displayName');
         const numSurvive = Math.floor(selectedTreatment[timescale] / selectedTreatment.totalPatients * 100);
 
         return (
             <div className="treatment-options-outcomes-icons">
                 <div className="icons-interaction">
-                    {similarPatientTreatmentNames.map((treatmentName, i) =>
-                        <div
-                            className={`interaction-selection interaction-combined ${selectedTreatment.displayName === treatmentName ? 'active' : ''}`}
-                            key={i}>
-                            <div
-                                className="treatment-name-group"
-                                onClick={() => this.selectIconsTreatment(treatmentName)}>
-                                {selectedTreatment === treatmentName && <FontAwesome className="selected-icon" name="caret-right" />}
-                                <span className={`treatment-name ${selectedTreatment === treatmentName ? 'selected' : ''}`}>
-                                    {treatmentName}
-                                </span>
-                            </div>
-                        </div>
-                    )}
+                    {similarPatientTreatmentsData.map(treatment => this.renderTreatmentSelector(treatment))}
                 </div>
 
                 <IconsChart
