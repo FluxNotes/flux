@@ -208,8 +208,9 @@ export default class InsertValue extends Shortcut {
         if (Lang.isNull(text)) {
             text = this.initiatingTrigger;
         } else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+            // NOTE: This should only happen when the inserter shortcut is incomplete; we want that serialization to reflect the incompleteness
             if (text === this.initiatingTrigger) {
-                return `${text}`;
+                return text;
             }
             text = text.substring(1);
         }
