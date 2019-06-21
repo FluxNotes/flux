@@ -13,7 +13,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
             data: formattedData,
         };
     }
-    formatData(section) { //creates an array with one object for each section (wbc, platelets, etc.)
+    formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
         const data = [];
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
             if (section[conditionIndex].data_cache) {
@@ -31,7 +31,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         this.sortData(data);
         return data;
     }
-    sortData(formattedData) {
+    sortData = (formattedData) => {
         formattedData.sort((section1, section2) => {
             if (section1.name < section2.name) {
                 return -1;
@@ -66,13 +66,13 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         const finalArray = _.concat(favsArray,notFavsArray); //but the favs back together with the not favs in one array
         this.setState({ data: finalArray });
     }
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps = (nextProps) => {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {
             const data = this.formatData(nextProps.conditionSection.data);
             this.setState({ data: data });
         }
     }
-    buildDataObject(conditionIndex, section) {
+    buildDataObject = (conditionIndex, section) => {
         const datesAndData = {};
         section[conditionIndex].data_cache.forEach((day) => {
             datesAndData[day.start_time] = day[section[conditionIndex].name];

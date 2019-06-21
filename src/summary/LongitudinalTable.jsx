@@ -29,10 +29,10 @@ export default class LongitudinalTable extends Component {
     /*
     Assigns an id to each row
     */
-    createData(name, unit, data, id, bands, favorite) {
+    createData = (name, unit, data, id, bands, favorite) => {
         return { name, unit, data, id, bands, favorite }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
-    gatherTableValues() {
+    gatherTableValues = () => {
         const tableValues = [];
         const predates = [];
         const { dataInfo } = this.props;
@@ -75,7 +75,7 @@ export default class LongitudinalTable extends Component {
             this.setState({ favorites: newFavorites });
         }
     }
-    renderRightTableHeader(dates) {
+    renderRightTableHeader = (dates) => {
         let currYear = null;
         return (
             <TableHead>
@@ -102,7 +102,7 @@ export default class LongitudinalTable extends Component {
 
         );
     }
-    renderStar(name, id) {
+    renderStar = (name, id) => {
         if (_.includes(this.state.favorites, name)) {
             return <FontAwesome className='star-clicked' name='star' />;
         }
@@ -111,7 +111,7 @@ export default class LongitudinalTable extends Component {
         }
         return <div />;
     }
-    renderRightTableData(tableValues) {
+    renderRightTableData = (tableValues) => {
         return tableValues.map(n => { //n is a row in the table
             return (
                 <TableRow key={n.id}>
@@ -133,7 +133,7 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
-    renderLeftTableHeader() {
+    renderLeftTableHeader = () => {
         return (
             <TableHead>
                 <TableRow>
@@ -149,7 +149,7 @@ export default class LongitudinalTable extends Component {
             </TableHead>
         );
     }
-    renderLeftTableData(tableValues) {
+    renderLeftTableData = (tableValues) => {
         return tableValues.map(n => { //n is a row in the table
             const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
                 return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
