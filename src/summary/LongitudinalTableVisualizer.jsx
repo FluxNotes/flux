@@ -15,6 +15,11 @@ export default class LongitudinalTableVisualizer extends Visualizer {
     }
     formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
         const data = [];
+        const favorites = [];
+        const name = `${this.props.conditionSection.name}-favorites`;
+        if (this.props.preferenceManager.getPreference(name)) {
+            favorites.push(...this.props.preferenceManager.getPreference(name));
+        }
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
             if (section[conditionIndex].data_cache) {
                 data.push(
@@ -23,12 +28,28 @@ export default class LongitudinalTableVisualizer extends Visualizer {
                         unit: section[conditionIndex].data_cache[0].unit,
                         datesAndData: this.buildDataObject(conditionIndex, section),
                         bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
-                        favorite: false,
+                        // favorite should check whether list of favorites contain the name im looking at
+                        favorite: _.includes(favorites, section[conditionIndex].name),
                     }
                 );
             }
         }
         this.sortData(data);
+        let pointer1 = 0;
+        let pointer2 = 1;
+        while (pointer1 < data.length && pointer2 < data.length) {
+            while (!data[pointer2].favorite) {
+                pointer2++;
+                if (pointer2 >= data.length) return data;
+            }
+            if (!data[pointer1].favorite) {
+                const temp = data[pointer1];
+                data[pointer1] = data[pointer2];
+                data[pointer2] = temp;
+                pointer2++;
+            }
+            pointer1++;
+        }
         return data;
     }
     sortData = (formattedData) => {
@@ -101,4 +122,5 @@ LongitudinalTableVisualizer.propTypes = {
     sectionTransform: propTypes.func,
     tdpSearchSuggestions: propTypes.array,
     visualizerManager: propTypes.object,
+    preferenceManager: propTypes.object,
 };
