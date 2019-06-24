@@ -207,12 +207,12 @@ export default class InsertValue extends Shortcut {
         let text = displayText || this.text; // Use provided text to override shortcut text
         if (Lang.isNull(text)) {
             text = this.initiatingTrigger;
-        }
-        else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+        } else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+            // NOTE: This should only happen when the inserter shortcut is incomplete; we want that serialization to reflect the incompleteness
+            if (text === this.initiatingTrigger) {
+                return text;
+            }
             text = text.substring(1);
-        }
-        if (text === this.initiatingTrigger) {
-            return `${text}`;
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {
