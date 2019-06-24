@@ -66,7 +66,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         const finalArray = _.concat(favsArray,notFavsArray); //but the favs back together with the not favs in one array
         this.setState({ data: finalArray });
     }
-    componentWillReceiveProps = (nextProps) => {
+    componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {
             const data = this.formatData(nextProps.conditionSection.data);
             this.setState({ data: data });
