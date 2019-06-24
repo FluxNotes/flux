@@ -1,8 +1,5 @@
 import request from "request";
 import _ from 'lodash';
-import {
-    isSame
-} from '../../utils/arrayOperations';
 import IOutcomesService from './IOutcomesService';
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
