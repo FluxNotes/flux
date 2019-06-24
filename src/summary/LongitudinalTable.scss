@@ -8,6 +8,9 @@
 .table-scrollable {
     overflow-x: scroll !important;
 }
+.name {
+    max-width: 135px !important;
+}
 .star-clicked {
     color: $interface-blue !important;
 }
