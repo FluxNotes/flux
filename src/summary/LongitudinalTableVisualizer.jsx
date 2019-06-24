@@ -14,7 +14,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         };
     }
     formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
-        const data = [];
+        let data = [];
         const favorites = [];
         const name = `${this.props.conditionSection.name}-favorites`;
         if (this.props.preferenceManager.getPreference(name)) {
