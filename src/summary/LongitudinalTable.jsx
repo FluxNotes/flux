@@ -15,7 +15,6 @@ export default class LongitudinalTable extends Component {
                 return obj.name;
             }),
             hovered: null,
-            onStar: false,
         };
     }
     componentWillReceiveProps(nextProps) {
