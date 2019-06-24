@@ -14,34 +14,42 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         };
     }
     formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
-        let data = [];
         const favorites = [];
+        const favsArray = [];
+        const notFavsArray = [];
         const name = `${this.props.conditionSection.name}-favorites`;
         if (this.props.preferenceManager.getPreference(name)) {
             favorites.push(...this.props.preferenceManager.getPreference(name));
         }
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
             if (section[conditionIndex].data_cache) {
-                data.push(
-                    {
-                        name: section[conditionIndex].name,
-                        unit: section[conditionIndex].data_cache[0].unit,
-                        datesAndData: this.buildDataObject(conditionIndex, section),
-                        bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
-                        favorite: _.includes(favorites, section[conditionIndex].name),
-                    }
-                );
+                if (_.includes(favorites, section[conditionIndex].name)) {
+                    favsArray.push(
+                        {
+                            name: section[conditionIndex].name,
+                            unit: section[conditionIndex].data_cache[0].unit,
+                            datesAndData: this.buildDataObject(conditionIndex, section),
+                            bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
+                            favorite: true,
+                        }
+                    );
+                }
+                else {
+                    notFavsArray.push(
+                        {
+                            name: section[conditionIndex].name,
+                            unit: section[conditionIndex].data_cache[0].unit,
+                            datesAndData: this.buildDataObject(conditionIndex, section),
+                            bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
+                            favorite: false,
+                        }
+                    );
+                }
             }
         }
-        this.sortData(data);
-        const favsArray = [];
-        const notFavsArray = [];
-        data.forEach((section) => {
-            if (section.favorite) favsArray.push(section);
-            else notFavsArray.push(section);
-        });
-        data = favsArray.concat(notFavsArray);
-        return data;
+        this.sortData(favsArray);
+        this.sortData(notFavsArray);
+        return favsArray.concat(notFavsArray);
     }
     sortData = (formattedData) => {
         formattedData.sort((section1, section2) => {
