@@ -96,6 +96,15 @@
     .flex-6 { flex: 6; }
     .flex-padding { padding: 0 20px; }
     .flex-center { align-items: center; }
+
+    @media (max-width: 1024px) {
+        .flex-padding { 
+            padding :0 5px;
+
+
+        }
+
+    }
 }
 
 li.side-effect-option {
