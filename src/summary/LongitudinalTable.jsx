@@ -64,6 +64,7 @@ export default class LongitudinalTable extends Component {
         }
         return [tableValues, dates];
     }
+    // updates current favorites and local storage
     toggleFavorites = (section) => {
         const newFavorites = this.state.favorites;
         if (_.includes(this.state.favorites, section.name)) {
@@ -200,4 +201,5 @@ LongitudinalTable.propTypes = {
     conditionSectionName: propTypes.string,
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
+    preferenceManager: propTypes.object,
 };

@@ -28,13 +28,13 @@ export default class LongitudinalTableVisualizer extends Visualizer {
                         unit: section[conditionIndex].data_cache[0].unit,
                         datesAndData: this.buildDataObject(conditionIndex, section),
                         bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
-                        // favorite should check whether list of favorites contain the name im looking at
                         favorite: _.includes(favorites, section[conditionIndex].name),
                     }
                 );
             }
         }
         this.sortData(data);
+        // order such that favorites are in the front of the array in sorted order
         let pointer1 = 0;
         let pointer2 = 1;
         while (pointer1 < data.length && pointer2 < data.length) {
