@@ -24,8 +24,6 @@ describe("CLQOutcomesService", () => {
    
     
     let similarPatientProps = getProps(patient, patient.getActiveConditions()[0])
-    console.log(similarPatientProps);
-    
     // select everything in the options 
     _.forIn(similarPatientProps.demographic.options, function (value, key) {
         value.selected = true
@@ -45,7 +43,6 @@ describe("CLQOutcomesService", () => {
 
     it("Should be able to create demographics filter", () => {
         let clqFilter = clqService.buildDemographicsFilter(similarPatientProps);
-        console.log(clqFilter);
         expect(_.isEqual(clqFilter, expectedFilter.demographics)).to.be.true
     });
 
@@ -84,8 +81,6 @@ describe("CLQOutcomesService", () => {
                 "codeSystemName": "RXNORM"
             }
         ])
-        console.log(clqResults);
-        
         expect(_.isEqual(clqResults, processed)).to.be.true
     });
 
