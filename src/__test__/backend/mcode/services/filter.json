@@ -6,8 +6,8 @@
             "code": "female"
         },
         "age": {
-            "min": 43,
-            "max": 63
+            "min": 42,
+            "max": 62
         },
         "age_at_diagnosis": {
             "min": 42,

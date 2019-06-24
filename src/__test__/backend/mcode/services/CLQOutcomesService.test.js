@@ -21,7 +21,11 @@ describe("CLQOutcomesService", () => {
     });
 
     let patient = new PatientRecord(BreastMainTreatmentDiabetesHypertensionJaneV05);
+   
+    
     let similarPatientProps = getProps(patient, patient.getActiveConditions()[0])
+    console.log(similarPatientProps);
+    
     // select everything in the options 
     _.forIn(similarPatientProps.demographic.options, function (value, key) {
         value.selected = true
@@ -41,6 +45,7 @@ describe("CLQOutcomesService", () => {
 
     it("Should be able to create demographics filter", () => {
         let clqFilter = clqService.buildDemographicsFilter(similarPatientProps);
+        console.log(clqFilter);
         expect(_.isEqual(clqFilter, expectedFilter.demographics)).to.be.true
     });
 
@@ -79,6 +84,8 @@ describe("CLQOutcomesService", () => {
                 "codeSystemName": "RXNORM"
             }
         ])
+        console.log(clqResults);
+        
         expect(_.isEqual(clqResults, processed)).to.be.true
     });
 
@@ -88,24 +95,7 @@ describe("CLQOutcomesService", () => {
             .post('/outcomes')
             .reply(200, response)
 
-        let clqResults = clqService.processSimilarPatientOutcomes(similarPatientProps, [{
-            "code": "A",
-            "displayName": "A",
-            "codeSystem": "2.16.840.1.113883.6.88",
-            "codeSystemName": "RXNORM"
-        }], [{
-                "code": "A",
-                "displayName": "A",
-                "codeSystem": "2.16.840.1.113883.6.88",
-                "codeSystemName": "RXNORM"
-            },
-            {
-                "code": "B",
-                "displayName": "B",
-                "codeSystem": "2.16.840.1.113883.6.88",
-                "codeSystemName": "RXNORM"
-            }
-        ]).then((clqResults) => {
+        clqService.processSimilarPatientOutcomes(similarPatientProps).then((clqResults) => {
             expect(_.isEqual(clqResults, processed)).to.be.true
             scope.done();
             done();
