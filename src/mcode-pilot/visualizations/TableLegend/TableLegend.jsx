@@ -5,14 +5,13 @@ import './TableLegend.css';
 
 export default class TableLegend extends Component {
     render() {
-        const { includedRow } = this.props;
+        const { compareRow } = this.props;
 
         let message;
-        if (Array.isArray(includedRow)) {
-            // the row is empty
+        if (!compareRow) {
             message = "survived with treatment";
         } else {
-            const name = includedRow.displayName;
+            const name = compareRow.displayName;
             const noTreatment = name === 'none (actively monitoring)';
             const hasAnd = name.indexOf('&') > -1;
             message = `survived with ${noTreatment ? 'no treatment' : name} ${hasAnd || noTreatment ? "" : " alone"}`;
@@ -28,7 +27,7 @@ export default class TableLegend extends Component {
                         <span className="legend-text">{message}</span>
                     </div>
 
-                    <div className="legend-entry">
+                    {/*<div className="legend-entry">
                         <div className="prog-fill-container">
                             <div className="prog-fill treatment-increase" />
                         </div>
@@ -40,13 +39,13 @@ export default class TableLegend extends Component {
                             <div className="prog-fill treatment-decrease" />
                         </div>
                         <span className="legend-text">decrease in survival due to treatment</span>
-                    </div>
+                    </div>*/}
 
                     <div className="legend-entry">
                         <div className="prog-fill-container">
                             <div className="progress-bar cancer" />
                         </div>
-                        <span className="legend-text">cancer related deaths</span>
+                        <span className="legend-text">all deaths</span>
                     </div>
                 </div>
             </div>
@@ -55,7 +54,7 @@ export default class TableLegend extends Component {
 }
 
 TableLegend.propTypes = {
-    includedRow: PropTypes.oneOfType([
+    compareRow: PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.array
     ])

@@ -3,22 +3,20 @@ import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import { isSame, getCombinations } from './arrayOperations';
 
 // This function will eventually be replaced with an API that returns the same data in the same format
-export default function filterTreatmentData(similarPatientProps, includedTreatments, comparedTreatments) {
+function filterTreatmentData(similarPatientProps) {
     const totalPatients = transformedTreatmentData.length;
-    const similarPatients = transformedTreatmentData.filter(treatmentDataPatient => isSimilarPatient(treatmentDataPatient, similarPatientProps));
+    const similarPatients = transformedTreatmentData.filter(treatmentDataPatient =>
+        isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    const includedTreatmentData = generateTreatmentData(similarPatients, [includedTreatments], includedTreatments);
-    const comparedTreatmentCombinations = getCombinations(comparedTreatments, includedTreatments).filter(treatments =>
-        treatments.length !== includedTreatments.length || !includedTreatments.every(treatment => treatments.includes(treatment))
-    );
-    const comparedTreatmentData = generateTreatmentData(similarPatients, comparedTreatmentCombinations, includedTreatments);
+    const treatmentCombinations = getCombinations(similarPatientTreatments);
+    const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations);
+
     return {
+        similarPatientTreatments,
+        similarPatientTreatmentsData,
         totalPatients,
         totalSimilarPatients,
-        similarPatientTreatments,
-        includedTreatmentData,
-        comparedTreatmentData
     };
 }
 
@@ -37,22 +35,18 @@ function initializeTreatmentData(displayName) {
     };
 }
 
-function generateTreatmentData(similarPatients, treatments, includedTreatments) {
+function generateTreatmentData(similarPatients, treatmentCombinations) {
     if (similarPatients.length === 0) return [];
     let treatmentData = [];
-    treatments.forEach(treatment => {
-        const filteredPatients = similarPatients.filter(patient => isSame(patient.treatments.map((e) => { return typeof e === 'object' ?e.code : e; }), treatment.map(treat => { return treat.code; })));
-        let displayName =
-            _.isArray(treatment)
-                ? (treatment === includedTreatments)
-                    ? treatment.map(codeableConcept => codeableConcept.displayName).join(' & ')
-                    : treatment.filter((treat) => {
-                        return !includedTreatments.includes(treat);
-                    }).map(codeableConcept => codeableConcept.displayName).join(' & ')
-                : treatment.displayName;
-
+    treatmentCombinations.forEach(treatmentCombination => {
+        const filteredPatients = similarPatients.filter(patient =>
+            isSame(patient.treatments.map(treatment => typeof treatment === 'object' ? treatment.code : treatment),
+                treatmentCombination.map(treatment => treatment.reference.code))
+        );
+        let displayName = _.isArray(treatmentCombination)
+            ? treatmentCombination.map(treatment => treatment.reference.displayName).join(' & ')
+            : treatmentCombination.displayName;
         let row = initializeTreatmentData(displayName);
-
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
@@ -74,6 +68,7 @@ function generateTreatmentData(similarPatients, treatments, includedTreatments) 
             treatmentData.push(row);
         }
     });
+
     return treatmentData;
 }
 
@@ -83,7 +78,11 @@ function generateSimilarPatientTreatments(similarPatients) {
     similarPatients.forEach(({ treatments }) => {
         treatments.forEach(treatment => {
             if (typeof treatment === "object") {
-                similarPatientTreatments[`${treatment.code},${treatment.codeSystem}`] = { key: `${treatment.code},${treatment.codeSystem}`, name: treatment.displayName, reference: treatment};
+                similarPatientTreatments[`${treatment.code},${treatment.codeSystem}`] = {
+                    key: `${treatment.code},${treatment.codeSystem}`,
+                    name: treatment.displayName,
+                    reference: treatment
+                };
             } else {
                 similarPatientTreatments[treatment] = { key: treatment, name: treatment, reference: treatment };
 
@@ -111,8 +110,8 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
 
                 // label coded values
                 const tumorMarkersLabeled = {};
-                tumorMarkers.forEach((e) => {
-                    tumorMarkersLabeled[e.code] = e;
+                tumorMarkers.forEach(marker => {
+                    tumorMarkersLabeled[marker.code] = marker;
                 });
 
                 const { race, gender, birthDate } = demographics;
@@ -140,17 +139,26 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
                 // pathology
                 } else if (mcodeElement === 'onco.core.TumorMarkerTest') {
                     const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;
-                    if (receptorType && (!tumorMarkersLabeled[receptorType] || tumorMarkersLabeled[receptorType].value.code !== reference.findingResult._value._coding[0]._code.code)) {
+                    if (receptorType && (!tumorMarkersLabeled[receptorType]
+                        || tumorMarkersLabeled[receptorType].value.code !== reference.findingResult._value._coding[0]._code.code)) {
                         return false;
                     }
-                } else if (mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                } else if (mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage
+                    || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
-                } else if (mcodeElement === 'onco.core.TNMPathologicStageGroup' && (!diseaseStatus.stage || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+                } else if (mcodeElement === 'onco.core.TNMPathologicStageGroup' && (!diseaseStatus.stage
+                    || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
                     return false;
-                } else if ((mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory' || mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory' || mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
-                                        && (diseaseStatus.tnm.filter((e) => { return (_.lowerCase(e.codeSystem) === _.lowerCase(reference.codeSystem.value) &&  _.lowerCase(e.code) === _.lowerCase(reference.code.value)); }).length===0)) { // no data available
+                } else if ((mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory'
+                    || mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory'
+                    || mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
+                    && (diseaseStatus.tnm.filter(status => {
+                        return (_.lowerCase(status.codeSystem) === _.lowerCase(reference.codeSystem.value)
+                            && _.lowerCase(status.code) === _.lowerCase(reference.code.value));
+                    }).length===0)) { // no data available
                     return false;
-                } else if (mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade || diseaseStatus.grade !== value)) {
+                } else if (mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade
+                    || diseaseStatus.grade !== value)) {
                     return false;
                 }
             }
@@ -160,4 +168,8 @@ function isSimilarPatient(treatmentDataPatient, similarPatientProps) {
     return true;
 }
 
-
+export {
+    filterTreatmentData,
+    generateSimilarPatientTreatments,
+    isSimilarPatient
+};
