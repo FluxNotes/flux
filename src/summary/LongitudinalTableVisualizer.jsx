@@ -34,22 +34,13 @@ export default class LongitudinalTableVisualizer extends Visualizer {
             }
         }
         this.sortData(data);
-        // order such that favorites are in the front of the array in sorted order
-        let pointer1 = 0;
-        let pointer2 = 1;
-        while (pointer1 < data.length && pointer2 < data.length) {
-            while (!data[pointer2].favorite) {
-                pointer2++;
-                if (pointer2 >= data.length) return data;
-            }
-            if (!data[pointer1].favorite) {
-                const temp = data[pointer1];
-                data[pointer1] = data[pointer2];
-                data[pointer2] = temp;
-                pointer2++;
-            }
-            pointer1++;
-        }
+        const favsArray = [];
+        const notFavsArray = [];
+        data.forEach((section) => {
+            if (section.favorite) favsArray.push(section);
+            else notFavsArray.push(section);
+        });
+        data = favsArray.concat(notFavsArray);
         return data;
     }
     sortData = (formattedData) => {
@@ -75,7 +66,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         data.forEach((section) => { //to get the favorites in front of the not favorites
             if (section.favorite) {
                 separatedArray.unshift(section);
-                numFavs ++;
+                numFavs++;
             } else {
                 separatedArray.push(section);
             }
