@@ -17,6 +17,7 @@ export default class LongitudinalTable extends Component {
             }),
             hovered: null,
         };
+        this.refs = React.createRef();
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.dataInfo, nextProps.dataInfo)) {
