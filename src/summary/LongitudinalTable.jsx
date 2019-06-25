@@ -80,7 +80,7 @@ export default class LongitudinalTable extends Component {
             return <FontAwesome className='star-clicked' name='star' />;
         }
         else if (this.state.hovered === id) {
-            return <FontAwesome className='star-hovered' name='star' />;
+            return <FontAwesome className='star-hovered' name='star-o' />;
         }
         return <div />;
     }
