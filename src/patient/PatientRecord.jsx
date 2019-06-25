@@ -425,7 +425,6 @@ class PatientRecord {
                 }
             }
         });
-
         return result;
     }
 
