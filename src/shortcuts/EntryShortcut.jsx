@@ -248,6 +248,7 @@ export default class EntryShortcut extends Shortcut {
     }
 
     removeFromPatient() {
+        console.log(this.patient);
         if (this.isObjectNew) return;
         const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
         if (undoUpdatePatientSpecList) {
@@ -331,6 +332,7 @@ export default class EntryShortcut extends Shortcut {
     }
 
     onBeforeDeleted() {
+        console.log(this)
         let result = super.onBeforeDeleted();
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);

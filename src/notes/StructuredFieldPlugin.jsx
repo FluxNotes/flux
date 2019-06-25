@@ -207,6 +207,7 @@ function StructuredFieldPlugin(opts) {
         let result = state;
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
+            console.log(shortcut)
             if (shortcut.onBeforeDeleted()) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
