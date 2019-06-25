@@ -41,8 +41,12 @@ class Shortcut extends Context {
         return false;
     }
 
+    /**
+     * By default will throw an error, should be implemented by classes that inherit Shortcut
+     * @returns The text to be displayed by FNE
+     */
     getDisplayText() {
-        return this.getText();
+        throw new Error(`getDisplayText not implemented for ${this.constructor.name}`);
     }
 
     getId() {
