@@ -7741,5 +7741,67 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/SpecificFocusOfFinding"
             }
         }
+    },
+
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "EntryId": "9999",
+       
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject"
+        },
+        "ParticipationPeriod": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ParticipationPeriod"
+            },
+            "TimePeriod": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
+                },
+                "TimePeriodStart": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    },
+                    "Value": "31 Jul 2018 16:00 -0400"
+                }
+            }
+        },
+        "Study": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/research/Study"
+            },
+            "Title": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Title"
+                },
+                "Value": "PATINA"
+            }
+        },
+        "Status": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                },
+                "Coding": [
+                    {
+                     "DisplayText": {
+                            "Value": "Enrolled",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            }
+                        },
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                        }
+                    }
+                    
+                ]
+            }
+        }
+
+        
     }
 ]
