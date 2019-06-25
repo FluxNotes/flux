@@ -85,7 +85,7 @@ class ContextListOptions extends React.Component {
             <ul className="context-list-options" ref="contextListOptions">
                 {contexts.map((context, index) => {
                     return <ContextItem
-                        key={context.key}
+                        key={index}
                         index={index}
                         context={context}
                         selectedIndex={this.state.selectedIndex}
