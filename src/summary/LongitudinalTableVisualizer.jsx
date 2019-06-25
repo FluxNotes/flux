@@ -23,14 +23,14 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         }
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
             if (section[conditionIndex].data_cache) {
-                let currentSection = {
+                const currentSection = {
                     name: section[conditionIndex].name,
                     unit: section[conditionIndex].data_cache[0].unit,
                     datesAndData: this.buildDataObject(conditionIndex, section),
                     bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
                     favorite: _.includes(favoritedNames, section[conditionIndex].name),
                 };
-                if (currentSection.favorite) favoritedSections.push(currentSection)
+                if (currentSection.favorite) favoritedSections.push(currentSection);
                 else unfavoritedSections.push(currentSection);
             }
         }
