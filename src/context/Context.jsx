@@ -100,10 +100,19 @@ export default class Context {
         }
     }
 
+    /**
+     * Get the key
+     * @returns {key} Unique key
+     */
     getKey() {
         return this.key;
     }
 
+    /**
+     * Sets the key
+     * The field is a unique key assigned to all Context instances to be used by FNE and SFP
+     * @param {key} key
+     */
     setKey(key) {
         this.key = key;
         if (this.isContext() && this.contextManager) {
