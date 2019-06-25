@@ -1,5 +1,4 @@
 @import '../../../styles/variables';
-@import '../../../styles/mixins/colors';
 
 .icons-chart {
     display: flex;
@@ -7,8 +6,6 @@
     .icons-survival-text {
         .selected-treatment {
             font-weight: 400;
-
-            &.index { @include index-colors; }
         }
     }
 
@@ -32,11 +29,6 @@
         &.additional {
             border: 3px solid;
             margin: 4px;
-
-            &.index {
-                @include index-colors('border-color');
-                @include index-colors('background-color', '-', 0.1);
-            }
         }
 
         &.die {

@@ -45,6 +45,8 @@ function selectAllSimilarPatientOptions(selected) {
     };
 }
 
+// ------------------------- TREATMENT OUTCOMES ---------------------------- //
+
 function updatePatientOutcomes(data) {
     return {
         type: types.UPDATE_PATIENT_OUTCOMES,
@@ -54,34 +56,24 @@ function updatePatientOutcomes(data) {
 
 function processSimilarPatientOutcomes() {
     return (dispatch, getState) => {
-        const { similarPatientProps, includedTreatments, comparedTreatments } = getState().mcode;
+        const { similarPatientProps } = getState().mcode;
         const service = new ServiceManager().getService('outcomes');
-        return service.processSimilarPatientOutcomes(similarPatientProps, includedTreatments, comparedTreatments).then((results) => {
+        return service.processSimilarPatientOutcomes(similarPatientProps).then(results => {
             dispatch(updatePatientOutcomes({
                 totalPatients: results.totalPatients,
                 totalSimilarPatients: results.totalSimilarPatients,
                 similarPatientTreatments: results.similarPatientTreatments,
-                includedTreatmentData: results.includedTreatmentData,
-                comparedTreatmentData: results.comparedTreatmentData
+                similarPatientTreatmentsData: results.similarPatientTreatmentsData
             }));
         });
     };
 }
 
-function selectTreatments(treatmentType, treatments) {
-    return {
-        type: types.SELECT_TREATMENTS,
-        treatmentType,
-        treatments
-    };
-}
-
 export {
-    selectSimilarPatientOption,
     initializeSimilarPatientProps,
-    selectAllSimilarPatientOptions,
-    selectSimilarPatientOptionRange,
-    selectAllCategorySimilarPatientOptions,
     processSimilarPatientOutcomes,
-    selectTreatments
+    selectAllCategorySimilarPatientOptions,
+    selectAllSimilarPatientOptions,
+    selectSimilarPatientOption,
+    selectSimilarPatientOptionRange,
 };

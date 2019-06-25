@@ -1,18 +1,19 @@
 @import '../../../styles/variables';
 
-
 .table-legend {
     text-align: center;
+
     .wrapper {
         display:inline-block;
     }
+
     .prog-fill {
         background-size:6px !important;
         display: inline-block;
         padding: 0;
         height: 10px;
         width: 40px;
-        background-color: $state;
+        background-color: $icons-gray;
     }
 
     .legend-entry {
@@ -21,14 +22,13 @@
     }
 
     .prog-fill-container {
-
         display:inline-block;
         width: 50px;
 
         .main {
             width: 45px;
         }
-        
+
         .treatment-increase {
             width:10px;
             background-color: $table-light-green;
@@ -37,17 +37,17 @@
         .treatment-decrease {
             width: 14px;
             background: repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 2px,
-            $table-light-red 2px,
-            $table-light-red 4px
-          ),
-          linear-gradient(
-            to bottom,
-            $background,
-            $background
-          )
+                45deg,
+                transparent,
+                transparent 2px,
+                $table-light-red 2px,
+                $table-light-red 4px
+            ),
+            linear-gradient(
+                to bottom,
+                $background,
+                $background
+            )
         }
 
         .cancer {
@@ -56,19 +56,15 @@
     }
 
     .legend-text {
-
         font-size: 10px;
         padding-left:10px;
         line-height:10px;
-
     }
 
     .progress-bar {
         display: flex;
         height: 8px;
-        // position: relative;
         border: 1px solid $line-gray;
         background-color: $background;
-
     }
 }

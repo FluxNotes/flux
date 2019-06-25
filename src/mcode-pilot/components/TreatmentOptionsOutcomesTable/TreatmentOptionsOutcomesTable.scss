@@ -10,6 +10,7 @@
             text-align: center;
             font-size: 1.5em;
             color: $state;
+            padding-left: 12px;
         }
 
         .header-title {
@@ -40,41 +41,42 @@
 
         .header-space {
             cursor: pointer;
+            margin-right: -20px;
         }
     }
 
     &__table {
-        .included-treatments,
-        .compared-treatments {
-            padding: 5px 10px;
-            margin-bottom: 20px;
+        padding: 5px 10px;
+        margin-bottom: 20px;
 
-            .treatments-title {
+        .treatments-title {
+            font-weight: bold;
+        }
+
+        .select-treatments {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+
+            .popover-text {
+                color: $shr-context-dark;
                 font-weight: bold;
-            }
-
-            .select-treatments {
-                display: inline-block;
-                position: relative;
-                cursor: pointer;
-                margin-left: 20px;
-
-                .popover-text {
-                    color: $shr-context-dark;
-                    font-weight: bold;
-                    font-size: 0.9em;
-                }
+                font-size: 0.9em;
             }
         }
 
-        .included-treatments {
-            background-color: $shr-context-light;
-            border: 1px solid $feature-gray;
+        .top-side-effects {
+            flex-direction: column;
         }
 
         .table-row {
             height: 50px;
             align-items: center;
+
+            &:nth-child(odd) {
+                background-color: $contrast-gray;
+            }
 
             &.helper-text {
                 font-style: italic;
@@ -84,10 +86,7 @@
                 text-align: center;
             }
         }
-
-
     }
-
 
     .flex { display: flex; }
     .flex-1 { flex: 1; }
@@ -97,4 +96,16 @@
     .flex-6 { flex: 6; }
     .flex-padding { padding: 0 20px; }
     .flex-center { align-items: center; }
+
+    @media (max-width: 1024px) {
+        .flex-padding { 
+            padding: 0 5px;
+        }
+    }
+}
+
+li.side-effect-option {
+    &:hover {
+        color: $background;
+    }
 }

@@ -1,13 +1,33 @@
 import * as types from '../actions/types';
-import defaultState from './initial.json';
 import getProps from '../mcode-pilot/utils/recordToProps';
+import { isSimilarPatient, generateSimilarPatientTreatments } from '../mcode-pilot/utils/filterTreatmentData.js';
+
+const transformedTreatmentData = require('../mcode-pilot/mock-data/mock-data.json').transformedData;
+
+export const defaultState = {
+    similarPatientProps: {},
+    similarPatientTreatments: [],
+    similarPatientTreatmentsData: [],
+    totalPatients: 0,
+    totalSimilarPatients: 0,
+};
 
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
         const { patient, condition } = action;
-        state.similarPatientProps = { ...getProps(patient, condition) };
-        return { ...state };
-    } else if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION) {
+        const similarPatients = transformedTreatmentData.filter(treatmentDataPatient =>
+            isSimilarPatient(treatmentDataPatient, state.similarPatientProps));
+        const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
+
+        return {
+            ...state,
+            similarPatientProps: { ...getProps(patient, condition) },
+            similarPatientTreatments,
+            totalSimilarPatients: similarPatients.length
+        };
+    }
+
+    if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION) {
         const { category, key, selected } = action;
         state.similarPatientProps = { ...state.similarPatientProps };
         state.similarPatientProps[category].options[key] = { ...state.similarPatientProps[category].options[key], selected };
@@ -20,7 +40,9 @@ export default function mcode(state = defaultState, action) {
         };
 
         return { ...state };
-    } else if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION_RANGE) {
+    }
+
+    if (action.type === types.SELECT_SIMILAR_PATIENT_OPTION_RANGE) {
         const { category, key, minValue, maxValue } = action;
         state.similarPatientProps = { ...state.similarPatientProps };
         state.similarPatientProps[category].options[key] = {
@@ -29,7 +51,9 @@ export default function mcode(state = defaultState, action) {
             maxValue
         };
         return { ...state };
-    } else if (action.type === types.SELECT_ALL_CATEGORY_SIMILAR_PATIENT_OPTIONS) {
+    }
+
+    if (action.type === types.SELECT_ALL_CATEGORY_SIMILAR_PATIENT_OPTIONS) {
         state.similarPatientProps = { ...state.similarPatientProps };
         state.similarPatientProps[action.category].selected = action.selected;
 
@@ -41,7 +65,9 @@ export default function mcode(state = defaultState, action) {
         });
 
         return { ...state };
-    } else if (action.type === types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS) {
+    }
+
+    if (action.type === types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS) {
         const { selected } = action;
 
         state.similarPatientProps = { ...state.similarPatientProps };
@@ -56,20 +82,16 @@ export default function mcode(state = defaultState, action) {
         });
 
         return { ...state };
-    } else if (action.type === types.SELECT_TREATMENTS) {
-        const newState = { ...state };
-        newState[action.treatmentType] = action.treatments;
-        return newState;
-    } else if (action.type === types.UPDATE_PATIENT_OUTCOMES) {
+    }
+
+    if (action.type === types.UPDATE_PATIENT_OUTCOMES) {
         return {
             ...state,
             totalPatients: action.data.totalPatients,
             totalSimilarPatients: action.data.totalSimilarPatients,
             similarPatientTreatments: action.data.similarPatientTreatments,
-            includedTreatmentData: action.data.includedTreatmentData,
-            comparedTreatmentData: action.data.comparedTreatmentData
+            similarPatientTreatmentsData: action.data.similarPatientTreatmentsData
         };
-
     }
 
     return state;

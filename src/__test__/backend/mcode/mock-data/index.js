@@ -21,39 +21,17 @@ export const similarPatientTreatments = [
     }
 ];
 
-export const includedTreatmentData = [
-    {
-        "id": "row_1",
-        "displayName": "surgery & radiation therapy",
-        "totalPatients": 10,
-        // 4 people die year 0, so the oneYrSurvival is 6.  This is how the numbers are calculated.  
-        // Years 1,3,5 are set to 0 to make things easier, but could be any number.
-        "survivalYears":[4,0,2,0,2,0],
-        "sideEffects": {
-            "totalReporting": 8,
-            "effects": {
-                "Decreased Libido": 4,
-                "Fatigue": 8,
-                "Weight Loss": 6,
-                "Urinary Dysfunction": 3,
-                "Erectile Dysfunction": 1,
-                "Anemia": 1
-            }
-        }
-    }
-];
-
-export const comparedTreatmentData = [
+export const similarPatientTreatmentsData = [
     {
         "id": "row_2",
         "displayName": "hormonal therapy",
         "totalPatients": 12,
         "survivalYears":[2,0,2,0,6,0],
         "sideEffects": {
-            "totalReporting": 170,
+            "totalReporting": 12,
             "effects": {
-                "Hot Flashes": 150,
-                "Decreased Libido": 148,
+                "Hot Flashes": 10,
+                "Decreased Libido": 9,
                 "Urinary Dysfunction": 4,
                 "Erectile Dysfunction": 2,
                 "Anemia": 3,
@@ -76,7 +54,7 @@ export const comparedTreatmentData = [
                 "Anemia": 48,
                 "Weight Loss": 42,
                 "Bowel Dysfunction": 1,
-                "Hot Flashes": 1
+                "Hot Flashe Caused By Medication": 1
             }
         }
     },
@@ -86,12 +64,12 @@ export const comparedTreatmentData = [
         "totalPatients": 10,
         "survivalYears":[1,0,0,0,-1,0],
         "sideEffects": {
-            "totalReporting": 82,
+            "totalReporting": 9,
             "effects": {
-                "Nausea/Vomiting": 77,
-                "Fatigue": 70,
-                "Anemia": 48,
-                "Weight Loss": 42,
+                "Nausea/Vomiting": 7,
+                "Fatigue": 7,
+                "Anemia": 6,
+                "Weight Loss": 2,
                 "Bowel Dysfunction": 1,
                 "Hot Flashes": 1
             }

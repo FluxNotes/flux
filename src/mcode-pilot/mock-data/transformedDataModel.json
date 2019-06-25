@@ -48,10 +48,10 @@
                                            {"code":"73335002", "codeSystem":"http://snomed.info/sct", "displayName": "Nausea and vomiting", "codeSystemName":"SNOMED"},
                                            {"code":"271737000", "codeSystem":"http://snomed.info/sct", "displayName": "anemia", "codeSystemName":"SNOMED"},
                                            {"code":"235594008", "codeSystem":"http://snomed.info/sct", "displayName": "bowel dysfunction", "codeSystemName":"SNOMED"},
-                                           {"code":"397803000", "codeSystem":"http://snomed.info/sct", "displayName": "erectile dysfunction", "codeSystemName":"SNOMED"},
+                                           {"code":"267036007", "codeSystem":"http://snomed.info/sct", "displayName": "dyspnea", "codeSystemName":"SNOMED"},
                                            {"code":"89362005", "codeSystem":"http://snomed.info/sct", "displayName": "weight loss", "codeSystemName":"SNOMED"},
                                            {"code":"165232002", "codeSystem":"http://snomed.info/sct", "displayName": "urinary incontinence","codeSystemName":"SNOMED"}], 
-                                "weight": [0.1,        0.3,        0.5,       0.3,              0.07,  0.08,        0.3,        0.2,        0.1], "names": ["hotFlash","decLibido","fatigue","nauseaVomiting","anemia","bowelDys","erectileDys","weightLoss","urinaryDys"]
+                                "weight": [0.1,        0.3,        0.5,       0.3,              0.07,  0.08,        0.3,        0.2,        0.1], "names": ["hotFlash","decLibido","fatigue","nauseaVomiting","anemia","bowelDys","dyspnea","weightLoss","urinaryDys"]
     },
     "tumorMarkers": {
         "type": "multi-choice", "values": [
