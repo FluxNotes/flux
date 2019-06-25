@@ -151,10 +151,11 @@ export default class LongitudinalTable extends Component {
     }
     renderLeftTableData = (tableValues) => {
         return tableValues.map(n => { //n is a row in the table
+            const hoverable = n.favorite ? 'hoverable' : '';
             return (
                 <TableRow key={n.id}>
                     {/* Names and Units Cells */}
-                    <TableCell className='star-cell star-body' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
+                    <TableCell className={`star-cell star-body ${hoverable}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
                         {this.renderStar(n.name, n.id)}
                     </TableCell>
                     <TableCell>

@@ -22,7 +22,11 @@
     &.star-body {
         &:hover {
             cursor: pointer !important;
-            background-color: $feature-gray !important;
+        }
+    }
+    &.hoverable {
+        &:hover {
+            font-size: 17px;
         }
     }
 }
