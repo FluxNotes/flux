@@ -126,7 +126,13 @@ export default class LongitudinalTable extends Component {
                     <TableCell>{n.unit}</TableCell>
                 </TableRow>
             );
-        });
+        })
+    }
+    extraEvenRow() {
+        const starTableValues = this.gatherTableValues()[2];
+        if (starTableValues.length % 2 === 0) {
+            return <TableRow></TableRow>;
+        };
     }
     renderLeftTableData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
@@ -187,7 +193,7 @@ export default class LongitudinalTable extends Component {
                         const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
                             return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
                         });
-                        const cellClassName = matchingDataPoint ? 'highlighted' : '';
+                        const cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
                         const bands = starTableValues[starTableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
@@ -201,14 +207,8 @@ export default class LongitudinalTable extends Component {
         });
     }
     renderRightTableData(tableValues) {
-        const dates = this.gatherTableValues()[1];
         return (
             <TableBody>
-                <TableRow> {/*space between starred section and not-starred section*/}
-                    {dates.map((date,key) => {
-                        return <TableCell className='list-subsection-header list-column-heading' key={key}>&nbsp;</TableCell>;
-                    })}
-                </TableRow>
                 {tableValues.map(n => { //n is a row in the table
                     return (
                         <TableRow key={n.id}>
@@ -217,8 +217,11 @@ export default class LongitudinalTable extends Component {
                                 const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
                                     return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
                                 });
-                                const cellClassName = matchingDataPoint ? 'highlighted' : '';
+                                let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
                                 const bands = tableValues[tableValues.indexOf(n)].bands;
+                                if (tableValues.indexOf(n) === 0) {
+                                    cellClassName += ' bordered-body';
+                                }
                                 // Data Cells
                                 if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
                                     return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
@@ -229,43 +232,63 @@ export default class LongitudinalTable extends Component {
                         </TableRow>
                     );
                 })}
+                {this.extraEvenRow()}
             </TableBody>
         );
     }
+    synchronizeScroll = (div) => {
+        const div1 = this.refs.div1;
+        const div2 = this.refs.div2;
+        if (div === div1) {
+            div2.scrollLeft = div1.scrollLeft;
+        } else {
+            div1.scrollLeft = div2.scrollLeft;
+        }
+    }
     render() {
-        const [tableValues, dates] = this.gatherTableValues();
+        const [tableValues, dates, starTableValues] = this.gatherTableValues();
+        let realignClass = '';
+        if (starTableValues.length !== 0) { //to realign the tables that are off by 1 pixel if there are favorites
+            realignClass += ' right-table-spacing';
+        }
         return (
-            <div className='tabular-list vertical-scroll'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
-                <div>
-                    <Table className='left-table'>
+            <div className='tabular-list max-height'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+                <div className='vertical-scroll left-table'>
+                    <Table className=''>
                         {this.renderLeftTableHeader()}
                         <TableBody>
                             {/*starred body*/}
                             {this.renderLeftFavoriteData()}
+                            {this.extraEvenRow()}
                             <TableRow>
-                                <TableCell className='list-subsection-header list-column-heading section-header'>all {this.props.pluralLabel}</TableCell>
+                                <TableCell className='list-column-heading all-section-header' id='all-section-header'>all {this.props.pluralLabel}</TableCell>
                                 <TableCell className='list-subsection-header list-column-heading'></TableCell>
                                 <TableCell className='list-subsection-header list-column-heading'></TableCell>
                             </TableRow>
                             {/*all labs/data body*/}
                             {this.renderLeftTableData(tableValues)}
-
                         </TableBody>
                     </Table>
                 </div>
-                <div className='table-scrollable'> {/*right table*/}
-                    <Table>
-                        {this.renderRightTableHeader(dates)}
-                        {/* <TableBody> */}
-                        {/*starred body*/}
-                        {this.renderRightFavoriteData()}
-
+                <section> {/*right tables*/}
+                    <div className='vertical-scroll white-scrollbar' ref='div1' onScroll={() => { this.synchronizeScroll(this.refs.div1) }}>
+                        <Table id='spacing'>
+                            {this.renderRightTableHeader(dates)}
+                            {/*starred body*/}
+                            <TableBody>
+                                {this.renderRightFavoriteData()}
+                            </TableBody>
+                        </Table>
+                    </div>
+                    <div className={'vertical-scroll'+realignClass} ref='div2' onScroll={() => { this.synchronizeScroll(this.refs.div2) }}>
                         {/*all labs/data body*/}
-                        {this.renderRightTableData(tableValues)}
+                        <Table>
+                            {this.renderRightTableData(tableValues)}
+                        </Table>
                         {/* </TableBody> */}
-                    </Table>
-                </div>
-            </div>
+                    </div>
+                </section>
+            </div >
         );
     }
 };

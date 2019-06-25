@@ -52,27 +52,18 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         return formattedData;
     }
     reorderRows = (clickedSection) => {
-        const data = [...this.state.data];
+        const data = this.state.data;
         const element = data.find((section) => { //element is the formatted data object for the row that was clicked
             return (section.name === clickedSection);
         });
         element.favorite = !element.favorite;
-        const separatedArray = [];
-        let numFavs = 0;
-        data.forEach((section) => { //to get the favorites in front of the not favorites
+        const favsArray = [];
+        data.forEach((section) => {
             if (section.favorite) {
-                separatedArray.unshift(section);
-                numFavs++;
-            } else {
-                separatedArray.push(section);
+                favsArray.push(section);
             }
         });
-        const favsArray = _.slice(separatedArray, 0, numFavs); //take just the favs and sort them alphabetically
-        this.sortData(favsArray);
-        const notFavsArray = _.slice(separatedArray, numFavs, separatedArray.length); //take just the not favs and sort them alphabetically
-        this.sortData(notFavsArray);
-        const finalArray = _.concat(favsArray,notFavsArray); //but the favs back together with the not favs in one array
-        this.setState({ data: finalArray, starredData: favsArray });
+        this.setState({ starredData: favsArray });
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {
