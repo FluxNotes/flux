@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
 import moment from 'moment';
@@ -17,7 +16,6 @@ export default class LongitudinalTable extends Component {
             }),
             hovered: null,
         };
-        this.refs = React.createRef();
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.dataInfo, nextProps.dataInfo)) {
@@ -28,9 +26,7 @@ export default class LongitudinalTable extends Component {
             });
         }
     }
-    /*
-    Assigns an id to each row
-    */
+    // Assigns an id to each row
     createData = (name, unit, data, id, bands, favorite) => {
         return { name, unit, data, id, bands, favorite }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
