@@ -437,8 +437,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-       transform = this.resetShortcutData(shortcut, transform);
-      
+        transform = this.resetShortcutData(shortcut, transform);
         const newState = transform.apply();
         this.setState({
             state: newState
