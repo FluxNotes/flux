@@ -13,7 +13,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             outcomesToggle: 'table',
-            timescaleToggle: 5,
+            timescaleToggle: '5',
             timeScales: ['1','3','5'],
             sortColumn: '',
             sortDirection: 0
@@ -56,8 +56,6 @@ export default class TreatmentOptionsOutcomes extends Component {
             };
         } else {
             return function(a,b) {
-                console.log(_.sum(b.survivalYears.slice(0,propName)));
-                console.log(_.sum(a.survivalYears.slice(0,propName)));
                 return _.sum(a.survivalYears.slice(0,propName)) / a['totalPatients'] - _.sum(b.survivalYears.slice(0,propName)) / b['totalPatients'];
             };
         }

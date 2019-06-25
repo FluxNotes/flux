@@ -39,9 +39,6 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
     getNumSurvive = (treatment, timescale) => {
         const { similarPatientTreatmentsData } = this.props;
-
-        console.log(treatment);
-        console.log(similarPatientTreatmentsData);
         let totalNumSurvive;
         let totalPatients;
         let index = -1;
@@ -107,5 +104,5 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
 TreatmentOptionsOutcomesIcons.propTypes = {
     similarPatientTreatmentsData: PropTypes.array.isRequired,
-    timescaleToggle: PropTypes.number.isRequired
+    timescaleToggle: PropTypes.string.isRequired
 };
