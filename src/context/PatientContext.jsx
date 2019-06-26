@@ -26,8 +26,8 @@ class PatientContext extends Context {
 
     }
 
-    getLabel() {
-        return "Patient";
+    getDisplayText() {
+        return 'Patient';
     }
     getId() {
         return "Patient";
