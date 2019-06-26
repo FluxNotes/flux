@@ -44,8 +44,8 @@ export const similarPatientTreatmentsData = [
     {
         "id": "row_3",
         "displayName": "chemotherapy",
-        "totalPatients": 20,
-        "deathsPerYear":[0,0,0,0,6,0],
+        "totalPatients": 82,
+        "deathsPerYear":[1,0,5,0,4,0],
         "sideEffects": {
             "totalReporting": 82,
             "effects": {

@@ -11,10 +11,12 @@ Enzyme.configure({ adapter: new Adapter() });
 describe.only("TreatmentOptionsOutcome", () => {
     let props, optionsOutcome;
 
+    const timescale = ["1","3","5"];
     beforeEach(() => {
         props = {
             similarPatientTreatmentsData,
-            similarPatientTreatments
+            similarPatientTreatments,
+            timescale
         };
         optionsOutcome = null;
     });
@@ -64,7 +66,7 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(barChartText3).to.have.lengthOf(3);
             expect(barChartText3.at(0).text()).to.eql('90%');
             expect(barChartText3.at(1).text()).to.eql('90%');
-            expect(barChartText3.at(2).text()).to.eql('80%');
+            expect(barChartText3.at(2).text()).to.eql('100%');
         });
 
         it("displays the top two side effects", () => {
@@ -153,8 +155,8 @@ describe.only("TreatmentOptionsOutcome", () => {
             header.at(3).simulate('click');
 
             treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
-            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
-            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
 
             // sort by 3 yr opposite direction
