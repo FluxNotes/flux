@@ -29,8 +29,6 @@ class ContextGetHelp extends React.Component {
     }
 
     expand = () => {
-        console.log('the expand option has been selected, expanding ' + this.props.shortcut.initiatingTrigger);
-        console.log('expanded test is ', this.props.shortcut.metadata.expandedText);
         this.props.closePortal();
         return this.props.onSelected(this.props.state, this.props.shortcut.metadata.expandedText);
     }
@@ -79,9 +77,6 @@ class ContextGetHelp extends React.Component {
             else if (this.state.selectedIndex > 0) {
                 e.preventDefault();
                 e.stopPropagation();
-                //this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
-                console.log('the expand option has been selected, expanding ' + this.props.shortcut.initiatingTrigger);
-                console.log('expanded test is ', this.props.shortcut.metadata.expandedText);
                 this.props.closePortal();
                 return this.props.onSelected(this.props.state, this.props.shortcut.metadata.expandedText);
             }
