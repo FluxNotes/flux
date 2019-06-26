@@ -6,19 +6,19 @@
     min-width: 60px;
 }
 .table-scrollable {
-    overflow-x: scroll !important;
+    overflow-x: scroll;
 }
 .name {
-    max-width: 135px !important;
-    text-overflow: ellipsis !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
+    max-width: 135px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .star-clicked {
-    color: $interface-blue !important;
+    color: $interface-blue;
 }
 .star-hovered {
-    color: $interface-blue !important;
+    color: $interface-blue;
 }
 .star-cell {
     padding-left: 0px !important;
@@ -27,7 +27,7 @@
     min-width: 30px !important;
     &.star-body {
         &:hover {
-            cursor: pointer !important;
+            cursor: pointer;
         }
     }
     &.hoverable {
