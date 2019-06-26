@@ -29,7 +29,6 @@ import { setTimeout } from 'timers';
 import NoteContentIndexer from '../patientControl/NoteContentIndexer';
 import InMemoryClinicalNote from './InMemoryClinicalNote';
 import InsertValue from '../shortcuts/InsertValue';
-import ContextGetHelp from '../context/ContextGetHelp';
 
 // This forces the initial block to be inline instead of a paragraph. When insert structured field, prevents adding new lines
 const initialState = Slate.Plain.deserialize('');
@@ -71,8 +70,6 @@ const initialEditorState = {
 
 class FluxNotesEditor extends React.Component {
     openCompletionPortal = (completionComponentShortcut) => {
-        console.log("open completion portal")
-        console.log(completionComponentShortcut)
         // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
         const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
         this.setState({
@@ -414,7 +411,6 @@ class FluxNotesEditor extends React.Component {
     // selection (selection is null)
     onCompletionComponentValueSelection = (state, selection) => {
         const shortcut = this.state.completionComponentShortcut;
-        console.log(shortcut)
         // TODO: Why is this happening?
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
@@ -452,7 +448,6 @@ class FluxNotesEditor extends React.Component {
         let anchorKey = state.anchorBlock.key;
         // All the text in this block
         let text = anchorText.text;
-        console.log(text)
         if (text.length === 0) {
             const block = state.document.getPreviousSibling(anchorKey);
             if (block) {
