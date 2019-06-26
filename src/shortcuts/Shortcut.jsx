@@ -42,8 +42,8 @@ class Shortcut extends Context {
     }
 
     /**
-     * By default will throw an error, should be implemented by classes that inherit Shortcut
-     * @returns The text to be displayed by FNE
+     * By default will throw an error, should be implemented by classes that inherits Shortcut
+     * @returns The text to be displayed by other components in the app
      */
     getDisplayText() {
         throw new Error(`getDisplayText not implemented for ${this.constructor.name}`);
@@ -51,10 +51,6 @@ class Shortcut extends Context {
 
     getId() {
         return this.metadata["id"];
-    }
-
-    getLabel() {
-        throw new Error("Invalid context. " + this.constructor.name);
     }
 
     getPrefixCharacter() {
