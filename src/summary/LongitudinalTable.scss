@@ -24,6 +24,7 @@
     color: rgba(0,0,0,.54) !important;
     padding-left: 0px;
     min-width: 50px;
+    z-index: 4;
 }
 .name-hover {
     &:hover {
@@ -39,6 +40,38 @@
     font-size: $size-m;
     line-height: 1.25rem;
     font-family: "Open Sans", Arial, sans-serif;
+    min-width: 95px;
+}
+.gray-background {
+    background-color: $contrast-gray;
+}
+.white-background {
+    background-color: $background;
+}
+.sticky-table .sticky-table-row:nth-child(-n+2) .sticky-table-cell { //row
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+  .sticky-table .sticky-table-row .sticky-table-cell:nth-child(-n+3) { //column
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+  .sticky-table .sticky-table-row:nth-child(-n+2) .sticky-table-cell:nth-child(-n+3) { //row and column
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+#sticky-name {
+    left: 50px;
+}
+#sticky-unit {
+    left: 145px;
 }
 .vertical-scroll {
     overflow-y: scroll !important;
@@ -65,11 +98,11 @@
     // max-width: 250px;
 }
 
-.cell-width {
-    min-width: 80px;
-    padding-left: 10px !important;
-    padding-right: 0px !important;
-}
+// .cell-width {
+//     min-width: 80px;
+//     padding-left: 10px !important;
+//     padding-right: 0px !important;
+// }
 #spacing {
     margin-bottom: 0px !important;
  }

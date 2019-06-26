@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
+// import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
 import moment from 'moment';
 import './LongitudinalTable.css';
@@ -141,7 +141,7 @@ export default class LongitudinalTable extends Component {
                     })}
                 </Row>
             );
-        })
+        });
     }
     extraEvenRow() {
         const starTableValues = this.gatherTableValues()[2];
@@ -264,12 +264,12 @@ export default class LongitudinalTable extends Component {
         }
         return (
             <div className=' max-height vertical-scroll'>
-                <StickyTable stickyColumnCount={3} stickyHeaderCount={2}>
+                <StickyTable>
                     <Row>
                         {/*year row*/}
                         <Cell className='star-cell header'></Cell>
-                        <Cell className='header'></Cell>
-                        <Cell className='header'></Cell>
+                        <Cell className='header' id='sticky-name'></Cell>
+                        <Cell className='header' id='sticky-unit'></Cell>
                         {dates.map((date) => { //years
                             const year = moment(date, 'DD MMM YYYY').year();
                             if (year !== currYear) {
@@ -282,8 +282,8 @@ export default class LongitudinalTable extends Component {
                     <Row>
                         {/*date row*/}
                         <Cell id='section-header' className='header'>starred</Cell>
-                        <Cell className='header'></Cell>
-                        <Cell className='header'></Cell>
+                        <Cell className='header' id='sticky-name'></Cell>
+                        <Cell className='header' id='sticky-unit'></Cell>
                         {dates.map((date) => { //month and day
                             const curr = new moment(date, 'DD MMM YYYY');
                             const day = curr.format('DD');
@@ -292,33 +292,34 @@ export default class LongitudinalTable extends Component {
                         }
                         )}
                     </Row>
-                        {/* favorite data */}
-                        {starTableValues.map(n => { //n is a row in the table
-                            return (
-                                <Row key={n.id}>
-                                    <Cell className='star-cell'>
-                                        {this.renderStar(n.name, n.id)}
-                                    </Cell>
-                                    <Cell className='name-hover table-content' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                                        {n.name}
-                                    </Cell>
-                                    <Cell className='table-content'>{n.unit}</Cell>
-                                    {/* Names and Units Cells */}
-                                    {Object.entries(n)[2][1].map((value, newkey) => {
-                                        const bands = starTableValues[starTableValues.indexOf(n)].bands;
-                                        // Data Cells
-                                        if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                                            return <Cell style={{ color: 'black' }} key={newkey} className='cell-width table-content'>{value}</Cell>;
-                                        } else {
-                                            return <Cell style={{ color: 'red' }} key={newkey} className='cell-width table-content'>{value}</Cell>;
-                                        }
-                                    })}
-                                </Row>
-                            );
-                        })}
+                    {/* favorite data */}
+                    {starTableValues.map(n => { //n is a row in the table
+                        let background = starTableValues.indexOf(n) % 2 === 0? 'gray-background' : 'white-background';
+                        return (
+                            <Row key={n.id}>
+                                <Cell className={'star-cell '+background}>
+                                    {this.renderStar(n.name, n.id)}
+                                </Cell>
+                                <Cell className={'name-hover table-content '+background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                                    {n.name}
+                                </Cell>
+                                <Cell className={'table-content '+background} id='sticky-unit'>{n.unit}</Cell>
+                                {/* Names and Units Cells */}
+                                {Object.entries(n)[2][1].map((value, newkey) => {
+                                    const bands = starTableValues[starTableValues.indexOf(n)].bands;
+                                    // Data Cells
+                                    if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                                        return <Cell style={{ color: 'black' }} key={newkey} className={'table-content '+background} >{value}</Cell>;
+                                    } else {
+                                        return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' +background}>{value}</Cell>;
+                                    }
+                                })}
+                            </Row>
+                        );
+                    })}
                     {this.extraEvenRow()}
-                    </StickyTable>
-                    <StickyTable stickyColumnCount={3}>
+                </StickyTable>
+                <StickyTable stickyColumnCount={3}>
                     {/*the in-between*/}
                     <Row>
                         <Cell className='list-column-heading' id='section-header'>all {this.props.pluralLabel}</Cell>
@@ -364,15 +365,15 @@ export default class LongitudinalTable extends Component {
                     {this.extraEvenRow()}
                 </StickyTable>
             </div>
-        )
+        );
     }};
 
-    LongitudinalTable.propTypes = {
-        dataInfo: propTypes.array.isRequired,
-        tdpSearchSuggestions: propTypes.array,
-        conditionSectionName: propTypes.string,
-        reorderRows: propTypes.func,
-        subsectionLabel: propTypes.string,
-        starredData: propTypes.array,
-        pluralLabel: propTypes.string,
-    };
+LongitudinalTable.propTypes = {
+    dataInfo: propTypes.array.isRequired,
+    tdpSearchSuggestions: propTypes.array,
+    conditionSectionName: propTypes.string,
+    reorderRows: propTypes.func,
+    subsectionLabel: propTypes.string,
+    starredData: propTypes.array,
+    pluralLabel: propTypes.string,
+};
