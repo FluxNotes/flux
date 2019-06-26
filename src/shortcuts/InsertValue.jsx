@@ -181,11 +181,6 @@ export default class InsertValue extends Shortcut {
         return this.metadata.isContext && !this._shouldRemoveFromContext;
     }
 
-    getLabel() {
-        let display = this.getText() ? this.getText() : this.getDisplayText();
-        return this.getOriginalText() ? this.getOriginalText() : display;
-    }
-
     getText() {
         return this.text;
     }

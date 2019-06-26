@@ -58,7 +58,7 @@ export default class ShortcutViewModeContent extends Component {
         let activeContexts = [];
 
         this.props.contextManager.getActiveContexts().forEach((context, i) => {
-            if (!Lang.isNull(context.getLabel())) {
+            if (!Lang.isNull(context.getDisplayText())) {
                 activeContexts.push(context);
             }
         });
