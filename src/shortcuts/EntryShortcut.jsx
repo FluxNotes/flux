@@ -226,10 +226,6 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
     getText() {
         return this.metadata["name"];
     }
@@ -240,7 +236,7 @@ export default class EntryShortcut extends Shortcut {
     }
 
     getDisplayText() {
-        return this.initiatingTrigger;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     removeFromPatient() {

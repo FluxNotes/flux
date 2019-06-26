@@ -224,10 +224,6 @@ export default class NLPHashtag extends Shortcut {
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
     getText() {
         return this.metadata["name"];
     }
