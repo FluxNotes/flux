@@ -17,7 +17,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         const favoritedNames = [];
         const favoritedSections = [];
         const unfavoritedSections = [];
-        const name = `${this.props.conditionSection.name}-favorites`;
+        const name = `${this.props.conditionSection.name}-longitudinal-viz-favorites`;
         if (this.props.preferenceManager.getPreference(name)) {
             favoritedNames.push(...this.props.preferenceManager.getPreference(name));
         }

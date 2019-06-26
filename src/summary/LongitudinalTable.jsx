@@ -70,12 +70,12 @@ export default class LongitudinalTable extends Component {
         if (_.includes(this.state.favorites, section.name)) {
             newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
             this.setState({ favorites: newFavorites });
-            this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-favorites`, newFavorites);
+            this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites)
         }
         else {
             newFavorites.push(section.name);
             this.setState({ favorites: newFavorites });
-            this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-favorites`, newFavorites);
+            this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites)
         }
     }
     renderStar(name, id) {
