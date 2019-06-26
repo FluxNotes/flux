@@ -1,9 +1,44 @@
 @import "../styles/variables";
 
-.table-header {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    min-width: 60px;
+.sticky-table {
+    border-collapse: collapse;
+    width: auto;
+    margin-top: 10px;
+    margin-bottom: 30px !important;
+    font-size: $size-m;
+}
+.header {
+    color: $body-gray;
+    background-color: $background;
+    padding: 1px 10px 2px 10px;
+    border-bottom: 1px solid $line-gray;
+    font-weight: 500 !important;
+    font-family: "Open Sans", Arial, sans-serif;
+    text-align: left;
+    min-width: 65px;
+}
+#section-header { //starred or all labs/vitals
+    font-size: .75rem !important;
+    font-weight: 500 !important;
+    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+    color: rgba(0,0,0,.54) !important;
+    padding-left: 0px;
+    min-width: 50px;
+}
+.name-hover {
+    &:hover {
+        color: #028DEA !important;
+        cursor: pointer !important;
+        background-color: $feature-gray !important;
+    }
+}
+.table-content {
+    padding: 6px 10px 6px 10px;
+    border: 0;
+    color: $body-black;
+    font-size: $size-m;
+    line-height: 1.25rem;
+    font-family: "Open Sans", Arial, sans-serif;
 }
 .vertical-scroll {
     overflow-y: scroll !important;
@@ -12,13 +47,7 @@
 .max-height {
     max-height: 500px;
 }
-.name {
-    &:hover {
-        color: #028DEA !important;
-        cursor: pointer !important;
-        background-color: $feature-gray !important;
-    }
-}
+
 .star-clicked {
     color: #028DEA !important;
 }
@@ -35,13 +64,7 @@
     float: left;
     // max-width: 250px;
 }
-#all-section-header {
-    font-size: .75rem !important;
-    font-weight: 500 !important;
-    font-family: "Roboto","Helvetica","Arial",sans-serif !important;
-    color: rgba(0,0,0,.54) !important;
-    padding-left: 0px;
-}
+
 .cell-width {
     min-width: 80px;
     padding-left: 10px !important;

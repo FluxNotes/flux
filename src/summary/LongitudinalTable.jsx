@@ -5,7 +5,8 @@ import moment from 'moment';
 import './LongitudinalTable.css';
 import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import Tooltip from 'rc-tooltip';
+import { StickyTable, Row, Cell } from 'react-sticky-table';
+import 'react-sticky-table/dist/react-sticky-table.css';
 
 export default class LongitudinalTable extends Component {
 
@@ -92,22 +93,20 @@ export default class LongitudinalTable extends Component {
         }
         return <div />;
     }
-    renderLeftTableHeader() {
-        return (
-            <TableHead>
-                <TableRow>
-                    <TableCell className='star-cell'>starred {this.props.pluralLabel}</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell className='star-cell'>&nbsp;</TableCell>
-                    <TableCell className='table-header'></TableCell>
-                    <TableCell className='table-header'></TableCell>
-                </TableRow>
-            </TableHead>
-        );
-    }
+    // renderLeftTableHeader() {
+    //     return (
+    //             <Row>
+    //                 <Cell className='star-cell'>starred {this.props.pluralLabel}</Cell>
+    //                 <Cell></Cell>
+    //                 <Cell></Cell>
+    //             </Row>
+    //             <Row>
+    //                 <Cell className='star-cell'>&nbsp;</Cell>
+    //                 <Cell className='table-header'></Cell>
+    //                 <Cell className='table-header'></Cell>
+    //             </Row>
+    //     );
+    // }
     renderLeftFavoriteData() {
         const starTableValues = this.gatherTableValues()[2];
         return starTableValues.map(n => { //n is a row in the table
@@ -117,21 +116,37 @@ export default class LongitudinalTable extends Component {
             let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
             const subsectionClassName = matchingSubsection ? 'highlighted' : '';
             return (
-                <TableRow key={n.id}>
+                <Row key={n.id}>
                     {/* Names and Units Cells */}
-                    <TableCell className={`star-cell star-body ${hoverable}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
+                    <Cell className='star-cell'>
                         {this.renderStar(n.name, n.id)}
-                    </TableCell>
-                    {this.renderNameCell(n.name)}
-                    <TableCell>{n.unit}</TableCell>
-                </TableRow>
+                    </Cell>
+                    <Cell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                        {n.name}
+                    </Cell>
+                    <Cell>{n.unit}</Cell>
+                    {/* Names and Units Cells */}
+                    {Object.entries(n)[2][1].map((value, newkey) => {
+                        const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+                            return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+                        });
+                        const cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
+                        const bands = starTableValues[starTableValues.indexOf(n)].bands;
+                        // Data Cells
+                        if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                            return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                        } else {
+                            return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                        }
+                    })}
+                </Row>
             );
         })
     }
     extraEvenRow() {
         const starTableValues = this.gatherTableValues()[2];
         if (starTableValues.length % 2 === 0) {
-            return <TableRow></TableRow>;
+            return <Row></Row>;
         };
     }
     renderLeftTableData(tableValues) {
@@ -142,52 +157,49 @@ export default class LongitudinalTable extends Component {
             let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
             const subsectionClassName = matchingSubsection ? 'highlighted' : '';
             return (
-                <TableRow key={n.id}>
+                <Row key={n.id}>
                     {/* Names and Units Cells */}
-                    <TableCell className='star-cell'>
+                    <Cell className='star-cell'>
                         {this.renderStar(n.name, n.id)}
-                    </TableCell>
-                    <TableCell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                    </Cell>
+                    <Cell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
                         {n.name}
-                    </TableCell>
-                    <TableCell>{n.unit}</TableCell>
-                </TableRow>
+                    </Cell>
+                    <Cell>{n.unit}</Cell>
+                </Row>
 
             );
         });
     }
-    renderRightTableHeader(dates) {
-        let currYear = null;
-        return (
-            <TableHead>
-                <TableRow>
-                    {dates.map((date) => {
-                        const year = moment(date, 'DD MMM YYYY').year();
-                        if (year !== currYear) {
-                            currYear = year;
-                            return <TableCell key={date} className='table-header'>{currYear}</TableCell>;
-                        }
-                        return <TableCell key={date}></TableCell>;
-                    })}
-                </TableRow>
-                <TableRow>
-                    {dates.map((date) => { //makes a new date column-heading for each date in the dates object defined in the constructor
-                        const curr = new moment(date, 'DD MMM YYYY');
-                        const day = curr.format('DD');
-                        const month = curr.format('MMM');
-                        return <TableCell className='table-header' key={date}>{day + ' ' + month}</TableCell>;
-                    }
-                    )}
-                </TableRow>
-            </TableHead>
-
-        );
-    }
+    // renderRightTableHeader(dates) {
+    //     let currYear = null;
+    //     return (
+    //         <Row>
+    //             {dates.map((date) => {
+    //                 const year = moment(date, 'DD MMM YYYY').year();
+    //                 if (year !== currYear) {
+    //                     currYear = year;
+    //                     return <Cell key={date} className='table-header'>{currYear}</Cell>;
+    //                 }
+    //                 return <Cell key={date}></Cell>;
+    //             })}
+    //         </Row>
+    //         <Row>
+    //             {dates.map((date) => { //makes a new date column-heading for each date in the dates object defined in the constructor
+    //                 const curr = new moment(date, 'DD MMM YYYY');
+    //                 const day = curr.format('DD');
+    //                 const month = curr.format('MMM');
+    //                 return <Cell className='table-header' key={date}>{day + ' ' + month}</Cell>;
+    //             }
+    //             )}
+    //         </Row>
+    //     );
+    // }
     renderRightFavoriteData() {
         const starTableValues = this.gatherTableValues()[2];
         return starTableValues.map(n => { //n is a row in the table
             return (
-                <TableRow key={n.id}>
+                <Row key={n.id}>
                     {/* Names and Units Cells */}
                     {Object.entries(n)[2][1].map((value, newkey) => {
                         const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
@@ -197,45 +209,43 @@ export default class LongitudinalTable extends Component {
                         const bands = starTableValues[starTableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                            return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
                         } else {
-                            return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
+                            return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
                         }
                     })}
-                </TableRow>
+                </Row>
             );
         });
     }
-    renderRightTableData(tableValues) {
-        return (
-            <TableBody>
-                {tableValues.map(n => { //n is a row in the table
-                    return (
-                        <TableRow key={n.id}>
-                            {/* Names and Units Cells */}
-                            {Object.entries(n)[2][1].map((value, newkey) => {
-                                const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-                                    return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-                                });
-                                let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
-                                const bands = tableValues[tableValues.indexOf(n)].bands;
-                                if (tableValues.indexOf(n) === 0) {
-                                    cellClassName += ' bordered-body';
-                                }
-                                // Data Cells
-                                if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                                    return <TableCell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</TableCell>;
-                                } else {
-                                    return <TableCell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</TableCell>;
-                                }
-                            })}
-                        </TableRow>
-                    );
-                })}
-                {this.extraEvenRow()}
-            </TableBody>
-        );
-    }
+    // renderRightTableData(tableValues) {
+    //     return (
+    //             {tableValues.map(n => { //n is a row in the table
+    //                 return (
+    //                     <TableRow key={n.id}>
+    //                         {/* Names and Units Cells */}
+    //                         {Object.entries(n)[2][1].map((value, newkey) => {
+    //                             const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+    //                                 return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+    //                             });
+    //                             let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
+    //                             const bands = tableValues[tableValues.indexOf(n)].bands;
+    //                             if (tableValues.indexOf(n) === 0) {
+    //                                 cellClassName += ' bordered-body';
+    //                             }
+    //                             // Data Cells
+    //                             if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+    //                                 return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
+    //                             } else {
+    //                                 return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
+    //                             }
+    //                         })}
+    //                     </TableRow>
+    //                 );
+    //             })}
+    //             {this.extraEvenRow()}
+    //     );
+    // }
     synchronizeScroll = (div) => {
         const div1 = this.refs.div1;
         const div2 = this.refs.div2;
@@ -248,57 +258,121 @@ export default class LongitudinalTable extends Component {
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
         let realignClass = '';
+        let currYear = null;
         if (starTableValues.length !== 0) { //to realign the tables that are off by 1 pixel if there are favorites
             realignClass += ' right-table-spacing';
         }
         return (
-            <div className='tabular-list max-height'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
-                <div className='vertical-scroll left-table'>
-                    <Table className=''>
-                        {this.renderLeftTableHeader()}
-                        <TableBody>
-                            {/*starred body*/}
-                            {this.renderLeftFavoriteData()}
-                            {this.extraEvenRow()}
-                            <TableRow>
-                                <TableCell className='list-column-heading all-section-header' id='all-section-header'>all {this.props.pluralLabel}</TableCell>
-                                <TableCell className='list-subsection-header list-column-heading'></TableCell>
-                                <TableCell className='list-subsection-header list-column-heading'></TableCell>
-                            </TableRow>
-                            {/*all labs/data body*/}
-                            {this.renderLeftTableData(tableValues)}
-                        </TableBody>
-                    </Table>
-                </div>
-                <section> {/*right tables*/}
-                    <div className='vertical-scroll white-scrollbar' ref='div1' onScroll={() => { this.synchronizeScroll(this.refs.div1) }}>
-                        <Table id='spacing'>
-                            {this.renderRightTableHeader(dates)}
-                            {/*starred body*/}
-                            <TableBody>
-                                {this.renderRightFavoriteData()}
-                            </TableBody>
-                        </Table>
-                    </div>
-                    <div className={'vertical-scroll'+realignClass} ref='div2' onScroll={() => { this.synchronizeScroll(this.refs.div2) }}>
-                        {/*all labs/data body*/}
-                        <Table>
-                            {this.renderRightTableData(tableValues)}
-                        </Table>
-                        {/* </TableBody> */}
-                    </div>
-                </section>
-            </div >
-        );
-    }
-};
+            <div className=' max-height vertical-scroll'>
+                <StickyTable stickyColumnCount={3} stickyHeaderCount={2}>
+                    <Row>
+                        {/*year row*/}
+                        <Cell className='star-cell header'></Cell>
+                        <Cell className='header'></Cell>
+                        <Cell className='header'></Cell>
+                        {dates.map((date) => { //years
+                            const year = moment(date, 'DD MMM YYYY').year();
+                            if (year !== currYear) {
+                                currYear = year;
+                                return <Cell key={date} className='header'>{currYear}</Cell>;
+                            }
+                            return <Cell className='header' key={date}></Cell>;
+                        })}
+                    </Row>
+                    <Row>
+                        {/*date row*/}
+                        <Cell id='section-header' className='header'>starred</Cell>
+                        <Cell className='header'></Cell>
+                        <Cell className='header'></Cell>
+                        {dates.map((date) => { //month and day
+                            const curr = new moment(date, 'DD MMM YYYY');
+                            const day = curr.format('DD');
+                            const month = curr.format('MMM');
+                            return <Cell className='header' key={date}>{day + ' ' + month}</Cell>;
+                        }
+                        )}
+                    </Row>
+                        {/* favorite data */}
+                        {starTableValues.map(n => { //n is a row in the table
+                            return (
+                                <Row key={n.id}>
+                                    <Cell className='star-cell'>
+                                        {this.renderStar(n.name, n.id)}
+                                    </Cell>
+                                    <Cell className='name-hover table-content' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                                        {n.name}
+                                    </Cell>
+                                    <Cell className='table-content'>{n.unit}</Cell>
+                                    {/* Names and Units Cells */}
+                                    {Object.entries(n)[2][1].map((value, newkey) => {
+                                        const bands = starTableValues[starTableValues.indexOf(n)].bands;
+                                        // Data Cells
+                                        if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                                            return <Cell style={{ color: 'black' }} key={newkey} className='cell-width table-content'>{value}</Cell>;
+                                        } else {
+                                            return <Cell style={{ color: 'red' }} key={newkey} className='cell-width table-content'>{value}</Cell>;
+                                        }
+                                    })}
+                                </Row>
+                            );
+                        })}
+                    {this.extraEvenRow()}
+                    </StickyTable>
+                    <StickyTable stickyColumnCount={3}>
+                    {/*the in-between*/}
+                    <Row>
+                        <Cell className='list-column-heading' id='section-header'>all {this.props.pluralLabel}</Cell>
+                        <Cell className='list-subsection-header list-column-heading'></Cell>
+                        <Cell className='list-subsection-header list-column-heading'></Cell>
+                    </Row>
+                    {/*all labs/data body*/}
+                    {tableValues.map(n => { //n is a row in the table
+                        const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
+                            return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
+                        });
+                        let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
+                        const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+                        return (
+                            <Row key={n.id}>
+                                {/* Names and Units Cells */}
+                                <Cell className='star-cell'>
+                                    {this.renderStar(n.name, n.id)}
+                                </Cell>
+                                <Cell className={`name-hover ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                                    {n.name}
+                                </Cell>
+                                <Cell>{n.unit}</Cell>
+                                {Object.entries(n)[2][1].map((value, newkey) => {
+                                    const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
+                                        return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
+                                    });
+                                    let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
+                                    const bands = tableValues[tableValues.indexOf(n)].bands;
+                                    if (tableValues.indexOf(n) === 0) {
+                                        cellClassName += ' bordered-body';
+                                    }
+                                    // Data Cells
+                                    if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
+                                        return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                                    } else {
+                                        return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                                    }
+                                })}
+                            </Row>
+                        );
+                    })}
+                    {this.extraEvenRow()}
+                </StickyTable>
+            </div>
+        )
+    }};
 
-LongitudinalTable.propTypes = {
-    dataInfo: propTypes.array.isRequired,
-    tdpSearchSuggestions: propTypes.array,
-    conditionSectionName: propTypes.string,
-    reorderRows: propTypes.func,
-    subsectionLabel: propTypes.string,
-    preferenceManager: propTypes.object,
-    pluralLabel: propTypes.string,
-};
+    LongitudinalTable.propTypes = {
+        dataInfo: propTypes.array.isRequired,
+        tdpSearchSuggestions: propTypes.array,
+        conditionSectionName: propTypes.string,
+        reorderRows: propTypes.func,
+        subsectionLabel: propTypes.string,
+        starredData: propTypes.array,
+        pluralLabel: propTypes.string,
+    };
