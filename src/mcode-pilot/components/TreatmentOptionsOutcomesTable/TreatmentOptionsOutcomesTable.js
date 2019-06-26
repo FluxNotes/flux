@@ -6,8 +6,7 @@ import BarChart from '../../visualizations/BarChart/BarChart';
 import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
-import { cumulativeAdd } from '../../utils/arrayOperations';
-
+import _ from 'lodash';
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesTable extends Component {
@@ -40,9 +39,9 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
-        const { totalPatients, survivalYears } = row;
-        const numerator = totalPatients - cumulativeAdd(survivalYears, survivalRate);
-        const compareNumerator = compareRow ? compareRow.totalPatients - cumulativeAdd(compareRow.survivalYears, survivalRate): null;
+        const { totalPatients, deathsPerYear } = row;
+        const numerator = totalPatients - _.sum(deathsPerYear.slice(0,survivalRate));
+        const compareNumerator = compareRow ? compareRow.totalPatients - _.sum(compareRow.deathsPerYear.slice(0,survivalRate)): null;
         return (
             <BarChart
                 numerator={numerator}
@@ -55,7 +54,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     renderTreatmentRow(row, compareRow = null) {
         const { sideEffectSelection } = this.state;
-        const { timeScales } = this.props;
+        const { timescale } = this.props;
         if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
@@ -69,9 +68,11 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, timeScales[0])}</div>
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, timeScales[1])}</div>
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, timeScales[2])}</div>
+                    {timescale.map((e) => {
+                        return <div key = {e} className="flex-1">{this.renderBarChart(row, compareRow, e)}</div>;
+
+                    })}
+
                 </div>
 
                 <div className="flex flex-4 flex-padding top-side-effects">
@@ -116,7 +117,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     <div className="header-title">Overall survival rates</div>
 
                     <div className="flex">
-                        {this.props.timeScales.map((e) => {
+                        {this.props.timescale.map((e) => {
                             return (
                                 <div className="flex-1" key={e}>
                                     <span onClick={ () => { changeSort(e); }} className="header-space">

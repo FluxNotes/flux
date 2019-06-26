@@ -56,14 +56,15 @@ function updatePatientOutcomes(data) {
 
 function processSimilarPatientOutcomes() {
     return (dispatch, getState) => {
-        const { similarPatientProps } = getState().mcode;
+        const { similarPatientProps, timescale } = getState().mcode;
         const service = new ServiceManager().getService('outcomes');
-        return service.processSimilarPatientOutcomes(similarPatientProps).then(results => {
+        return service.processSimilarPatientOutcomes(similarPatientProps, timescale).then(results => {
             dispatch(updatePatientOutcomes({
                 totalPatients: results.totalPatients,
                 totalSimilarPatients: results.totalSimilarPatients,
                 similarPatientTreatments: results.similarPatientTreatments,
-                similarPatientTreatmentsData: results.similarPatientTreatmentsData
+                similarPatientTreatmentsData: results.similarPatientTreatmentsData,
+                timescale: results.timescale
             }));
         });
     };

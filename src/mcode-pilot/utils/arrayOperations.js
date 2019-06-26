@@ -30,18 +30,7 @@ function getCombinations(treatments) {
     return combinations.reverse().filter((combination) => combination.length > 0);
 }
 
-function cumulativeAdd(array, index) {
-    let k = 0;
-    for (var i = 0; i < index; i++) {
-        if (array[i] !== undefined) {
-            k+=array[i];
-        }
-    }
-    return k;
-}
-
 export {
     isSame,
     getCombinations,
-    cumulativeAdd
 };

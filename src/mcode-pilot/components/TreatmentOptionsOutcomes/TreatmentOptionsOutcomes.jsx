@@ -13,8 +13,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             outcomesToggle: 'table',
-            timescaleToggle: '5',
-            timeScales: ['1','3','5'],
+            timescaleToggle: '',
             sortColumn: '',
             sortDirection: 0
         };
@@ -56,7 +55,7 @@ export default class TreatmentOptionsOutcomes extends Component {
             };
         } else {
             return function(a,b) {
-                return _.sum(a.survivalYears.slice(0,propName)) / a['totalPatients'] - _.sum(b.survivalYears.slice(0,propName)) / b['totalPatients'];
+                return _.sum(a.deathsPerYear.slice(0,propName)) / a['totalPatients'] - _.sum(b.deathsPerYear.slice(0,propName)) / b['totalPatients'];
             };
         }
     }
@@ -93,12 +92,17 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     renderToggleButtons = () => {
-        const { outcomesToggle, timescaleToggle, timeScales} = this.state;
+        let { outcomesToggle, timescaleToggle} = this.state;
+        const { timescale } = this.props;
+
+        if (timescaleToggle==='') {
+            timescaleToggle = timescale[0];
+        }
 
         return (
             <div className="treatment-options-outcomes__toggle">
                 <div className="timescale-toggles">
-                    {outcomesToggle === "icons" && timeScales.map((time, i) =>
+                    {outcomesToggle === "icons" && timescale.map((time, i) =>
                         <div
                             className={`timescale-toggle ${timescaleToggle === time ? 'active' : ''}`}
                             onClick={() => this.handleToggleTimescale(time)}
@@ -126,8 +130,8 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     render() {
-        const { similarPatientTreatmentsData, similarPatientTreatments } = this.props;
-        const { outcomesToggle, timescaleToggle, sortDirection, sortColumn, timeScales } = this.state;
+        const { similarPatientTreatmentsData, similarPatientTreatments, timescale } = this.props;
+        const { outcomesToggle, timescaleToggle, sortDirection, sortColumn } = this.state;
 
         if (sortDirection) { // it could be ascending or descending, but it's sorted
             similarPatientTreatmentsData.sort(this.treatmentCompare(sortColumn));
@@ -149,13 +153,13 @@ export default class TreatmentOptionsOutcomes extends Component {
                         changeSort={this.handleChangeSort}
                         sortColumn={sortColumn}
                         sortDirection={sortDirection}
-                        timeScales = {timeScales}
+                        timescale = {timescale}
                     />
                     :
                     <TreatmentOptionsOutcomesIcons
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
-                        timescaleToggle={timescaleToggle}
-                        timeScales = {timeScales}
+                        timescaleToggle={timescaleToggle!==''?timescaleToggle:timescale[0]}
+                        timescale = {timescale}
                     />
                 }
             </div>

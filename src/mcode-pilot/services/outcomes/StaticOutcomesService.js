@@ -11,7 +11,7 @@ export default class StaticOutcomesService  extends IOutcomesService {
         ];
     }
 
-    async processSimilarPatientOutcomes(similarPatientProps) {
-        return filterTreatmentData(similarPatientProps);
+    async processSimilarPatientOutcomes(similarPatientProps, timescale) {
+        return filterTreatmentData(similarPatientProps, timescale);
     }
 }

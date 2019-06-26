@@ -3,20 +3,21 @@ import { isSame, getCombinations } from './arrayOperations';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
-function filterTreatmentData(similarPatientProps) {
+function filterTreatmentData(similarPatientProps, timescale) {
     const totalPatients = transformedTreatmentData.length;
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient =>
         isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
     const treatmentCombinations = getCombinations(similarPatientTreatments);
-    const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations);
+    const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations, timescale);
 
     return {
         similarPatientTreatments,
         similarPatientTreatmentsData,
         totalPatients,
         totalSimilarPatients,
+        timescale
     };
 }
 
@@ -25,7 +26,7 @@ function initializeTreatmentData(displayName) {
         id: _.uniqueId('row_'),
         displayName,
         totalPatients: 0,
-        survivalYears: [],
+        deathsPerYear: [],
         sideEffects: {
             totalReporting: 0,
             effects: {}
@@ -49,11 +50,11 @@ function generateTreatmentData(similarPatients, treatmentCombinations, timescale
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
-            const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-            if (row.survivalYears[survivalYears] !== undefined) {
-                row.survivalYears[survivalYears] += 1;
+            const deathsPerYear = Math.floor(patient.diseaseStatus.survivalMonths / 12);
+            if (row.deathsPerYear[deathsPerYear] !== undefined) {
+                row.deathsPerYear[deathsPerYear] += 1;
             } else {
-                row.survivalYears[survivalYears] = 1;
+                row.deathsPerYear[deathsPerYear] = 1;
             }
 
 
@@ -67,6 +68,11 @@ function generateTreatmentData(similarPatients, treatmentCombinations, timescale
             }
         });
 
+        for (var i = 0; i < row.deathsPerYear.length; i++) {
+            if (row.deathsPerYear[i] === undefined) {
+                row.deathsPerYear[i] = 0;
+            }
+        }
         if (row.totalPatients > 0) {
             treatmentData.push(row);
         }

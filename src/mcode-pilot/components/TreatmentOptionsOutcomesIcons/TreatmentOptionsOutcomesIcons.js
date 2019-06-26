@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-
+import _ from 'lodash';
 import IconsChart from '../../visualizations/IconsChart/IconsChart';
-import { cumulativeAdd } from '../../utils/arrayOperations';
 
 import './TreatmentOptionsOutcomesIcons.css';
 
@@ -44,7 +43,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         let index = -1;
         index = similarPatientTreatmentsData.findIndex(el => el.displayName === treatment.displayName);
         totalPatients = similarPatientTreatmentsData[index].totalPatients;
-        totalNumSurvive = totalPatients - cumulativeAdd(similarPatientTreatmentsData[index].survivalYears, timescale);
+        totalNumSurvive = totalPatients - _.sum(similarPatientTreatmentsData[index].deathsPerYear.slice(0,timescale));
 
         const numSurvive = Math.floor(totalNumSurvive / totalPatients * 100);
         return { numSurvive, index };

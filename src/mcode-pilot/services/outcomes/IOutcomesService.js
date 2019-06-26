@@ -24,7 +24,7 @@ export default class IOutcomesService {
         totalPatients -- total number of patients in the
         totalSimilarPatients -- total number of patients that match the cohort filtering criteria
   */
-    processSimilarPatientOutcomes(similarPatientProps) {
+    processSimilarPatientOutcomes(similarPatientProps, timescale) {
         throw new Error("processSimilarPatientOutcomes not implemented by " + this.constructor.name);
     }
 }
