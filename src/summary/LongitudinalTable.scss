@@ -13,14 +13,9 @@
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     white-space: nowrap !important;
-    &:hover {
-        color: #028dea !important;
-        cursor: pointer !important;
-        background-color: $feature-gray !important;
-    }
 }
 .star-clicked {
-    color: #028dea !important;
+    color: $interface-blue !important;
 }
 .star-hovered {
     color: $interface-blue !important;
