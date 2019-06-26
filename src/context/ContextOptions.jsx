@@ -43,7 +43,7 @@ export default class ContextOptions extends Component {
                         className="context-options-header"
                         title={groupObj.groupName}
                     >
-                        {capitalizeFirstLetter(parentContext.getLabel())} - {groupObj.groupName}
+                        {capitalizeFirstLetter(parentContext.getDisplayText())} - {groupObj.groupName}
                     </div>
                 }
 
@@ -165,9 +165,9 @@ export default class ContextOptions extends Component {
                     {(isCurrentContextAGroupName) &&
                         <div
                             className={`context-options-header`}
-                            title={context.getLabel()}
+                            title={context.getDisplayText()}
                         >
-                            {context.getLabel()}
+                            {context.getDisplayText()}
                         </div>
                     }
                     {/* Render all shortcuts with no groupNames */}
