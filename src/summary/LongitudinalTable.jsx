@@ -64,15 +64,18 @@ export default class LongitudinalTable extends Component {
         }
         return [tableValues, dates];
     }
+    // updates current favorites and local storage
     toggleFavorites = (section) => {
         const newFavorites = this.state.favorites;
         if (_.includes(this.state.favorites, section.name)) {
             newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
             this.setState({ favorites: newFavorites });
+            this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
         }
         else {
             newFavorites.push(section.name);
             this.setState({ favorites: newFavorites });
+            this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
         }
     }
     renderStar(name, id) {
@@ -198,4 +201,5 @@ LongitudinalTable.propTypes = {
     conditionSectionName: propTypes.string,
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
+    preferenceManager: propTypes.object,
 };

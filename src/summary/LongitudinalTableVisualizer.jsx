@@ -14,22 +14,29 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         };
     }
     formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
-        const data = [];
+        const favoritedNames = [];
+        const favoritedSections = [];
+        const unfavoritedSections = [];
+        const name = `${this.props.conditionSection.name}-longitudinal-viz-favorites`;
+        if (this.props.preferenceManager.getPreference(name)) {
+            favoritedNames.push(...this.props.preferenceManager.getPreference(name));
+        }
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
             if (section[conditionIndex].data_cache) {
-                data.push(
-                    {
-                        name: section[conditionIndex].name,
-                        unit: section[conditionIndex].data_cache[0].unit,
-                        datesAndData: this.buildDataObject(conditionIndex, section),
-                        bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
-                        favorite: false,
-                    }
-                );
+                const currentSection = {
+                    name: section[conditionIndex].name,
+                    unit: section[conditionIndex].data_cache[0].unit,
+                    datesAndData: this.buildDataObject(conditionIndex, section),
+                    bands: section[conditionIndex].bands && section[conditionIndex].bands.length > 0 ? section[conditionIndex].bands : null,
+                    favorite: _.includes(favoritedNames, section[conditionIndex].name),
+                };
+                if (currentSection.favorite) favoritedSections.push(currentSection);
+                else unfavoritedSections.push(currentSection);
             }
         }
-        this.sortData(data);
-        return data;
+        this.sortData(favoritedSections);
+        this.sortData(unfavoritedSections);
+        return favoritedSections.concat(unfavoritedSections);
     }
     sortData = (formattedData) => {
         formattedData.sort((section1, section2) => {
@@ -54,16 +61,16 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         data.forEach((section) => { //to get the favorites in front of the not favorites
             if (section.favorite) {
                 separatedArray.unshift(section);
-                numFavs ++;
+                numFavs++;
             } else {
                 separatedArray.push(section);
             }
         });
-        const favsArray = _.slice(separatedArray, 0,numFavs); //take just the favs and sort them alphabetically
+        const favsArray = _.slice(separatedArray, 0, numFavs); //take just the favs and sort them alphabetically
         this.sortData(favsArray);
-        const notFavsArray = _.slice(separatedArray,numFavs,separatedArray.length); //take just the not favs and sort them alphabetically
+        const notFavsArray = _.slice(separatedArray, numFavs, separatedArray.length); //take just the not favs and sort them alphabetically
         this.sortData(notFavsArray);
-        const finalArray = _.concat(favsArray,notFavsArray); //but the favs back together with the not favs in one array
+        const finalArray = _.concat(favsArray, notFavsArray); //but the favs back together with the not favs in one array
         this.setState({ data: finalArray });
     }
     componentWillReceiveProps(nextProps) {
@@ -83,7 +90,13 @@ export default class LongitudinalTableVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalTable reorderRows={this.reorderRows} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} />
+                <LongitudinalTable
+                    reorderRows={this.reorderRows}
+                    dataInfo={this.state.data}
+                    tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                    conditionSectionName={this.props.conditionSection.name}
+                    subsectionLabel={this.props.conditionSection.subsectionLabel}
+                    preferenceManager={this.props.preferenceManager} />
             </div>
         );
     }
@@ -101,4 +114,5 @@ LongitudinalTableVisualizer.propTypes = {
     sectionTransform: propTypes.func,
     tdpSearchSuggestions: propTypes.array,
     visualizerManager: propTypes.object,
+    preferenceManager: propTypes.object,
 };

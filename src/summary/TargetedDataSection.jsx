@@ -452,6 +452,7 @@ export default class TargetedDataSection extends Component {
                 tdpSearchSuggestions={this.tdpSearchSuggestions}
                 highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                 visualizerManager={this.props.visualizerManager}
+                preferenceManager={this.props.preferenceManager}
             />
         );
     }
