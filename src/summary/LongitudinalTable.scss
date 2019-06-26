@@ -8,24 +8,27 @@
 .table-scrollable {
     overflow-x: scroll !important;
 }
-.name {
-    &:hover {
-        color: #028DEA !important;
-        cursor: pointer !important;
-        background-color: $feature-gray !important;
-    }
-}
 .star-clicked {
-    color: #028DEA !important;
+    color: $interface-blue !important;
 }
 .star-hovered {
-    color: #b3b3b3 !important;
+    color: $interface-blue !important;
 }
 .star-cell {
     padding-left: 0px !important;
     padding-right: 0px !important;
     text-align: center !important;
     min-width: 30px !important;
+    &.star-body {
+        &:hover {
+            cursor: pointer !important;
+        }
+    }
+    &.hoverable {
+        &:hover {
+            font-size: 17px;
+        }
+    }
 }
 .left-table {
     float: left;
