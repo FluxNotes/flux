@@ -248,7 +248,6 @@ export default class EntryShortcut extends Shortcut {
     }
 
     removeFromPatient() {
-        console.log(this.patient);
         if (this.isObjectNew) return;
         const undoUpdatePatientSpecList = this.metadata["undoUpdatePatient"];
         if (undoUpdatePatientSpecList) {
