@@ -100,10 +100,6 @@ export default class CreatorIntermediary extends Shortcut {
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
     getText() {
         return this.metadata["name"];
     }
@@ -113,7 +109,7 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     getDisplayText() {
-        return `${this.getPrefixCharacter()}${this.getText()}`;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     getPrefixCharacter() {
