@@ -5,6 +5,7 @@
     width: auto;
     margin-top: 10px;
     font-size: $size-m;
+    overflow-x: unset !important;
 }
 .header {
     color: $body-gray;
@@ -14,7 +15,7 @@
     font-weight: 500 !important;
     font-family: "Open Sans", Arial, sans-serif;
     text-align: left;
-    min-width: 65px;
+    min-width: 95px;
 }
 #section-header { //starred or all labs/vitals
     font-size: .75rem !important;
@@ -24,6 +25,7 @@
     padding-left: 0px;
     min-width: 50px;
     z-index: 4;
+    // text-align: left !important;
 }
 .name-hover {
     &:hover {
@@ -47,10 +49,13 @@
 .white-background {
     background-color: $background;
 }
+#sticky-header {
+    top: 0 !important;
+}
 .sticky-table .sticky-table-row:nth-child(-n+2) .sticky-table-cell { //row
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
+    top: 0 !important;
     z-index: 2;
 }
   .sticky-table .sticky-table-row .sticky-table-cell:nth-child(-n+3) { //column
@@ -68,13 +73,19 @@
 }
 #sticky-name {
     left: 50px;
+    min-width: 135px;
+    max-width: 135px;
 }
 #sticky-unit {
-    left: 145px;
+    left: 185px;
+    min-width: 95px;
 }
 .vertical-scroll {
     overflow-y: scroll !important;
-    // height: 300px;
+    max-height: 200px;
+}
+.horizontal-scroll {
+    overflow-x: scroll;
 }
 .max-height {
     max-height: 500px;
@@ -90,7 +101,7 @@
     padding-left: 0px !important;
     padding-right: 0px !important;
     text-align: center !important;
-    min-width: 30px !important;
+    width: 30px !important;
 }
 .left-table {
     float: left;
@@ -111,6 +122,6 @@
  .bordered-body {
     border-top: 1px solid $line-gray !important;
  }
-.white-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #FFFFFF !important;
-}
+// .white-scrollbar::-webkit-scrollbar-thumb {
+//     background-color: #FFFFFF !important;
+// }

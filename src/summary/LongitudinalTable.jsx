@@ -93,275 +93,129 @@ export default class LongitudinalTable extends Component {
         }
         return <div />;
     }
-    // renderLeftTableHeader() {
-    //     return (
-    //             <Row>
-    //                 <Cell className='star-cell'>starred {this.props.pluralLabel}</Cell>
-    //                 <Cell></Cell>
-    //                 <Cell></Cell>
-    //             </Row>
-    //             <Row>
-    //                 <Cell className='star-cell'>&nbsp;</Cell>
-    //                 <Cell className='table-header'></Cell>
-    //                 <Cell className='table-header'></Cell>
-    //             </Row>
-    //     );
-    // }
-    renderLeftFavoriteData() {
-        const starTableValues = this.gatherTableValues()[2];
+    renderYearHeader(dates) {
+        let currYear = null;
+        return (<Row id='sticky-header'>
+            {/*year row*/}
+            <Cell className='star-cell header' id='section-header'></Cell>
+            <Cell className='header' id='sticky-name'></Cell>
+            <Cell className='header' id='sticky-unit'></Cell>
+            {dates.map((date) => { //years
+                const year = moment(date, 'DD MMM YYYY').year();
+                if (year !== currYear) {
+                    currYear = year;
+                    return <Cell key={date} className='header' id='sticky-header'>{currYear}</Cell>;
+                }
+                return <Cell className='header' key={date}></Cell>;
+            })}
+        </Row>);
+    }
+    renderDateHeader(dates) {
+        return (
+            <Row>
+                {/*date row*/}
+                <Cell id='section-header' className='header star-cell'>starred</Cell>
+                <Cell className='header' id='sticky-name'></Cell>
+                <Cell className='header' id='sticky-unit'></Cell>
+                {dates.map((date) => { //month and day
+                    const curr = new moment(date, 'DD MMM YYYY');
+                    const day = curr.format('DD');
+                    const month = curr.format('MMM');
+                    return <Cell className='header' key={date}>{day + ' ' + month}</Cell>;
+                }
+                )}
+            </Row>
+        );
+    }
+    renderFavoriteData(starTableValues) {
         return starTableValues.map(n => { //n is a row in the table
-            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
-                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
-            });
-            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
-            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
             return (
                 <Row key={n.id}>
-                    {/* Names and Units Cells */}
-                    <Cell className='star-cell'>
+                    <Cell className={'star-cell ' + background}>
                         {this.renderStar(n.name, n.id)}
                     </Cell>
-                    <Cell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                    <Cell className={'name-hover table-content ' + background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
                         {n.name}
                     </Cell>
-                    <Cell>{n.unit}</Cell>
+                    <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
                     {/* Names and Units Cells */}
                     {Object.entries(n)[2][1].map((value, newkey) => {
-                        const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-                            return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-                        });
-                        const cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
                         const bands = starTableValues[starTableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                            return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background} >{value}</Cell>;
                         } else {
-                            return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                            return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
                         }
                     })}
                 </Row>
             );
         });
     }
-    extraEvenRow() {
-        const starTableValues = this.gatherTableValues()[2];
-        if (starTableValues.length % 2 === 0) {
-            return <Row></Row>;
-        };
+    renderAllDataHeader(dates) {
+        return (
+            <Row>
+                <Cell className='header star-cell' id='section-header'>all {this.props.pluralLabel}</Cell>
+                <Cell className='header' id='sticky-name'></Cell>
+                <Cell className='header' id='sticky-unit'></Cell>
+                {dates.map((date,key) => {
+                    return <Cell className='header' key={key}></Cell>;
+                })}
+            </Row>
+        );
     }
-    renderLeftTableData(tableValues) {
+    renderAllData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
-            const matchingSubsection = this.props.tdpSearchSuggestions.find(s => {
-                return s.section === this.props.conditionSectionName && s.valueTitle === 'Subsection' && s.subsection === n.name;
-            });
-            let clickedClass = _.includes(this.state.favorites, n.name) ? 'clicked' : '';
-            const subsectionClassName = matchingSubsection ? 'highlighted' : '';
+            let background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
             return (
                 <Row key={n.id}>
                     {/* Names and Units Cells */}
-                    <Cell className='star-cell'>
+                    <Cell className={'star-cell ' + background}>
                         {this.renderStar(n.name, n.id)}
                     </Cell>
-                    <Cell className={`name ${clickedClass} ${subsectionClassName}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
+                    <Cell className={`name-hover table-content ` + background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
                         {n.name}
                     </Cell>
-                    <Cell>{n.unit}</Cell>
-                </Row>
-
-            );
-        });
-    }
-    // renderRightTableHeader(dates) {
-    //     let currYear = null;
-    //     return (
-    //         <Row>
-    //             {dates.map((date) => {
-    //                 const year = moment(date, 'DD MMM YYYY').year();
-    //                 if (year !== currYear) {
-    //                     currYear = year;
-    //                     return <Cell key={date} className='table-header'>{currYear}</Cell>;
-    //                 }
-    //                 return <Cell key={date}></Cell>;
-    //             })}
-    //         </Row>
-    //         <Row>
-    //             {dates.map((date) => { //makes a new date column-heading for each date in the dates object defined in the constructor
-    //                 const curr = new moment(date, 'DD MMM YYYY');
-    //                 const day = curr.format('DD');
-    //                 const month = curr.format('MMM');
-    //                 return <Cell className='table-header' key={date}>{day + ' ' + month}</Cell>;
-    //             }
-    //             )}
-    //         </Row>
-    //     );
-    // }
-    renderRightFavoriteData() {
-        const starTableValues = this.gatherTableValues()[2];
-        return starTableValues.map(n => { //n is a row in the table
-            return (
-                <Row key={n.id}>
-                    {/* Names and Units Cells */}
+                    <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
                     {Object.entries(n)[2][1].map((value, newkey) => {
                         const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
                             return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
                         });
-                        const cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
-                        const bands = starTableValues[starTableValues.indexOf(n)].bands;
+                        let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
+                        const bands = tableValues[tableValues.indexOf(n)].bands;
+                        if (tableValues.indexOf(n) === 0) {
+                            cellClassName += ' bordered-body';
+                        }
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                            return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
                         } else {
-                            return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
+                            return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
                         }
                     })}
                 </Row>
             );
         });
-    }
-    // renderRightTableData(tableValues) {
-    //     return (
-    //             {tableValues.map(n => { //n is a row in the table
-    //                 return (
-    //                     <TableRow key={n.id}>
-    //                         {/* Names and Units Cells */}
-    //                         {Object.entries(n)[2][1].map((value, newkey) => {
-    //                             const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-    //                                 return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-    //                             });
-    //                             let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
-    //                             const bands = tableValues[tableValues.indexOf(n)].bands;
-    //                             if (tableValues.indexOf(n) === 0) {
-    //                                 cellClassName += ' bordered-body';
-    //                             }
-    //                             // Data Cells
-    //                             if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-    //                                 return <Cell style={{ color: 'black' }} key={newkey} className={cellClassName}>{value}</Cell>;
-    //                             } else {
-    //                                 return <Cell style={{ color: 'red' }} key={newkey} className={cellClassName}>{value}</Cell>;
-    //                             }
-    //                         })}
-    //                     </TableRow>
-    //                 );
-    //             })}
-    //             {this.extraEvenRow()}
-    //     );
-    // }
-    synchronizeScroll = (div) => {
-        const div1 = this.refs.div1;
-        const div2 = this.refs.div2;
-        if (div === div1) {
-            div2.scrollLeft = div1.scrollLeft;
-        } else {
-            div1.scrollLeft = div2.scrollLeft;
-        }
     }
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
-        let realignClass = '';
         let currYear = null;
-        if (starTableValues.length !== 0) { //to realign the tables that are off by 1 pixel if there are favorites
-            realignClass += ' right-table-spacing';
-        }
         return (
-            <div className=' max-height vertical-scroll'>
+            <div className='horizontal-scroll'>
+                {/* <div className='vertical-scroll'> */}
                 <StickyTable>
-                    <Row>
-                        {/*year row*/}
-                        <Cell className='star-cell header'></Cell>
-                        <Cell className='header' id='sticky-name'></Cell>
-                        <Cell className='header' id='sticky-unit'></Cell>
-                        {dates.map((date) => { //years
-                            const year = moment(date, 'DD MMM YYYY').year();
-                            if (year !== currYear) {
-                                currYear = year;
-                                return <Cell key={date} className='header'>{currYear}</Cell>;
-                            }
-                            return <Cell className='header' key={date}></Cell>;
-                        })}
-                    </Row>
-                    <Row>
-                        {/*date row*/}
-                        <Cell id='section-header' className='header'>starred</Cell>
-                        <Cell className='header' id='sticky-name'></Cell>
-                        <Cell className='header' id='sticky-unit'></Cell>
-                        {dates.map((date) => { //month and day
-                            const curr = new moment(date, 'DD MMM YYYY');
-                            const day = curr.format('DD');
-                            const month = curr.format('MMM');
-                            return <Cell className='header' key={date}>{day + ' ' + month}</Cell>;
-                        }
-                        )}
-                    </Row>
-                    {/* favorite data */}
-                    {starTableValues.map(n => { //n is a row in the table
-                        let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
-                        return (
-                            <Row key={n.id}>
-                                <Cell className={'star-cell ' + background}>
-                                    {this.renderStar(n.name, n.id)}
-                                </Cell>
-                                <Cell className={'name-hover table-content ' + background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                                    {n.name}
-                                </Cell>
-                                <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
-                                {/* Names and Units Cells */}
-                                {Object.entries(n)[2][1].map((value, newkey) => {
-                                    const bands = starTableValues[starTableValues.indexOf(n)].bands;
-                                    // Data Cells
-                                    if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                                        return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background} >{value}</Cell>;
-                                    } else {
-                                        return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
-                                    }
-                                })}
-                            </Row>
-                        );
-                    })}
+                    {this.renderYearHeader(dates)}
+                    {this.renderDateHeader(dates)}
+                    {this.renderFavoriteData(starTableValues)}
                 </StickyTable>
+                {/* </div> */}
+                {/* <div className='vertical-scroll'> */}
                 <StickyTable>
-                    {/*the in-between*/}
-                    <Row>
-                        <Cell className='header' id='section-header'>all {this.props.pluralLabel}</Cell>
-                        <Cell className='header' id='sticky-name'></Cell>
-                        <Cell className='header' id='sticky-unit'></Cell>
-                        {dates.map((date,key) => {
-                            return <Cell className='header' key={key}></Cell>
-                        })}
-                    </Row>
-                    {/*all labs/data body*/}
-                    {tableValues.map(n => { //n is a row in the table
-                        let background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
-                        return (
-                            <Row key={n.id}>
-                                {/* Names and Units Cells */}
-                                <Cell className={'star-cell ' + background}>
-                                    {this.renderStar(n.name, n.id)}
-                                </Cell>
-                                <Cell className={`name-hover table-content ` + background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                                    {n.name}
-                                </Cell>
-                                <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
-                                {Object.entries(n)[2][1].map((value, newkey) => {
-                                    const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-                                        return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-                                    });
-                                    let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
-                                    const bands = tableValues[tableValues.indexOf(n)].bands;
-                                    if (tableValues.indexOf(n) === 0) {
-                                        cellClassName += ' bordered-body';
-                                    }
-                                    // Data Cells
-                                    if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                                        return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
-                                    } else {
-                                        return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
-                                    }
-                                })}
-                            </Row>
-                        );
-                    })}
-                    {this.extraEvenRow()}
+                    {this.renderAllDataHeader(dates)}
+                    {this.renderAllData(tableValues)}
                 </StickyTable>
+                {/* </div> */}
             </div>
         );
     }
