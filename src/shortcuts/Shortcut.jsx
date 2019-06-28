@@ -179,13 +179,11 @@ class Shortcut extends Context {
             return null;
         case "date":
             return ContextCalendar;
+        case "multi-choice":
         case "choice":
             return ContextListOptions;
         case "menu":
             return ContextGetHelp;
-        case "multi-choice":
-            console.error(`We don't currently support a completion component for ${this.metadata.subtype}-subtypes; trying to get a completionComponent for ${this.metadata.id}`);
-            return null;
         default:
             console.error(`We don't currently support a completion component for ${this.metadata.subtype}-subtypes; trying to get a completionComponent for ${this.metadata.id}`);
             return null;
