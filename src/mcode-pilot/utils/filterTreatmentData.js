@@ -77,7 +77,6 @@ function generateTreatmentData(similarPatients, treatmentCombinations, timescale
         }
     });
 
-    console.log(treatmentData);
     return treatmentData;
 }
 
