@@ -15,6 +15,7 @@ export default class CreatorChild extends Shortcut {
 
     initialize(contextManager, trigger, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
+        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
         const text = this.determineText(contextManager);
         if (!Lang.isUndefined(text)) {
             if (Lang.isArray(text) || text === 'date-id') {
@@ -23,8 +24,6 @@ export default class CreatorChild extends Shortcut {
                 this.setText(text);
             }
         }
-
-        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
@@ -88,7 +87,12 @@ export default class CreatorChild extends Shortcut {
         } else if (Lang.isArray(this.metadata.picker)) {
             return this.metadata.picker;
         } else {
-            return this.getValueSet(this.metadata.picker).map((item) => {
+            // Check the attribute value of the parent to filter the options based on which ones exist in the editor already
+            const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || [] : [];
+            return this.getValueSet(this.metadata.picker).filter(item => {
+                // If the current attribute value contains this item in the ValueSet, don't include it in the options to select from
+                return !Lang.includes(attributeValue, item.name);
+            }).map((item) => {
                 return {"key": item.id || item.code, "context": item.name, "object": item};
             });
         }
@@ -139,9 +143,10 @@ export default class CreatorChild extends Shortcut {
         if (this.parentContext) {
             const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
 
+            // If we have a multi-choice shortcut, it is incomplete only if the label inserted with no value selected
             if (Lang.isArray(parentAttributeValue)) {
-                // For creators that support multiple options, incomplete if there are none specified
-                return !Lang.isEmpty(parentAttributeValue);
+                // If text matches the label, no value selected yet. Render as incomplete
+                return this.getText() !== this.metadata.label.substring(1);
             }
 
             return !!parentAttributeValue; // If parent attribute is defined, shortcut is complete, else it is incomplete
