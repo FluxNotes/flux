@@ -26,7 +26,7 @@ function initializeTreatmentData(displayName) {
         id: _.uniqueId('row_'),
         displayName,
         totalPatients: 0,
-        deathsPerYear: [],
+        survivorsPerYear: [],
         sideEffects: {
             totalReporting: 0,
             effects: {}
@@ -50,13 +50,17 @@ function generateTreatmentData(similarPatients, treatmentCombinations, timescale
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
-            const deathsPerYear = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-            if (row.deathsPerYear[deathsPerYear] !== undefined) {
-                row.deathsPerYear[deathsPerYear] += 1;
-            } else {
-                row.deathsPerYear[deathsPerYear] = 1;
-            }
+            let survivorsPerYear = Math.floor(patient.diseaseStatus.survivalMonths / 12);
 
+
+            while (survivorsPerYear>=0) {
+                if (row.survivorsPerYear[survivorsPerYear] === undefined) {
+                    row.survivorsPerYear[survivorsPerYear] = 0;
+                }
+
+                row.survivorsPerYear[survivorsPerYear] += 1;
+                survivorsPerYear--;
+            }
 
             if (patient.sideEffects.length > 0) {
                 row.sideEffects.totalReporting += 1;
@@ -68,16 +72,12 @@ function generateTreatmentData(similarPatients, treatmentCombinations, timescale
             }
         });
 
-        for (var i = 0; i < row.deathsPerYear.length; i++) {
-            if (row.deathsPerYear[i] === undefined) {
-                row.deathsPerYear[i] = 0;
-            }
-        }
         if (row.totalPatients > 0) {
             treatmentData.push(row);
         }
     });
 
+    console.log(treatmentData);
     return treatmentData;
 }
 

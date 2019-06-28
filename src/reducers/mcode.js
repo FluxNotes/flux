@@ -20,13 +20,11 @@ export default function mcode(state = defaultState, action) {
             isSimilarPatient(treatmentDataPatient, state.similarPatientProps));
         const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
 
-        const timescale = ['1','3','5'];
         return {
             ...state,
             similarPatientProps: { ...getProps(patient, condition) },
             similarPatientTreatments,
             totalSimilarPatients: similarPatients.length,
-            timescale: timescale
         };
     }
 

@@ -6,7 +6,6 @@ import BarChart from '../../visualizations/BarChart/BarChart';
 import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
-import _ from 'lodash';
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesTable extends Component {
@@ -39,9 +38,9 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
-        const { totalPatients, deathsPerYear } = row;
-        const numerator = totalPatients - _.sum(deathsPerYear.slice(0,survivalRate));
-        const compareNumerator = compareRow ? compareRow.totalPatients - _.sum(compareRow.deathsPerYear.slice(0,survivalRate)): null;
+        const { totalPatients, survivorsPerYear } = row;
+        const numerator = survivorsPerYear[survivalRate];
+        const compareNumerator = compareRow ? compareRow.survivorsPerYear[survivalRate]: null;
         return (
             <BarChart
                 numerator={numerator}

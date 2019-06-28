@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import TreatmentOptionsOutcomesTable from '../TreatmentOptionsOutcomesTable/TreatmentOptionsOutcomesTable';
 import TreatmentOptionsOutcomesIcons from '../TreatmentOptionsOutcomesIcons/TreatmentOptionsOutcomesIcons';
-
-import _ from 'lodash';
 import './TreatmentOptionsOutcomes.css';
 
 export default class TreatmentOptionsOutcomes extends Component {
@@ -55,7 +53,7 @@ export default class TreatmentOptionsOutcomes extends Component {
             };
         } else {
             return function(a,b) {
-                return _.sum(a.deathsPerYear.slice(0,propName)) / a['totalPatients'] - _.sum(b.deathsPerYear.slice(0,propName)) / b['totalPatients'];
+                return b.survivorsPerYear[propName] / b['totalPatients'] - a.survivorsPerYear[propName] / a['totalPatients'];
             };
         }
     }

@@ -2,6 +2,10 @@ import { filterTreatmentData } from '../../utils/filterTreatmentData';
 import IOutcomesService from './IOutcomesService';
 
 export default class StaticOutcomesService  extends IOutcomesService {
+    constructor(config) {
+        super();
+        this.timescale = config.timescale;
+    }
     async getSupportedTreatments() {
         return [
             { key: 'surgery', name: 'surgery' },
@@ -11,7 +15,7 @@ export default class StaticOutcomesService  extends IOutcomesService {
         ];
     }
 
-    async processSimilarPatientOutcomes(similarPatientProps, timescale) {
-        return filterTreatmentData(similarPatientProps, timescale);
+    async processSimilarPatientOutcomes(similarPatientProps) {
+        return filterTreatmentData(similarPatientProps, this.timescale);
     }
 }

@@ -26,7 +26,7 @@ export const similarPatientTreatmentsData = [
         "id": "row_2",
         "displayName": "hormonal therapy",
         "totalPatients": 12,
-        "deathsPerYear":[2,0,2,0,6,0],
+        "survivorsPerYear":[12,10,9,8,5,2],
         "sideEffects": {
             "totalReporting": 12,
             "effects": {
@@ -45,7 +45,7 @@ export const similarPatientTreatmentsData = [
         "id": "row_3",
         "displayName": "chemotherapy",
         "totalPatients": 82,
-        "deathsPerYear":[1,0,5,0,4,0],
+        "survivorsPerYear":[82,81,81,76,74,72],
         "sideEffects": {
             "totalReporting": 82,
             "effects": {
@@ -62,7 +62,7 @@ export const similarPatientTreatmentsData = [
         "id": "row_4",
         "displayName": "test therapy",
         "totalPatients": 10,
-        "deathsPerYear":[1,0,0,0,-1,0],
+        "survivorsPerYear":[10,9,9,9,10,10],
         "sideEffects": {
             "totalReporting": 9,
             "effects": {

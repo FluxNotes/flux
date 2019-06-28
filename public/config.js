@@ -1,6 +1,6 @@
- CONFIG = {
-     basename: '/',
-     apps: [{
+CONFIG = {
+    basename: '/',
+    apps: [{
         path: '/',
         display: 'Flux Notes™',
         app: "LandingPage",
@@ -274,9 +274,9 @@
         dataSource: 'FHIRApiDataSource',
         shortcuts: []
     }
-],
+    ],
 
-     services: {
-       outcomes: 'StaticOutcomesService'
-     }
- }
+    services: {
+        outcomes: {"name": 'StaticOutcomesService', "timescale": ["1","3","5"]}
+    }
+}
