@@ -332,7 +332,9 @@ class ShortcutManager {
                 isSet = context.getAttributeIsSet(parentAttribute);
                 isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
-                    if (typeof context.getAttributeIsSetByLabel === 'function') {
+
+                    // We do not care if the attribute is set by the label for multi-choice shortcuts
+                    if (typeof context.getAttributeIsSetByLabel === 'function' && this.shortcuts[shortcutId].subtype !== 'multi-choice') {
                         if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
                     }
 
