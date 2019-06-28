@@ -70,4 +70,14 @@
     .bar-chart-text.decrease {
         color: $table-dark-red;
     }
+
+    @media (max-width: 1024px) {
+        .progress-bar { 
+            width: 80px;
+        }
+
+        .right-text {
+            padding-right: 20px;
+        }
+    }
 }
