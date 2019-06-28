@@ -319,13 +319,14 @@ class ShortcutManager {
         if (Lang.isUndefined(result)) return [];
 
         result = result.filter((shortcutId) => {
+            const shortcut = this.shortcuts[shortcutId];
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
             // valid if it is set!
-            contextValueObjectEntryTypes = this.shortcuts[shortcutId]["contextValueObjectEntryTypes"];
+            contextValueObjectEntryTypes = shortcut["contextValueObjectEntryTypes"];
 
             if (Lang.isUndefined(contextValueObjectEntryTypes) || (!Lang.isUndefined(context.getValueObject()) && contextValueObjectEntryTypes.includes(context.getValueObject().entryInfo.entryType.value))) {
-                parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
+                parentAttribute = shortcut["parentAttribute"];
                 if (Lang.isUndefined(parentAttribute)) return true;
                 parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];
                 parentIdVOAs = this.shortcuts[currentContextId]["idAttributes"];
@@ -334,14 +335,17 @@ class ShortcutManager {
                 value = context.getAttributeValue(parentAttribute);
                 isSet = context.getAttributeIsSet(parentAttribute);
                 isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+                const isMultiChoice = this.shortcuts[shortcutId].subtype === 'multi-choice';
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
 
                     // We do not care if the attribute is set by the label for multi-choice shortcuts
-                    if (typeof context.getAttributeIsSetByLabel === 'function' && this.shortcuts[shortcutId].subtype !== 'multi-choice') {
+                    if (typeof context.getAttributeIsSetByLabel === 'function' && !isMultiChoice) {
                         if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
                     }
 
-                    if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
+                    // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
+                    const numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
+                    if (Lang.isArray(value)) return value.length < numberOfValidTriggers;
                     return (!isSet);
                 } else {
                     if (Lang.isUndefined(value) || value === null) return false;
