@@ -25,7 +25,6 @@
     padding-left: 0px;
     min-width: 50px;
     z-index: 4;
-    // text-align: left !important;
 }
 .name-hover {
     &:hover {
@@ -84,13 +83,6 @@
     overflow-y: scroll !important;
     max-height: 200px;
 }
-.horizontal-scroll {
-    overflow-x: scroll;
-}
-.max-height {
-    max-height: 500px;
-}
-
 .star-clicked {
     color: #028DEA !important;
 }
@@ -103,25 +95,6 @@
     text-align: center !important;
     width: 30px !important;
 }
-.left-table {
-    float: left;
-    // max-width: 250px;
+.white-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #FFFFFF !important;
 }
-
-// .cell-width {
-//     min-width: 80px;
-//     padding-left: 10px !important;
-//     padding-right: 0px !important;
-// }
-#spacing {
-    margin-bottom: 0px !important;
- }
- .right-table-spacing {
-     margin-top: 1px;
- }
- .bordered-body {
-    border-top: 1px solid $line-gray !important;
- }
-// .white-scrollbar::-webkit-scrollbar-thumb {
-//     background-color: #FFFFFF !important;
-// }

@@ -179,14 +179,7 @@ export default class LongitudinalTable extends Component {
                     </Cell>
                     <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
                     {Object.entries(n)[2][1].map((value, newkey) => {
-                        const matchingDataPoint = this.props.tdpSearchSuggestions.find(s => {
-                            return s.section === this.props.conditionSectionName && value !== '' && s.contentSnapshot.includes(value);
-                        });
-                        let cellClassName = matchingDataPoint ? 'highlighted cell-width' : 'cell-width';
                         const bands = tableValues[tableValues.indexOf(n)].bands;
-                        if (tableValues.indexOf(n) === 0) {
-                            cellClassName += ' bordered-body';
-                        }
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
                             return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
@@ -198,51 +191,32 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
-    // synchronizeScroll(div) {
-    //     const div1 = document.getElementById('div1');
-    //     const div2 = document.getElementById('div2');
-    //     console.log(div1, div2);
-    //     console.log(div);
-    //     console.log(div2.scrollLeft);
-    //     if (div === 'div1') {
-    //         div2.scrollLeft = 40;
-    //         console.log(div2.scrollLeft, div1.scrollLeft);
-    //         // div2.scrollLeft = div1.scrollLeft;
-    //     } else {
-    //         div1.scrollLeft = 40;
-    //         // div1.scrollLeft = div2.scrollLeft;
-    //     }
-    //     const theDiv = document.getElementsByClassName('sticky-table sticky-table-3');
-    //     // console.log(theDiv);
-
-    // }
     synchronizeScroll(div) {
         const tables = document.getElementsByClassName('sticky-table');
         const tableArray = Array.from(tables);
         tableArray.forEach((table, ind) => {
             if (table.scrollLeft === div.scrollLeft) {
-                if (ind %2 === 0) {
-                    tables[ind + 1].scrollLeft = div.scrollLeft;
+                if (ind % 2 === 0) {
+                    tableArray[ind + 1].scrollLeft = div.scrollLeft;
                 } else {
-                    tables[ind-1].scrollLeft = div.scrollLeft;
+                    tableArray[ind - 1].scrollLeft = div.scrollLeft;
                 }
             }
-        })
+        });
     }
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
-        let currYear = null;
         return (
             <div className='horizontal-scroll'>
-                <div className='vertical-scroll' ref='div1'>
-                    <StickyTable onScroll={div1 => { this.synchronizeScroll(div1) }}>
+                <div className='vertical-scroll'>
+                    <StickyTable className=' white-scrollbar' onScroll={div1 => { this.synchronizeScroll(div1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
                         {this.renderYearHeader(dates)}
                         {this.renderDateHeader(dates)}
                         {this.renderFavoriteData(starTableValues)}
                     </StickyTable>
                 </div>
-                <div className='vertical-scroll' ref='div2'>
-                    <StickyTable onScroll={div2 => { this.synchronizeScroll(div2) }}>
+                <div className='vertical-scroll'>
+                    <StickyTable onScroll={div2 => { this.synchronizeScroll(div2); }}>
                         {this.renderAllDataHeader(dates)}
                         {this.renderAllData(tableValues)}
                     </StickyTable>
