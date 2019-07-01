@@ -43,6 +43,37 @@ CONFIG = {
         shortcuts: []
     },
     {
+        path: '/launchdefault',
+        display: 'Hello World',
+        app: "LaunchPage",
+        isExact: true,
+        launchContext: {
+            client: {
+                client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
+                scope:  'patient/*.read user/*.* openid profile',
+                // note: the redirect_uri below may need to change in different environments.
+                // a relative URL (ex. /smart or ../smart) won't work in IE
+                redirect_uri: 'http://localhost:3000/smartdefault'
+            },
+            // uncomment the 'server' field below
+            // to override the iss parameter from the SMART launch process
+            // (aka, the server listed here can be used as a 'shim')
+            // server: "http://localhost:3001/1_0_2"
+        }
+    },
+    {
+        path: '/smartdefault', // Needs to match the redirect_uri in launch entry
+        display: 'Hello World1', // User defined
+        app: "DefaultSmartApp", // Default App. Advanced use can write and use custom app.
+        isExact: true,
+        dataSource: 'GenericSmartOnFhirDstu2DataSource', // Default data source. Advanced use can write and use custom data source.
+        shortcuts: [],
+        dataSourceProps: {
+            mapper: 'syntheaToV05'
+        },
+        // metadata: 'DefaultAppSummaryMetadata' // NOTE: Will be supported as part of core framework
+    },
+    {
         path: '/launch',
         display: 'Flux',
         app: "LaunchPage",

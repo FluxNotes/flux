@@ -5,6 +5,7 @@ import FullApp from '../containers/FullApp';
 import SlimApp from '../containers/SlimApp';
 import SmartApp from '../containers/SmartApp';
 import PointOfCareApp from '../containers/PointOfCareApp';
+import DefaultSmartApp from '../containers/DefaultSmartApp';
 import LandingPage from '../components/LandingPage';
 import LaunchPage from '../components/LaunchPage';
 import {ConfigManagerInstance} from '../config/ConfigManager';
@@ -17,6 +18,7 @@ const APPS = {
     'LandingPage': LandingPage,
     'CompassApp': CompassApp,
     'PointOfCareApp': PointOfCareApp,
+    'DefaultSmartApp': DefaultSmartApp,
 };
 
 export default class AppManager {
