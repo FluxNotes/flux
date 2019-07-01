@@ -29,7 +29,6 @@ function KeywordStructuredFieldPlugin(opts) {
 
     function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) {
         const listOfKeywordShortcutMappings = getKeyToActiveKeywordShortcutMappings();
-        // console.log('listOfKeywordShortcutMappings: ', listOfKeywordShortcutMappings);
         const curKey = curNode.key;
 
         // To track if additional operations are done later
@@ -37,11 +36,10 @@ function KeywordStructuredFieldPlugin(opts) {
 
         // get all shortcuts relevant for this block key
         const relevantKeywordMappings = getRelevantKeywordMappings(listOfKeywordShortcutMappings, state, curKey);
-        // console.log('relevantKeywordMappings: ', relevantKeywordMappings);
         if (relevantKeywordMappings.length !== 0) {
             // Get all relevant keywordShortcuts,
             const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
-            console.log('listOfKeywordShortcutClasses: ', listOfKeywordShortcutClasses);
+
             for (const keywordClass of listOfKeywordShortcutClasses) {
                 // Scan text to find any necessary replacements
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
