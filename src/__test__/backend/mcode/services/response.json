@@ -25,20 +25,17 @@
             "outcomes": [{
                 "survivalRate": "12", 
                 "interval" : "months", 
-                "total" : 100,
-                "proportion_surviving": 97.0 
+                "total" : 100
               },
               {
                 "survivalRate": "36",
                 "interval" : "months",
-                "total" : 99,
-                "proportion_surviving": 94.4 
+                "total" : 99
               },
               {
                 "survivalRate": "60",
                 "interval" : "months",
-                "total": 98,
-                "proportion_surviving": 92.3 
+                "total": 98
               }
             ]
           },
@@ -57,20 +54,17 @@
               {
                 "survivalRate": "12", 
                 "interval" : "months", 
-                "total" : 200,
-                "proportion_surviving": 97.0 
+                "total" : 200
               },
               {
                 "survivalRate": "36",
                 "interval" : "months",
-                "total" : 201,
-                "proportion_surviving": 94.4 
+                "total" : 201
               },
               {
                 "survivalRate": "60",
                 "interval" : "months",
-                "total" : 200,
-                "proportion_surviving": 92.3 
+                "total" : 200
               }
             ]
           }

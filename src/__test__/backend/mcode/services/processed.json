@@ -1,6 +1,6 @@
 {
     "similarPatientTreatmentsData": [{
-        "id": "row_3",
+        "id": "row_5",
         "displayName": "A & B",
         "treatments": [{
             "code": "A",
@@ -23,7 +23,7 @@
         }
     },
     {
-        "id": "row_4",
+        "id": "row_6",
         "displayName": "A",
         "treatments": [{
             "code": "A",

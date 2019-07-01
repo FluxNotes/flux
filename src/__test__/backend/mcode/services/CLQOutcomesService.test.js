@@ -15,13 +15,19 @@ const nock = require('nock');
 
 
 describe("CLQOutcomesService", () => {
+    // this removes the unquie row identifiers for a set of results to allow for testing
+    // otherwise the rows are not determinable in advance and tests will fail on not matching 
+    // row ids.
+    let removeRowIds = (outcomes) => {
+        outcomes.similarPatientTreatmentsData.forEach((item) => delete item.id)
+    }
 
     let clqService = new CLQOutcomesService({
         serviceUrl: "http://localhost/outcomes"
     });
 
     let patient = new PatientRecord(BreastMainTreatmentDiabetesHypertensionJaneV05);
-   
+    
     
     let similarPatientProps = getProps(patient, patient.getActiveConditions()[0])
     // select everything in the options 
@@ -81,6 +87,8 @@ describe("CLQOutcomesService", () => {
                 "codeSystemName": "RXNORM"
             }
         ])
+        removeRowIds(clqResults)
+        removeRowIds(processed)
         expect(_.isEqual(clqResults, processed)).to.be.true
     });
 
@@ -91,12 +99,15 @@ describe("CLQOutcomesService", () => {
             .reply(200, response)
 
         clqService.processSimilarPatientOutcomes(similarPatientProps).then((clqResults) => {
+            removeRowIds(clqResults)
+            removeRowIds(processed)
             expect(_.isEqual(clqResults, processed)).to.be.true
             scope.done();
             done();
         }).catch((err) => {
             console.log(err);
             scope.done();
+            fail(err);
             done();
         })
 
