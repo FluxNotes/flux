@@ -3,7 +3,6 @@ import CreatorIntermediary from './CreatorIntermediary';
 import CreatorChild from './CreatorChild';
 import InsertValue from './InsertValue';
 import UpdaterBase from './UpdaterBase';
-import SingleHashtagKeyword from './SingleHashtagKeyword';
 import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
@@ -111,7 +110,7 @@ class ShortcutManager {
 
     getAllPlaceholderShortcuts() {
         return this.shortcutDefinitions.filter((s) => {
-            if (s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase") {
+            if (s.type === "CreatorBase" || s.type === "UpdaterBase") {
                 return !Lang.isUndefined(s.formSpec);
             } else {
                 return false;
@@ -163,8 +162,6 @@ class ShortcutManager {
             newShortcut = new CreatorIntermediary(onUpdate, metadata, patient, shortcutData);
         } else if (className === "InsertValue") {
             newShortcut = new InsertValue(onUpdate, metadata, patient, shortcutData);
-        } else if (className === "SingleHashtagKeyword") {
-            newShortcut = new SingleHashtagKeyword(onUpdate, metadata, patient, shortcutData);
         } else if (className === "NLPHashtag") {
             newShortcut = new NLPHashtag(onUpdate, metadata, patient, shortcutData);
         } else {
@@ -356,6 +353,7 @@ class ShortcutManager {
                 result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
             });
         }
+
         return result;
     }
 
@@ -442,8 +440,8 @@ class ShortcutManager {
         return stringTriggers.prefix || '';
     }
 
-    isShortcutInstanceOfSingleHashtagKeyword(shortcut) {
-        return shortcut instanceof SingleHashtagKeyword;
+    isShortcutInstanceOfKeywordShortcut(shortcut) {
+        return shortcut instanceof CreatorBase;
     }
 
     isShortcutInstanceOfNLPHashtag(shortcut) {
