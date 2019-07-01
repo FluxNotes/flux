@@ -741,12 +741,12 @@ function createStructuredField(opts, shortcut) {
         return inlines;
     }
 
-    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
+    const nodes = [Slate.Text.createFromString(String(shortcut.getDisplayText()))];
     const properties = {
+        nodes,
         type: opts.typeStructuredField,
-        nodes: nodes,
         data: {
-            shortcut: shortcut
+            shortcut
         }
     };
     let sf = Slate.Inline.create(properties);
