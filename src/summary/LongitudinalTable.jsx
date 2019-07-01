@@ -90,7 +90,7 @@ export default class LongitudinalTable extends Component {
         return (
             <Tooltip
                 placement='right'
-                overlayClassName={`option-tooltip`}
+                overlayClassName={`name-tooltip`}
                 overlay={`${name}`}
                 mouseEnterDelay={0.5}
             >

@@ -1,5 +1,15 @@
 @import "../styles/variables";
 
+.name-tooltip {
+    z-index: 9999 !important;
+}
+.name-tooltip .rc-tooltip-inner {
+    width: auto;
+    border-radius: 6px;
+    text-align: center;
+    min-height: 0px;
+}
+
 #longitudinal-table {
     .left-table {
         float: left;
