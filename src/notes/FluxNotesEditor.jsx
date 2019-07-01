@@ -19,7 +19,7 @@ import AutoReplace from 'slate-auto-replace';
 import SuggestionsPlugin from '../lib/slate-suggestions-dist';
 import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
-import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
+import KeywordStructuredFieldPlugin from './KeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
 import KeyboardShortcutsPlugin from './KeyboardShortcutsPlugin';
 import CompletionPortalPlugin from './CompletionPortalPlugin';
@@ -128,14 +128,14 @@ class FluxNotesEditor extends React.Component {
         this.plugins.push(this.completionPortalPlugin);
 
         // setup single hashtag structured field plugin
-        const singleHashtagKeywordStructuredFieldPluginOptions = {
+        const keywordStructuredFieldPluginOptions = {
             shortcutManager: this.props.shortcutManager,
             structuredFieldMapManager: this.structuredFieldMapManager,
             createShortcut: this.props.newCurrentShortcut,
             insertStructuredFieldTransform: this.insertStructuredFieldTransform,
         };
-        this.singleHashtagKeywordStructuredFieldPlugin = SingleHashtagKeywordStructuredFieldPlugin(singleHashtagKeywordStructuredFieldPluginOptions);
-        this.plugins.push(this.singleHashtagKeywordStructuredFieldPlugin);
+        this.keywordStructuredFieldPlugin = KeywordStructuredFieldPlugin(keywordStructuredFieldPluginOptions);
+        this.plugins.push(this.keywordStructuredFieldPlugin);
 
         // setup NLPHashtagPlugin
         const NLPHashtagPluginOptions = {
@@ -1388,7 +1388,7 @@ class FluxNotesEditor extends React.Component {
         this.insertTextWithStyles(transform, text);
         // FIXME: Need a trailing character for replacing keywords -- insert temporarily and then delete
         transform.insertText(' ');
-        const [newTransform,] = this.singleHashtagKeywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state);
+        const [newTransform,] = this.keywordStructuredFieldPlugin.utils.replaceAllRelevantKeywordsInBlock(transform.state.anchorBlock, transform, transform.state);
         return newTransform.deleteBackward(1).focus();
     }
 
