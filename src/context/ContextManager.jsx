@@ -57,13 +57,13 @@ class ContextManager {
         return this.activeContexts;
     }
 
-    getActiveSingleHashtagKeywordShortcuts(shortcutManager) {
-        return this.getActiveContexts().reduce((listOfSingleHashtagKeywordShortcuts, currentActiveShortcut) => {
+    getActiveKeywordShortcuts(shortcutManager) {
+        return this.getActiveContexts().reduce((listOfKeywordShortcuts, currentActiveShortcut) => {
 
-            if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(currentActiveShortcut)) {
-                listOfSingleHashtagKeywordShortcuts.push(currentActiveShortcut);
+            if (shortcutManager.isShortcutInstanceOfKeywordShortcut(currentActiveShortcut)) {
+                listOfKeywordShortcuts.push(currentActiveShortcut);
             }
-            return listOfSingleHashtagKeywordShortcuts;
+            return listOfKeywordShortcuts;
         }, []);
     }
 

@@ -46,7 +46,7 @@
     "stringTriggers": [{"name":"@name", "description": "Patient's given and family name"}],
     "knownParentContexts": "Patient"
   },
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "StagingCreator",
     "name": "staging",
     "subtype": "menu",
@@ -106,7 +106,7 @@
     "description":"Whether or not the cancer has spread to other parts of the body.",
     "shortcutGroupName":"Metastasis"
   },
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "ProgressionCreator",
     "name": "disease status",
     "subtype": "menu",
@@ -185,7 +185,7 @@
     "description":"The date relative to which the diseases status is assessed.",
     "shortcutGroupName":"Reference Date"
   },
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "ToxicityCreator",
     "name": "toxicity",
     "subtype": "menu",
@@ -251,7 +251,7 @@
     "description":"The relationship of the event or cause to the adverse event.",
     "shortcutGroupName":"Attribution"
   },
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "ClinicalTrialCreator",
     "name": "enrollment",
     "subtype": "menu",
@@ -372,7 +372,7 @@
     "stringTriggers": [{"name":"@stage", "description": "Stage of cancer"}],
     "knownParentContexts": "StagingCreator"
   },
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "EstrogenReceptorCreator",
     "name": "ER",
     "subtype": "menu",
@@ -408,7 +408,7 @@
     "description":"?",
     "shortcutGroupName":"Receptor"
   }, 
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "ProgesteroneReceptorCreator",
     "name": "PR",
     "subtype": "menu",
@@ -427,7 +427,7 @@
     "disabled": true,
     "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."
   },
-  { "type": "SingleHashtagKeyword",
+  { "type": "CreatorBase",
     "id": "HumanEpiduralGrowthFactorReceptor2Creator",
     "name": "HER2",
     "subtype": "menu",
