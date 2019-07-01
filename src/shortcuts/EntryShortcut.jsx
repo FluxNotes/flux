@@ -227,7 +227,7 @@ export default class EntryShortcut extends Shortcut {
     }
 
     serialize() {
-        if (Lang.isUndefined(this.object.entryInfo)) return this.getDisplayText();
+        if (Lang.isUndefined(this.object.entryInfo)) return this.initiatingTrigger;
         return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
     }
 
