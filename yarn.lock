@@ -9485,6 +9485,10 @@ react-smooth@1.0.0:
     raf "^3.2.0"
     react-transition-group "^2.2.1"
 
+"react-sticky-table@https://github.com/mgramigna/react-sticky-table.git#utilize-onscroll-prop":
+  version "3.0.1"
+  resolved "https://github.com/mgramigna/react-sticky-table.git#75985e14ca082bea6213c36f1ceed2fac59eef65"
+
 react-tap-event-plugin@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-tap-event-plugin/-/react-tap-event-plugin-2.0.1.tgz#316beb3bc6556e29ec869a7293e89c826a9074d2"

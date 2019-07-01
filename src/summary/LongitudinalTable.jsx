@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import Table, { TableHead, TableBody, TableCell, TableRow } from 'material-ui/Table';
 import _ from 'lodash';
 import moment from 'moment';
 import './LongitudinalTable.css';
@@ -7,6 +6,7 @@ import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
+// import {StickyTable, Row, Cell} from 'https://github.com/mgramigna/react-sticky-table.git\#utilize-onscroll-prop';
 
 export default class LongitudinalTable extends Component {
 
@@ -159,7 +159,7 @@ export default class LongitudinalTable extends Component {
                 <Cell className='header star-cell' id='section-header'>all {this.props.pluralLabel}</Cell>
                 <Cell className='header' id='sticky-name'></Cell>
                 <Cell className='header' id='sticky-unit'></Cell>
-                {dates.map((date,key) => {
+                {dates.map((date, key) => {
                     return <Cell className='header' key={key}></Cell>;
                 })}
             </Row>
@@ -198,29 +198,59 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
+    // synchronizeScroll(div) {
+    //     const div1 = document.getElementById('div1');
+    //     const div2 = document.getElementById('div2');
+    //     console.log(div1, div2);
+    //     console.log(div);
+    //     console.log(div2.scrollLeft);
+    //     if (div === 'div1') {
+    //         div2.scrollLeft = 40;
+    //         console.log(div2.scrollLeft, div1.scrollLeft);
+    //         // div2.scrollLeft = div1.scrollLeft;
+    //     } else {
+    //         div1.scrollLeft = 40;
+    //         // div1.scrollLeft = div2.scrollLeft;
+    //     }
+    //     const theDiv = document.getElementsByClassName('sticky-table sticky-table-3');
+    //     // console.log(theDiv);
+
+    // }
+    synchronizeScroll(div) {
+        const tables = document.getElementsByClassName('sticky-table');
+        const tableArray = Array.from(tables);
+        tableArray.forEach((table, ind) => {
+            if (table.scrollLeft === div.scrollLeft) {
+                if (ind %2 === 0) {
+                    tables[ind + 1].scrollLeft = div.scrollLeft;
+                } else {
+                    tables[ind-1].scrollLeft = div.scrollLeft;
+                }
+            }
+        })
+    }
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
         let currYear = null;
         return (
             <div className='horizontal-scroll'>
-                {/* <div className='vertical-scroll'> */}
-                <StickyTable>
-                    {this.renderYearHeader(dates)}
-                    {this.renderDateHeader(dates)}
-                    {this.renderFavoriteData(starTableValues)}
-                </StickyTable>
-                {/* </div> */}
-                {/* <div className='vertical-scroll'> */}
-                <StickyTable>
-                    {this.renderAllDataHeader(dates)}
-                    {this.renderAllData(tableValues)}
-                </StickyTable>
-                {/* </div> */}
+                <div className='vertical-scroll' ref='div1'>
+                    <StickyTable onScroll={div1 => { this.synchronizeScroll(div1) }}>
+                        {this.renderYearHeader(dates)}
+                        {this.renderDateHeader(dates)}
+                        {this.renderFavoriteData(starTableValues)}
+                    </StickyTable>
+                </div>
+                <div className='vertical-scroll' ref='div2'>
+                    <StickyTable onScroll={div2 => { this.synchronizeScroll(div2) }}>
+                        {this.renderAllDataHeader(dates)}
+                        {this.renderAllData(tableValues)}
+                    </StickyTable>
+                </div>
             </div>
         );
     }
-};
-
+}
 LongitudinalTable.propTypes = {
     dataInfo: propTypes.array.isRequired,
     tdpSearchSuggestions: propTypes.array,

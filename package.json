@@ -50,6 +50,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "4.3.1",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-sticky-table": "https://github.com/mgramigna/react-sticky-table.git#utilize-onscroll-prop",
     "react-tap-event-plugin": "2.0.1",
     "recharts": "1.0.0-beta.6",
     "redux": "^3.7.2",
