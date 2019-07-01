@@ -49,6 +49,14 @@ class Shortcut extends Context {
         throw new Error(`getDisplayText not implemented for ${this.constructor.name}`);
     }
 
+    /**
+     * By default will throw an error, should be implemented by classes that inherits Shortcut
+     * @returns The selected value for the shortcut
+     */
+    getText() {
+        throw new Error(`getText not implemented for ${this.constructor.name}`);
+    }
+
     getId() {
         return this.metadata["id"];
     }
@@ -72,10 +80,6 @@ class Shortcut extends Context {
     // Slim App
     getAsString () {
         return "#null";
-    }
-
-    getText() {
-        return this.getShortcutType();
     }
 
     clearValueSelectionOptions() {
