@@ -5,6 +5,7 @@ import moment from 'moment';
 import './LongitudinalTable.css';
 import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import Tooltip from 'rc-tooltip';
 
 export default class LongitudinalTable extends Component {
 
@@ -85,6 +86,7 @@ export default class LongitudinalTable extends Component {
         }
         return <div />;
     }
+
     renderRightTableHeader(dates) {
         let currYear = null;
         return (
@@ -134,6 +136,18 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
+    renderTooltip(name) {
+        return (
+            <Tooltip
+                placement='right'
+                overlayClassName={`option-tooltip`}
+                overlay={`${name}`}
+                mouseEnterDelay={0.5}
+            >
+                <span className='ellipsis'>{name}</span>
+            </Tooltip>
+        );
+    }
     renderLeftTableHeader = () => {
         return (
             <TableHead>
@@ -160,11 +174,10 @@ export default class LongitudinalTable extends Component {
                         {this.renderStar(n.name, n.id)}
                     </TableCell>
                     <TableCell className='name'>
-                        {n.name}
+                        {this.renderTooltip(n.name)}
                     </TableCell>
                     <TableCell>{n.unit}</TableCell>
                 </TableRow>
-
             );
         });
     }
