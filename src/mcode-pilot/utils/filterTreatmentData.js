@@ -50,16 +50,16 @@ function generateTreatmentData(similarPatients, treatmentCombinations, timescale
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
-            let survivorsPerYear = Math.floor(patient.diseaseStatus.survivalMonths / 12);
+            let yearsSurvived = Math.floor(patient.diseaseStatus.survivalMonths / 12);
 
 
-            while (survivorsPerYear>=0) {
-                if (row.survivorsPerYear[survivorsPerYear] === undefined) {
-                    row.survivorsPerYear[survivorsPerYear] = 0;
+            while (yearsSurvived>=0) {
+                if (row.survivorsPerYear[yearsSurvived] === undefined) {
+                    row.survivorsPerYear[yearsSurvived] = 0;
                 }
 
-                row.survivorsPerYear[survivorsPerYear] += 1;
-                survivorsPerYear--;
+                row.survivorsPerYear[yearsSurvived] += 1;
+                yearsSurvived-=1;
             }
 
             if (patient.sideEffects.length > 0) {

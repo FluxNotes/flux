@@ -156,7 +156,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                     :
                     <TreatmentOptionsOutcomesIcons
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
-                        timescaleToggle={timescaleToggle!==''?timescaleToggle:timescale[0]}
+                        timescaleToggle={timescaleToggle !== '' ? timescaleToggle : timescale[0]}
                         timescale = {timescale}
                     />
                 }

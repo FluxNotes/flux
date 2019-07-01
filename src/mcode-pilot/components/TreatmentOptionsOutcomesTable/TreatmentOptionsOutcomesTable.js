@@ -67,8 +67,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
-                    {timescale.map((e) => {
-                        return <div key = {e} className="flex-1">{this.renderBarChart(row, compareRow, e)}</div>;
+                    {timescale.map((timescaleYear) => {
+                        return <div key={timescaleYear} className="flex-1">{this.renderBarChart(row, compareRow, timescaleYear)}</div>;
 
                     })}
 
@@ -116,11 +116,11 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     <div className="header-title">Overall survival rates</div>
 
                     <div className="flex">
-                        {this.props.timescale.map((e) => {
+                        {this.props.timescale.map((timescaleYear) => {
                             return (
-                                <div className="flex-1" key={e}>
-                                    <span onClick={ () => { changeSort(e); }} className="header-space">
-                                        {e} yr  <FontAwesome className={this.getSortClass(sortColumn === e)} name={sortColumn === e?sortName: "sort"} />
+                                <div className="flex-1" key={timescaleYear}>
+                                    <span onClick={ () => { changeSort(timescaleYear); }} className="header-space">
+                                        {timescaleYear} yr  <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear?sortName: "sort"} />
                                     </span>
                                 </div>
                             );
