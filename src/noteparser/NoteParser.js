@@ -5,7 +5,6 @@ import Lang from 'lodash';
 import InsertValue from '../shortcuts/InsertValue';
 import CreatorBase from '../shortcuts/CreatorBase';
 import UpdaterBase from '../shortcuts/UpdaterBase';
-import SingleHashtagKeyword from '../shortcuts/SingleHashtagKeyword';
 
 export default class NoteParser {
 
@@ -65,7 +64,7 @@ export default class NoteParser {
         shortcut.setSource("parsed note");
         shortcut.initialize(this.contextManager, triggerOrKeywordText, true, triggerOrKeywordObject.selectedValue);
 
-        if (shortcut instanceof CreatorBase || shortcut instanceof SingleHashtagKeyword || shortcut instanceof UpdaterBase) {
+        if (shortcut instanceof CreatorBase || shortcut instanceof UpdaterBase) {
             shortcut.updatePatient(this.patient, this.contextManager, null);
         }
 
@@ -235,13 +234,14 @@ export default class NoteParser {
     // Given a note, create a list of all keywords found in the note and their definitions
     getAllKeywordsFromText (note) {
         const keywordsFoundInText = [];
-        // Get currently active singleHashtagShortcuts
-        const listOfSingleHashtagKeywordShortcuts = this.contextManager.getActiveSingleHashtagKeywordShortcuts(this.shortcutManager);
-        if (Lang.isUndefined(listOfSingleHashtagKeywordShortcuts)) return [];
-        // For each singleHashtagShortcut
-        for (const singleHashtagShortcut of listOfSingleHashtagKeywordShortcuts) {
+        // Get currently active KeywordShortcuts
+        const listOfKeywordShortcuts = this.contextManager.getActiveKeywordShortcuts(this.shortcutManager);
+
+        if (Lang.isUndefined(listOfKeywordShortcuts)) return [];
+        // For each keywordShortcut
+        for (const keywordShortcut of listOfKeywordShortcuts) {
             // Get all types of keywords
-            const keywordClassesForShortcut = this.getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagShortcut);
+            const keywordClassesForShortcut = this.getAllKeywordClassesForKeywordShortcut(keywordShortcut);
             // For each type of keywords
             for (const curKeywordClass of keywordClassesForShortcut) {
                 // get all keywordObjects for that type of keyword (representing all possibble values of that keyword)
@@ -275,9 +275,9 @@ export default class NoteParser {
         return this.shortcutManager.getKeywordsForShortcut(keywordShortcutClass);
     }
 
-    // Given a singleHashtagKeywordShortcut, return all possible child keywordClasses
-    getAllKeywordClassesForSingleHashtagKeywordShortcut(singleHashtagKeywordShortcut) {
-        return this.shortcutManager.getValidChildShortcutsInContext(singleHashtagKeywordShortcut);
+    // Given a KeywordShortcut, return all possible child keywordClasses
+    getAllKeywordClassesForKeywordShortcut(keywordShortcut) {
+        return this.shortcutManager.getValidChildShortcutsInContext(keywordShortcut);
     }
 
     parse(note) {
