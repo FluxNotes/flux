@@ -184,7 +184,7 @@ export default class LongitudinalTable extends Component {
     render() {
         const [tableValues, dates] = this.gatherTableValues();
         return (
-            <div className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+            <div id='longitudinal-table'className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
                 <div>
                     <Table className='left-table'>
                         {this.renderLeftTableHeader()}
