@@ -103,6 +103,9 @@ class Shortcut extends Context {
         return !Lang.isNull(this.optionsToSelectFrom);
     }
 
+    /**
+     * @returns text string to be saved in note
+     */
     serialize() {
         return this.getText();
     }
