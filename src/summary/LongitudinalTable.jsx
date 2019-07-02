@@ -6,7 +6,6 @@ import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
-// import {StickyTable, Row, Cell} from 'https://github.com/mgramigna/react-sticky-table.git\#utilize-onscroll-prop';
 
 export default class LongitudinalTable extends Component {
 
@@ -36,12 +35,11 @@ export default class LongitudinalTable extends Component {
         const tableValues = [];
         const predates = [];
         const { dataInfo } = this.props;
-        for (let index = 0; index < this.props.dataInfo.length; index++) {
-            const data = this.props.dataInfo[index];
+        this.props.dataInfo.forEach((data, index) => {
             const id = `${index}-${data.name}`;
             tableValues.push(this.createData(data.name, data.unit, Object.values(data.datesAndData), id, data.bands, data.favorite));
-            predates.push(Object.keys(this.props.dataInfo[index].datesAndData));
-        }
+            predates.push(Object.keys(data.datesAndData));
+        });
         const dates = _.uniq(_.flattenDeep(predates));
         const sortFunction = (date1, date2) => {
             const moment1 = new moment(date1, "DD MMM YYYY");
@@ -55,13 +53,13 @@ export default class LongitudinalTable extends Component {
             return 0;
         };
         dates.sort(sortFunction);
-        for (let dateIndex = 0; dateIndex < dates.length; dateIndex++) { //for each section, check to see if each date is in its list of dates.  If it is not, add an empty string to its array of data, at the dataIndex
+        dates.forEach((date, index) => { //if a data object doesn't have a date in its date list, add "" to the corresponding location in its data
             dataInfo.forEach((obj) => {
-                if (!Object.keys(obj.datesAndData).includes(dates[dateIndex])) {
-                    tableValues[dataInfo.indexOf(obj)].data.splice(dateIndex, 0, "");
+                if (!Object.keys(obj.datesAndData).includes(dates[index])) {
+                    tableValues[dataInfo.indexOf(obj)].data.splice(index, 0, "");
                 }
             });
-        }
+        });
         const starTableValues = [];
         tableValues.forEach((section) => {
             if (section.favorite) {
@@ -73,7 +71,7 @@ export default class LongitudinalTable extends Component {
     // updates current favorites and local storage
     toggleFavorites = (section) => {
         const newFavorites = this.state.favorites;
-        if (_.includes(this.state.favorites, section.name)) {
+        if (_.includes(newFavorites, section.name)) {
             newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
             this.setState({ favorites: newFavorites });
             this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
@@ -84,7 +82,7 @@ export default class LongitudinalTable extends Component {
             this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
         }
     }
-    renderStar(name, id) {
+    renderStar = (name, id) => {
         if (_.includes(this.state.favorites, name)) {
             return <FontAwesome className='star-clicked' name='star' />;
         }
@@ -93,41 +91,42 @@ export default class LongitudinalTable extends Component {
         }
         return <div />;
     }
-    renderYearHeader(dates) {
+    renderYearHeader = (dates) => {
         let currYear = null;
-        return (<Row id='sticky-header'>
-            {/*year row*/}
-            <Cell className='star-cell header' id='section-header'></Cell>
-            <Cell className='header' id='sticky-name'></Cell>
-            <Cell className='header' id='sticky-unit'></Cell>
-            {dates.map((date) => { //years
-                const year = moment(date, 'DD MMM YYYY').year();
-                if (year !== currYear) {
-                    currYear = year;
-                    return <Cell key={date} className='header' id='sticky-header'>{currYear}</Cell>;
-                }
-                return <Cell className='header' key={date}></Cell>;
-            })}
-        </Row>);
+        return (
+            <Row id='sticky-header'>
+                {/*year row*/}
+                <Cell className='star-cell header' id='section-header'></Cell>
+                <Cell className='header' id='sticky-name'></Cell>
+                <Cell className='header' id='sticky-unit'></Cell>
+                {dates.map((date, key) => { //years
+                    const year = moment(date, 'DD MMM YYYY').year();
+                    if (year !== currYear) {
+                        currYear = year;
+                        return <Cell key={key} className='header' id='sticky-header'>{currYear}</Cell>;
+                    }
+                    return <Cell className='header' key={key}></Cell>;
+                })}
+            </Row>);
     }
-    renderDateHeader(dates) {
+    renderDateHeader = (dates) => {
         return (
             <Row>
                 {/*date row*/}
-                <Cell id='section-header' className='header star-cell'>starred</Cell>
+                <Cell className='star-cell header' id='section-header'>starred</Cell>
                 <Cell className='header' id='sticky-name'></Cell>
                 <Cell className='header' id='sticky-unit'></Cell>
-                {dates.map((date) => { //month and day
+                {dates.map((date, key) => { //month and day
                     const curr = new moment(date, 'DD MMM YYYY');
                     const day = curr.format('DD');
                     const month = curr.format('MMM');
-                    return <Cell className='header' key={date}>{day + ' ' + month}</Cell>;
+                    return <Cell className='header' key={key}>{day + ' ' + month}</Cell>;
                 }
                 )}
             </Row>
         );
     }
-    renderFavoriteData(starTableValues) {
+    renderFavoriteData = (starTableValues) => {
         return starTableValues.map(n => { //n is a row in the table
             let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
             return (
@@ -140,20 +139,20 @@ export default class LongitudinalTable extends Component {
                     </Cell>
                     <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
                     {/* Names and Units Cells */}
-                    {Object.entries(n)[2][1].map((value, newkey) => {
+                    {Object.entries(n)[2][1].map((value, key) => {
                         const bands = starTableValues[starTableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background} >{value}</Cell>;
+                            return <Cell style={{ color: 'black' }} key={key} className={'table-content ' + background} >{value}</Cell>;
                         } else {
-                            return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
+                            return <Cell style={{ color: 'red' }} key={key} className={'table-content ' + background}>{value}</Cell>;
                         }
                     })}
                 </Row>
             );
         });
     }
-    renderAllDataHeader(dates) {
+    renderAllDataHeader = (dates) => {
         return (
             <Row>
                 <Cell className='header star-cell' id='section-header'>all {this.props.pluralLabel}</Cell>
@@ -165,7 +164,7 @@ export default class LongitudinalTable extends Component {
             </Row>
         );
     }
-    renderAllData(tableValues) {
+    renderAllData = (tableValues) => {
         return tableValues.map(n => { //n is a row in the table
             let background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
             return (
@@ -191,7 +190,7 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
-    synchronizeScroll(div) {
+    synchronizeScroll = (div) => {
         const tables = document.getElementsByClassName('sticky-table');
         const tableArray = Array.from(tables);
         tableArray.forEach((table, ind) => {
