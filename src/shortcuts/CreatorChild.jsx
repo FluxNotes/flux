@@ -95,7 +95,7 @@ export default class CreatorChild extends Shortcut {
                 // If the current attribute value contains this item in the ValueSet, don't include it in the options to select from
                 return !Lang.includes(attributeValue, item.name);
             }).map((item) => {
-                return {"key": item.id || item.code, "context": item.name, "object": item};
+                return {"key": item.id || item.code || item["MedDRA v12.0 Code"], "context": item.name, "object": item};
             });
         }
     }
