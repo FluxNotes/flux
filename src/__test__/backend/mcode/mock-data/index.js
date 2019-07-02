@@ -61,13 +61,13 @@ export const similarPatientTreatmentsData = [
     {
         "id": "row_4",
         "displayName": "test therapy",
-        "totalPatients": 10,
-        "survivorsPerYear":[10,9,9,9,10,10],
+        "totalPatients": 100,
+        "survivorsPerYear":[100,96,96,91,91,91],
         "sideEffects": {
             "totalReporting": 9,
             "effects": {
-                "Nausea/Vomiting": 7,
-                "Fatigue": 7,
+                "Nausea/Vomiting": 70,
+                "Fatigue": 70,
                 "Anemia": 6,
                 "Weight Loss": 2,
                 "Bowel Dysfunction": 1,
