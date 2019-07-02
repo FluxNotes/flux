@@ -28,7 +28,9 @@ export default class LongitudinalTable extends Component {
             });
         }
     }
-    // Assigns an id to each row
+    /*
+    Assigns an id to each row
+    */
     createData = (name, unit, data, id, bands, favorite) => {
         return { name, unit, data, id, bands, favorite }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
@@ -83,7 +85,7 @@ export default class LongitudinalTable extends Component {
             this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
         }
     }
-    renderNameCell(name, background) {
+    renderNameCell = (name, background) => {
         // const starTableValues = this.gatherTableValues()[2];
         // let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
         return (
@@ -246,4 +248,5 @@ LongitudinalTable.propTypes = {
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
     pluralLabel: propTypes.string,
+    preferenceManager: propTypes.object,
 };
