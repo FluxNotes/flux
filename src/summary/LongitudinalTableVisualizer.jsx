@@ -11,7 +11,6 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         const formattedData = this.formatData(this.props.conditionSection.data);
         this.state = {
             data: formattedData,
-            starredData: [],
         };
     }
     formatData = (section) => { //creates an array with one object for each section (wbc, platelets, etc.)
@@ -82,7 +81,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
     render() {
         return (
             <div>
-                <LongitudinalTable starredData = {this.state.starredData} reorderRows={this.reorderRows} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} pluralLabel={this.props.conditionSection.name.toLowerCase()}/>
+                <LongitudinalTable preferenceManager={this.props.preferenceManager} reorderRows={this.reorderRows} dataInfo={this.state.data} tdpSearchSuggestions={this.props.tdpSearchSuggestions} conditionSectionName={this.props.conditionSection.name} subsectionLabel={this.props.conditionSection.subsectionLabel} pluralLabel={this.props.conditionSection.name.toLowerCase()}/>
             </div>
         );
     }

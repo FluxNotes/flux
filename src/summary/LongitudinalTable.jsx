@@ -6,6 +6,7 @@ import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
+import Tooltip from 'rc-tooltip';
 
 export default class LongitudinalTable extends Component {
 
@@ -72,7 +73,7 @@ export default class LongitudinalTable extends Component {
     toggleFavorites = (section) => {
         const newFavorites = this.state.favorites;
         if (_.includes(newFavorites, section.name)) {
-            newFavorites.splice(this.state.favorites.indexOf(section.name), 1);
+            newFavorites.splice(newFavorites.indexOf(section.name), 1);
             this.setState({ favorites: newFavorites });
             this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
         }
@@ -82,12 +83,28 @@ export default class LongitudinalTable extends Component {
             this.props.preferenceManager.setPreference(`${this.props.conditionSectionName}-longitudinal-viz-favorites`, newFavorites);
         }
     }
+    renderNameCell(name, background) {
+        // const starTableValues = this.gatherTableValues()[2];
+        // let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
+        return (
+            <Tooltip
+                placement='right'
+                overlayClassName={`name-tooltip`}
+                overlay={`${name}`}
+                mouseEnterDelay={0.5}
+            >
+                <Cell className={'name table-content ' + background} id='sticky-name'>
+                    <span>{name}</span>
+                </Cell>
+            </Tooltip>
+        );
+    }
     renderStar = (name, id) => {
         if (_.includes(this.state.favorites, name)) {
             return <FontAwesome className='star-clicked' name='star' />;
         }
         else if (this.state.hovered === id) {
-            return <FontAwesome className='star-hovered' name='star' />;
+            return <FontAwesome className='star-hovered' name='star-o' />;
         }
         return <div />;
     }
@@ -129,14 +146,13 @@ export default class LongitudinalTable extends Component {
     renderFavoriteData = (starTableValues) => {
         return starTableValues.map(n => { //n is a row in the table
             let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
+            const hoverable = n.favorite ? 'hoverable' : '';
             return (
                 <Row key={n.id}>
-                    <Cell className={'star-cell ' + background}>
+                    <Cell className={hoverable + ' star-cell star-body ' + background} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
                         {this.renderStar(n.name, n.id)}
                     </Cell>
-                    <Cell className={'name-hover table-content ' + background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                        {n.name}
-                    </Cell>
+                    {this.renderNameCell(n.name, background)}
                     <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
                     {/* Names and Units Cells */}
                     {Object.entries(n)[2][1].map((value, key) => {
@@ -167,15 +183,14 @@ export default class LongitudinalTable extends Component {
     renderAllData = (tableValues) => {
         return tableValues.map(n => { //n is a row in the table
             let background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
+            const hoverable = n.favorite ? 'hoverable' : '';
             return (
                 <Row key={n.id}>
                     {/* Names and Units Cells */}
-                    <Cell className={'star-cell ' + background}>
+                    <Cell className={hoverable + ' star-cell star-body ' + background} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
                         {this.renderStar(n.name, n.id)}
                     </Cell>
-                    <Cell className={`name-hover table-content ` + background} id='sticky-name' onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseOut={() => { this.setState({ hovered: null }); }}>
-                        {n.name}
-                    </Cell>
+                    {this.renderNameCell(n.name, background)}
                     <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
                     {Object.entries(n)[2][1].map((value, newkey) => {
                         const bands = tableValues[tableValues.indexOf(n)].bands;
@@ -206,7 +221,7 @@ export default class LongitudinalTable extends Component {
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
         return (
-            <div className='horizontal-scroll'>
+            <div className='horizontal-scroll' id='longitudinal-table'>
                 <div className='vertical-scroll'>
                     <StickyTable className=' white-scrollbar' onScroll={div1 => { this.synchronizeScroll(div1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
                         {this.renderYearHeader(dates)}
@@ -230,6 +245,5 @@ LongitudinalTable.propTypes = {
     conditionSectionName: propTypes.string,
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
-    starredData: propTypes.array,
     pluralLabel: propTypes.string,
 };
