@@ -116,6 +116,7 @@ export default class LongitudinalTable extends Component {
                 <Cell className='star-cell header year-header' id='section-header'></Cell>
                 <Cell className='header year-header' id='sticky-name'></Cell>
                 <Cell className='header year-header' id='sticky-unit'></Cell>
+                <Cell className='header year-header' id='break'></Cell>
                 {dates.map((date, key) => { //years
                     const year = moment(date, 'DD MMM YYYY').year();
                     if (year !== currYear) {
@@ -133,6 +134,7 @@ export default class LongitudinalTable extends Component {
                 <Cell className='star-cell header' id='section-header'>starred</Cell>
                 <Cell className='header' id='sticky-name'></Cell>
                 <Cell className='header' id='sticky-unit'></Cell>
+                <Cell className='header' id='break'></Cell>
                 {dates.map((date, key) => { //month and day
                     const curr = new moment(date, 'DD MMM YYYY');
                     const day = curr.format('DD');
@@ -154,6 +156,7 @@ export default class LongitudinalTable extends Component {
                     </Cell>
                     {this.renderNameCell(n.name, background)}
                     <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
+                    <Cell className='table-content' id='break'></Cell>
                     {/* Names and Units Cells */}
                     {Object.entries(n)[2][1].map((value, key) => {
                         const bands = starTableValues[starTableValues.indexOf(n)].bands;
@@ -174,6 +177,7 @@ export default class LongitudinalTable extends Component {
                 <Cell className='header star-cell' id='section-header'>all {this.props.pluralLabel}</Cell>
                 <Cell className='header' id='sticky-name'></Cell>
                 <Cell className='header' id='sticky-unit'></Cell>
+                <Cell className='header' id='break'></Cell>
                 {dates.map((date, key) => {
                     return <Cell className='header' key={key}></Cell>;
                 })}
@@ -192,6 +196,7 @@ export default class LongitudinalTable extends Component {
                     </Cell>
                     {this.renderNameCell(n.name, background)}
                     <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
+                    <Cell className='table-content' id='break'></Cell>
                     {Object.entries(n)[2][1].map((value, newkey) => {
                         const bands = tableValues[tableValues.indexOf(n)].bands;
                         // Data Cells
