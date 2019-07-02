@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './ContextGetHelp.css';
 
+
 const UP_ARROW_KEY = 38;
 const DOWN_ARROW_KEY = 40;
 const ENTER_KEY = 13;
@@ -77,8 +78,7 @@ class ContextGetHelp extends React.Component {
             else if (this.state.selectedIndex > 0) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.props.closePortal();
-                return this.props.onSelected(this.props.state, this.props.shortcut.metadata.expandedText);
+                return this.expand();
             }
         }
     }
