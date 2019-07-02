@@ -1,7 +1,8 @@
 import * as types from '../actions/types';
 import getProps from '../mcode-pilot/utils/recordToProps';
-import { transformedTreatmentData } from '../mcode-pilot/mock-data/mock-data.js';
 import { isSimilarPatient, generateSimilarPatientTreatments } from '../mcode-pilot/utils/filterTreatmentData.js';
+
+const transformedTreatmentData = require('../mcode-pilot/mock-data/mock-data.json').transformedData;
 
 export const defaultState = {
     similarPatientProps: {},

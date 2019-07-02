@@ -565,12 +565,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -767,12 +761,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "reduced libido",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -864,12 +852,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -1763,12 +1745,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -3085,12 +3061,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -3372,12 +3342,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -3782,12 +3746,6 @@
 					"code": "8357008",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "reduced libido",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -5890,9 +5848,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -6182,12 +6140,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -6276,9 +6228,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -6788,12 +6740,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -7296,12 +7242,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -7589,12 +7529,6 @@
 					"code": "235594008",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "bowel dysfunction",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -8196,12 +8130,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -8686,12 +8614,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -9095,12 +9017,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -13216,12 +13132,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -13625,12 +13535,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -15167,12 +15071,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -16747,12 +16645,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -17284,12 +17176,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -18184,12 +18070,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -18992,12 +18872,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "urinary incontinence",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -19402,12 +19276,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -19713,12 +19581,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -20320,12 +20182,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -20424,12 +20280,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -20527,12 +20377,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -22535,12 +22379,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -22834,12 +22672,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -23435,12 +23267,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -23973,12 +23799,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -24473,12 +24293,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -25165,12 +24979,6 @@
 					"code": "165232002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "urinary incontinence",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -26672,12 +26480,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -27088,12 +26890,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -27197,12 +26993,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -29951,12 +29741,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -30747,12 +30531,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -30856,12 +30634,6 @@
 					"code": "271737000",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "anemia",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -31052,12 +30824,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -31359,12 +31125,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -31658,12 +31418,6 @@
 					"code": "165232002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "urinary incontinence",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -32062,12 +31816,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -32553,12 +32301,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "reduced libido",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -32766,12 +32508,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -34955,9 +34691,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -35779,12 +35515,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -36275,12 +36005,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -36379,12 +36103,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -36473,9 +36191,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -36886,12 +36604,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -37689,12 +37401,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -37982,12 +37688,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -38386,12 +38086,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -38489,12 +38183,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -40118,12 +39806,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -40920,12 +40602,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -41491,9 +41167,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -42113,12 +41789,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -42229,12 +41899,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -42332,12 +41996,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -43337,12 +42995,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -43649,12 +43301,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -43850,12 +43496,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -44849,12 +44489,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -45442,12 +45076,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -45943,12 +45571,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -46932,9 +46554,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -47024,9 +46646,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -47431,12 +47053,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -47853,12 +47469,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -49971,12 +49581,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "weight loss",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -50478,12 +50082,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -51206,12 +50804,6 @@
 					"code": "235594008",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "bowel dysfunction",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -52125,12 +51717,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -52427,9 +52013,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -52620,12 +52206,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -53037,12 +52617,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -53232,12 +52806,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -54029,12 +53597,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -54537,12 +54099,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -54640,12 +54196,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -55547,12 +55097,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -55736,12 +55280,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -56049,12 +55587,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -56143,9 +55675,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "89362005",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "weight loss",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -56919,12 +56451,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -57622,12 +57148,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -59061,12 +58581,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -59557,12 +59071,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -59869,12 +59377,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -60070,12 +59572,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -60563,9 +60059,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "89362005",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "weight loss",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -61160,12 +60656,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -62275,12 +61765,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -62696,12 +62180,6 @@
 					"code": "235594008",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "bowel dysfunction",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -63522,12 +63000,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -65541,12 +65013,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -66538,12 +66004,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -66745,12 +66205,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -67461,12 +66915,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -68449,9 +67897,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -68827,12 +68275,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -68924,12 +68366,6 @@
 					"code": "165232002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "urinary incontinence",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -69127,12 +68563,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -69230,12 +68660,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -69433,12 +68857,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -69536,12 +68954,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -69952,12 +69364,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -70571,12 +69977,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -70888,12 +70288,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -71379,12 +70773,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -71678,12 +71066,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -72603,12 +71985,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -72700,12 +72076,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -72899,9 +72269,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -74583,9 +73953,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -74788,12 +74158,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -75823,12 +75187,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -76208,12 +75566,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -76495,12 +75847,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -76592,12 +75938,6 @@
 					"code": "235594008",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "bowel dysfunction",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -78019,12 +77359,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -78527,12 +77861,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -78630,12 +77958,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -80137,12 +79459,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -80332,12 +79648,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -82537,12 +81847,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -82634,12 +81938,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -82836,12 +82134,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -83442,12 +82734,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -83840,12 +83126,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -84146,12 +83426,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -84451,12 +83725,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -85945,12 +85213,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -86342,12 +85604,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -87043,9 +86299,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -88167,12 +87423,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -88261,9 +87511,9 @@
 			],
 			"sideEffects": [
 				{
-					"code": "397803000",
+					"code": "56021002",
 					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
+					"displayName": "seroma",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -88368,12 +87618,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -88975,12 +88219,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -89477,12 +88715,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -89955,12 +89187,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -90058,12 +89284,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -90346,12 +89566,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -90444,12 +89658,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -90541,12 +89749,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -90940,12 +90142,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -91141,12 +90337,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -92446,12 +91636,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -92757,12 +91941,6 @@
 					"code": "73335002",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
@@ -93376,12 +92554,6 @@
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "Nausea and vomiting",
 					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
-					"codeSystemName": "SNOMED"
 				}
 			],
 			"tumorMarkers": [
@@ -93987,12 +93159,6 @@
 					"code": "84229001",
 					"codeSystem": "http://snomed.info/sct",
 					"displayName": "fatigue",
-					"codeSystemName": "SNOMED"
-				},
-				{
-					"code": "397803000",
-					"codeSystem": "http://snomed.info/sct",
-					"displayName": "erectile dysfunction",
 					"codeSystemName": "SNOMED"
 				}
 			],
