@@ -7,121 +7,121 @@
     min-height: 0px;
 }
 #longitudinal-table {
-    .name {
-        max-width: 135px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-    .sticky-table {
-    border-collapse: collapse;
-    width: auto;
-    margin-top: 10px;
-    font-size: $size-m;
-    overflow-x: unset !important;
-    }
-    .header {
-        color: $body-gray;
-        background-color: $background;
-        padding: 1px 10px 2px 10px;
-        border-bottom: 1px solid $line-gray;
-        font-weight: 500 !important;
-        font-family: "Open Sans", Arial, sans-serif;
-        text-align: left;
-        min-width: 95px;
-    }
-    #section-header { //starred or all labs/vitals
-        font-size: .75rem !important;
-        font-weight: 500 !important;
-        font-family: "Roboto","Helvetica","Arial",sans-serif !important;
-        color: rgba(0,0,0,.54) !important;
-        padding-left: 0px;
-        min-width: 50px;
-        z-index: 4;
-    }
-    .name-hover {
-        &:hover {
-            color: #028DEA !important;
-            cursor: pointer !important;
-            background-color: $feature-gray !important;
-        }
-    }
-    .table-content {
-        padding: 6px 10px 6px 10px;
-        border: 0;
-        color: $body-black;
-        font-size: $size-m;
-        line-height: 1.25rem;
-        font-family: "Open Sans", Arial, sans-serif;
-        min-width: 95px;
-    }
-    .gray-background {
-        background-color: $contrast-gray;
-    }
-    .white-background {
-        background-color: $background;
-    }
-    #sticky-header {
-        top: 0 !important;
-    }
-    .sticky-table .sticky-table-row:nth-child(-n+2) .sticky-table-cell { //row
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0 !important;
-        z-index: 2;
-    }
-    .sticky-table .sticky-table-row .sticky-table-cell:nth-child(-n+3) { //column
-        position: -webkit-sticky;
-        position: sticky;
-        left: 0;
-        z-index: 2;
-    }
-    .sticky-table .sticky-table-row:nth-child(-n+2) .sticky-table-cell:nth-child(-n+3) { //row and column
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        left: 0;
-        z-index: 3;
-    }
-    #sticky-name {
-        left: 50px;
-        min-width: 135px;
-        max-width: 135px;
-    }
-    #sticky-unit {
-        left: 185px;
-        min-width: 95px;
-    }
     .vertical-scroll {
         overflow-y: scroll !important;
         max-height: 200px;
-    }
- 
-    .star-hovered {
-        color: $interface-blue !important;
-    }
-    .hoverable {
-        &:hover {
-            font-size: 17px;
+        .sticky-table .sticky-table-row:nth-child(-n + 2) .sticky-table-cell {
+            //row
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0 !important;
+            z-index: 2;
         }
-    }
-    .star-cell {
-        padding-left: 0px !important;
-        padding-right: 0px !important;
-        text-align: center !important;
-        width: 30px !important;
-        &.star-body {
-            &:hover {
-                cursor: pointer;
+        .sticky-table .sticky-table-row .sticky-table-cell:nth-child(-n + 3) {
+            //column
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+        }
+        .sticky-table
+            .sticky-table-row:nth-child(-n + 2)
+            .sticky-table-cell:nth-child(-n + 3) {
+            //row and column
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 3;
+        }
+        .sticky-table {
+            border-collapse: collapse;
+            width: auto;
+            margin-top: 10px;
+            font-size: $size-m;
+            overflow-x: unset !important;
+
+            &.white-scrollbar::-webkit-scrollbar-thumb {
+                background-color: #ffffff !important;
+            }
+            #sticky-header {
+                top: 0 !important;
+            }
+            #sticky-name {
+                left: 50px;
+                min-width: 135px;
+                max-width: 135px;
+            }
+            #sticky-unit {
+                left: 185px;
+                min-width: 95px;
+            }
+            #section-header {
+                //starred or all labs/vitals
+                font-size: 0.75rem !important;
+                font-weight: 500 !important;
+                font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+                color: rgba(0, 0, 0, 0.54) !important;
+                padding-left: 0px;
+                min-width: 50px;
+                z-index: 4;
+            }
+            .header {
+                color: $body-gray;
+                background-color: $background;
+                padding: 1px 10px 2px 10px;
+                border-bottom: 1px solid $line-gray;
+                font-weight: 500 !important;
+                font-family: "Open Sans", Arial, sans-serif;
+                text-align: left;
+                min-width: 95px;
+                &.year-header {
+                    border-bottom: 0px !important;
+                }
+            }
+            .table-content {
+                padding: 6px 10px 6px 10px;
+                border: 0;
+                color: $body-black;
+                font-size: $size-m;
+                line-height: 1.25rem;
+                font-family: "Open Sans", Arial, sans-serif;
+                min-width: 95px;
+            }
+            .name {
+                max-width: 135px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .star-cell {
+                padding-left: 0px !important;
+                padding-right: 0px !important;
+                text-align: center !important;
+                width: 30px !important;
+                &.star-body {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                &.hoverable {
+                    &:hover {
+                        font-size: 17px;
+                    }
+                }
+                .star-hovered {
+                    color: $interface-blue !important;
+                }
+                .star-clicked {
+                    color: $interface-blue !important;
+                }
+            }
+            .gray-background {
+                background-color: $contrast-gray;
+            }
+            .white-background {
+                background-color: $background;
             }
         }
-
-        .star-clicked {
-            color: $interface-blue !important;
-        }
-    }
-
-    .white-scrollbar::-webkit-scrollbar-thumb {
-        background-color: #FFFFFF !important;
     }
 }

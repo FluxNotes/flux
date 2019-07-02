@@ -56,13 +56,6 @@ export default class LongitudinalTableVisualizer extends Visualizer {
             return (section.name === clickedSection);
         });
         element.favorite = !element.favorite;
-        const favsArray = [];
-        data.forEach((section) => {
-            if (section.favorite) {
-                favsArray.push(section);
-            }
-        });
-        this.setState({ starredData: favsArray });
     }
     componentWillReceiveProps(nextProps) {
         if (!_.isEqual(this.props.conditionSection.data, nextProps.conditionSection.data)) {

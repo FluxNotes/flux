@@ -86,8 +86,6 @@ export default class LongitudinalTable extends Component {
         }
     }
     renderNameCell = (name, background) => {
-        // const starTableValues = this.gatherTableValues()[2];
-        // let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
         return (
             <Tooltip
                 placement='right'
@@ -115,16 +113,16 @@ export default class LongitudinalTable extends Component {
         return (
             <Row id='sticky-header'>
                 {/*year row*/}
-                <Cell className='star-cell header' id='section-header'></Cell>
-                <Cell className='header' id='sticky-name'></Cell>
-                <Cell className='header' id='sticky-unit'></Cell>
+                <Cell className='star-cell header year-header' id='section-header'></Cell>
+                <Cell className='header year-header' id='sticky-name'></Cell>
+                <Cell className='header year-header' id='sticky-unit'></Cell>
                 {dates.map((date, key) => { //years
                     const year = moment(date, 'DD MMM YYYY').year();
                     if (year !== currYear) {
                         currYear = year;
-                        return <Cell key={key} className='header' id='sticky-header'>{currYear}</Cell>;
+                        return <Cell key={key} className='header year-header' id='sticky-header'>{currYear}</Cell>;
                     }
-                    return <Cell className='header' key={key}></Cell>;
+                    return <Cell className='header year-header' key={key}></Cell>;
                 })}
             </Row>);
     }
@@ -223,7 +221,7 @@ export default class LongitudinalTable extends Component {
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
         return (
-            <div className='horizontal-scroll' id='longitudinal-table'>
+            <div id='longitudinal-table'>
                 <div className='vertical-scroll'>
                     <StickyTable className=' white-scrollbar' onScroll={div1 => { this.synchronizeScroll(div1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
                         {this.renderYearHeader(dates)}
