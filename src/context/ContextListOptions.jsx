@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContextItem from './ContextItem';
 import Lang from 'lodash';
+
 import './ContextListOptions.css';
 
 const UP_ARROW_KEY = 38;
@@ -85,7 +86,7 @@ class ContextListOptions extends React.Component {
             <ul className="context-list-options" ref="contextListOptions">
                 {contexts.map((context, index) => {
                     return <ContextItem
-                        key={index}
+                        key={context.key}
                         index={index}
                         context={context}
                         selectedIndex={this.state.selectedIndex}
