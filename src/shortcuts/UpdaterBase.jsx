@@ -14,7 +14,7 @@ export default class UpdaterBase extends EntryShortcut {
         }
         this.isObjectNew = false;
         this.setValueObject(this.object);
-
+        this.isSetByLabel = {};
         // get attribute descriptions
         const metadataVOA = this.metadata["valueObjectAttributes"];
         this.valueObjectAttributes = {};
@@ -219,4 +219,13 @@ export default class UpdaterBase extends EntryShortcut {
 
         this.patient = patient;
     }
+
+    getAttributeIsSetByLabel(name) {
+        return this.isSetByLabel[name];
+    }
+
+    setAttributeIsSetByLabel(name, val) {
+        this.isSetByLabel[name] = val;
+    }
+
 }

@@ -172,7 +172,7 @@ class Shortcut extends Context {
     }
 
     setAttributeIsSetByLabel(name, val) {
-        if (this.hasParentContext() && this.parentContext) this.parentContext.setAttributeIsSetByLabel(name, val);
+        if (this.hasParentContext()) this.parentContext.setAttributeIsSetByLabel(name, val);
     }
 
     get isComplete() {
