@@ -1,35 +1,50 @@
 @import "../styles/variables";
 
-.table-header {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    min-width: 60px;
+.name-tooltip .rc-tooltip-inner {
+    width: auto;
+    border-radius: 6px;
+    text-align: center;
+    min-height: 0px;
 }
-.table-scrollable {
-    overflow-x: scroll !important;
-}
-.star-clicked {
-    color: $interface-blue !important;
-}
-.star-hovered {
-    color: $interface-blue !important;
-}
-.star-cell {
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-    text-align: center !important;
-    min-width: 30px !important;
-    &.star-body {
-        &:hover {
-            cursor: pointer !important;
+
+#longitudinal-table {
+    .left-table {
+        float: left;
+        .name {
+            max-width: 135px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .star-cell {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+            text-align: center !important;
+            min-width: 30px !important;
+            .star-clicked {
+                color: $interface-blue;
+            }
+            .star-hovered {
+                color: $interface-blue;
+            }
+            &.star-body {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &.hoverable {
+                &:hover {
+                    font-size: 17px;
+                }
+            }
         }
     }
-    &.hoverable {
-        &:hover {
-            font-size: 17px;
-        }
+    .table-header {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        min-width: 60px;
     }
-}
-.left-table {
-    float: left;
+    .table-scrollable {
+        overflow-x: scroll;
+    }
 }

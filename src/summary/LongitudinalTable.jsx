@@ -5,6 +5,7 @@ import moment from 'moment';
 import './LongitudinalTable.css';
 import propTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import Tooltip from 'rc-tooltip';
 
 export default class LongitudinalTable extends Component {
 
@@ -26,9 +27,7 @@ export default class LongitudinalTable extends Component {
             });
         }
     }
-    /*
-    Assigns an id to each row
-    */
+    // Assigns an id to each row
     createData = (name, unit, data, id, bands, favorite) => {
         return { name, unit, data, id, bands, favorite }; //the names given here are the keys and the values passed into those parameters become the key's values
     }
@@ -86,6 +85,20 @@ export default class LongitudinalTable extends Component {
             return <FontAwesome className='star-hovered' name='star-o' />;
         }
         return <div />;
+    }
+    renderNameCell(name) {
+        return (
+            <Tooltip
+                placement='right'
+                overlayClassName={`name-tooltip`}
+                overlay={`${name}`}
+                mouseEnterDelay={0.5}
+            >
+                <TableCell className='name'>
+                    <span>{name}</span>
+                </TableCell>
+            </Tooltip>
+        );
     }
     renderRightTableHeader(dates) {
         let currYear = null;
@@ -161,19 +174,16 @@ export default class LongitudinalTable extends Component {
                     <TableCell className={`star-cell star-body ${hoverable}`} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); this.renderStar(n.name, n.id); }}>
                         {this.renderStar(n.name, n.id)}
                     </TableCell>
-                    <TableCell>
-                        {n.name}
-                    </TableCell>
+                    {this.renderNameCell(n.name)}
                     <TableCell>{n.unit}</TableCell>
                 </TableRow>
-
             );
         });
     }
     render() {
         const [tableValues, dates] = this.gatherTableValues();
         return (
-            <div className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
+            <div id='longitudinal-table' className='tabular-list'> {/* tabular-list brings in all the right formatting stuff so that the table format matches the rest of the tables*/}
                 <div>
                     <Table className='left-table'>
                         {this.renderLeftTableHeader()}
