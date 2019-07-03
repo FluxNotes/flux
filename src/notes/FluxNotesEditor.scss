@@ -78,8 +78,8 @@
     }
 
     .MyEditor-root {
-        font-family: 'Georgia', serif;
-
+        // font-family: 'Georgia', serif;
+        font:  $weight-regular $size-editor "Open Sans", Arial, sans-serif;
         .toolbar-menu > * {
             display: inline-block;
         }
@@ -122,7 +122,7 @@
             .structured-field {
                 // Bolded during template hovering
                 &-bolded {
-                    font-weight: bold;
+                    font-weight: $weight-semibold;
                 }
 
                 // Inserter values are grayed out
