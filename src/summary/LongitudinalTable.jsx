@@ -7,6 +7,7 @@ import FontAwesome from 'react-fontawesome';
 import { StickyTable, Row, Cell } from 'react-sticky-table';
 import 'react-sticky-table/dist/react-sticky-table.css';
 import Tooltip from 'rc-tooltip';
+import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync';
 
 export default class LongitudinalTable extends Component {
 
@@ -164,7 +165,7 @@ export default class LongitudinalTable extends Component {
             return (
                 <Row key={n.id}>
                     {/* Names and Units Cells */}
-                    <Cell className={'hoverable star-cell star-body ' + background} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); this.setState({hovered: null}); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
+                    <Cell className={'hoverable star-cell star-body ' + background} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); this.setState({ hovered: null }); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
                         {this.renderStar(n.name, n.id)}
                     </Cell>
                     {this.renderNameCell(n.name, background)}
@@ -183,37 +184,30 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
-    synchronizeScroll = (stickyTable) => {
-        const tables = document.getElementsByClassName('sticky-table');
-        const tableArray = Array.from(tables);
-        tableArray.forEach((table, ind) => {
-            if (table.scrollLeft === stickyTable.scrollLeft) {
-                if (ind % 2 === 0) {
-                    tableArray[ind + 1].scrollLeft = stickyTable.scrollLeft;
-                } else {
-                    tableArray[ind - 1].scrollLeft = stickyTable.scrollLeft;
-                }
-            }
-        });
-    }
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
         return (
-            <div id='longitudinal-table'>
-                <div className='vertical-scroll'>
-                    <StickyTable className=' white-scrollbar' onScroll={table1 => { this.synchronizeScroll(table1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
-                        {this.renderYearHeader(dates)}
-                        {this.renderDateHeader(dates)}
-                        {this.renderData(starTableValues)}
-                    </StickyTable>
+            <ScrollSync>
+                <div id='longitudinal-table'>
+                    <div className='vertical-scroll'>
+                        <ScrollSyncPane>
+                            <StickyTable className=' white-scrollbar'> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
+                                {this.renderYearHeader(dates)}
+                                {this.renderDateHeader(dates)}
+                                {this.renderData(starTableValues)}
+                            </StickyTable>
+                        </ScrollSyncPane>
+                    </div>
+                    <div className='vertical-scroll'>
+                        <ScrollSyncPane>
+                            <StickyTable onScroll={table2 => { this.synchronizeScroll(table2); }}>
+                                {this.renderAllDataHeader(dates)}
+                                {this.renderData(tableValues)}
+                            </StickyTable>
+                        </ScrollSyncPane>
+                    </div>
                 </div>
-                <div className='vertical-scroll'>
-                    <StickyTable onScroll={table2 => { this.synchronizeScroll(table2); }}>
-                        {this.renderAllDataHeader(dates)}
-                        {this.renderData(tableValues)}
-                    </StickyTable>
-                </div>
-            </div>
+            </ScrollSync>
         );
     }
 }
