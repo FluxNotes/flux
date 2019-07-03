@@ -117,6 +117,6 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     get isComplete() {
-        return this.parentContext && this.hasChildren();
+        return this.hasParentContext() && this.hasChildren();
     }
 }
