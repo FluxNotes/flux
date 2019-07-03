@@ -145,31 +145,6 @@ export default class LongitudinalTable extends Component {
             </Row>
         );
     }
-    renderFavoriteData = (starTableValues) => {
-        return starTableValues.map(n => { //n is a row in the table
-            let background = starTableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
-            return (
-                <Row key={n.id}>
-                    <Cell className={'hoverable star-cell star-body ' + background} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); this.setState({hovered: null}); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
-                        {this.renderStar(n.name, n.id)}
-                    </Cell>
-                    {this.renderNameCell(n.name, background)}
-                    <Cell className={'table-content ' + background} id='sticky-unit'>{n.unit}</Cell>
-                    <Cell className='table-content' id='break'></Cell>
-                    {/* Names and Units Cells */}
-                    {Object.entries(n)[2][1].map((value, key) => {
-                        const bands = starTableValues[starTableValues.indexOf(n)].bands;
-                        // Data Cells
-                        if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <Cell key={key} className={'table-content black-text ' + background} >{value}</Cell>;
-                        } else {
-                            return <Cell key={key} className={'table-content red-text ' + background}>{value}</Cell>;
-                        }
-                    })}
-                </Row>
-            );
-        });
-    }
     renderAllDataHeader = (dates) => {
         return (
             <Row>
@@ -183,7 +158,7 @@ export default class LongitudinalTable extends Component {
             </Row>
         );
     }
-    renderAllData = (tableValues) => {
+    renderData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
             let background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
             return (
@@ -229,13 +204,13 @@ export default class LongitudinalTable extends Component {
                     <StickyTable className=' white-scrollbar' onScroll={div1 => { this.synchronizeScroll(div1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
                         {this.renderYearHeader(dates)}
                         {this.renderDateHeader(dates)}
-                        {this.renderFavoriteData(starTableValues)}
+                        {this.renderData(starTableValues)}
                     </StickyTable>
                 </div>
                 <div className='vertical-scroll'>
                     <StickyTable onScroll={div2 => { this.synchronizeScroll(div2); }}>
                         {this.renderAllDataHeader(dates)}
-                        {this.renderAllData(tableValues)}
+                        {this.renderData(tableValues)}
                     </StickyTable>
                 </div>
             </div>
