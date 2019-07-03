@@ -76,11 +76,12 @@ export default class LongitudinalTableVisualizer extends Visualizer {
             <div>
                 <LongitudinalTable
                     preferenceManager={this.props.preferenceManager}
-                    reorderRows={this.reorderRows} dataInfo={this.state.data}
+                    reorderRows={this.reorderRows} 
+                    dataInfo={this.state.data}
                     tdpSearchSuggestions={this.props.tdpSearchSuggestions}
                     conditionSectionName={this.props.conditionSection.name}
                     subsectionLabel={this.props.conditionSection.subsectionLabel}
-                    pluralLabel={this.props.conditionSection.name.toLowerCase()} />
+                    pluralSectionLabel={this.props.conditionSection.name.toLowerCase()} />
             </div>
         );
     }

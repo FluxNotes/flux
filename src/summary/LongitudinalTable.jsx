@@ -148,7 +148,7 @@ export default class LongitudinalTable extends Component {
     renderAllDataHeader = (dates) => {
         return (
             <Row>
-                <Cell className='header star-cell' id='section-header'>all {this.props.pluralLabel}</Cell>
+                <Cell className='header star-cell' id='section-header'>all {this.props.pluralSectionLabel}</Cell>
                 <Cell className='header' id='sticky-name'></Cell>
                 <Cell className='header' id='sticky-unit'></Cell>
                 <Cell className='header' id='break'></Cell>
@@ -223,6 +223,6 @@ LongitudinalTable.propTypes = {
     conditionSectionName: propTypes.string,
     reorderRows: propTypes.func,
     subsectionLabel: propTypes.string,
-    pluralLabel: propTypes.string,
+    pluralSectionLabel: propTypes.string,
     preferenceManager: propTypes.object,
 };
