@@ -20,6 +20,6 @@ export default class CreatorBase extends EntryShortcut {
     }
 
     get isComplete() {
-        return this.parentContext && this.hasChildren();
+        return this.hasParentContext() && this.hasChildren();
     }
 }
