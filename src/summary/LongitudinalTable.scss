@@ -94,6 +94,12 @@
                 font-family: "Open Sans", Arial, sans-serif;
                 min-width: 95px;
             }
+            .black-text {
+                color: $body-black;
+            }
+            .red-text {
+                color: $warning-red;
+            }
             .name {
                 max-width: 135px;
                 text-overflow: ellipsis;

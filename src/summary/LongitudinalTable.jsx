@@ -161,9 +161,9 @@ export default class LongitudinalTable extends Component {
                         const bands = starTableValues[starTableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <Cell style={{ color: 'black' }} key={key} className={'table-content ' + background} >{value}</Cell>;
+                            return <Cell key={key} className={'table-content black-text ' + background} >{value}</Cell>;
                         } else {
-                            return <Cell style={{ color: 'red' }} key={key} className={'table-content ' + background}>{value}</Cell>;
+                            return <Cell key={key} className={'table-content red-text ' + background}>{value}</Cell>;
                         }
                     })}
                 </Row>
@@ -199,9 +199,9 @@ export default class LongitudinalTable extends Component {
                         const bands = tableValues[tableValues.indexOf(n)].bands;
                         // Data Cells
                         if (!bands || ((bands[1].high === 'max' || value < bands[1].high) && (bands[1].low === 'min' || value > bands[1].low))) {
-                            return <Cell style={{ color: 'black' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
+                            return <Cell key={newkey} className={'table-content black-text ' + background}>{value}</Cell>;
                         } else {
-                            return <Cell style={{ color: 'red' }} key={newkey} className={'table-content ' + background}>{value}</Cell>;
+                            return <Cell key={newkey} className={'table-content red-text ' + background}>{value}</Cell>;
                         }
                     })}
                 </Row>
