@@ -79,7 +79,6 @@ export default class Child extends Component {
         if (this.props.inEditMode) {
             className = this.state.visible ? 'edit_visible' : 'edit_invisible';
         }
-        //const className = (this.props.inEditMode && !this.state.visible) ? 'shaded' : '';
         return (
             <div style={{position: 'absolute', width, height, left, top}}
                 className={`minimap-children ${className}`}
