@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { transformedTreatmentData } from '../mock-data/mock-data.js';
 import { isSame, getCombinations } from './arrayOperations';
+const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
 function filterTreatmentData(similarPatientProps) {
