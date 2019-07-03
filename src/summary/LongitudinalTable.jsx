@@ -183,15 +183,15 @@ export default class LongitudinalTable extends Component {
             );
         });
     }
-    synchronizeScroll = (div) => {
+    synchronizeScroll = (stickyTable) => {
         const tables = document.getElementsByClassName('sticky-table');
         const tableArray = Array.from(tables);
         tableArray.forEach((table, ind) => {
-            if (table.scrollLeft === div.scrollLeft) {
+            if (table.scrollLeft === stickyTable.scrollLeft) {
                 if (ind % 2 === 0) {
-                    tableArray[ind + 1].scrollLeft = div.scrollLeft;
+                    tableArray[ind + 1].scrollLeft = stickyTable.scrollLeft;
                 } else {
-                    tableArray[ind - 1].scrollLeft = div.scrollLeft;
+                    tableArray[ind - 1].scrollLeft = stickyTable.scrollLeft;
                 }
             }
         });
@@ -201,14 +201,14 @@ export default class LongitudinalTable extends Component {
         return (
             <div id='longitudinal-table'>
                 <div className='vertical-scroll'>
-                    <StickyTable className=' white-scrollbar' onScroll={div1 => { this.synchronizeScroll(div1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
+                    <StickyTable className=' white-scrollbar' onScroll={table1 => { this.synchronizeScroll(table1); }}> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
                         {this.renderYearHeader(dates)}
                         {this.renderDateHeader(dates)}
                         {this.renderData(starTableValues)}
                     </StickyTable>
                 </div>
                 <div className='vertical-scroll'>
-                    <StickyTable onScroll={div2 => { this.synchronizeScroll(div2); }}>
+                    <StickyTable onScroll={table2 => { this.synchronizeScroll(table2); }}>
                         {this.renderAllDataHeader(dates)}
                         {this.renderData(tableValues)}
                     </StickyTable>
