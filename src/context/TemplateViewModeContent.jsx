@@ -25,14 +25,14 @@ export default class TemplateViewModeContent extends Component {
                 handleClick={this.insertTemplate}
                 heading=""
                 patient={this.props.patient}
-                templates={this.templates.map((item) => { return item.name })}
+                templates={this.templates.map((item) => { return item.name; })}
             />
         );
     }
 }
 
-TemplateViewModeContent.proptypes = {
+TemplateViewModeContent.propTypes= {
     onShortcutClicked: PropTypes.func.isRequired,
     patient: PropTypes.object.isRequired,
     setInsertingTemplate: PropTypes.func.isRequired,
-}
+};

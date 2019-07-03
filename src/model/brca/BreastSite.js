@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
+
+import ClassRegistry from '../ClassRegistry';
 
 import AnatomicalLocationStructured from '../shr/core/AnatomicalLocationStructured';
 
@@ -144,7 +149,8 @@ class BreastSite extends AnatomicalLocationStructured {
    * @returns {BreastSite} An instance of BreastSite populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new BreastSite();
+    const klass = ClassRegistry.get('brca', 'BreastSite');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -185,6 +191,7 @@ class BreastSite extends AnatomicalLocationStructured {
    * Deserializes FHIR JSON data to an instance of the BreastSite class.
    * The FHIR must be valid against the BreastSite FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -192,34 +199,35 @@ class BreastSite extends AnatomicalLocationStructured {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {BreastSite} An instance of BreastSite populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new BreastSite();
-    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
-    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
-    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
-    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/brca/BreastSite');
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('brca', 'BreastSite');
+    const inst = new klass();
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/brca/BreastSite', 'uri');
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension') {
-        inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-ClockDirection-extension') {
-        inst.clockDirection = FHIRHelper.createInstanceFromFHIR('shr.core.ClockDirection', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.clockDirection = FHIRHelper.createInstanceFromFHIR('shr.core.ClockDirection', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (fhir['code'] != null) {
-      inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_modifier of fhir['modifier'] || []) {
       if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
-        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     if (fhir['description'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_image of fhir['image'] || []) {
       inst.media = inst.media || [];
-      const inst_media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', fhir_image, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', fhir_image, 'Attachment', shrId, allEntries, mappedResources, referencesOut, false);
       inst.media.push(inst_media);
     }
     return inst;

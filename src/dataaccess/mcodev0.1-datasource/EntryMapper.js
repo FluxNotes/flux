@@ -1,7 +1,6 @@
 import './model/init.js';
 import FluxPatientV01 from './model/entity/FluxPatient';
 import FluxPatient from '../../model/entity/FluxPatient';
-import Entry from '../../model/shr/base/Entry';
 import EntryType from '../../model/shr/base/EntryType';
 import Metadata from '../../model/shr/base/Metadata';
 import LastUpdated from '../../model/shr/base/LastUpdated';
@@ -12,8 +11,6 @@ import Address from '../../model/shr/core/Address';
 import AdministrativeGender from '../../model/shr/entity/AdministrativeGender';
 import ContactPoint from '../../model/shr/core/ContactPoint';
 import CodeableConceptV01 from './model/shr/core/CodeableConcept';
-import CodeableConcept from '../../model/shr/core/CodeableConcept';
-import Coding from '../../model/shr/core/Coding';
 import Code from '../../model/shr/core/Code';
 import CodeSystem from '../../model/shr/core/CodeSystem';
 import DisplayText from '../../model/shr/core/DisplayText';
@@ -35,7 +32,6 @@ import ClinicalStatus from '../../model/shr/base/ClinicalStatus';
 import Onset from '../../model/shr/base/Onset';
 import CancerDisorderPresent from '../../model/oncocore/CancerDisorderPresent';
 import FluxMedicationRequestedV01 from './model/medication/FluxMedicationRequested';
-import MedicationRequested from '../../model/shr/medication/MedicationRequested';
 import Dosage from '../../model/shr/medication/Dosage';
 import DoseAmount from '../../model/shr/medication/DoseAmount';
 import SimpleQuantity from '../../model/shr/core/SimpleQuantity';
@@ -47,7 +43,6 @@ import RouteIntoBody from '../../model/shr/core/RouteIntoBody';
 import TimingOfDoses from '../../model/shr/medication/TimingOfDoses';
 import Medication from '../../model/shr/entity/Medication';
 import Status from '../../model/shr/core/Status';
-import Reason from '../../model/shr/base/Reason';
 import ExpectedPerformanceTime from '../../model/shr/base/ExpectedPerformanceTime';
 import TimePeriodV01 from './model/shr/core/TimePeriod';
 import TimePeriod from '../../model/shr/core/TimePeriod';
@@ -155,8 +150,6 @@ import NumberOfRefillsAllowed from '../../model/shr/medication/NumberOfRefillsAl
 import FluxPathologyReportV01 from './model/finding/FluxPathologyReport';
 import FluxPathologyReport from '../../model/finding/FluxPathologyReport';
 import MCODEV01ObjectFactory from './model/FluxObjectFactory';
-import ConsultRequested from '../../model/shr/encounter/ConsultRequested';
-import Encounter from '../../model/shr/encounter/Encounter';
 import RequestIntent from '../../model/shr/base/RequestIntent';
 import PossibleCause from '../../model/shr/adverse/PossibleCause';
 import ExpectedPerformer from '../../model/shr/base/ExpectedPerformer';
@@ -168,6 +161,16 @@ import Patient from '../../model/shr/entity/Patient';
 import ParticipationPeriod from '../../model/shr/base/ParticipationPeriod';
 import Text from '../../model/shr/core/Text.js';
 import ConditionOrDiagnosisCode from '../../model/shr/base/ConditionOrDiagnosisCode.js';
+import FluxConsultRequested from '../../model/encounter/FluxConsultRequested.js';
+import FluxClinicalNote from '../../model/core/FluxClinicalNote.js';
+import ClassRegistry from '../../model/ClassRegistry';
+
+const Entry = ClassRegistry.get('shr.base', 'Entry');
+const Encounter = ClassRegistry.get('shr.encounter', 'Encounter');
+const Reason = ClassRegistry.get('shr.base', 'Reason');
+const MedicationRequested = ClassRegistry.get('shr.medication', 'MedicationRequested');
+const CodeableConcept = ClassRegistry.get('shr.core', 'CodeableConcept');
+const Coding = ClassRegistry.get('shr.core', 'Coding');
 
 const mapEntryInfo = (entryInfo, entry) => {
     const newEntry = new Entry();
@@ -215,15 +218,15 @@ const mapCodingToCodeableConcept = (coding) => {
     codeableConcept.displayText.value = coding;
 
     return codeableConcept;
-}
+};
 
 const mapGender = (gender) => {
     const newGender = new AdministrativeGender();
 
     newGender.value = mapCodingToCodeableConcept(gender.value);
 
-    return newGender; 
-}
+    return newGender;
+};
 
 const mapAnatomicalLocation = (anatomicalLocation) => {
     const newAnatomicalLocation = new AnatomicalLocation();
@@ -267,7 +270,7 @@ const mapDuration = (duration) => {
     newDuration.units = mapUnits(duration.units);
 
     return newDuration;
-}
+};
 
 const mapTimingOfDoses = (timingOfDoses) => {
     const newTimingOfDoses = new TimingOfDoses();
@@ -282,7 +285,7 @@ const mapTimingOfDoses = (timingOfDoses) => {
     }
 
     return newTimingOfDoses;
-}
+};
 
 const mapDosage = (dosage) => {
     const newDosage = new Dosage();
@@ -314,7 +317,7 @@ const mapTimePeriod = (timePeriod) => {
     }
 
     return newTimePeriod;
-}
+};
 
 const mapExpectedPerformanceTime = (expectedPerformanceTime) => {
     const newExpectedPerformanceTime = new ExpectedPerformanceTime();
@@ -383,7 +386,7 @@ const mapStatus = (status) => {
     // Since v0.1 doesn't have a defined codesystem for Statuses, we will manually add one here
     if (!newStatus.value.coding[0].codeSystem) {
         newStatus.value.coding[0].codeSystem = new CodeSystem();
-        newStatus.value.coding[0].codeSystem.value = "http://hl7.org/fhir/STU3/valueset-request-status.html"
+        newStatus.value.coding[0].codeSystem.value = "http://hl7.org/fhir/STU3/valueset-request-status.html";
     }
 
     return newStatus;
@@ -395,7 +398,7 @@ const mapRequestIntent = (requestIntent) => {
     newRequestIntent.value = mapCodingToCodeableConcept(requestIntent.value);
 
     return newRequestIntent;
-}
+};
 
 const mapAdverseReaction = (adverseReaction) => {
     const newAllergyIntoleranceReaction = new AllergyIntoleranceReaction();
@@ -489,7 +492,7 @@ const mapEvidence = (evidence) => {
     return evidence.map(e => {
         const newEvidence = new CancerProgressionEvidence();
         newEvidence.value = mapPassThrough(e._value, CodeableConcept);
-        return newEvidence
+        return newEvidence;
     });
 };
 
@@ -506,7 +509,7 @@ const mapAnnotation = (annotation) => {
  *  Instantiates mCODE v0.1 entry objects
  *  Loops through all mCODE v0.1 entries and maps to Flux Notes Object Model classes
  */
-exports.mapEntries = (v01Json) => {
+export function mapEntries(v01Json) {
     const entries = v01Json.map(entry => MCODEV01ObjectFactory.createInstance(entry));
     const v05Json = [];
     entries.forEach(entry => {
@@ -531,7 +534,22 @@ exports.mapEntries = (v01Json) => {
             if (entry._person.maritalStatus) newPerson._person.maritalStatus = mapPassThrough(entry._person.maritalStatus, MaritalStatus);
             newPerson._person.race = mapPassThrough(entry._person.race, Race);
             v05Json.push(newPerson._person.toJSON());
-        } else if (entry instanceof FluxPatientIdentifierV01 || entry instanceof FluxClinicalNoteV01) {
+        } else if (entry instanceof FluxClinicalNoteV01) {
+            const newClinicalNote = new FluxClinicalNote();
+
+            mapEntryInfo(entry.entryInfo, newClinicalNote);
+            newClinicalNote.signedOn = entry.signedOn;
+            newClinicalNote.signedBy = entry.signedBy;
+            newClinicalNote.subject = entry.subject;
+            newClinicalNote.hospital = entry.hospital;
+            newClinicalNote.createdBy = entry.createdBy;
+            newClinicalNote.content = entry.content;
+            newClinicalNote.signed = entry.signed;
+            newClinicalNote._createdOn = entry.createdOn;
+            if (entry._documentedEncounter) newClinicalNote.documentedEncounter = mapReference(entry._documentedEncounter);
+
+            v05Json.push(newClinicalNote.toJSON());
+        } else if (entry instanceof FluxPatientIdentifierV01) {
             v05Json.push(entry.toJSON());
         } else if (entry instanceof FluxGastrointestinalStromalTumorV01) {
             const newCondition = mapCancerDisorder(entry, CancerDisorderPresent);
@@ -580,13 +598,14 @@ exports.mapEntries = (v01Json) => {
 
             v05Json.push(newAllergyIntolerance.toJSON());
         } else if (entry instanceof FluxConsultRequestedV01) {
-            const newConsultRequested = new ConsultRequested();
+            const newConsultRequested = new FluxConsultRequested();
 
-            mapEntryInfo(entry.entryInfo, newConsultRequested);
-            newConsultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
-            newConsultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
-            newConsultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
-            if (entry._consultRequested.expectedPerformer) newConsultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            mapEntryInfo(entry.entryInfo, newConsultRequested._consultRequested);
+            newConsultRequested._consultRequested.encounter = mapEncounter(entry._consultRequested.encounter);
+            newConsultRequested._consultRequested.reason = entry._consultRequested.reason.map(r => mapPassThrough(r, Reason));
+            newConsultRequested._consultRequested.requestIntent = mapRequestIntent(entry._consultRequested.requestIntent);
+            if (entry._consultRequested.expectedPerformer) newConsultRequested._consultRequested.expectedPerformer = mapPassThrough(entry._consultRequested.expectedPerformer, ExpectedPerformer);
+            if (entry._resultingClinicalNote) newConsultRequested._resultingClinicalNote = mapReference(entry._resultingClinicalNote);
 
             v05Json.push(newConsultRequested.toJSON());
         } else if (entry instanceof FluxHistologicGradeV01) {

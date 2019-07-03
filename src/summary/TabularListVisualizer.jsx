@@ -22,7 +22,7 @@ export default class TabularListVisualizer extends Visualizer {
             elementToDisplayMenu: null,
             positionTop: 0,  // Just so the menu can be spotted more easily
             positionLeft: 0, // Same as above
-        }
+        };
     }
 
     render() {
@@ -38,7 +38,7 @@ export default class TabularListVisualizer extends Visualizer {
     // Get a list of subsections to display given the current condition section
     getSubsections() {
         const { patient, condition, conditionSection } = this.props;
-        if (patient == null || condition == null || conditionSection == null) return [];
+        if (patient===null || condition===null || conditionSection===null) return [];
         return conditionSection.data.map((subsection) => {
             return subsection;
         });
@@ -65,7 +65,7 @@ export default class TabularListVisualizer extends Visualizer {
         // for the second half of sections
         let numRows = 0;
         subsections.forEach((subsection) => {
-           numRows += subsection.data_cache.length + 1;
+            numRows += subsection.data_cache.length + 1;
         });
 
         let halfRows = numRows / 2;
@@ -89,7 +89,7 @@ export default class TabularListVisualizer extends Visualizer {
             return this.renderedSubsection(subsection, ind++, false, subsections.length === 1);
         });
         const renderedSecondHalf = secondHalfSections.map((subsection) => {
-            return this.renderedSubsection(subsection, ind++, false, subsections.lenth === 1);
+            return this.renderedSubsection(subsection, ind++, false, subsections.length === 1);
         });
 
         // Display the data in 2 columns. The first column displays the first half
@@ -192,7 +192,7 @@ export default class TabularListVisualizer extends Visualizer {
 
     renderedPostTableList(itemsFunction, subsectionName, subsectionActions, arrayIndex) {
         const {patient, condition} = this.props;
-        if (patient == null || condition == null || _.isUndefined(itemsFunction)) return [];
+        if (patient===null || condition===null || _.isUndefined(itemsFunction)) return [];
         const list = itemsFunction(patient, condition);
         return list.map((element, index) => {
             const elementId = `post-item-${index}`;
@@ -237,7 +237,7 @@ export default class TabularListVisualizer extends Visualizer {
 
         const numColumns = row.length;
         const colSize = (100 / numColumns) + "%";
-//const colSize = "auto";
+        //const colSize = "auto";
 
         if (subsectionActions.length > 0  || this.props.actions.length > 0) {
             rowClass += " has-action-menu";
@@ -257,7 +257,7 @@ export default class TabularListVisualizer extends Visualizer {
     }
 
     renderColumn = (row, subsectionindex, itemIndex, subsectionName, subsectionActions, formatFunction, col, colIndex, colSize) => {
-        const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`
+        const columnId = `${subsectionindex}-${itemIndex}-item-${colIndex}`;
         const isInsertable = _.isUndefined(col.isInsertable) ? true : col.isInsertable;
         let columnItem = null;
         const when = (col.value ? (col.value.when || null) : null);
@@ -339,7 +339,7 @@ export default class TabularListVisualizer extends Visualizer {
         }
 
         if (!_.isNull(colText) && !_.isUndefined(colText) && colText.length > 100) {
-            const text = <span>{longElementText}</span>
+            const text = <span>{longElementText}</span>;
             columnItem = (
                 <Tooltip
                     key={columnId}
@@ -354,7 +354,7 @@ export default class TabularListVisualizer extends Visualizer {
                 >
                     {columnItem}
                 </Tooltip>
-            )
+            );
         }
         return columnItem;
     }
@@ -368,9 +368,9 @@ export default class TabularListVisualizer extends Visualizer {
         const onMenuItemClicked = (fn, element, item) => {
             const callback = () => {
                 fn(element, item);
-            }
+            };
             this.closeInsertionMenu(callback);
-        }
+        };
         let isSigned = true;
 
         isSigned = !element.isUnsigned || true;

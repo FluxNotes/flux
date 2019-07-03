@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import { FormControl, FormLabel, FormControlLabel } from 'material-ui';
 import FontAwesome from 'react-fontawesome';
+
+import OptionsRangeSelector from '../OptionsRangeSelector/OptionsRangeSelector';
 
 import './OptionsCheckboxList.css';
 
@@ -11,7 +14,8 @@ export default class OptionsCheckboxList extends Component {
         super(props);
 
         this.state = {
-            expanded: true
+            expanded: true,
+            openRangeSelector: { age: false, diagnosedAge: false }
         };
     }
 
@@ -19,19 +23,31 @@ export default class OptionsCheckboxList extends Component {
         this.setState({ expanded: !this.state.expanded });
     };
 
-    toggleOption = (option) => {
+    handleOpenRangeSelector = option => {
+        this.setState(({ openRangeSelector }) => ({ openRangeSelector: { ...openRangeSelector, [option]: true } }));
+    }
+
+    handleCloseRangeSelector = option => {
+        this.setState(({ openRangeSelector }) => ({ openRangeSelector: { ...openRangeSelector, [option]: false } }));
+    }
+
+    toggleOption = option => {
         this.props.setSelected(option, !this.props.options.options[option].selected);
     }
 
     renderOptions = () => {
+        const { category, selectSimilarPatientOptionRange } = this.props;
         const { options } = this.props.options;
+        const { openRangeSelector } = this.state;
 
         return (
             <div className="selection-options">
                 {Object.keys(options).map((key, i) => {
-                    const { selected, displayText, minValue, maxValue, value } = options[key];
+                    const {
+                        selected, displayText, minValue, maxValue, defaultMinValue, defaultMaxValue, value, unit
+                    } = options[key];
                     const hasRange = minValue !== undefined && maxValue !== undefined;
-                    const optionText = hasRange ? `${displayText}: ${minValue}-${maxValue}` : `${displayText}: ${value}`;
+                    const optionText = <span className="display-text">{`${displayText}: ${value}`}</span>;
 
                     return (
                         <FormControl key={key} className="selection-options__selection">
@@ -44,9 +60,39 @@ export default class OptionsCheckboxList extends Component {
                                             value={displayText}
                                             className="checkbox" />
                                     }
-                                    label={<span className="selection-options__title">{optionText}</span>}
+                                    label={
+                                        <span className="selection-options__title">
+                                            {!hasRange && optionText}
+                                            {hasRange && <span className="display-text">{displayText}: </span>}
+                                        </span>
+                                    }
                                 />
                             </FormLabel>
+
+                            {hasRange &&
+                                <div>
+                                    <span className="range" onClick={() => this.handleOpenRangeSelector(key)}>
+                                        {minValue}-{maxValue}
+                                    </span>
+                                    {openRangeSelector[key] &&
+                                        <ClickAwayListener onClickAway={() => this.handleCloseRangeSelector(key)}>
+                                            <OptionsRangeSelector
+                                                className={displayText}
+                                                name={displayText}
+                                                unit={unit}
+                                                value={value}
+                                                min={minValue}
+                                                max={maxValue}
+                                                defaultMin={defaultMinValue}
+                                                defaultMax={defaultMaxValue}
+                                                category={category}
+                                                keyy={key}
+                                                selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
+                                            />
+                                        </ClickAwayListener>
+                                    }
+                                </div>
+                            }
                         </FormControl>
                     );
                 })}
@@ -103,7 +149,9 @@ export default class OptionsCheckboxList extends Component {
 }
 
 OptionsCheckboxList.propTypes = {
+    category: PropTypes.string.isRequired,
     options: PropTypes.object.isRequired,
     setSelected: PropTypes.func.isRequired,
-    setAllSelected: PropTypes.func.isRequired
-}
+    setAllSelected: PropTypes.func.isRequired,
+    selectSimilarPatientOptionRange: PropTypes.func.isRequired
+};

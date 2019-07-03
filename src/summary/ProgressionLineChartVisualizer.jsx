@@ -42,25 +42,25 @@ class ProgressionLineChartVisualizer extends Visualizer {
             // 'Inevaluable'
             "C3858734": null,
         };
-         this.valueToProgressionMap = {
+        this.valueToProgressionMap = {
             // 'Complete Response'
-            "-1" : 'Complete Response',
+            "-1": 'Complete Response',
             // 'Complete Resection'
-            "0" : 'Complete Resection',
+            "0": 'Complete Resection',
             // 'Responding'
-            "1" : 'Responding',
+            "1": 'Responding',
             // 'Stable'
-            "2" : 'Stable',
+            "2": 'Stable',
             // 'Progressing'
-            "3" : 'Progressing',
+            "3": 'Progressing',
             // 'Inevaluable'
-            "null" : 'Inevaluable',
+            "null": 'Inevaluable',
         };
     }
 
     // Single function translating date strings to numbers
     dateToNumber = (date) => {
-        return Number(new Date(date))
+        return Number(new Date(date));
     }
 
     // Turns dates into numeric representations for graphing
@@ -70,11 +70,11 @@ class ProgressionLineChartVisualizer extends Visualizer {
             const numberBasedOnCode = this.codeToValueMap[code];
 
             // 1. Translate time strings into millisecond representations, storing in a new key:value pair
-            d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField])
+            d[this.xVarNumberField]  = this.dateToNumber(d[this.xVarField]);
             // 2. Translate progression status values into numeric representations, inplace
             d[this.yVarField] = numberBasedOnCode;
             return d;
-        })
+        });
     }
 
     // Updates diagnosis objects s.t. they store dates in a numeric format
@@ -202,13 +202,13 @@ class ProgressionLineChartVisualizer extends Visualizer {
                 evidence: "",
                 start_time: this.dateFormat(diagnosisDate.date),
                 start_time_number: diagnosisDate.date,
-                diagnosis_date : diagnosisDate.date,
+                diagnosis_date: diagnosisDate.date,
                 label: `ref_${i}`
             });
         });
         // Get yAxisInfo
-        const yAxisDomain = [ -1.25, 3 ];
-        const yTicks = [ -1, 0, 1, 2, 3.25 ];
+        const yAxisDomain = [ -1.25, 3.25 ];
+        const yTicks = [ -1, 0, 1, 2, 3 ];
         // Get xAxisInfo
         const xAxisDomain = this.getXAxisDomain(processedData, processedPotentialDiagnosisDates);
         const xTicks = this.getXAxisTicks(xAxisDomain, processedPotentialDiagnosisDates, this.props.isWide);
@@ -234,7 +234,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         domain={yAxisDomain}
                         ticks={yTicks}
                         tickMargin={5}
-                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]}}
+                        tickFormatter={(val) => { return this.valueToProgressionMap[val.toString()]; }}
                     />
                     <Tooltip
                         content={this.diseaseStatusTooltipFunction}
@@ -247,7 +247,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         yAxisId={0}
                         dot={this.renderDot}
                     />
-                     <Line
+                    <Line
                         type="monotone"
                         dataKey="diagnosis_date"
                         stroke="none"
@@ -265,7 +265,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
                         );
                     })}
                 </LineChart>
-           </ResponsiveContainer >
+            </ResponsiveContainer >
         );
     }
 

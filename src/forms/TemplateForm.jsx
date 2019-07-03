@@ -11,7 +11,7 @@ export default class TemplateForm extends Component {
 
     render() {
         return (
-           <div>
+            <div>
                 <h1>{this.props.heading}</h1>
 
                 {this.props.templates.map((template, index) => {
@@ -31,9 +31,9 @@ export default class TemplateForm extends Component {
     }
 }
 
-TemplateForm.proptypes = {
+TemplateForm.propTypes= {
     handleClick: PropTypes.func.isRequired,
     heading: PropTypes.string.isRequired,
     patient: PropTypes.object.isRequired,
     templates: PropTypes.array.isRequired,
-}
+};

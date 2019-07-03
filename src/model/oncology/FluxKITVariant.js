@@ -8,7 +8,7 @@ class FluxKITVariant {
     get entryInfo() {
         return this._kitVariant.entryInfo;
     }
-    
+
     get abbreviatedName() {
         return this._kitVariant.specificFocusOfFinding.value.coding[0].displayText.value || 'KIT';
     }

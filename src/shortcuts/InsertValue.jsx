@@ -26,7 +26,9 @@ export default class InsertValue extends Shortcut {
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
         } else {
-            if (shortcutData.length > 0) this.setText(shortcutData);
+            if (shortcutData) {
+                if (shortcutData.length > 0) this.setText(shortcutData);
+            }
             else this.setText(text);
         }
 
@@ -35,6 +37,7 @@ export default class InsertValue extends Shortcut {
             const shortcutDataObj = JSON.parse(shortcutData);
             this.text = shortcutDataObj.text;
             if (shortcutDataObj.originalText) this.setOriginalText(shortcutDataObj.originalText);
+
             const valueObject = this.patient.getEntryById(shortcutDataObj.entryId);
             this.setValueObject(valueObject);
             this.setWasRemovedFromContext(shortcutDataObj.wasRemovedFromContext);
@@ -96,8 +99,8 @@ export default class InsertValue extends Shortcut {
             args = args.map((arg) => {
                 if (arg === "$selectedValue") {
                     return selectedValue;
-                }                
-                return arg;            
+                }
+                return arg;
             });
 
             result = contextManager.getPatient()[callSpec["method"]](...args);
@@ -106,7 +109,6 @@ export default class InsertValue extends Shortcut {
                     const itemKey = callSpec["itemKey"].split(".");
                     const itemContext = callSpec["itemContext"].split(".");
                     const dateLabel = callSpec["dateLabel"];
-
                     return result.map((item) => {
                         return {
                             key: this._getValueUsingPath(item, itemKey),
@@ -115,7 +117,7 @@ export default class InsertValue extends Shortcut {
                             date: item[dateLabel]
                         };
                     });
-                } 
+                }
                 // NOTE: We left this in in case we needed to add the listItems functionality back into shortcuts.json
                 // At the time of commenting we had modified the only instances of this 'getData' format from Shortcuts.json, @all medications' and '@active medications'
                 // else {
@@ -127,8 +129,6 @@ export default class InsertValue extends Shortcut {
                 //     const numListItems = listItems.length - 1;
                 //     let strResult = "";
                 //     result.forEach((item, itemIndex) => {
-                //         console.log("---item")
-                //         console.log(item)
                 //         listItems.forEach((itemKey, attrIndex) => {
                 //             let nextSubstring = this._getValueUsingPath(item, itemKey);
                 //             if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
@@ -163,7 +163,7 @@ export default class InsertValue extends Shortcut {
      * Determines the text to display for this particular inserter shortcut. Some shortcuts
      * will return a string value, but others can returns a list of possible options for the
      * user to select from. Each item in that list must be a javascript object like this:
-     *   {  key: <identifier for item>, 
+     *   {  key: <identifier for item>,
      context: <label or title to display to user>,
      object: <full SHR data object represented>
      }
@@ -182,49 +182,12 @@ export default class InsertValue extends Shortcut {
     }
 
     getLabel() {
-        return this.getOriginalText() ? this.getOriginalText() : this.getText();
-    }
-
-    getId() {
-        return this.metadata["id"];
+        let display = this.getText() ? this.getText() : this.getDisplayText();
+        return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
     getText() {
-        return this.text ? this.text : this.initiatingTrigger;
-    }
-
-    getArrayOfText() {
-        return Lang.isArray(this.text) ? this.text : [];
-    }
-
-    getResultText(displayText = null) {
-        let text = displayText || this.text; // Use provided text to override shortcut text
-        if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
-            text = text.substring(1);
-        }
-        // If this.valueObject exists, put the entryId of the valueObject in the result text
-        if (this.valueObject) {
-            const shortcutDataObj = {
-                text,
-                entryId: this.valueObject.entryInfo.entryId,
-                wasRemovedFromContext: this.wasRemovedFromContext,
-                originalText: this.originalText,
-            };
-            return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
-        }
-        return `${this.initiatingTrigger}[[${text}]]`;
-    }
-
-    createObjectForParsing(selectedValue, contextManager) {
-        const callSpec = this.metadata["createObjectForParsing"];
-
-        const object = this._resolveCallSpec(callSpec, contextManager, selectedValue);
-
-        return object;
-    }
-
-    setWasRemovedFromContext(value) {
-        this.wasRemovedFromContext = value;
+        return this.text;
     }
 
     setText(text) {
@@ -239,11 +202,53 @@ export default class InsertValue extends Shortcut {
         return this.originalText;
     }
 
+    serialize(displayText) {
+        // TODO: Refactor to no longer need displayText as a parameter. This variable should only use this.text.
+        let text = displayText || this.text; // Use provided text to override shortcut text
+        if (Lang.isNull(text)) {
+            text = this.initiatingTrigger;
+        }
+        else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+            text = text.substring(1);
+        }
+        if (text === this.initiatingTrigger) {
+            return `${text}`;
+        }
+        // If this.valueObject exists, put the entryId of the valueObject in the result text
+        if (this.valueObject) {
+            const shortcutDataObj = {
+                text,
+                entryId: this.valueObject.entryInfo.entryId,
+                wasRemovedFromContext: this.wasRemovedFromContext,
+                originalText: this.originalText,
+            };
+            return `${this.initiatingTrigger}[[${JSON.stringify(shortcutDataObj)}]]`;
+        }
+
+        return `${this.initiatingTrigger}[[${text}]]`;
+    }
+
+    getDisplayText() {
+        return Lang.isNull(this.text) ? this.initiatingTrigger : this.text;
+    }
+
+    createObjectForParsing(selectedValue, contextManager) {
+        const callSpec = this.metadata["createObjectForParsing"];
+
+        const object = this._resolveCallSpec(callSpec, contextManager, selectedValue);
+
+        return object;
+    }
+
+    setWasRemovedFromContext(value) {
+        this.wasRemovedFromContext = value;
+    }
+
     setValueObject(valueObject) {
         this.valueObject = valueObject;
         const parentAttribute = this.metadata["parentAttribute"];
 
-        // Check parent of shortcut and setAttributeValue 
+        // Check parent of shortcut and setAttributeValue
         if (parentAttribute && (this.parentContext instanceof CreatorBase || this.parentContext instanceof SingleHashtagKeyword) && this.parentContext.isAttributeSupported(parentAttribute)) {
             this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
         }

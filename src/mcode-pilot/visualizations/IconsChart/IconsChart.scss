@@ -1,0 +1,39 @@
+@import '../../../styles/variables';
+
+.icons-chart {
+    display: flex;
+
+    .icons-survival-text {
+        .selected-treatment {
+            font-weight: 400;
+        }
+    }
+
+    &__display {
+        display: flex;
+        flex-wrap: wrap;
+        width: 420px;
+        height: 300px;
+    }
+
+    &__circle {
+        border-radius: 50%;
+        height: 25px;
+        width: 25px;
+        margin: 6px;
+
+        &.survive {
+            border: 1px solid $body-gray;
+        }
+
+        &.additional {
+            border: 3px solid;
+            margin: 4px;
+        }
+
+        &.die {
+            border: 1px solid $icons-gray;
+            background-color: $icons-gray;
+        }
+    }
+}

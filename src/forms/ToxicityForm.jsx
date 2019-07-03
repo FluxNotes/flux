@@ -4,10 +4,10 @@ import SingleChoiceButton from './SingleChoiceButton';
 import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
-import toxicityLookup from '../lib/toxicreaction_lookup';
+import * as toxicityLookup from '../lib/toxicreaction_lookup';
 import FluxToxicAdverseDrugReaction from '../model/adverse/FluxToxicAdverseDrugReaction';
-import Lang from 'lodash'
-import Collection from 'lodash'
+import Lang from 'lodash';
+import Collection from 'lodash';
 import './ToxicityForm.css';
 
 function titlecase(label) {
@@ -40,7 +40,7 @@ class ToxicityForm extends Component {
     resetPotentialToxicity = () => {
         this.setState({
             searchText: ""
-        })
+        });
     }
 
     /*
@@ -118,9 +118,9 @@ class ToxicityForm extends Component {
             searchText: newValue,
         });
         if (toxicityLookup.isValidAdverseEvent(newValue)) {
-            this.handleAdverseEventSelection(newValue)
+            this.handleAdverseEventSelection(newValue);
         } else if (!toxicityLookup.isValidAdverseEvent(newValue) && toxicityLookup.isValidAdverseEvent(this.props.object.adverseEvent)) {
-            this.handleAdverseEventSelection(null)
+            this.handleAdverseEventSelection(null);
         }
     }
 
@@ -134,7 +134,7 @@ class ToxicityForm extends Component {
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
             const nameNoSpaces = (Lang.isEmpty(event.nameNoSpaces)) ? "" : event.nameNoSpaces;
             const descriptionNoSpaces = (Lang.isEmpty(event.descriptionNoSpaces)) ? "" : event.descriptionNoSpaces;
-            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0)
+            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0);
         }).slice(0, 7);
     }
 
@@ -190,13 +190,13 @@ class ToxicityForm extends Component {
         const currentGradeLevel = grade.name;
         const isDisabled = !toxicityLookup.isValidGradeForAdverseEvent(grade.name, adverseEventName);
 
-        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.seriousness === grade.name
+        const isSelected = !Lang.isEmpty(this.props.object) && !Lang.isEmpty(this.props.object.adverseEvent) && this.props.object.seriousness === grade.name;
         let gradeMenuClass = "grade-menu-item";
 
         if (isDisabled) {
-            gradeMenuClass += " disabled"
+            gradeMenuClass += " disabled";
         } else if (isSelected) {
-            gradeMenuClass += " selected"
+            gradeMenuClass += " selected";
         }
 
         let gradeDescription = "";
@@ -212,7 +212,7 @@ class ToxicityForm extends Component {
                 elemCopy.name = elemCopy.name.toLowerCase();
                 return elemCopy;
             });
-            const currentAdverseEvent = Collection.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase})
+            const currentAdverseEvent = Collection.find(adverseEventOptionsLowerCase, {name: adverseEventNameLowerCase});
             gradeDescription = currentAdverseEvent[currentGradeLevel];
         }
 
@@ -223,7 +223,7 @@ class ToxicityForm extends Component {
                 // onHover
                 onClick={(e) => {
                     if (!isDisabled) {
-                        return this.handleGradeSelection(e, grade.name, isSelected)
+                        return this.handleGradeSelection(e, grade.name, isSelected);
                     }
                 }}
             >
@@ -234,7 +234,7 @@ class ToxicityForm extends Component {
                     {gradeDescription}
                 </div>
             </div>
-        )
+        );
     }
 
     /*
@@ -247,15 +247,15 @@ class ToxicityForm extends Component {
         return (
             <div key={attribution.name} className="tooltip-toxicity-form">
                 <span id={attribution.name} className={tooltipClass}>{attribution.description}</span>
-                <SingleChoiceButton 
-                        buttonKey={i}
-                        buttonText={attribution.name}
-                        onClick={ (e) => this.handleAttributionSelection(attribution, isSelected)}
-                        isSelected={isSelected}
-                        marginSize={marginSize}
+                <SingleChoiceButton
+                    buttonKey={i}
+                    buttonText={attribution.name}
+                    onClick={ (e) => this.handleAttributionSelection(attribution, isSelected)}
+                    isSelected={isSelected}
+                    marginSize={marginSize}
                 />
             </div>
-        )
+        );
     }
 
     render() {
@@ -268,36 +268,36 @@ class ToxicityForm extends Component {
             onChange: this.handleUpdateAdverseEventInput
         };
 
-        if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0){
+        if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0) {
             let topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
                 return toxicityLookup.findAdverseEvent(adverseEvent);
             });
             topAdverseEventSection = (
-            <div className="btn-group-adverse-event">
-                {topAdverseEventObjects.map((adverseEvent, i) => {
-                    if (adverseEvent.description === null) {
-                        return "";
-                    }
-                    const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
-                    const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
-                    return (
-                        <div key={adverseEvent.name} className="tooltip-toxicity-form">
-                            <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
-                            <SingleChoiceButton 
+                <div className="btn-group-adverse-event">
+                    {topAdverseEventObjects.map((adverseEvent, i) => {
+                        if (adverseEvent.description === null) {
+                            return "";
+                        }
+                        const tooltipClass = (adverseEvent.description.length > 100) ? "tooltiptext large" : "tooltiptext";
+                        const isSelected = this.currentlySelectedAdverseEvent(adverseEvent);
+                        return (
+                            <div key={adverseEvent.name} className="tooltip-toxicity-form">
+                                <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
+                                <SingleChoiceButton
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
                                     onClick={ (e) => this.handleAdverseEventSelection(adverseEvent.name)}
                                     isSelected={isSelected}
                                     marginSize={marginSize}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
-            )
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+            );
         }
 
-        let gradesToDisplay = this.state.gradeOptions
+        let gradesToDisplay = this.state.gradeOptions;
         if (!Lang.isUndefined(this.props.gradesToDisplay)) {
             gradesToDisplay = this.state.gradeOptions.filter((g, i) => {
                 return (this.props.gradesToDisplay.includes(i+1));
@@ -331,7 +331,7 @@ class ToxicityForm extends Component {
                     {
                         gradesToDisplay.map((grade, i) => {
                             if (Lang.isUndefined(potentialToxicity.adverseEvent)) {
-                                return this.renderGradeMenuItem(grade)
+                                return this.renderGradeMenuItem(grade);
                             } else {
                                 return this.renderGradeMenuItem(grade, potentialToxicity.adverseEvent);
                             }
@@ -383,12 +383,12 @@ class ToxicityForm extends Component {
     }
 }
 
-ToxicityForm.proptypes = {
+ToxicityForm.propTypes = {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired,
     gradesToDisplay: PropTypes.array,
     gradesPrompt: PropTypes.string,
     topAdverseEvents: PropTypes.array
-}
+};
 
 export default ToxicityForm;

@@ -2,7 +2,7 @@ import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
-import moment from 'moment';
+import Reference from '../Reference';
 import Lang from 'lodash';
 
 class FluxClinicalNote {
@@ -12,20 +12,20 @@ class FluxClinicalNote {
         this._entryInfo.entryId = json['EntryId'];
         this._entryInfo.entryType = new EntryType();
         this._entryInfo.entryType.value = "http://standardhealthrecord.org/spec/shr/core/ClinicalNote";
-        let today = new moment().format("D MMM YYYY");
-        this._entryInfo.creationTime = new CreationTime();
-        this._entryInfo.creationTime.dateTime = today;
-        this._entryInfo.lastUpdated = new LastUpdated();
-        this._entryInfo.lastUpdated.instant = today;
         if (json.signedOn) this._signedOn = json.signedOn;
         if (json.subject) this._subject = json.subject;
         if (json.hospital) this._hospital = json.hospital;
         if (json.createdBy) this._createdBy = json.createdBy;
         if (json.signedBy) this._signedBy = json.signedBy;
-        if (json.CreationTime) this._entryInfo.creationTime = json.CreationTime;
+        if (json.CreationTime) this._entryInfo.creationTime = CreationTime.fromJSON(json.CreationTime);
+        if (json.LastUpdated) this._entryInfo.lastUpdated = LastUpdated.fromJSON(json.LastUpdated);
         // Ensures even empty strings result in content definition
         if (json.content || json.content === "") this._content = json.content;
         if (!Lang.isUndefined(json.signed)) this._signed = json.signed;
+        if (json.DocumentedEncounter) {
+            const { _ShrId, _EntryId, _EntryType } = json.DocumentedEncounter;
+            this._documentedEncounter = new Reference(_ShrId, _EntryId, _EntryType);
+        }
     }
     /**
      * Getter for entry information (shr.base.Entry)
@@ -40,7 +40,7 @@ class FluxClinicalNote {
     set entryInfo(entryVal) {
         this._entryInfo = entryVal;
     }
-    
+
     get signedOn() {
         return this._signedOn;
     }
@@ -92,17 +92,18 @@ class FluxClinicalNote {
     set content(val) {
         this._content = val;
     }
-    
+
     get signed() {
         return this._signed;
     }
-    
+
     set signed(val) {
         this._signed = val;
     }
 
     toJSON() {
-        let clinicalNoteJSON = {};
+        const clinicalNoteJSON = {};
+
         clinicalNoteJSON.ShrId = this.entryInfo.shrId;
         clinicalNoteJSON.EntryId = this.entryInfo.entryId;
         clinicalNoteJSON.EntryType = this.entryInfo.entryType.toJSON();
@@ -116,6 +117,8 @@ class FluxClinicalNote {
         clinicalNoteJSON.CreationTime = this.entryInfo.creationTime;
         clinicalNoteJSON.LastUpdated = this.entryInfo.lastUpdated;
         clinicalNoteJSON.signed = this.signed;
+        if (this._documentedEncounter) clinicalNoteJSON.DocumentedEncounter = this._documentedEncounter.toJSON();
+
         return clinicalNoteJSON;
     }
 }

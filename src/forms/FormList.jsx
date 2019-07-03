@@ -10,7 +10,7 @@ class FormList extends Component {
         this._newShortcut = this._newShortcut.bind(this);
         this.state = {
             disabledElement: "About Flux Notes™ Lite"
-        }
+        };
     }
 
     _newShortcut(e, index, shortcutName) {
@@ -55,8 +55,8 @@ class FormList extends Component {
                                     className={classValue}
                                     disableTypography={true}
                                     onTouchTap={ (e) => {
-                                        this._onTouchTap(e, shortcutName)
-                                        this._newShortcut(e, i, shortcutName)}
+                                        this._onTouchTap(e, shortcutName);
+                                        this._newShortcut(e, i, shortcutName); }
                                     }
                                 />
                             </ListItem>
@@ -64,14 +64,14 @@ class FormList extends Component {
                     })}
                 </List>
             </div>
-        )
+        );
     }
 }
 
-FormList.proptypes = {
+FormList.propTypes= {
     shortcuts: PropTypes.array.isRequired,
     currentShortcut: PropTypes.object,
     changeShortcut: PropTypes.func.isRequired
-}
+};
 
 export default FormList;

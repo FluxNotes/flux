@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 import Observation from './Observation';
 
@@ -171,7 +176,8 @@ class LaboratoryObservation extends Observation {
    * @returns {LaboratoryObservation} An instance of LaboratoryObservation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new LaboratoryObservation();
+    const klass = ClassRegistry.get('shr.base', 'LaboratoryObservation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -254,6 +260,7 @@ class LaboratoryObservation extends Observation {
    * Deserializes FHIR JSON data to an instance of the LaboratoryObservation class.
    * The FHIR must be valid against the LaboratoryObservation FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -261,60 +268,61 @@ class LaboratoryObservation extends Observation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {LaboratoryObservation} An instance of LaboratoryObservation populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new LaboratoryObservation();
-    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
-    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
-    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
-    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/base/LaboratoryObservation');
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.base', 'LaboratoryObservation');
+    const inst = new klass();
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/base/LaboratoryObservation', 'uri');
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], 'id', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['meta']['lastUpdated'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
-        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
       }
       for (const fhir_meta_security of fhir['meta']['security'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
         inst.metadata.securityLabel = inst.metadata.securityLabel || [];
-        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
         inst.metadata.securityLabel.push(inst_metadata_securityLabel);
       }
       for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
         inst.metadata.tag = inst.metadata.tag || [];
-        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
         inst.metadata.tag.push(inst_metadata_tag);
       }
     }
     if (fhir['language'] != null) {
-      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['text'] != null) {
-      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], 'Narrative', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-SpecificFocusOfFinding-extension') {
-        inst.specificFocusOfFinding = FHIRHelper.createInstanceFromFHIR('shr.base.SpecificFocusOfFinding', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.specificFocusOfFinding = FHIRHelper.createInstanceFromFHIR('shr.base.SpecificFocusOfFinding', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (fhir['status'] != null) {
-      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['status'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingStatus = FHIRHelper.createInstanceFromFHIR('shr.base.FindingStatus', fhir['status'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['category'] != null) {
-      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.category = FHIRHelper.createInstanceFromFHIR('shr.core.Category', fhir['category'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
-      inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['subject'] != null) {
       const entryId = fhir['subject']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Patient', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
         }
       }
       inst.patient = mappedResources[entryId];
@@ -324,53 +332,53 @@ class LaboratoryObservation extends Observation {
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.encounter.Encounter', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
         }
       }
       inst.encounter = mappedResources[entryId];
     }
     if (fhir['effectiveDateTime'] != null) {
-      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectiveDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.relevantTime = FHIRHelper.createInstanceFromFHIR('shr.base.RelevantTime', fhir['effectiveDateTime'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueCodeableConcept'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueCodeableConcept'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueQuantity'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueQuantity'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueQuantity'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueString'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueString'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueString'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueRange'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueRange'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueRange'], 'Range', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueRatio'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueRatio'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueRatio'], 'Ratio', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueTime'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueTime'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueTime'], 'time', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['valueDateTime'] != null) {
-      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir['valueDateTime'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['dataAbsentReason'] != null) {
-      inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir['dataAbsentReason'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['interpretation'] != null) {
-      inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir['interpretation'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.interpretation = FHIRHelper.createInstanceFromFHIR('shr.base.Interpretation', fhir['interpretation'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['comments'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comments'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['comments'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['method'] != null) {
-      inst.findingMethod = FHIRHelper.createInstanceFromFHIR('shr.base.FindingMethod', fhir['method'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.findingMethod = FHIRHelper.createInstanceFromFHIR('shr.base.FindingMethod', fhir['method'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['specimen'] != null) {
       const entryId = fhir['specimen']['reference'];
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Specimen', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Specimen', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
         }
       }
       inst.specimen = mappedResources[entryId];
@@ -380,34 +388,34 @@ class LaboratoryObservation extends Observation {
       if (!mappedResources[entryId]) {
         const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
         if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Device', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.entity.Device', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
         }
       }
       inst.device = mappedResources[entryId];
     }
     if (fhir['referenceRange'] != null && fhir['referenceRange'][0] != null) {
-      inst.referenceRange = FHIRHelper.createInstanceFromFHIR('shr.base.ReferenceRange', fhir['referenceRange'][0], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.referenceRange = FHIRHelper.createInstanceFromFHIR('shr.base.ReferenceRange', fhir['referenceRange'][0], 'BackboneElement', shrId, allEntries, mappedResources, referencesOut, false);
       if (fhir['referenceRange'][0]['low'] != null) {
-        inst.referenceRange.range = inst.referenceRange.range || FHIRHelper.createInstanceFromFHIR('shr.core.Range', {}, shrId);
-        inst.referenceRange.range.lowerBound = FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', fhir['referenceRange'][0]['low'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.referenceRange.range = inst.referenceRange.range || FHIRHelper.createInstanceFromFHIR('shr.core.Range', {}, null, shrId);
+        inst.referenceRange.range.lowerBound = FHIRHelper.createInstanceFromFHIR('shr.core.LowerBound', fhir['referenceRange'][0]['low'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['referenceRange'][0]['high'] != null) {
-        inst.referenceRange.range = inst.referenceRange.range || FHIRHelper.createInstanceFromFHIR('shr.core.Range', {}, shrId);
-        inst.referenceRange.range.upperBound = FHIRHelper.createInstanceFromFHIR('shr.core.UpperBound', fhir['referenceRange'][0]['high'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.referenceRange.range = inst.referenceRange.range || FHIRHelper.createInstanceFromFHIR('shr.core.Range', {}, null, shrId);
+        inst.referenceRange.range.upperBound = FHIRHelper.createInstanceFromFHIR('shr.core.UpperBound', fhir['referenceRange'][0]['high'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['referenceRange'][0]['meaning'] != null) {
-        inst.referenceRange.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['referenceRange'][0]['meaning'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst.referenceRange.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['referenceRange'][0]['meaning'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     if (fhir['related'] != null && fhir['related'][0] != null) {
-      inst.panelMembers = FHIRHelper.createInstanceFromFHIR('shr.base.PanelMembers', fhir['related'][0], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.panelMembers = FHIRHelper.createInstanceFromFHIR('shr.base.PanelMembers', fhir['related'][0], 'BackboneElement', shrId, allEntries, mappedResources, referencesOut, false);
       if (fhir['related'][0]['target'] != null) {
         inst.panelMembers.observation = inst.panelMembers.observation || [];
         const entryId = fhir['related'][0]['target']['reference'];
         if (!mappedResources[entryId]) {
           const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
           if (referencedEntry) {
-            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.base.Observation', referencedEntry['resource'], shrId, allEntries, mappedResources, referencesOut);
+            mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.base.Observation', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
           }
         }
         let inst_panelMembers_observation;
@@ -423,37 +431,37 @@ class LaboratoryObservation extends Observation {
     }
     for (const fhir_component of fhir['component'] || []) {
       inst.nonIndependentFinding = inst.nonIndependentFinding || [];
-      const inst_nonIndependentFinding = FHIRHelper.createInstanceFromFHIR('shr.base.NonIndependentFinding', fhir_component, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_nonIndependentFinding = FHIRHelper.createInstanceFromFHIR('shr.base.NonIndependentFinding', fhir_component, 'BackboneElement', shrId, allEntries, mappedResources, referencesOut, false);
       inst.nonIndependentFinding.push(inst_nonIndependentFinding);
       if (fhir_component['code'] != null) {
-        inst_nonIndependentFinding.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir_component['code'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir_component['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueCodeableConcept'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueCodeableConcept'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueCodeableConcept'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueQuantity'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueQuantity'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueQuantity'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueString'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueString'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueString'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueRange'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueRange'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueRange'], 'Range', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueRatio'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueRatio'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueRatio'], 'Ratio', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueTime'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueTime'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueTime'], 'time', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['valueDateTime'] != null) {
-        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueDateTime'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_component['valueDateTime'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_component['dataAbsentReason'] != null) {
-        inst_nonIndependentFinding.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir_component['dataAbsentReason'], shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir_component['dataAbsentReason'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
       for (const fhir_component_referenceRange of fhir_component['referenceRange'] || []) {
-        inst_nonIndependentFinding.referenceRange = FHIRHelper.createInstanceFromFHIR('shr.base.ReferenceRange', fhir_component_referenceRange, shrId, allEntries, mappedResources, referencesOut, false);
+        inst_nonIndependentFinding.referenceRange = FHIRHelper.createInstanceFromFHIR('shr.base.ReferenceRange', fhir_component_referenceRange, 'BackboneElement', shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     return inst;

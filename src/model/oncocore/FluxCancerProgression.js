@@ -1,9 +1,8 @@
-import lookup from '../../lib/progression_lookup.jsx';
+import * as lookup from '../../lib/progression_lookup.jsx';
 import CancerProgression from './CancerProgression';
 import FluxEntry from '../base/FluxEntry';
 import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';
 import RelevantTime from '../shr/base/RelevantTime';
-import Entry from '../shr/base/Entry';
 import Reference from '../Reference';
 import EntryType from '../shr/base/EntryType';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
@@ -11,12 +10,15 @@ import Metadata from '../shr/base/Metadata.js';
 import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
 import FindingResult from '../shr/base/FindingResult.js';
 
+import ClassRegistry from '../ClassRegistry';
+
 export default class FluxCancerProgression extends FluxEntry {
     constructor(json) {
         super();
 
         this._entry = this._cancerProgression = CancerProgression.fromJSON(json);
         if (!this._cancerProgression.entryInfo) {
+            const Entry = ClassRegistry.get('shr.base', 'Entry');
             let entry = new Entry();
             entry.entryType = new EntryType();
             entry.entryType.uri = 'http://standardhealthrecord.org/spec/oncocore/CancerProgression';

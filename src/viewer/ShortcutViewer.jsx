@@ -5,9 +5,9 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from '../elements/Button';
 import LandingPageForm from '../forms/LandingPageForm';
 /* eslint-disable no-unused-vars */
-import * as forms from '../forms'
+import * as forms from '../forms';
 /* eslint-enable no-unused-vars */
-import Lang from 'lodash'
+import Lang from 'lodash';
 import './ShortcutViewer.css';
 
 class ShortcutViewer extends Component {
@@ -73,7 +73,7 @@ class ShortcutViewer extends Component {
         if (!Lang.isNull(this.props.currentShortcut)) {
             //panelContent = this.props.currentShortcut.getForm();
             const formSpec = this.props.currentShortcut.getFormSpec();
-            const currentForm = forms[formSpec.tagName]
+            const currentForm = forms[formSpec.tagName];
             panelContent = React.createElement(currentForm, formSpec.props, formSpec.children);
         } else {
             panelContent = this._getInitialState();
@@ -88,12 +88,12 @@ class ShortcutViewer extends Component {
                     {copyComponent}
                 </div>
             </div>
-        )
+        );
     }
 }
 
-ShortcutViewer.proptypes = { 
+ShortcutViewer.propTypes = {
     currentShortcut: PropTypes.object,
     onShortcutUpdate: PropTypes.func.isRequired
-}
+};
 export default ShortcutViewer;

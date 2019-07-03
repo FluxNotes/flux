@@ -1,0 +1,23 @@
+@import "../styles/variables";
+
+#search-container {
+    font-size: $size-m;
+    color: $state;
+    text-align: left;
+    position: relative;
+    display: inline-flex;
+    align-items: flex-end;
+    width: 100%;
+    .search-icon {
+        margin-right: 5px;
+        padding-bottom: 10px;
+    }
+    .search-text {
+        // This should be the width of the search-bars container, minus the size of the icon
+        width: calc(100% - 25px);
+        font-size: $size-m;
+        color: $state;
+    }
+}
+
+

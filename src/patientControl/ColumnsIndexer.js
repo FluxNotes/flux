@@ -17,7 +17,7 @@ class ColumnIndexer extends BaseIndexer {
                         valueTitle: subsectionDescriptor.headings[columnNumber],
                         value: col.value || "Missing Data",
                         onHighlight
-                    });    
+                    });
                 });
             });
         } else {

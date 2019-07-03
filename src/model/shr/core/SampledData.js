@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.SampledData.
@@ -195,7 +200,8 @@ class SampledData {
    * @returns {SampledData} An instance of SampledData populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new SampledData();
+    const klass = ClassRegistry.get('shr.core', 'SampledData');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -235,6 +241,7 @@ class SampledData {
    * Deserializes FHIR JSON data to an instance of the SampledData class.
    * The FHIR must be valid against the SampledData FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -242,28 +249,29 @@ class SampledData {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {SampledData} An instance of SampledData populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new SampledData();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'SampledData');
+    const inst = new klass();
     if (fhir['origin'] != null) {
-      inst.origin = FHIRHelper.createInstanceFromFHIR('shr.core.Origin', fhir['origin'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.origin = FHIRHelper.createInstanceFromFHIR('shr.core.Origin', fhir['origin'], 'Quantity', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
-      inst.millisecondsBetweenSamples = FHIRHelper.createInstanceFromFHIR('shr.core.MillisecondsBetweenSamples', fhir['period'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.millisecondsBetweenSamples = FHIRHelper.createInstanceFromFHIR('shr.core.MillisecondsBetweenSamples', fhir['period'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['factor'] != null) {
-      inst.correctionFactor = FHIRHelper.createInstanceFromFHIR('shr.core.CorrectionFactor', fhir['factor'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.correctionFactor = FHIRHelper.createInstanceFromFHIR('shr.core.CorrectionFactor', fhir['factor'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['lowerLimit'] != null) {
-      inst.lowerLimit = FHIRHelper.createInstanceFromFHIR('shr.core.LowerLimit', fhir['lowerLimit'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.lowerLimit = FHIRHelper.createInstanceFromFHIR('shr.core.LowerLimit', fhir['lowerLimit'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['upperLimit'] != null) {
-      inst.upperLimit = FHIRHelper.createInstanceFromFHIR('shr.core.UpperLimit', fhir['upperLimit'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.upperLimit = FHIRHelper.createInstanceFromFHIR('shr.core.UpperLimit', fhir['upperLimit'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['dimensions'] != null) {
-      inst.dimensions = FHIRHelper.createInstanceFromFHIR('shr.core.Dimensions', fhir['dimensions'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.dimensions = FHIRHelper.createInstanceFromFHIR('shr.core.Dimensions', fhir['dimensions'], 'positiveInt', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['data'] != null) {
-      inst.dataAsString = FHIRHelper.createInstanceFromFHIR('shr.core.DataAsString', fhir['data'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.dataAsString = FHIRHelper.createInstanceFromFHIR('shr.core.DataAsString', fhir['data'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

@@ -11,11 +11,11 @@ import TreatmentOptionsOutcomes from '../../components/TreatmentOptionsOutcomes/
 
 import {
     initializeSimilarPatientProps,
-    selectSimilarPatientOption,
+    processSimilarPatientOutcomes,
     selectAllCategorySimilarPatientOptions,
     selectAllSimilarPatientOptions,
-    processSimilarPatientOutcomes,
-    selectTreatments
+    selectSimilarPatientOption,
+    selectSimilarPatientOptionRange,
 } from '../../../actions/mcode';
 
 import './TreatmentOptionsVisualizer.css';
@@ -24,22 +24,18 @@ import './TreatmentOptionsVisualizer.css';
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
         const { patient, condition, initializeSimilarPatientProps, processSimilarPatientOutcomes } = this.props;
-
         initializeSimilarPatientProps(patient, condition);
         processSimilarPatientOutcomes();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.similarPatientProps !== this.props.similarPatientProps ||
-            nextProps.includedTreatments !== this.props.includedTreatments ||
-            nextProps.comparedTreatments !== this.props.comparedTreatments
-          ) {
+        if (nextProps.similarPatientProps !== this.props.similarPatientProps) {
             this.props.processSimilarPatientOutcomes();
         }
     }
 
     _renderedSimilarPatientsSubtitle(numPatients) {
-        return ( 
+        return (
             <div>
                 <span className="bold">{numPatients}</span> patients
             </div>
@@ -50,18 +46,15 @@ export class TreatmentOptionsVisualizer extends Component {
         const {
             condition,
             patient,
+            selectAllCategorySimilarPatientOptions,
+            selectAllSimilarPatientOptions,
+            selectSimilarPatientOption,
+            selectSimilarPatientOptionRange,
             similarPatientProps,
+            similarPatientTreatments,
+            similarPatientTreatmentsData,
             totalPatients,
             totalSimilarPatients,
-            similarPatientTreatments,
-            includedTreatments,
-            includedTreatmentData,
-            comparedTreatments,
-            comparedTreatmentData,
-            selectSimilarPatientOption,
-            selectAllSimilarPatientOptions,
-            selectAllCategorySimilarPatientOptions,
-            selectTreatments
         } = this.props;
         return (
             <div className="treatment-options-visualizer">
@@ -78,6 +71,7 @@ export class TreatmentOptionsVisualizer extends Component {
                         condition={condition}
                         similarPatientProps={similarPatientProps}
                         selectSimilarPatientOption={selectSimilarPatientOption}
+                        selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
                         selectAllCategorySimilarPatientOptions={selectAllCategorySimilarPatientOptions}
                         selectAllSimilarPatientOptions={selectAllSimilarPatientOptions}
                     />
@@ -85,11 +79,7 @@ export class TreatmentOptionsVisualizer extends Component {
 
                 <TreatmentOptionsOutcomes
                     similarPatientTreatments={similarPatientTreatments}
-                    includedTreatments={includedTreatments}
-                    includedTreatmentData={includedTreatmentData}
-                    comparedTreatments={comparedTreatments}
-                    comparedTreatmentData={comparedTreatmentData}
-                    selectTreatments={selectTreatments}
+                    similarPatientTreatmentsData={similarPatientTreatmentsData}
                 />
             </div>
         );
@@ -98,44 +88,38 @@ export class TreatmentOptionsVisualizer extends Component {
 
 TreatmentOptionsVisualizer.propTypes = {
     condition: PropTypes.object.isRequired,
-    patient: PropTypes.object.isRequired,
-    similarPatientProps: PropTypes.object.isRequired,
-    totalPatients: PropTypes.number.isRequired,
-    totalSimilarPatients: PropTypes.number.isRequired,
-    similarPatientTreatments: PropTypes.array.isRequired,
-    includedTreatments: PropTypes.array.isRequired,
-    includedTreatmentData: PropTypes.array.isRequired,
-    comparedTreatments: PropTypes.array.isRequired,
-    comparedTreatmentData: PropTypes.array.isRequired,
     initializeSimilarPatientProps: PropTypes.func.isRequired,
-    selectSimilarPatientOption: PropTypes.func.isRequired,
+    patient: PropTypes.object.isRequired,
+    processSimilarPatientOutcomes: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
-    processSimilarPatientOutcomes: PropTypes.func.isRequired,
-    selectTreatments: PropTypes.func.isRequired
-}
+    selectSimilarPatientOption: PropTypes.func.isRequired,
+    selectSimilarPatientOptionRange: PropTypes.func.isRequired,
+    similarPatientProps: PropTypes.object.isRequired,
+    similarPatientTreatments: PropTypes.array.isRequired,
+    similarPatientTreatmentsData: PropTypes.array.isRequired,
+    totalPatients: PropTypes.number.isRequired,
+    totalSimilarPatients: PropTypes.number.isRequired,
+};
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         initializeSimilarPatientProps,
-        selectSimilarPatientOption,
+        processSimilarPatientOutcomes,
         selectAllCategorySimilarPatientOptions,
         selectAllSimilarPatientOptions,
-        processSimilarPatientOutcomes,
-        selectTreatments
+        selectSimilarPatientOption,
+        selectSimilarPatientOptionRange,
     }, dispatch);
 }
 
 function mapStateToProps(state) {
     return {
         similarPatientProps: state.mcode.similarPatientProps,
+        similarPatientTreatments: state.mcode.similarPatientTreatments,
+        similarPatientTreatmentsData: state.mcode.similarPatientTreatmentsData,
         totalPatients: state.mcode.totalPatients,
         totalSimilarPatients: state.mcode.totalSimilarPatients,
-        similarPatientTreatments: state.mcode.similarPatientTreatments,
-        includedTreatments: state.mcode.includedTreatments,
-        includedTreatmentData: state.mcode.includedTreatmentData,
-        comparedTreatments: state.mcode.comparedTreatments,
-        comparedTreatmentData: state.mcode.comparedTreatmentData
     };
 }
 

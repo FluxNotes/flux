@@ -29,7 +29,7 @@
         padding: 0;
         height: 12px;
         width: 0;
-        background-color: $state;
+        background-color: $icons-gray;
     }
 
     .prog-fill-empty {
@@ -37,8 +37,8 @@
         border-color: $line-gray;
         border-width:1px 1px 1px 0;
         flex-grow:100;
-
     }
+
     .tiny-arrow {
         opacity: 0.75;
         padding-right: 2px;
@@ -50,23 +50,34 @@
 
     .prog-fill.decrease {
         background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                $table-light-red 2px,
-                $table-light-red 4px
-              ),
-              linear-gradient(
-                to bottom,
-                $state,
-                $state
-              )
+            45deg,
+            transparent,
+            transparent 2px,
+            $table-light-red 2px,
+            $table-light-red 4px
+        ),
+        linear-gradient(
+            to bottom,
+            $state,
+            $state
+        )
     }
 
     .bar-chart-text.increase {
         color:$table-dark-green;
     }
+
     .bar-chart-text.decrease {
         color: $table-dark-red;
+    }
+
+    @media (max-width: 1024px) {
+        .progress-bar { 
+            width: 80px;
+        }
+
+        .right-text {
+            padding-right: 20px;
+        }
     }
 }

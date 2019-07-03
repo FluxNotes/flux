@@ -6,20 +6,20 @@ import './PointOfCare.css';
 
 export default class PointOfCare extends Component {
     render() {
-        const { structuredFieldMapManager } = this.props;
+        const {placeholders} = this.props;
         const pocDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
 
         this.fillPlaceholders = {};
-        const result = structuredFieldMapManager.placeholders.map((placeholder, index) => (
-                <Row key={index}>
-                    <Col xs>
-                        <FillPlaceholder 
-                            placeholder={placeholder} 
-                            backgroundColor={(((index + 1) % 2) === 0) ? '#f8f8f8' : ''}
-                            ref={(fph) => { this.fillPlaceholders[placeholder.shortcutName] = fph; }} />
-                    </Col>
-                </Row>
-            ));
+        const result = placeholders.map((placeholder, index) => (
+            <Row key={index}>
+                <Col xs>
+                    <FillPlaceholder
+                        placeholder={placeholder}
+                        backgroundColor={(((index + 1) % 2) === 0) ? '#f8f8f8' : ''}
+                        ref={(fph) => { this.fillPlaceholders[placeholder.shortcutName] = fph; }} />
+                </Col>
+            </Row>
+        ));
 
         return (
             <div id="poc-panel" className={pocDisabledClass}>
@@ -39,5 +39,5 @@ export default class PointOfCare extends Component {
 }
 
 PointOfCare.propTypes = {
-    structuredFieldMapManager: PropTypes.object.isRequired,
+    placeholders: PropTypes.array.isRequired
 };

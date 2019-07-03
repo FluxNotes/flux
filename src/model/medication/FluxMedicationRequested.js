@@ -1,8 +1,5 @@
-import MedicationRequested from '../shr/medication/MedicationRequested';
 import Medication from '../shr/entity/Medication';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import TimePeriod from '../shr/core/TimePeriod';
 import BeginDateTime from '../shr/core/BeginDateTime';
 import EndDateTime from '../shr/core/EndDateTime';
@@ -11,17 +8,17 @@ import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
 import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
-import lookup from '../../lib/MedicationInformationService.jsx';
+import * as lookup from '../../lib/MedicationInformationService.jsx';
+import ClassRegistry from '../ClassRegistry';
 
 class FluxMedicationRequested extends FluxEntry {
     constructor(json) {
         super();
+        const MedicationRequested = ClassRegistry.get('shr.medication', 'MedicationRequested');
+
         this._entry = this._medicationRequested = MedicationRequested.fromJSON(json);
         if (!this._medicationRequested.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/medication/MedicationRequested';
-            this._medicationRequested.entryInfo = entry;
+            this._medicationRequested.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/medication/MedicationRequested');
         }
     }
 
@@ -55,7 +52,7 @@ class FluxMedicationRequested extends FluxEntry {
         if (this.expectedPerformanceTime) return this.expectedPerformanceTime.timePeriodStart;
 
         // fallback to statementDateTime in case expectedPerformanceTime isn't provided
-        // statementDateTime maps to dateWritten in FHIR and is required by the argonaut profile, 
+        // statementDateTime maps to dateWritten in FHIR and is required by the argonaut profile,
         //   so we expect it to always be present
         // both statementDateTime and expectedPerformanceTime.timePeriodStart have a value of type dateTime
         // so they should be interchangeable for our purposes
@@ -109,7 +106,7 @@ class FluxMedicationRequested extends FluxEntry {
     isActiveBetween(lowerDate, upperDate) {
         const start = new moment(this.startDate, "D MMM YYYY");
         const end = new moment(this.endDate, "D MMM YYYY");
-        
+
         // If the start date is in the future
         if (start && start > upperDate) return false;
 
@@ -263,7 +260,7 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get asNeededIndicator() {
-        if (!this._medicationRequested.dosage 
+        if (!this._medicationRequested.dosage
             || !this._medicationRequested.dosage.asNeededIndicator) {
             return null;
         }
@@ -271,7 +268,7 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get doseInstructionsText() {
-        if (!this._medicationRequested.dosage 
+        if (!this._medicationRequested.dosage
             || !this._medicationRequested.dosage.dosageInstructionsText) {
             return null;
         }

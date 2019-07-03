@@ -4,7 +4,7 @@ import './ContextItem.css';
 
 class ContextItem extends React.Component {
     /*
-     * When an item is clicked, close the portal and update contextPortal accordingly 
+     * When an item is clicked, close the portal and update contextPortal accordingly
      */
     onClick = (e) => {
         this.props.closePortal();
@@ -40,7 +40,7 @@ class ContextItem extends React.Component {
     }
 }
 
-ContextItem.propstype = { 
+ContextItem.propstype = {
     index: PropTypes.number.isRequired,
     context: PropTypes.object,
     selectedIndex: PropTypes.number.isRequired,
@@ -49,6 +49,6 @@ ContextItem.propstype = {
     onChange: PropTypes.func.isRequired,
     closePortal: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
-}
+};
 
-export default ContextItem
+export default ContextItem;

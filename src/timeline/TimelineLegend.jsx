@@ -4,7 +4,7 @@ import './TimelineLegend.css';
 
 class Legend extends Component {
     render() {
-        return(
+        return (
             <div className="legend">
                 {this.props.items.map((item, i) => {
                     return (
@@ -16,11 +16,11 @@ class Legend extends Component {
     }
 }
 
-Legend.propTypes = { 
-    items: PropTypes.arrayOf(PropTypes.shape({ 
+Legend.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape({
         icon: PropTypes.string,
         description: PropTypes.string
     })),
-} 
+};
 
 export default Legend;

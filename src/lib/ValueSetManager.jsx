@@ -1,6 +1,6 @@
-import stagingLookup from "../lib/tnmstage_lookup";
-import toxicityLookup from "../lib/toxicreaction_lookup";
-import progressionLookup from "../lib/progression_lookup";
+import * as stagingLookup from "../lib/tnmstage_lookup";
+import * as toxicityLookup from "../lib/toxicreaction_lookup";
+import * as progressionLookup from "../lib/progression_lookup";
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList';
 import { getReceptorValueOptions } from '../lib/receptor_lookup';
 

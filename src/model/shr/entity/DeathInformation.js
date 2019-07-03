@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.entity.DeathInformation.
@@ -114,7 +119,8 @@ class DeathInformation {
    * @returns {DeathInformation} An instance of DeathInformation populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new DeathInformation();
+    const klass = ClassRegistry.get('shr.entity', 'DeathInformation');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -143,6 +149,7 @@ class DeathInformation {
    * Deserializes FHIR JSON data to an instance of the DeathInformation class.
    * The FHIR must be valid against the DeathInformation FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -150,21 +157,22 @@ class DeathInformation {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {DeathInformation} An instance of DeathInformation populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new DeathInformation();
-    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {});
-    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId);
-    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid());
-    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/DeathInformation');
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.entity', 'DeathInformation');
+    const inst = new klass();
+    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
+    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
+    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
+    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/entity/DeathInformation', 'uri');
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-IsDeceased-extension') {
-        inst.isDeceased = FHIRHelper.createInstanceFromFHIR('shr.entity.IsDeceased', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.isDeceased = FHIRHelper.createInstanceFromFHIR('shr.entity.IsDeceased', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-DateOfDeath-extension') {
-        inst.dateOfDeath = FHIRHelper.createInstanceFromFHIR('shr.entity.DateOfDeath', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.dateOfDeath = FHIRHelper.createInstanceFromFHIR('shr.entity.DateOfDeath', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-entity-AgeAtDeath-extension') {
-        inst.ageAtDeath = FHIRHelper.createInstanceFromFHIR('shr.entity.AgeAtDeath', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.ageAtDeath = FHIRHelper.createInstanceFromFHIR('shr.entity.AgeAtDeath', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     return inst;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ValueSetManager from '../../lib/ValueSetManager';
 import SingleChoiceButton from '../../forms/SingleChoiceButton';
-import toxicityLookup from '../../lib/toxicreaction_lookup';
+import * as toxicityLookup from '../../lib/toxicreaction_lookup';
 import Lang from 'lodash';
 import { Row, Col } from 'react-flexbox-grid';
 import Autosuggest from 'react-autosuggest';
@@ -82,7 +82,7 @@ class SearchableListForPlaceholder extends Component {
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
             const nameNoSpaces = (Lang.isEmpty(event.nameNoSpaces)) ? "" : event.nameNoSpaces;
             const descriptionNoSpaces = (Lang.isEmpty(event.descriptionNoSpaces)) ? "" : event.descriptionNoSpaces;
-            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0)
+            return (nameNoSpaces.toLowerCase().indexOf(inputValue) >= 0 || descriptionNoSpaces.toLowerCase().indexOf(inputValue) >= 0);
         }).slice(0, 7);
     }
 
@@ -130,8 +130,8 @@ class SearchableListForPlaceholder extends Component {
         );
     }
 
-    /* 
-     * Formatting function for AutoSuggest input bar to match background color 
+    /*
+     * Formatting function for AutoSuggest input bar to match background color
      */
     formatInput = inputProps => {
         let inputClassName = "";
@@ -182,7 +182,7 @@ class SearchableListForPlaceholder extends Component {
                                     marginSize={marginSize}
                                 />
                             </div>
-                        )
+                        );
                     })}
                 </div>
             );

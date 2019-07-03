@@ -1,0 +1,13 @@
+@import "../styles/variables";
+
+.snippet {
+  margin: 5px 0 5px $note-assistant-overhang;
+  font-size: $size-m;
+  color: $body-gray;
+  cursor: pointer;
+
+  &:hover {
+    color: $body-gray;
+    font-weight: $weight-semibold;
+  }
+}

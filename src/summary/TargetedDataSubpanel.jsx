@@ -67,13 +67,13 @@ export default class TargetedDataSubpanel extends Component {
                 currentEntry._patientRecord = null;
                 accumulator.push({
                     srcIndex: currentIndex,
-                    patientRecordCopy : copyOfPatientRecord
+                    patientRecordCopy: copyOfPatientRecord
                 });
             }
             return accumulator;
         }, []);
         // Only update local value when a change occurs on non-note related objects, or a new number of notes.
-        const changesToRelevantEntries = !_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries)
+        const changesToRelevantEntries = !_.isEqual(this._relevantPatientEntries, newRelevantPatientEntries);
         // Update our local entries if updated
         if (changesToRelevantEntries) {
             this._relevantPatientEntries = _.cloneDeep(newRelevantPatientEntries);
@@ -99,7 +99,7 @@ export default class TargetedDataSubpanel extends Component {
 
         // Case 3: ClinicalEvent
         const newClinicalEvent = nextProps.clinicalEvent;
-        const changesToClinicalEvent = (this._clinicalEvent !== newClinicalEvent)
+        const changesToClinicalEvent = (this._clinicalEvent !== newClinicalEvent);
         if (changesToClinicalEvent) {
             this._clinicalEvent = newClinicalEvent;
         }
@@ -113,13 +113,13 @@ export default class TargetedDataSubpanel extends Component {
 
         // Case 5: Condition string changes: need string representation
         const newConditionCodeSystem = nextProps.condition.codeSystem;
-        const newConditionCode = nextProps.condition.code
+        const newConditionCode = nextProps.condition.code;
         // May not be human readable, but is a unique identifier and that's all we need here.
         const newConditionString = `${newConditionCodeSystem}${newConditionCode}`;
         // const changesToConditionString = false;
-        const changesToConditionString = (this._currentConditionString !== newConditionString)
+        const changesToConditionString = (this._currentConditionString !== newConditionString);
         if (changesToConditionString) {
-            this._currentConditionString = newConditionString
+            this._currentConditionString = newConditionString;
         }
 
         // Case 6: allowItemClick
@@ -130,7 +130,7 @@ export default class TargetedDataSubpanel extends Component {
         }
 
         // Case 7: forceRefresh
-        const changesToForceRefresh = (this._forceRefresh === false && nextProps.forceRefresh === true)
+        const changesToForceRefresh = (this._forceRefresh === false && nextProps.forceRefresh === true);
         if (changesToForceRefresh) {
             this.props.setForceRefresh(false);
         }
@@ -151,7 +151,7 @@ export default class TargetedDataSubpanel extends Component {
     renderSections() {
         const { clinicalEvent, patient, condition, allowItemClick, isWide, actions, conditionMetadata, sectionsToDisplay } = this.props;
 
-        if (conditionMetadata == null) return null;
+        if (conditionMetadata===null) return null;
 
         return sectionsToDisplay.filter((section, i) => {
             return !section.clinicalEvents || section.clinicalEvents.includes(clinicalEvent);

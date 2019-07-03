@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.OccurrenceTimeOrPeriod.
@@ -39,7 +44,8 @@ class OccurrenceTimeOrPeriod {
    * @returns {OccurrenceTimeOrPeriod} An instance of OccurrenceTimeOrPeriod populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new OccurrenceTimeOrPeriod();
+    const klass = ClassRegistry.get('shr.core', 'OccurrenceTimeOrPeriod');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -61,6 +67,7 @@ class OccurrenceTimeOrPeriod {
    * Deserializes FHIR JSON data to an instance of the OccurrenceTimeOrPeriod class.
    * The FHIR must be valid against the OccurrenceTimeOrPeriod FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -68,12 +75,13 @@ class OccurrenceTimeOrPeriod {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {OccurrenceTimeOrPeriod} An instance of OccurrenceTimeOrPeriod populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new OccurrenceTimeOrPeriod();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'OccurrenceTimeOrPeriod');
+    const inst = new klass();
     if (asExtension) {
     }
     if (!asExtension && fhir != null) {
-      inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, shrId, allEntries, mappedResources, referencesOut);
+      inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }

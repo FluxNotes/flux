@@ -1,10 +1,8 @@
 import ToxicAdverseDrugReaction from '../shr/adverse/ToxicAdverseDrugReaction';
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
 import Reference from '../Reference';
 import AdverseEventCondition from '../shr/adverse/AdverseEventCondition';
 import Seriousness from '../shr/adverse/Seriousness';
-import lookup from '../../lib/toxicreaction_lookup.jsx';
+import * as lookup from '../../lib/toxicreaction_lookup.jsx';
 import Type from '../shr/core/Type';
 import CausalAttribution from '../shr/adverse/CausalAttribution';
 import CauseCategory from '../shr/adverse/CauseCategory';
@@ -16,10 +14,7 @@ class FluxToxicAdverseDrugReaction extends FluxEntry {
         super();
         this._entry = this._toxicAdverseDrugReaction = ToxicAdverseDrugReaction.fromJSON(json);
         if (!this._toxicAdverseDrugReaction.entryInfo) {
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction';
-            this._toxicAdverseDrugReaction.entryInfo = entry;
+            this._toxicAdverseDrugReaction.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction');
         }
         this._patientRecord = patientRecord;
     }

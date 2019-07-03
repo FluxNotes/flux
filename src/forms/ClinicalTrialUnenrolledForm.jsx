@@ -62,14 +62,14 @@ class ClinicalTrialUnenrolledForm extends Component {
                     marginSize={marginSize}
                 />
             </div>
-        )
+        );
     }
 
     renderEndDatePicker = () => {
         return (
             <DatePicker id="end-date" className='clinical-trial-dates'
-                        handleDateChange={this.handleEndDateChange}
-                        dateToSet={null}
+                handleDateChange={this.handleEndDateChange}
+                dateToSet={null}
             />
         );
     }
@@ -88,7 +88,7 @@ class ClinicalTrialUnenrolledForm extends Component {
                 <div className="btn-group-trial-clinical-trial">
                     {
                         this.state.trials.map((trial, i) => {
-                            return this.renderTrialButtonGroup(trial, i)
+                            return this.renderTrialButtonGroup(trial, i);
                         })
                     }
                 </div>
@@ -108,7 +108,7 @@ class ClinicalTrialUnenrolledForm extends Component {
                 </p>
                 <p className="data-element-description">
                     Based on your selections below, the copy button at the bottom will copy a <a
-                    href="clinicalTrialUnenrolledSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
+                        href="clinicalTrialUnenrolledSheet.pdf" target="_blank">formatted phrase</a> to paste in your EHR.
                 </p>
 
                 <h4 className="header-spacing">Trial</h4>
@@ -121,13 +121,13 @@ class ClinicalTrialUnenrolledForm extends Component {
                     {endDateDescription}
                 </p>
             </div>
-        )
+        );
     }
 }
 
-ClinicalTrialUnenrolledForm.proptypes = {
+ClinicalTrialUnenrolledForm.propTypes= {
     updateValue: PropTypes.func.isRequired,
     object: PropTypes.object.isRequired
-}
+};
 
 export default ClinicalTrialUnenrolledForm;

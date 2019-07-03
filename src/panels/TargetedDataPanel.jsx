@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import TargetedDataSubpanel from '../summary/TargetedDataSubpanel';
 import Minimap from '../lib/react-minimap/react-minimap.js';
-import '../lib/react-minimap/react-minimap.css'
+import '../lib/react-minimap/react-minimap.css';
 import './TargetedDataPanel.css';
 
 export default class TargetedDataPanel extends Component {
     constructor(props) {
         super(props);
 
+        const conditionMetadata = this.getConditionMetadata(props.appState.condition);
+        const sectionsToDisplay = this.getSectionsToDisplay(conditionMetadata, props.appState.condition);
+
         this.state = {
-            sectionsToDisplay: []
+            sectionsToDisplay: sectionsToDisplay
         };
     }
 
@@ -57,12 +60,12 @@ export default class TargetedDataPanel extends Component {
     getConditionMetadata(condition = this.props.appState.condition) {
         const { loginUser } = this.props;
         const patient = this.props.appState.patient;
-        return this.props.summaryMetadata.getMetadata(  this.props.preferenceManager,
-                                                        patient,
-                                                        condition,
-                                                        loginUser.getRoleType(),
-                                                        loginUser.getRole(),
-                                                        loginUser.getSpecialty());
+        return this.props.summaryMetadata.getMetadata(this.props.preferenceManager,
+            patient,
+            condition,
+            loginUser.getRoleType(),
+            loginUser.getRole(),
+            loginUser.getSpecialty());
     }
 
     getSectionsToDisplay = (conditionMetadata, condition) => {
@@ -74,7 +77,8 @@ export default class TargetedDataPanel extends Component {
                 this.props.preferenceManager.setPreference('visibleSections', preferenceManagerVisibleSettings);
             }
             let currentSectionVisible = true;
-            const settingName = `${section.name}-${condition.codeURL}`;
+            const conditionURL = condition ? condition.codeURL : '';
+            const settingName = `${section.name}-${conditionURL}`;
             if (!_.isNull(preferenceManagerVisibleSettings) && !_.isUndefined(preferenceManagerVisibleSettings[settingName])) {
                 currentSectionVisible = preferenceManagerVisibleSettings[settingName];
             }
@@ -171,11 +175,11 @@ export default class TargetedDataPanel extends Component {
     }
 }
 
-TargetedDataPanel.proptypes = {
+TargetedDataPanel.propTypes = {
     actions: PropTypes.array.isRequired,
     appState: PropTypes.shape({
         patient: PropTypes.object.isRequired,
-        clinicalEvent: PropTypes.object.isRequired,
+        clinicalEvent: PropTypes.string.isRequired,
         condition: PropTypes.object,
     }).isRequired,
     forceRefresh: PropTypes.bool,
@@ -192,4 +196,4 @@ TargetedDataPanel.proptypes = {
     searchSuggestions: PropTypes.array,
     summaryMetadata: PropTypes.object.isRequired,
     targetedDataPanelSize: PropTypes.string.isRequired
-}
+};

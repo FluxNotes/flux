@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash'
+import Lang from 'lodash';
 
 export default class AllergiesSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -20,14 +20,14 @@ export default class AllergiesSection extends MetadataSection {
             ]
         };
     }
-    
+
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         const allergies = patient.getAllergyIntolerancesSortedBySeverity();
         return allergies.map((a) => {
-            return [    { value: a.name }, 
-                        { value: a.severity },
-                        { value: a.manifestation }];
+            return [    { value: a.name },
+                { value: a.severity },
+                { value: a.manifestation }];
         });
     }
 

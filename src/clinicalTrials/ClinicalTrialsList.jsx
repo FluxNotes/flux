@@ -1,4 +1,4 @@
-import CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
+import * as CQLExecutionEngine from '../lib/cql-execution/CQLExecutionEngine.js';
 import PALLAScql from '../lib/cql-execution/example/cql/PALLASEligibility.json';
 import PATINAcql from '../lib/cql-execution/example/cql/PatinaEligibility.json';
 import PALLAS_eligiblePatient from '../lib/cql-execution/example/patients/PALLASPatient.json';
@@ -52,20 +52,20 @@ class ClinicalTrialsList {
 
     static getDescription(dataElement) {
         switch (dataElement) {
-            case "clinicalTrialEnrollment":
-                return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
-            case "clinicalTrialUnenrolled":
-                return "Unenrolling from a clinical trial includes the title of a clinical trial and an end date."
-            case "trialEnrollment":
-                return "Clinical trial the patient is enrolled in.";
-            case "trialUnenrolled":
-                return "Clinical trial the patient unenrolled from.";
-            case "enrollmentDate":
-                return "Date the patient was enrolled in the chosen clinical trial.";
-            case "endDate":
-                return "Date the patient left the clinical trial.";
-            default:
-                return null;
+        case "clinicalTrialEnrollment":
+            return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
+        case "clinicalTrialUnenrolled":
+            return "Unenrolling from a clinical trial includes the title of a clinical trial and an end date.";
+        case "trialEnrollment":
+            return "Clinical trial the patient is enrolled in.";
+        case "trialUnenrolled":
+            return "Clinical trial the patient unenrolled from.";
+        case "enrollmentDate":
+            return "Date the patient was enrolled in the chosen clinical trial.";
+        case "endDate":
+            return "Date the patient left the clinical trial.";
+        default:
+            return null;
         }
     }
 
@@ -94,29 +94,29 @@ class ClinicalTrialsList {
 
 
     getMissingCriteriaListTrialEligibility(trialName) {
-            const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
-            const trial = this.getClinicalTrialByName(trialName.toLowerCase());
+        const patient_id = '3cb09ecb-e927-4946-82b3-89957e193215';
+        const trial = this.getClinicalTrialByName(trialName.toLowerCase());
 
-            // Ensuring that only existing trial names are passed into the CQL execution engine
-            if (trial) {
-                const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
-                const missingCriteria = result.patientResults[patient_id].findMissingData;
-                let missingFields = [];
-                for (let property in missingCriteria) {
-                    if (missingCriteria[property] === true) {
-                        missingFields.push(property);
-                    }
+        // Ensuring that only existing trial names are passed into the CQL execution engine
+        if (trial) {
+            const result = CQLExecutionEngine.getCQLResults(trial.inclusionCriteriaCQL, [PALLAS_eligiblePatient, PATINA_eligiblePatient]);
+            const missingCriteria = result.patientResults[patient_id].findMissingData;
+            let missingFields = [];
+            for (let property in missingCriteria) {
+                if (missingCriteria[property] === true) {
+                    missingFields.push(property);
                 }
-                return missingFields.concat(this.getClinicalTrialByName(trialName).additionalCriteria);
             }
-            return [];
+            return missingFields.concat(this.getClinicalTrialByName(trialName).additionalCriteria);
+        }
+        return [];
     }
 
     getClinicalTrialByName(name) {
         let clinicalTrials = this.clinicalTrials.filter((trial) => {
             return trial.name.toUpperCase() === name.toUpperCase();
         });
-        
+
         if (clinicalTrials.length === 0) {
             return null;
         }

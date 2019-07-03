@@ -8,7 +8,7 @@ class FluxPDGFRAVariant {
     get entryInfo() {
         return this._pdgfraVariant.entryInfo;
     }
-    
+
     get abbreviatedName() {
         return 'PDGFRA';
     }

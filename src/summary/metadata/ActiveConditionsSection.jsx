@@ -21,14 +21,14 @@ export default class ActiveConditionsSection extends MetadataSection {
         const conditions = patient.getActiveConditions();
         return conditions.map((c, i) => {
             return [
-                {    value: c.type, 
-                     isUnsigned: patient.isUnsigned(c),
-                     source: this.determineSource(patient, c),
-                     shortcutData: {
+                {    value: c.type,
+                    isUnsigned: patient.isUnsigned(c),
+                    source: this.determineSource(patient, c),
+                    shortcutData: {
                         shortcut: '@condition',
                         entryId: c.entryInfo.entryId,
                     }
-                }, 
+                },
                 {   value: c.diagnosisDate
                 },
                 {   value: c.bodySite

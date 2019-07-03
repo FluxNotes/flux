@@ -1,0 +1,16 @@
+@import '../styles/variables';
+
+.template-preview-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    padding: 2px 5px;
+    border: 1px $line-gray solid;
+    border-top-left-radius: 5px;
+    border-bottom: 0px;
+    border-right: 0px;
+    * { 
+        fill: $icons-gray;
+    }
+}

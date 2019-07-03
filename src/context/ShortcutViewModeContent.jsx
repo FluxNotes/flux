@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Lang from 'lodash';
 
 import ContextOptions from './ContextOptions';
-import ShortcutSearch from './ShortcutSearch';
+import SearchBar from '../elements/SearchBar';
 import './ShortcutViewModeContent.css';
 
 export default class ShortcutViewModeContent extends Component {
@@ -44,13 +44,13 @@ export default class ShortcutViewModeContent extends Component {
     }
 
     handleSearch = (value) => {
-        this.setState({ 
-            searchString: value 
+        this.setState({
+            searchString: value
         });
     }
 
     handleShortcutClick = (shortcut) => {
-        this.props.onShortcutClicked(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
+        this.props.onClick(shortcut); // + shortcut.substring(0, 1)); no longer need trailing @ or #
     }
 
     // Get all contexts being used in the editor
@@ -66,19 +66,19 @@ export default class ShortcutViewModeContent extends Component {
         return activeContexts;
     }
 
-    renderAllActiveContexts = (activeContexts) => { 
+    renderAllActiveContexts = (activeContexts) => {
         if (activeContexts.length === 0) {
             return null;
-        } else { 
+        } else {
             // const activeContextIndex = this.state.currentContextIndex;
             // const activeContext = activeContexts[activeContextIndex];
             const listOfContextOptions = activeContexts.map((context, i) => {
                 // Since contexts move down in the list as more get added, we need an invariant to describe the items location in the list
                 // Contexts come in stack order, so newest contexts are on the top, oldest on the bottom
                 // The first context we entered will always be the last one in the list, so we want the unique i.d. for the last item to be 0;
-                // The newest item should have a 
+                // The newest item should have a
                 const uniqueIndex = activeContexts.length - (i + 1);
-                            
+
                 return (
                     <ContextOptions
                         key={`context-options-list-${uniqueIndex}`}
@@ -86,18 +86,18 @@ export default class ShortcutViewModeContent extends Component {
                         contextManager={this.props.contextManager}
                         className="each-context"
                         searchString={this.state.searchString}
-                        handleClick={(...args) => { 
+                        handleClick={(...args) => {
                             // Set the state with the new index
                             this.setState({currentContextIndex: uniqueIndex});
-                            return this.handleShortcutClick(...args)
+                            return this.handleShortcutClick(...args);
                         }}
                         ref={(optionsList) => {
-                            this[`context-option-${uniqueIndex}`] = optionsList
+                            this[`context-option-${uniqueIndex}`] = optionsList;
                         }}
                         shortcutManager={this.props.shortcutManager}
                     />
-                )
-            })
+                );
+            });
             // Render the options for the context:
             return (
                 <div>
@@ -111,10 +111,13 @@ export default class ShortcutViewModeContent extends Component {
         const activeContexts = this.getActiveContexts();
         return (
             <div>
-                <ShortcutSearch
-                    currentSearchString={this.state.searchString}
-                    handleSearch={this.handleSearch}
+                <div id="shortcut-search-container">
+                    <SearchBar
+                        currentSearchString={this.state.searchString}
+                        handleSearch={this.handleSearch}
+                        label="Search shortcuts"
                     />
+                </div>
                 {this.renderAllActiveContexts(activeContexts)}
                 <ContextOptions
                     searchString={this.state.searchString}
@@ -127,9 +130,8 @@ export default class ShortcutViewModeContent extends Component {
     }
 }
 
-ShortcutViewModeContent.proptypes = {
+ShortcutViewModeContent.propTypes= {
     contextManager: PropTypes.object.isRequired,
-    onShortcutClicked: PropTypes.func.isRequired,
-    patient: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-}
+};

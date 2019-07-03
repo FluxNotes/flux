@@ -5,7 +5,7 @@ const Lang = require('lodash/lang');
 // Uses the 7th staging edition, see:
 // https://cancerstaging.org/references-tools/quickreferences/Documents/BreastMedium.pdf
 
-exports.breastCancerPrognosticStage = (t, n, m) => {
+export function breastCancerPrognosticStage(t, n, m) {
     // Regardless of edition, metastatic cancer is always stage IV
 
     // if m === M1, return stage IV, n and t values do not need to be set
@@ -28,7 +28,7 @@ exports.breastCancerPrognosticStage = (t, n, m) => {
 // Converts a prognostic stage (e.g. 'IIIA') into a list of possible T,N,M
 // values based on the specified staging edition. If none specified, defaults
 // to the 7th edition.
-exports.breastCancerPossibleTNM = (prognosticStage, edition = 7) => {
+export function breastCancerPossibleTNM(prognosticStage, edition = 7) {
     let values = [];
 
     // Lookup the needed values for the specified edition

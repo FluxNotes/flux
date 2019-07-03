@@ -4,7 +4,7 @@ class FluxKITVariant {
     constructor(json) {
         this._kitVariant = Observation.fromJSON(json);
     }
-    
+
     get abbreviatedName() {
         return this._kitVariant.specificFocusOfFinding.value.coding[0].displayText.value || 'KIT';
     }

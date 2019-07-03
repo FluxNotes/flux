@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
 import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import FluxCancerDisorderPresent from "../../model/oncocore/FluxCancerDisorderPresent";
 
 export default class PathologySection extends MetadataSection {
@@ -35,11 +35,11 @@ export default class PathologySection extends MetadataSection {
                                 const list = patient.getPathologyReportsChronologicalOrder();
                                 if (list.length === 0) return null;
                                 const report = list.pop();
-                           
+
                                 return  {  value: report.relevantTime,
-                                           isUnsigned: patient.isUnsigned(report), 
-                                           source: this.determineSource(patient, report)
-                                }
+                                    isUnsigned: patient.isUnsigned(report),
+                                    source: this.determineSource(patient, report)
+                                };
                             }
                         },
                         {
@@ -48,11 +48,11 @@ export default class PathologySection extends MetadataSection {
                                 const list = patient.getPathologyReportsChronologicalOrder();
                                 if (list.length === 0) return null;
                                 const report = list.pop();
-                               
+
                                 return  {  value: report.author,
-                                           isUnsigned: patient.isUnsigned(report), 
-                                           source: this.determineSource(patient, report)
-                                }
+                                    isUnsigned: patient.isUnsigned(report),
+                                    source: this.determineSource(patient, report)
+                                };
                             }
                         },
                         {
@@ -70,9 +70,9 @@ export default class PathologySection extends MetadataSection {
                                 if (list.length === 0) return null;
                                 const size = list.pop(); // last is most recent
                                 return  {   value: size.quantity.number + " " + size.quantity.unit,
-                                            isUnsigned: patient.isUnsigned(size),
-                                            source: this.determineSource(patient, size)
-                                        };
+                                    isUnsigned: patient.isUnsigned(size),
+                                    source: this.determineSource(patient, size)
+                                };
                             }
                         },
                         {
@@ -82,9 +82,9 @@ export default class PathologySection extends MetadataSection {
                                 if (list.length === 0) return null;
                                 const margins = list.pop(); // last is most recent
                                 return  {   value: margins.value,
-                                            isUnsigned: patient.isUnsigned(margins),
-                                            source: this.determineSource(patient, margins)
-                                        };
+                                    isUnsigned: patient.isUnsigned(margins),
+                                    source: this.determineSource(patient, margins)
+                                };
                             }
                         },
                         {
@@ -92,9 +92,9 @@ export default class PathologySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
                                 return  {   value: histologicalGrade.grade,
-                                            isUnsigned: patient.isUnsigned(histologicalGrade),
-                                            source: this.determineSource(patient, histologicalGrade)
-                                        };
+                                    isUnsigned: patient.isUnsigned(histologicalGrade),
+                                    source: this.determineSource(patient, histologicalGrade)
+                                };
                             }
                         },
                     ]
@@ -105,7 +105,7 @@ export default class PathologySection extends MetadataSection {
         // Include receptor statuses for Breast Cancer metadata
         if (condition instanceof FluxCancerDisorderPresent && condition.isCancerType('Invasive ductal carcinoma of breast')) {
             metadata.narrative.push({
-                    defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
+                defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
             });
             metadata.data[0].items.push(
                 {
@@ -115,10 +115,10 @@ export default class PathologySection extends MetadataSection {
                         if (Lang.isNull(er)) {
                             return null;
                         } else {
-                            return  {   value: er.status, 
-                                        isUnsigned: patient.isUnsigned(er), 
-                                        source: this.determineSource(patient, er)
-                                    };
+                            return  {   value: er.status,
+                                isUnsigned: patient.isUnsigned(er),
+                                source: this.determineSource(patient, er)
+                            };
                         }
                     }
                 },
@@ -129,10 +129,10 @@ export default class PathologySection extends MetadataSection {
                         if (Lang.isNull(pr)) {
                             return null;
                         } else {
-                            return  {   value: pr.status, 
-                                        isUnsigned: patient.isUnsigned(pr), 
-                                        source: this.determineSource(patient, pr)
-                                    };
+                            return  {   value: pr.status,
+                                isUnsigned: patient.isUnsigned(pr),
+                                source: this.determineSource(patient, pr)
+                            };
                         }
                     }
                 },
@@ -143,10 +143,10 @@ export default class PathologySection extends MetadataSection {
                         if (Lang.isNull(her2)) {
                             return null;
                         } else {
-                            return  {   value: her2.status, 
-                                        isUnsigned: patient.isUnsigned(her2), 
-                                        source: this.determineSource(patient, her2)
-                                    };
+                            return  {   value: her2.status,
+                                isUnsigned: patient.isUnsigned(her2),
+                                source: this.determineSource(patient, her2)
+                            };
                         }
                     }
                 }

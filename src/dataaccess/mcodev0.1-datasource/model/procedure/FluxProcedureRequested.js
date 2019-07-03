@@ -66,7 +66,7 @@ class FluxProcedureRequested {
     get reasons() {
         return this._procedureRequested.reason;
     }
-    
+
     get annotation() {
         if (this._procedureRequested.annotation && this._procedureRequested.annotation.length > 0) {
             return this._procedureRequested.annotation[0].text;

@@ -49,13 +49,13 @@ class FluxStudy extends FluxEntry {
             return;
         }
         let titleObj = new Title();
-        titleObj.value = title; 
+        titleObj.value = title;
         this._study.title = titleObj;
     }
     /**
      *  Getter for detail
      *  This will return the displayText value from the Details object
-     */    
+     */
     get details() {
         if (this._study.details) {
             return this._study.details.value;
@@ -72,9 +72,9 @@ class FluxStudy extends FluxEntry {
     set details(details) {
         if (Lang.isNull(details)) return;
         let detailsObj = new Details();
-        detailsObj.value = details; 
+        detailsObj.value = details;
         this._study.details = detailsObj;
-    }    
+    }
 
     /**
      *  Getter for identifier
@@ -99,7 +99,7 @@ class FluxStudy extends FluxEntry {
         if (!this._study.effectiveTimePeriod || !this._study.effectiveTimePeriod.timePeriodStart) return null;
         return this._study.effectiveTimePeriod.timePeriodStart.value;
     }
-  
+
     set enrollmentDate(val) {
         if (Lang.isNull(val) && this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod.timePeriodStart = null;
@@ -112,12 +112,12 @@ class FluxStudy extends FluxEntry {
         timePeriodStart.value = val;
         this._study.effectiveTimePeriod.timePeriodStart = timePeriodStart;
     }
-  
+
     get endDate() {
         if (!this._study.effectiveTimePeriod || !this._study.effectiveTimePeriod.timePeriodEnd) return null;
         return this._study.effectiveTimePeriod.timePeriodEnd.value;
     }
-  
+
     set endDate(val) {
         if (Lang.isNull(val) && this._study.effectiveTimePeriod) {
             this._study.effectiveTimePeriod.timePeriodEnd = null;

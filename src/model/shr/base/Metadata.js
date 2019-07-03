@@ -1,4 +1,9 @@
-import { setPropertiesFromJSON, uuid } from '../../json-helper';
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
+import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.base.Metadata.
@@ -187,7 +192,8 @@ class Metadata {
    * @returns {Metadata} An instance of Metadata populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new Metadata();
+    const klass = ClassRegistry.get('shr.base', 'Metadata');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -227,6 +233,7 @@ class Metadata {
    * Deserializes FHIR JSON data to an instance of the Metadata class.
    * The FHIR must be valid against the Metadata FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -234,8 +241,39 @@ class Metadata {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {Metadata} An instance of Metadata populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new Metadata();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.base', 'Metadata');
+    const inst = new klass();
+    if (asExtension) {
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-VersionId-extension');
+      if (match_3 != null) {
+        inst.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-LastUpdated-extension');
+      if (match_4 != null) {
+        inst.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', match_4, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_5 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-SecurityLabel-extension');
+      if (match_5 != null) {
+        inst.securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', match_5, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_6 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-Tag-extension');
+      if (match_6 != null) {
+        inst.tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', match_6, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_7 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-InformationSource-extension');
+      if (match_7 != null) {
+        inst.informationSource = FHIRHelper.createInstanceFromFHIR('shr.base.InformationSource', match_7, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_8 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-InformationRecorder-extension');
+      if (match_8 != null) {
+        inst.informationRecorder = FHIRHelper.createInstanceFromFHIR('shr.base.InformationRecorder', match_8, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_9 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-base-AuthoredDateTime-extension');
+      if (match_9 != null) {
+        inst.authoredDateTime = FHIRHelper.createInstanceFromFHIR('shr.base.AuthoredDateTime', match_9, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+    }
     return inst;
   }
 

@@ -11,15 +11,20 @@ class Placeholder {
         this._setForceRefresh = setForceRefresh;
         this.uniqueId = v4();
         let shortcuts = [];
+        let newShortcut;
         if (data) {
             let parsedData = JSON.parse(data);
-            parsedData.entryIds.forEach((id) => {
-                shortcuts.push(shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this)));
+            parsedData.entryIds.forEach((id, index) => {
+                newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this));
+                newShortcut.setKey("" + index);
+                shortcuts.push(newShortcut);
             });
             this._entryShortcuts = shortcuts;
             this._numUpdates = 1;
         } else {
-            this._entryShortcuts = [shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this))];
+            newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, undefined, this.onUpdate.bind(this));
+            newShortcut.setKey("foo");
+            this._entryShortcuts = [ newShortcut ];
             this._entryShortcuts[0].initialize();
             this._numUpdates = 0;
         }
@@ -94,7 +99,7 @@ class Placeholder {
             const possibleParentTriggers = this._shortcutManager.getPossibleParentContextTriggers(entryShortcutId);
             const triggerList = possibleParentTriggers.map(item => item.name);
             const parentContextOptions = (triggerList.length > 1 ? "one of " + triggerList.join(',') : triggerList);
-            return "No parent context to set values within. Create a context before " + this._placeholderText + " using " + 
+            return "No parent context to set values within. Create a context before " + this._placeholderText + " using " +
                 parentContextOptions + ".";
         } else {
             this._entryShortcuts[index].setAttributeValue(name, value);

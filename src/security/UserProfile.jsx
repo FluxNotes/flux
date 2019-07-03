@@ -33,7 +33,7 @@ class UserProfile {
 
     // Some users do not have the practitionerRole object, meaning they do not have a role or specialty specified
 
-/* 
+    /*
 roleType    ==> resourceType: Practitioner
 
 role        ==> PractitionerRole.code (FHIR STU3)

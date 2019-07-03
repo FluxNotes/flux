@@ -1,0 +1,45 @@
+@import '../styles/variables';
+
+.template-option {
+    position: relative;
+    width: inherit;
+    text-align: left;
+    width: 150px;
+    height: 90px;
+    padding: 0.5em 1em;
+    margin: 1em 1em 1em 0;
+    background: $background;
+    border: 1px solid $line-gray;
+    border-radius: 5px 0 5px 5px;
+    & > * {
+        font-size: $size-s;
+        color: $body-gray;
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: $feature-gray;
+    }
+    &::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        border-width: 0 16px 16px 0;
+        border-style: solid;
+        border-color: $line-gray #fff;
+    }
+
+    .template-title {
+        padding-bottom: 5px;
+        border-bottom: 1px solid $line-gray;
+        color: $state;
+        text-overflow: ellipsis;
+    }
+
+    .template-author {
+        padding-top: 5px;
+        padding-bottom: 1px;
+        color: $state;
+        text-overflow: ellipsis;
+    }
+}

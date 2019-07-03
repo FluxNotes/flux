@@ -1,16 +1,14 @@
-import Entry from '../shr/base/Entry';
-import EntryType from '../shr/base/EntryType';
+import FluxEntry from '../base/FluxEntry';
 import CreationTime from '../shr/core/CreationTime';
 import LastUpdated from '../shr/base/LastUpdated';
 import moment from 'moment';
 
-class FluxPatientIdentifier {
+class FluxPatientIdentifier extends FluxEntry {
     constructor(json) {
-        this._entryInfo = new Entry();
+        super(json);
+        this._entryInfo = this._constructEntry("http://standardhealthrecord.org/spec/shr/base/PatientIdentifier");
         this._entryInfo.shrId = json['ShrId'];
         this._entryInfo.entryId = json['EntryId'];
-        this._entryInfo.entryType = new EntryType();
-        this._entryInfo.entryType.value = "http://standardhealthrecord.org/spec/shr/base/PatientIdentifier";
         let today = new moment().format("D MMM YYYY");
         this._entryInfo.creationTime = new CreationTime();
         this._entryInfo.creationTime.dateTime = today;
@@ -34,7 +32,7 @@ class FluxPatientIdentifier {
     set entryInfo(entryVal) {
         this._entryInfo = entryVal;
     }
-    
+
     get organization() {
         return this._organization;
     }

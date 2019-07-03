@@ -4,6 +4,7 @@ import {Row, Col} from 'react-flexbox-grid';
 import moment from 'moment';
 import Lang from 'lodash';
 
+import TemplateSelectionView from '../templates/TemplateSelectionView';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
 import Button from '../elements/Button';
 import NoteAssistant from '../notes/NoteAssistant';
@@ -32,20 +33,41 @@ export default class NotesPanel extends Component {
             shouldUpdateShortcutType: false,
             shortcutKey: null,
             shortcutType: null,
+            // insertingTemplate indicates whether a shortcut or template is being inserted
+            // false indicates a shortcut is being inserted
+            // true indicates a template is being inserted
+            insertingTemplate: false,
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
     }
 
     componentWillReceiveProps = (nextProps) => {
-        // Logic to handle switching notes
+        // If the note we're about to have open is different...
         if (!Lang.isNull(nextProps.openClinicalNote) && this.props.openClinicalNote !== nextProps.openClinicalNote) {
-            if (!Lang.isNull(this.props.openClinicalNote)) {
+            if (!Lang.isNull(this.props.openClinicalNote) && !this.state.showTemplateView) {
+                // If our current note isn't null, and we aren't trying to insert a template,
+                // - Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
+            if (!Lang.isNull(this.props.openClinicalNote) && this.state.noteAssistantMode === "pick-list-options-panel") {
+                // If our current note isn't null, and we were in the process of selecting pick-list values
+                // - We should return to ClinicalNotes mode for note assistance
+                this.updateNoteAssistantMode("clinical-notes");
+            } else if (!Lang.isNull(this.props.openClinicalNote) && this.state.showTemplateView && nextProps.openClinicalNote.signed) {
+                // If our current note isn't null, we're in templateView, and our next note is signed
+                // - We want to stop picking a template, so we can see our newly selected note
+                this.updateShowTemplateView(false);
+            }
+            // Always save the note and handle updates with new content
             this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
+    }
+
+    setInsertingTemplate = (insertingTemplate) => {
+        this.setState({ insertingTemplate });
+        this.updateShowTemplateView(false);
     }
 
     insertStructuredPhraseInCurrentNote = (data, source) => {
@@ -76,7 +98,7 @@ export default class NotesPanel extends Component {
 
     updateLocalDocumentText = (text) => {
         if (text) {
-            this.setState({showTemplateView: false});
+            this.updateShowTemplateView(false);
         }
         this.setState({ localDocumentText: text });
     }
@@ -91,7 +113,7 @@ export default class NotesPanel extends Component {
 
     updateContextTrayItemToInsert = (contextTrayItem) => {
         this.setState({ contextTrayItemToInsert: contextTrayItem });
-        this.setState({showTemplateView: false});
+        this.updateShowTemplateView(false);
     }
 
     updateSelectedPickListOptions = (selectedPickListOptions) => {
@@ -124,7 +146,7 @@ export default class NotesPanel extends Component {
     }
 
     handleUpdateArrayOfPickLists = (array) => {
-        this.setState({arrayOfPickLists: array})
+        this.setState({arrayOfPickLists: array});
     }
 
     updateNote = (entryId, noteContent) => {
@@ -142,14 +164,10 @@ export default class NotesPanel extends Component {
         }
     }
 
-    updateExistingNote = (noteContent) => {
-        this.updateNote(this.state.currentlyEditingEntryId, noteContent);
-    }
-
     // Save a note
     saveNote = (noteContent) => {
         if (this.state.currentlyEditingEntryId !== -1) {
-            this.updateExistingNote(noteContent);
+            this.updateNote(this.state.currentlyEditingEntryId, noteContent);
         }
     }
 
@@ -182,43 +200,26 @@ export default class NotesPanel extends Component {
         const signed = false;
 
         // Add new unsigned note to patient record
-        const currentlyEditingEntryId = this.props.patient.addClinicalNote(signedOn, subject, hospital, clinician, null, content, signed);
-
+        const newNoteEntryId = this.props.patient.addClinicalNote(signedOn, subject, hospital, clinician, null, content, signed);
+        // Use newNoteEntryId to get a reference to the newNote
         const newNote = this.props.patient.getNotes().find(function (curNote) {
-            return Lang.isEqual(curNote.entryInfo.entryId, currentlyEditingEntryId);
+            return Lang.isEqual(curNote.entryInfo.entryId, newNoteEntryId);
         });
 
-        this.openNote(newNote, true);
-
-        this.setState({ showTemplateView: true });
+        this.openNote(newNote);
+        this.updateShowTemplateView(true);
     }
 
     // Open an existing note
-    openExistingNote = (isInProgress, note) => {
-        this.openNote(note, isInProgress);
-        this.setState({ showTemplateView: false });
-
+    openExistingNote = (note) => {
+        this.openNote(note);
+        this.updateShowTemplateView(false);
     }
 
-    openNote = (note, isInProgress) => {
-
+    openNote = (note) => {
         // Saves the current note and resets localDocumentText before opening the next note.
         this.saveNote(this.state.localDocumentText);
-
-        // Open a note
-        this.props.setNoteClosed(false);
-        this.props.setLayout('split');
-        this.props.setNoteViewerVisible(true);
-
-        // Old note above these lines: 'the lines below are duplicative'
-        this.updateSelectedNote(note);
         this.handleUpdateEditorWithNote(note);
-
-        if (isInProgress) {
-            this.props.setNoteViewerEditable(true);
-        } else {
-            this.props.setNoteViewerEditable(false);
-        }
     }
 
     // Removes a note from patient object if the note is unsigned
@@ -232,9 +233,8 @@ export default class NotesPanel extends Component {
             // Clear all shortcuts from the current mapManager
             this.props.structuredFieldMapManager.clearStructuredFieldMap();
             this.props.patient.removeClinicalNote(this.state.selectedNote);
-
         } else {
-            console.error('Tried to remove a note that is signed')
+            console.error('Tried to remove a note that is signed');
         }
     }
 
@@ -248,7 +248,7 @@ export default class NotesPanel extends Component {
         this.setState({selectedNote: tempNote});
         let inProg = this.props.patient.getInProgressNotes();
         inProg.forEach((a) => {
-            this.props.patient.removeClinicalNote(a)
+            this.props.patient.removeClinicalNote(a);
         });
         this.props.dataAccess.savePatient(this.props.patient);
         inProg.forEach((b) => {
@@ -274,32 +274,20 @@ export default class NotesPanel extends Component {
         this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
     }
 
-    renderSignButton = () => {
-        const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
-        return (
-            <div id="finish-sign-component">
-                <Button
-                    variant="flat"
-                    classes={{
-                        root: `btn-finish ${signNoteDisabledClass}`
-                    }}
-                    onClick={() => {
-                        this.handleSignButtonClick();
-                    }}
-                >
-                    Sign note
-                </Button>
-            </div>
-        );
-    }
-
     renderNotesPanelContent() {
-
-        // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
-        if (this.props.isNoteViewerVisible) {
-
-            // If note viewer is editable and a note is selected, render the sign note button
+        if (this.state.showTemplateView) {
+            // If we're supposed to show the template view, pull that up first
+            return (
+                <Row center="xs">
+                    <Col sm={12}>
+                        {this.renderTemplateView()}
+                    </Col>
+                </Row>
+            );
+        } else if (this.props.isNoteViewerVisible) {
+            // If isNoteViewerVisible is true, render the flux notes editor and the note assistant
             if (this.props.isNoteViewerEditable && this.state.selectedNote) {
+                // If note viewer is editable and a note is selected, render the sign note button
                 if (this.state.noteAssistantMode === 'poc') {
                     return (
                         <div>
@@ -313,12 +301,11 @@ export default class NotesPanel extends Component {
                             </Row>
                             <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
                                 <PointOfCare
-                                    structuredFieldMapManager={this.props.structuredFieldMapManager}
+                                    placeholders={this.props.structuredFieldMapManager.placeholders}
                                     isAppBlurred={this.props.isAppBlurred}
                                     ref={(poc) => { this.pointOfCare = poc; }} />
                             </Row>
                         </div>
-
                     );
                 } else {
                     return (
@@ -350,7 +337,6 @@ export default class NotesPanel extends Component {
                     </div>
                 );
             }
-
             // Else just render the note assistant
         } else {
             return (
@@ -363,6 +349,38 @@ export default class NotesPanel extends Component {
         }
     }
 
+    renderTemplateView = () => {
+        return (
+            <div>
+                <TemplateSelectionView
+                    deleteSelectedNote={this.deleteSelectedNote}
+                    setInsertingTemplate={this.setInsertingTemplate}
+                    updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
+                    updateShowTemplateView={this.updateShowTemplateView}
+                />
+            </div>
+        );
+    }
+
+    renderSignButton = () => {
+        const signNoteDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
+        return (
+            <div id="finish-sign-component">
+                <Button
+                    variant="flat"
+                    classes={{
+                        root: `btn-finish ${signNoteDisabledClass}`
+                    }}
+                    onClick={() => {
+                        this.handleSignButtonClick();
+                    }}
+                >
+                    Sign note
+                </Button>
+            </div>
+        );
+    }
+
     renderFluxNotesEditor() {
         return (
             <div className="panel-content dashboard-panel">
@@ -373,6 +391,7 @@ export default class NotesPanel extends Component {
                     contextManager={this.props.contextManager}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     currentViewMode={this.props.currentViewMode}
+                    deleteSelectedNote={this.deleteSelectedNote}
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
@@ -433,6 +452,7 @@ export default class NotesPanel extends Component {
                     highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
+                    insertingTemplate={this.state.insertingTemplate}
                     loadNote={this.handleUpdateEditorWithNote}
                     loginUsername={this.props.loginUsername}
                     newCurrentShortcut={this.props.newCurrentShortcut}
@@ -446,6 +466,7 @@ export default class NotesPanel extends Component {
                     searchIndex={this.props.searchIndex}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
+                    setInsertingTemplate={this.setInsertingTemplate}
                     setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                     setLayout={this.props.setLayout}
                     setNoteClosed={this.props.setNoteClosed}

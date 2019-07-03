@@ -1,0 +1,50 @@
+@import "../styles/variables";
+
+.name-tooltip .rc-tooltip-inner {
+    width: auto;
+    border-radius: 6px;
+    text-align: center;
+    min-height: 0px;
+}
+
+#longitudinal-table {
+    .left-table {
+        float: left;
+        .name {
+            max-width: 135px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .star-cell {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+            text-align: center !important;
+            min-width: 30px !important;
+            .star-clicked {
+                color: $interface-blue;
+            }
+            .star-hovered {
+                color: $interface-blue;
+            }
+            &.star-body {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &.hoverable {
+                &:hover {
+                    font-size: 17px;
+                }
+            }
+        }
+    }
+    .table-header {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        min-width: 60px;
+    }
+    .table-scrollable {
+        overflow-x: scroll;
+    }
+}

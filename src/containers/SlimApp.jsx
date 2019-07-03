@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Lang from 'lodash';
 
+import '../model/init.js';
 import NavBar from '../nav/NavBar';
 import FormList from '../forms/FormList';
 import ShortcutViewer from '../viewer/ShortcutViewer';
@@ -30,7 +31,7 @@ export class SlimApp extends Component {
         const newShortcut = (Lang.isNull(shortcutType)) ? null : this.shortcutManager.createShortcut(null, "#" + shortcutType.toLowerCase(), null, undefined, this.handleShortcutUpdate);
         if (newShortcut) {
             newShortcut.setConfiguration((this.props.shortcutConfigurations) ?
-                    this.props.shortcutConfigurations[shortcutType] : {});
+                this.props.shortcutConfigurations[shortcutType] : {});
             newShortcut.setSource("slim mode");
         }
         this.setState({
@@ -77,7 +78,7 @@ export class SlimApp extends Component {
     }
 }
 
-SlimApp.proptypes = {
+SlimApp.propTypes = {
     shortcutConfigurations: PropTypes.object.isRequired,
     shortcuts: PropTypes.array.isRequired,
     display: PropTypes.string.isRequired
@@ -85,16 +86,16 @@ SlimApp.proptypes = {
 
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
+    return bindActionCreators({
     // TODO: add actions
-  }, dispatch);
+    }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
-  return {
+    return {
     // TODO: add state
-  };
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlimApp);

@@ -4,9 +4,9 @@ import PatientRecord from '../patient/PatientRecord';
 import request from 'sync-request';
 
 class FHIRApiDataSource extends IDataSource {
-    constructor() { 
+    constructor() {
         super();
-        this._gestalt = { 
+        this._gestalt = {
             create: {
                 async: false,
                 sync: false
@@ -25,7 +25,7 @@ class FHIRApiDataSource extends IDataSource {
             }
         };
     }
-    getGestalt() { 
+    getGestalt() {
         return this._gestalt;
     }
     getPatient(id) {
@@ -40,11 +40,11 @@ class FHIRApiDataSource extends IDataSource {
     getListOfPatients() {
         console.error("listing of patients is not implemented in fhirapidataSource.");
     }
-    
+
     newPatient() {
         console.error("creating a new patient is not implemented in fhirapidataSource.");
     }
-    
+
     savePatient(patient) {
         console.error("saving of patients is not implemented in fhirapidataSource.");
     }

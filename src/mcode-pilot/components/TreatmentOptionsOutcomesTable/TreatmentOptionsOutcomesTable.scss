@@ -1,0 +1,111 @@
+@import '../../../styles/variables';
+
+.treatment-options-outcomes-table {
+    &__header {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 10px;
+
+        .user-icon {
+            text-align: center;
+            font-size: 1.5em;
+            color: $state;
+            padding-left: 12px;
+        }
+
+        .header-title {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+
+            #ccp-table-select .custom-select:after {
+                background-color: $shr-context-dark;
+            }
+        }
+
+        .sort-arrows {
+            visibility: hidden;
+            color: $interface-blue;
+            font-size: 12px;
+            padding-left: 5px;
+        }
+
+        .sort-selected {
+            visibility:visible;
+            color: $icons-teal;
+        }
+
+        .header-space:hover .sort-arrows {
+            visibility: visible;
+        }
+
+        .header-space {
+            cursor: pointer;
+            margin-right: -20px;
+        }
+    }
+
+    &__table {
+        padding: 5px 10px;
+        margin-bottom: 20px;
+
+        .treatments-title {
+            font-weight: bold;
+        }
+
+        .select-treatments {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+
+            .popover-text {
+                color: $shr-context-dark;
+                font-weight: bold;
+                font-size: 0.9em;
+            }
+        }
+
+        .top-side-effects {
+            flex-direction: column;
+        }
+
+        .table-row {
+            height: 50px;
+            align-items: center;
+
+            &:nth-child(odd) {
+                background-color: $contrast-gray;
+            }
+
+            &.helper-text {
+                font-style: italic;
+            }
+
+            .total-patients {
+                text-align: center;
+            }
+        }
+    }
+
+    .flex { display: flex; }
+    .flex-1 { flex: 1; }
+    .flex-2 { flex: 2; }
+    .flex-3 { flex: 3; }
+    .flex-4 { flex: 4; }
+    .flex-6 { flex: 6; }
+    .flex-padding { padding: 0 20px; }
+    .flex-center { align-items: center; }
+
+    @media (max-width: 1024px) {
+        .flex-padding { 
+            padding: 0 5px;
+        }
+    }
+}
+
+li.side-effect-option {
+    &:hover {
+        color: $background;
+    }
+}

@@ -1,4 +1,4 @@
-import lookup from '../../../../lib/progression_lookup.jsx';
+import * as lookup from '../../../../lib/progression_lookup.jsx';
 import CancerProgression from './CancerProgression';
 import CreationTime from '../shr/core/CreationTime';
 import FluxEntry from '../base/FluxEntry';

@@ -1,5 +1,5 @@
-class IActiveTreatmentSummary { 
-    getActiveTreatmentSummary(patient, currentConditionEntry) { 
+class IActiveTreatmentSummary {
+    getActiveTreatmentSummary(patient, currentConditionEntry) {
         return null;
     }
 }

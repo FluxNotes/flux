@@ -10,13 +10,14 @@ $body-black: #232323;
 $body-gray: #4F4F4F;
 $state: #767676;
 $warning-red: #C80B0B;
-$warbubg-red-text: #BA2121;
+$warning-red-text: #BA2121;
 $missing-data-red: #EC9696;
 $interface-blue: #028DEA;
 $interface-blue-text: #0079CA;
 $shr-context-dark: #298085;
 $shr-context-line: #55C9CE;
 $shr-context-light: #DAF7F8;
+$tab-bar-blue: #32556C;
 
 // Custom variables
 $highlight-yellow: rgb(255, 255, 3);
@@ -51,6 +52,9 @@ $size-xs: 0.6875rem; // 11 px
 
 // Note assistant spacing variables
 $note-assistant-overhang: 5px;
+
+// Template selection view spacing
+$template-selection-view-margin: 1em;
 
 :export {
     state: $state;

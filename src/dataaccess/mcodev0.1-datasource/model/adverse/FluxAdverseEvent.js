@@ -2,7 +2,7 @@ import AdverseEvent from '../shr/adverse/AdverseEvent';
 import AdverseEventGrade from '../shr/adverse/AdverseEventGrade';
 import CauseCategory from '../shr/adverse/CauseCategory';
 import FluxEntry from '../base/FluxEntry';
-import lookup from '../../../../lib/toxicreaction_lookup.jsx';
+import * as  lookup from '../../../../lib/toxicreaction_lookup.jsx';
 
 class FluxAdverseEvent extends FluxEntry {
     constructor(json, patientRecord) {
@@ -70,7 +70,7 @@ class FluxAdverseEvent extends FluxEntry {
     set causeCategory(causeCategory) {
         let c = new CauseCategory();
         c.value = lookup.getAttributionCodeableConcept(causeCategory);
-        this._adverseEvent.causeCategory = c; 
+        this._adverseEvent.causeCategory = c;
     }
 
     /**

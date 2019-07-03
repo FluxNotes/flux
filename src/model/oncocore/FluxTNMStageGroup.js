@@ -1,7 +1,7 @@
 import RelevantTime from '../shr/base/RelevantTime';
 import FluxMitoticRate from '../oncology/FluxMitoticRate';
-import lookup from '../../lib/tnmstage_lookup.jsx';
-import staging from '../../lib/staging.jsx';
+import * as lookup from '../../lib/tnmstage_lookup.jsx';
+import * as staging from '../../lib/staging.jsx';
 import FindingResult from '../shr/base/FindingResult';
 import FluxTNMClinicalPrimaryTumorClassification from './FluxTNMClinicalPrimaryTumorClassification';
 import FluxTNMClinicalDistantMetastasesClassification from './FluxTNMClinicalDistantMetastasesClassification';

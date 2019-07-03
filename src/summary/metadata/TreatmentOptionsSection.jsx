@@ -1,6 +1,6 @@
 import MetadataSection from "./MetadataSection";
 //import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
-import Lang from 'lodash'
+import Lang from 'lodash';
 import {treatmentData} from '../TreatmentData.js';
 //const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
@@ -10,13 +10,13 @@ export default class TreatmentOptionsSection extends MetadataSection {
             name: "Treatment Options",
             nameSuffixFunction: (section) => {
                 if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
-                    return section.data[0].data_cache.then ( result => {
+                    return section.data[0].data_cache.then (result => {
                         return result.isDemo ? "(Demo)" : "";
-                    })
+                    });
                 }
                 else return section.data[0].data_cache.isDemo ? "(Demo)" : "";
-            }, 
-            shortName: "Treatments", 
+            },
+            shortName: "Treatments",
             type: "ClusterPoints",
             data: [
                 {
@@ -25,22 +25,22 @@ export default class TreatmentOptionsSection extends MetadataSection {
                     // eventually, the service API and implementation will need to support this call to figure out the supported criteria based on the condition
                     // filterFunction: this.getTreatmentCriteria
                     filters: [
-                        { id:"ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true, 
-                                propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())) } },
-                        { id:"gender",name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true, 
-                                propertyValueFunction: (patient, condition) => { return patient.getGender() } },
-                        { id:"race",name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
-                                propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race) } },
-                        { id:"kit",name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
-                                propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient) } },
-                        { id:"pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
-                                propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient) } },
-                        { id:"grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
-                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() } },
-                        { id:"stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
-                                propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data' } },
-                        { id:"surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
-                                propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient) } }
+                        { id: "ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true,
+                            propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())); } },
+                        { id: "gender",name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true,
+                            propertyValueFunction: (patient, condition) => { return patient.getGender(); } },
+                        { id: "race",name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
+                            propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race); } },
+                        { id: "kit",name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
+                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient); } },
+                        { id: "pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
+                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient); } },
+                        { id: "grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(); } },
+                        { id: "stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data'; } },
+                        { id: "surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
+                            propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient); } }
                     ],
                     itemsFunction: this.getTreatmentData
                 }
@@ -62,7 +62,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
     // }
 
     getTreatmentData = (patient, condition, subsection, getFilterValue) => {
- 
+
         if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
         // If we have cached data, use that instead of making an API call
         if (subsection.data_cache) return subsection.data_cache;
@@ -86,16 +86,16 @@ export default class TreatmentOptionsSection extends MetadataSection {
         //         }
         //     });
         // }
-      /*   return fetch('/ServerConfig.json').then((r) => r.json()).then((config) => {
+        /*   return fetch('/ServerConfig.json').then((r) => r.json()).then((config) => {
             ApiClient.basePath = config.baseURL;
             const api = new FluxNotesTreatmentOptionsRestClient.DefaultApi(ApiClient);
             // Commenting out the api call with actual patient criteria til we get patient data
             return api.findTreatmentOptionsByPatientStats(
                 condition.codeURL,
-                // commented out other criteria in order to show more data points 
+                // commented out other criteria in order to show more data points
                 //{
                     //race: this.toFirstLetterCapital(patient.getPatient().race),
-                    // DxGrade and Gender are commented out for now since they are too selective and leave us with no data to display. 
+                    // DxGrade and Gender are commented out for now since they are too selective and leave us with no data to display.
                     // dxGrade: condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(),
                     // gender: patient.getPatient().gender
                 //},
@@ -116,12 +116,12 @@ export default class TreatmentOptionsSection extends MetadataSection {
             let aliveSeries = [];
 
             treatmentData.forEach((v) => {
-            if(v.Disease === condition.codeURL && v['Is-Alive'] === 'Dead'){
-                deceasedSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
-            }
-            if(v.Disease === condition.codeURL && v['Is-Alive'] === 'Alive'){
-                aliveSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
-            }  
+                if (v.Disease === condition.codeURL && v['Is-Alive'] === 'Dead') {
+                    deceasedSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
+                }
+                if (v.Disease === condition.codeURL && v['Is-Alive'] === 'Alive') {
+                    aliveSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
+                }
             });
 
             resolve({isDemo: true, data: {alive: aliveSeries, deceased: deceasedSeries}});

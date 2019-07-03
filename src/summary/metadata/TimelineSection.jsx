@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash'
+import Lang from 'lodash';
 import moment from 'moment';
 
 export default class TimelineSection extends MetadataSection {
@@ -88,20 +88,20 @@ export default class TimelineSection extends MetadataSection {
         if (subsection.filters) {
             subsection.filters.forEach(filter => {
                 switch (filter.name) {
-                    case 'Over The Counter Medications':
-                        // If Show Over The Counter meds is not selected, need to filter them out.
-                        if (getFilterValue(filter, subsection.name) === false) {
-                            meds = meds.filter((med) => {
-                                // Don't filter out medications if we don't know if they are OTC or not.
-                                if (med.overTheCounter === undefined) {
-                                    return true;
-                                }
-                                return !med.overTheCounter;
-                            });
-                        }
-                        break;
-                    default:
-                        break;
+                case 'Over The Counter Medications':
+                    // If Show Over The Counter meds is not selected, need to filter them out.
+                    if (getFilterValue(filter, subsection.name) === false) {
+                        meds = meds.filter((med) => {
+                            // Don't filter out medications if we don't know if they are OTC or not.
+                            if (med.overTheCounter === undefined) {
+                                return true;
+                            }
+                            return !med.overTheCounter;
+                        });
+                    }
+                    break;
+                default:
+                    break;
                 }
             });
         }
@@ -244,7 +244,7 @@ export default class TimelineSection extends MetadataSection {
 
             for (let i = 0; i < existingItemsInGroup.length; i++) {
                 const existingItem = existingItemsInGroup[i];
-                // endTime not always guarentted; perform our check conditionally here 
+                // endTime not always guarentted; perform our check conditionally here
                 const doesEndTimeConflictWithExistingItem = (endTime ? endTime < existingItem.end_time && endTime >= existingItem.start_time : false);
                 const doesStartTimeConflictWithExistingItem = startTime < existingItem.end_time && startTime >= existingItem.start_time;
                 const doesNewCoverOld = endTime ? startTime <= existingItem.start_time && endTime >= existingItem.end_time : false;

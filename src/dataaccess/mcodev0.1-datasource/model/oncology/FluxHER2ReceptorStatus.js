@@ -1,7 +1,7 @@
 import Entry from '../shr/base/Entry';
 import EntryType from '../shr/base/EntryType';
 import FluxObservation from '../base/FluxObservation';
-import lookup from '../../../../lib/receptor_lookup.jsx';
+import * as lookup from '../../../../lib/receptor_lookup.jsx';
 import Observation from '../shr/base/Observation';
 
 class FluxHER2ReceptorStatus extends FluxObservation {
@@ -15,7 +15,7 @@ class FluxHER2ReceptorStatus extends FluxObservation {
             this._observation.entryInfo = entry;
         }
     }
-    
+
     /**
      * Getter for shr.oncology.ReceptorType
      */

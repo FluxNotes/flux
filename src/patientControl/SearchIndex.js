@@ -32,7 +32,7 @@ class SearchIndex {
     }
 
     removeDataBySection(section) {
-        for(let id in this._index.documentStore.docs) {
+        for (let id in this._index.documentStore.docs) {
             if (this._index.documentStore.getDoc(id).section === section) {
                 this.removeDataByRef(id);
             }
@@ -70,8 +70,8 @@ class SearchIndex {
                 const regex = new RegExp(escapeRegExp(query), "gim");
                 let contentMatches = regex.exec(doc.value);
                 // Need a way of matching not only with the structuredPhrase, but also with the
-                // specific instance of that match; we give each matched structured phrase 
-                // an identifier -- the order its in; that is 'n' where this is the nth phrase we've 
+                // specific instance of that match; we give each matched structured phrase
+                // an identifier -- the order its in; that is 'n' where this is the nth phrase we've
                 // seen that matches the current search text
                 let indexOfMatch = 0;
                 while (contentMatches) {

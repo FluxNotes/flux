@@ -41,10 +41,10 @@ function addTriggerForCurrentShortcut(triggerObject, currentShortcut) {
             }
         }
         if (prefix) {
-            list = list.map((t) => { return { "name": prefix + t.name, "description":t.description }; });
+            list = list.map((t) => { return { "name": prefix + t.name, "description": t.description }; });
         }
-        list.forEach((triggerObject) => { 
-            addTriggerForCurrentShortcut.bind(this)(triggerObject, currentShortcut);    
+        list.forEach((triggerObject) => {
+            addTriggerForCurrentShortcut.bind(this)(triggerObject, currentShortcut);
         });
     }
 }
@@ -80,10 +80,10 @@ function addKeywordsForCurrentShortcut(keywordObject, currentShortcut) {
             }
         }
         if (prefix) {
-            list = list.map((t) => { return { "name": prefix + t.name, "description":t.description }; });
+            list = list.map((t) => { return { "name": prefix + t.name, "description": t.description }; });
         }
-        list.forEach((triggerObject) => { 
-            addKeywordsForCurrentShortcut.bind(this)(triggerObject, currentShortcut);    
+        list.forEach((triggerObject) => {
+            addKeywordsForCurrentShortcut.bind(this)(triggerObject, currentShortcut);
         });
     }
 }
@@ -96,7 +96,7 @@ class ShortcutManager {
         this.shortcutsToSupportList = shortcuts;
         this.loadShortcutMetadata(shortcuts, shortcutMetadata);
     }
-    
+
     getAllShortcutDefinitions() {
         return this.shortcutDefinitions;
     }
@@ -118,7 +118,7 @@ class ShortcutManager {
             }
         });
     }
-    
+
     getAllStringTriggers() {
         return Object.keys(this.shortcutMap);
     }
@@ -126,7 +126,7 @@ class ShortcutManager {
     getAllKeywords() {
         return Object.keys(this.shortcutMap);
     }
-    
+
     getSupportedShortcuts() {
         return this.shortcutsToSupportList;
     }
@@ -174,7 +174,7 @@ class ShortcutManager {
         newShortcut.initiatingTrigger = triggerOrKeyword;
         return newShortcut;
     }
-    
+
     loadShortcutMetadata(shortcutList, shortcutMetadata) {
         this.childShortcuts = {};
         this.parentShortcuts = {};
@@ -187,7 +187,7 @@ class ShortcutManager {
             if (!disabled && (shortcutList.length === 0 || shortcutList.includes(item["id"]))) {
                 this.shortcuts[item["id"]] = item;
                 // In addition to regular id's, we want to make sure NLPId's map onto the shortcuts as well
-                if(item["idForNLPEngine"]) { 
+                if (item["idForNLPEngine"]) {
                     this.shortcuts[item["idForNLPEngine"]] = item;
                 }
 
@@ -213,7 +213,7 @@ class ShortcutManager {
                         childList.push(item.id);
                     }
                 }
-                
+
                 // add known children to it
                 if (item["valueObjectAttributes"]) {
                     let childList = this.childShortcuts[item.id];
@@ -258,26 +258,26 @@ class ShortcutManager {
                         }
                     });
                 }
-                
+
                 this.shortcutDefinitions.push(item);
                 // build up trigger to shortcut mapping
                 const triggers = item["stringTriggers"];
-                const keywords = item["keywords"]
-                if (triggers) { 
+                const keywords = item["keywords"];
+                if (triggers) {
                     this.triggersPerShortcut[item.id] = [];
                     if (Lang.isArray(triggers)) {
-                        triggers.forEach((trigger) => { 
-                            addTriggerForCurrentShortcut.bind(this)(trigger, item);    
+                        triggers.forEach((trigger) => {
+                            addTriggerForCurrentShortcut.bind(this)(trigger, item);
                         });
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
                 }
-                if (keywords) { 
+                if (keywords) {
                     this.keywordsPerShortcut[item.id] = [];
                     if (Lang.isArray(keywords)) {
-                        keywords.forEach((keyword) => { 
-                            addKeywordsForCurrentShortcut.bind(this)(keyword, item);    
+                        keywords.forEach((keyword) => {
+                            addKeywordsForCurrentShortcut.bind(this)(keyword, item);
                         });
                     } else {
                         addKeywordsForCurrentShortcut.bind(this)(keywords, item);
@@ -290,7 +290,7 @@ class ShortcutManager {
     getPossibleParentContextTriggers(shortcutId) {
         const possibleParentShortcuts = this.parentShortcuts[shortcutId];
         let resultList = [];
-        
+
         possibleParentShortcuts.forEach((shortcutId) => {
             resultList = resultList.concat(this.getTriggersForShortcut(shortcutId));
         });
@@ -300,7 +300,7 @@ class ShortcutManager {
 
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
-    
+
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -346,10 +346,10 @@ class ShortcutManager {
         }
         return result;
     }
-    
+
     // context is optional
     getTriggersForShortcut(shortcutId, context) {
-        if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) { 
+        if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) {
             return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
@@ -376,7 +376,7 @@ class ShortcutManager {
     }
 
     getKeywordsForShortcut(shortcutId, context) {
-        if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) { 
+        if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) {
             return [];
         } else if (!Lang.isUndefined(context)) {
             const currentContextId = context.getId();
@@ -401,13 +401,13 @@ class ShortcutManager {
 
         return this.keywordsPerShortcut[shortcutId];
     }
-    
+
     getShortcutGroupName(shortcutId) {
         return this.shortcuts[shortcutId]["shortcutGroupName"];
     }
 
     getShortcutMetadata(shortcutId) {
-        return this.shortcuts[shortcutId]
+        return this.shortcuts[shortcutId];
     }
 
     getShortcutPrefix(shortcutId) {
@@ -426,7 +426,7 @@ class ShortcutManager {
     }
 
     isShortcutInstanceOfNLPHashtag(shortcut) {
-        return shortcut instanceof NLPHashtag
+        return shortcut instanceof NLPHashtag;
     }
 }
 

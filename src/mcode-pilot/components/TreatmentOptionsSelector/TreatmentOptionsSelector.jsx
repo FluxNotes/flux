@@ -51,4 +51,4 @@ TreatmentOptionsSelector.propTypes = {
     subTitle: PropTypes.node.isRequired,
     subHeader: PropTypes.node,
     children: PropTypes.node.isRequired
-}
+};

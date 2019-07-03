@@ -40,7 +40,7 @@ const WithTracker = (WrappedComponent, options = {}) => {
         // App is a react component, which is itself a function
         app: PropTypes.func.isRequired,
         isExact: PropTypes.bool.isRequired
-    }
+    };
 
     return HOC;
 };

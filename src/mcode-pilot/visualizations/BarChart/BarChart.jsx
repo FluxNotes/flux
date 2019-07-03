@@ -16,7 +16,7 @@ export default class BarChart extends Component {
             mainStyle = { "width": `${compareToPercent}%` };
             changeStyle = { "width": `${percentChange}%` };
         }
-        
+
         changeType = percentChange > 0;
         return { mainStyle, changeStyle, changeType };
     }

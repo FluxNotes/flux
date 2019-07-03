@@ -52,7 +52,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get codeURL() {
-        return this.codeSystem + "/" + this.code; 
+        return this.codeSystem + "/" + this.code;
     }
 
     get type() {
@@ -78,15 +78,15 @@ class FluxConditionPresentAssertion extends FluxEntry {
             return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.anatomicalLocationOrLandmarkCode.value.coding[0]);
         }
     }
-    
+
     get clinicalStatus() {
         return this._condition.clinicalStatus && this._condition.clinicalStatus.value ? this._displayTextOrCode(this._condition.clinicalStatus.value.coding[0]) : null;
     }
-    
+
     get laterality() {
         if (
             !this._condition.anatomicalLocation
-            || this._condition.anatomicalLocation.length < 1 
+            || this._condition.anatomicalLocation.length < 1
             || !this._condition.anatomicalLocation[0].value
             || !this._condition.anatomicalLocation[0].value.laterality
             || !this._condition.anatomicalLocation[0].value.laterality.value
@@ -230,12 +230,12 @@ class FluxConditionPresentAssertion extends FluxEntry {
             return item.codeableConceptCode === code;
         });
     }
-    
+
     getObservationsOfType(type) {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
         return this._patientRecord.getEntriesOfType(type).filter((item) => {
-            return  item._observation && item._observation.specificFocusOfFinding && 
+            return  item._observation && item._observation.specificFocusOfFinding &&
                     item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
         });
     }
@@ -307,7 +307,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
         const mostRecentLabResults = this.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
         if (mostRecentLabResults.length === 0) return 'No lab results.';
-        
+
         return mostRecentLabResults.map(l => `${l.name} ${l.quantity.number} ${l.quantity.unit} (${l.relevantTime})`).join('\r\n');
     }
 
@@ -374,6 +374,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
         hpiText = this.buildEventNarrative(hpiText, patient, this.code);
 
+        // Remove the final trailing newline, as the HPI list is complete.
+        if (hpiText.slice(-2) === '\r\n') {
+            hpiText = hpiText.slice(0, -2);
+        }
+
         return hpiText;
     }
 
@@ -384,11 +389,11 @@ class FluxConditionPresentAssertion extends FluxEntry {
         const gender = patient.getGender();
         // Basic age, name, gender
         hpiText += '-';
-        hpiText += ` ${name} is a ${age} year old ${gender}.`;
+        hpiText += ` ${name} is a ${age} year old ${gender}`;
         hpiText += "\r\n";
         // Information about Diagnosis
         hpiText += '-';
-        hpiText += ` Patient was diagnosed with ${this.type} on ${this.diagnosisDate}.`;
+        hpiText += ` ${this.type} diagnosed ${this.diagnosisDate}`;
         hpiText += "\r\n";
 
         return hpiText;
@@ -417,32 +422,32 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
         // Check hpiConfig for procedures and medications to exclude for condition
         const exclusions = hpiConfig[conditionCode] ? hpiConfig[conditionCode].exclusions : hpiConfig["default"].exclusions;
-        
+
         events = events.filter((event) => {
             return !exclusions.procedures.some(p => p.code === event.code) && !exclusions.medications.some(m => m.code === event.code);
         });
-        
+
         const procedureTemplates = {
-            range: '- Patient underwent {0} from {1} to {2}',
-            single: '- Patient underwent {0} on {1}'
+            range: '- {0} from {1} to {2}',
+            single: '- {0} on {1}'
         };
         const medicationTemplates = {
-            range: '- Patient took {0} from {1} to {2}.',
-            single: '- Patient started {0} on {1}.',
-            single_plan_stop: '- Patient started {0} on {1}. Planned until {2}.'
+            range: '- {0} from {1} to {2}',
+            single: '- {0} started {1}',
+            single_plan_stop: '- {0} started {1}, stopping {2}'
         };
         const today = new moment();
         events.forEach((event) => {
             switch (event.constructor) {
                 case FluxProcedureRequested: {
                     if (event.occurrenceTime.timePeriodStart) {
-                        let procedureText = '\r\n' + procedureTemplates['range'];
+                        let procedureText = procedureTemplates['range'];
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime.timePeriodStart);
                         procedureText = procedureText.replace('{2}', event.occurrenceTime.timePeriodEnd);
                         hpiText += procedureText;
                     } else {
-                        let procedureText = '\r\n' + procedureTemplates['single'];
+                        let procedureText = procedureTemplates['single'];
                         procedureText = procedureText.replace('{0}', event.name);
                         procedureText = procedureText.replace('{1}', event.occurrenceTime);
                         hpiText += procedureText;
@@ -452,22 +457,24 @@ class FluxConditionPresentAssertion extends FluxEntry {
                     } else {
                         hpiText += ".";
                     }
+                    hpiText += '\r\n';
                     break;
                 }
                 case FluxMedicationRequested: {
                     const active = event.isActiveAsOf(today);
                     if (!active) {
-                        let medicationText = '\r\n' + medicationTemplates['range'];
+                        let medicationText = medicationTemplates['range'];
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
                         medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
                         hpiText += medicationText;
+                        hpiText += '\r\n';
                     } else {
                         let medicationText;
                         if (event.expectedPerformanceTime.timePeriodEnd) {
-                            medicationText = '\r\n' + medicationTemplates['single_plan_stop'];
+                            medicationText = medicationTemplates['single_plan_stop'];
                         } else {
-                            medicationText = '\r\n' + medicationTemplates['single'];
+                            medicationText = medicationTemplates['single'];
                         }
                         medicationText = medicationText.replace('{0}', event.medication);
                         medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
@@ -475,23 +482,24 @@ class FluxConditionPresentAssertion extends FluxEntry {
                             medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
                         }
                         hpiText += medicationText;
+                        hpiText += '\r\n';
                     }
                     break;
                 }
                 case FluxCancerProgression: {
                     if (event.asOfDate && event.status) {
-                        hpiText += `\r\n- As of ${event.asOfDate}, disease is ${event.status}`;
+                        hpiText += `- ${event.status} as of ${event.asOfDate}`;
                         if (event.evidence && event.evidence.length > 0) {
-                            hpiText += ` based on ${event.evidence.join(', ')}.`;
-                        } else {
-                            hpiText += '.';
+                            hpiText += ` based on ${event.evidence.join(', ')}`;
                         }
+                        hpiText += '\r\n';
                     }
                     break;
                 }
                 case FluxObservation: {
                     if (event.quantity && event.quantity.number && event.quantity.unit) {
-                        hpiText += `\r\n- Patient had a ${event.name} lab result of ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}.`;
+                        hpiText += `- ${event.name}: ${event.quantity.number} ${event.quantity.unit} on ${event.relevantTime}`;
+                        hpiText += '\r\n';
                     }
                     break;
                 }

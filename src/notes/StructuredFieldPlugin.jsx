@@ -9,7 +9,7 @@ function createOpts(opts) {
     opts = opts || {};
     opts.typeStructuredField = opts.typeStructuredField || 'structured_field';
     opts.typePlaceholder = opts.typePlaceholder || 'placeholder';
-	return opts;
+    return opts;
 }
 
 function stopEventPropagation(e) {
@@ -76,7 +76,7 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } else if (e.keyCode === 37 && previousNode) {
-            if(previousNode.type === 'structured_field') {
+            if (previousNode.type === 'structured_field') {
                 let transform = state.transform();
                 transform = transform.collapseToStart(previousNode);
                 let newState = transform.apply();
@@ -204,7 +204,7 @@ function StructuredFieldPlugin(opts) {
             });
         }
         // Sort the keys in reverse order of creation -- new keys are always > old keys
-        deletedKeys.sort((a, b) => b - a)
+        deletedKeys.sort((a, b) => b - a);
         var shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
@@ -280,7 +280,7 @@ function StructuredFieldPlugin(opts) {
         rules: [
             {
                 match: (node) => {
-                    return node.kind === 'block' && node.type === 'inline'
+                    return node.kind === 'block' && node.type === 'inline';
                 },
                 render: (props) => {
                     return (
@@ -339,12 +339,9 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.type === 'structured_field') {
                 const shortcut = node.data.shortcut;
-                if (shortcut instanceof InsertValue) {
-                    // Inserters have characters as their children. Use characters to get current text in the node.
-                    result += shortcut.getResultText(node.nodes[0].characters.map(c => c.text).join(''));
-                } else {
-                    result += shortcut.getResultText();
-                }
+                // TODO: Refactor to not need slate node text passed as an argument. This is currently used to reload the correct text on edited shortcuts. Refactor should result in no arguments passed.
+                const textToSerialize = (shortcut instanceof InsertValue) ? node.nodes[0].characters.map(c => c.text).join('') : undefined;
+                result += shortcut.serialize(textToSerialize);
             } else if (node.type === 'placeholder') {
                 result += node.data.placeholder.getResultText();
             } else if (node.type === 'bulleted-list') {
@@ -471,7 +468,7 @@ function StructuredFieldPlugin(opts) {
             body.removeChild(div);
             native.removeAllRanges();
             native.addRange(range);
-        })
+        });
         return state;
     }
 
@@ -518,7 +515,7 @@ function StructuredFieldPlugin(opts) {
 
     function onCut(event, data, state, editor) {
         this.onCopy(event, data, state, editor); // doesn't change state
-        const window = getWindow(event.target)
+        const window = getWindow(event.target);
 
         // Once the fake cut content has successfully been added to the clipboard,
         // delete the content in the current selection.
@@ -603,10 +600,10 @@ function StructuredFieldPlugin(opts) {
         editor.onChange(transform);
     }
 
-	/*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
+    /*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
-	return {
+    return {
         clearStructuredFieldMap,
         onKeyDown,
         onChange,
@@ -623,10 +620,10 @@ function StructuredFieldPlugin(opts) {
         },
 
         transforms: {
-            insertStructuredField:      	insertStructuredField.bind(null, opts),
-            updateStructuredField:          updateStructuredField.bind(null, opts),
-            insertPlaceholder:              insertPlaceholder.bind(null, opts),
-            insertStructuredFieldAtRange:   insertStructuredFieldAtRange.bind(null, opts)
+            insertStructuredField: insertStructuredField.bind(null, opts),
+            updateStructuredField: updateStructuredField.bind(null, opts),
+            insertPlaceholder: insertPlaceholder.bind(null, opts),
+            insertStructuredFieldAtRange: insertStructuredFieldAtRange.bind(null, opts)
         }
     };
 }
@@ -675,8 +672,8 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
             transform = transform.insertInlineAtRange(range, sf);
         }
     });
-    
-    return [transform, ""]
+
+    return [transform, ""];
 }
 
 /**
@@ -688,10 +685,9 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
  * @return {State.Block}
  */
 function createStructuredField(opts, shortcut) {
-    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const isInserter = shortcut instanceof InsertValue;
     if (isInserter) {
-        const lines = String(shortcut.getText()).split(/\n\r|\r\n|\r|\n/g);
+        const lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
         let inlines = [];
         lines.forEach((line, i) => {
@@ -729,6 +725,7 @@ function createStructuredField(opts, shortcut) {
         return inlines;
     }
 
+    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const properties = {
         type: opts.typeStructuredField,
         nodes: nodes,
@@ -769,10 +766,11 @@ function updateStructuredField(opts, transform, shortcut) {
     }
 
     const newShortcut = opts.createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcut.getText(), true, shortcut.getSource());
-
     allKeysForShortcut.forEach((key, i) => {
         const shortcutNode = transform.state.document.getNode(key);
-        transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        if (shortcutNode) {
+            transform = deleteNode(shortcutNode, transform, i === allKeysForShortcut.length - 1);
+        }
     });
     // Clear key map after deleting
     idToKeysMap.delete(shortcut.uniqueId);

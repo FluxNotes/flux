@@ -1,4 +1,9 @@
+// GENERATED CODE
+// Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
+
 import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+
+import ClassRegistry from '../../ClassRegistry';
 
 /**
  * Generated class for shr.core.AnatomicalLocationStructured.
@@ -189,7 +194,8 @@ class AnatomicalLocationStructured {
    * @returns {AnatomicalLocationStructured} An instance of AnatomicalLocationStructured populated with the JSON data
    */
   static fromJSON(json={}) {
-    const inst = new AnatomicalLocationStructured();
+    const klass = ClassRegistry.get('shr.core', 'AnatomicalLocationStructured');
+    const inst = new klass();
     setPropertiesFromJSON(inst, json);
     return inst;
   }
@@ -229,6 +235,7 @@ class AnatomicalLocationStructured {
    * Deserializes FHIR JSON data to an instance of the AnatomicalLocationStructured class.
    * The FHIR must be valid against the AnatomicalLocationStructured FHIR profile, although this is not validated by the function.
    * @param {object} fhir - the FHIR JSON data to deserialize
+   * @param {string} fhirType - the type of the FHIR object that was passed in, in case not otherwise identifiable from the object itself
    * @param {string} shrId - a unique, persistent, permanent identifier for the overall health record belonging to the Patient; will be auto-generated if not provided
    * @param {Array} allEntries - the list of all entries that references in 'fhir' refer to
    * @param {object} mappedResources - any resources that have already been mapped to SHR objects. Format is { fhir_key: {shr_obj} }
@@ -236,37 +243,65 @@ class AnatomicalLocationStructured {
    * @param {boolean} asExtension - Whether the provided instance is an extension
    * @returns {AnatomicalLocationStructured} An instance of AnatomicalLocationStructured populated with the FHIR data
    */
-  static fromFHIR(fhir, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
-    const inst = new AnatomicalLocationStructured();
+  static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
+    const klass = ClassRegistry.get('shr.core', 'AnatomicalLocationStructured');
+    const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension') {
-        inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
       if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-ClockDirection-extension') {
-        inst.clockDirection = FHIRHelper.createInstanceFromFHIR('shr.core.ClockDirection', fhir_extension, shrId, allEntries, mappedResources, referencesOut, true);
+        inst.clockDirection = FHIRHelper.createInstanceFromFHIR('shr.core.ClockDirection', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (fhir['code'] != null) {
-      inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_modifier of fhir['modifier'] || []) {
       if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
-        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://example.com/shr/core/vs/AnatomicalDirectionVS').includes(g['code']))) {
-        inst.anatomicalDirection = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalDirection', fhir_modifier, shrId, allEntries, mappedResources, referencesOut, false);
+        inst.anatomicalDirection = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalDirection', fhir_modifier, 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
       }
     }
     if (fhir['description'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], shrId, allEntries, mappedResources, referencesOut, false);
+      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_image of fhir['image'] || []) {
       inst.media = inst.media || [];
-      const inst_media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', fhir_image, shrId, allEntries, mappedResources, referencesOut, false);
+      const inst_media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', fhir_image, 'Attachment', shrId, allEntries, mappedResources, referencesOut, false);
       inst.media.push(inst_media);
     }
     if (asExtension) {
-      inst.value = fhir['valueReference'];
+      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalLocationOrLandmarkCode-extension');
+      if (match_3 != null) {
+        inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Laterality-extension');
+      if (match_4 != null) {
+        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', match_4, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_5 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension');
+      if (match_5 != null) {
+        inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', match_5, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_6 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-AnatomicalDirection-extension');
+      if (match_6 != null) {
+        inst.anatomicalDirection = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalDirection', match_6, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_7 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-ClockDirection-extension');
+      if (match_7 != null) {
+        inst.clockDirection = FHIRHelper.createInstanceFromFHIR('shr.core.ClockDirection', match_7, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_8 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-CommentOrDescription-extension');
+      if (match_8 != null) {
+        inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', match_8, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      const match_9 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-Media-extension');
+      if (match_9 != null) {
+        inst.media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', match_9, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
     }
     return inst;
   }
