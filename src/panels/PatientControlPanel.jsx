@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import Lang from 'lodash';
 import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
+import FontAwesome from 'react-fontawesome';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -66,7 +67,9 @@ class PatientControlPanel extends Component {
             );
         }
     }
-
+    renderSelectPatientArrow = () => {
+        return <FontAwesome className='fas fa-angle-double-down' name='down-arrow'/>
+    }
     // Render renderConditionSelectAndSearch iff we have a patient to render
     renderConditionSelectAndSearch = () => {
         const { patient } = this.props;
@@ -110,10 +113,12 @@ class PatientControlPanel extends Component {
                             <Col xs={3} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
-                            <Col xs={5} md={4} lg={4} className="summary-header-column">
+                            <Col xs={4} md={4} lg={3} className="summary-header-column">
                                 {this.renderSummaryHeader()}
                             </Col>
-
+                            <Col xs={1} lg={1}>
+                                {this.renderSelectPatientArrow()}
+                            </Col>
                             <Col xs={4} md={5} lg={6}>
                                 {this.renderConditionSelectAndSearch()}
                             </Col>
