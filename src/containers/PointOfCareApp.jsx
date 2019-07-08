@@ -32,8 +32,8 @@ import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
     palette: {
-        primary: {...lightBlue, A700: '#1384b5'},
-        secondary: {...green, A400: '#00e677'},
+        primary: { ...lightBlue, A700: '#1384b5' },
+        secondary: { ...green, A400: '#00e677' },
         error: red
     }
 });
@@ -116,6 +116,7 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
+                console.log('patient :', patient);
                 this.contextManager = new ContextManager(patient);
                 this.setState({
                     patient,
@@ -157,13 +158,14 @@ export class PointOfCareApp extends Component {
                 icon.href = this.props.logoObject.path;
             };
         }
+        console.log('mounted! :');
         this.loadPatient(this.props.patientId);
     }
 
     componentWillMount() {
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
-            this.setState({loginUser: userProfile});
+            this.setState({ loginUser: userProfile });
             this.preferenceManager = new PreferenceManager(userProfile);
         } else {
             console.error("Login failed");
@@ -182,7 +184,7 @@ export class PointOfCareApp extends Component {
 
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
-        this.setState({[state]: value});
+        this.setState({ [state]: value });
     }
 
     setForceRefresh = (value) => {
@@ -247,7 +249,7 @@ export class PointOfCareApp extends Component {
     }
 
     onContextUpdate = () => {
-        this.setState({contextManager: this.contextManager});
+        this.setState({ contextManager: this.contextManager });
     }
 
     renderLoadingInformation = () => {
@@ -273,6 +275,10 @@ export class PointOfCareApp extends Component {
         } else {
             return "";
         }
+    }
+
+    test = () => {
+        console.log('test :', test);
     }
 
     render() {
@@ -322,8 +328,10 @@ export class PointOfCareApp extends Component {
                                         dataAccess={this.dataAccess}
                                         highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                                         loginUser={this.state.loginUser}
+                                        loadPatient={this.loadPatient}
                                         patient={this.state.patient}
                                         preferenceManager={this.preferenceManager}
+                                        test={this.test}
                                         searchSelectedItem={this.state.searchSelectedItem}
                                         setForceRefresh={this.setForceRefresh}
                                         setFullAppStateWithCallback={this.setFullAppStateWithCallback}
@@ -357,7 +365,7 @@ export class PointOfCareApp extends Component {
                         </Modal>
 
                         <Snackbar
-                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}
                             autoHideDuration={3000}
                             onClose={this.handleSnackbarClose}
                             open={this.state.snackbarOpen}
@@ -384,14 +392,14 @@ PointOfCareApp.propTypes = {
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-    // TODO: add actions
+        // TODO: add actions
     }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
     return {
-    // TODO: add state
+        // TODO: add state
     };
 }
 

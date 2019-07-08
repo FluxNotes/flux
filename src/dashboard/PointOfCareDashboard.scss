@@ -8,12 +8,20 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: flex-start;
         flex-basis: 92px;
         height: calc(100vh - 85px);
         background-color: $tab-bar-blue;
 
         button {
             padding: 75px 0px;
+        }
+        .next-patient {
+            // position: absolute;
+            // bottom: 0;
+            // align-self: flex-end;
+            // transform: translateY(-100%);
+            
         }
     }
 
