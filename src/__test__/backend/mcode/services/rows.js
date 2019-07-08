@@ -1,4 +1,4 @@
-[{
+export default [{
     "id": "row_1",
     "displayName": "A & B",
     "treatments": [{
@@ -13,9 +13,7 @@
         "codeSystemName": "RXNORM"
     }],
     "totalPatients": 2039,
-    "oneYrSurvival": 100,
-    "threeYrSurvival": 99,
-    "fiveYrSurvival": 98,
+    "survivorsPerYear": [,100,,99,,98],
     "sideEffects": {
         "totalReporting": 0,
         "effects": {}
@@ -30,9 +28,7 @@
         "codeSystemName": "RXNORM"
     }],
     "totalPatients": 4028,
-    "oneYrSurvival": 200,
-    "threeYrSurvival": 201,
-    "fiveYrSurvival": 200,
+    "survivorsPerYear": [,200, ,201,,200],
     "sideEffects": {
         "totalReporting": 0,
         "effects": {}

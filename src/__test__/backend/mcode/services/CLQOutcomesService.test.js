@@ -9,8 +9,8 @@ import getProps from '../../../../mcode-pilot/utils/recordToProps'
 import '../../../../model/init.js';
 import expectedFilter from './filter.json'
 import response from './response.json'
-import rows from './rows.json'
-import processed from './processed.json';
+import rows from './rows.js'
+import processed from './processed.js';
 const nock = require('nock');
 
 

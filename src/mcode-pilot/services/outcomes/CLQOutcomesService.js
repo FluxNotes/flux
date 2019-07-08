@@ -5,6 +5,7 @@ export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
         super();
         this.serviceUrl = params.serviceUrl;
+        this.timescale = params.timescale || [];
     }
 
     /*
@@ -120,9 +121,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             displayName,
             treatments,
             totalPatients: 0,
-            oneYrSurvival: 0,
-            threeYrSurvival: 0,
-            fiveYrSurvival: 0,
+            survivorsPerYear: [],
             sideEffects: {
                 totalReporting: 0,
                 effects: {}
@@ -146,18 +145,10 @@ export default class CLQOutcomesService extends IOutcomesService {
             }
             let row = this.initializeTreatmentData(this.generateTreatmentDisplayName(item.treatments), item.treatments);
             row.totalPatients = item.total;
+            
             item.outcomes.forEach((outcome) => {
-                /* eslint-disable */
-                if (outcome.survivalRate == '12') {
-                    row.oneYrSurvival = outcome.total;
-                } 
-                /* eslint-disable */
-                else if (outcome.survivalRate == '36') {
-                    row.threeYrSurvival = outcome.total;
-                /* eslint-disable */
-                } else if (outcome.survivalRate == '60') {
-                    row.fiveYrSurvival = outcome.total;
-                }
+                let survivalRate = parseInt(outcome.survivalRate)/12;
+                row.survivorsPerYear[survivalRate] = outcome.total;   
             });
             return row;
         }).filter((x) => x);
@@ -194,6 +185,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         filter.demographics = this.buildDemographicsFilter(similarPatientProps);
         filter.diagnosis = this.buildDiagnosisFilter(similarPatientProps);
         filter.tumorMarkers = this.buildTumorMakersFilter(similarPatientProps);
+        filter.outcomes = {survival: this.timescale.map((ts)=> { return {"value" : ts*12, "interval" : "months" }})}
         return new Promise((accept, reject) => {
             request({
                 url: this.serviceUrl,
