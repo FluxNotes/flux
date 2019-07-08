@@ -88,12 +88,15 @@ class PatientControlPanel extends Component {
     fillModal = () => {
         const patientList = this.dataAccess.dataSource.getListOfPatients();
         return patientList.map((patient, key) => {
-            console.log(patient);
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
+            const lastSeen = '14 days';
+            const noteStarted = '3 hours';
+            const appTime = '11:30';
+            console.log(patient);
             return <ListItem key={key}>
-                <ListItemIcon><svg xmlns={pic}/></ListItemIcon>
-                <ListItemText primary={name} />
+                <ListItemIcon><img alt='' src={pic} style={{width: '100px', height: '100px'}}></img></ListItemIcon>
+                <ListItemText primary={name} secondary={lastSeen + ' ago'}/>
             </ListItem>;
         }
         );
