@@ -7,7 +7,8 @@ import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
 import FontAwesome from 'react-fontawesome';
 import Modal from 'material-ui/Modal';
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import List, { ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar } from 'material-ui/List';
+import moment from 'moment';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -85,23 +86,29 @@ class PatientControlPanel extends Component {
     openModal = () => {
         this.setState({ isModalOpen: true });
     }
-    fillModal = () => {
+    renderModalPatients = () => {
         const patientList = this.dataAccess.dataSource.getListOfPatients();
-        return patientList.map((patient, key) => {
+        const appointmentTimes = [];
+        return [patientList.map((patient, key) => {
+            //gathering appointment times
+            const nextEncounter = patient.getNextEncounter().expectedPerformanceTime;
+            let nextTime = moment(nextEncounter, 'DD MMM YYYY HH:mm').hour();
+            nextTime = nextTime > 12 ? nextTime -= 12 : nextTime;
+            appointmentTimes.push(nextTime);
+            //patient descriptions
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
-            const lastSeen = '14 days';
+            let lastSeen = patient.getPreviousEncounter().expectedPerformanceTime;
+            lastSeen = new moment(lastSeen, "DD MMM YYYY");
+            const timeSinceLast = lastSeen.fromNow();
             const noteStarted = '3 hours';
-            let description = 'last seen: ' + lastSeen + ' ago \n note started ' + noteStarted + ' ago';
-            const secondary = description.split('\n').map((item, i) => <p key={i} style={{margin: '0px'}}>{item}</p>);
-            const appTime = '11:30';
-            // console.log(patient);
+            let description = 'last seen: ' + timeSinceLast + ' ago \n note started ' + noteStarted + ' ago';
+            const secondary = description.split('\n').map((item, i) => <p key={i} style={{ margin: '0px' }}>{item}</p>);
             return <ListItem key={key}>
-                <ListItemIcon><img alt='' src={pic} style={{width: '100px', height: '100px'}}></img></ListItemIcon>
-                <ListItemText primary={name} secondary={secondary}/>
+                <ListItemIcon><img alt='' src={pic} style={{ width: '100px', height: '100px' }}></img></ListItemIcon>
+                <ListItemText primary={name} secondary={secondary} />
             </ListItem>;
-        }
-        );
+        }), appointmentTimes];
     }
     handleClose = () => {
         this.setState({ isModalOpen: false });
@@ -152,7 +159,21 @@ class PatientControlPanel extends Component {
             );
         }
     }
-
+    renderModal = () => {
+        if (this.isTablet) {
+            return <Modal
+                aria-labelledby='simple-modal-title'
+                open={this.state.isModalOpen}
+                onClose={this.handleClose}
+            >
+                <div style={this.getModalStyle()}>
+                    <List>
+                        {this.renderModalPatients()[0]}
+                    </List>
+                </div>
+            </Modal>;
+        };
+    }
     render() {
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
@@ -175,17 +196,7 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
-                <Modal
-                    aria-labelledby='simple-modal-title'
-                    open={this.state.isModalOpen}
-                    onClose={this.handleClose}
-                >
-                    <div style={this.getModalStyle()}>
-                        <List component="nav">
-                            {this.fillModal()}
-                        </List>
-                    </div>
-                </Modal>
+                {this.renderModal()}
             </div>
 
         );
