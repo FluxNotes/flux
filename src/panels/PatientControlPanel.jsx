@@ -92,11 +92,13 @@ class PatientControlPanel extends Component {
             const pic = patient.person.photographicImage;
             const lastSeen = '14 days';
             const noteStarted = '3 hours';
+            let description = 'last seen: ' + lastSeen + ' ago \n note started ' + noteStarted + ' ago';
+            const secondary = description.split('\n').map((item, i) => <p key={i} style={{margin: '0px'}}>{item}</p>);
             const appTime = '11:30';
-            console.log(patient);
+            // console.log(patient);
             return <ListItem key={key}>
                 <ListItemIcon><img alt='' src={pic} style={{width: '100px', height: '100px'}}></img></ListItemIcon>
-                <ListItemText primary={name} secondary={lastSeen + ' ago'}/>
+                <ListItemText primary={name} secondary={secondary}/>
             </ListItem>;
         }
         );
