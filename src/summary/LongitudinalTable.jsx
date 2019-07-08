@@ -164,7 +164,7 @@ export default class LongitudinalTable extends Component {
             return (
                 <Row key={n.id}>
                     {/* Names and Units Cells */}
-                    <Cell className={'hoverable star-cell star-body ' + background} onClick={() => { this.toggleFavorites(n); this.props.reorderRows(n.name); this.setState({hovered: null}); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
+                    <Cell className={'hoverable star-cell star-body ' + background} onClick={() => { this.onClick(n); }} onMouseOver={() => { this.setState({ hovered: n.id }); }} onMouseLeave={() => { this.setState({ hovered: null }); }}>
                         {this.renderStar(n.name, n.id)}
                     </Cell>
                     {this.renderNameCell(n.name, background)}
@@ -182,6 +182,11 @@ export default class LongitudinalTable extends Component {
                 </Row>
             );
         });
+    }
+    onClick = (n) => {
+        this.toggleFavorites(n);
+        this.props.reorderRows(n.name);
+        this.setState({ hovered: null });
     }
     synchronizeScroll = (stickyTable) => {
         const tables = document.getElementsByClassName('sticky-table');
