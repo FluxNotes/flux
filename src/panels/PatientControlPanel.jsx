@@ -7,6 +7,7 @@ import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
 import FontAwesome from 'react-fontawesome';
 import Modal from 'material-ui/Modal';
+import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -24,6 +25,7 @@ class PatientControlPanel extends Component {
             isModalOpen: false
         };
         this.isTablet = props.isTablet;
+        this.dataAccess = props.dataAccess;
     }
 
     getLogoObject = () => {
@@ -82,6 +84,19 @@ class PatientControlPanel extends Component {
     }
     openModal = () => {
         this.setState({ isModalOpen: true });
+    }
+    fillModal = () => {
+        const patientList = this.dataAccess.dataSource.getListOfPatients();
+        return patientList.map((patient, key) => {
+            console.log(patient);
+            const name = patient.person.name;
+            const pic = patient.person.photographicImage;
+            return <ListItem key={key}>
+                <ListItemIcon><svg xmlns={pic}/></ListItemIcon>
+                <ListItemText primary={name} />
+            </ListItem>;
+        }
+        );
     }
     handleClose = () => {
         this.setState({ isModalOpen: false });
@@ -160,7 +175,11 @@ class PatientControlPanel extends Component {
                     open={this.state.isModalOpen}
                     onClose={this.handleClose}
                 >
-                    <div style={this.getModalStyle()}>hello!</div>
+                    <div style={this.getModalStyle()}>
+                        <List component="nav">
+                            {this.fillModal()}
+                        </List>
+                    </div>
                 </Modal>
             </div>
 

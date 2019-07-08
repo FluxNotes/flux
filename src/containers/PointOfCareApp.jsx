@@ -280,6 +280,7 @@ export class PointOfCareApp extends Component {
                                 <PatientControlPanel
                                     appTitle={this.props.display}
                                     clinicalEvent={this.state.clinicalEvent}
+                                    dataAccess={this.dataAccess}
                                     highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                                     isAppBlurred={this.state.isAppBlurred}
                                     isTablet={true}
