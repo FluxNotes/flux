@@ -73,7 +73,7 @@ export default class LongitudinalTable extends Component {
     }
     // updates current favorites and local storage
     toggleFavorites = (section) => {
-        const newFavorites = this.state.favorites;
+        const newFavorites = [...this.state.favorites];
         if (_.includes(newFavorites, section.name)) {
             newFavorites.splice(newFavorites.indexOf(section.name), 1);
             this.setState({ favorites: newFavorites });
