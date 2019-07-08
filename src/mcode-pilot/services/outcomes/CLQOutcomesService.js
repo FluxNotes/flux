@@ -173,7 +173,8 @@ export default class CLQOutcomesService extends IOutcomesService {
             similarPatientTreatmentsData,
             similarPatientTreatments,
             totalPatients: data.total,
-            totalSimilarPatients: data.outcomes.survival.total
+            totalSimilarPatients: data.outcomes.survival.total,
+            timescale: this.timescale
         };
     }
 
