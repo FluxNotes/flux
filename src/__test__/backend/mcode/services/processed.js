@@ -48,5 +48,6 @@ export default {
         "codeSystemName": "RXNORM"
     }],
     "totalPatients": 30000,
-    "totalSimilarPatients": 15000
+    "totalSimilarPatients": 15000,
+    "timescale": [1,3,5]
 }

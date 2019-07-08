@@ -23,7 +23,8 @@ describe("CLQOutcomesService", () => {
     }
 
     let clqService = new CLQOutcomesService({
-        serviceUrl: "http://localhost/outcomes"
+        serviceUrl: "http://localhost/outcomes",
+        "timescale": [1,3,5]
     });
 
     let patient = new PatientRecord(BreastMainTreatmentDiabetesHypertensionJaneV05);
