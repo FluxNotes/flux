@@ -6,6 +6,7 @@ import Lang from 'lodash';
 import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
 import FontAwesome from 'react-fontawesome';
+import Modal from 'material-ui/Modal';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -19,6 +20,10 @@ class PatientControlPanel extends Component {
             width: '30px',
             height: '40px'
         };
+        this.state = {
+            open: false
+        };
+        this.isTablet = props.isTablet;
     }
 
     getLogoObject = () => {
@@ -68,7 +73,43 @@ class PatientControlPanel extends Component {
         }
     }
     renderSelectPatientArrow = () => {
-        return <FontAwesome className='fas fa-angle-double-down' name='down-arrow'/>
+        if (this.isTablet) {
+            return (
+                <div onClick={() => this.selectPatient()}>
+                    <FontAwesome className='fas fa-angle-double-down' name='down-arrow' />
+                </div>);
+        }
+    }
+    selectPatient = () => {
+        this.handleOpen();
+        return <Modal
+            aria-labelledby='simple-modal-title'
+            open={true}
+            onClose={this.handleClose}
+        >
+            <div style={this.getModalStyle()}>hello!</div>
+        </Modal>;
+    }
+    handleOpen = () => {
+        console.log('open');
+        this.setState({ open: true });
+    }
+    handleClose = () => {
+        this.setState({ open: false });
+    }
+    getModalStyle() {
+        const top = 50;
+        const left = 50;
+        return {
+            top: `${top}%`,
+            left: `${left}%`,
+            transform: `translate(-${top}%, -${left}%)`,
+            position: 'absolute',
+            width: 400,
+            backgroundColor: 'white',
+            boxShadow: 'black',
+            padding: 8,
+        };
     }
     // Render renderConditionSelectAndSearch iff we have a patient to render
     renderConditionSelectAndSearch = () => {
@@ -134,6 +175,7 @@ PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
     isAppBlurred: PropTypes.bool,
+    isTablet: PropTypes.bool,
     layout: PropTypes.string,
     logoObject: PropTypes.shape({
         path: PropTypes.string.isRequired,

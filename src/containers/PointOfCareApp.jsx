@@ -282,6 +282,7 @@ export class PointOfCareApp extends Component {
                                     clinicalEvent={this.state.clinicalEvent}
                                     highlightedSearchSuggestion={this.state.highlightedSearchSuggestion}
                                     isAppBlurred={this.state.isAppBlurred}
+                                    isTablet={true}
                                     layout={this.state.layout}
                                     loginUsername={this.state.loginUser.getUserName()}
                                     logoObject={this.props.logoObject}
