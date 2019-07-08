@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ContextGetHelp.css';
+import NoteParser from '../noteparser/NoteParser';
 
 
 const UP_ARROW_KEY = 38;
@@ -10,6 +11,7 @@ const ENTER_KEY = 13;
 class ContextGetHelp extends React.Component {
     constructor(props) {
         super(props);
+        this.noteParser = new NoteParser();
 
         // eventually we can set this up to have custom options as a prop
         const defaultOptions = [
@@ -31,7 +33,26 @@ class ContextGetHelp extends React.Component {
 
     expand = () => {
         this.props.closePortal();
-        return this.props.onSelected(this.props.state, this.props.shortcut.metadata.expandedText);
+        const transform = this.replaceCurrentShortcut(this.props.shortcut.metadata.expandedText);
+        return this.props.onSelected(transform.apply(), null);
+    }
+
+    replaceCurrentShortcut = (selection) => {
+        let transform;
+        transform = this.props.state.transform();
+        const triggers = this.noteParser.getListOfTriggersFromText(selection)[0];
+        triggers.forEach((trigger, idx) => {
+            if (idx !== 0) {
+                transform = this.props.insertShortcut(trigger.definition, trigger.trigger, trigger.selectedValue, transform, 'typed');
+            }
+            if (idx < triggers.length-1) {
+                transform = transform.insertText(selection.substring(trigger.endIndex, triggers[idx+1].startIndex));
+            }
+            else if (trigger.endIndex < selection.length) {
+                transform = transform.insertText(selection.substring(trigger.endIndex));
+            }
+        });
+        return transform;
     }
 
     setSelectedIndex = (selectedIndex) => {
