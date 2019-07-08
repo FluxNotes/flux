@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-
 import IconsChart from '../../visualizations/IconsChart/IconsChart';
 
 import './TreatmentOptionsOutcomesIcons.css';
@@ -34,6 +33,19 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         }
 
         this.setState({ selectedTreatment: newSelectedTreatment });
+    }
+
+    getNumSurvive = (treatment, timescale) => {
+        const { similarPatientTreatmentsData } = this.props;
+        let totalNumSurvive;
+        let totalPatients;
+        let index = -1;
+        index = similarPatientTreatmentsData.findIndex(el => el.displayName === treatment.displayName);
+        totalPatients = similarPatientTreatmentsData[index].totalPatients;
+        totalNumSurvive = similarPatientTreatmentsData[index].survivorsPerYear[timescale];
+
+        const numSurvive = Math.floor(totalNumSurvive / totalPatients * 100);
+        return { numSurvive, index };
     }
 
     selectIconsTreatment = treatmentName => {
@@ -69,9 +81,8 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
             return <div className="helper-text">No data. Choose a different selection or similar patients criteria.</div>;
         }
 
-        const survivalMap = { 1: 'oneYrSurvival', 3: 'threeYrSurvival', 5: 'fiveYrSurvival' };
-        const timescale = survivalMap[timescaleToggle];
-        const numSurvive = Math.floor(selectedTreatment[timescale] / selectedTreatment.totalPatients * 100);
+        const { numSurvive: selectedNumSurvive} = this.getNumSurvive(selectedTreatment, timescaleToggle);
+
 
         return (
             <div className="treatment-options-outcomes-icons">
@@ -80,7 +91,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                 </div>
 
                 <IconsChart
-                    numSurvive={numSurvive}
+                    numSurvive={selectedNumSurvive}
                     treatment={selectedTreatment.displayName}
                     yearsSurvival={timescaleToggle}
                 />
@@ -91,5 +102,5 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
 TreatmentOptionsOutcomesIcons.propTypes = {
     similarPatientTreatmentsData: PropTypes.array.isRequired,
-    timescaleToggle: PropTypes.number.isRequired
+    timescaleToggle: PropTypes.string.isRequired
 };

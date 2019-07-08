@@ -32,5 +32,5 @@ function getCombinations(treatments) {
 
 export {
     isSame,
-    getCombinations
+    getCombinations,
 };

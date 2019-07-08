@@ -6,7 +6,6 @@ import BarChart from '../../visualizations/BarChart/BarChart';
 import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
-
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesTable extends Component {
@@ -17,6 +16,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
             sideEffectSelection: 'Most Common',
             sideEffects: []
         };
+
     }
 
     handleChangeEffect = effect => {
@@ -38,13 +38,14 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderBarChart = (row, compareRow, survivalRate) => {
-        const { totalPatients } = row;
-
+        const { totalPatients, survivorsPerYear } = row;
+        const numerator = survivorsPerYear[survivalRate];
+        const compareNumerator = compareRow ? compareRow.survivorsPerYear[survivalRate]: null;
         return (
             <BarChart
-                numerator={row[survivalRate]}
+                numerator={numerator}
                 denominator={totalPatients}
-                compareToNumerator={compareRow ? compareRow[survivalRate] : null}
+                compareToNumerator={compareNumerator}
                 compareToDenominator={compareRow ? compareRow.totalPatients : null}
             />
         );
@@ -52,6 +53,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
     renderTreatmentRow(row, compareRow = null) {
         const { sideEffectSelection } = this.state;
+        const { timescale } = this.props;
         if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
@@ -65,9 +67,11 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, 'oneYrSurvival')}</div>
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, 'threeYrSurvival')}</div>
-                    <div className="flex-1">{this.renderBarChart(row, compareRow, 'fiveYrSurvival')}</div>
+                    {timescale.map((timescaleYear) => {
+                        return <div key={timescaleYear} className="flex-1">{this.renderBarChart(row, compareRow, timescaleYear)}</div>;
+
+                    })}
+
                 </div>
 
                 <div className="flex flex-4 flex-padding top-side-effects">
@@ -95,9 +99,6 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const { similarPatientTreatmentsData, changeSort, sortColumn, sortDirection } = this.props;
         const { sideEffectSelection } = this.state;
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
-        const sort1 = sortColumn === 'oneYrSurvival';
-        const sort3 = sortColumn === 'threeYrSurvival';
-        const sort5 = sortColumn === 'fiveYrSurvival';
         const sortP = sortColumn === 'totalPatients';
         const sideEffects = this.gatherSideEffects(similarPatientTreatmentsData);
 
@@ -115,23 +116,15 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     <div className="header-title">Overall survival rates</div>
 
                     <div className="flex">
-                        <div className="flex-1">
-                            <span onClick={() => changeSort('oneYrSurvival')} className="header-space">
-                                1 yr  <FontAwesome className={this.getSortClass(sort1)} name={sort1 ? sortName : 'sort'} />
-                            </span>
-                        </div>
-
-                        <div className="flex-1">
-                            <span onClick={() => changeSort('threeYrSurvival')} className="header-space">
-                                3 yr  <FontAwesome className={this.getSortClass(sort3)} name={sort3 ? sortName : 'sort'} />
-                            </span>
-                        </div>
-
-                        <div className="flex-1">
-                            <span onClick={() => changeSort('fiveYrSurvival')} className="header-space">
-                                5 yr  <FontAwesome className={this.getSortClass(sort5)} name={sort5 ? sortName : 'sort'} />
-                            </span>
-                        </div>
+                        {this.props.timescale.map((timescaleYear) => {
+                            return (
+                                <div className="flex-1" key={timescaleYear}>
+                                    <span onClick={ () => { changeSort(timescaleYear); }} className="header-space">
+                                        {timescaleYear} yr  <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear?sortName: "sort"} />
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 

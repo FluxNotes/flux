@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import TreatmentOptionsOutcomesTable from '../TreatmentOptionsOutcomesTable/TreatmentOptionsOutcomesTable';
 import TreatmentOptionsOutcomesIcons from '../TreatmentOptionsOutcomesIcons/TreatmentOptionsOutcomesIcons';
-
 import './TreatmentOptionsOutcomes.css';
 
 export default class TreatmentOptionsOutcomes extends Component {
@@ -12,7 +11,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 
         this.state = {
             outcomesToggle: 'table',
-            timescaleToggle: 5,
+            timescaleToggle: '',
             sortColumn: '',
             sortDirection: 0
         };
@@ -54,7 +53,7 @@ export default class TreatmentOptionsOutcomes extends Component {
             };
         } else {
             return function(a,b) {
-                return b[propName] / b['totalPatients'] - a[propName] / a['totalPatients'];
+                return b.survivorsPerYear[propName] / b['totalPatients'] - a.survivorsPerYear[propName] / a['totalPatients'];
             };
         }
     }
@@ -91,13 +90,17 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     renderToggleButtons = () => {
-        const { outcomesToggle, timescaleToggle } = this.state;
-        const timeScales = [1, 3, 5];
+        let { outcomesToggle, timescaleToggle } = this.state;
+        const { timescale } = this.props;
+
+        if (timescaleToggle==='') {
+            timescaleToggle = timescale[0];
+        }
 
         return (
             <div className="treatment-options-outcomes__toggle">
                 <div className="timescale-toggles">
-                    {outcomesToggle === "icons" && timeScales.map((time, i) =>
+                    {outcomesToggle === "icons" && timescale.map((time, i) =>
                         <div
                             className={`timescale-toggle ${timescaleToggle === time ? 'active' : ''}`}
                             onClick={() => this.handleToggleTimescale(time)}
@@ -125,7 +128,7 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     render() {
-        const { similarPatientTreatmentsData, similarPatientTreatments } = this.props;
+        const { similarPatientTreatmentsData, similarPatientTreatments, timescale } = this.props;
         const { outcomesToggle, timescaleToggle, sortDirection, sortColumn } = this.state;
 
         if (sortDirection) { // it could be ascending or descending, but it's sorted
@@ -148,11 +151,13 @@ export default class TreatmentOptionsOutcomes extends Component {
                         changeSort={this.handleChangeSort}
                         sortColumn={sortColumn}
                         sortDirection={sortDirection}
+                        timescale = {timescale}
                     />
                     :
                     <TreatmentOptionsOutcomesIcons
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
-                        timescaleToggle={timescaleToggle}
+                        timescaleToggle={timescaleToggle !== '' ? timescaleToggle : timescale[0]}
+                        timescale = {timescale}
                     />
                 }
             </div>

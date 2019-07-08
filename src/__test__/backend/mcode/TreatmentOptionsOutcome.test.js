@@ -11,10 +11,12 @@ Enzyme.configure({ adapter: new Adapter() });
 describe.only("TreatmentOptionsOutcome", () => {
     let props, optionsOutcome;
 
+    const timescale = ["1","3","5"];
     beforeEach(() => {
         props = {
             similarPatientTreatmentsData,
-            similarPatientTreatments
+            similarPatientTreatments,
+            timescale
         };
         optionsOutcome = null;
     });
@@ -28,17 +30,17 @@ describe.only("TreatmentOptionsOutcome", () => {
         it("renders the 'chemotherapy, 'hormonal therapy', and 'test therapy' treatment rows", () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
-            expect(tableRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
-            expect(tableRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
-            expect(tableRows.at(2).find('.treatment-name').text()).to.eql('test therapy');
+            expect(tableRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
+            expect(tableRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(tableRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
         });
 
         it("renders the total number of patients", () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
-            expect(tableRows.at(0).find('.total-patients').text()).to.eql('(82)');
-            expect(tableRows.at(1).find('.total-patients').text()).to.eql('(12)');
-            expect(tableRows.at(2).find('.total-patients').text()).to.eql('(10)');
+            expect(tableRows.at(0).find('.total-patients').text()).to.eql('(100)');
+            expect(tableRows.at(1).find('.total-patients').text()).to.eql('(82)');
+            expect(tableRows.at(2).find('.total-patients').text()).to.eql('(12)');
         });
 
         it("calculates the correct one, three, and five survival rates", () => {
@@ -46,42 +48,42 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(tableRows).to.have.lengthOf(3);
 
             // chemotherapy
-            const barChartText1 = tableRows.at(0).find('.bar-chart-text');
+            const barChartText1 = tableRows.at(1).find('.bar-chart-text');
             expect(barChartText1).to.have.lengthOf(3);
             expect(barChartText1.at(0).text()).to.eql('98%');
             expect(barChartText1.at(1).text()).to.eql('92%');
             expect(barChartText1.at(2).text()).to.eql('87%');
 
             // hormonal therapy
-            const barChartText2 = tableRows.at(1).find('.bar-chart-text');
+            const barChartText2 = tableRows.at(2).find('.bar-chart-text');
             expect(barChartText2).to.have.lengthOf(3);
             expect(barChartText2.at(0).text()).to.eql('83%');
             expect(barChartText2.at(1).text()).to.eql('66%');
             expect(barChartText2.at(2).text()).to.eql('16%');
 
             // test therapy
-            const barChartText3 = tableRows.at(2).find('.bar-chart-text');
+            const barChartText3 = tableRows.at(0).find('.bar-chart-text');
             expect(barChartText3).to.have.lengthOf(3);
-            expect(barChartText3.at(0).text()).to.eql('90%');
-            expect(barChartText3.at(1).text()).to.eql('90%');
-            expect(barChartText3.at(2).text()).to.eql('80%');
+            expect(barChartText3.at(0).text()).to.eql('96%');
+            expect(barChartText3.at(1).text()).to.eql('91%');
+            expect(barChartText3.at(2).text()).to.eql('91%');
         });
 
         it("displays the top two side effects", () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
 
-            const sideEffectText1 = tableRows.at(0).find('.top-side-effects .side-effect');
+            const sideEffectText1 = tableRows.at(1).find('.top-side-effects .side-effect');
             expect(sideEffectText1).to.have.lengthOf(2);
             expect(sideEffectText1.at(0).text()).to.eql('nausea/vomiting (93%)');
             expect(sideEffectText1.at(1).text()).to.eql('fatigue (85%)');
 
-            const sideEffectText2 = tableRows.at(1).find('.top-side-effects .side-effect');
+            const sideEffectText2 = tableRows.at(2).find('.top-side-effects .side-effect');
             expect(sideEffectText2).to.have.lengthOf(2);
             expect(sideEffectText2.at(0).text()).to.eql('hot flashes (83%)');
             expect(sideEffectText2.at(1).text()).to.eql('decreased libido (75%)');
 
-            const sideEffectText3 = tableRows.at(2).find('.top-side-effects .side-effect');
+            const sideEffectText3 = tableRows.at(0).find('.top-side-effects .side-effect');
             expect(sideEffectText3).to.have.lengthOf(2);
             expect(sideEffectText3.at(0).text()).to.eql('nausea/vomiting (70%)');
             expect(sideEffectText3.at(1).text()).to.eql('fatigue (70%)');
@@ -137,9 +139,9 @@ describe.only("TreatmentOptionsOutcome", () => {
             const header = outcome().find('.header-space');
             let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
 
-            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
-            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
-            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
 
             // sort by 1 yr survival
             header.at(1).simulate('click');
@@ -153,8 +155,8 @@ describe.only("TreatmentOptionsOutcome", () => {
             header.at(3).simulate('click');
 
             treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
-            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
-            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
 
             // sort by 3 yr opposite direction

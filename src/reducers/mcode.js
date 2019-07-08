@@ -10,6 +10,7 @@ export const defaultState = {
     similarPatientTreatmentsData: [],
     totalPatients: 0,
     totalSimilarPatients: 0,
+    timescale: []
 };
 
 export default function mcode(state = defaultState, action) {
@@ -23,7 +24,7 @@ export default function mcode(state = defaultState, action) {
             ...state,
             similarPatientProps: { ...getProps(patient, condition) },
             similarPatientTreatments,
-            totalSimilarPatients: similarPatients.length
+            totalSimilarPatients: similarPatients.length,
         };
     }
 
@@ -90,7 +91,8 @@ export default function mcode(state = defaultState, action) {
             totalPatients: action.data.totalPatients,
             totalSimilarPatients: action.data.totalSimilarPatients,
             similarPatientTreatments: action.data.similarPatientTreatments,
-            similarPatientTreatmentsData: action.data.similarPatientTreatmentsData
+            similarPatientTreatmentsData: action.data.similarPatientTreatmentsData,
+            timescale: action.data.timescale
         };
     }
 

@@ -3,20 +3,21 @@ import { isSame, getCombinations } from './arrayOperations';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
-function filterTreatmentData(similarPatientProps) {
+function filterTreatmentData(similarPatientProps, timescale) {
     const totalPatients = transformedTreatmentData.length;
     const similarPatients = transformedTreatmentData.filter(treatmentDataPatient =>
         isSimilarPatient(treatmentDataPatient, similarPatientProps));
     const totalSimilarPatients = similarPatients.length;
     const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
     const treatmentCombinations = getCombinations(similarPatientTreatments);
-    const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations);
+    const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations, timescale);
 
     return {
         similarPatientTreatments,
         similarPatientTreatmentsData,
         totalPatients,
         totalSimilarPatients,
+        timescale
     };
 }
 
@@ -25,9 +26,7 @@ function initializeTreatmentData(displayName) {
         id: _.uniqueId('row_'),
         displayName,
         totalPatients: 0,
-        oneYrSurvival: 0,
-        threeYrSurvival: 0,
-        fiveYrSurvival: 0,
+        survivorsPerYear: [],
         sideEffects: {
             totalReporting: 0,
             effects: {}
@@ -35,8 +34,9 @@ function initializeTreatmentData(displayName) {
     };
 }
 
-function generateTreatmentData(similarPatients, treatmentCombinations) {
+function generateTreatmentData(similarPatients, treatmentCombinations, timescale) {
     if (similarPatients.length === 0) return [];
+    timescale.sort(); // maybe unnecessary
     let treatmentData = [];
     treatmentCombinations.forEach(treatmentCombination => {
         const filteredPatients = similarPatients.filter(patient =>
@@ -50,10 +50,18 @@ function generateTreatmentData(similarPatients, treatmentCombinations) {
         filteredPatients.forEach(patient => {
             row.totalPatients += 1;
 
-            const survivalYears = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-            if (survivalYears >= 1) row.oneYrSurvival += 1;
-            if (survivalYears >= 3) row.threeYrSurvival += 1;
-            if (survivalYears >= 5) row.fiveYrSurvival += 1;
+            let yearsSurvived = Math.floor(patient.diseaseStatus.survivalMonths / 12);
+
+
+            while (yearsSurvived>=0) {
+                if (row.survivorsPerYear[yearsSurvived] === undefined) {
+                    row.survivorsPerYear[yearsSurvived] = 0;
+                }
+
+                row.survivorsPerYear[yearsSurvived] += 1;
+                yearsSurvived-=1;
+            }
+
             if (patient.sideEffects.length > 0) {
                 row.sideEffects.totalReporting += 1;
                 patient.sideEffects.forEach(sideEffectKey => {

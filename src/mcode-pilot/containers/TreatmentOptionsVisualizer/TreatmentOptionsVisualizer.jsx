@@ -55,6 +55,7 @@ export class TreatmentOptionsVisualizer extends Component {
             similarPatientTreatmentsData,
             totalPatients,
             totalSimilarPatients,
+            timescale,
         } = this.props;
         return (
             <div className="treatment-options-visualizer">
@@ -80,6 +81,7 @@ export class TreatmentOptionsVisualizer extends Component {
                 <TreatmentOptionsOutcomes
                     similarPatientTreatments={similarPatientTreatments}
                     similarPatientTreatmentsData={similarPatientTreatmentsData}
+                    timescale={timescale}
                 />
             </div>
         );
@@ -100,6 +102,7 @@ TreatmentOptionsVisualizer.propTypes = {
     similarPatientTreatmentsData: PropTypes.array.isRequired,
     totalPatients: PropTypes.number.isRequired,
     totalSimilarPatients: PropTypes.number.isRequired,
+    timescale: PropTypes.array.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -120,6 +123,7 @@ function mapStateToProps(state) {
         similarPatientTreatmentsData: state.mcode.similarPatientTreatmentsData,
         totalPatients: state.mcode.totalPatients,
         totalSimilarPatients: state.mcode.totalSimilarPatients,
+        timescale: state.mcode.timescale
     };
 }
 

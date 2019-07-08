@@ -26,9 +26,7 @@ export const similarPatientTreatmentsData = [
         "id": "row_2",
         "displayName": "hormonal therapy",
         "totalPatients": 12,
-        "oneYrSurvival": 10,
-        "threeYrSurvival": 8,
-        "fiveYrSurvival": 2,
+        "survivorsPerYear":[12,10,9,8,5,2],
         "sideEffects": {
             "totalReporting": 12,
             "effects": {
@@ -47,9 +45,7 @@ export const similarPatientTreatmentsData = [
         "id": "row_3",
         "displayName": "chemotherapy",
         "totalPatients": 82,
-        "oneYrSurvival": 81,
-        "threeYrSurvival": 76,
-        "fiveYrSurvival": 72,
+        "survivorsPerYear":[82,81,81,76,74,72],
         "sideEffects": {
             "totalReporting": 82,
             "effects": {
@@ -65,15 +61,13 @@ export const similarPatientTreatmentsData = [
     {
         "id": "row_4",
         "displayName": "test therapy",
-        "totalPatients": 10,
-        "oneYrSurvival": 9,
-        "threeYrSurvival": 9,
-        "fiveYrSurvival": 8,
+        "totalPatients": 100,
+        "survivorsPerYear":[100,96,96,91,91,91],
         "sideEffects": {
             "totalReporting": 9,
             "effects": {
-                "Nausea/Vomiting": 7,
-                "Fatigue": 7,
+                "Nausea/Vomiting": 70,
+                "Fatigue": 70,
                 "Anemia": 6,
                 "Weight Loss": 2,
                 "Bowel Dysfunction": 1,

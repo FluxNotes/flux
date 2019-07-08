@@ -63,7 +63,8 @@ function processSimilarPatientOutcomes() {
                 totalPatients: results.totalPatients,
                 totalSimilarPatients: results.totalSimilarPatients,
                 similarPatientTreatments: results.similarPatientTreatments,
-                similarPatientTreatmentsData: results.similarPatientTreatmentsData
+                similarPatientTreatmentsData: results.similarPatientTreatmentsData,
+                timescale: results.timescale
             }));
         });
     };
