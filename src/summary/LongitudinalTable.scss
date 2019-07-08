@@ -6,45 +6,134 @@
     text-align: center;
     min-height: 0px;
 }
-
 #longitudinal-table {
-    .left-table {
-        float: left;
-        .name {
-            max-width: 135px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
+    .vertical-scroll {
+        overflow-y: scroll !important;
+        max-height: 200px;
+        .sticky-table .sticky-table-row:nth-child(-n + 2) .sticky-table-cell {
+            //row
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0 !important;
+            z-index: 2;
         }
-        .star-cell {
-            padding-left: 0px !important;
-            padding-right: 0px !important;
-            text-align: center !important;
-            min-width: 30px !important;
-            .star-clicked {
-                color: $interface-blue;
+        .sticky-table .sticky-table-row .sticky-table-cell:nth-child(-n + 4) {
+            //column
+            position: -webkit-sticky;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+        }
+        .sticky-table
+            .sticky-table-row:nth-child(-n + 2)
+            .sticky-table-cell:nth-child(-n + 4) {
+            //row and column
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 3;
+        }
+        .sticky-table {
+            border-collapse: collapse;
+            width: auto;
+            margin-top: 10px;
+            font-size: $size-m;
+            overflow-x: unset !important;
+
+            &.white-scrollbar::-webkit-scrollbar-thumb {
+                background-color: #ffffff !important;
             }
-            .star-hovered {
-                color: $interface-blue;
+            #sticky-header {
+                top: 0 !important;
             }
-            &.star-body {
-                &:hover {
-                    cursor: pointer;
+            #sticky-name {
+                left: 50px;
+                min-width: 135px;
+                max-width: 135px;
+            }
+            #sticky-unit {
+                left: 185px;
+                min-width: 95px;
+            }
+            #section-header {
+                //starred or all labs/vitals
+                font-size: $size-xs !important;
+                font-weight: $weight-regular !important;
+                color: $body-gray !important;
+                padding-left: 0px;
+                min-width: 50px;
+                z-index: 4;
+            }
+            #break {
+                min-width: 10px !important;
+                background-color: $background !important;
+                padding-right: 0px !important;
+                padding-left: 0px !important;
+                left: 280px !important;
+            }
+            .header {
+                color: $body-gray;
+                background-color: $background;
+                padding: 1px 10px 2px 10px;
+                border-bottom: 1px solid $line-gray;
+                font-weight: $weight-regular !important;
+                font-family: "Open Sans", Arial, sans-serif;
+                text-align: left;
+                min-width: 95px;
+                &.year-header {
+                    border-bottom: 0px !important;
                 }
             }
-            &.hoverable {
-                &:hover {
-                    font-size: 17px;
+            .table-content {
+                padding: 6px 10px 6px 10px;
+                border: 0;
+                color: $body-black;
+                font-size: $size-m;
+                line-height: 1.25rem;
+                font-family: "Open Sans", Arial, sans-serif;
+                min-width: 95px;
+            }
+            .black-text {
+                color: $body-black;
+            }
+            .red-text {
+                color: $warning-red;
+            }
+            .name {
+                max-width: 135px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .star-cell {
+                padding-left: 0px !important;
+                padding-right: 0px !important;
+                text-align: center !important;
+                width: 30px !important;
+                &.star-body {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                &.hoverable {
+                    &:hover {
+                        font-size: 17px;
+                    }
+                }
+                .star-hovered {
+                    color: $interface-blue !important;
+                }
+                .star-clicked {
+                    color: $interface-blue !important;
                 }
             }
+            .gray-background {
+                background-color: $contrast-gray;
+            }
+            .white-background {
+                background-color: $background;
+            }
         }
-    }
-    .table-header {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        min-width: 60px;
-    }
-    .table-scrollable {
-        overflow-x: scroll;
     }
 }
