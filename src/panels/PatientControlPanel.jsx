@@ -21,7 +21,7 @@ class PatientControlPanel extends Component {
             height: '40px'
         };
         this.state = {
-            open: false
+            isModalOpen: false
         };
         this.isTablet = props.isTablet;
     }
@@ -75,27 +75,16 @@ class PatientControlPanel extends Component {
     renderSelectPatientArrow = () => {
         if (this.isTablet) {
             return (
-                <div onClick={() => this.selectPatient()}>
+                <div onClick={() => this.openModal()}>
                     <FontAwesome className='fas fa-angle-double-down' name='down-arrow' />
                 </div>);
         }
     }
-    selectPatient = () => {
-        this.handleOpen();
-        return <Modal
-            aria-labelledby='simple-modal-title'
-            open={true}
-            onClose={this.handleClose}
-        >
-            <div style={this.getModalStyle()}>hello!</div>
-        </Modal>;
-    }
-    handleOpen = () => {
-        console.log('open');
-        this.setState({ open: true });
+    openModal = () => {
+        this.setState({ isModalOpen: true });
     }
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({ isModalOpen: false });
     }
     getModalStyle() {
         const top = 50;
@@ -166,7 +155,15 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
+                <Modal
+                    aria-labelledby='simple-modal-title'
+                    open={this.state.isModalOpen}
+                    onClose={this.handleClose}
+                >
+                    <div style={this.getModalStyle()}>hello!</div>
+                </Modal>
             </div>
+
         );
     }
 }
