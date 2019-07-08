@@ -9,12 +9,18 @@ export default class TreatmentOptionsSection extends MetadataSection {
         return {
             name: "Treatment Options",
             nameSuffixFunction: (section) => {
-                if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
-                    return section.data[0].data_cache.then (result => {
-                        return result.isDemo ? "(Demo)" : "";
-                    });
+                try {
+                    if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
+                        return section.data[0].data_cache.then(result => {
+                            return result.isDemo ? "(Demo)" : "";
+                        });
+                    }
+                    else return section.data[0].data_cache.isDemo ? "(Demo)" : "";
+                } catch (e) {
+                    console.error('Error: ', e);
+                    return '';
                 }
-                else return section.data[0].data_cache.isDemo ? "(Demo)" : "";
+                
             },
             shortName: "Treatments",
             type: "ClusterPoints",

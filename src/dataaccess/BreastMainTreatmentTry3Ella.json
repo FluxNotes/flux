@@ -5824,6 +5824,12 @@
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
+        "RelevantTime": {
+            "Value": "06 May 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
+            }
+        },
         "CreationTime": {
             "Value": "06 May 2019",
             "EntryType": {
