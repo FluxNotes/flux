@@ -1,3 +1,5 @@
+import CompletionComponentFactory from './CompletionComponentFactory';
+
 export default function CompletionPortalPlugin(opts) {
 
     const onKeyDown = (...args) => {
@@ -11,11 +13,12 @@ export default function CompletionPortalPlugin(opts) {
         // Step one: If we're at the beginning of a line, see if the previous node is a shortcut
         const previousNode = (state.selection.focusOffset === 0) ? state.document.getPreviousSibling(state.selection.focusKey) : null;
         const previousNodeShortcut = previousNode ? previousNode.data.get('shortcut') : null;
-        // IF we're right next to a shortcut, that shortcut has a completion component, then let's open that completionComponent
-        if (previousNodeShortcut && previousNodeShortcut.completionComponent) {
+        // IF we're right next to a shortcut, that shortcut has a completion component and is incomplete, then let's open that completionComponent
+        if (previousNodeShortcut && previousNodeShortcut.completionComponentName) {
             // But only if the portal isn't already open
+            const completionComponent = CompletionComponentFactory.createInstance(previousNodeShortcut.completionComponentName);
             if (!opts.getCompletionComponent()) {
-                opts.openPortal(previousNodeShortcut);
+                opts.openPortal(previousNodeShortcut, completionComponent);
             }
         } else if (opts.getCompletionComponent()) {
             // Else, we should close any portals that were open previously that shouldn't now be open

@@ -3,9 +3,7 @@ import Context from '../context/Context';
 import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
-import ContextCalendar from '../context/ContextCalendar';
-import ContextListOptions from '../context/ContextListOptions';
-import ContextGetHelp from '../context/ContextGetHelp';
+
 
 class Shortcut extends Context {
     constructor() {
@@ -179,22 +177,8 @@ class Shortcut extends Context {
         return true;
     }
 
-    get completionComponent() {
-        switch (this.metadata.subtype) {
-        case "number":
-            console.error(`We don't currently support a completion component for ${this.metadata.subtype}-subtypes; trying to get a completionComponent for ${this.metadata.id}`);
-            return null;
-        case "date":
-            return ContextCalendar;
-        case "multi-choice":
-        case "choice":
-            return ContextListOptions;
-        case "menu":
-            return ContextGetHelp;
-        default:
-            console.error(`We don't currently support a completion component for ${this.metadata.subtype}-subtypes; trying to get a completionComponent for ${this.metadata.id}`);
-            return null;
-        }
+    get completionComponentName() {
+        return this.metadata.subtype;
     }
 }
 

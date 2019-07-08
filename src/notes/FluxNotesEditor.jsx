@@ -69,13 +69,13 @@ const initialEditorState = {
 };
 
 class FluxNotesEditor extends React.Component {
-    openCompletionPortal = (completionComponentShortcut) => {
+    openCompletionPortal = (completionComponentShortcut, completionComponent) => {
         // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
         const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
         this.setState({
             completionComponentShortcut: completionComponentShortcut,
             portalOptions: portalOptions,
-            completionComponent: completionComponentShortcut.completionComponent,
+            completionComponent: completionComponent,
             openedPortal: "CompletionPortal",
         });
     }
@@ -415,7 +415,6 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isNull(selection)) {
             // Removes the shortcut from its parent
             shortcut.onBeforeDeleted();
-            return state;
         }
         let transform;
         transform = this.state.state.transform();
@@ -437,6 +436,7 @@ class FluxNotesEditor extends React.Component {
         // Need to return state so we can use that to short circuit any plugins that rely on this change
         return newState;
     }
+
 
     // consider reusing this method to replace code in choseSuggestedShortcut function
     suggestionDeleteExistingTransform = (transform = null, prefixCharacter) => {
@@ -1893,6 +1893,7 @@ class FluxNotesEditor extends React.Component {
                                 closePortal={this.closeCompletionPortal}
                                 shortcut={this.state.completionComponentShortcut}
                                 state={this.state.state}
+                                insertShortcut={this.insertShortcut}
                             />
                         </CompletionPortal>
                     }
