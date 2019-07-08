@@ -6,6 +6,7 @@ class ReviewOfSystemsValuesIndexer extends BaseIndexer {
         const sectionId = super.getStringForId(section);
 
         data.forEach((item) => {
+            console.log('item :', item);
             const dateId = super.getStringForId(item.date);
             searchIndex.addSearchableData({
                 id: `${sectionId}_${dateId}`,

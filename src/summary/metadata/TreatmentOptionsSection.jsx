@@ -15,14 +15,12 @@ export default class TreatmentOptionsSection extends MetadataSection {
                             return result.isDemo ? "(Demo)" : "";
                         });
                     }
-                    else {
-                        return section.data[0].data_cache.isDemo ? "(Demo)" : "";
-                    }
+                    else return section.data[0].data_cache.isDemo ? "(Demo)" : "";
                 } catch (e) {
                     console.error('Error: ', e);
                     return '';
                 }
-
+                
             },
             shortName: "Treatments",
             type: "ClusterPoints",

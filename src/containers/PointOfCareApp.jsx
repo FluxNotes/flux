@@ -29,6 +29,7 @@ import ContextManager from '../context/ContextManager';
 import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 
 import '../styles/PointOfCareApp.css';
+import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 
 const theme = createMuiTheme({
     palette: {
@@ -76,6 +77,7 @@ export class PointOfCareApp extends Component {
         this.state = {
             clinicalEvent: "pre-encounter",
             condition: null,
+            cm: null,
             errors: [],
             forceRefresh: false,
             highlightedSearchSuggestion: null,
@@ -100,13 +102,14 @@ export class PointOfCareApp extends Component {
         };
     }
 
-    loadPatient = (patientId) => {
+    loadPatient =(patientId) => {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
-                this.contextManager = new ContextManager(patient);
+                const cm = new ContextManager(patient)
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
+                    cm: cm,
                     patient,
                     loading: false,
                     loadingError: error
@@ -122,6 +125,8 @@ export class PointOfCareApp extends Component {
                     patient,
                     loading: false
                 });
+                console.log('patient.getConditions() :', patient.getConditions());
+                console.log('patient.getActiveConditions() :', patient.getActiveConditions());
                 const cancer = patient.getActiveConditions().find((condition) => {
                     return condition instanceof FluxCancerDisorderPresent;
                 });
@@ -158,7 +163,6 @@ export class PointOfCareApp extends Component {
                 icon.href = this.props.logoObject.path;
             };
         }
-        console.log('mounted! :');
         this.loadPatient(this.props.patientId);
     }
 
@@ -192,6 +196,7 @@ export class PointOfCareApp extends Component {
     }
 
     setCondition = (condition) => {
+        console.log('condition :', condition);
         this.setFullAppState('condition', condition);
     }
 

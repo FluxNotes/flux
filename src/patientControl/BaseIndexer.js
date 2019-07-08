@@ -17,7 +17,12 @@ class BaseIndexer extends Component {
     }
 
     getStringForId(s) {
-        return s.toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
+        try {
+            return s.toLowerCase().replace(/[.,#!$%&;:{}=\-_`~()]/g,"").replace(/ /g, '_');
+        } catch (e) {
+            console.error(e);
+            return '';
+        }
     }
 }
 
