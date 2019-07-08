@@ -145,10 +145,10 @@ export default class CLQOutcomesService extends IOutcomesService {
             }
             let row = this.initializeTreatmentData(this.generateTreatmentDisplayName(item.treatments), item.treatments);
             row.totalPatients = item.total;
-            
+
             item.outcomes.forEach((outcome) => {
                 let survivalRate = parseInt(outcome.survivalRate)/12;
-                row.survivorsPerYear[survivalRate] = outcome.total;   
+                row.survivorsPerYear[survivalRate] = outcome.total;
             });
             return row;
         }).filter((x) => x);
@@ -186,7 +186,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         filter.demographics = this.buildDemographicsFilter(similarPatientProps);
         filter.diagnosis = this.buildDiagnosisFilter(similarPatientProps);
         filter.tumorMarkers = this.buildTumorMakersFilter(similarPatientProps);
-        filter.outcomes = {survival: this.timescale.map((ts)=> { return {"value" : ts*12, "interval" : "months" }})}
+        filter.outcomes = {survival: this.timescale.map((ts) => { return {"value": ts*12, "interval": "months" }; })};
         return new Promise((accept, reject) => {
             request({
                 url: this.serviceUrl,
