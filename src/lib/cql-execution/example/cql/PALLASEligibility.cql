@@ -35,7 +35,7 @@ concept "Progesterone Receptor": { "Progesterone receptor [Interpretation] in Ti
 concept "Hemoglobin": { "Hemoglobin A1c [Mass/volume] in Blood" } display 'Hemoglobin A1c'
 concept "Platelets": { "Platelets [#/volume] in Blood" }  display 'Platelets [#/volume] in Blood'
 concept "HER2": { "HER2 panel - Tissue by FISH" } display 'HER2 panel - Tissue by FISH'
-concept "Staging": { "Cancer staging manual [PhenX]" } display 'Cancer staging manual'
+concept "Staging": { "AJCC cancer staging manual [PhenX]" } display 'Cancer staging manual'
 concept "Pregnant": { "Are you currently pregnant [PhenX]" } display 'Are you currently pregnant'
 concept "Negative": { "Negative (qualifier value)" } display 'Negative (qualifier value)'
 concept "ECOG": { "ECOG performance status grade Observed" } display 'ECOG performance status grade'
