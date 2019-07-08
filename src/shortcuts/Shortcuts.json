@@ -143,7 +143,7 @@
     "knownParentContexts": "ConditionInserter",
     "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.",
     "structuredPhraseDocumentation": "diseaseStatusSheet.pdf",
-    "expandedText": "#Disease status is #status based on #reasons relative to #reference date #date #as of #date"
+    "expandedText": "#Disease status is #status based on #reason relative to #reference date #date #as of #date"
   },
   { "type": "CreatorChild",
     "subtype": "choice",
