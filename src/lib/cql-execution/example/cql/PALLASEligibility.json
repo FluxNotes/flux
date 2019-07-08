@@ -97,9 +97,9 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "AJCC cancer staging manual [PhenX]",
+            "name" : "Cancer staging manual [PhenX]",
             "id" : "67203-0",
-            "display" : "AJCC cancer staging manual [PhenX]",
+            "display" : "Cancer staging manual [PhenX]",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOINC"
@@ -182,11 +182,11 @@
                "name" : "HER2 panel - Tissue by FISH"
             } ]
          }, {
-            "name" : "AJCC",
-            "display" : "AJCC cancer staging manual",
+            "name" : "Staging",
+            "display" : "Cancer staging manual",
             "accessLevel" : "Public",
             "code" : [ {
-               "name" : "AJCC cancer staging manual [PhenX]"
+               "name" : "Cancer staging manual [PhenX]"
             } ]
          }, {
             "name" : "Pregnant",
@@ -684,7 +684,7 @@
                }
             }
          }, {
-            "name" : "AJCCInRange",
+            "name" : "StagingInRange",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -700,7 +700,7 @@
                         "codes" : {
                            "type" : "ToList",
                            "operand" : {
-                              "name" : "AJCC",
+                              "name" : "Staging",
                               "type" : "ConceptRef"
                            }
                         }
@@ -1051,7 +1051,7 @@
                }
             }
          }, {
-            "name" : "AJCCCheckMissing",
+            "name" : "StagingCheckMissing",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1069,7 +1069,7 @@
                            "codes" : {
                               "type" : "ToList",
                               "operand" : {
-                                 "name" : "AJCC",
+                                 "name" : "Staging",
                                  "type" : "ConceptRef"
                               }
                            }
@@ -1231,7 +1231,7 @@
                                           "type" : "ExpressionRef"
                                        } ]
                                     }, {
-                                       "name" : "AJCCInRange",
+                                       "name" : "StagingInRange",
                                        "type" : "ExpressionRef"
                                     } ]
                                  }, {
@@ -1353,10 +1353,10 @@
                }, {
                   "type" : "Or",
                   "operand" : [ {
-                     "name" : "AJCCInRange",
+                     "name" : "StagingInRange",
                      "type" : "ExpressionRef"
                   }, {
-                     "name" : "AJCCCheckMissing",
+                     "name" : "StagingCheckMissing",
                      "type" : "ExpressionRef"
                   } ]
                } ]
@@ -1410,9 +1410,9 @@
                      "type" : "ExpressionRef"
                   }
                }, {
-                  "name" : "AJCC",
+                  "name" : "Staging",
                   "value" : {
-                     "name" : "AJCCCheckMissing",
+                     "name" : "StagingCheckMissing",
                      "type" : "ExpressionRef"
                   }
                } ]

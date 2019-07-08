@@ -6391,7 +6391,7 @@
                 "Coding": [
                     {
                         "Code": {
-                            "Value": "ajcc_v7",
+                            "Value": "v7",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
@@ -6406,7 +6406,7 @@
                             }
                         },
                         "DisplayText": {
-                            "Value": "AJCC GIST Version 7",
+                            "Value": "GIST Version 7",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }

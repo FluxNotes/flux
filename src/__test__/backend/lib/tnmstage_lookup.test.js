@@ -20,7 +20,7 @@ describe('getDescription', function () {
     });
 
     it('should recognize tnmstage, regardless of case', function () {
-        const expectedTNMStageString = 'The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.';
+        const expectedTNMStageString = 'The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.';
         expect(lookup.getDescription('tnmstage'))
             .to.be.a('string')
             .and.to.equal(expectedTNMStageString);

@@ -20,7 +20,7 @@ code "Progesterone receptor [Interpretation] in Tissue": '16113-3' from "LOINC" 
 code "Hemoglobin A1c [Mass/volume] in Blood": '41995-2' from "LOINC" display 'Hemoglobin A1c [Mass/volume] in Blood'
 code "Platelets [#/volume] in Blood": '26515-7' from "LOINC" display 'Platelets [#/volume] in Blood'
 code "HER2 panel - Tissue by FISH": '74885-5' from "LOINC" display 'HER2 panel - Tissue by FISH'
-code "AJCC cancer staging manual [PhenX]": '67203-0' from "LOINC" display 'AJCC cancer staging manual [PhenX]'
+code "Cancer staging manual [PhenX]": '67203-0' from "LOINC" display 'Cancer staging manual [PhenX]'
 code "Are you currently pregnant [PhenX]": '66174-4' from "LOINC" display 'Are you currently pregnant'
 code "Negative (qualifier value)": '260385009' from "SNOMEDCT" display 'Negative (qualifier value)'
 code "ECOG performance status grade Observed": '42800-3' from "LOINC" display 'ECOG performance status grade Observed'
@@ -35,7 +35,7 @@ concept "Progesterone Receptor": { "Progesterone receptor [Interpretation] in Ti
 concept "Hemoglobin": { "Hemoglobin A1c [Mass/volume] in Blood" } display 'Hemoglobin A1c'
 concept "Platelets": { "Platelets [#/volume] in Blood" }  display 'Platelets [#/volume] in Blood'
 concept "HER2": { "HER2 panel - Tissue by FISH" } display 'HER2 panel - Tissue by FISH'
-concept "AJCC": { "AJCC cancer staging manual [PhenX]" } display 'AJCC cancer staging manual'
+concept "Staging": { "Cancer staging manual [PhenX]" } display 'Cancer staging manual'
 concept "Pregnant": { "Are you currently pregnant [PhenX]" } display 'Are you currently pregnant'
 concept "Negative": { "Negative (qualifier value)" } display 'Negative (qualifier value)'
 concept "ECOG": { "ECOG performance status grade Observed" } display 'ECOG performance status grade'
@@ -93,9 +93,9 @@ define HemoglobinInRange:
       and O.valueQuantity.unit.value = 'mm3'
   ) 
 
-define AJCCInRange:
+define StagingInRange:
   exists(
-    [Observation: "AJCC"] O
+    [Observation: "Staging"] O
       where O.valueQuantity.value.value = 2 
          or O.valueQuantity.value.value = 3
   )
@@ -132,8 +132,8 @@ define HER2CheckMissing:
 define HemoglobinCheckMissing:
   not (exists( [Observation: "Hemoglobin"] O ))
 
-define AJCCCheckMissing:
-  not (exists ( [Observation: "AJCC"] O ))
+define StagingCheckMissing:
+  not (exists ( [Observation: "Staging"] O ))
 
 define PregnancyCheckMissing:
   not (exists( [Observation: "Pregnant"] O ))
@@ -152,7 +152,7 @@ define meetsInclusionCriteria:
   InDemographic 
   and ERPositive
   and PRPositive 
-  and AJCCInRange
+  and StagingInRange
   and PlateletsInRange
   and HER2Negative
   and HemoglobinInRange
@@ -174,7 +174,7 @@ define checkNotDisqualified:
   and (NotPregnant or PregnancyCheckMissing)
   and (ECOGInRange or ECOGCheckMissing)
   and (PlateletsInRange or PlateletsCheckMissing)
-  and (AJCCInRange or AJCCCheckMissing) 
+  and (StagingInRange or StagingCheckMissing) 
 
 // Returns an array of missing data fields to determine
 // if a patient is eligible for a given trial.
@@ -187,7 +187,7 @@ define findMissingData:
     "Pregnant/Not Pregnant": PregnancyCheckMissing,
     "ECOG": ECOGCheckMissing,
     "Platelets": PlateletsCheckMissing,
-    "AJCC": AJCCCheckMissing
+    "Staging": StagingCheckMissing
   }
 
   
