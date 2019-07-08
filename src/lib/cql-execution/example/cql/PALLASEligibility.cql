@@ -20,7 +20,7 @@ code "Progesterone receptor [Interpretation] in Tissue": '16113-3' from "LOINC" 
 code "Hemoglobin A1c [Mass/volume] in Blood": '41995-2' from "LOINC" display 'Hemoglobin A1c [Mass/volume] in Blood'
 code "Platelets [#/volume] in Blood": '26515-7' from "LOINC" display 'Platelets [#/volume] in Blood'
 code "HER2 panel - Tissue by FISH": '74885-5' from "LOINC" display 'HER2 panel - Tissue by FISH'
-code "Cancer staging manual [PhenX]": '67203-0' from "LOINC" display 'Cancer staging manual [PhenX]'
+code "AJCC cancer staging manual [PhenX]": '67203-0' from "LOINC" display 'AJCC cancer staging manual [PhenX]'
 code "Are you currently pregnant [PhenX]": '66174-4' from "LOINC" display 'Are you currently pregnant'
 code "Negative (qualifier value)": '260385009' from "SNOMEDCT" display 'Negative (qualifier value)'
 code "ECOG performance status grade Observed": '42800-3' from "LOINC" display 'ECOG performance status grade Observed'

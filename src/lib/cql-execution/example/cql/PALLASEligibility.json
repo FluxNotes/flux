@@ -97,9 +97,9 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Cancer staging manual [PhenX]",
+            "name" : "AJCC cancer staging manual [PhenX]",
             "id" : "67203-0",
-            "display" : "Cancer staging manual [PhenX]",
+            "display" : "AJCC cancer staging manual [PhenX]",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOINC"
@@ -186,7 +186,7 @@
             "display" : "Cancer staging manual",
             "accessLevel" : "Public",
             "code" : [ {
-               "name" : "Cancer staging manual [PhenX]"
+               "name" : "AJCC cancer staging manual [PhenX]"
             } ]
          }, {
             "name" : "Pregnant",
