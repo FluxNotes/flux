@@ -268,7 +268,7 @@ export function getDescription(dataElement) {
     if (typeof(dataElement) !== 'string') { return null; }
     switch (dataElement.toLowerCase()) {
     case "tnmstage":
-        return "The stage of a cance. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
+        return "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
     case "tumorsize":
         return "Describes the original (primary) tumor.";
     case "nodesize":
