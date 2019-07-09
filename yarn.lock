@@ -9467,6 +9467,11 @@ react-scripts@2.1.8:
   optionalDependencies:
     fsevents "1.2.4"
 
+react-scroll-sync@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-scroll-sync/-/react-scroll-sync-0.7.0.tgz#935387b2b877dcc7032ad9410155b0b7d7951048"
+  integrity sha512-PL4MWceh596EA+z5zLPYYB7HfctjShh+XTOZ5FgZnxwA66g1Fnx0kK0DMjma23cqlhXBvYLA7Fnp67afzBwdHA==
+
 react-scrollbar-size@^2.0.2:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-scrollbar-size/-/react-scrollbar-size-2.1.0.tgz#105e797135cab92b1f9e16f00071db7f29f80754"
@@ -9485,9 +9490,10 @@ react-smooth@1.0.0:
     raf "^3.2.0"
     react-transition-group "^2.2.1"
 
-"react-sticky-table@https://github.com/mgramigna/react-sticky-table.git#utilize-onscroll-prop":
+react-sticky-table@^3.0.1:
   version "3.0.1"
-  resolved "https://github.com/mgramigna/react-sticky-table.git#75985e14ca082bea6213c36f1ceed2fac59eef65"
+  resolved "https://registry.yarnpkg.com/react-sticky-table/-/react-sticky-table-3.0.1.tgz#000796ec2683c8222e695bc73abd7f3f1fcd6b01"
+  integrity sha512-nNTOh65aAPr/6OOyCE9wR6o06+xWEXDK0WQXdyHTdVrJd1MB9+7jHJB2U5KcMYFV25heBT1k/5S67uue+3fWew==
 
 react-tap-event-plugin@2.0.1:
   version "2.0.1"
