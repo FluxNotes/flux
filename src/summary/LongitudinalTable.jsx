@@ -192,27 +192,29 @@ export default class LongitudinalTable extends Component {
     render() {
         const [tableValues, dates, starTableValues] = this.gatherTableValues();
         return (
-            <ScrollSync>
-                <div id='longitudinal-table'>
-                    <div className='vertical-scroll'>
-                        <ScrollSyncPane>
-                            <StickyTable className=' white-scrollbar'> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
-                                {this.renderYearHeader(dates)}
-                                {this.renderDateHeader(dates)}
-                                {this.renderData(starTableValues)}
-                            </StickyTable>
-                        </ScrollSyncPane>
+            this.props.dataInfo.length > 0 ?
+                <ScrollSync>
+                    <div id='longitudinal-table'>
+                        <div className='vertical-scroll'>
+                            <ScrollSyncPane>
+                                <StickyTable className=' white-scrollbar'> {/*react-sticky-table doesn't add a space between classNames, so we added a space before classNames */}
+                                    {this.renderYearHeader(dates)}
+                                    {this.renderDateHeader(dates)}
+                                    {this.renderData(starTableValues)}
+                                </StickyTable>
+                            </ScrollSyncPane>
+                        </div>
+                        <div className='vertical-scroll'>
+                            <ScrollSyncPane>
+                                <StickyTable>
+                                    {this.renderAllDataHeader(dates)}
+                                    {this.renderData(tableValues)}
+                                </StickyTable>
+                            </ScrollSyncPane>
+                        </div>
                     </div>
-                    <div className='vertical-scroll'>
-                        <ScrollSyncPane>
-                            <StickyTable>
-                                {this.renderAllDataHeader(dates)}
-                                {this.renderData(tableValues)}
-                            </StickyTable>
-                        </ScrollSyncPane>
-                    </div>
-                </div>
-            </ScrollSync>
+                </ScrollSync > :
+                <h2 className='no-entries'>None</h2>
         );
     }
 }

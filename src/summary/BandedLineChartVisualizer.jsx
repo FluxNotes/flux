@@ -1,8 +1,8 @@
 import React from 'react';
-import {LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot} from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot } from 'recharts';
 import Button from '../elements/Button';
 import moment from 'moment';
-import {scaleLinear} from "d3-scale";
+import { scaleLinear } from "d3-scale";
 import Collection from 'lodash';
 import Lang from 'lodash';
 import PropTypes from 'prop-types';
@@ -117,7 +117,7 @@ class BandedLineChartVisualizer extends Visualizer {
     renderSubsectionChart = (subsection, patient, condition, chartIndex) => {
         // if the subsection is in the hiddenLineCharts array, add 'hide-line' class to remove the line from the chart
         const showLine = this.state.shownLineCharts[chartIndex];
-        const graphClass = showLine ?  '' : 'hide-line';
+        const graphClass = showLine ? '' : 'hide-line';
 
         // FIXME: Should start_time be a magic string?
         const xVar = "start_time";
@@ -136,7 +136,7 @@ class BandedLineChartVisualizer extends Visualizer {
                             </span>
                         </h2>
                     </div>
-                    <h2 style={{paddingTop: '10px'}}>None</h2>
+                    <h2 className='no-entries'> None </h2>
                 </div>
             );
         }
@@ -206,7 +206,7 @@ class BandedLineChartVisualizer extends Visualizer {
                     <LineChart
                         data={processedData}
                         className={graphClass}
-                        margin={{top: 5, right: 20, left: 10, bottom: 5}}
+                        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
                     >
                         <XAxis
                             dataKey={xVarNumber}
@@ -224,7 +224,7 @@ class BandedLineChartVisualizer extends Visualizer {
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
                         {series.map(s => {
-                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot}/>;
+                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot} />;
                         })}
                         {renderedBands}
                     </LineChart>
@@ -257,7 +257,7 @@ class BandedLineChartVisualizer extends Visualizer {
             if (yMax > y1) {
                 // Draw refence area large enough to capture max dataelement if it's greater than the y1 (bottom of referenceArea)
                 return (
-                    <ReferenceArea key={key} y1={y1} y2={yMax} fill={color} fillOpacity="0.1" alwaysShow/>
+                    <ReferenceArea key={key} y1={y1} y2={yMax} fill={color} fillOpacity="0.1" alwaysShow />
                 );
             } else {
                 // Else  draw nothing -- no relevant values would be captured by that rectangle
@@ -265,14 +265,14 @@ class BandedLineChartVisualizer extends Visualizer {
         } else {
             // Otherwise, draw as usual
             return (
-                <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow/>
+                <ReferenceArea key={key} y1={y1} y2={y2} fill={color} fillOpacity="0.1" alwaysShow />
             );
         }
     }
 
     // Gets called for each section in SummaryMetaData.jsx
     render() {
-        const {patient, condition, conditionSection} = this.props;
+        const { patient, condition, conditionSection } = this.props;
 
         return (
             <div className="line-chart-subsection">

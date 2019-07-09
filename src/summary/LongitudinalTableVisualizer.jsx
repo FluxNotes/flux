@@ -22,7 +22,8 @@ export default class LongitudinalTableVisualizer extends Visualizer {
             favoritedNames.push(...this.props.preferenceManager.getPreference(name));
         }
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
-            if (section[conditionIndex].data_cache) {
+            const data = section[conditionIndex].data_cache;
+            if (data !== undefined && data.length > 0) {
                 const currentSection = {
                     name: section[conditionIndex].name,
                     unit: section[conditionIndex].data_cache[0].unit,

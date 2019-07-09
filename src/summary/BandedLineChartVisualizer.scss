@@ -20,6 +20,13 @@
         }
     }
 
+    .no-entries {
+        padding: 20px 0px 10px 0px;
+        font-size: $size-l;
+        font-weight: $weight-regular;
+        color: $state;
+    }
+
     .recharts-responsive-container {
         .recharts-tooltip-wrapper {
             font-size: $size-m;
