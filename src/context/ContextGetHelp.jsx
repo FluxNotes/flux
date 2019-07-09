@@ -113,7 +113,7 @@ class ContextGetHelp extends React.Component {
     }
 
     render() {
-        const initiatingTrigger = this.props.shortcut.getDisplayText().replace('#', '');
+        const initiatingTrigger = this.props.shortcut.getDisplayText();
         let iconClass = 'fa fa-angle-';
         this.state.selectedIndex === -1 ? iconClass += 'down' : iconClass += 'up';
 
