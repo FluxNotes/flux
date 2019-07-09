@@ -316,7 +316,7 @@ class ShortcutManager {
         if (Lang.isUndefined(result)) return [];
 
         result = result.filter((shortcutId) => {
-            
+
             const shortcut = this.shortcuts[shortcutId];
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
@@ -343,7 +343,7 @@ class ShortcutManager {
                     let numberOfValidTriggers;
                     if (this.triggersPerShortcut[shortcutId]) {
                     // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
-                    numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
+                        numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
                     } else {
                         numberOfValidTriggers = shortcut.label ? 1 : 0;
                     }
