@@ -127,9 +127,10 @@ export class PointOfCareApp extends Component {
                 });
                 console.log('patient.getConditions() :', patient.getConditions());
                 console.log('patient.getActiveConditions() :', patient.getActiveConditions());
-                const cancer = patient.getActiveConditions().find((condition) => {
-                    return condition instanceof FluxCancerDisorderPresent;
-                });
+                // const cancer = patient.getActiveConditions().find((condition) => {
+                //     return condition instanceof FluxCancerDisorderPresent;
+                // });
+                const cancer = patient.getConditions()[0];
                 this.setCondition(cancer);
             } catch (error) {
                 console.error(error);
@@ -280,10 +281,6 @@ export class PointOfCareApp extends Component {
         } else {
             return "";
         }
-    }
-
-    test = () => {
-        console.log('test :', test);
     }
 
     render() {
