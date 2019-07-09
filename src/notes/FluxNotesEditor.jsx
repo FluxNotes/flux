@@ -1396,8 +1396,6 @@ class FluxNotesEditor extends React.Component {
         inMemoryClinicalNote.parse(textToBeInserted);
         const nodes = inMemoryClinicalNote.getNodes();
 
-        let pickListCount = 0;
-
         if (!Lang.isNull(nodes)) {
             nodes.forEach((node) => {
                 if (node.type === 'text') {
@@ -1405,15 +1403,10 @@ class FluxNotesEditor extends React.Component {
                 } else if (node.type === 'shortcut') {
                     // Update the context position based on selection
                     const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
-                    if (arrayOfPickLists && node.trigger.isPickList && !node.trigger.selectedValue) {
-                        transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
-                        pickListCount++;
-                    } else {
-                        // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
-                        const nodeText = node.trigger.selectedValue || "";
-                        transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
-                        this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
-                    }
+                    // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
+                    const nodeText = node.trigger.selectedValue || "";
+                    transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
+                    this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
                 } else if (node.type === 'placeholder') {
                     this.insertPlaceholder(node.placeholder.placeholder, transform, node.placeholder.selectedValue);
                 }
@@ -1492,9 +1485,7 @@ class FluxNotesEditor extends React.Component {
             });
 
             this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
-            this.props.setNoteViewerEditable(false);
-            // Switch note assistant view to the pick list options panel
-            this.props.updateNoteAssistantMode('pick-list-options-panel');
+            this.props.updateNoteAssistantMode('context-tray');
             // Insert content by default
             this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Picklist", localArrayOfPickListsWithOptions);
         } else { // If the text to be inserted does not contain any pick lists, insert the text
