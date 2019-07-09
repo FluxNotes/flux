@@ -5,7 +5,7 @@ function createOpts(opts) {
     return opts;
 }
 
-function SingleHashtagKeywordStructuredFieldPlugin(opts) {
+function KeywordStructuredFieldPlugin(opts) {
     opts = createOpts(opts);
     const shortcutManager = opts.shortcutManager;
     const createShortcut = opts.createShortcut;
@@ -28,17 +28,18 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     }
 
     function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) {
-        const listOfSingleHashtagKeywordShortcutMappings = getKeyToActiveSingleHashtagKeywordShortcutMappings();
+        const listOfKeywordShortcutMappings = getKeyToActiveKeywordShortcutMappings();
         const curKey = curNode.key;
 
         // To track if additional operations are done later
         const startingNumberOfOperations = curTransform.operations.length;
 
         // get all shortcuts relevant for this block key
-        const relevantSingleHashtagKeywordMappings = getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, curKey);
-        if (relevantSingleHashtagKeywordMappings.length !== 0) {
+        const relevantKeywordMappings = getRelevantKeywordMappings(listOfKeywordShortcutMappings, state, curKey);
+        if (relevantKeywordMappings.length !== 0) {
             // Get all relevant keywordShortcuts,
-            const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
+            const listOfKeywordShortcutClasses = findRelevantKeywordShortcutClasses(listOfKeywordShortcutMappings).reduce((accumulator, listOfKeywordsForShortcut) => accumulator.concat(listOfKeywordsForShortcut));
+
             for (const keywordClass of listOfKeywordShortcutClasses) {
                 // Scan text to find any necessary replacements
                 let keywords = getKeywordsBasedOnShortcutClass(keywordClass);
@@ -119,7 +120,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         }
     }
 
-    // Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
+    // Given block-node's text & keywordObjects asso. w/ a KeywordShortcut , return first keyword found in that text (if any)
     function scanTextForKeywordObject(curNode, keywordObjects) {
         let curNodeText = [];
         if (curNode.nodes) {
@@ -141,13 +142,13 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         }
     }
 
-    // Given a list of singleHastagKeywordShortcut key:shortcut mappings, editor state and current text-node key,
+    // Given a list of KeywordShortcut key:shortcut mappings, editor state and current text-node key,
     // Filter our mappings to only shortcuts who are directly next to our current text-node
-    function getRelevantSingleHashtagKeywordMappings(listOfSingleHashtagKeywordShortcutMappings, state, currentNodeKey) {
-        return listOfSingleHashtagKeywordShortcutMappings.filter((mapping) => {
+    function getRelevantKeywordMappings(listOfKeywordShortcutMappings, state, currentNodeKey) {
+        return listOfKeywordShortcutMappings.filter((mapping) => {
             let closestBlock;
 
-            // Added try catch statement to catch error when adding template after SingleHashtagKeyword shortcut
+            // Added try catch statement to catch error when adding template after Keyword shortcut
             // returns false to filter out if error occurs
             try {
                 closestBlock = state.document.getClosestBlock(Object.keys(mapping)[0]);
@@ -170,10 +171,10 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
         return shortcutManager.getKeywordsForShortcut(keywordShortcutClass);
     }
 
-    // Given a list of singlehashtagkeyword shortcuts mappings, get all of the relevant keywords
-    function findRelevantKeywordShortcutClasses(listOfSingleHashtagKeywordShortcutMappings) {
+    // Given a list of keyword shortcuts mappings, get all of the relevant keywords
+    function findRelevantKeywordShortcutClasses(listOfKeywordShortcutMappings) {
         // Returns a list
-        return listOfSingleHashtagKeywordShortcutMappings.map((mapping) => {
+        return listOfKeywordShortcutMappings.map((mapping) => {
             // We know the mapping is a single k-v pair, just get all the keys, use the first
             const keys = Object.keys(mapping);
             const shortcut = mapping[keys[0]];
@@ -182,18 +183,18 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     }
 
     // Get a slateKey:shortcut mapping of all active single hashtag keyword shortcuts
-    function getKeyToActiveSingleHashtagKeywordShortcutMappings() {
-        const listOfSingleHashtagKeywordShortcutMappings = [];
+    function getKeyToActiveKeywordShortcutMappings() {
+        const listOfKeywordShortcutMappings = [];
 
         structuredFieldMapManager.keyToShortcutMap.forEach((shortcut, key, map) => {
-            // Only list mappings for SingleHashtagKeyword shortcuts
-            if (shortcutManager.isShortcutInstanceOfSingleHashtagKeyword(shortcut)) {
+            // Only list mappings for Keyword shortcuts
+            if (shortcutManager.isShortcutInstanceOfKeywordShortcut(shortcut)) {
                 const mapping = {};
                 mapping[key] = shortcut;
-                listOfSingleHashtagKeywordShortcutMappings.push(mapping);
+                listOfKeywordShortcutMappings.push(mapping);
             }
         });
-        return listOfSingleHashtagKeywordShortcutMappings;
+        return listOfKeywordShortcutMappings;
     }
 
     return {
@@ -205,4 +206,4 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
     };
 }
 
-export default SingleHashtagKeywordStructuredFieldPlugin;
+export default KeywordStructuredFieldPlugin;

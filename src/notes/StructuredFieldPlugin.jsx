@@ -153,14 +153,14 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getDisplayText(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
                 newShortcut.setWasRemovedFromContext(true);
             }
 
             // Update the existing shortcut to reflect the leading text after split
-            transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getLabel(), oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getDisplayText(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
 
@@ -222,7 +222,7 @@ function StructuredFieldPlugin(opts) {
                 contextManager.contextUpdated();
             } else {
                 result = editor.getState(); // don't allow state change
-                updateErrors([ "Unable to delete " + shortcut.getLabel() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
+                updateErrors([ "Unable to delete " + shortcut.getDisplayText() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
             }
         });
         return result;
@@ -577,7 +577,7 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getDisplayText(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
                 newShortcut.setWasRemovedFromContext(true);
@@ -591,7 +591,7 @@ function StructuredFieldPlugin(opts) {
         // In the case where there is no prior shortcut node in this block
         // nothing needs to be updated
         if (oldShortcutNode) {
-            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getDisplayText(), oldShortcutNode.text);
             if (newShortcutNode) {
                 contextManager.removeShortcutFromContext(shortcut);
                 shortcut.setWasRemovedFromContext(true);
@@ -741,12 +741,12 @@ function createStructuredField(opts, shortcut) {
         return inlines;
     }
 
-    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
+    const nodes = [Slate.Text.createFromString(String(shortcut.getDisplayText()))];
     const properties = {
+        nodes,
         type: opts.typeStructuredField,
-        nodes: nodes,
         data: {
-            shortcut: shortcut
+            shortcut
         }
     };
     let sf = Slate.Inline.create(properties);

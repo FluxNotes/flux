@@ -1,7 +1,6 @@
 import Shortcut from './Shortcut';
 import Lang from 'lodash';
 import CreatorBase from './CreatorBase';
-import SingleHashtagKeyword from './SingleHashtagKeyword';
 
 export default class InsertValue extends Shortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
@@ -181,11 +180,6 @@ export default class InsertValue extends Shortcut {
         return this.metadata.isContext && !this._shouldRemoveFromContext;
     }
 
-    getLabel() {
-        let display = this.getText() ? this.getText() : this.getDisplayText();
-        return this.getOriginalText() ? this.getOriginalText() : display;
-    }
-
     getText() {
         return this.text;
     }
@@ -249,7 +243,7 @@ export default class InsertValue extends Shortcut {
         const parentAttribute = this.metadata["parentAttribute"];
 
         // Check parent of shortcut and setAttributeValue
-        if (parentAttribute && (this.parentContext instanceof CreatorBase || this.parentContext instanceof SingleHashtagKeyword) && this.parentContext.isAttributeSupported(parentAttribute)) {
+        if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
             this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
         }
     }

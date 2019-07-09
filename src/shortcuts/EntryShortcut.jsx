@@ -156,11 +156,11 @@ export default class EntryShortcut extends Shortcut {
     }
 
     getAsStringWithStyling(isSigned) {
-        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), true, isSigned);
+        return createSentenceFromStructuredData(this.metadata.structuredPhrase, this.getAttributeValue.bind(this), this.getDisplayText(), true, isSigned);
     }
 
     getAsString() {
-        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), false);
+        return createSentenceFromStructuredData(this.metadata.structuredPhrase, this.getAttributeValue.bind(this), this.getDisplayText(), false);
     }
 
     getAttributeIsSet(name) {
@@ -188,7 +188,7 @@ export default class EntryShortcut extends Shortcut {
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voa = this.valueObjectAttributes[name];
-        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getText() + "'"); //this.text
+        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplayText() + "'"); //this.text
         this.isSet[name] = (value != null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
@@ -226,21 +226,13 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
-    getText() {
-        return this.metadata["name"];
-    }
-
     serialize() {
-        if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
+        if (Lang.isUndefined(this.object.entryInfo)) return this.initiatingTrigger;
         return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
     }
 
     getDisplayText() {
-        return this.initiatingTrigger;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     removeFromPatient() {

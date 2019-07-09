@@ -100,20 +100,12 @@ export default class CreatorIntermediary extends Shortcut {
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
-    getText() {
-        return this.metadata["name"];
-    }
-
     serialize() {
-        return `${this.getPrefixCharacter()}${this.getText()}`;
+        return this.initiatingTrigger;
     }
 
     getDisplayText() {
-        return `${this.getPrefixCharacter()}${this.getText()}`;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     getPrefixCharacter() {

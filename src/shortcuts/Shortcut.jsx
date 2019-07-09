@@ -41,16 +41,24 @@ class Shortcut extends Context {
         return false;
     }
 
+    /**
+     * By default will throw an error, should be implemented by classes that inherits Shortcut
+     * @returns The text to be displayed by other components in the app
+     */
     getDisplayText() {
-        return this.getText();
+        throw new Error(`getDisplayText not implemented for ${this.constructor.name}`);
+    }
+
+    /**
+     * By default will throw an error, should be implemented by classes that inherits Shortcut
+     * @returns The selected value for the shortcut
+     */
+    getText() {
+        throw new Error(`getText not implemented for ${this.constructor.name}`);
     }
 
     getId() {
         return this.metadata["id"];
-    }
-
-    getLabel() {
-        throw new Error("Invalid context. " + this.constructor.name);
     }
 
     getPrefixCharacter() {
@@ -74,10 +82,6 @@ class Shortcut extends Context {
         return "#null";
     }
 
-    getText() {
-        return this.getShortcutType();
-    }
-
     clearValueSelectionOptions() {
         this.optionsToSelectFrom = null;
     }
@@ -99,6 +103,9 @@ class Shortcut extends Context {
         return !Lang.isNull(this.optionsToSelectFrom);
     }
 
+    /**
+     * @returns text string to be saved in note
+     */
     serialize() {
         return this.getText();
     }
