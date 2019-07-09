@@ -23,7 +23,7 @@ export default class LongitudinalTableVisualizer extends Visualizer {
         }
         for (let conditionIndex = 0; conditionIndex < section.length; conditionIndex++) {
             const data = section[conditionIndex].data_cache;
-            if (data && data.length > 0) {
+            if (data !== undefined && data.length > 0) {
                 const currentSection = {
                     name: section[conditionIndex].name,
                     unit: section[conditionIndex].data_cache[0].unit,
