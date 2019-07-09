@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 
 import './ConditionSelection.css';
 
+
 class ConditionSelection extends Component {
     constructor(props) {
         super(props);
@@ -16,7 +17,9 @@ class ConditionSelection extends Component {
 
     componentWillMount() {
         if (this.props.conditions.length > 0) {
+            console.log('this.props.conditions :', this.props.conditions);
             this.selectCondition(0);
+            console.log('this.selectCondition(0) :', this.props.conditions[0]);
         }
     }
 
