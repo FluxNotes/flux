@@ -21865,5 +21865,139 @@
                 ]
             }
         }
+    },
+    {
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "EntryId": "6099",
+        "Reason": [
+            {
+                "Value": "Mr. Tnfinity6 requested a follow up due to significant diarrhea and fatigue, despite anti-diarrheal treatment, that makes it hard for him to do daily activities",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"
+                }
+            }
+        ],
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
+        },
+        "LastUpdated": {
+            "Value": "09 Jul 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
+            }
+        },
+        "CreationTime": {
+            "Value": "09 Jul 2019",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+            }
+        },
+        "RequestIntent": {
+            "Value": "plan",
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/RequestIntent"
+            }
+        },
+        "Encounter": {
+            "Status": {
+                "Value": "active",
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
+                }
+            },
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/encounter/Encounter"
+            },
+            "TimePeriod": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
+                },
+                "TimePeriodStart": {
+                    "Value": "9 Jul 2019 11:00 -0400",
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
+                    }
+                }
+            }
+        },
+        "ExpectedPerformer": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformer"
+            },
+            "Value": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/Practitioner"
+                },
+                "Person": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
+                    },
+                    "PartOf": {
+                        "EntryType": {
+                            "Value": "http://standardhealthrecord.org/spec/shr/entity/PartOf"
+                        },
+                        "Value": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/entity/Organization"
+                            },
+                            "Type": {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+                                },
+                                "Value": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                                    },
+                                    "Coding": [
+                                        {
+                                            "Code": {
+                                                "Value": "prov",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                                }
+                                            },
+                                            "EntryType": {
+                                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                            },
+                                            "CodeSystem": {
+                                                "Value": "http://hl7.org/fhir/organization-type",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                                }
+                                            },
+                                            "DisplayText": {
+                                                "Value": "Healthcare Provider",
+                                                "EntryType": {
+                                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "OrganizationName": {
+                                "Value": "MCI",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OrganizationName"
+                                }
+                            }
+                        }
+                    },
+                    "HumanName": [
+                        {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/HumanName"
+                            },
+                            "NameAsText": {
+                                "Value": "Dr. Mona341 Brown483",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/NameAsText"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
     }
 ]

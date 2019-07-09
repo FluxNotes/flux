@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from 'material-ui/Modal';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import moment from 'moment';
+import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
 import './PatientSelectionModal.css';
@@ -15,24 +16,29 @@ class PatientSelectionModal extends Component {
         };
         this.isTablet = this.props.isTablet;
         this.dataAccess = this.props.dataAccess;
+        this.secondaries = {};
+        this.pics = {};
     }
     fillModal = () => {
         const patientList = this.dataAccess.dataSource.getListOfPatients();
         let futureAppTimes = [];
-        const pics = {};
-        const secondaries = {};
+        let pastAppTimes = [];
         patientList.forEach((patient) => {
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
-            pics[name] = pic;
+            this.pics[name] = pic;
             //gathering appointment times
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY hh:mm");
                 if (appTime.date() === moment().date()) {
-                    let patientAndTime = {};
-                    patientAndTime[appTime.format('hh:mm')] = name;
-                    futureAppTimes.push(patientAndTime);
+                    let patientAtTime = {};
+                    patientAtTime[appTime.format('hh:mm')] = name;
+                    if (appTime.isBefore(moment())) {
+                        pastAppTimes.push(patientAtTime);
+                    } else {
+                        futureAppTimes.push(patientAtTime);
+                    }
                 }
             });
             const sortByTime = (date1, date2) => {
@@ -47,36 +53,46 @@ class PatientSelectionModal extends Component {
                 return 0;
             };
             futureAppTimes.sort(sortByTime);
+            pastAppTimes.sort(sortByTime);
             //patient descriptions
-            let timeSinceLast = 'first visit';
-            if (patient.getPreviousEncounter() !== undefined) {
-                let lastSeen = patient.getPreviousEncounter().expectedPerformanceTime;
-                lastSeen = new moment(lastSeen, "DD MMM YYYY");
-                timeSinceLast = 'last seen: ' + lastSeen.fromNow();
-            }
-            // const noteStarted = '3 hours';
-            // let description = 'last seen: ' + timeSinceLast + ' \n note started ' + noteStarted + ' ago';
-            // const secondary = description.split('\n').map((item, i) => <p key={i} style={{ margin: '0px' }}>{item}</p>);
-            const secondary = timeSinceLast;
-            secondaries[name] = secondary;
+            this.buildPatientDescription(patient, name);
         });
-        return futureAppTimes.map((app, key) => {
-            const name = Object.values(app)[0];
-            const pic = pics[name];
-            const secondary = secondaries[name];
-            let time = Object.keys(app)[0];
-            // console.log(time);
-            return <ListItem key={key}>
-                <ListItemText primary={time} />
-                <ListItemIcon><img alt='' src={pic} style={{ width: '100px', height: '100px' }}></img></ListItemIcon>
-                <ListItemText primary={name} secondary={secondary} className='modal-description' />
-            </ListItem>;
-        })
-
+        return <div>
+            {this.buildLists(pastAppTimes)}
+            <p className='modal-header'>UPCOMING APPOINTMENTS</p>
+            <hr />
+            {this.buildLists(futureAppTimes)}
+        </div>;
 
     }
+    buildLists(AppTimes) {
+        console.log(AppTimes);
+        return AppTimes.map((app, key) => {
+            const name = Object.values(app)[0];
+            const secondary = this.secondaries[name];
+            let time = Object.keys(app)[0];
+            return <ListItem key={key}>
+                <ListItemText primary={time} />
+                <ListItemIcon><img alt='' src={this.pics[name]} style={{ width: '100px', height: '100px' }}></img></ListItemIcon>
+                <ListItemText primary={name} secondary={secondary} className='modal-description' />
+            </ListItem>;
+        });
+    }
+    buildPatientDescription = (patient, name) => {
+        let timeSinceLast = 'first visit';
+        if (patient.getPreviousEncounter() !== undefined) {
+            let lastSeen = patient.getPreviousEncounter().expectedPerformanceTime;
+            lastSeen = new moment(lastSeen, "DD MMM YYYY");
+            timeSinceLast = 'last seen: ' + lastSeen.fromNow();
+        }
+        // const noteStarted = '3 hours';
+        // let description = 'last seen: ' + timeSinceLast + ' \n note started ' + noteStarted + ' ago';
+        // const secondary = description.split('\n').map((item, i) => <p key={i} style={{ margin: '0px' }}>{item}</p>);
+        const secondary = timeSinceLast;
+        this.secondaries[name] = secondary;
+    }
     handleClose = () => {
-        this.setState({ isModalOpen: false });
+        this.props.handleClose();
     }
     getModalStyle() {
         const top = 50;
@@ -100,8 +116,7 @@ class PatientSelectionModal extends Component {
                 onClose={this.handleClose}
             >
                 <div style={this.getModalStyle()} className='modal'>
-                    <p className='modal-header'>UPCOMING APPOINTMENTS</p>
-                    <hr />
+                    <FontAwesome className='fas fa-times' name='close-icon' onClick={() => { this.handleClose(); }} />
                     <List>
                         {this.fillModal()}
                     </List>

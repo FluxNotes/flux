@@ -6,10 +6,6 @@ import Lang from 'lodash';
 import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
 import FontAwesome from 'react-fontawesome';
-import Modal from 'material-ui/Modal';
-import List, { ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar } from 'material-ui/List';
-import moment from 'moment';
-import _ from 'lodash';
 import PatientSelectionModal from '../patientControl/PatientSelectionModal.jsx';
 
 import SummaryHeader from '../summary/SummaryHeader';
@@ -144,7 +140,7 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
-                <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.isTablet} dataAccess={this.props.dataAccess}/>
+                <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.isTablet} dataAccess={this.props.dataAccess} handleClose={this.handleClose}/>
             </div>
 
         );
