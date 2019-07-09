@@ -5,19 +5,16 @@ import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import moment from 'moment';
 import _ from 'lodash';
 
-import './PatientControlPanel.css';
+import './PatientSelectionModal.css';
 
 class PatientSelectionModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalOpen: false
+            isModalOpen: this.props.isModalOpen
         };
-        this.isTablet = props.isTablet;
-        this.dataAccess = props.dataAccess;
-    }
-    openModal = () => {
-        this.setState({ isModalOpen: true });
+        this.isTablet = this.props.isTablet;
+        this.dataAccess = this.props.dataAccess;
     }
     fillModal = () => {
         const patientList = this.dataAccess.dataSource.getListOfPatients();
@@ -68,11 +65,11 @@ class PatientSelectionModal extends Component {
             const pic = pics[name];
             const secondary = secondaries[name];
             let time = Object.keys(app)[0];
-            console.log(time);
+            // console.log(time);
             return <ListItem key={key}>
                 <ListItemText primary={time} />
                 <ListItemIcon><img alt='' src={pic} style={{ width: '100px', height: '100px' }}></img></ListItemIcon>
-                <ListItemText primary={name} secondary={secondary} className='modal-description'/>
+                <ListItemText primary={name} secondary={secondary} className='modal-description' />
             </ListItem>;
         })
 
@@ -95,11 +92,11 @@ class PatientSelectionModal extends Component {
             padding: 8,
         };
     }
-    render = () => {
+    render() {
         if (this.isTablet) {
             return <Modal
                 aria-labelledby='simple-modal-title'
-                open={this.state.isModalOpen}
+                open={this.props.isModalOpen}
                 onClose={this.handleClose}
             >
                 <div style={this.getModalStyle()} className='modal'>
@@ -110,7 +107,14 @@ class PatientSelectionModal extends Component {
                     </List>
                 </div>
             </Modal>;
-        };
+        } else {
+            return <div></div>;
+        }
     }
 }
+PatientSelectionModal.propTypes = {
+    isModalOpen: PropTypes.bool.isRequired,
+    isTablet: PropTypes.bool.isRequired,
+    // dataAccess: PropTypes.DataAccess.isRequired,
+};
 export default PatientSelectionModal;

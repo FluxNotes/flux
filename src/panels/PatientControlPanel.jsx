@@ -10,6 +10,7 @@ import Modal from 'material-ui/Modal';
 import List, { ListItem, ListItemText, ListItemIcon, ListItemAvatar, Avatar } from 'material-ui/List';
 import moment from 'moment';
 import _ from 'lodash';
+import PatientSelectionModal from '../patientControl/PatientSelectionModal.jsx';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -27,7 +28,6 @@ class PatientControlPanel extends Component {
             isModalOpen: false
         };
         this.isTablet = props.isTablet;
-        this.dataAccess = props.dataAccess;
     }
 
     getLogoObject = () => {
@@ -87,81 +87,8 @@ class PatientControlPanel extends Component {
     openModal = () => {
         this.setState({ isModalOpen: true });
     }
-    fillModal = () => {
-        const patientList = this.dataAccess.dataSource.getListOfPatients();
-        let futureAppTimes = [];
-        const pics = {};
-        const secondaries = {};
-        patientList.forEach((patient) => {
-            const name = patient.person.name;
-            const pic = patient.person.photographicImage;
-            pics[name] = pic;
-            //gathering appointment times
-            const allEncounters = patient.getEncountersChronologicalOrder();
-            allEncounters.forEach((encounter) => {
-                const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY hh:mm");
-                if (appTime.date() === moment().date()) {
-                    let patientAndTime = {};
-                    patientAndTime[appTime.format('hh:mm')] = name;
-                    futureAppTimes.push(patientAndTime);
-                }
-            });
-            const sortByTime = (date1, date2) => {
-                const moment1 = new moment(Object.keys(date1)[0], "DD MMM YYYY hh:mm");
-                const moment2 = new moment(Object.keys(date2)[0], "DD MMM YYYY hh:mm");
-                if (moment1 < moment2) {
-                    return -1;
-                }
-                if (moment1 > moment2) {
-                    return 1;
-                }
-                return 0;
-            };
-            futureAppTimes.sort(sortByTime);
-            //patient descriptions
-            let timeSinceLast = 'first visit';
-            if (patient.getPreviousEncounter() !== undefined) {
-                let lastSeen = patient.getPreviousEncounter().expectedPerformanceTime;
-                lastSeen = new moment(lastSeen, "DD MMM YYYY");
-                timeSinceLast = 'last seen: ' + lastSeen.fromNow();
-            }
-            // const noteStarted = '3 hours';
-            // let description = 'last seen: ' + timeSinceLast + ' \n note started ' + noteStarted + ' ago';
-            // const secondary = description.split('\n').map((item, i) => <p key={i} style={{ margin: '0px' }}>{item}</p>);
-            const secondary = timeSinceLast;
-            secondaries[name] = secondary;
-        });
-        return futureAppTimes.map((app, key) => {
-            const name = Object.values(app)[0];
-            const pic = pics[name];
-            const secondary = secondaries[name];
-            let time = Object.keys(app)[0];
-            console.log(time);
-            return <ListItem key={key}>
-                <ListItemText primary={time} />
-                <ListItemIcon><img alt='' src={pic} style={{ width: '100px', height: '100px' }}></img></ListItemIcon>
-                <ListItemText primary={name} secondary={secondary} className='modal-description'/>
-            </ListItem>;
-        })
-
-
-    }
     handleClose = () => {
         this.setState({ isModalOpen: false });
-    }
-    getModalStyle() {
-        const top = 50;
-        const left = 50;
-        return {
-            top: `${top}%`,
-            left: `${left}%`,
-            transform: `translate(-${top}%, -${left}%)`,
-            position: 'absolute',
-            width: 400,
-            backgroundColor: 'white',
-            boxShadow: 'black',
-            padding: 8,
-        };
     }
     // Render renderConditionSelectAndSearch iff we have a patient to render
     renderConditionSelectAndSearch = () => {
@@ -195,23 +122,6 @@ class PatientControlPanel extends Component {
             );
         }
     }
-    renderModal = () => {
-        if (this.isTablet) {
-            return <Modal
-                aria-labelledby='simple-modal-title'
-                open={this.state.isModalOpen}
-                onClose={this.handleClose}
-            >
-                <div style={this.getModalStyle()} className='modal'>
-                    <p className='modal-header'>UPCOMING APPOINTMENTS</p>
-                    <hr />
-                    <List>
-                        {this.fillModal()}
-                    </List>
-                </div>
-            </Modal>;
-        };
-    }
     render() {
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
@@ -234,7 +144,7 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
-                {this.renderModal()}
+                <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.isTablet} dataAccess={this.props.dataAccess}/>
             </div>
 
         );
@@ -244,6 +154,7 @@ class PatientControlPanel extends Component {
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
+    // dataAccess: PropTypes.DataAccess.isRequired,
     isAppBlurred: PropTypes.bool,
     isTablet: PropTypes.bool,
     layout: PropTypes.string,

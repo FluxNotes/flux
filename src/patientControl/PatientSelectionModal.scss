@@ -1,0 +1,10 @@
+@import '../styles/variables';
+.modal {
+    .modal-description {
+        width: 160px;
+    }
+    .modal-header {
+        font-size: $size-xs;
+        margin: 0px;
+    }
+}
