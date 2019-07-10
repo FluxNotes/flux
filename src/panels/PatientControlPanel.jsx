@@ -76,7 +76,7 @@ class PatientControlPanel extends Component {
         if (this.isTablet) {
             return (
                 <div onClick={() => this.openModal()}>
-                    <FontAwesome className='fas fa-angle-double-down' name='down-arrow' />
+                    <FontAwesome className='fas fa-angle-double-down clickable' name='down-arrow' />
                 </div>);
         }
     }
@@ -150,7 +150,7 @@ class PatientControlPanel extends Component {
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
-    // dataAccess: PropTypes.DataAccess.isRequired,
+    dataAccess: PropTypes.object.isRequired,
     isAppBlurred: PropTypes.bool,
     isTablet: PropTypes.bool,
     layout: PropTypes.string,

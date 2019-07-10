@@ -5,6 +5,10 @@
     width: 520px !important;
     .hovered-list-item {
         background-color: rgba(26, 118, 180, .1);
+        cursor: pointer;
+    }
+    .clickable {
+        cursor: pointer;
     }
     .MuiList-root-250 {
         padding-top: 0px;

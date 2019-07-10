@@ -12,6 +12,9 @@
     &, .FullApp-content {
         background-color: $background;
     }
+    .clickable {
+        cursor: pointer;
+    }
     .logo-title-column { 
         display: flex;
         align-items: center;

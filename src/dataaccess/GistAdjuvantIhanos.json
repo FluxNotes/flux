@@ -21913,7 +21913,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "10 Jul 2019 10:00 -0400",
+                    "Value": "10 Jul 2019 12:00 -0400",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }

@@ -4,7 +4,6 @@ import Modal from 'material-ui/Modal';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
-import _ from 'lodash';
 
 import './PatientSelectionModal.css';
 
@@ -19,7 +18,7 @@ class PatientSelectionModal extends Component {
         this.dataAccess = this.props.dataAccess;
         this.pics = {};
         this.patientList = this.dataAccess.dataSource.getListOfPatients();
-        this.encountersToday = {}; //{name:{entryIds}, name:{entryIds}}
+        this.encountersToday = {}; //{name:{entryId:description, etc.}, name:{entryId: description, etc.}}
     }
     _sortByTime = (date1, date2) => {
         const moment1 = new moment(Object.keys(date1)[0], "hh:mm a"); //only looking at times because all dates are on today anyway
@@ -49,7 +48,6 @@ class PatientSelectionModal extends Component {
                     const description = this.buildPatientDescription(encounter, patient);
                     this.encountersToday[name][entryId] = description;
                     let patientAtTime = {};
-                    console.log(name, entryId);
                     patientAtTime[appTime.format('hh:mm a')] = [name, entryId]; //formatting it by time only because we already know it's today
                     if (appTime.isBefore(moment())) {
                         pastAppTimes.push(patientAtTime);
@@ -74,7 +72,6 @@ class PatientSelectionModal extends Component {
 
     }
     buildLists(AppTimes) {
-        console.log(AppTimes);
         return AppTimes.map((app, key) => {
             const name = Object.values(app)[0][0];
             const entryId = Object.values(app)[0][1];
@@ -103,6 +100,7 @@ class PatientSelectionModal extends Component {
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
             timeSinceLast = 'in progress: began ' + encounterMom.fromNow();
         }
+        // For future implementation of "note started" feature:
         // const noteStarted = '3 hours';
         // let description = 'last seen: ' + timeSinceLast + ' \n note started ' + noteStarted + ' ago';
         // const secondary = description.split('\n').map((item, i) => <p key={i} style={{ margin: '0px' }}>{item}</p>);
@@ -133,7 +131,7 @@ class PatientSelectionModal extends Component {
                 onClose={this.handleClose}
             >
                 <div style={this.getModalStyle()} className='modal'>
-                    <FontAwesome className='fas fa-times' name='close-icon' onClick={() => { this.handleClose(); }} />
+                    <FontAwesome className='fas fa-times clickable' name='close-icon' onClick={() => { this.handleClose(); }} />
                     <List>
                         {this.fillModal()}
                     </List>
@@ -147,6 +145,6 @@ class PatientSelectionModal extends Component {
 PatientSelectionModal.propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     isTablet: PropTypes.bool.isRequired,
-    // dataAccess: PropTypes.DataAccess.isRequired,
+    dataAccess: PropTypes.object.isRequired,
 };
 export default PatientSelectionModal;
