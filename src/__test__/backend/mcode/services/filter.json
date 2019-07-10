@@ -19,7 +19,7 @@
             "code": "white"
         }
     },
-    "diagnosis" : { "stage": "IA", "grade": 3, "tmn": { "t": "T1c", "m": "M0", 
+    "diagnosis" : { "stage": "IA", "grade": 3, "tnm": { "t": "T1c", "m": "M0", 
       "n" : "N0" } },
     "tumorMarkers": [{
             "code": "16112-5",
