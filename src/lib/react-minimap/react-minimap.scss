@@ -42,6 +42,13 @@
     color: $interface-blue-text
 }
 
-.shaded {
-	background: rgba(0, 0, 0, 0.1) !important;
+.edit_visible {
+    border: 1px solid rgba(2, 141, 234, .4) !important;
+    color: $body-black !important;
+}
+
+.edit_invisible {
+    border: none !important;
+    background-color: $contrast-gray !important;
+    color: $state !important;
 }
