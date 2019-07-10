@@ -396,6 +396,7 @@ export default class TargetedDataSection extends Component {
         subsections.forEach(subsection => {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
+            // TODO: LIST IS NOT AN EFFING LIST IT'S A PROMISE I LOVE OUR VARIABLE NAMES SO MUCH I'M GONNA lOsEiT
             let list, newSubsection;
 
             if (sectionTransform) {

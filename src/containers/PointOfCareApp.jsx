@@ -106,7 +106,7 @@ export class PointOfCareApp extends Component {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
-                const cm = new ContextManager(patient)
+                const cm = new ContextManager(patient);
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     cm: cm,
@@ -119,18 +119,14 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
-                console.log('patient :', patient);
                 this.contextManager = new ContextManager(patient);
                 this.setState({
                     patient,
                     loading: false
                 });
-                console.log('patient.getConditions() :', patient.getConditions());
-                console.log('patient.getActiveConditions() :', patient.getActiveConditions());
-                // const cancer = patient.getActiveConditions().find((condition) => {
-                //     return condition instanceof FluxCancerDisorderPresent;
-                // });
-                const cancer = patient.getConditions()[0];
+                const cancer = patient.getActiveConditions().find((condition) => {
+                    return condition instanceof FluxCancerDisorderPresent;
+                });
                 this.setCondition(cancer);
             } catch (error) {
                 console.error(error);
@@ -197,7 +193,6 @@ export class PointOfCareApp extends Component {
     }
 
     setCondition = (condition) => {
-        console.log('condition :', condition);
         this.setFullAppState('condition', condition);
     }
 

@@ -8,6 +8,7 @@ import Button from '../elements/Button';
 import './PointOfCareDashboard.css';
 import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
 import DataAccess from '../dataaccess/DataAccess';
+import moment from 'moment';
 
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
@@ -168,8 +169,42 @@ export default class PointOfCareDashboard extends Component {
     renderNextPatient() {
         const dataAccess = new DataAccess('HardCodedMcodeV01DataSource');
         const patients = dataAccess.getListOfPatients();
-        const patientId = patients[1].shrId;
-        this.props.loadPatient(patientId);
+        const nextPatient = this.getNextAppointment(patients).shrId;
+        this.props.loadPatient(nextPatient);
+    }
+
+    getNextAppointment(patientList) {
+        let nextPatient = this.props.patient;
+        let currTime = null;
+        let nextTime = null;
+        const encounters = this.props.patient.getEncountersChronologicalOrder();
+        // find current patient's appointment time, assuming there is only one appointment a day per person
+        for (let i = 0; i < encounters.length; i++) {
+            const encounterTime = new moment(encounters[i].expectedPerformanceTime, "DD MMM YYYY hh:mm");
+            if (encounterTime.date() === moment().date()) {
+                currTime = encounterTime;
+                break;
+            }
+        }
+        // looks through all patients to find next patient based on closest time on current date
+        patientList.forEach((patient) => {
+            if (patient.shrId === nextPatient.shrId) return;
+            const allEncounters = patient.getEncountersChronologicalOrder();
+            allEncounters.forEach((encounter) => {
+                const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY hh:mm");
+                if (appTime.date() === moment().date() && appTime.isAfter(currTime)) {
+                    if (nextTime === null) {
+                        nextTime = appTime;
+                        nextPatient = patient;
+                    }
+                    else if (nextTime !== null && appTime.isBefore(nextTime)) {
+                        nextTime = appTime;
+                        nextPatient = patient;
+                    }
+                }
+            });
+        });
+        return nextPatient;
     }
 
     renderSidebar() {
