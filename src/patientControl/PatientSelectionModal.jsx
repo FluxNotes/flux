@@ -33,7 +33,6 @@ class PatientSelectionModal extends Component {
         return 0;
     }
     fillModal = () => {
-        // const patientList = this.dataAccess.dataSource.getListOfPatients();
         let futureAppTimes = [];
         let pastAppTimes = [];
         this.patientList.forEach((patient) => {
@@ -47,10 +46,10 @@ class PatientSelectionModal extends Component {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
                 if (appTime.isSame(moment(), 'day')) {
                     const entryId = encounter.entryInfo.entryId;
-                    const description = this.buildPatientDescription(encounter, patient, name);
+                    const description = this.buildPatientDescription(encounter, patient);
                     this.encountersToday[name][entryId] = description;
                     let patientAtTime = {};
-                    patientAtTime[appTime.format('hh:mm a')] = name; //formatting it by time only because we already know it's today
+                    patientAtTime[appTime.format('hh:mm a')] = [name, entryId]; //formatting it by time only because we already know it's today
                     if (appTime.isBefore(moment())) {
                         pastAppTimes.push(patientAtTime);
                     } else {
@@ -61,10 +60,8 @@ class PatientSelectionModal extends Component {
             });
             futureAppTimes.sort(this._sortByTime);
             pastAppTimes.sort(this._sortByTime);
-            console.log(_.concat(pastAppTimes, futureAppTimes));
             //patient descriptions
         });
-        // this.buildPatientDescriptions();
         return <div>
             <p className='modal-header'>PAST APPOINTMENTS</p>
             <hr />
@@ -76,9 +73,11 @@ class PatientSelectionModal extends Component {
 
     }
     buildLists(AppTimes) {
+        console.log(AppTimes);
         return AppTimes.map((app, key) => {
-            const name = Object.values(app)[0];
-            const secondary = this.secondaries[name];
+            const name = Object.values(app)[0][0];
+            const entryId = Object.values(app)[0][1];
+            const secondary = this.encountersToday[name][entryId];
             let time = Object.keys(app)[0];
             return <ListItem key={key}>
                 <ListItemText primary={time} className='app-time' />
@@ -87,10 +86,8 @@ class PatientSelectionModal extends Component {
             </ListItem>;
         });
     }
-    buildPatientDescription = (encounter, patient, name) => {
-        // console.log(encounter);
+    buildPatientDescription = (encounter, patient) => {
         let timeSinceLast = 'first visit';
-        // let secondary = '';
         let encounterTime = encounter.expectedPerformanceTime;
         const encounterMom = new moment(encounterTime, "DD MMM YYYY HH:mm");
         if (patient.getPreviousEncounter() !== undefined) {
@@ -101,21 +98,9 @@ class PatientSelectionModal extends Component {
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
             timeSinceLast = 'in progress: began ' + encounterMom.fromNow();
         }
-        // if (patient.getPreviousEncounter() !== undefined) {
-        //     let lastSeen = patient.getPreviousEncounter().expectedPerformanceTime;
-        //     const lastSeenMom = new moment(lastSeen, "DD MMM YYYY HH:mm");
-        //     timeSinceLast = 'last seen: ' + lastSeenMom.fromNow();
-        //     if (lastSeenMom.isAfter(moment().subtract(1, 'h')) && lastSeenMom.isBefore(moment())) { //if the appointment started less than an hour ago
-        //         timeSinceLast = 'in progress: began ' + lastSeenMom.fromNow();
-        //     }
-        // }
-        // secondary = timeSinceLast;
         // const noteStarted = '3 hours';
         // let description = 'last seen: ' + timeSinceLast + ' \n note started ' + noteStarted + ' ago';
         // const secondary = description.split('\n').map((item, i) => <p key={i} style={{ margin: '0px' }}>{item}</p>);
-        // this.secondaries[name] = secondary;
-        console.log(this.encountersToday);
-        // console.log(entryId, secondary);
         return timeSinceLast;
     }
     handleClose = () => {
