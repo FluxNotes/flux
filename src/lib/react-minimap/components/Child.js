@@ -75,7 +75,7 @@ export default class Child extends Component {
             displayTitle = shortTitle;
         }
 
-        var className = '';
+        let className = '';
         if (this.props.inEditMode) {
             className = this.state.visible ? 'edit_visible' : 'edit_invisible';
         }
