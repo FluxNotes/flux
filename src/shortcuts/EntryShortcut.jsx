@@ -186,10 +186,10 @@ export default class EntryShortcut extends Shortcut {
         return this._getAttributeValue(this.object, name);
     }
 
-    setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true, currentChildText = '') {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplayText() + "'"); //this.text
-        this.isSet[name] = (value != null);
+        this.isSet[name] = (value !== null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
         if (value === null && voa.default) {
@@ -203,7 +203,13 @@ export default class EntryShortcut extends Shortcut {
                 this.values[name] = value;
             } else {
                 if (voa["type"] === "list" && !Lang.isArray(value)) {
-                    let list = this.getAttributeValue(name);
+                    const list = this.getAttributeValue(name);
+
+                    // If we are changing an existing child's value instead of adding a new one
+                    // remove that child before adding the new value
+                    if (Lang.includes(list, currentChildText)) {
+                        list.splice(list.indexOf(currentChildText), 1);
+                    }
                     list.push(value);
                     Lang.set(this.object, setMethod, list);
                 } else {
@@ -212,7 +218,13 @@ export default class EntryShortcut extends Shortcut {
             }
         } else {
             if (voa["type"] === "list" && !Lang.isArray(value)) {
-                let list = this.getAttributeValue(name);
+                const list = this.getAttributeValue(name);
+
+                // If we are changing an existing child's value instead of adding a new one
+                // remove that child before adding the new value
+                if (Lang.includes(list, currentChildText)) {
+                    list.splice(list.indexOf(currentChildText), 1);
+                }
                 list.push(value);
                 PatientRecord[patientSetMethod](this.object, list);
             } else {
