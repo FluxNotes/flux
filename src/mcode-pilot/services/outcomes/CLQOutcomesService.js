@@ -75,15 +75,15 @@ export default class CLQOutcomesService extends IOutcomesService {
         if (grade) {
             filter.grade = grade.reference.getGradeAsSimpleNumber();
         }
-        filter.tmn = {};
+        filter.tnm = {};
         if (t) {
-            filter.tmn.t = t.value;
+            filter.tnm.t = t.value;
         }
         if (n) {
-            filter.tmn.n = n.value;
+            filter.tnm.n = n.value;
         }
         if (m) {
-            filter.tmn.m = m.value;
+            filter.tnm.m = m.value;
         }
 
         return filter;
