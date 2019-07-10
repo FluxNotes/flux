@@ -4,6 +4,7 @@ import Modal from 'material-ui/Modal';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
+import _ from 'lodash';
 
 import './PatientSelectionModal.css';
 
@@ -18,7 +19,9 @@ class PatientSelectionModal extends Component {
         this.dataAccess = this.props.dataAccess;
         this.pics = {};
         this.patientList = this.dataAccess.dataSource.getListOfPatients();
-        this.encountersToday = {}; //{name:{entryId:description, etc.}, name:{entryId: description, etc.}}
+        this.appsToday = {}; //{name:{entryId:description, etc.}, name:{entryId: description, etc.}}
+        this.encountersToday = [];
+        this.shrIds = {};
     }
     _sortByTime = (date1, date2) => {
         const moment1 = new moment(Object.keys(date1)[0], "hh:mm a"); //only looking at times because all dates are on today anyway
@@ -34,19 +37,23 @@ class PatientSelectionModal extends Component {
     fillModal = () => {
         let futureAppTimes = [];
         let pastAppTimes = [];
+        this.encountersToday = [];
         this.patientList.forEach((patient) => {
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
+            const shrId = patient.person.entryInfo.shrId;
+            this.shrIds[name] = shrId;
             this.pics[name] = pic;
-            this.encountersToday[name] = {};
+            this.appsToday[name] = {};
             //gathering appointment times
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
                 if (appTime.isSame(moment(), 'day')) {
+                    this.encountersToday.push(encounter);
                     const entryId = encounter.entryInfo.entryId;
                     const description = this.buildPatientDescription(encounter, patient);
-                    this.encountersToday[name][entryId] = description;
+                    this.appsToday[name][entryId] = description;
                     let patientAtTime = {};
                     patientAtTime[appTime.format('hh:mm a')] = [name, entryId]; //formatting it by time only because we already know it's today
                     if (appTime.isBefore(moment())) {
@@ -75,18 +82,30 @@ class PatientSelectionModal extends Component {
         return AppTimes.map((app, key) => {
             const name = Object.values(app)[0][0];
             const entryId = Object.values(app)[0][1];
-            const secondary = this.encountersToday[name][entryId];
+            const secondary = this.appsToday[name][entryId];
             let time = Object.keys(app)[0];
             let hovered = '';
             if (this.state.hovered === (entryId + name)) {
                 hovered = 'hovered-list-item';
             };
-            return <ListItem className={hovered} key={key} onMouseEnter={() => { this.setState({hovered: entryId + name}); }} onMouseLeave={() => { this.setState({hovered: null}); }}>
+            return <ListItem className={hovered} key={key} onMouseEnter={() => { this.setState({hovered: entryId + name}); }} onMouseLeave={() => { this.setState({hovered: null}); }} onClick={() => { this.switchPatients(entryId, name); }}>
                 <ListItemText primary={time} className='app-time' />
                 <ListItemIcon><img alt='' src={this.pics[name]} style={{ width: '100px', height: '100px', marginRight: '0px' }}></img></ListItemIcon>
                 <ListItemText primary={name} secondary={secondary} className='modal-description' />
             </ListItem>;
         });
+    }
+    switchPatients = (entryId, name) => {
+        this.handleClose();
+        let theEncounter = this.encountersToday.map((encounter) => {
+            if (encounter.entryInfo.shrId === this.shrIds[name]) {
+                return encounter;
+            } else {
+                return null;
+            }
+        });
+        theEncounter = _.compact(theEncounter)[0];
+        this.props.loadPatient(theEncounter.entryInfo.shrId);
     }
     buildPatientDescription = (encounter, patient) => {
         let timeSinceLast = 'first visit';

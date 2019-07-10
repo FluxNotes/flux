@@ -140,7 +140,7 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
-                <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.isTablet} dataAccess={this.props.dataAccess} handleClose={this.handleClose}/>
+                {this.isTablet && <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.isTablet} dataAccess={this.props.dataAccess} handleClose={this.handleClose} loadPatient={this.props.loadPatient}/>}
             </div>
 
         );
@@ -150,7 +150,7 @@ class PatientControlPanel extends Component {
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
-    dataAccess: PropTypes.object.isRequired,
+    dataAccess: PropTypes.object,
     isAppBlurred: PropTypes.bool,
     isTablet: PropTypes.bool,
     layout: PropTypes.string,

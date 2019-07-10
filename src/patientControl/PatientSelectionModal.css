@@ -3,7 +3,7 @@
   bodyGray: #4F4F4F; }
 
 .modal {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 500px;
   width: 520px !important; }
   .modal .hovered-list-item {

@@ -26,6 +26,7 @@ import LoadingError from '../loading/LoadingError';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
+import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 
 import '../styles/PointOfCareApp.css';
 
@@ -99,7 +100,7 @@ export class PointOfCareApp extends Component {
         };
     }
 
-    loadPatient(patientId) {
+    loadPatient = (patientId) => {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
@@ -120,6 +121,10 @@ export class PointOfCareApp extends Component {
                     patient,
                     loading: false
                 });
+                const cancer = patient.getActiveConditions().find((condition) => {
+                    return condition instanceof FluxCancerDisorderPresent;
+                });
+                this.setCondition(cancer);
             } catch (error) {
                 console.error(error);
                 this.setState({
@@ -285,6 +290,7 @@ export class PointOfCareApp extends Component {
                                     isAppBlurred={this.state.isAppBlurred}
                                     isTablet={true}
                                     layout={this.state.layout}
+                                    loadPatient={this.loadPatient}
                                     loginUsername={this.state.loginUser.getUserName()}
                                     logoObject={this.props.logoObject}
                                     moveTargetedDataPanelToSubsection={this.moveTargetedDataPanelToSubsection}

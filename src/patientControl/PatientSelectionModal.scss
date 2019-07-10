@@ -1,6 +1,6 @@
 @import '../styles/variables';
 .modal {
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 500px;
     width: 520px !important;
     .hovered-list-item {
