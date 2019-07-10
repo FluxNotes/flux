@@ -110,13 +110,14 @@ export default class CreatorChild extends Shortcut {
     }
 
     setText(text, updatePatient = true) {
+        const previousText = this.text; // Store previous text to allow for reselection of multi-choice subtypess
         this.text = this._getTriggerWithoutPrefix(text);
         let value = this.text;
         if (this.metadata.picker === 'date-id') {
             value = moment(text, 'MM-DD-YYYY').format('D MMM YYYY');
         }
         if (!Lang.isUndefined(this.parentContext)) {
-            this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient);
+            this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient, previousText);
         }
     }
 
