@@ -1,14 +1,34 @@
 @import '../styles/variables';
 .modal {
+    overflow-y: scroll;
+    max-height: 500px;
+    width: 520px !important;
+    .MuiList-root-250 {
+        padding-top: 0px;
+    }
+    .MuiListItem-root-231 {
+        padding-left: 10px;
+        padding-right: 0px;
+    }
+    .MuiList-root-227 {
+        padding-top: 0px;
+    }
+    .app-time{ //appointment times
+        .MuiTypography-root-174{
+            padding-left: 15px;
+            color: $state;
+        }
+    }
     .modal-description {
         width: 160px;
+        padding-right: 0px;
     }
     .modal-header {
         font-size: $size-xs;
         margin: 0px;
     }
     .fa-times {
-        margin-left: 380px;
+        margin-left: 500px;
         color: $icons-blue;
     }
 }
