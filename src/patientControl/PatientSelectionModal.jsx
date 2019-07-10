@@ -12,11 +12,11 @@ class PatientSelectionModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalOpen: this.props.isModalOpen
+            isModalOpen: this.props.isModalOpen,
+            hovered: null,
         };
         this.isTablet = this.props.isTablet;
         this.dataAccess = this.props.dataAccess;
-        this.secondaries = {};
         this.pics = {};
         this.patientList = this.dataAccess.dataSource.getListOfPatients();
         this.encountersToday = {}; //{name:{entryIds}, name:{entryIds}}
@@ -49,6 +49,7 @@ class PatientSelectionModal extends Component {
                     const description = this.buildPatientDescription(encounter, patient);
                     this.encountersToday[name][entryId] = description;
                     let patientAtTime = {};
+                    console.log(name, entryId);
                     patientAtTime[appTime.format('hh:mm a')] = [name, entryId]; //formatting it by time only because we already know it's today
                     if (appTime.isBefore(moment())) {
                         pastAppTimes.push(patientAtTime);
@@ -79,7 +80,11 @@ class PatientSelectionModal extends Component {
             const entryId = Object.values(app)[0][1];
             const secondary = this.encountersToday[name][entryId];
             let time = Object.keys(app)[0];
-            return <ListItem key={key}>
+            let hovered = '';
+            if (this.state.hovered === (entryId + name)) {
+                hovered = 'hovered-list-item';
+            };
+            return <ListItem className={hovered} key={key} onMouseEnter={() => { this.setState({hovered: entryId + name}); }} onMouseLeave={() => { this.setState({hovered: null}); }}>
                 <ListItemText primary={time} className='app-time' />
                 <ListItemIcon><img alt='' src={this.pics[name]} style={{ width: '100px', height: '100px', marginRight: '0px' }}></img></ListItemIcon>
                 <ListItemText primary={name} secondary={secondary} className='modal-description' />

@@ -6,6 +6,8 @@
   overflow-y: scroll;
   max-height: 500px;
   width: 520px !important; }
+  .modal .hovered-list-item {
+    background-color: rgba(26, 118, 180, 0.1); }
   .modal .MuiList-root-250 {
     padding-top: 0px; }
   .modal .MuiListItem-root-231 {
