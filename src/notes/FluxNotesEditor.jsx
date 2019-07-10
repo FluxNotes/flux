@@ -420,11 +420,10 @@ class FluxNotesEditor extends React.Component {
         let transform;
         transform = this.state.state.transform();
 
-        shortcut.clearValueSelectionOptions();
         shortcut.setText(selection.context);
         if (shortcut.isContext()) {
             shortcut.setValueObject(selection.object);
-            this.contextManager.addShortcutToContext(shortcut);
+            if (!Lang.includes(this.contextManager.contexts, shortcut)) this.contextManager.addShortcutToContext(shortcut);
             this.contextManager.contextUpdated();
         }
 
