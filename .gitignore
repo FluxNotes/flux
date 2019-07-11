@@ -56,3 +56,5 @@ yarn-error.log*
 *.vpp.lck*
 
 .vscode/
+
+# MATT: add *.backup to git ignore before you do a git rm on the files
