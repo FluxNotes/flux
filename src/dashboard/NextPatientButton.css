@@ -3,27 +3,26 @@
   bodyGray: #4F4F4F; }
 
 .patient-div {
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-  width: 120px;
-  height: 100px;
+  position: relative;
   background-color: #32556C;
   border-style: solid;
-  border-color: #E1E1E1;
+  border-color: #9A9A9A;
   border-left: none;
   border-bottom: none;
   border-radius: 0 50px 0 0;
-  display: -webkit-flex;
   display: flex;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
+  height: 10%;
   text-align: center;
-  z-index: 3 !important; }
+  transform: translateY(-100%);
+  width: 120%;
+  z-index: 999 !important; }
   .patient-div:hover {
     cursor: pointer; }
+
+.hovered {
+  background-color: rgba(0, 0, 0, 0.12); }
 
 .inside {
   display: flex;
@@ -32,9 +31,6 @@
   flex-grow: 1;
   height: 100%;
   border-radius: 0 50px 0 0; }
-  .inside:hover {
-    background-color: rgba(0, 0, 0, 0.12); }
 
 .patient-icon {
-  color: white;
   display: inline-block; }

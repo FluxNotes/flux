@@ -9,6 +9,7 @@ import './PointOfCareDashboard.css';
 import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
 import DataAccess from '../dataaccess/DataAccess';
 import moment from 'moment';
+import NextPatientButton from './NextPatientButton';
 
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
@@ -156,14 +157,14 @@ export default class PointOfCareDashboard extends Component {
         return this.state.showPOC ? this._unselectedTdpIcon() : this._selectedTdpIcon();
     }
 
-    renderNextPatient() {
+    renderNextPatient = () => {
         const dataAccess = new DataAccess('HardCodedMcodeV01DataSource');
         const patients = dataAccess.getListOfPatients();
         const nextPatient = this.getNextAppointment(patients).shrId;
         this.props.loadPatient(nextPatient);
     }
 
-    getNextAppointment(patientList) {
+    getNextAppointment = (patientList) => {
         let nextPatient = this.props.patient;
         let currTime = null;
         let nextTime = null;
@@ -199,8 +200,8 @@ export default class PointOfCareDashboard extends Component {
 
     renderSidebar() {
         return (
-            <div className='poc-nav-bar'>
-                <div className='content'>
+            <div className='content'>
+                <div className='poc-nav-bar'>
                     <Button onClick={() => this.togglePOC(false)}>
                         {this.renderTdpIcon()}
                     </Button>
@@ -208,9 +209,7 @@ export default class PointOfCareDashboard extends Component {
                         {this.renderPocIcon()}
                     </Button>
                 </div>
-                <Button className="next-patient" onClick={() => { this.renderNextPatient(); }}>
-                    {this.renderNextIcon()}
-                </Button>
+                <NextPatientButton className='next-patient' renderNextPatient={this.renderNextPatient} />
             </div>
         );
     }
