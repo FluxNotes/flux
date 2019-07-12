@@ -140,6 +140,10 @@ class PatientRecord {
         this.entries.push(entry);
     }
 
+    addCondition(condition, clinicalNote) {
+        return this.addEntryToPatient(condition, clinicalNote);
+    }
+
     addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.shrId;
         entry.entryInfo.entryId = this.nextEntryId;

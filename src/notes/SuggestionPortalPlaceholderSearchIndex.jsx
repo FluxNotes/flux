@@ -13,20 +13,24 @@ class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex
         if (Lang.isEqual(placeholders, this.currentlyValidPlaceholders)) return;
         this.currentlyValidPlaceholders = placeholders;
         const relevantShortcuts = [];
+        const allPromises = [];
 
         placeholders.forEach((placeholder) => {
-            const triggers = this.shortcutManager.getTriggersForShortcut(placeholder.id);
-            triggers.forEach((trigger) => {
-                const triggerNoPrefix = trigger.name.substring(1);
-                relevantShortcuts.push({
-                    key: triggerNoPrefix,
-                    value: `${this.initialChar}${triggerNoPrefix}>`,
-                    suggestion: triggerNoPrefix,
+            allPromises.push(this.shortcutManager.getTriggersForShortcut(placeholder.id).then((triggers) => {
+                triggers.forEach((trigger) => {
+                    const triggerNoPrefix = trigger.name.substring(1);
+                    relevantShortcuts.push({
+                        key: triggerNoPrefix,
+                        value: `${this.initialChar}${triggerNoPrefix}>`,
+                        suggestion: triggerNoPrefix,
+                    });
                 });
-            });
+            }));
         });
 
-        this.shortcutsFuse = new Fuse(relevantShortcuts, this.fuseOptions);
+        Promise.all(allPromises).then((r) => {
+            this.shortcutsFuse = new Fuse(relevantShortcuts, this.fuseOptions);
+        });
     }
 };
 

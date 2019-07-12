@@ -202,30 +202,35 @@ class FluxNotesEditor extends React.Component {
         // Get all non-keyword shortcuts for autoreplace
         const allNonKeywordShortcuts = this.props.shortcutManager.getAllShortcutsWithTriggers();
         const placeholderShortcuts = this.props.shortcutManager.getAllPlaceholderShortcuts();
+        const promises = [];
 
         allNonKeywordShortcuts.forEach((def) => {
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
-            let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
-
-            autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+            promises.push(this.props.shortcutManager.getTriggersForShortcut(def.id).then((triggers) => {
+                const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+                autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+            }));
         });
+
         placeholderShortcuts.forEach((def) => {
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
-            const shortcutNamesList = triggers.map(trigger => `<${trigger.name.slice(1)}>`);
-
-            autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+            promises.push(this.props.shortcutManager.getTriggersForShortcut(def.id).then((triggers) => {
+                const shortcutNamesList = triggers.map(trigger => `<${trigger.name.slice(1)}>`);
+                autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+            }));
         });
-        this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
 
-        // now add an AutoReplace plugin instance for each shortcut we're supporting as well
-        // can switch to the commented out trigger to support non-space characters but need to put
-        // character used instead of always space when inserting the structured field.
-        this.plugins.push(AutoReplace({
-            "trigger": /[\s\r\n.!?;,)}\]]/,
-            // "trigger": 'space',
-            "before": this.autoReplaceBeforeRegExp,
-            "transform": this.autoReplaceTransform.bind(this, null)
-        }));
+        Promise.all(promises).then((r) => {
+            this.autoReplaceBeforeRegExp = new RegExp("(" + autoReplaceAfters.join("|") + ")", 'i');
+
+            // now add an AutoReplace plugin instance for each shortcut we're supporting as well
+            // can switch to the commented out trigger to support non-space characters but need to put
+            // character used instead of always space when inserting the structured field.
+            this.plugins.push(AutoReplace({
+                trigger: /[\s\r\n.!?;,)}\]]/,
+                // "trigger": 'space',
+                before: this.autoReplaceBeforeRegExp,
+                transform: this.autoReplaceTransform.bind(this, null)
+            }));
+        });
 
         // let's see if we have any regular expression shortcuts
         let triggerRegExp;
@@ -236,10 +241,10 @@ class FluxNotesEditor extends React.Component {
                 //const triggerRegExpModified = new RegExp(triggerRegExp.toString().replace(/\/(.*)\//, '$1$'));
                 const triggerRegExpModified = triggerRegExp;
                 this.plugins.push(AutoReplace({
-                    "trigger": /[\s\r\n.!?;,)}\]]/,
+                    trigger: /[\s\r\n.!?;,)}\]]/,
                     // "trigger": 'space',
-                    "before": triggerRegExpModified,
-                    "transform": this.autoReplaceTransform.bind(this, def)
+                    before: triggerRegExpModified,
+                    transform: this.autoReplaceTransform.bind(this, def)
                 }));
             }
         });

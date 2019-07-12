@@ -5,16 +5,25 @@ import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
+import EntryType from '../shr/base/EntryType';
 import hpiConfig from '../hpi-configuration.json';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
 import FluxEntry from './FluxEntry';
+import ClassRegistry from '../ClassRegistry';
 
 class FluxConditionPresentAssertion extends FluxEntry {
     constructor(json, type, patientRecord) {
         super();
         this._patientRecord = patientRecord;
         this._condition = this._entry = ConditionPresentAssertion.fromJSON(json);
+        if (!this._condition.entryInfo) {
+            const Entry = ClassRegistry.get('shr.base', 'Entry');
+            let entry = new Entry();
+            entry.entryType = new EntryType();
+            entry.entryType.uri = 'http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion';
+            this._condition.entryInfo = entry;
+        }
     }
 
     get entryInfo() {
@@ -242,7 +251,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
 
     getTests() {
         return this.getObservationsOfType(FluxObservation).filter((item) => {
-            return !Lang.isNull(item.quantity);
+            return !_.isNull(item.quantity);
         });
     }
 
@@ -251,7 +260,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
         let results = this.getTests();
         results.sort(this._observationsTimeSorter);
         let mostRecentLabResults = results;
-        if (sinceDate && !Lang.isNull(sinceDate)) {
+        if (sinceDate && !_.isNull(sinceDate)) {
             mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
         }
 
@@ -403,7 +412,7 @@ class FluxConditionPresentAssertion extends FluxEntry {
         const procedure = patient.getProceduresForCondition(this).find((p) => {
             return (p.code === procedureCode);
         });
-        return !Lang.isEmpty(procedure);
+        return !_.isEmpty(procedure);
     }
 
     buildEventNarrative(hpiText, patient, conditionCode = null) {
