@@ -26,15 +26,8 @@ class PatientSelectionModal extends Component {
             isModalOpen: this.props.isModalOpen,
             hovered: null,
         };
-        // MATT: Maybe you don't need to do this for all the props, and can just access them directly when you need them
-        // This is fine for the empty objects and arrays as long as you need to access them accross functions
-        this.isTablet = this.props.isTablet;
-        this.dataAccess = this.props.dataAccess;
+
         this.pics = {};
-
-        // MATT: Move patientList to a local variable in fillModal
-        this.patientList = this.dataAccess.dataSource.getListOfPatients();
-
         this.appsToday = {}; //{name:{entryId:description, etc.}, name:{entryId: description, etc.}}
         this.encountersToday = [];
         this.shrIds = {};
@@ -52,28 +45,15 @@ class PatientSelectionModal extends Component {
         return 0;
     }
     fillModal = () => {
-        // MATT: These can be consts since they are not getting reassigned
-        let futureAppTimes = [];
-        let pastAppTimes = [];
+        const { dataAccess } = this.props;
+        const patientList = dataAccess.dataSource.getListOfPatients();
+        const futureAppTimes = [];
+        const pastAppTimes = [];
         this.encountersToday = [];
-        this.patientList.forEach((patient) => {
-            // MATT: this can be shorthanded:
-            // const { name, photographicImage, entryInfo } = patient.person;
+        patientList.forEach((patient) => {
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
             const shrId = patient.person.entryInfo.shrId;
-            // MATT: I wouldn't uniquely identify stuff by patient name, we want it to be with SHR ID
-            // Key things by shrId wherever you can. Suggestion:
-            /*
-                {
-                    "abcabasd-42134234r-casdfcad": {
-                        pic: ...,
-                        name,
-                        appsToday: ...,
-                        maybeSomethingElseRelevant: ///
-                    }
-                }
-            */
             this.shrIds[name] = shrId;
             this.pics[name] = pic;
             this.appsToday[name] = {};
@@ -86,8 +66,7 @@ class PatientSelectionModal extends Component {
                     const entryId = encounter.entryInfo.entryId;
                     const description = this.buildPatientDescription(encounter, patient);
                     this.appsToday[name][entryId] = description;
-                    // MATT: const
-                    let patientAtTime = {};
+                    const patientAtTime = {};
                     // MATT: Try to avoid making arrays where you access specific things like [0] or [1], use an object
                     patientAtTime[appTime.format('hh:mm a')] = [name, entryId]; //formatting it by time only because we already know it's today
                     if (appTime.isBefore(moment())) {
@@ -102,15 +81,14 @@ class PatientSelectionModal extends Component {
             pastAppTimes.sort(this._sortByTime);
             //patient descriptions
         });
-        // MATT: Add ( ) around the div
-        return <div>
+        return (<div>
             <p className='modal-header'>PAST APPOINTMENTS</p>
             <hr />
             {this.buildLists(pastAppTimes)}
             <p className='modal-header'>UPCOMING APPOINTMENTS</p>
             <hr />
             {this.buildLists(futureAppTimes)}
-        </div>;
+        </div>);
 
     }
     buildLists(AppTimes) {
@@ -125,46 +103,31 @@ class PatientSelectionModal extends Component {
             if (this.state.hovered === (entryId + name)) {
                 hovered = 'hovered-list-item';
             };
-            // MATT: ( )
-            // MATT: Use multiple lines for each prop when line is this long
-            return <ListItem className={hovered} key={key} onMouseEnter={() => { this.setState({hovered: entryId + name}); }} onMouseLeave={() => { this.setState({hovered: null}); }} onClick={() => { this.switchPatients(entryId, name); }}>
+            return (<ListItem
+                className={hovered}
+                key={key}
+                onMouseEnter={() => { this.setState({ hovered: entryId + name }); }}
+                onMouseLeave={() => { this.setState({ hovered: null }); }}
+                onClick={() => { this.switchPatients(entryId, name); }}
+            >
                 <ListItemText primary={time} className='app-time' />
                 <ListItemIcon><img alt='' src={this.pics[name]} style={{ width: '100px', height: '100px', marginRight: '0px' }}></img></ListItemIcon>
                 <ListItemText primary={name} secondary={secondary} className='modal-description' />
-            </ListItem>;
+            </ListItem>);
         });
     }
     switchPatients = (entryId, name) => {
         this.handleClose();
-        // MATT: Use find instead of map
-        /*
-        const foundEncounter = this.blahblah.find(e => {
-            return entry info's shrtId === the one you care about
+        let theEncounter = this.encountersToday.find((encounter) => {
+            return encounter.entryInfo.shrId === this.shrIds[name];
         });
-        if (foundEncounter) loadPatient
-        ^^ this will be the actual encounter if found, and null otherwise
-        this should be able to replace map and compact
-        */
-        let theEncounter = this.encountersToday.map((encounter) => {
-            if (encounter.entryInfo.shrId === this.shrIds[name]) {
-                return encounter;
-            } else {
-                return null;
-            }
-        });
-        theEncounter = _.compact(theEncounter)[0];
-        this.props.loadPatient(theEncounter.entryInfo.shrId);
+        if (theEncounter) this.props.loadPatient(theEncounter.entryInfo.shrId);
     }
     buildPatientDescription = (encounter, patient) => {
         let timeSinceLast = 'first visit';
-        // MATT: this can be a const
-        // MATT: can combine these into one thing
-        let encounterTime = encounter.expectedPerformanceTime;
-        const encounterMom = new moment(encounterTime, "DD MMM YYYY HH:mm");
+        const encounterMom = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
         if (patient.getPreviousEncounter() !== undefined) {
-            // MATT: this can be a const/combine
-            let lastSeen = patient.getPreviousEncounter().expectedPerformanceTime;
-            const lastSeenMom = new moment(lastSeen, "DD MMM YYYY HH:mm");
+            const lastSeenMom = new moment(patient.getPreviousEncounter().expectedPerformanceTime, "DD MMM YYYY HH:mm");
             timeSinceLast = 'last seen: ' + lastSeenMom.fromNow();
         }
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
@@ -194,7 +157,8 @@ class PatientSelectionModal extends Component {
         };
     }
     render() {
-        if (this.isTablet) {
+        const { isTablet } = this.props;
+        if (isTablet) {
             return <Modal
                 aria-labelledby='simple-modal-title'
                 open={this.props.isModalOpen}

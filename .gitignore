@@ -49,7 +49,7 @@ yarn-error.log*
 /src/templates/*.css
 /src/timeline/Timeline.css
 /src/timeline/TimelineEventsVisualizer.css
-
+/src/dataaccess/*.backup
 
 #Visual Paradigm Project Files
 *.vpp.bak*
@@ -57,4 +57,3 @@ yarn-error.log*
 
 .vscode/
 
-# MATT: add *.backup to git ignore before you do a git rm on the files
