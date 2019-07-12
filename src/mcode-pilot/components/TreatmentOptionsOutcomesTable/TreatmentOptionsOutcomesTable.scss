@@ -6,6 +6,11 @@
         align-items: flex-end;
         margin-bottom: 10px;
 
+        .compare-header {
+            font-size: 0.9em;
+            margin-bottom: -10px;
+        }
+
         .user-icon {
             text-align: center;
             font-size: 1.5em;
@@ -48,6 +53,16 @@
     &__table {
         padding: 5px 10px;
         margin-bottom: 20px;
+
+        .treatment-name {
+            display: flex;
+            align-items: center;
+
+            .select-icon {
+                padding-right: 10px;
+                cursor: pointer;
+            }
+        }
 
         .treatments-title {
             font-weight: bold;
@@ -98,7 +113,7 @@
     .flex-center { align-items: center; }
 
     @media (max-width: 1024px) {
-        .flex-padding { 
+        .flex-padding {
             padding: 0 5px;
         }
     }

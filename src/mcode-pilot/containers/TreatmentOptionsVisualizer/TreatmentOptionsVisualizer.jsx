@@ -16,6 +16,7 @@ import {
     selectAllSimilarPatientOptions,
     selectSimilarPatientOption,
     selectSimilarPatientOptionRange,
+    setSelectedTreatment
 } from '../../../actions/mcode';
 
 import './TreatmentOptionsVisualizer.css';
@@ -48,8 +49,10 @@ export class TreatmentOptionsVisualizer extends Component {
             patient,
             selectAllCategorySimilarPatientOptions,
             selectAllSimilarPatientOptions,
+            selectedTreatment,
             selectSimilarPatientOption,
             selectSimilarPatientOptionRange,
+            setSelectedTreatment,
             similarPatientProps,
             similarPatientTreatments,
             similarPatientTreatmentsData,
@@ -79,6 +82,8 @@ export class TreatmentOptionsVisualizer extends Component {
                 </TreatmentOptionsSelector>
 
                 <TreatmentOptionsOutcomes
+                    selectedTreatment={selectedTreatment}
+                    setSelectedTreatment={setSelectedTreatment}
                     similarPatientTreatments={similarPatientTreatments}
                     similarPatientTreatmentsData={similarPatientTreatmentsData}
                     timescale={timescale}
@@ -95,8 +100,10 @@ TreatmentOptionsVisualizer.propTypes = {
     processSimilarPatientOutcomes: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
+    selectedTreatment: PropTypes.object,
     selectSimilarPatientOption: PropTypes.func.isRequired,
     selectSimilarPatientOptionRange: PropTypes.func.isRequired,
+    setSelectedTreatment: PropTypes.func.isRequired,
     similarPatientProps: PropTypes.object.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
@@ -113,11 +120,13 @@ function mapDispatchToProps(dispatch) {
         selectAllSimilarPatientOptions,
         selectSimilarPatientOption,
         selectSimilarPatientOptionRange,
+        setSelectedTreatment
     }, dispatch);
 }
 
 function mapStateToProps(state) {
     return {
+        selectedTreatment: state.mcode.selectedTreatment,
         similarPatientProps: state.mcode.similarPatientProps,
         similarPatientTreatments: state.mcode.similarPatientTreatments,
         similarPatientTreatmentsData: state.mcode.similarPatientTreatmentsData,

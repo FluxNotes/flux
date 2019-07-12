@@ -128,7 +128,13 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     render() {
-        const { similarPatientTreatmentsData, similarPatientTreatments, timescale } = this.props;
+        const {
+            selectedTreatment,
+            setSelectedTreatment,
+            similarPatientTreatments,
+            similarPatientTreatmentsData,
+            timescale
+        } = this.props;
         const { outcomesToggle, timescaleToggle, sortDirection, sortColumn } = this.state;
 
         if (sortDirection) { // it could be ascending or descending, but it's sorted
@@ -146,18 +152,22 @@ export default class TreatmentOptionsOutcomes extends Component {
 
                 {outcomesToggle === "table" ?
                     <TreatmentOptionsOutcomesTable
+                        changeSort={this.handleChangeSort}
+                        selectedTreatment={selectedTreatment}
+                        setSelectedTreatment={setSelectedTreatment}
                         similarPatientTreatments={similarPatientTreatments}
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
-                        changeSort={this.handleChangeSort}
                         sortColumn={sortColumn}
                         sortDirection={sortDirection}
-                        timescale = {timescale}
+                        timescale={timescale}
                     />
                     :
                     <TreatmentOptionsOutcomesIcons
+                        selectedTreatment={selectedTreatment}
+                        setSelectedTreatment={setSelectedTreatment}
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
+                        timescale={timescale}
                         timescaleToggle={timescaleToggle !== '' ? timescaleToggle : timescale[0]}
-                        timescale = {timescale}
                     />
                 }
             </div>
@@ -166,6 +176,9 @@ export default class TreatmentOptionsOutcomes extends Component {
 }
 
 TreatmentOptionsOutcomes.propTypes = {
+    selectedTreatment: PropTypes.object,
+    setSelectedTreatment: PropTypes.func.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
+    timescale: PropTypes.array.isRequired
 };

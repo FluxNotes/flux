@@ -101,6 +101,9 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 }
 
 TreatmentOptionsOutcomesIcons.propTypes = {
+    selectedTreatment: PropTypes.object,
+    setSelectedTreatment: PropTypes.func.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
-    timescaleToggle: PropTypes.string.isRequired
+    timescale: PropTypes.array.isRequired,
+    timescaleToggle: PropTypes.string.isRequired,
 };

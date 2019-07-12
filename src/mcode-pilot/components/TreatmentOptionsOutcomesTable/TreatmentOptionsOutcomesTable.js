@@ -16,7 +16,6 @@ export default class TreatmentOptionsOutcomesTable extends Component {
             sideEffectSelection: 'Most Common',
             sideEffects: []
         };
-
     }
 
     handleChangeEffect = effect => {
@@ -63,15 +62,21 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
         return (
             <div className="table-row flex" key={row.id}>
-                <div className="flex-2 flex-padding treatment-name">{displayName}</div>
+                <div className="flex-2 flex-padding treatment-name">
+                    <div className="select-icon">></div>
+                    <div className="display-name">{displayName}</div>
+                </div>
+
                 <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
 
                 <div className="flex flex-6 flex-padding flex-center">
                     {timescale.map((timescaleYear) => {
-                        return <div key={timescaleYear} className="flex-1">{this.renderBarChart(row, compareRow, timescaleYear)}</div>;
-
+                        return (
+                            <div key={timescaleYear} className="flex-1">
+                                {this.renderBarChart(row, compareRow, timescaleYear)}
+                            </div>
+                        );
                     })}
-
                 </div>
 
                 <div className="flex flex-4 flex-padding top-side-effects">
@@ -104,7 +109,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
         return (
             <div className="treatment-options-outcomes-table__header">
-                <div className="flex-2 flex-padding"></div>
+                <div className="flex-2 flex-padding compare-header">compare</div>
                 <div className="flex-1 flex-padding user-icon">
                     <span onClick={() => changeSort('totalPatients')} className="header-space">
                         <FontAwesome name="user" />
@@ -116,7 +121,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     <div className="header-title">Overall survival rates</div>
 
                     <div className="flex">
-                        {this.props.timescale.map((timescaleYear) => {
+                        {this.props.timescale.map(timescaleYear => {
                             return (
                                 <div className="flex-1" key={timescaleYear}>
                                     <span onClick={ () => { changeSort(timescaleYear); }} className="header-space">
@@ -181,8 +186,11 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
 TreatmentOptionsOutcomesTable.propTypes = {
     changeSort: PropTypes.func.isRequired,
+    selectedTreatment: PropTypes.object,
+    setSelectedTreatment: PropTypes.func.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
     sortColumn: PropTypes.string.isRequired,
     sortDirection: PropTypes.number.isRequired,
+    timescale: PropTypes.array.isRequired
 };
