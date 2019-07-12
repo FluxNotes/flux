@@ -24,12 +24,9 @@ export default class NotesPanel extends Component {
             // selectedNote is the note that is selected in the clinical notes view in the NoteAssistant
             selectedNote: null,
             currentlyEditingEntryId: -1,
-            arrayOfPickLists: [],
             contextTrayItemToInsert: null,
             localDocumentText: '',
             showTemplateView: false,
-            selectedPickListOptions: [],
-            shouldRevertTemplate: false,
             shouldUpdateShortcutType: false,
             shortcutKey: null,
             shortcutType: null,
@@ -50,11 +47,7 @@ export default class NotesPanel extends Component {
                 // - Then clear the contextTray Item to insert
                 this.updateContextTrayItemToInsert(null);
             }
-            if (!Lang.isNull(this.props.openClinicalNote) && this.state.noteAssistantMode === "pick-list-options-panel") {
-                // If our current note isn't null, and we were in the process of selecting pick-list values
-                // - We should return to ClinicalNotes mode for note assistance
-                this.updateNoteAssistantMode("clinical-notes");
-            } else if (!Lang.isNull(this.props.openClinicalNote) && this.state.showTemplateView && nextProps.openClinicalNote.signed) {
+            if (!Lang.isNull(this.props.openClinicalNote) && this.state.showTemplateView && nextProps.openClinicalNote.signed) {
                 // If our current note isn't null, we're in templateView, and our next note is signed
                 // - We want to stop picking a template, so we can see our newly selected note
                 this.updateShowTemplateView(false);
@@ -116,10 +109,6 @@ export default class NotesPanel extends Component {
         this.updateShowTemplateView(false);
     }
 
-    updateSelectedPickListOptions = (selectedPickListOptions) => {
-        this.setState({ selectedPickListOptions });
-    }
-
     // Handle when the editor needs to be updated with a note. The note can be a new blank note or a pre existing note
     handleUpdateEditorWithNote = (note) => {
         // If in pre-encounter mode and the note editor doesn't exist, update the layout and add the editor
@@ -143,10 +132,6 @@ export default class NotesPanel extends Component {
                 this.props.setOpenClinicalNote(note);
             });
         }
-    }
-
-    handleUpdateArrayOfPickLists = (array) => {
-        this.setState({arrayOfPickLists: array});
     }
 
     updateNote = (entryId, noteContent) => {
@@ -266,14 +251,6 @@ export default class NotesPanel extends Component {
         this.closeNote();
     }
 
-    setUndoTemplateInsertion = (shouldRevertTemplate) => {
-        this.setState({ shouldRevertTemplate });
-    }
-
-    changeShortcutType = (shortcutKey, shouldUpdateShortcutType, shortcutType) => {
-        this.setState({ shortcutKey, shouldUpdateShortcutType, shortcutType });
-    }
-
     renderNotesPanelContent() {
         if (this.state.showTemplateView) {
             // If we're supposed to show the template view, pull that up first
@@ -390,16 +367,12 @@ export default class NotesPanel extends Component {
         return (
             <div className="panel-content dashboard-panel">
                 <FluxNotesEditor
-                    arrayOfPickLists={this.state.arrayOfPickLists}
-                    changeShortcutType={this.changeShortcutType}
                     closeNote={this.closeNote}
                     contextManager={this.props.contextManager}
                     contextTrayItemToInsert={this.state.contextTrayItemToInsert}
                     currentViewMode={this.props.currentViewMode}
-                    deleteSelectedNote={this.deleteSelectedNote}
                     errors={this.props.errors}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
-                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isAppBlurred={this.props.isAppBlurred}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
@@ -412,18 +385,14 @@ export default class NotesPanel extends Component {
                     searchIndex={this.props.searchIndex}
                     searchSuggestions={this.props.searchSuggestions}
                     selectedNote={this.state.selectedNote}
-                    selectedPickListOptions={this.state.selectedPickListOptions}
                     setForceRefresh={this.props.setForceRefresh}
                     setLayout={this.props.setLayout}
                     setHighlightedSearchSuggestion={this.props.setHighlightedSearchSuggestion}
                     setNoteViewerEditable={this.props.setNoteViewerEditable}
                     setOpenSourceNoteEntryId={this.props.setOpenSourceNoteEntryId}
-                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
                     shortcutKey={this.state.shortcutKey}
                     shortcutType={this.state.shortcutType}
                     shortcutManager={this.props.shortcutManager}
-                    shouldEditorContentUpdate={this.state.noteAssistantMode !== 'pick-list-options-panel'}
-                    shouldRevertTemplate={this.state.shouldRevertTemplate}
                     shouldUpdateShortcutType={this.state.shouldUpdateShortcutType}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
@@ -452,7 +421,6 @@ export default class NotesPanel extends Component {
                     deleteSelectedNote={this.deleteSelectedNote}
                     errors={this.props.errors}
                     handleSummaryItemSelected={this.props.handleSummaryItemSelected}
-                    handleUpdateArrayOfPickLists={this.handleUpdateArrayOfPickLists}
                     handleUpdateEditorWithNote={this.handleUpdateEditorWithNote}
                     highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
@@ -480,20 +448,15 @@ export default class NotesPanel extends Component {
                     setOpenClinicalNote={this.props.setOpenClinicalNote}
                     setSearchSelectedItem={this.props.setSearchSelectedItem}
                     shortcutManager={this.props.shortcutManager}
-                    shouldEditorContentUpdate={this.state.noteAssistantMode === 'pick-list-options-panel'}
                     structuredFieldMapManager={this.props.structuredFieldMapManager}
                     summaryItemToInsert={this.props.summaryItemToInsert}
                     updateLocalDocumentText={this.updateLocalDocumentText}
                     updateNoteAssistantMode={this.updateNoteAssistantMode}
                     updateSelectedNote={this.updateSelectedNote}
-                    arrayOfPickLists={this.state.arrayOfPickLists}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
-                    updateSelectedPickListOptions={this.updateSelectedPickListOptions}
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
                     updateShowTemplateView={this.updateShowTemplateView}
-                    setUndoTemplateInsertion={this.setUndoTemplateInsertion}
-                    changeShortcutType={this.changeShortcutType}
                     searchSuggestions={this.props.searchSuggestions}
                     isAppBlurred={this.props.isAppBlurred}
                 />
