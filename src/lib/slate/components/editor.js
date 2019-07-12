@@ -83,7 +83,12 @@ class Editor extends React.Component {
     state: Types.instanceOf(State).isRequired,
     style: Types.object,
     tabIndex: Types.number,
+    ...EVENT_HANDLERS.reduce((obj, handler) => {
+      obj[handler] = Types.func
+      return obj
+    }, {})
   }
+ 
 
   /**
    * Default properties.
@@ -256,13 +261,7 @@ class Editor extends React.Component {
 
 }
 
-/**
- * Mix in the property types for the event handlers.
- */
 
-for (const property of EVENT_HANDLERS) {
-  Editor.propTypes[property] = Types.func
-}
 
 /**
  * Export.
