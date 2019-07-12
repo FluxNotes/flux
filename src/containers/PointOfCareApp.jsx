@@ -77,7 +77,6 @@ export class PointOfCareApp extends Component {
         this.state = {
             clinicalEvent: "pre-encounter",
             condition: null,
-            cm: null,
             errors: [],
             forceRefresh: false,
             highlightedSearchSuggestion: null,
@@ -106,10 +105,8 @@ export class PointOfCareApp extends Component {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
-                const cm = new ContextManager(patient);
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
-                    cm: cm,
                     patient,
                     loading: false,
                     loadingError: error
