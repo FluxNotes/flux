@@ -244,14 +244,6 @@ function StructuredFieldPlugin(opts) {
                     return <span contentEditable={false} className={sfClass} {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
             },
-            bolded_structured_field: props => {
-                const shortcut = props.node.get('data').get('shortcut');
-                if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
-                } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{props.children}</span>;
-                }
-            },
             structured_field_selected_search_result: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
