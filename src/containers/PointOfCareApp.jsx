@@ -71,6 +71,20 @@ export class PointOfCareApp extends Component {
         this.searchIndex = new SearchIndex();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.structuredFieldMapManager = new StructuredFieldMapManager();
+        this.actions = [
+            {
+                //change handler to open note modal and follow this down
+                handler: this.openReferencedModal,
+                textfunction: this.nameSourceAction,
+                isdisabled: this.sourceActionIsDisabled,
+                icon: "sticky-note",
+                whenToDisplay: {
+                    valueExists: true,
+                    existingValueSigned: "either",
+                    editableNoteOpen: "either"
+                }
+            },
+        ];
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -217,6 +231,39 @@ export class PointOfCareApp extends Component {
         return true;
     }
 
+    openReferencedModal = (item, itemLabel) => {
+        if (!item.source || item.source.sourceMessage === "") {
+            this.setState({
+                snackbarOpen: true,
+                snackbarMessage: "No source information or note available."
+            });
+            return;
+        }
+
+        if (item.source.link) {
+            window.open(`${item.source.link}`);
+        }
+
+        // if item.source.note is defined, open the referenced note
+        else if (item.source.note) {
+            const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
+            this.setState({
+                isModalOpen: true,
+                modalTitle: title,
+                modalContent: item.source.sourceMessage
+            });
+        } else {
+            const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
+            this.setState({
+                isModalOpen: true,
+                modalTitle: title,
+                modalContent: item.source.sourceMessage
+            });
+        }
+    }
+
     nameSourceAction = (element) => {
         if (element.source) {
             return (element.source instanceof Reference ? "Open Source Note" : "View Source");
@@ -310,7 +357,7 @@ export class PointOfCareApp extends Component {
                                 {!Lang.isNull(this.state.patient) &&
                                     <PointOfCareDashboard
                                         // App default settings
-                                        actions={[]}
+                                        actions={this.actions}
                                         shortcutManager={this.shortcutManager}
                                         structuredFieldMapManager={this.structuredFieldMapManager}
                                         contextManager={this.contextManager}
