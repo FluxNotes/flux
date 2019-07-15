@@ -65,24 +65,26 @@ class PatientSelectionModal extends Component {
     buildLists(relTime) { //relTime will be 'past' or 'future'
         const relTimeAppTimes = relTime === 'past' ? this.pastAppTimes : this.futureAppTimes;
         relTimeAppTimes.sort((app1, app2) => {
-            if (app1.time > app2.time) {
-                return 1;
-            } else if (app2.time > app1.time) {
+            const moment1 = new moment(app1.time, "hh:mm a"); //only looking at times because all dates are on today anyway
+            const moment2 = new moment(app2.time, "hh:mm a");
+            if (moment1.isBefore(moment2)) {
                 return -1;
-            } else {
-                return 0;
             }
+            if (moment1.isAfter(moment2)) {
+                return 1;
+            }
+            return 0;
         });
         return relTimeAppTimes.map((listItem, key) => {
             let hovered = '';
-            if (this.state.hovered === key + listItem.shrId) {
+            if (this.state.hovered === key + listItem.shrId + relTime) {
                 hovered = 'hovered-list-item';
             };
 
             return (<ListItem
                 className={hovered}
                 key={key}
-                onMouseEnter={() => { this.setState({ hovered: key + listItem.shrId }); }}
+                onMouseEnter={() => { this.setState({ hovered: key + listItem.shrId + relTime}); }}
                 onMouseLeave={() => { this.setState({ hovered: null }); }}
                 onClick={() => { this.switchPatients(listItem.shrId); }}
             >
