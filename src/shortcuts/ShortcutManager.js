@@ -432,15 +432,6 @@ class ShortcutManager {
         });
     }
 
-    // Returns all triggers for a shortcut but filters out the label if one is defined
-    getTriggersWithoutLabelForShortcut(shortcutId, context) {
-        return [];
-        const triggers = this.getTriggersForShortcut(shortcutId, context);
-        const label = this.shortcuts[shortcutId].label;
-
-        return triggers.filter(t => t.name !== label);
-    }
-
     getKeywordsForShortcut(shortcutId, context) {
         if (_.isUndefined(this.shortcuts[shortcutId].keywords)) {
             return [];

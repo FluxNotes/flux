@@ -6,7 +6,6 @@ const ApiClient = new ShortcutServicesClient.ApiClient();
 const api = new ShortcutServicesClient.DefaultApi(ApiClient);
 
 export function callValuesetOnAPI(serviceBaseUrl, valueSetType, searchText) { //valuesetname, searchText
-    console.log('callValuesetOnAPI called');
     ApiClient.basePath = serviceBaseUrl;
     return new Promise((resolve, reject) => {
         api.valueset(valueSetType, searchText, (error, data, response) => { //valuesetname, searchText
@@ -88,6 +87,9 @@ export default class CreatorChildService extends Shortcut {
         return `${this.getPrefixCharacter()}${this.getText()}`;
     }
 
+    serialize() {
+        return `${this.getPrefixCharacter()}${this.getText()}`;
+    }
 
     getShortcutType() {
         return this.metadata["id"];

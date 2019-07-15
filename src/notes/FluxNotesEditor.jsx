@@ -1406,52 +1406,53 @@ class FluxNotesEditor extends React.Component {
         let transform = (currentTransform) ? currentTransform : currentState.transform();
 
         const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
-        inMemoryClinicalNote.parse(textToBeInserted);
-        const nodes = inMemoryClinicalNote.getNodes();
+        inMemoryClinicalNote.parse(textToBeInserted).then(() => {
+            const nodes = inMemoryClinicalNote.getNodes();
 
-        let pickListCount = 0;
+            let pickListCount = 0;
 
-        if (!Lang.isNull(nodes)) {
-            nodes.forEach((node) => {
-                if (node.type === 'text') {
-                    this.insertPlainText(transform, node.content);
-                } else if (node.type === 'shortcut') {
-                    // Update the context position based on selection
-                    const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
-                    if (arrayOfPickLists && node.trigger.isPickList && !node.trigger.selectedValue) {
-                        transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
-                        pickListCount++;
-                    } else {
-                        // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
-                        const nodeText = node.trigger.selectedValue || "";
-                        transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
-                        this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
+            if (!Lang.isNull(nodes)) {
+                nodes.forEach((node) => {
+                    if (node.type === 'text') {
+                        this.insertPlainText(transform, node.content);
+                    } else if (node.type === 'shortcut') {
+                        // Update the context position based on selection
+                        const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
+                        if (arrayOfPickLists && node.trigger.isPickList && !node.trigger.selectedValue) {
+                            transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
+                            pickListCount++;
+                        } else {
+                            // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
+                            const nodeText = node.trigger.selectedValue || "";
+                            transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
+                            this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
+                        }
+                    } else if (node.type === 'placeholder') {
+                        this.insertPlaceholder(node.placeholder.placeholder, transform, node.placeholder.selectedValue);
                     }
-                } else if (node.type === 'placeholder') {
-                    this.insertPlaceholder(node.placeholder.placeholder, transform, node.placeholder.selectedValue);
-                }
-            });
-        }
+                });
+            }
 
-        const state = transform.apply();
+            const state = transform.apply();
 
-        // When a note is being loaded, scroll to structured data if user opened note using `Open Source Note` action
-        if (source === 'loaded note' && this.props.openSourceNoteEntryId) {
-            this.setState({ state }, () => {
-                const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(this.props.openSourceNoteEntryId);
+            // When a note is being loaded, scroll to structured data if user opened note using `Open Source Note` action
+            if (source === 'loaded note' && this.props.openSourceNoteEntryId) {
+                this.setState({ state }, () => {
+                    const shortcutKey = this.structuredFieldMapManager.getKeyFromEntryId(this.props.openSourceNoteEntryId);
 
-                if (shortcutKey) {
-                    setTimeout(() => {
-                        this.scrollToData(state.document, shortcutKey);
-                        this.props.setOpenSourceNoteEntryId(null);
-                    }, 0);
-                }
-            });
-        } else {
-            this.setState({ state }, () => {
-                if (source === 'paste') this.scrollToAnchorElement();
-            });
-        }
+                    if (shortcutKey) {
+                        setTimeout(() => {
+                            this.scrollToData(state.document, shortcutKey);
+                            this.props.setOpenSourceNoteEntryId(null);
+                        }, 0);
+                    }
+                });
+            } else {
+                this.setState({ state }, () => {
+                    if (source === 'paste') this.scrollToAnchorElement();
+                });
+            }
+        });
     }
 
     /**

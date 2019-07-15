@@ -19,6 +19,7 @@ class SuggestionPortalSearchIndex {
             ]
         };
         this.shortcutsFuse = new Fuse([], this.fuseOptions);
+        this.search.bind(this);
     }
 
     // Takes a contextmanager and uses the current context to update it's current shortcutsFuse Index

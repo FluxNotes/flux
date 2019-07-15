@@ -98,7 +98,6 @@ export default class NoteParser {
     }
 
     handleServiceSearches = (parts, index, matches, tocheck, result) => {
-        console.log('handle service searches');
         if (result.length > 0) {
             return { definition: tocheck.definition, trigger: result[0].name };
         } else {
@@ -129,71 +128,83 @@ export default class NoteParser {
         let textInAngleBrackets;
         const styleTags = ['<strong>', '</strong>', '<em>', '</em>', '<u>', '</u>', '<ul>', '</ul>', '<ol>', '</ol>', '<li>', '</li>'];
         const triggerChars = ['#', '@', '<'];
+        let pos = 0;
         let matches = [];
         let match, substr, nextPos, found;
-        let checkForTriggerRegExpMatch = (tocheck) => {
-            match = substr.match(tocheck.regexp);
-            if (!Lang.isNull(match)) {
-                matches.push({trigger: match[0], definition: tocheck.definition, isPickList: tocheck.definition.getData && tocheck.definition.getData.itemKey});
-                found = true;
+        const checkRegularExpression = (tocheck) => {
+            if (found) return;
+            if (tocheck.regexp) {
+                match = substr.match(tocheck.regexp);
+                if (!Lang.isNull(match)) {
+                    let possibleValue = substr.substring(match[0].length);
+                    let selectedValue = null;
+
+                    // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
+                    if (possibleValue.startsWith("[[")) {
+                        let posOfEndBrackets = possibleValue.indexOf("]]");
+                        selectedValue = possibleValue.substring(2, posOfEndBrackets);
+                    }
+                    matches.push({ trigger: match[0], definition: tocheck.definition, selectedValue: selectedValue });
+                    found = true;
+                }
+            } else {
+                // service shortcut
+                // just send first word of substr and then find longest matching trigger value returned that matches the start of substr
+                // then will have to do the above and return a promise
+
+                let parts = substr.split(" ");
+                let index = 1;
+                matches.push(this.shortcutManager.getTriggersForShortcut(tocheck.definition.id, undefined, substr.substring(1)) //parts[0].substring(1))
+                    .then(this.handleServiceSearches.bind(this, parts, index, matches, tocheck)));
             }
         };
-        let hashPos = this.getNextTriggerIndex(note, triggerChars, 0);
-        while (hashPos !== -1) {
-            if (note.charAt(hashPos) === '<') {
-                nextPos = note.indexOf(">", hashPos+1);
-                if (nextPos === -1) { // not a template
-                    nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
-                } else {
-                    textInAngleBrackets = note.substring(hashPos, nextPos + 1).toLowerCase();
-                    if (styleTags.includes(textInAngleBrackets)) {
-                        // style
-                        //matches.push({ style: textInAngleBrackets });
+
+        let hashPos = this.getNextTriggerIndex(note, triggerChars, pos);
+        let result = this.triggerPromise.then((r) => {
+            while (hashPos !== -1) {
+                if (note.charAt(hashPos) === '<') {
+                    nextPos = note.indexOf(">", hashPos + 1);
+                    if (nextPos === -1) { // not a template
+                        nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
                     } else {
-                        let possibleValue = note.substring(nextPos + 1);
-                        let selectedValue = null;
+                        textInAngleBrackets = note.substring(hashPos, nextPos + 1).toLowerCase();
+                        if (styleTags.includes(textInAngleBrackets)) {
+                            // style
+                            //matches.push({ style: textInAngleBrackets });
+                        } else {
+                            let possibleValue = note.substring(nextPos + 1);
+                            let selectedValue = null;
 
-                        // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
-                        if (possibleValue.startsWith("[[")) {
-                            let posOfEndBrackets = possibleValue.indexOf("]]");
-                            selectedValue = possibleValue.substring(2, posOfEndBrackets);
+                            // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
+                            if (possibleValue.startsWith("[[")) {
+                                let posOfEndBrackets = possibleValue.indexOf("]]");
+                                selectedValue = possibleValue.substring(2, posOfEndBrackets);
+                            }
+                            matches.push({ placeholder: textInAngleBrackets, selectedValue });
                         }
-                        matches.push({placeholder: textInAngleBrackets, selectedValue });
+                        nextPos = this.getNextTriggerIndex(note, triggerChars, nextPos + 1);
+                        hashPos = nextPos;
+                        continue;
                     }
-                    nextPos = this.getNextTriggerIndex(note, triggerChars, nextPos + 1);
-                    hashPos = nextPos;
-                    continue;
+                } else {
+                    nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
                 }
-            } else {
-                nextPos = this.getNextTriggerIndex(note, triggerChars, hashPos + 1);
-            }
-            if (nextPos === -1) {
-                substr = note.substring(hashPos);
-            } else {
-                substr = note.substring(hashPos, nextPos);
-            }
-            match = substr.match(this.allStringTriggersRegExp);
-            if (Lang.isNull(match)) {
+                if (nextPos === -1) {
+                    substr = note.substring(hashPos);
+                } else {
+                    substr = note.substring(hashPos, nextPos);
+                }
                 found = false;
-                this.allTriggersRegExps.forEach(checkForTriggerRegExpMatch);
-                if (!found) {
-                    unrecognizedTriggers.push(substr);
-                }
-            } else {
-                let possibleValue = substr.substring(match[0].length);
-                let selectedValue = null;
-
-                // Check if the shortcut is an inserter (check for '[['). If it is, grab the selected value
-                if (possibleValue.startsWith("[[")) {
-                    let posOfEndBrackets = possibleValue.indexOf("]]");
-                    selectedValue = possibleValue.substring(2, posOfEndBrackets);
-                }
-                const def = this.shortcutManager.getMetadataForTrigger(match[0]);
-                matches.push({trigger: match[0], definition: def, selectedValue, isPickList: def.getData && def.getData.itemKey });
+                this.allTriggersRegExps.forEach(checkRegularExpression);
+                if (!found) this.allServiceTriggers.forEach(checkRegularExpression);
+                if (!found) unrecognizedTriggers.push(substr);
+                pos = hashPos + 1;
+                hashPos = nextPos;
             }
-            hashPos = nextPos;
-        }
-        return [matches, unrecognizedTriggers];
+            return [Promise.all(matches), unrecognizedTriggers];
+        });
+
+        return result;
     }
 
     /* argument is a note - string of text with 0 to many shortcuts in it */
@@ -262,6 +273,7 @@ export default class NoteParser {
             }
             return [Promise.all(matches), unrecognizedTriggers];
         });
+
         return result;
     }
 

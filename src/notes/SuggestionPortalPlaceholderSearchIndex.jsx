@@ -32,6 +32,10 @@ class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex
             this.shortcutsFuse = new Fuse(relevantShortcuts, this.fuseOptions);
         });
     }
+
+    search = (searchText) => {
+        return super.search(searchText);
+    }
 };
 
 export default SuggestionPortalPlaceholderSearchIndex;
