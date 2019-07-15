@@ -5,11 +5,12 @@ import _ from 'lodash'
 import CLQOutcomesService from '../../../../mcode-pilot/services/outcomes/CLQOutcomesService'
 import BreastMainTreatmentDiabetesHypertensionJaneV05 from '../../../../dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json';
 import PatientRecord from '../../../../patient/PatientRecord.jsx';
-import getProps from '../../../../mcode-pilot/utils/recordToProps'
+import getProps from '../../../../mcode-pilot/utils/recordToProps';
+import FilterOptions from '../../../../mcode-pilot/utils/FilterOptions';
 import '../../../../model/init.js';
-import expectedFilter from './filter.json'
-import response from './response.json'
-import rows from './rows.js'
+import expectedFilter from './filter.json';
+import response from './response.json';
+import rows from './rows.js';
 import processed from './processed.js';
 const nock = require('nock');
 
@@ -39,6 +40,9 @@ describe("CLQOutcomesService", () => {
         value.selected = true
     });
 
+    let filterOptions = new FilterOptions(similarPatientProps);
+    let filterValues = filterOptions.getAllActiveValuesByMcodeElement();
+
     beforeEach(() => {
         nock.disableNetConnect();
     })
@@ -49,17 +53,18 @@ describe("CLQOutcomesService", () => {
     });
 
     it("Should be able to create demographics filter", () => {
-        let clqFilter = clqService.buildDemographicsFilter(similarPatientProps);
+        let clqFilter = clqService.buildDemographicsFilter(filterValues);
+        console.log(clqFilter);
         expect(_.isEqual(clqFilter, expectedFilter.demographics)).to.be.true
     });
 
     it("Should be able to create tumormarker filter filter", () => {
-        let clqFilter = clqService.buildTumorMakersFilter(similarPatientProps);
+        let clqFilter = clqService.buildTumorMarkersFilter(filterValues);
         expect(_.isEqual(clqFilter, expectedFilter.tumorMarkers)).to.be.true
     });
 
     it("Should be able to create diagnosis filter", () => {
-        let clqFilter = clqService.buildDiagnosisFilter(similarPatientProps);
+        let clqFilter = clqService.buildDiagnosisFilter(filterValues);
         expect(_.isEqual(clqFilter, expectedFilter.diagnosis)).to.be.true
 
     });
