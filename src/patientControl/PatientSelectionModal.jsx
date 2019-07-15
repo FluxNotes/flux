@@ -5,6 +5,8 @@ import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import Button from 'material-ui/Button';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+
 
 import './PatientSelectionModal.css';
 
@@ -67,6 +69,7 @@ class PatientSelectionModal extends Component {
             }
             return 0;
         });
+        console.log(relTimeAppTimes);
         return relTimeAppTimes.map((listItem, key) => {
             let hovered = '';
             if (this.state.hovered === key + listItem.shrId + relTime) {
@@ -142,10 +145,23 @@ class PatientSelectionModal extends Component {
                         {this.fillModal()}
                     </List>
                     <div>
-                        <Button variant='raised' className='button' onClick={() => { this.setState({ day: moment() }) }}>today</Button>
-                        <FontAwesome className='fas fa-angle-left arrow fa-2x' name='left-arrow' onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }) }} />
-                        <FontAwesome className='fas fa-angle-right arrow fa-2x' name='right-arrow' onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }) }}/>
-                        <span>{this.state.day.format("DD MMM YYYY")}</span>
+                        <Grid fluid >
+                            <Row>
+                                <Col xs={2}></Col>
+                                <Col xs={3} className='today-col'>
+                                    <Button variant='outlined' className='button' onClick={() => { this.setState({ day: moment() }); }}>today</Button>
+                                </Col>
+                                <Col xs={1}>
+                                    <FontAwesome className='fas fa-angle-left arrow fa-2x' name='left-arrow' onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }); }} />
+                                </Col>
+                                <Col xs={1}>
+                                    <FontAwesome className='fas fa-angle-right arrow fa-2x' name='right-arrow' onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }); }} />
+                                </Col>
+                                <Col xs={5}>
+                                    <p className='modal-date'>{this.state.day.format("DD MMM YYYY")}</p>
+                                </Col>
+                            </Row>
+                        </Grid>
                     </div>
                 </div>
             </Modal>);
