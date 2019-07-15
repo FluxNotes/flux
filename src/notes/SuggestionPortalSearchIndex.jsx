@@ -42,8 +42,9 @@ class SuggestionPortalSearchIndex {
         return 0;
     }
 
-    search = (searchText) => {
+    search(searchText) {
         if (Lang.isUndefined(searchText)) return [];
+        if (Lang.isUndefined(this.shortcutsFuse)) return [];
 
         const maxLength = 25;
         const searchTextLowercase = searchText.toLowerCase();

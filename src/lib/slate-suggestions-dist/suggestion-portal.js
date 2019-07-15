@@ -35,10 +35,12 @@ class SuggestionPortal extends React.Component {
         props.callback.onEnter = props.onEnter
         props.callback.closePortal = this.closePortal
         props.callback.readOnly = false
+        props.callback.convertSlateDataObjectToCharacter = this.convertSlateDataObjectToCharacter;
 
         // Storing selected index in state b/c updates should trigger a re-render
         this.state = {
             selectedIndex: 0,
+            suggestionList: [],
         }
 
         // Set first suggestion
@@ -60,6 +62,7 @@ class SuggestionPortal extends React.Component {
 
     // Use filtered suggestions and index to pass a suggestion up to plugin
     setCallbackSuggestion = (filteredSuggestions, selectedIndex=0) => {
+        if (!filteredSuggestions) return;
         if (filteredSuggestions.length) {
             this.props.callback.suggestion = filteredSuggestions[selectedIndex]
         } else {
@@ -185,7 +188,8 @@ class SuggestionPortal extends React.Component {
         // If there is incoming data from a keydown, include that as next char
         if (incomingData !== undefined) { 
             nextChar = this.convertSlateDataObjectToCharacter(incomingData);
-            if (nextChar == null) return [];
+        } else {
+            return this.state.suggestionList;
         }
 
         // Put together newText based on nextCharacter; change offset if char is -
@@ -197,7 +201,7 @@ class SuggestionPortal extends React.Component {
                 newText = newText.slice(0, newText.length - 1);
                 offset -= 1;
             }
-        } else { 
+        } else if (nextChar) {
             // Else, add the processed character
             newText += nextChar;
         }   
@@ -207,7 +211,16 @@ class SuggestionPortal extends React.Component {
         const text = this.getMatchText(currentWord, capture)
 
         if (typeof suggestions === 'function') {
-            return suggestions(text)
+            const newSuggestions = suggestions(text);
+            if (newSuggestions instanceof Promise) {
+                newSuggestions.then((result) => {
+                    this.setState({ suggestionList: result });
+                    this.forceUpdate();
+                });
+            } else {
+                this.setState({ suggestionList: newSuggestions });
+            }
+            return this.state.suggestionList;
         } else {
             const filtered = suggestions
                 .filter(suggestion => suggestion.key.toLowerCase().indexOf(text) !== -1)

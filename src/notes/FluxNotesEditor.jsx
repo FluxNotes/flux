@@ -210,6 +210,10 @@ class FluxNotesEditor extends React.Component {
                 autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
             }));
         });
+        this.props.shortcutManager.getTriggersForShortcut('DiagnosisCode', undefined, 'a').then((triggers) => {
+            const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+            autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
+        });
 
         placeholderShortcuts.forEach((def) => {
             promises.push(this.props.shortcutManager.getTriggersForShortcut(def.id).then((triggers) => {
@@ -309,8 +313,13 @@ class FluxNotesEditor extends React.Component {
     }
 
     choseSuggestedShortcut(suggestion) {
-        const {state} = this.state;
-        const shortcut = this.props.newCurrentShortcut(null, suggestion.value.name, undefined, true, "auto-complete");
+        const { state } = this.state;
+        const shortcutMetadata = suggestion.shortcut;
+
+        const shortcut = this.props.newCurrentShortcut(shortcutMetadata ? shortcutMetadata : null, suggestion.value.name, undefined, true, "auto-complete");
+        if (suggestion.value.code) {
+            shortcut.setValue(suggestion.value);
+        }
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions()) {
             const transformBeforeInsert = this.suggestionDeleteExistingTransform(state.transform(), shortcut.getPrefixCharacter());
             const transform = this.insertStructuredFieldTransform(transformBeforeInsert, shortcut).collapseToStartOfNextText().focus();

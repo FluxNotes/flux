@@ -313,6 +313,7 @@ class ShortcutManager {
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
 
+        // if (currentContextId === 'Diagnosis') debugger;
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -348,8 +349,9 @@ class ShortcutManager {
                     }
 
                     // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
-                    if (_.isUndefined(this.triggersPerShortcut[shortcutId])) return false;
+                    if (_.isUndefined(this.triggersPerShortcut[shortcutId])) return true;
                     const numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
+                    if (numberOfValidTriggers === 0) debugger;
                     if (_.isArray(value)) return value.length < numberOfValidTriggers;
                     return (!isSet);
                 } else {
@@ -376,15 +378,14 @@ class ShortcutManager {
         const shortcutMetadata = this.shortcuts[shortcutId];
         let preFilteredList = this.triggersPerShortcut[shortcutId];
         if (_.isEmpty(preFilteredList)) {
-            if (_.isUndefined(searchString)) return new Promise(function(resolve, reject) {
+            if (_.isUndefined(searchString)) return new Promise((resolve) => {
                 resolve([]);
             });
 
             if (shortcutMetadata.type === 'CreatorChildService') {
                 const valueSetType = shortcutMetadata.valueSetType;
-                console.log(valueSetType);
+
                 return callValuesetOnAPI(shortcutMetadata.service, valueSetType, searchString).then((result) => {
-                    console.log(result);
                     return result.map((s) => {
                         return {
                             name: shortcutMetadata.prefixCharacter + s.label, description: s.code + " - " + s.label
@@ -479,7 +480,7 @@ class ShortcutManager {
             return stringTriggers[0].prefix || '';
         }
 
-        return stringTriggers.prefix || '';
+        return (!_.isUndefined(stringTriggers) && stringTriggers.prefix) || '';
     }
 
     isShortcutInstanceOfKeywordShortcut(shortcut) {

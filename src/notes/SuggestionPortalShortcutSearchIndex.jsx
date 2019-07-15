@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import Lang from 'lodash';
 import _ from 'lodash';
 
-class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
+class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex {
     constructor(list, initialChar, shortcutManager) {
         super(list, initialChar, shortcutManager);
         this.currentlyValidShortcutObjs = [];
@@ -65,8 +65,7 @@ class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
         });
     }
 
-    search(searchText) {
-        console.log(searchText);
+    search = (searchText) => {
         if (Lang.isUndefined(searchText)) return [];
 
         if (this.serviceShortcutsMetadata && this.serviceShortcutsMetadata.length > 0) {

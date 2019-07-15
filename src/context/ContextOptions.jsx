@@ -12,14 +12,32 @@ export default class ContextOptions extends Component {
 
         this.state = {
             searchString: '',
-            tooltipVisibility: 'visible'
+            tooltipVisibility: 'visible',
+            triggers: []
         };
+        this.props.contextManager.subscribe(this, this.newContext);
+        this._isMounted = false;
     }
 
-    handleClick = (e, i) => {
+    componentDidMount() {
+        this._isMounted = true;
+        this.newContext();
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.context !== this.props.context || nextProps.searchString !== this.props.searchString) {
+            this.newContext();
+        }
+    }
+
+    handleClick = (e, trigger) => {
         e.preventDefault();
         this.setState({ searchString: "", tooltipVisibility: 'hidden' });
-        this.props.handleClick(i);
+        this.props.handleClick(trigger);
     }
 
     handleSearch = (value) => {
@@ -66,7 +84,9 @@ export default class ContextOptions extends Component {
                                 <div
                                     className="context-option"
                                     key={trigger.name}
-                                    onClick={(e) => this.handleClick(e, trigger.name)}
+                                    onClick={(e) => {
+                                        this.handleClick(e, trigger);
+                                    }}
                                 >
                                     {trigger.name}
                                 </div>
@@ -79,47 +99,45 @@ export default class ContextOptions extends Component {
         );
     }
 
-    render() {
+    getCurrentContext() {
         let context = this.props.context;
         if (Lang.isUndefined(context)) {
             context = this.props.contextManager.getPatientContext();
         }
+        return context;
+    }
 
-        let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
-
-        // count how many triggers we have
-        // let count = 0;
-        // validShortcuts.forEach((shortcut, i) => {
-        //     count += this.props.shortcutManager.getTriggersForShortcut(shortcut, context).length;
-        // });
+    newContext = () => {
+        if (!this._isMounted) return;
+        let context = this.getCurrentContext();
+        this.validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
-        const triggers = [];
-        // count = 0;
-        validShortcuts.forEach((shortcut, i) => {
-            const groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
-            this.props.shortcutManager.getTriggersWithoutLabelForShortcut(shortcut, context).forEach((trigger) => {
-                // If there's a search string to filter on, filter
-                if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
-                    const triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
+        let triggers = [];
+        this.validShortcuts.forEach((shortcutId, i) => {
+            let groupName = this.props.shortcutManager.getShortcutGroupName(shortcutId);
+            let metadata = this.props.shortcutManager.getShortcutMetadata(shortcutId);
+            const triggersForShortcut = this.props.shortcutManager.getTriggersForShortcut(shortcutId, context, this.props.searchString);
+            triggersForShortcut.then((result) => {
+                result.forEach((trigger, j) => {
+                    if (!this._isMounted) return;
+                    let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
+                    triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName, "shortcut": shortcutId, "definition": metadata });
+                    this.setState({ triggers });
+                });
 
-                    triggers.push({
-                        groupName,
-                        name: trigger.name,
-                        description: triggerDescription,
-                        group: i,
-                    });
-                    // count++;
-                }
             });
         });
+    }
 
+    render() {
+        let context = this.getCurrentContext();
         // lets create a list of groups with associated shortcut triggers for each
         let groupList = [];
         let currentGroup = { group: "", triggers: [] };
         let countToShow = 0;
         let totalShown = 0;
-        triggers.forEach((trigger, i) => {
+        this.state.triggers.forEach((trigger, i) => {
             if (trigger.group !== currentGroup.group) {
                 countToShow = 0;
                 totalShown++;
@@ -141,7 +159,7 @@ export default class ContextOptions extends Component {
             return null;
         }
 
-        const validShortcutMetadata = validShortcuts
+        const validShortcutMetadata = this.validShortcuts
             .map((shortcutId) => this.props.shortcutManager.getShortcutMetadata(shortcutId));
 
         const isCurrentContextAGroupName = (

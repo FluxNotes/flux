@@ -48,7 +48,7 @@ export default class CreatorChildService extends Shortcut {
                 let currentList = this.parentContext.getAttributeValue(parentAttributeName);
                 let oneToDelete = this.text;
                 let newList = currentList.filter((item) => {
-                    return item !== oneToDelete
+                    return item !== oneToDelete;
                 });
                 this.parentContext.setAttributeValue(parentAttributeName, newList, false);
             } else {
@@ -77,6 +77,10 @@ export default class CreatorChildService extends Shortcut {
     }
 
     getText() {
+        return this.text;
+    }
+
+    getDisplayText() {
         return this.text;
     }
 

@@ -4,6 +4,6 @@ const {
 } = require("customize-cra");
 
 
-module.exports = override( 
+module.exports = override(
     useEslintRc(),
 );

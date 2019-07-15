@@ -25,13 +25,14 @@ function getAllTextExceptIgnoredTypes(node, typesToIgnore) {
     return text;
 }
 
-function matchTrigger(state, trigger, typesToIgnore) {
+function matchTrigger(state, ch, trigger, typesToIgnore) {
     // Get the first block
     const currentNode = state.blocks.first();
     // Get the text for all nodes except those we ignore 
     const potentialText = getAllTextExceptIgnoredTypes(currentNode, typesToIgnore)
+    const text = currentNode.text + ch;
 
-    return state.isFocused && trigger.test(potentialText)
+    return state.isFocused && trigger.test(text) && trigger.test(potentialText);
 }
 
 function SuggestionsPlugin(opts) {
@@ -42,7 +43,7 @@ function SuggestionsPlugin(opts) {
         const keyCode = e.keyCode
         callback.editor = editor
 
-        if (matchTrigger(state, capture, opts.typesToIgnore)) {
+        if (matchTrigger(state, callback.convertSlateDataObjectToCharacter(data), capture, opts.typesToIgnore)) {
             // Prevent default up and down arrow key press when portal is open
             if ((keyCode === UP_ARROW_KEY || keyCode === DOWN_ARROW_KEY)) {
                 e.preventDefault()

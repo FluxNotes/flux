@@ -5,6 +5,14 @@ import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
+import FindingTopicCode from '../shr/base/FindingTopicCode';
+import CodeableConcept from '../shr/core/CodeableConcept';
+import CodeSystem from '../shr/core/CodeSystem';
+import Code from '../shr/core/Code';
+import Coding from '../shr/core/Coding';
+import DisplayText from '../shr/core/DisplayText';
+import ClinicalStatus from '../shr/base/ClinicalStatus';
+import Onset from '../shr/base/Onset';
 import EntryType from '../shr/base/EntryType';
 import hpiConfig from '../hpi-configuration.json';
 import _ from 'lodash';
@@ -35,6 +43,52 @@ class FluxConditionPresentAssertion extends FluxEntry {
             return this._condition.onset.value;
         }
         return null;
+    }
+
+    set diagnosisDate(newDate) {
+        if (!this._condition.onset) this._condition.onset = new Onset();
+        this._condition.onset.value = newDate;
+    }
+
+    set codeObject(codeObject) {
+        if (!codeObject) {
+            this._condition.findingTopicCode = null;
+            return;
+        }
+        if (codeObject.code) {
+            this.code = codeObject.code;
+            this.codeSystem = codeObject.codeSystem;
+            if (!this._condition.findingTopicCode.value.coding[0].displayText) this._condition.findingTopicCode.value.coding[0].displayText = new DisplayText();
+            this._condition.findingTopicCode.value.coding[0].displayText.value = codeObject.label;
+        } else {
+            this._initCoding();
+            if (!this._condition.findingTopicCode.value.coding[0].displayText) this._condition.findingTopicCode.value.coding[0].displayText = new DisplayText();
+            this._condition.findingTopicCode.value.coding[0].displayText.value = codeObject;
+        }
+    }
+
+     _initCoding() {
+        if (!this._condition.findingTopicCode) this._condition.findingTopicCode = new FindingTopicCode();
+        if (!this._condition.findingTopicCode.value) this._condition.findingTopicCode.value = new CodeableConcept();
+        if (!this._condition.findingTopicCode.value.coding) this._condition.findingTopicCode.value.coding = [ new Coding() ];
+    }
+
+     set code(newCode) {
+        this._initCoding();
+        if (!this._condition.findingTopicCode.value.coding[0].code) this._condition.findingTopicCode.value.coding[0].code = new Code();
+        this._condition.findingTopicCode.value.coding[0].code.value = newCode;
+    }
+
+    get codeSystem() {
+        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value || !this._condition.findingTopicCode.value.coding[0] || !this._condition.findingTopicCode.value.coding[0].codeSystem) return null;
+        return this._condition.findingTopicCode.value.coding[0].codeSystem.value;
+    }
+
+
+     set codeSystem(newCodeSystem) {
+        this._initCoding();
+        if (!this._condition.findingTopicCode.value.coding[0].codeSystem) this._condition.findingTopicCode.value.coding[0].codeSystem = new CodeSystem();
+        this._condition.findingTopicCode.value.coding[0].codeSystem.value = newCodeSystem;
     }
 
     getPotentialDiagnosisDates() {
@@ -89,7 +143,19 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get clinicalStatus() {
-        return this._condition.clinicalStatus && this._condition.clinicalStatus.value ? this._displayTextOrCode(this._condition.clinicalStatus.value.coding[0]) : null;
+        return this._condition.clinicalStatus && this._condition.clinicalStatus.value && this._condition.clinicalStatus.value.coding ? 
+            this._displayTextOrCode(this._condition.clinicalStatus.value.coding[0]) : 
+            null;
+    }
+
+    set clinicalStatus(newStatus) {
+        if (!this._condition.clinicalStatus) this._condition.clinicalStatus = new ClinicalStatus();
+        if (!this._condition.clinicalStatus.value) this._condition.clinicalStatus.value = new CodeableConcept();
+        if (!this._condition.clinicalStatus.value.coding) this._condition.clinicalStatus.value.coding = [ new Coding() ];
+        if (!this._condition.clinicalStatus.value.coding[0].displayText) this._condition.clinicalStatus.value.coding[0].displayText = new DisplayText();
+        if (!this._condition.clinicalStatus.value.coding[0].code) this._condition.clinicalStatus.value.coding[0].code = new Code();
+        this._condition.clinicalStatus.value.coding[0].code.value = newStatus;
+        this._condition.clinicalStatus.value.coding[0].displayText.value = newStatus;
     }
 
     get laterality() {
