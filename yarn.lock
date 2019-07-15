@@ -3171,6 +3171,13 @@ cosmiconfig@^5.0.0, cosmiconfig@^5.0.5, cosmiconfig@^5.0.7:
     js-yaml "^3.13.0"
     parse-json "^4.0.0"
 
+coze_healthflux_notes_autocomplete_api_example@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/coze_healthflux_notes_autocomplete_api_example/-/coze_healthflux_notes_autocomplete_api_example-0.1.0.tgz#447f1ed4acc7ce3943873c76d45db4296177e73e"
+  integrity sha512-oJ+FhfSoRkUIBFyd+AzNAFuDTOdwr2NvTTBu/9AsC+RyZ5mu8OTufiITroKvhdtC8BjvIKuEi3t8CXbySMfaQA==
+  dependencies:
+    superagent "3.7.0"
+
 cql-exec-fhir@^1.0.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/cql-exec-fhir/-/cql-exec-fhir-1.2.0.tgz#4f052270c450a8b61655b18d24068dfb66c2aa5c"
