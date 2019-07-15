@@ -2,8 +2,6 @@ const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
 
 // Breast Cancer Staging lookups
 
-// 5th Edition, p.174:
-// https://cancerstaging.org/references-tools/deskreferences/Documents/AJCC5thEdCancerStagingManual.pdf
 // const ts5thEdition = ['T0', 'T1', 'T2', 'T3', 'T4'];
 const ts5thEdition = [
     {name: 'T0', description: "No evidence of primary tumor"},
@@ -53,9 +51,6 @@ const table5thEdition = [
     ['IIB', 'IIIA', 'IIIA', 'IIIB'], // T3
     ['IIIB', 'IIIB', 'IIIB', 'IIIB'] // T4
 ];
-
-// 6th Edition, p.228:
-// https://cancerstaging.org/references-tools/deskreferences/Documents/AJCC6thEdCancerStagingManualPart2.pdf
 
 // const ts6thEdition = ['Tis', 'T0', 'T1', 'T2', 'T3', 'T4']; //original array
 const ts6thEdition = [
@@ -273,7 +268,7 @@ export function getDescription(dataElement) {
     if (typeof(dataElement) !== 'string') { return null; }
     switch (dataElement.toLowerCase()) {
     case "tnmstage":
-        return "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
+        return "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
     case "tumorsize":
         return "Describes the original (primary) tumor.";
     case "nodesize":

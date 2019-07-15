@@ -82,7 +82,7 @@ export const ALL_KNOWN_VALUE_SETS = {
   'http://example.com/oncocore/vs/CancerProgressionVS': ['C0677874', 'C0015250', 'C1272745', 'C0205360', 'C1546960', 'C3858734'],
   'http://example.com/oncocore/vs/CancerProgressionEvidenceVS': ['C0011923', 'C0030664', 'C1457887', 'C0031809', 'C0005516'],
   'http://example.com/oncocore/vs/CancerStageTimingVS': ['postther_cli', 'postther_path', '385349001', '405978005'],
-  'http://example.com/oncocore/vs/TNMTumorStagingSystemVS': ['AJCC8', '444256004', '443830009', '258235000'],
+  'http://example.com/oncocore/vs/TNMTumorStagingSystemVS': ['8', '444256004', '443830009', '258235000'],
   'http://example.com/oncocore/vs/CancerStageSuffixVS': ['sn', 'f'],
   'http://example.com/shr/procedure/vs/ActionIntentVS': ['373808002', '399707004', '363676003', '261004008'],
   'http://example.com/shr/research/vs/StudyArmTypeVS': ['experimental', 'active_comparator', 'placebo_comparator', 'sham_comparator', 'no_intervention', 'other'],

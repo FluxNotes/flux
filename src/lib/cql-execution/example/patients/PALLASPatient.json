@@ -169,7 +169,7 @@
                         {
                             "system": "http://loinc.org",
                             "code": "67203-0",
-                            "display": "AJCC"
+                            "display": "Staging"
                         }
                     ]
                 },

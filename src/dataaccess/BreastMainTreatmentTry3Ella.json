@@ -9531,7 +9531,7 @@
                 "Coding": [
                     {
                         "Code": {
-                            "Value": "ajcc_v7",
+                            "Value": "v7",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
                             }
@@ -9546,7 +9546,7 @@
                             }
                         },
                         "DisplayText": {
-                            "Value": "AJCC Breast Carcinoma Version 7",
+                            "Value": "Breast Carcinoma Staging Guide, Version 7",
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
                             }

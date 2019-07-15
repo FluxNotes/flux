@@ -60,7 +60,7 @@
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}
     ],
     "isContext": true,
-    "stringTriggers": [{ "name": "#staging", "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system."}],
+    "stringTriggers": [{ "name": "#staging", "description": "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system."}],
     "regexpTrigger": null,
     "form": "StagingForm",
     "formSpec": {   "title": "Staging",
@@ -72,7 +72,7 @@
     "structuredPhrase": "${*staging} ${T} ${N}${% ${M}}",
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
     "knownParentContexts": "ConditionInserter",
-    "description": "The stage of a cancer, assessed according to the standard established by American Joint Committee on Cancer (AJCC). TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",
+    "description": "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",
     "structuredPhraseDocumentation": "stagingSheet.pdf"
   },
   { "type": "CreatorChild",
@@ -345,7 +345,7 @@
     "getData": {"object": "parent", "attribute": "stage"},
     "parentAttribute": "stage",
     "isContext": false,
-    "stringTriggers": [{"name":"@stage", "description": "Stage of cancer based on AJCC"}],
+    "stringTriggers": [{"name":"@stage", "description": "Stage of cancer"}],
     "knownParentContexts": "StagingCreator"
   },
   { "type": "SingleHashtagKeyword",
