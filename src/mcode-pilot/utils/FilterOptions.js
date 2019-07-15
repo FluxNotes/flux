@@ -19,25 +19,39 @@ export default class FilterOptions {
         return returnArray;
     }
 
-    getAllActiveValuesByMcodeElement() {
+    getAllActiveValuesByMcodeElement(asList=false) {
         const returnValue = {};
         this.getAllActiveFilters().forEach((filter) => {
-            returnValue[filter.mcodeElement] = {};
+            const filterInfo = {};
             if (filter.hasOwnProperty("maxValue")) {
-                returnValue[filter.mcodeElement].maxValue = filter.maxValue;
+                filterInfo.maxValue = filter.maxValue;
             }
             if (filter.hasOwnProperty("minValue")) {
 
-                returnValue[filter.mcodeElement].minValue = filter.minValue;
+                filterInfo.minValue = filter.minValue;
 
             }
 
-            returnValue[filter.mcodeElement].value = filter.value;
-            returnValue[filter.mcodeElement].reference = filter.reference;
+            filterInfo.value = filter.value;
+            filterInfo.reference = filter.reference;
 
+            if (returnValue[filter.mcodeElement] !== undefined) {
+                if (Array.isArray(returnValue[filter.mcodeElement])) {
+                    returnValue[filter.mcodeElement] = [...returnValue[filter.mcodeElement], filterInfo];
+                } else {
+                    returnValue[filter.mcodeElement] = [returnValue[filter.mcodeElement], filterInfo];
+                }
+
+            } else {
+                returnValue[filter.mcodeElement] = filterInfo;
+            }
         });
+        if (!Array.isArray(returnValue) && asList) {
+            return [returnValue];
+        } else {
+            return returnValue;
 
-        return returnValue;
+        }
     }
 
     getFilters() {
