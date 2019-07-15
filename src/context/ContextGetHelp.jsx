@@ -99,7 +99,7 @@ class ContextGetHelp extends React.Component {
             else if (this.state.selectedIndex > 0) {
                 e.preventDefault();
                 e.stopPropagation();
-                return this.expand();
+                return this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
             }
         }
     }
