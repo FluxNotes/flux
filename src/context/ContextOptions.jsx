@@ -85,7 +85,8 @@ export default class ContextOptions extends Component {
                                     className="context-option"
                                     key={trigger.name}
                                     onClick={(e) => {
-                                        this.handleClick(e, trigger);
+                                        // HandleClick expects the trigger name, not the trigger itself
+                                        this.handleClick(e, trigger.name);
                                     }}
                                 >
                                     {trigger.name}
