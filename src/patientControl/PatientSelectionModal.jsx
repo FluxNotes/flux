@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'material-ui/Modal';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import Button from 'material-ui/Button';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
 
@@ -13,6 +14,7 @@ class PatientSelectionModal extends Component {
         this.state = {
             isModalOpen: this.props.isModalOpen,
             hovered: null,
+            day: moment(),
         };
 
         this.pastAppTimes = [];
@@ -31,7 +33,7 @@ class PatientSelectionModal extends Component {
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
-                if (appTime.isSame(moment(), 'day')) {
+                if (appTime.isSame(this.state.day, 'day')) {
                     const description = this.buildPatientDescription(encounter, patient);
                     if (appTime.isBefore(moment())) {
                         this.pastAppTimes.push({ time: appTime.format('hh:mm a'), description: description, name: name, pic: pic, shrId: shrId });
@@ -48,6 +50,7 @@ class PatientSelectionModal extends Component {
             <p className='modal-header'>UPCOMING APPOINTMENTS</p>
             <hr className='section-divider'/>
             {this.buildLists('future')}
+            <hr className='hr' />
         </div>);
     }
 
@@ -138,6 +141,12 @@ class PatientSelectionModal extends Component {
                     <List>
                         {this.fillModal()}
                     </List>
+                    <div>
+                        <Button variant='raised' className='button' onClick={() => { this.setState({ day: moment() }) }}>today</Button>
+                        <FontAwesome className='fas fa-angle-left arrow fa-2x' name='left-arrow' onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }) }} />
+                        <FontAwesome className='fas fa-angle-right arrow fa-2x' name='right-arrow' onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }) }}/>
+                        <span>{this.state.day.format("DD MMM YYYY")}</span>
+                    </div>
                 </div>
             </Modal>);
         } else {

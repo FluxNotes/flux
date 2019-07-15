@@ -23,6 +23,7 @@
     }
     .MuiList-root-250 {
         padding-top: 0px;
+        padding-bottom: 0px;
     }
     .MuiListItem-root-231 {
         padding-left: 10px;
@@ -48,5 +49,11 @@
     .fa-times {
         margin-left: 500px;
         color: $icons-blue;
+    }
+    .arrow {
+        color: $icons-blue;
+        padding-left: 5px;
+        padding-right: 5px;
+
     }
 }
