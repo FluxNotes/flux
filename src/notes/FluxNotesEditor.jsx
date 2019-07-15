@@ -210,10 +210,6 @@ class FluxNotesEditor extends React.Component {
                 autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
             }));
         });
-        this.props.shortcutManager.getTriggersForShortcut('DiagnosisCode', undefined, 'a').then((triggers) => {
-            const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
-            autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
-        });
 
         placeholderShortcuts.forEach((def) => {
             promises.push(this.props.shortcutManager.getTriggersForShortcut(def.id).then((triggers) => {

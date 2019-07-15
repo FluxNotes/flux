@@ -10,15 +10,29 @@ import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
 import * as lookup from '../../lib/MedicationInformationService.jsx';
 import ClassRegistry from '../ClassRegistry';
+import _ from 'lodash';
+import CodeableConcept from '../shr/core/CodeableConcept';
+import CodeSystem from '../shr/core/CodeSystem';
+import Code from '../shr/core/Code';
+import Coding from '../shr/core/Coding';
+import DisplayText from '../shr/core/DisplayText';
+import Metadata from '../shr/base/Metadata';
+import Reason from '../shr/base/Reason';
 
 class FluxMedicationRequested extends FluxEntry {
-    constructor(json) {
+    constructor(json, patient) {
         super();
+        this._patient = patient;
         const MedicationRequested = ClassRegistry.get('shr.medication', 'MedicationRequested');
 
         this._entry = this._medicationRequested = MedicationRequested.fromJSON(json);
         if (!this._medicationRequested.entryInfo) {
             this._medicationRequested.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/medication/MedicationRequested');
+        }
+
+        if (_.isUndefined(json) || _.isEmpty(json)) {
+            const today = new moment().format("D MMM YYYY");
+            this.startDate = today;
         }
     }
 
@@ -133,6 +147,7 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns displayText string for medication
      */
     get medication() {
+        if (!this._medicationRequested.medication) return null;
         return this._displayTextOrCode(this._medicationRequested.medication.type.value.coding[0]);
     }
 
@@ -147,12 +162,30 @@ class FluxMedicationRequested extends FluxEntry {
         this._medicationRequested.medication = medication;
     }
 
+    set codeObject(codeObject) {
+        if (!codeObject) {
+            this._medicationRequested.medication = null;
+            return;
+        }
+        this._medicationRequested.medication = new Medication();
+        this._medicationRequested.medication.type = new Type();
+        this._medicationRequested.medication.type.value = new CodeableConcept();
+        this._medicationRequested.medication.type.value.coding = [new Coding()];
+        this._medicationRequested.medication.type.value.coding[0].code = new Code();
+        this._medicationRequested.medication.type.value.coding[0].codeSystem = new CodeSystem();
+        this._medicationRequested.medication.type.value.coding[0].displayText = new DisplayText();
+
+        this._medicationRequested.medication.type.value.coding[0].code.value = codeObject.code;
+        this._medicationRequested.medication.type.value.coding[0].codeSystem.value = codeObject.codeSystem;
+        this._medicationRequested.medication.type.value.coding[0].displayText.value = codeObject.label;
+    }
+
     /*
      *  Getter for medication over the counter flag
      *  Returns boolean value for medicationsOrCode of medication type. Returns undefined for codeable concepts.
      */
     get overTheCounter() {
-        if (!this._medicationRequested.medication.overTheCounter) return undefined;
+        if (!this._medicationRequested.medication || !this._medicationRequested.medication.overTheCounter) return undefined;
         return this._medicationRequested.medication.overTheCounter.value;
     }
 
@@ -210,6 +243,11 @@ class FluxMedicationRequested extends FluxEntry {
         return null;
     }
 
+    set prescribedBy(who) {
+        if (!this._medicationRequested.metadata) this._medicationRequested.metadata = new Metadata();
+        this._medicationRequested.metadata.informationRecorder = who;
+    }
+
     /*
      *  Getter for status
      *  Returns status string
@@ -247,6 +285,13 @@ class FluxMedicationRequested extends FluxEntry {
      */
     get reasons() {
         return this._medicationRequested.reason || [];
+    }
+
+    addReason(cond) {
+        if (!_.isArray(this._medicationRequested.reason)) this._medicationRequested.reason = [];
+        const reason = new Reason();
+        reason.value = this._patient.createEntryReferenceTo(cond);
+        this._medicationRequested.reason.push(reason); 
     }
 
     get code() {

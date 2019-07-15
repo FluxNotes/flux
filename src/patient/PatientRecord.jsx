@@ -599,6 +599,11 @@ class PatientRecord {
         return result;
     }
 
+    addMedication(medication, condition, clinicalNote) {
+        // connect med to cond
+        return this.addEntryToPatientWithPatientFocalSubject(medication, clinicalNote);
+    }
+
     getMedications() {
         return this.getEntriesOfType(FluxMedicationRequested);
     }
