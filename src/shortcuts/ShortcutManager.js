@@ -348,10 +348,14 @@ class ShortcutManager {
                         if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
                     }
 
+                    // Return true if shortcut type is 'CreatorChildService' when triggers are not defined for shortcut
+                    if (_.isUndefined(this.triggersPerShortcut[shortcutId])) {
+                        return shortcut.type === 'CreatorChildService';
+                    }
+
                     // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
-                    if (_.isUndefined(this.triggersPerShortcut[shortcutId])) return true;
                     const numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
-                    if (numberOfValidTriggers === 0) debugger;
+
                     if (_.isArray(value)) return value.length < numberOfValidTriggers;
                     return (!isSet);
                 } else {
