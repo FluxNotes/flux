@@ -1,6 +1,8 @@
 import request from "request";
 import _ from 'lodash';
 import IOutcomesService from './IOutcomesService';
+import FilterOptions from '../../utils/FilterOptions';
+
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
         super();
@@ -24,13 +26,12 @@ export default class CLQOutcomesService extends IOutcomesService {
 
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
-    buildDemographicsFilter(similarPatientProps) {
-        let demoProps = similarPatientProps.demographic.options;
+    buildDemographicsFilter(filterOptions) {
         let filter = {};
-        let gender = this.findMcodeElements(demoProps, "shr.core.BirthSex", true);
-        let race = this.findMcodeElements(demoProps, "shr.core.Race", true);
-        let age = this.findMcodeElements(demoProps, "shr.core.DateOfBirth", true);
-        let age_at_diagnosis = this.findMcodeElements(demoProps, "shr.core.DateOfDiagnosis", true);
+        let gender = filterOptions["shr.core.BirthSex"];
+        let race = filterOptions["shr.core.Race"];
+        let age = filterOptions["shr.core.DateOfBirth"];
+        let age_at_diagnosis = filterOptions["shr.core.DateOfDiagnosis"];
         if (gender) {
             filter.gender = {
                 codeSystemName: "AdministrativeGender",
@@ -62,14 +63,13 @@ export default class CLQOutcomesService extends IOutcomesService {
 
     /* Build the CLQ diagnosis filter based off of the Comapss Filter options
      */
-    buildDiagnosisFilter(similarPatientProps) {
-        let pathologyProps = similarPatientProps.pathology.options;
+    buildDiagnosisFilter(filterOptions) {
         let filter = {};
-        let stage = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalStageGroup", true);
-        let t = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalPrimaryTumorCategory", true);
-        let n = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalRegionalNodesCategory", true);
-        let m = this.findMcodeElements(pathologyProps, "onco.core.TNMClinicalDistantMetastasesCategory", true);
-        let grade = this.findMcodeElements(pathologyProps, "onco.core.CancerHistologicGrade", true);
+        let stage = filterOptions["onco.core.TNMClinicalStageGroup"];
+        let t = filterOptions["onco.core.TNMClinicalPrimaryTumorCategory"];
+        let n = filterOptions["onco.core.TNMClinicalRegionalNodesCategory"];
+        let m = filterOptions["onco.core.TNMClinicalDistantMetastasesCategory"];
+        let grade = filterOptions["onco.core.CancerHistologicGrade"];
         if (stage) {
             filter.stage = stage.reference.stage;
         }
@@ -86,18 +86,19 @@ export default class CLQOutcomesService extends IOutcomesService {
         if (m) {
             filter.tnm.m = m.value;
         }
-
         return filter;
     }
 
     /* Build the CLQ tumor markers filter sections based off the tumor makrkers found in the similar
     patient properties
     */
-    buildTumorMakersFilter(similarPatientProps) {
-        let pathologyProps = similarPatientProps.pathology.options;
+    buildTumorMarkersFilter(filterOptions) {
         let filter = [];
         // loop over options look for tumor markers and add to filter
-        let markers = this.findMcodeElements(pathologyProps, "onco.core.TumorMarkerTest");
+        let markers = filterOptions["onco.core.TumorMarkerTest"];
+        if (markers!==undefined && !Array.isArray(markers)) {
+            markers = [markers];
+        }
         for (let x in markers) {
             let option = markers[x];
             let code = option.reference.receptorTypeCodeableConcept;
@@ -184,9 +185,11 @@ export default class CLQOutcomesService extends IOutcomesService {
     response into a format that is used by the Compass UI */
     processSimilarPatientOutcomes(similarPatientProps) {
         let filter = {};
-        filter.demographics = this.buildDemographicsFilter(similarPatientProps);
-        filter.diagnosis = this.buildDiagnosisFilter(similarPatientProps);
-        filter.tumorMarkers = this.buildTumorMakersFilter(similarPatientProps);
+        const fOptions = new FilterOptions(similarPatientProps);
+        const filterValues = fOptions.getAllActiveValuesByMcodeElement();
+        filter.demographics = this.buildDemographicsFilter(filterValues);
+        filter.diagnosis = this.buildDiagnosisFilter(filterValues);
+        filter.tumorMarkers = this.buildTumorMarkersFilter(filterValues);
         filter.outcomes = {survival: this.timescale.map((ts) => { return {"value": ts*12, "interval": "months" }; })};
         return new Promise((accept, reject) => {
             request({
