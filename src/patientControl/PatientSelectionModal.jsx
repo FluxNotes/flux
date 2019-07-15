@@ -4,7 +4,6 @@ import Modal from 'material-ui/Modal';
 import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
-// import _ from 'lodash';
 
 import './PatientSelectionModal.css';
 
