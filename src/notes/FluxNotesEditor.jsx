@@ -411,15 +411,10 @@ class FluxNotesEditor extends React.Component {
     // selection (selection is null)
     onCompletionComponentValueSelection = (state, selection) => {
         const shortcut = this.state.completionComponentShortcut;
-        // TODO: Why is this happening?
-        if (Lang.isNull(selection)) {
-            // Removes the shortcut from its parent
-            shortcut.onBeforeDeleted();
-        }
         let transform;
         transform = state.transform();
 
-        if (shortcut.setText) {
+        if (shortcut.setText && !Lang.isNull(selection)) {
             shortcut.setText(selection.context);
             if (shortcut.isContext()) {
                 shortcut.setValueObject(selection.object);
