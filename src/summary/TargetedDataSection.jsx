@@ -396,7 +396,7 @@ export default class TargetedDataSection extends Component {
         subsections.forEach(subsection => {
             let items = subsection.items;
             let itemsFunction = subsection.itemsFunction;
-            // TODO: LIST IS NOT AN EFFING LIST IT'S A PROMISE I LOVE OUR VARIABLE NAMES SO MUCH I'M GONNA lOsEiT
+            // TODO: List is not always a list, it is sometimes a promise which leads to errors in our program, specifically when rendering the next patient
             let list, newSubsection;
 
             if (sectionTransform) {
