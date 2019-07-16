@@ -19,17 +19,6 @@ class PatientSelectionModal extends Component {
         this.futureAppTimes = [];
     }
 
-    _sortByTime = (date1, date2) => {
-        const moment1 = new moment(date1, "hh:mm a"); //only looking at times because all dates are on today anyway
-        const moment2 = new moment(date2, "hh:mm a");
-        if (moment1.isBefore(moment2)) {
-            return -1;
-        }
-        if (moment1.isAfter(moment2)) {
-            return 1;
-        }
-        return 0;
-    }
     fillModal = () => {
         this.pastAppTimes = [];
         this.futureAppTimes = [];
@@ -160,5 +149,7 @@ PatientSelectionModal.propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     isTablet: PropTypes.bool.isRequired,
     dataAccess: PropTypes.object.isRequired,
+    handleClose: PropTypes.func,
+    loadPatient: PropTypes.func
 };
 export default PatientSelectionModal;

@@ -139,7 +139,12 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
-                {this.props.isTablet && <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.props.isTablet} dataAccess={this.props.dataAccess} handleClose={this.handleClose} loadPatient={this.props.loadPatient}/>}
+                {this.props.isTablet && <PatientSelectionModal
+                    isModalOpen={this.state.isModalOpen}
+                    isTablet={this.props.isTablet}
+                    dataAccess={this.props.dataAccess}
+                    handleClose={this.handleClose}
+                    loadPatient={this.props.loadPatient} />}
             </div>
 
         );
@@ -153,6 +158,7 @@ PatientControlPanel.propTypes = {
     isAppBlurred: PropTypes.bool,
     isTablet: PropTypes.bool,
     layout: PropTypes.string,
+    loadPatient: PropTypes.func,
     logoObject: PropTypes.shape({
         path: PropTypes.string.isRequired,
         altText: PropTypes.string.isRequired,
