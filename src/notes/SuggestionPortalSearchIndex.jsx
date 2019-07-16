@@ -43,6 +43,7 @@ class SuggestionPortalSearchIndex {
         return 0;
     }
 
+    // Arrow functions as a class property will break inheritance. Since we want `search` to be inherited, we use normal function syntax.
     search(searchText) {
         if (Lang.isUndefined(searchText)) return [];
         if (Lang.isUndefined(this.shortcutsFuse)) return [];
