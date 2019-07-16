@@ -29,7 +29,6 @@ function KeywordStructuredFieldPlugin(opts) {
 
     function replaceAllRelevantKeywordsInBlock(curNode, curTransform, state) {
         const listOfKeywordShortcutMappings = getKeyToActiveKeywordShortcutMappings();
-        // console.log('listOfKeywordShortcutMappings: ', listOfKeywordShortcutMappings);
         const curKey = curNode.key;
 
         // To track if additional operations are done later
