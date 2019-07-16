@@ -325,7 +325,6 @@ export class PointOfCareApp extends Component {
                                         loadPatient={this.loadPatient}
                                         patient={this.state.patient}
                                         preferenceManager={this.preferenceManager}
-                                        test={this.test}
                                         searchSelectedItem={this.state.searchSelectedItem}
                                         setForceRefresh={this.setForceRefresh}
                                         setFullAppStateWithCallback={this.setFullAppStateWithCallback}
