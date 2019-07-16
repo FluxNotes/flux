@@ -1,5 +1,5 @@
 import Lang from 'lodash';
-import Collection from 'lodash';
+import _ from 'lodash';
 import PatientContext from './PatientContext';
 
 class ContextManager {
@@ -9,16 +9,23 @@ class ContextManager {
         this.contexts = []; // patient context is kept separately
         this.activeContexts = []; // patient context is always active
         this.onContextUpdate = onContextUpdate;
-        this.subscribers = [];
+        this.subscribers = {};
     }
 
     subscribe = (subscriber, callback) => {
-        const isAlreadyASubscriber = Collection.includes(this.subscribers, subscriber);
+        const subscriberNames = Object.keys(this.subscribers);
+        const isAlreadyASubscriber = _.includes(subscriberNames, subscriber);
         if (!isAlreadyASubscriber) {
-            this.subscribers.push({
-                subscriber,
-                callback,
-            });
+            this.subscribers[subscriber] = callback;
+        }
+    }
+
+    unsubscribe = (subscriber) => {
+        const subscriberNames = Object.keys(this.subscribers);
+        const isAlreadyASubscriber = _.includes(subscriberNames, subscriber);
+        console.log('calling unsubscribe for: ', subscriber);
+        if (isAlreadyASubscriber) {
+            delete this.subscribers[subscriber];
         }
     }
 
@@ -113,7 +120,7 @@ class ContextManager {
 
     // returns undefined if not found
     getActiveContextOfType = (contextType) => {
-        let context = Collection.find(this.activeContexts, (item) => {
+        let context = _.find(this.activeContexts, (item) => {
             return (item.getShortcutType() === contextType);
         });
 
@@ -123,8 +130,8 @@ class ContextManager {
     contextUpdated = () => {
         this.onContextUpdate();
         // After updating, update all subscribers
-        for (const subscriberObj of this.subscribers) {
-            const { callback } = subscriberObj;
+        for (const subscriber in this.subscribers) {
+            const callback = this.subscribers[subscriber];
             callback(this);
         }
     }

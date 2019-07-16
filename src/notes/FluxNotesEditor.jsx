@@ -157,7 +157,7 @@ class FluxNotesEditor extends React.Component {
 
         // setup creator suggestions plugin (autocomplete)
         const creatorSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '#', this.props.shortcutManager);
-        this.contextManager.subscribe(creatorSuggestionPortalSearchIndex, creatorSuggestionPortalSearchIndex.updateIndex);
+        this.contextManager.subscribe("creatorSuggestionPortalSearchIndex", creatorSuggestionPortalSearchIndex.updateIndex);
         this.suggestionPortalSearchIndexes.push(creatorSuggestionPortalSearchIndex);
         this.suggestionsPluginCreators = SuggestionsPlugin({
             capture: /#([\w\s\-,]*)/,
@@ -170,7 +170,7 @@ class FluxNotesEditor extends React.Component {
 
         // setup inserter suggestions plugin (autocomplete)
         const inserterSuggestionPortalSearchIndex = new SuggestionPortalShortcutSearchIndex([], '@', this.props.shortcutManager);
-        this.contextManager.subscribe(inserterSuggestionPortalSearchIndex, inserterSuggestionPortalSearchIndex.updateIndex);
+        this.contextManager.subscribe("inserterSuggestionPortalSearchIndex", inserterSuggestionPortalSearchIndex.updateIndex);
         this.suggestionPortalSearchIndexes.push(inserterSuggestionPortalSearchIndex);
         this.suggestionsPluginInserters = SuggestionsPlugin({
             capture: /@([\w\s\-,]*)/,
@@ -183,7 +183,7 @@ class FluxNotesEditor extends React.Component {
 
         // Setup suggestions plugin
         const placeholderSuggestionPortalSearchIndex = new SuggestionPortalPlaceholderSearchIndex([], '<', this.props.shortcutManager);
-        this.contextManager.subscribe(placeholderSuggestionPortalSearchIndex, placeholderSuggestionPortalSearchIndex.updateIndex);
+        this.contextManager.subscribe("placeholderSuggestionPortalSearchIndex", placeholderSuggestionPortalSearchIndex.updateIndex);
         this.suggestionPortalSearchIndexes.push(placeholderSuggestionPortalSearchIndex);
         this.suggestionsPluginPlaceholders = SuggestionsPlugin({
             capture: /<([\w\s\-,>]*)/,

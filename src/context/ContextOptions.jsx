@@ -15,16 +15,17 @@ export default class ContextOptions extends Component {
             tooltipVisibility: 'visible',
             triggers: []
         };
-        this.props.contextManager.subscribe(this, this.newContext);
         this._isMounted = false;
     }
 
     componentDidMount() {
         this._isMounted = true;
+        this.props.contextManager.subscribe("ContextOptions", this.newContext);
         this.newContext();
     }
 
     componentWillUnmount() {
+        this.props.contextManager.unsubscribe("ContextOptions");
         this._isMounted = false;
     }
 
