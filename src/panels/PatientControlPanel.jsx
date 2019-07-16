@@ -23,7 +23,6 @@ class PatientControlPanel extends Component {
         this.state = {
             isModalOpen: false
         };
-        this.isTablet = props.isTablet;
     }
 
     getLogoObject = () => {
@@ -73,7 +72,7 @@ class PatientControlPanel extends Component {
         }
     }
     renderSelectPatientArrow = () => {
-        if (this.isTablet) {
+        if (this.props.isTablet) {
             return (
                 <div onClick={() => this.openModal()}>
                     <FontAwesome className='fas fa-angle-double-down clickable' name='down-arrow' />
@@ -140,7 +139,7 @@ class PatientControlPanel extends Component {
                         </Row>
                     </Grid>
                 </Paper>
-                {this.isTablet && <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.isTablet} dataAccess={this.props.dataAccess} handleClose={this.handleClose} loadPatient={this.props.loadPatient}/>}
+                {this.props.isTablet && <PatientSelectionModal isModalOpen={this.state.isModalOpen} isTablet={this.props.isTablet} dataAccess={this.props.dataAccess} handleClose={this.handleClose} loadPatient={this.props.loadPatient}/>}
             </div>
 
         );
