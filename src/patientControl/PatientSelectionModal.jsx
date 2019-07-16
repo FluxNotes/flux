@@ -149,7 +149,7 @@ PatientSelectionModal.propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     isTablet: PropTypes.bool.isRequired,
     dataAccess: PropTypes.object.isRequired,
-    handleClose: PropTypes.func,
-    loadPatient: PropTypes.func
+    handleClose: PropTypes.func.isRequired,
+    loadPatient: PropTypes.func.isRequired,
 };
 export default PatientSelectionModal;
