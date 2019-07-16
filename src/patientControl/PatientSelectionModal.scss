@@ -5,11 +5,15 @@
     max-height: 500px;
     width: 520px !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 8px 8px 0px 8px !important;
     .section-divider {
         height: 1px;
         color: $line-gray;
         border: none;
         background-color: rgba(0, 0, 0, 0.12);
+    }
+    .modal-list {
+        padding-bottom: 0px;
     }
     .button {
         color: $state;
@@ -21,8 +25,9 @@
         min-width: 55px;
         min-height: 25px;
         padding: 0px 0px 0px 0px;
-        // outline-style: solid;
-        // outline-width: 1px;
+        margin-top: 4px;
+        border-color: $icons-gray;
+        
     }
     .blue-button {
         background-color: $interface-blue;
@@ -33,15 +38,13 @@
     }
     .control-panel {
         position: sticky;
-        bottom: -9px;
+        bottom: 0px;
         background-color: $background;
         .modal-date {
             margin-top: 5px;
+            font-weight: $weight-semibold;
         }
     }
-    // .hr {
-    //     margin-bottom: 0px;
-    // }
     .hovered-list-item {
         background-color: rgba(26, 118, 180, 0.1);
         cursor: pointer;
@@ -76,9 +79,11 @@
         margin: 0px;
     }
     .fa-times {
-        margin-left: 500px;
         color: $icons-blue;
-        position: absolute;
+        position: relative;
+        float: right;
+        margin-right: -25px;
+
     }
     .arrow {
         color: $icons-blue;

@@ -133,42 +133,59 @@ class PatientSelectionModal extends Component {
     changeButtonColor = () => {
         this.setState({ isToday: this.state.day.isSame(moment(), 'day') }); //true if this.state.day is today, otherwise false
     }
+
+    buildControlPanel = () => {
+        let todayButtonClass = 'white-button';
+        if (!this.state.isToday) {
+            todayButtonClass = 'blue-button';
+        }
+        return (<div className='control-panel'>
+            <hr />
+            <Grid fluid >
+                <Row>
+                    <Col xs={3}></Col>
+                    <Col xs={2} className='today-col'>
+                        <Button
+                            variant='raised'
+                            className={`${todayButtonClass} button`}
+                            onClick={() => { this.setState({ day: moment() }, () => this.changeButtonColor()); }}>
+                            today
+                        </Button>
+                    </Col>
+                    <Col xs={1}>
+                        <FontAwesome
+                            className='fas fa-angle-left arrow fa-2x clickable'
+                            name='left-arrow'
+                            onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }); this.changeButtonColor(); }}
+                        />
+                    </Col>
+                    <Col xs={1}>
+                        <FontAwesome
+                            className='fas fa-angle-right arrow fa-2x clickable'
+                            name='right-arrow'
+                            onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }); this.changeButtonColor(); }}
+                        />
+                    </Col>
+                    <Col xs={5}>
+                        <p className='modal-date'>{this.state.day.format("DD MMM YYYY")}</p>
+                    </Col>
+                </Row>
+            </Grid>
+        </div>);
+    }
     render() {
         const { isTablet } = this.props;
-        let todayButtonClass = 'white-button';
         if (isTablet) {
-            if (!this.state.isToday) {
-                todayButtonClass = 'blue-button';
-            }
             return (<Modal
                 aria-labelledby='simple-modal-title'
                 open={this.props.isModalOpen}
                 onClose={this.handleClose}
             >
                 <div style={this.getModalStyle()} className='modal'>
-                    <List>
+                    <List className='modal-list'>
                         <ListSubheader><FontAwesome className='fas fa-times clickable' name='close-icon' onClick={this.handleClose} /></ListSubheader>
                         {this.fillModal()}
-                        <div className='control-panel'>
-                            <hr className='hr' />
-                            <Grid fluid >
-                                <Row>
-                                    <Col xs={3}></Col>
-                                    <Col xs={2} className='today-col'>
-                                        <Button variant='raised' className={`${todayButtonClass} button`} onClick={() => { this.setState({ day: moment() }, () => this.changeButtonColor()); }}>today</Button>
-                                    </Col>
-                                    <Col xs={1}>
-                                        <FontAwesome className='fas fa-angle-left arrow fa-2x' name='left-arrow' onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }); this.changeButtonColor(); }} />
-                                    </Col>
-                                    <Col xs={1}>
-                                        <FontAwesome className='fas fa-angle-right arrow fa-2x' name='right-arrow' onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }); this.changeButtonColor(); }} />
-                                    </Col>
-                                    <Col xs={5}>
-                                        <p className='modal-date'>{this.state.day.format("DD MMM YYYY")}</p>
-                                    </Col>
-                                </Row>
-                            </Grid>
-                        </div>
+                        {this.buildControlPanel()}
                     </List>
                 </div>
             </Modal>);
