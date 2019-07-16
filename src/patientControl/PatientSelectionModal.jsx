@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'material-ui/Modal';
-import List, { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import List, { ListItem, ListItemText, ListItemIcon, ListSubheader } from 'material-ui/List';
 import Button from 'material-ui/Button';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
@@ -17,6 +17,7 @@ class PatientSelectionModal extends Component {
             isModalOpen: this.props.isModalOpen,
             hovered: null,
             day: moment(),
+            isToday: true,
         };
 
         this.pastAppTimes = [];
@@ -52,7 +53,6 @@ class PatientSelectionModal extends Component {
             <p className='modal-header'>UPCOMING APPOINTMENTS</p>
             <hr className='section-divider'/>
             {this.buildLists('future')}
-            <hr className='hr' />
         </div>);
     }
 
@@ -69,7 +69,6 @@ class PatientSelectionModal extends Component {
             }
             return 0;
         });
-        console.log(relTimeAppTimes);
         return relTimeAppTimes.map((listItem, key) => {
             let hovered = '';
             if (this.state.hovered === key + listItem.shrId + relTime) {
@@ -79,7 +78,7 @@ class PatientSelectionModal extends Component {
             return (<ListItem
                 className={hovered}
                 key={key}
-                onMouseEnter={() => { this.setState({ hovered: key + listItem.shrId + relTime}); }}
+                onMouseEnter={() => { this.setState({ hovered: key + listItem.shrId + relTime }); }}
                 onMouseLeave={() => { this.setState({ hovered: null }); }}
                 onClick={() => { this.switchPatients(listItem.shrId); }}
             >
@@ -131,38 +130,46 @@ class PatientSelectionModal extends Component {
         };
     }
 
+    changeButtonColor = () => {
+        this.setState({ isToday: this.state.day.isSame(moment(), 'day') }); //true if this.state.day is today, otherwise false
+    }
     render() {
         const { isTablet } = this.props;
+        let todayButtonClass = 'white-button';
         if (isTablet) {
+            if (!this.state.isToday) {
+                todayButtonClass = 'blue-button';
+            }
             return (<Modal
                 aria-labelledby='simple-modal-title'
                 open={this.props.isModalOpen}
                 onClose={this.handleClose}
             >
                 <div style={this.getModalStyle()} className='modal'>
-                    <FontAwesome className='fas fa-times clickable' name='close-icon' onClick={this.handleClose} />
                     <List>
+                        <ListSubheader><FontAwesome className='fas fa-times clickable' name='close-icon' onClick={this.handleClose} /></ListSubheader>
                         {this.fillModal()}
+                        <div className='control-panel'>
+                            <hr className='hr' />
+                            <Grid fluid >
+                                <Row>
+                                    <Col xs={3}></Col>
+                                    <Col xs={2} className='today-col'>
+                                        <Button variant='raised' className={`${todayButtonClass} button`} onClick={() => { this.setState({ day: moment() }, () => this.changeButtonColor()); }}>today</Button>
+                                    </Col>
+                                    <Col xs={1}>
+                                        <FontAwesome className='fas fa-angle-left arrow fa-2x' name='left-arrow' onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }); this.changeButtonColor(); }} />
+                                    </Col>
+                                    <Col xs={1}>
+                                        <FontAwesome className='fas fa-angle-right arrow fa-2x' name='right-arrow' onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }); this.changeButtonColor(); }} />
+                                    </Col>
+                                    <Col xs={5}>
+                                        <p className='modal-date'>{this.state.day.format("DD MMM YYYY")}</p>
+                                    </Col>
+                                </Row>
+                            </Grid>
+                        </div>
                     </List>
-                    <div>
-                        <Grid fluid >
-                            <Row>
-                                <Col xs={2}></Col>
-                                <Col xs={3} className='today-col'>
-                                    <Button variant='outlined' className='button' onClick={() => { this.setState({ day: moment() }); }}>today</Button>
-                                </Col>
-                                <Col xs={1}>
-                                    <FontAwesome className='fas fa-angle-left arrow fa-2x' name='left-arrow' onClick={() => { this.setState({ day: this.state.day.subtract(1, 'd') }); }} />
-                                </Col>
-                                <Col xs={1}>
-                                    <FontAwesome className='fas fa-angle-right arrow fa-2x' name='right-arrow' onClick={() => { this.setState({ day: this.state.day.add(1, 'd') }); }} />
-                                </Col>
-                                <Col xs={5}>
-                                    <p className='modal-date'>{this.state.day.format("DD MMM YYYY")}</p>
-                                </Col>
-                            </Row>
-                        </Grid>
-                    </div>
                 </div>
             </Modal>);
         } else {
