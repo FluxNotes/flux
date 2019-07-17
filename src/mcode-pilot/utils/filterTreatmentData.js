@@ -1,26 +1,61 @@
 import _ from 'lodash';
 import { isSame, getCombinations } from './arrayOperations';
+import CLQOutcomesService from '../services/outcomes/CLQOutcomesService';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
 function filterTreatmentData(filterOptions, timescale) {
+    const c = new CLQOutcomesService({"timescale":['1','3','5'],"serviceUrl":"http://moonshot-dev.mitre.org:5000/outcomes"});
+    c.processSimilarPatientOutcomes(filterOptions.filters);
     const totalPatients = transformedTreatmentData.length;
-    const similarPatients = transformedTreatmentData.filter(treatmentDataPatient =>
-        isSimilarPatient(treatmentDataPatient, filterOptions));
-    const totalSimilarPatients = similarPatients.length;
-    const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    const treatmentCombinations = getCombinations(similarPatientTreatments);
-    const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations, timescale);
+    const indices = {};
+    let totalSimilar = 0;
+    const similarPatients = transformedTreatmentData.reduce((filtered, treatmentDataPatient, i) => {
+        if (isSimilarPatient(treatmentDataPatient, filterOptions)) {
+            totalSimilar++;
+            parsePatientData(treatmentDataPatient, filtered, indices, timescale);
+        }
+        return filtered;
 
-    return {
-        similarPatientTreatments,
-        similarPatientTreatmentsData,
-        totalPatients,
-        totalSimilarPatients,
-        timescale
-    };
+    },[]);
+    return {"outcomes": {"survival": {"data": similarPatients, "total": totalSimilar}, "total": totalPatients}, "total": totalPatients, "timescale": timescale};
+    // const totalSimilarPatients = similarPatients.length;
+    // const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
+    // const treatmentCombinations = getCombinations(similarPatientTreatments);
+    // const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations, timescale);
+
+    // return {
+    //     similarPatientTreatments,
+    //     similarPatientTreatmentsData,
+    //     totalPatients,
+    //     totalSimilarPatients,
+    //     timescale
+    // };
 }
 
+function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
+    const treatments = treatmentDataPatient.treatments.map(treat => `#${treat.code}${treat.codeSystem}`).sort().join("+"); //generate unique keys
+    console.log(treatmentDataPatient);
+    if (indices[treatments] === undefined) {
+        indices[treatments] = filtered.length;
+        filtered.push({treatments: treatmentDataPatient.treatments, sufficiency: true, total: 0, sideEffects: {}, outcomes: timescale.map((scale) => {
+            return {interval: "months", "survivalRate": scale*12, total: 0};
+        })});
+    }
+    const index = indices[treatments];
+    const dataSegment = filtered[index];
+    dataSegment.total+=1;
+    dataSegment.outcomes.map((outcome) => {
+        if (treatmentDataPatient.diseaseStatus.survivalMonths >= outcome.survivalRate) {
+            outcome.total+=1;
+        }
+
+        return outcome;
+    });
+
+    return filtered;
+
+}
 function initializeTreatmentData(displayName) {
     return {
         id: _.uniqueId('row_'),
