@@ -27,17 +27,15 @@ function getAllTextExceptIgnoredTypes(node, typesToIgnore) {
 }
 
 function matchTrigger(state, trigger, typesToIgnore) {
-    // Get the first block
-    const currentNode = state.blocks.first();
     const relevantSelection = {
-        anchorKey: currentNode.nodes.get(0).key,
+        anchorKey: state.startKey,
         anchorOffset: 0,
         focusKey: state.endKey,
         focusOffset: state.endOffset,
         isFocused: true,
         isBackward: false,
     };
-   const relevantNodes = state.document.getFragmentAtRange(new Selection(relevantSelection));  
+    const relevantNodes = state.document.getFragmentAtRange(new Selection(relevantSelection));  
     
     // Get the text for all nodes except those we ignore 
     const potentialText = getAllTextExceptIgnoredTypes(relevantNodes, typesToIgnore)
