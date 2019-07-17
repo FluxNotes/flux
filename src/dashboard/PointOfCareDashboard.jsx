@@ -158,7 +158,7 @@ export default class PointOfCareDashboard extends Component {
     }
 
     renderNextPatient = () => {
-        const dataAccess = new DataAccess('HardCodedMcodeV01DataSource');
+        const dataAccess = this.props.dataAccess;
         const patients = dataAccess.getListOfPatients();
         const nextPatient = this.getNextAppointment(patients).shrId;
         this.props.loadPatient(nextPatient);
