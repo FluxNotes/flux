@@ -6,6 +6,8 @@ export default class CLQOutcomesService extends IOutcomesService {
         super();
         this.serviceUrl = params.serviceUrl;
         this.timescale = params.timescale || [];
+        this.apiKey = params.apiKey;
+
     }
 
     /*
@@ -105,7 +107,7 @@ export default class CLQOutcomesService extends IOutcomesService {
                 code: code.code.code,
                 codeSystem: code.codeSystem.uri,
                 displayName: code.displayText.string,
-                value: value
+                value: _.startCase(_.toLower(value))
             });
         }
         return filter;
@@ -148,7 +150,7 @@ export default class CLQOutcomesService extends IOutcomesService {
 
             item.outcomes.forEach((outcome) => {
                 let survivalRate = parseInt(outcome.survivalRate)/12;
-                row.survivorsPerYear[survivalRate] = outcome.total;
+                row.survivorsPerYear[survivalRate] = Math.floor(item.total * outcome.proportion_surviving);
             });
             return row;
         }).filter((x) => x);
@@ -191,6 +193,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             request({
                 url: this.serviceUrl,
                 method: "POST",
+                headers: {'Authorization' : this.apiKey},
                 json: filter
             }, (err, _response, data) => {
                 if (err) {

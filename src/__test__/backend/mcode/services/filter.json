@@ -25,19 +25,19 @@
             "code": "16112-5",
             "codeSystem": "http://fhir.loinc.org",
             "displayName": "Estrogen Receptor",
-            "value": "positive"
+            "value": "Positive"
         },
         {
             "code": "16113-3",
             "codeSystem": "http://fhir.loinc.org",
             "displayName": "Progesterone Receptor",
-            "value": "negative"
+            "value": "Negative"
         },
         {
             "code": "48676-1",
             "codeSystem": "http://fhir.loinc.org",
             "displayName": "HER2 Receptor",
-            "value": "positive"
+            "value": "Positive"
         }
     ]
 }
