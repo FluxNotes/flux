@@ -74,7 +74,6 @@ class PatientSelectionModal extends Component {
             let viewing = '';
             if (this.state.hovered === key + listItem.shrId + relTime) hovered = 'hovered-list-item';
             if (listItem.shrId === this.currentPatientViewed) viewing = 'patient-being-viewed';
-            console.log(listItem.name, viewing);
             return (<ListItem
                 className={`${hovered} ${viewing} list-item`}
                 key={key}
@@ -92,6 +91,7 @@ class PatientSelectionModal extends Component {
     switchPatients = (shrId) => {
         this.handleClose();
         this.props.loadPatient(shrId);
+        this.setState({hovered: null})
         this.currentPatientViewed = shrId;
     }
 
@@ -100,7 +100,7 @@ class PatientSelectionModal extends Component {
         const encounterMom = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
         if (patient.getPreviousEncounter() !== undefined) {
             const lastSeen = new moment(patient.getPreviousEncounter().expectedPerformanceTime, "DD MMM YYYY HH:mm");
-            timeSinceLast = 'last seen: ' + lastSeen.fromNow();
+            timeSinceLast = 'last seen ' + lastSeen.fromNow() + ' by ' + encounter.practitioner;
         }
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
             timeSinceLast = 'In progress encounter';
