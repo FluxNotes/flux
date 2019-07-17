@@ -10,19 +10,6 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.timescale = params.timescale || [];
     }
 
-    /*
-    Based off of the mcode namespace find the elements that match it in the filter
-    */
-    findMcodeElements(props, mcodeType, single = false) {
-        let found = [];
-        _.forIn(props, function (value, key) {
-            if (value.mcodeElement === mcodeType && value.selected) {
-                found.push(value);
-            }
-        });
-        return single ? found[0] : found;
-    }
-
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
     buildDemographicsFilter(filterOptions) {
@@ -133,7 +120,6 @@ export default class CLQOutcomesService extends IOutcomesService {
                     reject(err);
                 }
                 try {
-                    console.log(data);
                     accept(data);
                 } catch (ex) {
                     reject(ex);
