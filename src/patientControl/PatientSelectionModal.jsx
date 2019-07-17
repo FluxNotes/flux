@@ -91,7 +91,7 @@ class PatientSelectionModal extends Component {
     switchPatients = (shrId) => {
         this.handleClose();
         this.props.loadPatient(shrId);
-        this.setState({hovered: null})
+        this.setState({hovered: null});
         this.currentPatientViewed = shrId;
     }
 
@@ -147,7 +147,6 @@ class PatientSelectionModal extends Component {
                     <Col xs={3}></Col>
                     <Col xs={2} className='today-col'>
                         <Button
-                            variant='raised'
                             className={`${todayButtonClass} button`}
                             onClick={() => { this.setState({ day: moment() }, () => this.changeButtonColor()); }}>
                             today

@@ -43,6 +43,9 @@
         .modal-date {
             margin-top: 5px;
             font-weight: $weight-semibold;
+            font-size: 16px;
+            color: $body-gray;
+            font-family: "Open Sans", Arial, sans-serif;
         }
     }
     .hovered-list-item {
