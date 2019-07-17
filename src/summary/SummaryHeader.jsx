@@ -92,7 +92,7 @@ class SummaryHeader extends Component {
                         }}
                     />
                 </div>
-                <div className="patient-info item">
+                {this.props.isTablet && <div className="patient-info item">
                     <div className="patient-name-number clickable" onClick={() => this.openModal()}>
                         <span className={`patient-name ${tabletPatientName}`}>{patientName}</span>
                         <FontAwesome className='fas fa-angle-double-down' name='down-arrow' />
@@ -104,12 +104,23 @@ class SummaryHeader extends Component {
                         <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Location: {locationString}</span>
                     </div>
                 </div>
+                }
                 {this.props.isTablet && <PatientSelectionModal
                     isModalOpen={this.state.isModalOpen}
                     isTablet={this.props.isTablet}
                     dataAccess={this.props.dataAccess}
                     handleClose={this.handleClose}
-                    loadPatient={this.props.loadPatient} />}
+                    loadPatient={this.props.loadPatient} />
+                }
+                {!this.props.isTablet &&  <div className="patient-info item">
+                    <div className="patient-name-number">
+                        <span className="patient-name">{patientName}</span>
+                        { mrn && <span className="patient-mrn">({mrn})</span> }
+                    </div>
+                    <div className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></div>
+                    <div className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></div>
+                    <div className="patient-item">Location: <span>{locationString}</span></div>
+                </div>}
                 {/* TODO: Remove below content, or place patient description back inside an appropriate grid-row-col */}
                 {/*                <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
