@@ -27,10 +27,8 @@ function getAllTextExceptIgnoredTypes(node, typesToIgnore) {
 }
 
 function matchTrigger(state, trigger, typesToIgnore) {
-    // Get the first block
-    const currentNode = state.blocks.first();
     const relevantSelection = {
-        anchorKey: currentNode.nodes.get(0).key,
+        anchorKey: state.startKey,
         anchorOffset: 0,
         focusKey: state.endKey,
         focusOffset: state.endOffset,
