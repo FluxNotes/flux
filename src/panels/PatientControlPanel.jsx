@@ -5,8 +5,6 @@ import Paper from 'material-ui/Paper';
 import Lang from 'lodash';
 import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
-import FontAwesome from 'react-fontawesome';
-import PatientSelectionModal from '../patientControl/PatientSelectionModal.jsx';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -20,9 +18,7 @@ class PatientControlPanel extends Component {
             width: '30px',
             height: '40px'
         };
-        this.state = {
-            isModalOpen: false
-        };
+
     }
 
     getLogoObject = () => {
@@ -48,7 +44,6 @@ class PatientControlPanel extends Component {
     renderSummaryHeader = () => {
         const { patient } = this.props;
         const patientConditions = patient ? patient.getConditions() : [];
-
         if (Lang.isEmpty(patient)) {
             return;
         } else {
@@ -58,8 +53,11 @@ class PatientControlPanel extends Component {
                     administrativeSex={patient.getGender()}
                     age={patient.getAge()}
                     clinicalEvent={this.props.clinicalEvent}
+                    dataAccess = {this.props.dataAccess}
                     dateOfBirth={patient.getDateOfBirth()}
+                    isTablet = {this.props.isTablet}
                     layout={this.props.layout}
+                    loadPatient={this.props.loadPatient}
                     mrn={patient.getMRN()}
                     patientConditions={patientConditions}
                     patientName={patient.getName()}
@@ -71,21 +69,7 @@ class PatientControlPanel extends Component {
             );
         }
     }
-    renderSelectPatientArrow = () => {
-        if (this.props.isTablet) {
-            return (
-                <div onClick={() => this.openModal()}>
-                    <FontAwesome className='fas fa-angle-double-down clickable' name='down-arrow' />
-                </div>);
-        }
-    }
-    openModal = () => {
-        this.setState({ isModalOpen: true });
-    }
-    handleClose = () => {
-        this.setState({ isModalOpen: false });
-    }
-    // Render renderConditionSelectAndSearch iff we have a patient to render
+
     renderConditionSelectAndSearch = () => {
         const { patient } = this.props;
         const patientConditions = patient ? patient.getConditions() : [];
@@ -127,24 +111,15 @@ class PatientControlPanel extends Component {
                             <Col xs={3} md={2} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
-                            <Col xs={4} md={4} lg={3} className="summary-header-column">
+                            <Col xs={6} md={8} lg={7} className="summary-header-column">
                                 {this.renderSummaryHeader()}
                             </Col>
-                            <Col xs={1} md={1} lg={1}>
-                                {this.renderSelectPatientArrow()}
-                            </Col>
-                            <Col xs={4} md={5} lg={6}>
+                            <Col xs={3} md={2} lg={3}>
                                 {this.renderConditionSelectAndSearch()}
                             </Col>
                         </Row>
                     </Grid>
                 </Paper>
-                {this.props.isTablet && <PatientSelectionModal
-                    isModalOpen={this.state.isModalOpen}
-                    isTablet={this.props.isTablet}
-                    dataAccess={this.props.dataAccess}
-                    handleClose={this.handleClose}
-                    loadPatient={this.props.loadPatient} />}
             </div>
 
         );

@@ -1,0 +1,67 @@
+@import '../styles/variables';
+#summary-header {
+    display: flex;
+    align-items: center;
+    min-height: 80px;
+    #summary-header .FullApp-content {
+        width: 100%;
+    }
+    
+    .patient-item {
+        margin-left: 1px !important;
+        font-size: .7em;
+        color: #999;
+    }
+    
+    .patient-name {
+        font-size: 20px !important;
+    }
+    
+    .tablet-patient-name {
+        font-weight: 600;
+    }
+    
+    .tablet-patient-info {
+        margin-right: 35px;
+        color: black !important;
+    }
+    .patient-mrn {
+      color: #999;
+      /* padding-left: 4px; */
+    }
+    .clickable {
+        cursor: pointer;
+    }
+    .fa-angle-double-down {
+        margin-left: 10px;
+        color: $icons-blue;
+    }
+    .avatar {
+        display: inline-block;
+        padding-right: 15px;
+    }
+    
+    .patient-info {
+        display: inline-block;
+    }
+    
+    .item {
+        text-align: left;
+    }
+    
+    .item span {
+        font-size: 0.8rem;
+    }
+    
+    .no-wrap {
+        white-space: nowrap;
+    }
+    
+    .small-btn {
+        min-width: 0 !important;
+        min-height: 0 !important;
+        margin-left: 1px;
+    }
+}
+
+

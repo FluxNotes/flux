@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 // import ClinicalEventSelection from '../summary/ClinicalEventSelection';
 import './SummaryHeader.css';
+import FontAwesome from 'react-fontawesome';
+import PatientSelectionModal from '../patientControl/PatientSelectionModal.jsx';
 
 class SummaryHeader extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            isModalOpen: false
+        };
+    }
     // Returns JSX for the splitViewButton button, highlighed if it's the current layout
     splitViewButton = () => {
         const strokeColor = this.props.layout === "split" ? "#3F3F3F" : "#CCCCCC";
@@ -56,7 +63,12 @@ class SummaryHeader extends Component {
     handleLayoutChange = (newLayout) => {
         this.props.setLayout(newLayout);
     }
-
+    openModal = () => {
+        this.setState({ isModalOpen: true });
+    }
+    handleClose = () => {
+        this.setState({ isModalOpen: false });
+    }
     render() {
         const { photo, patientName, mrn, dateOfBirth, age, administrativeSex, address } = this.props;
 
@@ -64,6 +76,8 @@ class SummaryHeader extends Component {
         const administrativeSexString = (administrativeSex) ? administrativeSex : '?';
         //{address ? address.city.value : ""}, {address ? address.state.value : ""}
         const locationString = (address) ? `${address.city.value}, ${address.state.value}` : '?';
+        const tabletPatienInfoSpacing = this.props.isTablet ? 'tablet-patient-info' : '';
+        const tabletPatientName = this.props.isTablet ? 'tablet-patient-name' : '';
         return (
             <div id="summary-header">
                 <div className="avatar">
@@ -79,14 +93,23 @@ class SummaryHeader extends Component {
                     />
                 </div>
                 <div className="patient-info item">
-                    <div className="patient-name-number">
-                        <span className="patient-name">{patientName}</span>
-                        { mrn && <span className="patient-mrn">({mrn})</span> }
+                    <div className="patient-name-number clickable" onClick={() => this.openModal()}>
+                        <span className={`patient-name ${tabletPatientName}`}>{patientName}</span>
+                        <FontAwesome className='fas fa-angle-double-down' name='down-arrow' />
                     </div>
-                    <div className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></div>
-                    <div className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></div>
-                    <div className="patient-item">Location: <span>{locationString}</span></div>
+                    <div>
+                        {mrn && <span className={`patient-mrn no-wrap ${tabletPatienInfoSpacing}`}>{mrn}</span>}
+                        <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>DOB: {dateOfBirthString}</span>
+                        <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Admin. Sex: {administrativeSexString}</span>
+                        <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Location: {locationString}</span>
+                    </div>
                 </div>
+                {this.props.isTablet && <PatientSelectionModal
+                    isModalOpen={this.state.isModalOpen}
+                    isTablet={this.props.isTablet}
+                    dataAccess={this.props.dataAccess}
+                    handleClose={this.handleClose}
+                    loadPatient={this.props.loadPatient} />}
                 {/* TODO: Remove below content, or place patient description back inside an appropriate grid-row-col */}
                 {/*                <Grid className="FullApp-content" fluid>
                     <Row middle="xs">
@@ -149,7 +172,8 @@ SummaryHeader.propTypes = {
         })
     }),
     layout: PropTypes.string,
-    setLayout: PropTypes.func.isRequired
+    setLayout: PropTypes.func.isRequired,
+    isTablet: PropTypes.bool,
 };
 
 export default SummaryHeader;
