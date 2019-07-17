@@ -1,12 +1,8 @@
 import _ from 'lodash';
-import { isSame, getCombinations } from './arrayOperations';
-import CLQOutcomesService from '../services/outcomes/CLQOutcomesService';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
 function filterTreatmentData(filterOptions, timescale) {
-    const c = new CLQOutcomesService({"timescale":['1','3','5'],"serviceUrl":"http://moonshot-dev.mitre.org:5000/outcomes"});
-    c.processSimilarPatientOutcomes(filterOptions.filters);
     const totalPatients = transformedTreatmentData.length;
     const indices = {};
     let totalSimilar = 0;
@@ -19,26 +15,13 @@ function filterTreatmentData(filterOptions, timescale) {
 
     },[]);
     return {"outcomes": {"survival": {"data": similarPatients, "total": totalSimilar}, "total": totalPatients}, "total": totalPatients, "timescale": timescale};
-    // const totalSimilarPatients = similarPatients.length;
-    // const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
-    // const treatmentCombinations = getCombinations(similarPatientTreatments);
-    // const similarPatientTreatmentsData = generateTreatmentData(similarPatients, treatmentCombinations, timescale);
-
-    // return {
-    //     similarPatientTreatments,
-    //     similarPatientTreatmentsData,
-    //     totalPatients,
-    //     totalSimilarPatients,
-    //     timescale
-    // };
 }
 
 function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
     const treatments = treatmentDataPatient.treatments.map(treat => `#${treat.code}${treat.codeSystem}`).sort().join("+"); //generate unique keys
-    console.log(treatmentDataPatient);
     if (indices[treatments] === undefined) {
         indices[treatments] = filtered.length;
-        filtered.push({treatments: treatmentDataPatient.treatments, sufficiency: true, total: 0, sideEffects: {}, outcomes: timescale.map((scale) => {
+        filtered.push({treatments: treatmentDataPatient.treatments, sufficiency: true, total: 0, sideEffects: {total: 0, effects: {}}, outcomes: timescale.map((scale) => {
             return {interval: "months", "survivalRate": scale*12, total: 0};
         })});
     }
@@ -52,67 +35,19 @@ function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
 
         return outcome;
     });
+    if (treatmentDataPatient.sideEffects.length>0) {
+        dataSegment.sideEffects.total+=1;
+    }
+    treatmentDataPatient.sideEffects.map((sideEffect) => {
+        if (dataSegment.sideEffects.effects[sideEffect.displayName]===undefined) {
+            dataSegment.sideEffects.effects[sideEffect.displayName] = 0;
+        }
+
+        dataSegment.sideEffects.effects[sideEffect.displayName] += 1;
+    });
 
     return filtered;
 
-}
-function initializeTreatmentData(displayName) {
-    return {
-        id: _.uniqueId('row_'),
-        displayName,
-        totalPatients: 0,
-        survivorsPerYear: [],
-        sideEffects: {
-            totalReporting: 0,
-            effects: {}
-        }
-    };
-}
-
-function generateTreatmentData(similarPatients, treatmentCombinations, timescale) {
-    if (similarPatients.length === 0) return [];
-    timescale.sort(); // maybe unnecessary
-    let treatmentData = [];
-    treatmentCombinations.forEach(treatmentCombination => {
-        const filteredPatients = similarPatients.filter(patient =>
-            isSame(patient.treatments.map(treatment => typeof treatment === 'object' ? treatment.code : treatment),
-                treatmentCombination.map(treatment => treatment.reference.code))
-        );
-        let displayName = _.isArray(treatmentCombination)
-            ? treatmentCombination.map(treatment => treatment.reference.displayName).join(' & ')
-            : treatmentCombination.displayName;
-        let row = initializeTreatmentData(displayName);
-        filteredPatients.forEach(patient => {
-            row.totalPatients += 1;
-
-            let yearsSurvived = Math.floor(patient.diseaseStatus.survivalMonths / 12);
-
-
-            while (yearsSurvived>=0) {
-                if (row.survivorsPerYear[yearsSurvived] === undefined) {
-                    row.survivorsPerYear[yearsSurvived] = 0;
-                }
-
-                row.survivorsPerYear[yearsSurvived] += 1;
-                yearsSurvived-=1;
-            }
-
-            if (patient.sideEffects.length > 0) {
-                row.sideEffects.totalReporting += 1;
-                patient.sideEffects.forEach(sideEffectKey => {
-                    const sideEffect = sideEffectKey.displayName;
-                    if (!row.sideEffects.effects[sideEffect]) row.sideEffects.effects[sideEffect] = 0;
-                    row.sideEffects.effects[sideEffect] += 1;
-                });
-            }
-        });
-
-        if (row.totalPatients > 0) {
-            treatmentData.push(row);
-        }
-    });
-
-    return treatmentData;
 }
 
 function generateSimilarPatientTreatments(similarPatients) {
