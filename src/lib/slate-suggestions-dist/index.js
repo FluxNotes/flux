@@ -35,7 +35,7 @@ function matchTrigger(state, trigger, typesToIgnore) {
         isFocused: true,
         isBackward: false,
     };
-   const relevantNodes = state.document.getFragmentAtRange(new Selection(relevantSelection));  
+    const relevantNodes = state.document.getFragmentAtRange(new Selection(relevantSelection));  
     
     // Get the text for all nodes except those we ignore 
     const potentialText = getAllTextExceptIgnoredTypes(relevantNodes, typesToIgnore)
