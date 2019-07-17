@@ -6,6 +6,7 @@ import './IconsChart.css';
 export default class IconsChart extends Component {
     render() {
         const { numSurvive, treatment, yearsSurvival } = this.props;
+        if (!treatment) return <div className="icons-chart helper-text">No treatment selected.</div>;
         const numDie = 100 - numSurvive;
 
         let circlesSurvive = [];

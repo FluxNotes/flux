@@ -2,6 +2,7 @@
 
 .icons-chart {
     display: flex;
+    margin-top: 40px;
 
     .icons-survival-text {
         .selected-treatment {
@@ -35,5 +36,9 @@
             border: 1px solid $icons-gray;
             background-color: $icons-gray;
         }
+    }
+
+    &.helper-text {
+        font-style: italic;
     }
 }

@@ -59,9 +59,6 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const { sideEffectSelection } = this.state;
         if (row == null || row.length === 0) return null;
 
-        console.debug('selectedTreatment', selectedTreatment);
-        console.debug('row', row);
-
         const { displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map(sideEffect => {
             return { sideEffect, occurrences: sideEffects.effects[sideEffect] };
