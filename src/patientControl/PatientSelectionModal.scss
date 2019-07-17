@@ -48,6 +48,15 @@
     .hovered-list-item {
         background-color: rgba(26, 118, 180, 0.1);
         cursor: pointer;
+        outline: solid;
+        outline-width: medium;
+        outline-color: skyblue;
+    }
+    .patient-being-viewed {
+        background-color: $feature-gray;
+    }
+    .list-item {
+        margin-bottom: 20px;
     }
     .clickable {
         cursor: pointer;
@@ -75,8 +84,10 @@
         padding-right: 0px;
     }
     .modal-header {
-        font-size: $size-xs;
+        font-size: $size-m;
         margin: 0px;
+        text-align: center;
+        font-weight: 550;
     }
     .fa-times {
         color: $icons-blue;

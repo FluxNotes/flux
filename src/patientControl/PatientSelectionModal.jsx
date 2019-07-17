@@ -22,6 +22,7 @@ class PatientSelectionModal extends Component {
 
         this.pastAppTimes = [];
         this.futureAppTimes = [];
+        this.currentPatientViewed = '';
     }
 
     fillModal = () => {
@@ -33,6 +34,7 @@ class PatientSelectionModal extends Component {
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
             const shrId = patient.person.entryInfo.shrId;
+            this.currentPatientViewed = shrId;
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
@@ -47,11 +49,9 @@ class PatientSelectionModal extends Component {
             });
         });
         return (<div>
-            <p className='modal-header'>PAST APPOINTMENTS</p>
+            <p className='modal-header'>APPOINTMENTS</p>
             <hr className='section-divider'/>
             {this.buildLists('past')}
-            <p className='modal-header'>UPCOMING APPOINTMENTS</p>
-            <hr className='section-divider'/>
             {this.buildLists('future')}
         </div>);
     }
@@ -71,12 +71,12 @@ class PatientSelectionModal extends Component {
         });
         return relTimeAppTimes.map((listItem, key) => {
             let hovered = '';
-            if (this.state.hovered === key + listItem.shrId + relTime) {
-                hovered = 'hovered-list-item';
-            };
-
+            let viewing = '';
+            if (this.state.hovered === key + listItem.shrId + relTime) hovered = 'hovered-list-item';
+            if (listItem.shrId === this.currentPatientViewed) viewing = 'patient-being-viewed';
+            console.log(listItem.name, viewing);
             return (<ListItem
-                className={hovered}
+                className={`${hovered} ${viewing} list-item`}
                 key={key}
                 onMouseEnter={() => { this.setState({ hovered: key + listItem.shrId + relTime }); }}
                 onMouseLeave={() => { this.setState({ hovered: null }); }}
@@ -92,6 +92,7 @@ class PatientSelectionModal extends Component {
     switchPatients = (shrId) => {
         this.handleClose();
         this.props.loadPatient(shrId);
+        this.currentPatientViewed = shrId;
     }
 
     buildPatientDescription = (encounter, patient) => {
@@ -102,7 +103,7 @@ class PatientSelectionModal extends Component {
             timeSinceLast = 'last seen: ' + lastSeen.fromNow();
         }
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
-            timeSinceLast = 'in progress: began ' + encounterMom.fromNow();
+            timeSinceLast = 'In progress encounter';
         }
         // For future implementation of "note started" feature:
         // const noteStarted = '3 hours';
