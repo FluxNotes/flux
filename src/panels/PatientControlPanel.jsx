@@ -154,11 +154,11 @@ class PatientControlPanel extends Component {
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
-    dataAccess: PropTypes.object.isRequired,
+    dataAccess: PropTypes.object,
     isAppBlurred: PropTypes.bool,
     isTablet: PropTypes.bool,
     layout: PropTypes.string,
-    loadPatient: PropTypes.func.isRequired,
+    loadPatient: PropTypes.func,
     logoObject: PropTypes.shape({
         path: PropTypes.string.isRequired,
         altText: PropTypes.string.isRequired,
