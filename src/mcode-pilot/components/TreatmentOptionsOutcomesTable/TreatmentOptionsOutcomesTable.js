@@ -6,6 +6,10 @@ import BarChart from '../../visualizations/BarChart/BarChart';
 import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
+import CompareUnselectedIcon from './CompareUnselectedIcon';
+import CompareSelectedIcon from './CompareSelectedIcon';
+import PersonIcon from './PersonIcon';
+
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesTable extends Component {
@@ -50,10 +54,13 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
-    renderTreatmentRow(row, compareRow = null) {
+    renderTreatmentRow(row, isSelectedTreatment = false) {
+        const { selectedTreatment, setSelectedTreatment, timescale } = this.props;
         const { sideEffectSelection } = this.state;
-        const { timescale } = this.props;
         if (row == null || row.length === 0) return null;
+
+        console.debug('selectedTreatment', selectedTreatment);
+        console.debug('row', row);
 
         const { displayName, totalPatients, sideEffects } = row;
         const topSideEffects = Object.keys(sideEffects.effects).map(sideEffect => {
@@ -61,9 +68,15 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         }).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
 
         return (
-            <div className="table-row flex" key={row.id}>
+            <div className={`table-row flex ${isSelectedTreatment ? 'selected-treatment' : ''}`} key={row.id}>
                 <div className="flex-2 flex-padding treatment-name">
-                    <div className="select-icon">></div>
+                    <div className="select-icon">
+                        {isSelectedTreatment
+                            ? <CompareSelectedIcon onClick={() => setSelectedTreatment(null)} />
+                            : <CompareUnselectedIcon onClick={() => setSelectedTreatment(row)} />
+                        }
+                    </div>
+
                     <div className="display-name">{displayName}</div>
                 </div>
 
@@ -73,7 +86,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     {timescale.map((timescaleYear) => {
                         return (
                             <div key={timescaleYear} className="flex-1">
-                                {this.renderBarChart(row, compareRow, timescaleYear)}
+                                {this.renderBarChart(row, selectedTreatment, timescaleYear)}
                             </div>
                         );
                     })}
@@ -101,7 +114,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderHeader = () => {
-        const { similarPatientTreatmentsData, changeSort, sortColumn, sortDirection } = this.props;
+        const { similarPatientTreatmentsData, changeSort, selectedTreatment, sortColumn, sortDirection } = this.props;
         const { sideEffectSelection } = this.state;
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
         const sortP = sortColumn === 'totalPatients';
@@ -109,10 +122,13 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
         return (
             <div className="treatment-options-outcomes-table__header">
-                <div className="flex-2 flex-padding compare-header">compare</div>
+                <div className="flex-2 flex-padding compare-header">
+                    {selectedTreatment ? 'comparing against' : 'compare'}
+                </div>
+
                 <div className="flex-1 flex-padding user-icon">
                     <span onClick={() => changeSort('totalPatients')} className="header-space">
-                        <FontAwesome name="user" />
+                        <PersonIcon />
                         <FontAwesome className={this.getSortClass(sortP)} name={sortP ? sortName : 'sort'} />
                     </span>
                 </div>
@@ -161,8 +177,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     render() {
-        const { similarPatientTreatmentsData } = this.props;
-        const { compareRow } = this.state;
+        const { selectedTreatment, similarPatientTreatmentsData } = this.props;
 
         return (
             <div className="treatment-options-outcomes-table">
@@ -175,10 +190,16 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                         </div>
                     }
 
-                    {similarPatientTreatmentsData.map(treatmentData => this.renderTreatmentRow(treatmentData))}
+                    {selectedTreatment && this.renderTreatmentRow(selectedTreatment, true)}
+                    {similarPatientTreatmentsData.map(treatmentData => {
+                        if (!selectedTreatment || treatmentData.id !== selectedTreatment.id) {
+                            return this.renderTreatmentRow(treatmentData);
+                        }
+                        return null;
+                    })}
                 </div>
 
-                <TableLegend compareRow={compareRow} />
+                <TableLegend compareRow={selectedTreatment} />
             </div>
         );
     }

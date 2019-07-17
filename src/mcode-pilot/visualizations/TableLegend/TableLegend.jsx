@@ -27,19 +27,23 @@ export default class TableLegend extends Component {
                         <span className="legend-text">{message}</span>
                     </div>
 
-                    {/*<div className="legend-entry">
-                        <div className="prog-fill-container">
-                            <div className="prog-fill treatment-increase" />
+                    {compareRow &&
+                        <div className="legend-entry">
+                            <div className="prog-fill-container">
+                                <div className="prog-fill treatment-increase" />
+                            </div>
+                            <span className="legend-text">increase in survival due to treatment</span>
                         </div>
-                        <span className="legend-text">increase in survival due to treatment</span>
-                    </div>
+                    }
 
-                    <div className="legend-entry">
-                        <div className="prog-fill-container">
-                            <div className="prog-fill treatment-decrease" />
+                    {compareRow &&
+                        <div className="legend-entry">
+                            <div className="prog-fill-container">
+                                <div className="prog-fill treatment-decrease" />
+                            </div>
+                            <span className="legend-text">decrease in survival due to treatment</span>
                         </div>
-                        <span className="legend-text">decrease in survival due to treatment</span>
-                    </div>*/}
+                    }
 
                     <div className="legend-entry">
                         <div className="prog-fill-container">

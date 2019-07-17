@@ -86,7 +86,7 @@
         }
 
         .table-row {
-            height: 50px;
+            height: 60px;
             align-items: center;
 
             &:nth-child(odd) {
@@ -99,6 +99,12 @@
 
             .total-patients {
                 text-align: center;
+            }
+
+            &.selected-treatment {
+                background-color: darken($contrast-gray, 5%);
+                border-top: 1px solid darken($contrast-gray, 10%);
+                box-shadow: 0px 10px 8px -5px rgba(153, 153, 153, 1);
             }
         }
     }
