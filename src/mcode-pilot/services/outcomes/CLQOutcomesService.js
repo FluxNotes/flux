@@ -193,7 +193,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             request({
                 url: this.serviceUrl,
                 method: "POST",
-                headers: {'Authorization' : this.apiKey},
+                headers: {'Authorization': this.apiKey},
                 json: filter
             }, (err, _response, data) => {
                 if (err) {
