@@ -7,7 +7,6 @@ import PointOfCare from '../notes/PointOfCare';
 import Button from '../elements/Button';
 import './PointOfCareDashboard.css';
 import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
-import DataAccess from '../dataaccess/DataAccess';
 import moment from 'moment';
 import NextPatientButton from './NextPatientButton';
 
