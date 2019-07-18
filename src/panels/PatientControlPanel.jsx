@@ -73,12 +73,13 @@ class PatientControlPanel extends Component {
     renderConditionSelectAndSearch = () => {
         const { patient } = this.props;
         const patientConditions = patient ? patient.getConditions() : [];
+        const selectAndSearchWidth = this.props.isTablet? 12 : 6;
         if (Lang.isEmpty(patient)) {
             return;
         } else {
             return (
                 <Row bottom="xs" className="vertical-divider">
-                    <Col xs={12} md={12} lg={12}>
+                    <Col xs={12} md={selectAndSearchWidth} lg={selectAndSearchWidth}>
                         <div id="condition-selection-container">
                             <ConditionSelection
                                 conditions={patientConditions}
@@ -86,7 +87,7 @@ class PatientControlPanel extends Component {
                             />
                         </div>
                     </Col>
-                    <Col xs={12} md={12} lg={12}>
+                    <Col xs={12} md={selectAndSearchWidth} lg={selectAndSearchWidth}>
                         <PatientSearch
                             highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                             moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
@@ -111,10 +112,10 @@ class PatientControlPanel extends Component {
                             <Col xs={3} md={2} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
-                            <Col xs={6} md={8} lg={7} className="summary-header-column">
+                            <Col xs={5} md={4} lg={4} className="summary-header-column">
                                 {this.renderSummaryHeader()}
                             </Col>
-                            <Col xs={3} md={2} lg={3}>
+                            <Col xs={4} md={5} lg={6}>
                                 {this.renderConditionSelectAndSearch()}
                             </Col>
                         </Row>
