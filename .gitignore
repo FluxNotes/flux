@@ -37,6 +37,7 @@ yarn-error.log*
 /src/panels/PatientControlPanel.css
 /src/panels/TargetedDataPanel.css
 /src/patientControl/PatientSearch.css
+/src/patientControl/PatientSelectionModal.css
 /src/styles/FullApp.css
 /src/styles/LandingPage.css
 /src/styles/PointOfCareApp.css
