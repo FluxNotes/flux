@@ -11,34 +11,34 @@ import PersonIcon from '../TreatmentOptionsOutcomesTable/PersonIcon';
 import './TreatmentOptionsOutcomesIcons.css';
 
 export default class TreatmentOptionsOutcomesIcons extends Component {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
 
-    //     this.state = { selectedTreatment: props.similarPatientTreatmentsData[0] };
-    // }
+        this.state = { displayedTreatment: props.similarPatientTreatmentsData[0] };
+    }
 
-    // componentDidUpdate(prevProps) {
-    //     const { similarPatientTreatmentsData } = this.props;
-    //     if (similarPatientTreatmentsData !== prevProps.similarPatientTreatmentsData) {
-    //         this.resetSelectedTreatment();
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        const { similarPatientTreatmentsData } = this.props;
+        if (similarPatientTreatmentsData !== prevProps.similarPatientTreatmentsData) {
+            this.resetSelectedTreatment();
+        }
+    }
 
-    // resetSelectedTreatment = () => {
-    //     const { similarPatientTreatmentsData } = this.props;
-    //     const { selectedTreatment } = this.state;
-    //     if (similarPatientTreatmentsData.length === 0) return;
+    resetSelectedTreatment = () => {
+        const { similarPatientTreatmentsData } = this.props;
+        const { displayedTreatment } = this.state;
+        if (similarPatientTreatmentsData.length === 0) return;
 
-    //     let newSelectedTreatment;
-    //     if (!selectedTreatment) {
-    //         newSelectedTreatment = similarPatientTreatmentsData[0];
-    //     } else {
-    //         newSelectedTreatment = similarPatientTreatmentsData.filter(treatment =>
-    //             treatment.displayName === selectedTreatment.displayName)[0];
-    //     }
+        let newSelectedTreatment;
+        if (!displayedTreatment) {
+            newSelectedTreatment = similarPatientTreatmentsData[0];
+        } else {
+            newSelectedTreatment = similarPatientTreatmentsData.filter(treatment =>
+                treatment.displayName === displayedTreatment.displayName)[0];
+        }
 
-    //     this.setState({ selectedTreatment: newSelectedTreatment });
-    // }
+        this.setState({ displayedTreatment: newSelectedTreatment });
+    }
 
     getNumSurvive = (treatment, timescale) => {
         const { similarPatientTreatmentsData } = this.props;
@@ -53,11 +53,11 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         return { numSurvive, index };
     }
 
-    // selectIconsTreatment = treatmentName => {
-    //     const { similarPatientTreatmentsData } = this.props;
-    //     const treatment = similarPatientTreatmentsData.filter(treatmentData => treatmentData.displayName === treatmentName)[0];
-    //     this.setState({ selectedTreatment: treatment });
-    // }
+    selectDisplayedTreatment = treatmentName => {
+        const { similarPatientTreatmentsData } = this.props;
+        const treatment = similarPatientTreatmentsData.filter(treatmentData => treatmentData.displayName === treatmentName)[0];
+        this.setState({ displayedTreatment: treatment });
+    }
 
     renderTreatmentSelector = treatment => {
         const { selectedTreatment } = this.props;
@@ -69,7 +69,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
             <div className={treatmentClass} key={treatment.id}>
                 <div
                     className="treatment-name-group"
-                    onClick={() => this.selectIconsTreatment(treatmentName)}>
+                    onClick={() => this.selectDisplayedTreatment(treatmentName)}>
                     {selectedTreatment === treatmentName && <FontAwesome className="selected-icon" name="caret-right" />}
                     <span className={`treatment-name ${selectedTreatment === treatmentName ? 'selected' : ''}`}>
                         {treatmentName}
@@ -94,10 +94,21 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     }
 
     renderInteractionRow = (treatment, isSelectedTreatment = false) => {
-        const { setSelectedTreatment, similarPatientTreatmentsData } = this.props;
+        const { selectedTreatment, setSelectedTreatment, similarPatientTreatmentsData, timescaleToggle } = this.props;
         const totalPatientsAllTreatments =
             _.reduce(similarPatientTreatmentsData, (sum, treatment) => sum + treatment.totalPatients, 0);
         const normalizedTotalPatients = Math.floor(treatment.totalPatients / totalPatientsAllTreatments * 100);
+        const { numSurvive } = this.getNumSurvive(treatment, timescaleToggle);
+
+        let selectedNumSurvive;
+        let numSurviveDiff;
+        let numSurviveDiffClass;
+        if (selectedTreatment) {
+            selectedNumSurvive = this.getNumSurvive(selectedTreatment, timescaleToggle).numSurvive;
+            numSurviveDiff = selectedNumSurvive - numSurvive;
+            numSurviveDiffClass =
+                `diff-num-selected ${numSurviveDiff < 0 ? 'positive' : ''} ${numSurviveDiff > 0 ? 'negative' : ''}`;
+        }
 
         return (
             <div
@@ -115,7 +126,16 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                 </div>
 
                 <div className="flex-1 flex-padding total-patients">({normalizedTotalPatients})</div>
-                <div className="flex-1 flex-padding overall-survival"></div>
+                <div className="flex-1 flex-padding overall-survival">
+                    {isSelectedTreatment || !selectedTreatment
+                        ? <div className="selected-num-survive">{numSurvive}/100</div>
+                        : <div className={numSurviveDiffClass}>
+                            {numSurviveDiff < 0 ? '+' : ''}
+                            {numSurviveDiff > 0 ? '-' : ''}
+                            {Math.abs(numSurviveDiff)}
+                        </div>
+                    }
+                </div>
             </div>
         );
     }

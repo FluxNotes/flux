@@ -47,7 +47,7 @@ export default class IconsChart extends Component {
 }
 
 IconsChart.propTypes = {
-    numSurvive: PropTypes.number.isRequired,
-    treatment: PropTypes.string.isRequired,
-    yearsSurvival: PropTypes.string.isRequired,
+    numSurvive: PropTypes.number,
+    treatment: PropTypes.string,
+    yearsSurvival: PropTypes.string
 };

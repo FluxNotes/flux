@@ -48,6 +48,19 @@
                 padding-right: 10px;
                 cursor: pointer;
             }
+
+            .overall-survival {
+                .selected-num-survive {
+
+                }
+
+                .diff-num-selected {
+                    font-size: 1.1em;
+
+                    &.positive { color: $icons-green; }
+                    &.negative { color: $icons-red; }
+                }
+            }
         }
 
         .selected-icon {
