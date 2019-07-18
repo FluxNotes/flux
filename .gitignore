@@ -46,6 +46,7 @@ yarn-error.log*
 /src/summary/LongitudinalTable.css
 /src/summary/NarrativeNameValuePairsVisualizer.css
 /src/summary/ProgressionLineChartVisualizer.css
+/src/summary/SummaryHeader.css
 /src/summary/TabularListVisualizer.css
 /src/summary/TargetedDataSection.css
 /src/templates/*.css
