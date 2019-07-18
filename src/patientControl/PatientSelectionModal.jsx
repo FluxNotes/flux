@@ -141,7 +141,7 @@ class PatientSelectionModal extends Component {
             todayButtonClass = 'blue-button';
         }
         return (<div className='control-panel'>
-            <hr />
+            <hr className='section-divider'/>
             <Grid fluid >
                 <Row>
                     <Col xs={3}></Col>
