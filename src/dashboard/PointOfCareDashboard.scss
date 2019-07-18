@@ -12,6 +12,8 @@
         flex-basis: 92px;
         height: calc(100vh - 85px);
         background-color: $tab-bar-blue;
+        position: relative;
+        z-index: 3;
 
         button {
             padding: 75px 0px;

@@ -20,8 +20,7 @@ class NextPatientButton extends Component {
                 <div className={`inside ${hovered}`} onClick={() => { this.props.renderNextPatient(); }} onMouseOver={() => { this.setState({ hovered: true }); }} onMouseOut={() => { this.setState({ hovered: false }); }}>
                     <div className='patient-icon'>
                         {this.renderNextPatientIcon()}
-                        <br />
-                        Next Patient
+                        <div> Next Patient </div>
                     </div>
                 </div>
             </div>
