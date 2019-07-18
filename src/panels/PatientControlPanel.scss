@@ -8,9 +8,14 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-
+    .MuiBackdrop-root-225 {
+        opacity: .3;
+    }
     &, .FullApp-content {
         background-color: $background;
+    }
+    .clickable {
+        cursor: pointer;
     }
     .logo-title-column { 
         display: flex;
@@ -50,4 +55,5 @@
 .search-icon {
     padding-right: 5px;
 }
+
 

@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper';
 import Lang from 'lodash';
 import PatientSearch from '../patientControl/PatientSearch';
 import ConditionSelection from '../summary/ConditionSelection';
+import FontAwesome from 'react-fontawesome';
+import PatientSelectionModal from '../patientControl/PatientSelectionModal.jsx';
 
 import SummaryHeader from '../summary/SummaryHeader';
 import './PatientControlPanel.css';
@@ -17,6 +19,9 @@ class PatientControlPanel extends Component {
             altText: 'Flux Notes logo',
             width: '30px',
             height: '40px'
+        };
+        this.state = {
+            isModalOpen: false
         };
     }
 
@@ -66,7 +71,20 @@ class PatientControlPanel extends Component {
             );
         }
     }
-
+    renderSelectPatientArrow = () => {
+        if (this.props.isTablet) {
+            return (
+                <div onClick={() => this.openModal()}>
+                    <FontAwesome className='fas fa-angle-double-down clickable' name='down-arrow' />
+                </div>);
+        }
+    }
+    openModal = () => {
+        this.setState({ isModalOpen: true });
+    }
+    handleClose = () => {
+        this.setState({ isModalOpen: false });
+    }
     // Render renderConditionSelectAndSearch iff we have a patient to render
     renderConditionSelectAndSearch = () => {
         const { patient } = this.props;
@@ -99,7 +117,6 @@ class PatientControlPanel extends Component {
             );
         }
     }
-
     render() {
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
         return (
@@ -110,17 +127,26 @@ class PatientControlPanel extends Component {
                             <Col xs={3} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
-                            <Col xs={5} md={4} lg={4} className="summary-header-column">
+                            <Col xs={4} md={4} lg={3} className="summary-header-column">
                                 {this.renderSummaryHeader()}
                             </Col>
-
+                            <Col xs={1} lg={1}>
+                                {this.renderSelectPatientArrow()}
+                            </Col>
                             <Col xs={4} md={5} lg={6}>
                                 {this.renderConditionSelectAndSearch()}
                             </Col>
                         </Row>
                     </Grid>
                 </Paper>
+                {this.props.isTablet && <PatientSelectionModal
+                    isModalOpen={this.state.isModalOpen}
+                    isTablet={this.props.isTablet}
+                    dataAccess={this.props.dataAccess}
+                    handleClose={this.handleClose}
+                    loadPatient={this.props.loadPatient} />}
             </div>
+
         );
     }
 }
@@ -128,8 +154,11 @@ class PatientControlPanel extends Component {
 PatientControlPanel.propTypes = {
     appTitle: PropTypes.string.isRequired,
     clinicalEvent: PropTypes.string.isRequired,
+    dataAccess: PropTypes.object,
     isAppBlurred: PropTypes.bool,
+    isTablet: PropTypes.bool,
     layout: PropTypes.string,
+    loadPatient: PropTypes.func,
     logoObject: PropTypes.shape({
         path: PropTypes.string.isRequired,
         altText: PropTypes.string.isRequired,
@@ -147,3 +176,6 @@ PatientControlPanel.propTypes = {
 };
 
 export default PatientControlPanel;
+
+
+

@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
 //import FluxNotesTreatmentOptionsRestClient from 'flux_notes_treatment_options_rest_client';
 import Lang from 'lodash';
-import {treatmentData} from '../TreatmentData.js';
+import { treatmentData } from '../TreatmentData.js';
 //const ApiClient = new FluxNotesTreatmentOptionsRestClient.ApiClient();
 
 export default class TreatmentOptionsSection extends MetadataSection {
@@ -9,12 +9,20 @@ export default class TreatmentOptionsSection extends MetadataSection {
         return {
             name: "Treatment Options",
             nameSuffixFunction: (section) => {
-                if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
-                    return section.data[0].data_cache.then (result => {
-                        return result.isDemo ? "(Demo)" : "";
-                    });
+                try {
+                    if (Lang.isObject(section.data[0].data_cache) && !Lang.isUndefined(section.data[0].data_cache.then)) {
+                        return section.data[0].data_cache.then(result => {
+                            return result.isDemo ? "(Demo)" : "";
+                        });
+                    }
+                    else {
+                        return section.data[0].data_cache.isDemo ? "(Demo)" : "";
+                    }
+                } catch (e) {
+                    console.error('Error: ', e);
+                    return '';
                 }
-                else return section.data[0].data_cache.isDemo ? "(Demo)" : "";
+
             },
             shortName: "Treatments",
             type: "ClusterPoints",
@@ -25,22 +33,38 @@ export default class TreatmentOptionsSection extends MetadataSection {
                     // eventually, the service API and implementation will need to support this call to figure out the supported criteria based on the condition
                     // filterFunction: this.getTreatmentCriteria
                     filters: [
-                        { id: "ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true,
-                            propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())); } },
-                        { id: "gender",name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true,
-                            propertyValueFunction: (patient, condition) => { return patient.getGender(); } },
-                        { id: "race",name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
-                            propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race); } },
-                        { id: "kit",name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
-                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('KIT', patient); } },
-                        { id: "pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
-                            propertyValueFunction: (patient, condition) => { return  condition.getGeneticMutationValue('PDGFRA', patient); } },
-                        { id: "grade",name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
-                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(); } },
-                        { id: "stage",name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
-                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data'; } },
-                        { id: "surgery",name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
-                            propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient); } }
+                        {
+                            id: "ageAtDiagnosis", name: "Age at diagnosis", servicePropertyName: "ageAtDiagnosis", category: "Demographics", value: true,
+                            propertyValueFunction: (patient, condition) => { return patient.getAgeAsOf(new Date(condition.getDiagnosisDate())); }
+                        },
+                        {
+                            id: "gender", name: "Gender", servicePropertyName: "gender", category: "Demographics", value: true,
+                            propertyValueFunction: (patient, condition) => { return patient.getGender(); }
+                        },
+                        {
+                            id: "race", name: "Race", servicePropertyName: "race", category: "Demographics", value: true,
+                            propertyValueFunction: (patient, condition) => { return this.toFirstLetterCapital(patient.getPatient().race); }
+                        },
+                        {
+                            id: "kit", name: "KIT", servicePropertyName: "kit", category: "Genetics", value: true,
+                            propertyValueFunction: (patient, condition) => { return condition.getGeneticMutationValue('KIT', patient); }
+                        },
+                        {
+                            id: "pdgfra", name: "PDGFRA", servicePropertyName: "pdgfra", category: "Genetics", value: true,
+                            propertyValueFunction: (patient, condition) => { return condition.getGeneticMutationValue('PDGFRA', patient); }
+                        },
+                        {
+                            id: "grade", name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(); }
+                        },
+                        {
+                            id: "stage", name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentStaging() ? condition.getMostRecentStaging().stage : 'Missing data'; }
+                        },
+                        {
+                            id: "surgery", name: "Surgery", servicePropertyName: "surgery", category: "Past Treatment", value: true,
+                            propertyValueFunction: (patient, condition) => { return condition.hasPastTreatment('C0851238', patient); }
+                        }
                     ],
                     itemsFunction: this.getTreatmentData
                 }
@@ -111,20 +135,20 @@ export default class TreatmentOptionsSection extends MetadataSection {
             }
         }); */
 
-        let promise = new Promise(function(resolve, reject) {
+        let promise = new Promise(function (resolve, reject) {
             let deceasedSeries = [];
             let aliveSeries = [];
 
             treatmentData.forEach((v) => {
                 if (v.Disease === condition.codeURL && v['Is-Alive'] === 'Dead') {
-                    deceasedSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
+                    deceasedSeries.push([v['Treat-option'], v['Survival-months']]);
                 }
                 if (v.Disease === condition.codeURL && v['Is-Alive'] === 'Alive') {
-                    aliveSeries.push([ v['Treat-option']  , v['Survival-months'] ]);
+                    aliveSeries.push([v['Treat-option'], v['Survival-months']]);
                 }
             });
 
-            resolve({isDemo: true, data: {alive: aliveSeries, deceased: deceasedSeries}});
+            resolve({ isDemo: true, data: { alive: aliveSeries, deceased: deceasedSeries } });
         });
 
         return promise;
