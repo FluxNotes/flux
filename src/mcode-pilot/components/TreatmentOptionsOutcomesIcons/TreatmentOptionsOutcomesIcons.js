@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 
 import IconsChart from '../../visualizations/IconsChart/IconsChart';
@@ -14,69 +13,59 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { displayedTreatment: props.similarPatientTreatmentsData[0] };
+        this.state = {
+            displayedTreatment: props.selectedTreatment || props.similarPatientTreatmentsData[0]
+        };
     }
 
-    componentDidUpdate(prevProps) {
-        const { similarPatientTreatmentsData } = this.props;
-        if (similarPatientTreatmentsData !== prevProps.similarPatientTreatmentsData) {
-            this.resetSelectedTreatment();
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.similarPatientTreatmentsData !== this.props.similarPatientTreatmentsData) {
+            const selected = nextProps.selectedTreatment;
+            const displayed = this.state.displayedTreatment;
+
+            // if selected treatment no longer in data, set selected treatment to null
+            const selectedTreatmentInData =
+                selected != null &&
+                nextProps.similarPatientTreatmentsData.findIndex(el => el.displayName === selected.displayName) !== -1;
+            if (!selectedTreatmentInData) nextProps.setSelectedTreatment(null);
+
+            // if displayed treatment no longer in data, set displayed treatment to first treatment in sorted data
+            const displayedTreatmentInData =
+                displayed != null &&
+                nextProps.similarPatientTreatmentsData.findIndex(el => el.displayName === displayed.displayName) !== -1;
+            if (!displayedTreatmentInData) this.setState({ displayedTreatment: nextProps.similarPatientTreatmentsData[0] });
         }
-    }
-
-    resetSelectedTreatment = () => {
-        const { similarPatientTreatmentsData } = this.props;
-        const { displayedTreatment } = this.state;
-        if (similarPatientTreatmentsData.length === 0) return;
-
-        let newSelectedTreatment;
-        if (!displayedTreatment) {
-            newSelectedTreatment = similarPatientTreatmentsData[0];
-        } else {
-            newSelectedTreatment = similarPatientTreatmentsData.filter(treatment =>
-                treatment.displayName === displayedTreatment.displayName)[0];
-        }
-
-        this.setState({ displayedTreatment: newSelectedTreatment });
     }
 
     getNumSurvive = (treatment, timescale) => {
         const { similarPatientTreatmentsData } = this.props;
-        let totalNumSurvive;
-        let totalPatients;
-        let index = -1;
-        index = similarPatientTreatmentsData.findIndex(el => el.displayName === treatment.displayName);
-        totalPatients = similarPatientTreatmentsData[index].totalPatients;
-        totalNumSurvive = similarPatientTreatmentsData[index].survivorsPerYear[timescale];
-
-        const numSurvive = Math.floor(totalNumSurvive / totalPatients * 100);
-        return { numSurvive, index };
+        const index = this.getTreatmentIndex(treatment);
+        const totalPatients = similarPatientTreatmentsData[index] ? similarPatientTreatmentsData[index].totalPatients : 0;
+        const totalNumSurvive = similarPatientTreatmentsData[index].survivorsPerYear[timescale] || 0;
+        return Math.floor(totalNumSurvive / totalPatients * 100);
     }
 
-    selectDisplayedTreatment = treatmentName => {
+    getTreatmentIndex = treatment => {
         const { similarPatientTreatmentsData } = this.props;
-        const treatment = similarPatientTreatmentsData.filter(treatmentData => treatmentData.displayName === treatmentName)[0];
-        this.setState({ displayedTreatment: treatment });
+        return similarPatientTreatmentsData.findIndex(el => el.displayName === treatment.displayName);
     }
 
-    renderTreatmentSelector = treatment => {
-        const { selectedTreatment } = this.props;
-        const treatmentName = treatment.displayName;
-        const treatmentClass =
-            `interaction-selection interaction-combined ${selectedTreatment.displayName === treatmentName ? 'active' : ''}`;
+    handleSelectTreatment = (event, treatment) => {
+        event.stopPropagation();
+        const { setSelectedTreatment } = this.props;
+        const { displayedTreatment } = this.state;
 
-        return (
-            <div className={treatmentClass} key={treatment.id}>
-                <div
-                    className="treatment-name-group"
-                    onClick={() => this.selectDisplayedTreatment(treatmentName)}>
-                    {selectedTreatment === treatmentName && <FontAwesome className="selected-icon" name="caret-right" />}
-                    <span className={`treatment-name ${selectedTreatment === treatmentName ? 'selected' : ''}`}>
-                        {treatmentName}
-                    </span>
-                </div>
-            </div>
-        );
+        if (!displayedTreatment || displayedTreatment.id !== treatment.id) this.handleDisplayTreatment(treatment);
+        setSelectedTreatment(treatment);
+    }
+
+    handleDisplayTreatment = treatment => {
+        const { displayedTreatment } = this.state;
+        if (displayedTreatment && displayedTreatment.id === treatment.id) {
+            this.setState({ displayedTreatment: null });
+        } else {
+            this.setState({ displayedTreatment: treatment });
+        }
     }
 
     renderInteractionHeader = () => {
@@ -94,31 +83,35 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     }
 
     renderInteractionRow = (treatment, isSelectedTreatment = false) => {
-        const { selectedTreatment, setSelectedTreatment, similarPatientTreatmentsData, timescaleToggle } = this.props;
+        if (!treatment) return null;
+        const { selectedTreatment, similarPatientTreatmentsData, timescaleToggle } = this.props;
+        const { displayedTreatment } = this.state;
+        const selectedTreatmentInData = selectedTreatment && this.getTreatmentIndex(selectedTreatment) !== -1;
+
         const totalPatientsAllTreatments =
             _.reduce(similarPatientTreatmentsData, (sum, treatment) => sum + treatment.totalPatients, 0);
         const normalizedTotalPatients = Math.floor(treatment.totalPatients / totalPatientsAllTreatments * 100);
-        const { numSurvive } = this.getNumSurvive(treatment, timescaleToggle);
+        const numSurvive = this.getNumSurvive(treatment, timescaleToggle);
+        const isDisplayedTreatment = displayedTreatment && displayedTreatment.displayName === treatment.displayName;
+        const rowClass = `icons-interaction__row flex ${isSelectedTreatment ? 'selected-treatment' : ''} ${isDisplayedTreatment ? 'displayed-treatment' : ''}`;
 
         let selectedNumSurvive;
         let numSurviveDiff;
         let numSurviveDiffClass;
-        if (selectedTreatment) {
-            selectedNumSurvive = this.getNumSurvive(selectedTreatment, timescaleToggle).numSurvive;
+        if (selectedTreatmentInData) {
+            selectedNumSurvive = this.getNumSurvive(selectedTreatment, timescaleToggle);
             numSurviveDiff = selectedNumSurvive - numSurvive;
             numSurviveDiffClass =
                 `diff-num-selected ${numSurviveDiff < 0 ? 'positive' : ''} ${numSurviveDiff > 0 ? 'negative' : ''}`;
         }
 
         return (
-            <div
-                className={`icons-interaction__row flex ${isSelectedTreatment ? 'selected-treatment' : ''}`}
-                key={treatment.id}>
+            <div className={rowClass} key={treatment.id} onClick={() => this.handleDisplayTreatment(treatment)}>
                 <div className="flex flex-3 flex-padding treatment-name">
                     <div className="select-icon">
                         {isSelectedTreatment
-                            ? <CompareSelectedIcon onClick={() => setSelectedTreatment(null)} />
-                            : <CompareUnselectedIcon onClick={() => setSelectedTreatment(treatment)} />
+                            ? <CompareSelectedIcon onClick={event => this.handleSelectTreatment(event, null)} />
+                            : <CompareUnselectedIcon onClick={event => this.handleSelectTreatment(event, treatment)} />
                         }
                     </div>
 
@@ -142,19 +135,28 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
     render() {
         const { selectedTreatment, similarPatientTreatmentsData, timescaleToggle } = this.props;
+        const { displayedTreatment } = this.state;
+        const selectedTreatmentInData = selectedTreatment && this.getTreatmentIndex(selectedTreatment) !== -1;
+        const displayedTreatmentInData = displayedTreatment && this.getTreatmentIndex(displayedTreatment) !== -1;
+
         if (similarPatientTreatmentsData.length === 0) {
             return <div className="helper-text">No data. Choose a different selection or similar patients criteria.</div>;
         }
 
-        const { numSurvive: selectedNumSurvive } = selectedTreatment ? this.getNumSurvive(selectedTreatment, timescaleToggle) : 0;
+        let displayedNumSurvive = 0;
+        let treatmentToDisplayChart;
+        if (displayedTreatmentInData) {
+            displayedNumSurvive = this.getNumSurvive(displayedTreatment, timescaleToggle);
+            treatmentToDisplayChart = displayedTreatment.displayName;
+        }
 
         return (
             <div className="treatment-options-outcomes-icons">
                 <div className="icons-interaction">
                     {this.renderInteractionHeader()}
-                    {selectedTreatment && this.renderInteractionRow(selectedTreatment, true)}
+                    {selectedTreatmentInData && this.renderInteractionRow(selectedTreatment, true)}
                     {similarPatientTreatmentsData.map(treatmentData => {
-                        if (!selectedTreatment || treatmentData.id !== selectedTreatment.id) {
+                        if (!selectedTreatment || treatmentData.displayName !== selectedTreatment.displayName) {
                             return this.renderInteractionRow(treatmentData);
                         }
                         return null;
@@ -162,8 +164,8 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                 </div>
 
                 <IconsChart
-                    numSurvive={selectedNumSurvive}
-                    treatment={selectedTreatment ? selectedTreatment.displayName : null}
+                    numSurvive={displayedNumSurvive}
+                    treatment={treatmentToDisplayChart}
                     yearsSurvival={timescaleToggle}
                 />
             </div>
