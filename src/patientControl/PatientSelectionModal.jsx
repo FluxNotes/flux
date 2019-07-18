@@ -43,10 +43,10 @@ class PatientSelectionModal extends Component {
         });
         return (<div>
             <p className='modal-header'>PAST APPOINTMENTS</p>
-            <hr />
+            <hr className='section-divider'/>
             {this.buildLists('past')}
             <p className='modal-header'>UPCOMING APPOINTMENTS</p>
-            <hr />
+            <hr className='section-divider'/>
             {this.buildLists('future')}
         </div>);
     }

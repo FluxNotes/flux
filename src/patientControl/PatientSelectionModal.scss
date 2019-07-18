@@ -3,6 +3,17 @@
     overflow-y: auto;
     max-height: 500px;
     width: 520px !important;
+    box-shadow: 0px 4px 4px rgba(0,0,0,.25);
+    .section-divider {
+        height: 1px;
+        color: $line-gray;
+        border: none;
+        background-color: rgba(0,0,0,.12);
+        
+    }
+    .MuiBackdrop-root-225 {
+        opacity: .3;
+    }
     .hovered-list-item {
         background-color: rgba(26, 118, 180, .1);
         cursor: pointer;
