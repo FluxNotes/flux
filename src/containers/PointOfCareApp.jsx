@@ -27,9 +27,7 @@ import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
 import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
-
 import '../styles/PointOfCareApp.css';
-import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 
 const theme = createMuiTheme({
     palette: {
