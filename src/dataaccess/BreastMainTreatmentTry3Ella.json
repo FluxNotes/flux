@@ -13,13 +13,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Patient"
         },
         "LastUpdated": {
-            "Value": "08 Jun 2013",
+            "Value": "17 May 2013",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "08 Jun 2013",
+            "Value": "17 May 2013",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -31,50 +31,22 @@
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/entity/Person"
         },
-        "LastUpdated": {
-            "Value": "08 Jun 2013",
-            "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
-            }
-        },
         "DateOfBirth": {
-            "Value": "09 May 1976",
+            "Value": "17 Apr 1976",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/DateOfBirth"
             }
         },
-        "CreationTime": {
-            "Value": "08 Jun 2013",
+        "LastUpdated": {
+            "Value": "17 May 2013",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
+                "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
-        "Race": {
+        "CreationTime": {
+            "Value": "17 May 2013",
             "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/entity/Race"
-            },
-            "RaceCode": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/RaceCode"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    },
-                    "Coding": [
-                        {
-                            "Code": {
-                                "Value": "white",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            }
-                        }
-                    ]
-                }
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "Address": [
@@ -133,6 +105,34 @@
                 }
             }
         ],
+        "Race": {
+            "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Race"
+            },
+            "RaceCode": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/RaceCode"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "Code": {
+                                "Value": "white",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
         "Headshot": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Headshot"
@@ -366,13 +366,13 @@
         },
         "fictionalPerson": "022-EO-671974",
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -384,7 +384,7 @@
         "subject": "Experienced pain in breast and felt lump in right breast during self-examination",
         "content": "@name[[Ella Ortiz111]] is a @age[[40]] year old @gender[[Female]] presenting with pain in her right breast. She felt a lump during a self-examination.\nOrdering mammography.",
         "EntryId": "1000",
-        "signedOn": "03 Apr 2017",
+        "signedOn": "12 Mar 2017",
         "hospital": "Hospital X",
         "signedBy": "Dr. Smith952",
         "createdBy": "Dr. Smith952",
@@ -392,13 +392,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -410,7 +410,7 @@
         "subject": "Mammography",
         "content": "@patient[[Ella Ortiz111 is a 40 year old Female]] given mammography.\nshowed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. Order a right targeted spot compression breast ultrasound.",
         "EntryId": "1005",
-        "signedOn": "07 Apr 2017",
+        "signedOn": "16 Mar 2017",
         "hospital": "Hospital X",
         "signedBy": "Dr. Zheng581",
         "createdBy": "Dr. Zheng581",
@@ -418,13 +418,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -436,7 +436,7 @@
         "subject": "Ultrasound Report",
         "content": "@patient[[Ella Ortiz111 is a 40 year old Female]] given a right targeted spot compression breast ultrasound of a palpable lump. Image revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate",
         "EntryId": "1010",
-        "signedOn": "23 Apr 2017",
+        "signedOn": "01 Apr 2017",
         "hospital": "Hospital X",
         "signedBy": "Dr. Strauss179",
         "createdBy": "Dr. Strauss179",
@@ -444,13 +444,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -462,7 +462,7 @@
         "subject": "Treatment Progress",
         "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 42-year-old premenopausal Hispanic woman who had an unremarkable mammogram March 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on November 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on November 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on November 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on January 13, 2015. TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from January 20, 2015 to May 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford283 on June 12, 2016. Pathology report on June 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno082 from August 18, 2016 to September 29, 2016.\n\nShe started Tamoxifen October 6, 2016.\n\nA bilateral 3D mammogram on December 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on April 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on September 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm.\n\nCT of the chest with contrast September 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on September 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan September 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained September 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\n\nASSESSMENT:\nStop Tamoxifen.",
         "EntryId": "1070",
-        "signedOn": "20 Feb 2019",
+        "signedOn": "29 Jan 2019",
         "hospital": "Hospital X",
         "signedBy": "Dr. Smith952",
         "createdBy": "Dr. Smith952",
@@ -470,13 +470,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -488,7 +488,7 @@
         "subject": "Pre-chemotherapy",
         "content": "REASON FOR VISIT:\nReplace Port-A-Cath\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 42-year-old premenopausal Hispanic woman who had an unremarkable mammogram March 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on November 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on November 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on November 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on January 13, 2015. TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from January 20, 2015 to May 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford283 on June 12, 2016. Pathology report on June 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno082 from August 18, 2016 to September 29, 2016.\n\nShe started Tamoxifen October 6, 2016.\n\nA bilateral 3D mammogram on December 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on April 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on September 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm.\n\nCT of the chest with contrast September 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on September 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan September 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained September 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped September 27, 2017.\n\n\nASSESSMENT:\nA Port-A-Cath was replaced today.\nShe will start induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on October 17, 2017.",
         "EntryId": "1080",
-        "signedOn": "05 Mar 2019",
+        "signedOn": "11 Feb 2019",
         "hospital": "Hospital X",
         "signedBy": "Dr. Smith952",
         "createdBy": "Dr. Smith952",
@@ -496,13 +496,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -514,7 +514,7 @@
         "subject": "Treatment Check-in",
         "content": "REASON FOR VISIT:\nTreatment Progress\n\nHISTORY OF PRESENT ILLNESS:\nMs. Ortiz is a 43-year-old premenopausal Hispanic woman who had an unremarkable mammogram March 3, 2013. She felt a sharp pain in her right breast about 8 months later and a palpable lump two months after that. A diagnostic mammogram on November 13, 2015, showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent. A right targeted spot compression breast ultrasound of the palpable lump on November 29, 2015 revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate.\nShe underwent right breast mass core biopsy and right axillary lymph node core biopsy on November 29, 2015 which revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%. Right axillary lymph node was negative for malignancy. Stage IA T1c N0 M0 disease. BRCA1/2 testing was negative.\nIn preparation for treatment, a Port-A-Cath was placed on January 13, 2015. TTE done on January 15, 2015 showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation.\n\nShe underwent neoadjuvant cyclophosphamide (ddAC) followed by paclitaxel (T) from January 20, 2015 to May 23, 2016. Paclitaxel was dose reduced to 60mg/m2 for the last 2 cycles and stopped after 11 doses due to Grade 3 neuropathy.  She received 11 of 12 planned doses.\n\nShe underwent right lumpectomy with Dr. Ford283 on June 12, 2016. Pathology report on June 16, 2016 showed no residual disease, 0/2 SLNs, pathological complete response pCR, stage pT0N0.\n\nShe completed adjuvant radiation therapy with Dr. Bruno082 from August 18, 2016 to September 29, 2016.\n\nShe started Tamoxifen October 6, 2016.\n\nA bilateral 3D mammogram on December 15, 2016 showed benign findings.\nHer annual gynecologic exam with her PCP on April 6, 2017 was unremarkable.\n\nDue to her history of mammographically occult disease, she underwent a surveillance breast MRI with contrast on September 10, 2017, revealing stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm.\n\nCT of the chest with contrast September 20, 2017 revealed four indeterminate pulmonary nodules, 4 to 5 mm in diameter, in the right lung and postsurgical changes in the right breast and axilla. CT of the abdomen and pelvis with contrast on September 20, 2017 revealed two hypodensities in the left lobe of the liver that were consistent with benign cysts. A bone scan September 28, 2017 was negative for skeletal metastases.\n\nCytologic examination of a biopsy specimen of an enlarged internal mammary lymph node of the right breast, obtained September 20, 2017 on CT-guided fine-needle aspiration, revealed tumor cells that histologically resembled cells from the patient’s prior breast cancer. The hormone receptor status of these metastatic cells was ER-negative, PR-positive, and HER2-positive.\n\nTamoxifen was stopped September 27, 2017.\n\nA Port-A-Cath was replaced on October 10, 2017.\nShe underwent induction chemotherapy with trastuzumab and paclitaxel due to low volume of metastatic disease, beginning on October 17, 2017.\n\nASSESSMENT:\nAlthough her #disease status[[{\"entryId\":\"92\"}]] is #stable #as of #1/30/2018, recommending to halt after 5 cycles due to #toxicity #Grade 3 #myalgia and #toxicity #Grade 3 #peripheral motor neuropathy attributed to paclitaxel.",
         "EntryId": "1085",
-        "signedOn": "26 Jun 2019",
+        "signedOn": "04 Jun 2019",
         "hospital": "Hospital X",
         "signedBy": "Dr. Smith952",
         "createdBy": "Dr. Smith952",
@@ -522,13 +522,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/core/ClinicalNote"
         },
         "LastUpdated": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Sep 2019",
+            "Value": "01 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -538,7 +538,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "8",
         "Onset": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
             }
@@ -554,13 +554,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/BreastCancer"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -756,13 +756,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "16 Oct 2017",
+            "Value": "24 Sep 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "15 Jun 2017",
+            "Value": "24 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -923,13 +923,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "16 Oct 2017",
+                    "Value": "24 Sep 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "15 Jun 2017",
+                    "Value": "24 May 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -956,13 +956,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "15 Jun 2017",
+            "Value": "24 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "15 Jun 2017",
+            "Value": "24 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1123,13 +1123,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "16 Oct 2017",
+                    "Value": "24 Sep 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "15 Jun 2017",
+                    "Value": "24 May 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -1156,13 +1156,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1271,13 +1271,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "01 Mar 2018",
+            "Value": "07 Feb 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "01 Mar 2018",
+            "Value": "07 Feb 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1438,13 +1438,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "20 Feb 2019",
+                    "Value": "29 Jan 2019",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "01 Mar 2018",
+                    "Value": "07 Feb 2018",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -1471,13 +1471,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "12 Mar 2019",
+            "Value": "18 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1638,13 +1638,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "26 Jun 2019",
+                    "Value": "04 Jun 2019",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "12 Mar 2019",
+                    "Value": "18 Feb 2019",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -1671,13 +1671,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "12 Mar 2019",
+            "Value": "18 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1838,13 +1838,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "26 Jun 2019",
+                    "Value": "04 Jun 2019",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "12 Mar 2019",
+                    "Value": "18 Feb 2019",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -1871,13 +1871,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -1938,41 +1938,6 @@
                     }
                 }
             },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    },
-                    "Coding": [
-                        {
-                            "Code": {
-                                "Value": "26643006",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
             "TimingOfDoses": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
@@ -2016,6 +1981,41 @@
                             ]
                         }
                     }
+                }
+            },
+            "RouteIntoBody": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "Code": {
+                                "Value": "26643006",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "CodeSystem": {
+                                "Value": "http://snomed.info/sct",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                }
+                            },
+                            "DisplayText": {
+                                "Value": "Oral route",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            }
+                        }
+                    ]
                 }
             }
         },
@@ -2062,7 +2062,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "11 Jul 2017",
+                    "Value": "19 Jun 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -2089,13 +2089,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -2156,41 +2156,6 @@
                     }
                 }
             },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    },
-                    "Coding": [
-                        {
-                            "Code": {
-                                "Value": "26643006",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Oral route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
             "TimingOfDoses": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
@@ -2234,6 +2199,41 @@
                             ]
                         }
                     }
+                }
+            },
+            "RouteIntoBody": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "Code": {
+                                "Value": "26643006",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "CodeSystem": {
+                                "Value": "http://snomed.info/sct",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                }
+                            },
+                            "DisplayText": {
+                                "Value": "Oral route",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            }
+                        }
+                    ]
                 }
             },
             "AdditionalDosageInstruction": [
@@ -2323,7 +2323,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "11 Jul 2017",
+                    "Value": "19 Jun 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -2350,13 +2350,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -2417,6 +2417,41 @@
                     }
                 }
             },
+            "RouteIntoBody": {
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
+                },
+                "Value": {
+                    "EntryType": {
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                    },
+                    "Coding": [
+                        {
+                            "Code": {
+                                "Value": "6064005",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                                }
+                            },
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                            },
+                            "CodeSystem": {
+                                "Value": "http://snomed.info/sct",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                }
+                            },
+                            "DisplayText": {
+                                "Value": "Topical route",
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
             "TimingOfDoses": {
                 "EntryType": {
                     "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"
@@ -2461,46 +2496,17 @@
                         }
                     }
                 }
-            },
-            "RouteIntoBody": {
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"
-                },
-                "Value": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                    },
-                    "Coding": [
-                        {
-                            "Code": {
-                                "Value": "6064005",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-                                }
-                            },
-                            "EntryType": {
-                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                            },
-                            "CodeSystem": {
-                                "Value": "http://snomed.info/sct",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                }
-                            },
-                            "DisplayText": {
-                                "Value": "Topical route",
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                }
-                            }
-                        }
-                    ]
-                }
             }
         },
         "Medication": {
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"
+            },
+            "OverTheCounter": {
+                "Value": true,
+                "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OverTheCounter"
+                }
             },
             "Type": {
                 "EntryType": {
@@ -2530,12 +2536,6 @@
                         }
                     ]
                 }
-            },
-            "OverTheCounter": {
-                "Value": true,
-                "EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/entity/OverTheCounter"
-                }
             }
         },
         "ExpectedPerformanceTime": {
@@ -2547,7 +2547,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "11 Jul 2017",
+                    "Value": "19 Jun 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -2568,19 +2568,19 @@
             }
         },
         "LastUpdated": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "09 Mar 2017",
+            "Value": "15 Feb 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -2626,13 +2626,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -2793,7 +2793,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "26 Jun 2019",
+                    "Value": "04 Jun 2019",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -2808,13 +2808,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/BRCA1Variant"
         },
         "LastUpdated": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -2892,13 +2892,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/BRCA2Variant"
         },
         "LastUpdated": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "11 Jul 2017",
+            "Value": "19 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -2982,13 +2982,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "19 Jul 2017",
+            "Value": "27 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "19 Jul 2017",
+            "Value": "27 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3127,13 +3127,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "28 Jul 2014",
+            "Value": "06 Jul 2014",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "26 Jul 2014",
+            "Value": "04 Jul 2014",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3174,7 +3174,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "28 Jul 2014",
+            "Value": "06 Jul 2014",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3201,13 +3201,13 @@
             }
         ],
         "LastUpdated": {
-            "Value": "07 Apr 2017",
+            "Value": "16 Mar 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "07 Apr 2017",
+            "Value": "16 Mar 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3262,7 +3262,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "07 Apr 2017",
+            "Value": "16 Mar 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3368,13 +3368,13 @@
             }
         ],
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3429,7 +3429,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3527,7 +3527,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -3541,7 +3541,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3596,7 +3596,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3615,7 +3615,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -3629,7 +3629,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3684,7 +3684,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3703,13 +3703,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "08 Jun 2017",
+            "Value": "17 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "08 Jun 2017",
+            "Value": "17 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3764,7 +3764,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "08 Jun 2017",
+            "Value": "17 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3783,7 +3783,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "10 Jun 2017",
+            "Value": "19 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -3797,7 +3797,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "10 Jun 2017",
+            "Value": "19 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3852,7 +3852,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "10 Jun 2017",
+            "Value": "19 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3871,13 +3871,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "05 Nov 2017",
+            "Value": "14 Oct 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "05 Nov 2017",
+            "Value": "14 Oct 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -3932,7 +3932,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "05 Nov 2017",
+            "Value": "14 Oct 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -3951,13 +3951,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "22 Feb 2018",
+            "Value": "31 Jan 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "11 Jan 2018",
+            "Value": "20 Dec 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4020,13 +4020,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "22 Feb 2018",
+                    "Value": "31 Jan 2018",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "11 Jan 2018",
+                    "Value": "20 Dec 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -4047,13 +4047,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "16 Oct 2017",
+            "Value": "24 Sep 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "15 Jun 2017",
+            "Value": "24 May 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4116,13 +4116,13 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodEnd": {
-                    "Value": "16 Oct 2017",
+                    "Value": "24 Sep 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodEnd"
                     }
                 },
                 "TimePeriodStart": {
-                    "Value": "15 Jun 2017",
+                    "Value": "24 May 2017",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -4143,7 +4143,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "11 May 2018",
+            "Value": "19 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -4157,7 +4157,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "11 May 2018",
+            "Value": "19 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4212,7 +4212,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "11 May 2018",
+            "Value": "19 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4231,13 +4231,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "31 Aug 2018",
+            "Value": "09 Aug 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "31 Aug 2018",
+            "Value": "09 Aug 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4278,7 +4278,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "31 Aug 2018",
+            "Value": "09 Aug 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4297,7 +4297,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "03 Feb 2019",
+            "Value": "12 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -4311,7 +4311,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "27 Jan 2019",
+            "Value": "05 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4366,7 +4366,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "03 Feb 2019",
+            "Value": "12 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4385,7 +4385,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "21 Feb 2019",
+            "Value": "30 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -4399,7 +4399,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "26 Jan 2019",
+            "Value": "04 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4454,7 +4454,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "21 Feb 2019",
+            "Value": "30 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4473,13 +4473,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "05 Mar 2019",
+            "Value": "11 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "05 Mar 2019",
+            "Value": "11 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4534,7 +4534,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "05 Mar 2019",
+            "Value": "11 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4553,13 +4553,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "05 Mar 2019",
+            "Value": "11 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "05 Mar 2019",
+            "Value": "11 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4614,7 +4614,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "05 Mar 2019",
+            "Value": "11 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4633,13 +4633,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "12 Mar 2019",
+            "Value": "18 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "12 Mar 2019",
+            "Value": "18 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4694,7 +4694,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "12 Mar 2019",
+            "Value": "18 Feb 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -4713,13 +4713,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "26 Jun 2018",
+            "Value": "04 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "26 Jun 2018",
+            "Value": "04 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4850,13 +4850,13 @@
             }
         },
         "LastUpdated": {
-            "Value": "26 Jun 2018",
+            "Value": "04 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "26 Jun 2018",
+            "Value": "04 Jun 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -4981,19 +4981,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
         },
         "LastUpdated": {
-            "Value": "05 Jul 2017",
+            "Value": "13 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "05 Jul 2017",
+            "Value": "13 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "05 Jul 2017",
+            "Value": "13 Jun 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5113,19 +5113,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
         },
         "LastUpdated": {
-            "Value": "13 Nov 2017",
+            "Value": "23 Oct 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "13 Nov 2017",
+            "Value": "23 Oct 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "13 Nov 2017",
+            "Value": "23 Oct 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5245,19 +5245,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
         },
         "LastUpdated": {
-            "Value": "22 May 2018",
+            "Value": "30 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "22 May 2018",
+            "Value": "30 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "22 May 2018",
+            "Value": "30 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5377,19 +5377,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
         },
         "LastUpdated": {
-            "Value": "19 Nov 2018",
+            "Value": "29 Oct 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "19 Nov 2018",
+            "Value": "29 Oct 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "19 Nov 2018",
+            "Value": "29 Oct 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5509,19 +5509,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerProgression"
         },
         "LastUpdated": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "26 Jun 2019",
+            "Value": "04 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -5648,13 +5648,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/allergy/NoKnownAllergy"
         },
         "LastUpdated": {
-            "Value": "05 Nov 2016",
+            "Value": "14 Oct 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "08 Jun 2016",
+            "Value": "17 May 2016",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5705,19 +5705,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
         "LastUpdated": {
-            "Value": "09 Jul 2019",
+            "Value": "17 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "ReferralDate": {
-            "Value": "08 Jun 2019",
+            "Value": "17 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate"
             }
         },
         "CreationTime": {
-            "Value": "08 Jun 2019",
+            "Value": "17 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5743,7 +5743,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "10 Jul 2019 15:00 -0400",
+                    "Value": "18 Jun 2019 15:00 -0400",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -5766,19 +5766,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested"
         },
         "LastUpdated": {
-            "Value": "01 Aug 2019",
+            "Value": "10 Jul 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "ReferralDate": {
-            "Value": "29 May 2019",
+            "Value": "07 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/encounter/ReferralDate"
             }
         },
         "CreationTime": {
-            "Value": "29 May 2019",
+            "Value": "07 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5804,7 +5804,7 @@
                     "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"
                 },
                 "TimePeriodStart": {
-                    "Value": "2 Aug 2019 18:00 -0400",
+                    "Value": "11 Jul 2019 18:00 -0400",
                     "EntryType": {
                         "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriodStart"
                     }
@@ -5819,13 +5819,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -5986,13 +5986,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6041,13 +6041,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6096,13 +6096,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6151,13 +6151,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6206,13 +6206,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6261,13 +6261,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6316,13 +6316,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6371,13 +6371,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6426,13 +6426,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6481,13 +6481,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6536,13 +6536,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6591,13 +6591,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6646,13 +6646,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6701,13 +6701,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6756,13 +6756,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/finding/QuestionAnswer"
         },
         "LastUpdated": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "28 May 2019",
+            "Value": "06 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6807,7 +6807,7 @@
         "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "EntryId": "500",
         "Onset": {
-            "Value": "09 Jun 2019",
+            "Value": "18 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/Onset"
             }
@@ -6816,13 +6816,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/ConditionPresentAssertion"
         },
         "LastUpdated": {
-            "Value": "05 Nov 2019",
+            "Value": "15 Oct 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "09 Jun 2019",
+            "Value": "18 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -6954,13 +6954,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ProcedureRequested"
         },
         "LastUpdated": {
-            "Value": "09 Jun 2019",
+            "Value": "18 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "09 Jun 2019",
+            "Value": "18 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7015,7 +7015,7 @@
             }
         },
         "ExpectedPerformanceTime": {
-            "Value": "09 Jun 2019",
+            "Value": "18 May 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"
             }
@@ -7028,19 +7028,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "26 Apr 2018",
+            "Value": "04 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "26 Apr 2018",
+            "Value": "04 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "26 Apr 2018",
+            "Value": "04 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7157,19 +7157,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7286,19 +7286,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "06 Jun 2018",
+            "Value": "15 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "06 Jun 2018",
+            "Value": "15 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "06 Jun 2018",
+            "Value": "15 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7415,19 +7415,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "20 Apr 2018",
+            "Value": "29 Mar 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "20 Apr 2018",
+            "Value": "29 Mar 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "20 Apr 2018",
+            "Value": "29 Mar 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7539,19 +7539,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "01 May 2018",
+            "Value": "09 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "01 May 2018",
+            "Value": "09 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "01 May 2018",
+            "Value": "09 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7663,19 +7663,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "08 May 2018",
+            "Value": "16 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "08 May 2018",
+            "Value": "16 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "08 May 2018",
+            "Value": "16 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7787,19 +7787,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -7911,19 +7911,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "23 May 2018",
+            "Value": "01 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "23 May 2018",
+            "Value": "01 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "23 May 2018",
+            "Value": "01 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8035,19 +8035,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "29 May 2018",
+            "Value": "07 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "29 May 2018",
+            "Value": "07 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "29 May 2018",
+            "Value": "07 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8159,19 +8159,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "20 Apr 2018",
+            "Value": "29 Mar 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "20 Apr 2018",
+            "Value": "29 Mar 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "20 Apr 2018",
+            "Value": "29 Mar 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8283,19 +8283,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "01 May 2018",
+            "Value": "09 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "01 May 2018",
+            "Value": "09 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "01 May 2018",
+            "Value": "09 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8407,19 +8407,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "08 May 2018",
+            "Value": "16 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "08 May 2018",
+            "Value": "16 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "08 May 2018",
+            "Value": "16 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8531,19 +8531,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "15 May 2018",
+            "Value": "23 Apr 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8655,19 +8655,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "23 May 2018",
+            "Value": "01 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "23 May 2018",
+            "Value": "01 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "23 May 2018",
+            "Value": "01 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8779,19 +8779,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/base/Observation"
         },
         "LastUpdated": {
-            "Value": "29 May 2018",
+            "Value": "07 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "29 May 2018",
+            "Value": "07 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "29 May 2018",
+            "Value": "07 May 2018",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -8903,19 +8903,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerHistologicGrade"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9000,19 +9000,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9097,19 +9097,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9194,19 +9194,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9291,19 +9291,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/TumorDimensions"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "RelevantTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -9415,19 +9415,19 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/CancerStageInformation"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9605,13 +9605,13 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -9654,13 +9654,13 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -9703,13 +9703,13 @@
             "Value": "http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification"
         },
         "LastUpdated": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "23 Apr 2017",
+            "Value": "01 Apr 2017",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -9752,19 +9752,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/EstrogenReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9849,19 +9849,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/ProgesteroneReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -9946,19 +9946,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/HER2ReceptorStatus"
         },
         "LastUpdated": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -10043,19 +10043,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/BloodPressure"
         },
         "LastUpdated": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -10154,19 +10154,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyTemperature"
         },
         "LastUpdated": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -10271,19 +10271,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/BodyWeight"
         },
         "LastUpdated": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -10383,19 +10383,19 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/HeartRate"
         },
         "LastUpdated": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
         },
         "RelevantTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/RelevantTime"
             }
@@ -10501,7 +10501,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ImagingProcedurePerformed"
         },
         "LastUpdated": {
-            "Value": "02 Oct 2019",
+            "Value": "10 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -10515,7 +10515,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "02 Oct 2019",
+            "Value": "10 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -10570,7 +10570,7 @@
             }
         },
         "OccurrenceTimeOrPeriod": {
-            "Value": "13 Feb 2019",
+            "Value": "22 Jan 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod"
             }
@@ -10589,7 +10589,7 @@
             "Value": "http://standardhealthrecord.org/spec/shr/procedure/ImagingProcedurePerformed"
         },
         "LastUpdated": {
-            "Value": "02 Oct 2019",
+            "Value": "10 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
@@ -10603,7 +10603,7 @@
             }
         ],
         "CreationTime": {
-            "Value": "02 Oct 2019",
+            "Value": "10 Sep 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -10658,7 +10658,7 @@
             }
         },
         "OccurrenceTimeOrPeriod": {
-            "Value": "19 Jul 2019",
+            "Value": "27 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod"
             }
@@ -10671,13 +10671,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/SystolicPressure"
         },
         "LastUpdated": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
@@ -10747,13 +10747,13 @@
             "Value": "http://standardhealthrecord.org/spec/shr/vital/DiastolicPressure"
         },
         "LastUpdated": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"
             }
         },
         "CreationTime": {
-            "Value": "10 Jul 2019",
+            "Value": "18 Jun 2019",
             "EntryType": {
                 "Value": "http://standardhealthrecord.org/spec/shr/core/CreationTime"
             }
