@@ -30,11 +30,8 @@
         
     }
     .blue-button {
-        background-color: $interface-blue;
-        color: white;
-    }
-    .white-button {
-        background-color: $background;
+        color: $interface-blue;
+        border-color: $interface-blue;
     }
     .control-panel {
         position: sticky;
