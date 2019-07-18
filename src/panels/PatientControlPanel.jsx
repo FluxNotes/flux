@@ -78,7 +78,7 @@ class PatientControlPanel extends Component {
         } else {
             return (
                 <Row bottom="xs" className="vertical-divider">
-                    <Col xs={12} lg={6}>
+                    <Col xs={12} md={12} lg={12}>
                         <div id="condition-selection-container">
                             <ConditionSelection
                                 conditions={patientConditions}
@@ -86,7 +86,7 @@ class PatientControlPanel extends Component {
                             />
                         </div>
                     </Col>
-                    <Col xs={12} lg={6}>
+                    <Col xs={12} md={12} lg={12}>
                         <PatientSearch
                             highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                             moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
