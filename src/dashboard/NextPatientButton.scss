@@ -24,9 +24,6 @@
         cursor: pointer;
     }
 }
-.hovered {
-    background-color: rgba(0, 0, 0, 0.12);
-}
 .inside {
     display: flex;
     align-items: center;
@@ -34,6 +31,9 @@
     flex-grow: 1;
     height: 100%;
     border-radius: 0 50px 0 0;
+     &:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
 } 
 .patient-icon {
     color: white;
