@@ -1808,6 +1808,7 @@ FluxNotesEditor.propTypes = {
     contextTrayItemToInsert: PropTypes.string,
     currentViewMode: PropTypes.string.isRequired,
     errors: PropTypes.array.isRequired,
+    handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
     itemInserted: PropTypes.func.isRequired,
