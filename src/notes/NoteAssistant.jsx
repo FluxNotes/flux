@@ -231,8 +231,6 @@ export default class NoteAssistant extends Component {
                         updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                         patient={this.props.patient}
                         shortcutManager={this.props.shortcutManager}
-                        showTemplateView={this.props.showTemplateView}
-                        updateShowTemplateView={this.props.updateShowTemplateView}
                     />
                     {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                 </div>
@@ -568,12 +566,10 @@ NoteAssistant.propTypes = {
     setOpenClinicalNote: PropTypes.func.isRequired,
     setSearcbSelectedItem: PropTypes.func,
     shortcutManager: PropTypes.object.isRequired,
-    showTemplateView: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updatedEditorNote: PropTypes.object,
-    updateErrors: PropTypes.func.isRequired,
-    updateShowTemplateView: PropTypes.func.isRequired
+    updateErrors: PropTypes.func.isRequired
 };
