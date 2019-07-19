@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
- /*
-    Initialize a row of treatment data. This sets the fields that would be expected by the
-    Compass UI to inital default values.
-    */
+/*
+Initialize a row of treatment data. This sets the fields that would be expected by the
+Compass UI to inital default values.
+*/
 function initializeTreatmentData(displayName, treatments) {
     return {
         id: _.uniqueId('row_'),
