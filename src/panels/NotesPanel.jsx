@@ -30,10 +30,6 @@ export default class NotesPanel extends Component {
             shouldUpdateShortcutType: false,
             shortcutKey: null,
             shortcutType: null,
-            // insertingTemplate indicates whether a shortcut or template is being inserted
-            // false indicates a shortcut is being inserted
-            // true indicates a template is being inserted
-            insertingTemplate: false,
         };
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
@@ -56,11 +52,6 @@ export default class NotesPanel extends Component {
             this.saveNote(this.state.localDocumentText);
             this.handleUpdateEditorWithNote(nextProps.openClinicalNote);
         }
-    }
-
-    setInsertingTemplate = (insertingTemplate) => {
-        this.setState({ insertingTemplate });
-        this.updateShowTemplateView(false);
     }
 
     insertStructuredPhraseInCurrentNote = (data, source) => {
@@ -331,7 +322,6 @@ export default class NotesPanel extends Component {
             <div>
                 <TemplateSelectionView
                     deleteSelectedNote={this.deleteSelectedNote}
-                    setInsertingTemplate={this.setInsertingTemplate}
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     updateShowTemplateView={this.updateShowTemplateView}
                 />
@@ -425,7 +415,6 @@ export default class NotesPanel extends Component {
                     highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isNoteViewerEditable={this.props.isNoteViewerEditable}
                     itemInserted={this.props.itemInserted}
-                    insertingTemplate={this.state.insertingTemplate}
                     loadNote={this.handleUpdateEditorWithNote}
                     loginUsername={this.props.loginUsername}
                     newCurrentShortcut={this.props.newCurrentShortcut}
@@ -439,7 +428,6 @@ export default class NotesPanel extends Component {
                     searchIndex={this.props.searchIndex}
                     searchSelectedItem={this.props.searchSelectedItem}
                     selectedNote={this.state.selectedNote}
-                    setInsertingTemplate={this.setInsertingTemplate}
                     setHighlightedSearchSuggestion={this.setHighlightedSearchSuggestion}
                     setLayout={this.props.setLayout}
                     setNoteClosed={this.props.setNoteClosed}
