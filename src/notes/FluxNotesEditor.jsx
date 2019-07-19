@@ -419,6 +419,10 @@ class FluxNotesEditor extends React.Component {
                 shortcut.setValueObject(selection.object);
                 if (!Lang.includes(this.contextManager.contexts, shortcut)) this.contextManager.addShortcutToContext(shortcut);
                 this.contextManager.contextUpdated();
+
+                // TODO: Use this function to update child shortcuts when parent value is selected (ex: update @ONCOHIST after @condition selected)
+                // Current issue is that child isn't added to parent because incomplete shortcuts are removed from context so child can't determine parentContext to add to
+                // transform = this.updateChildShortcuts(transform, shortcut);
             }
         }
 
@@ -704,50 +708,28 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    updateTemplateWithPickListOptions = (nextProps) => {
-        if (nextProps.shouldUpdateShortcutType) {
-            let transform = this.state.state.transform();
-            let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
-            this.scrollToData(state.document, nextProps.shortcutKey);
-            this.setState({ state });
-        }
-        nextProps.selectedPickListOptions.forEach(picklist => {
-            if (picklist.selectedOption) {
-                const { shortcut } = picklist;
-                const { object } = shortcut.getValueSelectionOptions().find(opt => {
-                    return opt.context === picklist.selectedOption;
-                });
-                if (shortcut.getText() !== picklist.selectedOption) {
-                    shortcut.setText(picklist.selectedOption);
-                    if (shortcut.isContext()) {
-                        shortcut.setValueObject(object);
-
-                        let transform = this.state.state.transform();
-
-                        // Update the children of the shortcut whose values just got selected.
-                        const childShortcuts = shortcut.getChildren();
-                        childShortcuts.forEach(childShortcut => {
-                            if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
-                                // Set the text, then change the data of the shortcut to trigger a re-render.
-                                const text = childShortcut.determineText(this.contextManager);
-                                childShortcut.setText(text);
-                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
-                            } else {
-                                childShortcut.setText(null);
-                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
-                            }
-                        });
-
-                        // Force shortcut to re-render with updated data
-                        transform = this.resetShortcutData(shortcut, transform);
-                        let state = transform.apply();
-                        this.setState({ state }, () => {
-                            this.scrollToData(state.document, shortcut.getKey());
-                        });
-                    }
-                }
+    updateChildShortcuts = (transform, shortcut) => {
+        // Update the children of the shortcut whose values just got selected.
+        const childShortcuts = shortcut.getChildren();
+        childShortcuts.forEach(childShortcut => {
+            if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
+                // Set the text, then change the data of the shortcut to trigger a re-render.
+                const text = childShortcut.determineText(this.contextManager);
+                childShortcut.setText(text);
+                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
+            } else {
+                childShortcut.setText(null);
+                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
             }
         });
+
+        // Force shortcut to re-render with updated data
+        transform = this.resetShortcutData(shortcut, transform);
+        let state = transform.apply();
+        this.setState({ state }, () => {
+            this.scrollToData(state.document, shortcut.getKey());
+        });
+        return transform;
     }
 
     componentDidMount = () => {
@@ -772,11 +754,6 @@ class FluxNotesEditor extends React.Component {
                 this.props.itemInserted();
             }
         }
-
-        // // Update pick list selection in real time during template insertion
-        // if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-        //     this.updateTemplateWithPickListOptions(nextProps);
-        // }
 
         if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
