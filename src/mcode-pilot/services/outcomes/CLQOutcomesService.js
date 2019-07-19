@@ -122,6 +122,7 @@ export default class CLQOutcomesService extends IOutcomesService {
                     reject(err);
                 }
                 try {
+                    data.timescale = this.timescale;
                     accept(data);
                 } catch (ex) {
                     reject(ex);

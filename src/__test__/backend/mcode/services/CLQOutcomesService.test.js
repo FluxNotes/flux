@@ -12,6 +12,7 @@ import expectedFilter from './filter.json';
 import response from './response.json';
 import rows from './rows.js';
 import processed from './processed.js';
+import {generateOutcomeData, processResults} from '../../../../mcode-pilot/utils/serviceResultsProcessing';
 const nock = require('nock');
 
 
@@ -25,7 +26,7 @@ describe("CLQOutcomesService", () => {
 
     let clqService = new CLQOutcomesService({
         "serviceUrl": "http://localhost/outcomes",
-        "timescale": [1,3,5]
+        "timescale": ["1","3","5"]
     });
 
     let patient = new PatientRecord(BreastMainTreatmentDiabetesHypertensionJaneV05);
@@ -54,7 +55,6 @@ describe("CLQOutcomesService", () => {
 
     it("Should be able to create demographics filter", () => {
         let clqFilter = clqService.buildDemographicsFilter(filterValues);
-        console.log(clqFilter);
         expect(_.isEqual(clqFilter, expectedFilter.demographics)).to.be.true
     });
 
@@ -70,12 +70,12 @@ describe("CLQOutcomesService", () => {
     });
 
     it("Should be able to translate results to rows", () => {
-        let clqResults = clqService.generateOutcomeData(response.outcomes.survival.data)
+        let clqResults = generateOutcomeData(response.outcomes.survival.data)
         expect(_.isEqual(clqResults, rows)).to.be.true
     });
 
     it("Should be able to process results", () => {
-        let clqResults = clqService.processResults(response, [{
+        let clqResults = processResults(response, [{
             "code": "A",
             "displayName": "A",
             "codeSystem": "2.16.840.1.113883.6.88",
@@ -105,6 +105,7 @@ describe("CLQOutcomesService", () => {
             .reply(200, response)
 
         clqService.processSimilarPatientOutcomes(similarPatientProps).then((clqResults) => {
+            clqResults = processResults(clqResults);
             removeRowIds(clqResults)
             removeRowIds(processed)
             expect(_.isEqual(clqResults, processed)).to.be.true
