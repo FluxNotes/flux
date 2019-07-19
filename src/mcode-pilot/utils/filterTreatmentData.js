@@ -38,7 +38,7 @@ function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
     if (treatmentDataPatient.sideEffects.length>0) {
         dataSegment.sideEffects.total+=1;
     }
-    treatmentDataPatient.sideEffects.map((sideEffect) => {
+    treatmentDataPatient.sideEffects.forEach((sideEffect) => {
         if (dataSegment.sideEffects.effects[sideEffect.displayName]===undefined) {
             dataSegment.sideEffects.effects[sideEffect.displayName] = 0;
         }

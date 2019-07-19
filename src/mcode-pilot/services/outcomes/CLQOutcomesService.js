@@ -1,5 +1,4 @@
 import request from "request";
-import _ from 'lodash';
 import IOutcomesService from './IOutcomesService';
 import FilterOptions from '../../utils/FilterOptions';
 
