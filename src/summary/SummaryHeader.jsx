@@ -5,6 +5,7 @@ import Avatar from 'material-ui/Avatar';
 import './SummaryHeader.css';
 import FontAwesome from 'react-fontawesome';
 import PatientSelectionModal from '../patientControl/PatientSelectionModal.jsx';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 class SummaryHeader extends Component {
     constructor(props) {
@@ -94,15 +95,36 @@ class SummaryHeader extends Component {
                 </div>
                 {this.props.isTablet && <div className="patient-info item">
                     <div>
-                        <div className="patient-name-number clickable" onClick={() => this.openModal()}>
+                        <div className="patient-name clickable" onClick={() => this.openModal()}>
                             <span className={`patient-name ${tabletPatientName}`}>{patientName}</span>
                             <FontAwesome className='fas fa-angle-double-down' name='down-arrow' />
                         </div>
+                        <div></div>
                         <div>
-                            {mrn && <span className={`patient-mrn no-wrap ${tabletPatienInfoSpacing}`}>{mrn}</span>}
-                            <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>DOB: {dateOfBirthString}</span>
-                            <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Admin. Sex: {administrativeSexString}</span>
-                            <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Location: {locationString}</span>
+                            <Grid fluid style={{paddingLeft: '0px'}}>
+                                <Row bottom='xs'>
+                                    <Col xs={12} md={12} lg={6}>
+                                        <Row>
+                                            <Col xs={5} md={5} lg={5}>
+                                                {mrn && <span className={`patient-mrn no-wrap ${tabletPatienInfoSpacing}`}>{mrn}</span>}
+                                            </Col>
+                                            <Col xs={7} md={7} lg={7}>
+                                                <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>DOB: {dateOfBirthString}</span>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    <Col xs={12} md={12} lg={6}>
+                                        <Row start='xs'>
+                                            <Col xs={5} md={5} lg={5}>
+                                                <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Admin. Sex: {administrativeSexString}</span>
+                                            </Col>
+                                            <Col xs={7} md={7} lg={7}>
+                                                <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Location: {locationString}</span>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            </Grid>
                         </div>
                     </div>
                     <PatientSelectionModal

@@ -15,6 +15,7 @@
     
     .patient-name {
         font-size: 15px !important;
+        margin-bottom: 15px;
     }
     
     .tablet-patient-name {
@@ -23,12 +24,10 @@
     }
     
     .tablet-patient-info {
-        margin-right: 35px;
         color: black !important;
     }
     .patient-mrn {
       color: #999;
-      /* padding-left: 4px; */
     }
     .clickable {
         cursor: pointer;
