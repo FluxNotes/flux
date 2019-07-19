@@ -46,7 +46,7 @@ export default class ContextTray extends Component {
 
     render() {
         const { viewMode } = this.state;
-        const { contextManager, updateContextTrayItemToInsert, setInsertingTemplate, shortcutManager } = this.props;
+        const { contextManager, updateContextTrayItemToInsert, shortcutManager } = this.props;
 
         return (
             <div className="context-tray">
@@ -90,7 +90,6 @@ export default class ContextTray extends Component {
                 {viewMode === this.SNIPPET_VIEW && (
                     <SnippetViewModeContent
                         onClick={updateContextTrayItemToInsert}
-                        setInsertingTemplate={setInsertingTemplate}
                     />
                 )}
 
@@ -116,7 +115,6 @@ export default class ContextTray extends Component {
 ContextTray.propTypes = {
     contextManager: PropTypes.object.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    setInsertingTemplate: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
     showTemplateView: PropTypes.bool.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired
