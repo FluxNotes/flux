@@ -1,6 +1,6 @@
 export default {
     "similarPatientTreatmentsData": [{
-        "id": "row_5",
+        "id": "row_3",
         "displayName": "A & B",
         "treatments": [{
             "code": "A",
@@ -21,7 +21,7 @@ export default {
         }
     },
     {
-        "id": "row_6",
+        "id": "row_4",
         "displayName": "A",
         "treatments": [{
             "code": "A",
@@ -49,5 +49,5 @@ export default {
     }],
     "totalPatients": 30000,
     "totalSimilarPatients": 15000,
-    "timescale": [1,3,5]
+    "timescale": ['1','3','5']
 }
