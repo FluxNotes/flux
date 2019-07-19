@@ -63,13 +63,11 @@ export default class TemplateSelectionView extends Component {
 
     // Insert the content of the template as you would a shortcut
     insertTemplate = (content) => {
-        const { updateContextTrayItemToInsert, updateShowTemplateView, setInsertingTemplate } = this.props;
+        const { updateContextTrayItemToInsert, updateShowTemplateView } = this.props;
         // We should communicate to the contextTray that "content" should be inserted
         updateContextTrayItemToInsert(content);
         // We should not be showing templates anymore
         updateShowTemplateView(false);
-        // But if we had actual content to insert, we should go into insertingTemplateMode
-        if (!Lang.isEmpty(content)) setInsertingTemplate(true);
     }
 
     cancelTemplate = () => {
@@ -135,7 +133,6 @@ export default class TemplateSelectionView extends Component {
 
 TemplateSelectionView.propTypes = {
     deleteSelectedNote: PropTypes.func.isRequired,
-    setInsertingTemplate: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
     updateShowTemplateView: PropTypes.func.isRequired,
 };

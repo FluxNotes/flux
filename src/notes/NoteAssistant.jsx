@@ -6,7 +6,6 @@ import MaterialButton from 'material-ui/Button';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
-import PickListOptionsPanel from '../panels/PickListOptionsPanel';
 import Button from '../elements/Button';
 import NotesIndexer from '../patientControl/NotesIndexer';
 import moment from 'moment';
@@ -231,7 +230,6 @@ export default class NoteAssistant extends Component {
                         contextManager={this.props.contextManager}
                         updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                         patient={this.props.patient}
-                        setInsertingTemplate={this.props.setInsertingTemplate}
                         shortcutManager={this.props.shortcutManager}
                         showTemplateView={this.props.showTemplateView}
                         updateShowTemplateView={this.props.updateShowTemplateView}
@@ -265,22 +263,6 @@ export default class NoteAssistant extends Component {
             return "";
         }
     }
-
-    // renderPickListOptions() {
-    //     return (
-    //         <PickListOptionsPanel
-    //             arrayOfPickLists={this.props.arrayOfPickLists}
-    //             contextManager={this.props.contextManager}
-    //             insertingTemplate={this.props.insertingTemplate}
-    //             setInsertingTemplate={this.props.setInsertingTemplate}
-    //             updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-    //             updateSelectedPickListOptions={this.props.updateSelectedPickListOptions}
-    //             updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-    //             setUndoTemplateInsertion={this.props.setUndoTemplateInsertion}
-    //             changeShortcutType={this.props.changeShortcutType}
-    //         />
-    //     );
-    // }
 
     renderNewNote() {
         return (
