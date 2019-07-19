@@ -277,6 +277,6 @@ CONFIG = {
     ],
 
     services: {
-        outcomes: {"name": 'CLQOutcomesService', "timescale": ["1","3","5"],"serviceUrl": "http://moonshot-dev.mitre.org:5000/outcomes"}
+        outcomes: {"name": 'StaticOutcomesService', "timescale": ["1","3","5"]}
     }
 }
