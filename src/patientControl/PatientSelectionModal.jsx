@@ -31,12 +31,10 @@ class PatientSelectionModal extends Component {
         this.futureAppTimes = [];
         const { dataAccess } = this.props;
         const patientList = dataAccess.dataSource.getListOfPatients();
-        // this.currentPatientViewed = patientList[patientList.length-1].person.entryInfo.shrId;
         patientList.forEach((patient) => {
             const name = patient.person.name;
             const pic = patient.person.photographicImage;
             const shrId = patient.person.entryInfo.shrId;
-            // this.currentPatientViewed = shrId;
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
@@ -102,7 +100,8 @@ class PatientSelectionModal extends Component {
         const encounterMom = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
         if (patient.getPreviousEncounter() !== undefined) {
             const lastSeen = new moment(patient.getPreviousEncounter().expectedPerformanceTime, "DD MMM YYYY HH:mm");
-            timeSinceLast = 'last seen ' + lastSeen.fromNow() + ' by ' + encounter.practitioner;
+            const practitioner = encounter.practitioner? encounter.practitioner : 'unknown';
+            timeSinceLast = 'last seen ' + lastSeen.fromNow() + ' by ' + practitioner;
         }
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
             timeSinceLast = 'In progress encounter';
@@ -176,7 +175,6 @@ class PatientSelectionModal extends Component {
         </div>);
     }
     render() {
-        console.log(this.currentPatientViewed);
         const { isTablet } = this.props;
         if (isTablet) {
             return (<Modal
