@@ -6,7 +6,6 @@ import MaterialButton from 'material-ui/Button';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
-import PickListOptionsPanel from '../panels/PickListOptionsPanel';
 import Button from '../elements/Button';
 import NotesIndexer from '../patientControl/NotesIndexer';
 import moment from 'moment';
@@ -225,21 +224,20 @@ export default class NoteAssistant extends Component {
                     </div>
                 );
             // Render the context tray
-            case "context-tray":
-                return (
-                    <div>
-                        <ContextTray
-                            contextManager={this.props.contextManager}
-                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                            patient={this.props.patient}
-                            setInsertingTemplate={this.props.setInsertingTemplate}
-                            shortcutManager={this.props.shortcutManager}
-                            showTemplateView={this.props.showTemplateView}
-                            updateShowTemplateView={this.props.updateShowTemplateView}
-                        />
-                        {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
-                    </div>
-                );
+        case "context-tray":
+            return (
+                <div>
+                    <ContextTray
+                        contextManager={this.props.contextManager}
+                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                        patient={this.props.patient}
+                        shortcutManager={this.props.shortcutManager}
+                        showTemplateView={this.props.showTemplateView}
+                        updateShowTemplateView={this.props.updateShowTemplateView}
+                    />
+                    {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
+                </div>
+            );
 
             // Render the clinical notes view which includes new note button, resume note button,
             // number of previous notes label, sort selection, and preview of previous notes
@@ -266,22 +264,6 @@ export default class NoteAssistant extends Component {
             return "";
         }
     }
-
-    // renderPickListOptions() {
-    //     return (
-    //         <PickListOptionsPanel
-    //             arrayOfPickLists={this.props.arrayOfPickLists}
-    //             contextManager={this.props.contextManager}
-    //             insertingTemplate={this.props.insertingTemplate}
-    //             setInsertingTemplate={this.props.setInsertingTemplate}
-    //             updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-    //             updateSelectedPickListOptions={this.props.updateSelectedPickListOptions}
-    //             updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-    //             setUndoTemplateInsertion={this.props.setUndoTemplateInsertion}
-    //             changeShortcutType={this.props.changeShortcutType}
-    //         />
-    //     );
-    // }
 
     renderNewNote() {
         return (
