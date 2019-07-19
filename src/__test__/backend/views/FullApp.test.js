@@ -415,7 +415,6 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
@@ -506,9 +505,73 @@ describe('6 FluxNotesEditor', function() {
         expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain(patient.getName());
     });
 
-    it('6.3 renders notes panel, clicking "@condition" and choosing "Invasive ductal carcinoma of breast" creates a new condition section in the context tray and adds structured data.', () => {
+    it('6.3 renders notes panel, typing "@condition" with"Invasive ductal carcinoma of breast" set adds structured data.', () => {
         let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
+        const structuredFieldMapManager = new StructuredFieldMapManager();
+        const shortcutManager = new ShortcutManager();
+
+        // Mock function to create a new shortcut and set text on shortcut. Allows Editor to update correctly.
+        let mockNewCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true) => {
+            let newShortcut = shortcutManager.createShortcut(shortcutC, shortcutType, patient, shortcutData, this.handleShortcutUpdate);
+            newShortcut.initialize(contextManager, shortcutType, updatePatient, shortcutData);
+            return newShortcut;
+        }
+
+        const searchIndex = new SearchIndex();
+        const notesPanelWrapper = mount(<NotesPanel
+            patient={patient}
+            contextManager={contextManager}
+            structuredFieldMapManager={structuredFieldMapManager}
+            shortcutManager={shortcutManager}
+            newCurrentShortcut={mockNewCurrentShortcut}
+            setFullAppState={jest.fn()}
+            isNoteViewerVisible={true}
+            isNoteViewerEditable={true}
+            //Others that are required but not used in test
+            currentViewMode={''}
+            dataAccess={{}}
+            errors={[]}
+            handleSummaryItemSelected={jest.fn()}
+            itemInserted={jest.fn()}
+            loginUsername={''}
+            noteClosed={false}
+            searchIndex={searchIndex}
+            setFullAppStateWithCallback={jest.fn()}
+            setLayout={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setNoteClosed={jest.fn()}
+            setNoteViewerEditable={jest.fn()}
+            setNoteViewerVisible={jest.fn()}
+            setSearchSelectedItem={jest.fn()}
+            setOpenClinicalNote={jest.fn()}
+            setOpenSourceNoteEntryId={jest.fn()}
+            summaryItemToInsert={''}
+            updateErrors={jest.fn()}
+            searchSuggestions={[]}
+        />, { attachTo: document.body });
+        expect(notesPanelWrapper.find(FluxNotesEditor)).to.have.lengthOf(1);
+        expect(notesPanelWrapper.find(NoteAssistant)).to.have.lengthOf(1);
+
+        const fluxNotesEditor = notesPanelWrapper.find(FluxNotesEditor);
+
+        const arrayOfStructuredDataToEnter = ["@condition[[{\"text\":\"Invasive ductal carcinoma of breast\",\"entryId\":\"8\"}]] "];
+        const arrayOfExpectedStructuredDataInserters = ["Invasive ductal carcinoma of breast"];
+        const entryId = patient.addClinicalNote('', '', '', '', '', arrayOfStructuredDataToEnter.join(' '), false);
+        const updatedEditorNote = patient.getEntryById(entryId);
+        // Set updatedEditorNote props because this triggers that a change is coming in to the editor and inserts text with structured phrases.
+        fluxNotesEditor.instance().onFocus();
+        notesPanelWrapper.setState({ updatedEditorNote });
+
+        expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain('Invasive ductal carcinoma of breast');
+    
+        expect(notesPanelWrapper.find('.structured-field-inserter-incomplete')).to.have.length(0);
+    });
+
+    it('6.3.1 Clicking @condition inserts an incomplete structured field', () => {
+        let patient = new PatientRecord(mcodePatientJson);
+        const contextManager = new ContextManager(patient, () => { });
         const structuredFieldMapManager = new StructuredFieldMapManager();
         const shortcutManager = new ShortcutManager();
 
@@ -559,18 +622,13 @@ describe('6 FluxNotesEditor', function() {
         expect(conditionButton).to.have.lengthOf(1);
         conditionButton.simulate('click');
 
-        const optionsForm = notesPanelWrapper.find('#pickList-options-panel').find('.option-btn').find('span');
-        const invasiveButton = optionsForm.find({ children: 'Invasive ductal carcinoma of breast 19 Apr 2013' });
-        expect(invasiveButton).to.have.lengthOf(1);
-        invasiveButton.simulate('click');
+        // Context tray options rendered (no picklists)
+        expect(notesPanelWrapper.find('.context-options-list')).to.have.length(1);
 
-        const conditionSection = notesPanelWrapper.find('.context-tray').find('div').find('[title="Invasive ductal carcinoma of breast"]');
-        expect(conditionSection).to.have.lengthOf(1);
-
-        expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(1);
-        expect(notesPanelWrapper.find('.structured-field-inserter').text()).to.contain('Invasive ductal carcinoma of breast');
-    
-        expect(notesPanelWrapper.find('.structured-field-inserter-incomplete')).to.have.length(0);
+        // Incomplete inserter inserted to editor
+        expect(notesPanelWrapper.find('.structured-field-inserter')).to.have.length(0);
+        expect(notesPanelWrapper.find('.structured-field-inserter-incomplete')).to.have.length(1);
+        expect(notesPanelWrapper.find('.structured-field-inserter-incomplete').text()).to.contain('@condition');
     });
 
     it('6.4 Typing an inserterShortcut that is not currently valid in the editor does not result in a structured data insertion ', () => {
@@ -603,7 +661,6 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
@@ -657,15 +714,12 @@ describe('6 FluxNotesEditor', function() {
         }
 
         const wrapper = mount(<FluxNotesEditor
-            arrayOfPickLists={[]}
-            changeShortcutType={() => {}}
             closeNote={() => {}}
             contextManager={contextManager}
             contextTrayItemToInsert={() => {}}
             currentViewMode={''}
             errors={[]}
             handleUpdateEditorWithNote={jest.fn()}
-            handleUpdateArrayOfPickLists={jest.fn()}
             isNoteViewerEditable={true}
             isNoteViewerVisible={true}
             itemInserted={jest.fn()}
@@ -677,18 +731,14 @@ describe('6 FluxNotesEditor', function() {
             saveNote={jest.fn()}
             searchIndex={searchIndex}
             selectedNote={{}}
-            selectedPickListOptions={jest.fn()}
             setForceRefresh={jest.fn()}
             setLayout={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
-            setUndoTemplateInsertion={jest.fn()}
             shortcutKey={{}}
             shortcutManager={shortcutManager}
             shortcutType={{}}
-            shouldEditorContentUpdate={true}
-            shouldRevertTemplate={jest.fn()}
             shouldUpdateShortcutType={jest.fn()}
             structuredFieldMapManager={structuredFieldMapManager}
             summaryItemToInsert={''}
@@ -752,15 +802,12 @@ describe('6 FluxNotesEditor', function() {
         }
 
         const wrapper = mount(<FluxNotesEditor
-            arrayOfPickLists={[]}
-            changeShortcutType={() => {}}
             closeNote={() => {}}
             contextManager={contextManager}
             contextTrayItemToInsert={() => {}}
             currentViewMode={''}
             errors={[]}
             handleUpdateEditorWithNote={jest.fn()}
-            handleUpdateArrayOfPickLists={jest.fn()}
             isNoteViewerEditable={true}
             isNoteViewerVisible={true}
             itemInserted={jest.fn()}
@@ -772,18 +819,14 @@ describe('6 FluxNotesEditor', function() {
             saveNote={jest.fn()}
             searchIndex={searchIndex}
             selectedNote={{}}
-            selectedPickListOptions={jest.fn()}
             setForceRefresh={jest.fn()}
             setLayout={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
-            setUndoTemplateInsertion={jest.fn()}
             shortcutKey={{}}
             shortcutManager={shortcutManager}
             shortcutType={{}}
-            shouldEditorContentUpdate={true}
-            shouldRevertTemplate={jest.fn()}
             shouldUpdateShortcutType={jest.fn()}
             structuredFieldMapManager={structuredFieldMapManager}
             summaryItemToInsert={''}
@@ -850,15 +893,12 @@ describe('6 FluxNotesEditor', function() {
         }
 
         const wrapper = mount(<FluxNotesEditor
-            arrayOfPickLists={[]}
-            changeShortcutType={() => {}}
             closeNote={() => {}}
             contextManager={contextManager}
             contextTrayItemToInsert={() => {}}
             currentViewMode={''}
             errors={[]}
             handleUpdateEditorWithNote={jest.fn()}
-            handleUpdateArrayOfPickLists={jest.fn()}
             isNoteViewerEditable={true}
             isNoteViewerVisible={true}
             itemInserted={jest.fn()}
@@ -870,18 +910,14 @@ describe('6 FluxNotesEditor', function() {
             saveNote={jest.fn()}
             searchIndex={searchIndex}
             selectedNote={{}}
-            selectedPickListOptions={jest.fn()}
             setForceRefresh={jest.fn()}
             setLayout={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
-            setUndoTemplateInsertion={jest.fn()}
             shortcutKey={{}}
             shortcutManager={shortcutManager}
             shortcutType={{}}
-            shouldEditorContentUpdate={true}
-            shouldRevertTemplate={jest.fn()}
             shouldUpdateShortcutType={jest.fn()}
             structuredFieldMapManager={structuredFieldMapManager}
             summaryItemToInsert={''}
@@ -947,15 +983,12 @@ describe('6 FluxNotesEditor', function() {
         }
 
         const wrapper = mount(<FluxNotesEditor
-            arrayOfPickLists={[]}
-            changeShortcutType={() => {}}
             closeNote={() => {}}
             contextManager={contextManager}
             contextTrayItemToInsert={() => {}}
             currentViewMode={''}
             errors={[]}
             handleUpdateEditorWithNote={jest.fn()}
-            handleUpdateArrayOfPickLists={jest.fn()}
             isNoteViewerEditable={true}
             isNoteViewerVisible={true}
             itemInserted={jest.fn()}
@@ -967,18 +1000,14 @@ describe('6 FluxNotesEditor', function() {
             saveNote={jest.fn()}
             searchIndex={searchIndex}
             selectedNote={{}}
-            selectedPickListOptions={jest.fn()}
             setForceRefresh={jest.fn()}
             setLayout={jest.fn()}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
-            setUndoTemplateInsertion={jest.fn()}
             shortcutKey={{}}
             shortcutManager={shortcutManager}
             shortcutType={{}}
-            shouldEditorContentUpdate={true}
-            shouldRevertTemplate={jest.fn()}
             shouldUpdateShortcutType={jest.fn()}
             structuredFieldMapManager={structuredFieldMapManager}
             summaryItemToInsert={''}
@@ -1039,7 +1068,6 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
@@ -1393,7 +1421,6 @@ describe('6 FluxNotesEditor', function() {
             setFullAppState={jest.fn()}
             setFullAppStateWithCallback={jest.fn()}
             setLayout={jest.fn()}
-            shouldEditorContentUpdate={true}
             setNoteViewerEditable={jest.fn()}
             setNoteViewerVisible={jest.fn()}
             setOpenSourceNoteEntryId={jest.fn()}
