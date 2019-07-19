@@ -421,7 +421,6 @@ export default class NotesPanel extends Component {
                     noteAssistantMode={this.state.noteAssistantMode}
                     noteClosed={this.props.noteClosed}
                     openNewNote={this.openNewNote}
-                    showTemplateView={this.state.showTemplateView}
                     openExistingNote={this.openExistingNote}
                     patient={this.props.patient}
                     saveNote={this.saveNote}
@@ -444,7 +443,6 @@ export default class NotesPanel extends Component {
                     updateContextTrayItemToInsert={this.updateContextTrayItemToInsert}
                     updatedEditorNote={this.state.updatedEditorNote}
                     updateErrors={this.props.updateErrors}
-                    updateShowTemplateView={this.updateShowTemplateView}
                     searchSuggestions={this.props.searchSuggestions}
                     isAppBlurred={this.props.isAppBlurred}
                 />
