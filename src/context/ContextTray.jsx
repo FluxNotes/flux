@@ -115,7 +115,5 @@ export default class ContextTray extends Component {
 ContextTray.propTypes = {
     contextManager: PropTypes.object.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    shortcutManager: PropTypes.object.isRequired,
-    showTemplateView: PropTypes.bool.isRequired,
-    updateShowTemplateView: PropTypes.func.isRequired
+    shortcutManager: PropTypes.object.isRequired
 };
