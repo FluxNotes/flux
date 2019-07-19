@@ -71,4 +71,4 @@ function processResults(data) {
     };
 }
 
-export {processResults};
+export {processResults, generateOutcomeData};
