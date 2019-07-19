@@ -73,13 +73,13 @@ class PatientControlPanel extends Component {
     renderConditionSelectAndSearch = () => {
         const { patient } = this.props;
         const patientConditions = patient ? patient.getConditions() : [];
-        const selectAndSearchWidth = this.props.isTablet? 12 : 6;
+        const largeAndMediumWidth = this.props.isTablet? 12 : 6;
         if (Lang.isEmpty(patient)) {
             return;
         } else {
             return (
                 <Row bottom="xs" className="vertical-divider">
-                    <Col xs={12} md={selectAndSearchWidth} lg={selectAndSearchWidth}>
+                    <Col xs={12} md={largeAndMediumWidth} lg={largeAndMediumWidth}>
                         <div id="condition-selection-container">
                             <ConditionSelection
                                 conditions={patientConditions}
@@ -87,7 +87,7 @@ class PatientControlPanel extends Component {
                             />
                         </div>
                     </Col>
-                    <Col xs={12} md={selectAndSearchWidth} lg={selectAndSearchWidth}>
+                    <Col xs={12} md={largeAndMediumWidth} lg={largeAndMediumWidth}>
                         <PatientSearch
                             highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                             moveTargetedDataPanelToSubsection={this.props.moveTargetedDataPanelToSubsection}
@@ -104,18 +104,21 @@ class PatientControlPanel extends Component {
     }
     render() {
         const disabledClassName = this.props.isAppBlurred ? 'content-disabled' : '';
+        const summaryHeaderWidth = this.props.isTablet? 6 : 4;
+        const selectAndSearchWidthLarge = this.props.isTablet? 4 : 6;
+        const selectAndSearchWidthMedium = this.props.isTablet? 3 : 5;
         return (
             <div className={`patient-control-panel ${disabledClassName}`}>
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
-                            <Col xs={3} md={2} lg={2} className='logo-title-column'>
+                            <Col xs={3} md={3} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
-                            <Col xs={5} md={4} lg={4} className="summary-header-column">
+                            <Col xs={5} md={summaryHeaderWidth} lg={summaryHeaderWidth} className="summary-header-column">
                                 {this.renderSummaryHeader()}
                             </Col>
-                            <Col xs={4} md={5} lg={6}>
+                            <Col xs={4} md={selectAndSearchWidthMedium} lg={selectAndSearchWidthLarge}>
                                 {this.renderConditionSelectAndSearch()}
                             </Col>
                         </Row>
