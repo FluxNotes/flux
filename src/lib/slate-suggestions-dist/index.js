@@ -28,6 +28,8 @@ function getAllTextExceptIgnoredTypes(node, typesToIgnore) {
 
 function matchTrigger(state, trigger, typesToIgnore) {
     const currentNodes = state.blocks.first();
+    // using currentNodes.nodes.get(0).key instead of state.startKey which causes an error when the cursor get lost in 
+    // zerowidth space
     const relevantSelection = {
         anchorKey: currentNodes.nodes.get(0).key,
         anchorOffset: 0,
