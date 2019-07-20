@@ -1,7 +1,12 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins/media-queries';
 
 .treatment-options-outcomes-icons {
     display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+
+    @include respond-to('1024px') { flex-direction: column; }
 
     &.note {
         font-style: italic;
@@ -17,23 +22,35 @@
         font-weight: 100;
     }
 
+    .icons-interaction *,
+    .icons-interaction *:before,
+    .icons-interaction *:after {
+        box-sizing: inherit;
+    }
+
     .icons-interaction {
-        min-width: 450px;
+        box-sizing: border-box;
         margin-right: 20px;
 
         &__header {
             display: flex;
             align-items: flex-end;
             margin-bottom: 10px;
+
+            .user-icon {
+                text-align: center;
+            }
         }
 
         &__row {
             height: 56px;
-            min-width: 500px;
             align-items: center;
             cursor: pointer;
             border: 2px solid transparent;
             border-radius: 5px;
+            min-width: 500px;
+
+            @include respond-to('1180px') { min-width: 0; }
 
             &:nth-child(even) {
                 background-color: $contrast-gray;
@@ -48,20 +65,22 @@
                 border-color: $icons-blue;
             }
 
-            .treatment-name {
-                align-items: center;
-            }
-
             .select-icon {
                 padding-right: 10px;
                 cursor: pointer;
             }
 
+            .treatment-name {
+                align-items: center;
+                min-width: 120px;
+            }
+
+            .total-patients,
             .overall-survival {
-                .selected-num-survive {
+                text-align: center;
+            }
 
-                }
-
+            .overall-survival {
                 .diff-num-selected {
                     font-size: 1.1em;
 

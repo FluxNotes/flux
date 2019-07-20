@@ -89,7 +89,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     })}
                 </div>
 
-                <div className="flex flex-4 flex-padding top-side-effects">
+                <div className="flex flex-4 top-side-effects">
                     {sideEffectSelection === "Most Common"
                         ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
@@ -119,7 +119,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
         return (
             <div className="treatment-options-outcomes-table__header">
-                <div className="flex-2 flex-padding compare-header">
+                <div className="flex-2 compare-header">
                     {selectedTreatment ? 'comparing against' : 'compare'}
                 </div>
 

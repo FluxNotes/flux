@@ -9,6 +9,8 @@
         .compare-header {
             font-size: 0.9em;
             margin-bottom: -10px;
+            padding-left: 10px;
+            min-width: 120px;
         }
 
         .user-icon {
@@ -83,6 +85,7 @@
 
         .top-side-effects {
             flex-direction: column;
+            min-width: 100px;
         }
 
         .table-row {
@@ -95,6 +98,10 @@
 
             &.helper-text {
                 font-style: italic;
+            }
+
+            .treatment-name {
+                min-width: 120px;
             }
 
             .total-patients {
