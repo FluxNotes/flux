@@ -9,6 +9,21 @@
         .selected-treatment {
             font-weight: 400;
         }
+
+        .num-more-survive,
+        .num-less-survive,
+        .num-zero-more-survive {
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+
+        .num-more-survive {
+            color: $icons-green;
+        }
+
+        .num-less-survive {
+            color: $icons-red;
+        }
     }
 
     &__display {
@@ -29,7 +44,7 @@
         }
 
         &.additional {
-            border: 3px solid;
+            border: 3px solid $icons-green;
             margin: 4px;
         }
 

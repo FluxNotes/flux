@@ -47,6 +47,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
     getTreatmentIndex = treatment => {
         const { similarPatientTreatmentsData } = this.props;
+        if (!similarPatientTreatmentsData || similarPatientTreatmentsData.length === 0 ||!treatment) return -1;
         return similarPatientTreatmentsData.findIndex(el => el.displayName === treatment.displayName);
     }
 
@@ -79,7 +80,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                 </div>
 
                 <div className="flex-1 flex-padding user-icon"><PersonIcon /></div>
-                <div className="flex-1 flex-padding">Overall survival</div>
+                <div className="flex-1 flex-padding overall-survival">Overall survival</div>
             </div>
         );
     }
@@ -140,6 +141,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         const { displayedTreatment } = this.state;
         const selectedTreatmentInData = selectedTreatment && this.getTreatmentIndex(selectedTreatment) !== -1;
         const displayedTreatmentInData = displayedTreatment && this.getTreatmentIndex(displayedTreatment) !== -1;
+        const selectedIsDisplayed = selectedTreatment && displayedTreatment && selectedTreatment.displayName === displayedTreatment.displayName;
 
         if (similarPatientTreatmentsData.length === 0) {
             return <div className="helper-text">No data. Choose a different selection or similar patients criteria.</div>;
@@ -150,6 +152,13 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         if (displayedTreatmentInData) {
             displayedNumSurvive = this.getNumSurvive(displayedTreatment, timescaleToggle);
             treatmentToDisplayChart = displayedTreatment.displayName;
+        }
+
+        let numSurviveDiff;
+        if (selectedTreatmentInData && displayedTreatmentInData) {
+            const displayedNumSurvive = this.getNumSurvive(displayedTreatment, timescaleToggle);
+            const selectedNumSurvive = this.getNumSurvive(selectedTreatment, timescaleToggle);
+            numSurviveDiff = selectedNumSurvive - displayedNumSurvive;
         }
 
         return (
@@ -167,6 +176,8 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
                 <IconsChart
                     numSurvive={displayedNumSurvive}
+                    numMoreSurvive={!selectedIsDisplayed && numSurviveDiff <= 0 ? Math.abs(numSurviveDiff) : null}
+                    numLessSurvive={!selectedIsDisplayed && numSurviveDiff > 0 ? Math.abs(numSurviveDiff) : null}
                     treatment={treatmentToDisplayChart}
                     yearsSurvival={timescaleToggle}
                 />
