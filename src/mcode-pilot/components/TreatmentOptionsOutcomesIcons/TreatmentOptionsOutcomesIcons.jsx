@@ -55,7 +55,9 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         const { setSelectedTreatment } = this.props;
         const { displayedTreatment } = this.state;
 
-        if (!displayedTreatment || displayedTreatment.id !== treatment.id) this.handleDisplayTreatment(treatment);
+        if (treatment && (!displayedTreatment || displayedTreatment.displayName !== treatment.displayName)) {
+            this.handleDisplayTreatment(treatment);
+        }
         setSelectedTreatment(treatment);
     }
 

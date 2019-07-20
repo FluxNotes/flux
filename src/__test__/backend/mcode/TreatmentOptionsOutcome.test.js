@@ -8,15 +8,16 @@ import { similarPatientTreatmentsData, similarPatientTreatments } from './mock-d
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe.only("TreatmentOptionsOutcome", () => {
+describe('TreatmentOptionsOutcome', () => {
     let props, optionsOutcome;
 
-    const timescale = ["1","3","5"];
     beforeEach(() => {
         props = {
+            selectedTreatment: null,
+            setSelectedTreatment: () => {},
             similarPatientTreatmentsData,
             similarPatientTreatments,
-            timescale
+            timescale: ['1','3','5']
         };
         optionsOutcome = null;
     });
@@ -26,8 +27,8 @@ describe.only("TreatmentOptionsOutcome", () => {
         return optionsOutcome;
     };
 
-    describe.only("outcomes table: treatments", () => {
-        it("renders the 'chemotherapy, 'hormonal therapy', and 'test therapy' treatment rows", () => {
+    describe('outcomes table: initial treatments', () => {
+        it('renders the chemotherapy, hormonal therapy, and test therapy treatment rows', () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
             expect(tableRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
@@ -35,7 +36,7 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(tableRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
         });
 
-        it("renders the total number of patients", () => {
+        it('renders the total number of patients', () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
             expect(tableRows.at(0).find('.total-patients').text()).to.eql('(100)');
@@ -43,7 +44,7 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(tableRows.at(2).find('.total-patients').text()).to.eql('(12)');
         });
 
-        it("calculates the correct one, three, and five survival rates", () => {
+        it('calculates the correct one, three, and five survival rates', () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
 
@@ -69,7 +70,7 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(barChartText3.at(2).text()).to.eql('91%');
         });
 
-        it("displays the top two side effects", () => {
+        it('displays the top two side effects', () => {
             const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
 
@@ -89,53 +90,7 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(sideEffectText3.at(1).text()).to.eql('fatigue (70%)');
         });
 
-        // it("hormonal therapy: calculates the correct one, three, and five survival rates with comparisons", () => {
-        //     const treatmentRows = outcome().find('.compared-treatments .table-row');
-
-        //     const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
-
-        //     expect(barChartTexts).to.have.lengthOf(6);
-
-        //     // 1 year and 1 year difference (83% / +23%)
-        //     expect(barChartTexts.at(0).text()).to.eql('83%');
-        //     expect(barChartTexts.at(1).text()).to.eql('23%');
-        //     expect(barChartTexts.at(1).find('span').hasClass('fa-caret-up')).to.eql(true);
-
-        //     // 3 year and 3 year difference (66% / +26%)
-        //     expect(barChartTexts.at(2).text()).to.eql('66%');
-        //     expect(barChartTexts.at(3).text()).to.eql('26%');
-        //     expect(barChartTexts.at(3).find('span').hasClass('fa-caret-up')).to.eql(true);
-
-        //     // 5 year and 5 year difference (16% / -4%)
-        //     expect(barChartTexts.at(4).text()).to.eql('16%');
-        //     expect(barChartTexts.at(5).text()).to.eql('4%');
-        //     expect(barChartTexts.at(5).find('span').hasClass('fa-caret-down')).to.eql(true);
-        // });
-
-        // it("chemotherapy: calculates the correct one, three, and five survival rates with comparisons", () => {
-        //     const treatmentRows = outcome().find('.compared-treatments .table-row');
-
-        //     const barChartTexts = treatmentRows.at(0).find('.bar-chart-text');
-
-        //     expect(barChartTexts).to.have.lengthOf(6);
-
-        //     // 1 year and 1 year difference (100% / +40%)
-        //     expect(barChartTexts.at(0).text()).to.eql('100%');
-        //     expect(barChartTexts.at(1).text()).to.eql('40%');
-        //     expect(barChartTexts.at(1).find('span').hasClass('fa-caret-up')).to.eql(true);
-
-        //     // 3 year and 3 year difference (100% / +60%)
-        //     expect(barChartTexts.at(2).text()).to.eql('100%');
-        //     expect(barChartTexts.at(3).text()).to.eql('60%');
-        //     expect(barChartTexts.at(3).find('span').hasClass('fa-caret-up')).to.eql(true);
-
-        //     // 5 year and 5 year difference (70% / +50%)
-        //     expect(barChartTexts.at(4).text()).to.eql('70%');
-        //     expect(barChartTexts.at(5).text()).to.eql('50%');
-        //     expect(barChartTexts.at(5).find('span').hasClass('fa-caret-up')).to.eql(true);
-        // });
-
-        it("sorts rows based on survival", () => {
+        it('sorts rows based on survival', () => {
             const header = outcome().find('.header-space');
             let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
 
@@ -175,6 +130,58 @@ describe.only("TreatmentOptionsOutcome", () => {
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('test therapy');
-        })
+        });
+    });
+
+    describe('outcomes table: comparing treatments', () => {
+        it('selects a treament when compared icon is clicked', () => {
+            props = {
+                ...props,
+                setSelectedTreatment: jest.fn()
+            };
+
+            const compareIcons = outcome().find('.treatment-options-outcomes-table__table .compare-icon');
+            let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+
+            expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
+            expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
+            expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
+
+            // select chemotherapy
+            compareIcons.at(1).simulate('click');
+
+            const [callArgs] = props.setSelectedTreatment.mock.calls;
+            const [treatment] = callArgs;
+
+            expect(treatment.displayName).to.eql('chemotherapy');
+        });
+
+        it('hormonal therapy: calculates the correct one, three, and five survival rates with comparisons', () => {
+            props = {
+                ...props,
+                selectedTreatment: similarPatientTreatmentsData[0]
+            };
+
+            let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+
+            const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
+
+            expect(barChartTexts).to.have.lengthOf(6);
+
+            // 1 year and 1 year difference (98% / +2%)
+            expect(barChartTexts.at(0).text()).to.eql('98%');
+            expect(barChartTexts.at(1).text()).to.eql('2%');
+            expect(barChartTexts.at(1).find('span').hasClass('fa-caret-up')).to.eql(true);
+
+            // 3 year and 3 year difference (92% / +1%)
+            expect(barChartTexts.at(2).text()).to.eql('92%');
+            expect(barChartTexts.at(3).text()).to.eql('1%');
+            expect(barChartTexts.at(3).find('span').hasClass('fa-caret-up')).to.eql(true);
+
+            // 5 year and 5 year difference (87% / -4%)
+            expect(barChartTexts.at(4).text()).to.eql('87%');
+            expect(barChartTexts.at(5).text()).to.eql('4%');
+            expect(barChartTexts.at(5).find('span').hasClass('fa-caret-down')).to.eql(true);
+        });
     });
 });
