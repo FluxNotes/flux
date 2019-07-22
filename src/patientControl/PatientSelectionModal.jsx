@@ -23,7 +23,7 @@ class PatientSelectionModal extends Component {
         this.pastAppTimes = [];
         this.futureAppTimes = [];
         const patientList = this.props.dataAccess.dataSource.getListOfPatients();
-        this.currentPatientViewed = patientList[patientList.length-1].person.entryInfo.shrId;
+        this.currentPatientViewed = patientList[patientList.length - 1].person.entryInfo.shrId;
     }
 
     fillModal = () => {
@@ -50,9 +50,11 @@ class PatientSelectionModal extends Component {
         });
         return (<div>
             <p className='modal-header'>APPOINTMENTS</p>
-            <hr className='section-divider'/>
-            {this.buildLists('past')}
-            {this.buildLists('future')}
+            <hr className='section-divider' />
+            <div style={{minHeight: '403px'}}>
+                {this.buildLists('past')}
+                {this.buildLists('future')}
+            </div>
         </div>);
     }
 
@@ -81,7 +83,7 @@ class PatientSelectionModal extends Component {
                 onMouseLeave={() => { this.setState({ hovered: null }); }}
                 onClick={() => { this.switchPatients(listItem.shrId); }}
             >
-                <ListItemText primary={listItem.time} className='app-time' />
+                <ListItemText primary={listItem.time} className='app-time' style={{ minHeight: '100px' }} />
                 <ListItemIcon><img alt='' src={listItem.pic} style={{ width: '100px', height: '100px', marginRight: '0px' }}></img></ListItemIcon>
                 <ListItemText primary={listItem.name} secondary={listItem.description} className='modal-description' />
             </ListItem>);
@@ -91,7 +93,7 @@ class PatientSelectionModal extends Component {
     switchPatients = (shrId) => {
         this.handleClose();
         this.props.loadPatient(shrId);
-        this.setState({hovered: null});
+        this.setState({ hovered: null });
         this.currentPatientViewed = shrId;
     }
 
@@ -100,7 +102,7 @@ class PatientSelectionModal extends Component {
         const encounterMom = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
         if (patient.getPreviousEncounter() !== undefined) {
             const lastSeen = new moment(patient.getPreviousEncounter().expectedPerformanceTime, "DD MMM YYYY HH:mm");
-            const practitioner = encounter.practitioner? encounter.practitioner : 'unknown';
+            const practitioner = encounter.practitioner ? encounter.practitioner : 'unknown';
             timeSinceLast = 'last seen ' + lastSeen.fromNow() + ' by ' + practitioner;
         }
         if (encounterMom.isAfter(moment().subtract(1, 'h')) && encounterMom.isBefore(moment())) { //if the appointment started less than an hour ago
@@ -142,7 +144,7 @@ class PatientSelectionModal extends Component {
             todayButtonClass = 'blue-button';
         }
         return (<div className='control-panel'>
-            <hr className='section-divider'/>
+            <hr className='section-divider' />
             <Grid fluid >
                 <Row>
                     <Col xs={3}></Col>
