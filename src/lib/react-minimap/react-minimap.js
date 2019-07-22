@@ -113,7 +113,7 @@ export class Minimap extends React.Component {
           width,
           children: _.map(nodes, (node, key) => {
               const {width, height, left, top} = node.getBoundingClientRect();
-              
+
               const wM = width * ratioX;
               let hM = Math.round(height * ratioY);
               const xM = this.props.isTablet? (sourceRect.width + 92 + 15) : ((left + scrollLeft - sourceRect.left) * ratioX); //92 is the width of the left navigation bar and 15 is buffer space
@@ -334,7 +334,6 @@ export class Minimap extends React.Component {
       const {width, height, inEditMode} = this.state;
       const editButtonText = inEditMode ? 'Done' : 'Edit';
       const tabletMarginLeft = this.props.isTablet? (this.left - 15) : '0px';
-      console.log(tabletMarginLeft, this.left);
 
       return (
           <div
@@ -345,7 +344,7 @@ export class Minimap extends React.Component {
               <div className="minimap-children-wrapper" style={{marginLeft: tabletMarginLeft}}>
                   <button
                       className="minimap-children edit-button"
-                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`}}
+                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`, marginLeft: tabletMarginLeft}}
                       onClick={this.editMinimapSections}>
                       {editButtonText}
                   </button>
