@@ -25,14 +25,12 @@ yarn-error.log*
 /src/context/ContextGetHelp.css
 /src/context/ContextTray.css
 /src/context/ShortcutViewModeContent.css
-/src/context/ShortcutSearch.css
 /src/context/SnippetViewModeContent.css
 /src/dashboard/CompassAppDashboard.css
 /src/dashboard/PointOfCareDashboard.css
 /src/elements/SearchBar.css
 /src/forms/MultiChoiceButton.css
 /src/forms/SingleChoiceButton.css
-/src/forms/TemplateForm.css
 /src/lib/react-minimap/react-minimap.css
 /src/mcode-pilot/**/*.css
 /src/notes/ActiveContextsBreadcrumbs.css
