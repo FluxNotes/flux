@@ -24,7 +24,8 @@
     }
     
     .tablet-patient-info {
-        color: black !important;
+        color: $body-gray !important;
+        font-size: $size-m;
     }
     .patient-mrn {
       color: #999;
