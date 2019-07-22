@@ -116,6 +116,7 @@ class PatientSelectionModal extends Component {
     }
 
     handleClose = () => {
+        this.setState({day: moment()});
         this.props.handleClose();
     }
 
