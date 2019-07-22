@@ -49,9 +49,11 @@ class PatientSelectionModal extends Component {
             });
         });
         return (<div>
-            <p className='modal-header'>APPOINTMENTS</p>
-            <hr className='section-divider' />
-            <div style={{minHeight: '403px'}}>
+            <div className='sticky-header'>
+                <p className='modal-header'>APPOINTMENTS</p>
+                <hr className='section-divider' />
+            </div>
+            <div style={{ minHeight: '403px' }}>
                 {this.buildLists('past')}
                 {this.buildLists('future')}
             </div>
@@ -116,7 +118,7 @@ class PatientSelectionModal extends Component {
     }
 
     handleClose = () => {
-        this.setState({day: moment()});
+        this.setState({ day: moment() });
         this.props.handleClose();
     }
 

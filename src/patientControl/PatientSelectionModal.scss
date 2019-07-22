@@ -3,10 +3,14 @@
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 403px;
-    // min-height: 403px;
     width: 525px !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 8px 8px 0px 8px !important;
+    padding: 0px 8px 0px 8px !important;
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        background-color: $background;
+    }
     .section-divider {
         height: 1px;
         color: $line-gray;
@@ -15,7 +19,6 @@
     }
     .modal-list {
         padding-bottom: 0px;
-        // min-height: 100px;
     }
     .button {
         color: $state;
@@ -91,12 +94,14 @@
         margin: 0px;
         text-align: center;
         font-weight: 550;
+        padding-top: 8px;
     }
     .fa-times {
         color: $icons-blue;
         position: relative;
         float: right;
         margin-right: -22px;
+        padding-top: 8px;
 
     }
     .arrow {
