@@ -99,6 +99,10 @@ class ContextGetHelp extends React.Component {
             else if (this.state.selectedIndex > 0) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                // the parent 'get help' option is not included in the getHelpOptions array
+                // but it is included as a selectedIndex, so there is an off by one that needs
+                // to be calculated, hence the -1
                 return this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
             }
         }
