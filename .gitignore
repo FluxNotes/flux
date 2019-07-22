@@ -23,6 +23,7 @@ yarn-error.log*
 /src/context/SnippetViewModeContent.css
 /src/dashboard/CompassAppDashboard.css
 /src/dashboard/PointOfCareDashboard.css
+/src/dashboard/NextPatientButton.css
 /src/elements/SearchBar.css
 /src/forms/MultiChoiceButton.css
 /src/forms/SingleChoiceButton.css

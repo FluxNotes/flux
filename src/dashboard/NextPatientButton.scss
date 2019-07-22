@@ -1,0 +1,41 @@
+@import '../styles/variables';
+
+.patient-div {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 120px;
+    height: 100px;
+    background-color: #32556C;
+    border-style: solid;
+    border-color: #E1E1E1;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 50px 0 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 3 !important;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.inside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    height: 100%;
+    border-radius: 0 50px 0 0;
+     &:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+} 
+.patient-icon {
+    color: white;
+    display: inline-block;
+}

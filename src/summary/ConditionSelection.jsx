@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 
 import './ConditionSelection.css';
 
+
 class ConditionSelection extends Component {
     constructor(props) {
         super(props);
