@@ -334,6 +334,7 @@ export class PointOfCareApp extends Component {
                                         searchSuggestions={this.state.searchSuggestions}
                                         isAppBlurred={this.state.isAppBlurred}
                                         setAppBlur={this.setAppBlur}
+                                        isTablet={true}
                                     />
                                 }
                             </div>

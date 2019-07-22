@@ -17,6 +17,7 @@ export class Minimap extends React.Component {
       titleAttribute: PropTypes.string,
       onMountCenterOnX: PropTypes.bool,
       onMountCenterOnY: PropTypes.bool,
+      isTablet: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -111,10 +112,10 @@ export class Minimap extends React.Component {
           width,
           children: _.map(nodes, (node, key) => {
               const {width, height, left, top} = node.getBoundingClientRect();
-
+              
               const wM = width * ratioX;
               let hM = Math.round(height * ratioY);
-              const xM = (left + scrollLeft - sourceRect.left) * ratioX;
+              const xM = this.props.isTablet? 700: (left + scrollLeft - sourceRect.left) * ratioX;
               const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
               const title = node.getAttribute(this.props.titleAttribute);
               const shortTitle = node.getAttribute(this.props.shortTitleAttribute);

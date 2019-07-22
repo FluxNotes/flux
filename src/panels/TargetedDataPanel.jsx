@@ -99,10 +99,11 @@ export default class TargetedDataPanel extends Component {
 
         const { sectionsToDisplay } = this.state;
         const tdpDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
+        const tabletMinimapMargin = this.props.isTablet? {marginLeft: '0px'} : {marginLeft: '100px'};
 
         if (conditionMetadata && conditionMetadata.sections.length > 1) {
             return (
-                <div className="targeted-data-panel">
+                <div className="targeted-data-panel" style={tabletMinimapMargin}>
                     <Minimap
                         selector={`[${minimapAttribute}]`}
                         className="fitted-panel"
@@ -115,6 +116,7 @@ export default class TargetedDataPanel extends Component {
                         preferenceManager={this.props.preferenceManager}
                         doneEditingMinimap={this.doneEditingMinimap}
                         startEditingMinimap={this.startEditingMinimap}
+                        isTablet={this.props.isTablet}
                     >
                         <div id={`summary-subpanel`}>
                             <div className={`summary-section ${tdpDisabledClass}`}>
@@ -186,6 +188,7 @@ TargetedDataPanel.propTypes = {
     highlightedSearchSuggestion: PropTypes.object,
     isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
+    isTablet: PropTypes.bool,
     isTargetedDataSubpanelVisible: PropTypes.bool,
     isWide: PropTypes.bool.isRequired,
     loginUser: PropTypes.object.isRequired,
