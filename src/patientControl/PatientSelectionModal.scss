@@ -1,28 +1,85 @@
-@import '../styles/variables';
+@import "../styles/variables";
 .modal {
-    overflow-y: auto;
-    max-height: 500px;
-    width: 520px !important;
-    box-shadow: 0px 4px 4px rgba(0,0,0,.25);
+    max-height: 403px;
+    width: 535px !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 0px 8px 0px 8px !important;
+    .scrolly {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 288px;
+        min-height: 288px;
+    }
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        background-color: $background;
+    }
     .section-divider {
         height: 1px;
         color: $line-gray;
         border: none;
-        background-color: rgba(0,0,0,.12);
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+    .modal-list {
+        padding-bottom: 0px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .button {
+        color: $state;
+        font-size: $size-m;
+        border: 1px solid $state;
+        background-color: $background;
+        text-transform: lowercase;
+        font-family: "Open Sans", Arial, sans-serif;
+        min-width: 55px;
+        min-height: 25px;
+        padding: 0px 0px 0px 0px;
+        margin-top: 4px;
+        border-color: $icons-gray;
         
     }
-    .MuiBackdrop-root-225 {
-        opacity: .3;
+    .blue-button {
+        color: $interface-blue;
+        border-color: $interface-blue;
+    }
+    .control-panel {
+        position: sticky;
+        bottom: 0px;
+        background-color: $background;
+        .modal-date {
+            margin-top: 5px;
+            font-weight: $weight-semibold;
+            font-size: 16px;
+            color: $body-gray;
+            font-family: "Open Sans", Arial, sans-serif;
+        }
     }
     .hovered-list-item {
-        background-color: rgba(26, 118, 180, .1);
+        background-color: rgba(26, 118, 180, 0.1);
         cursor: pointer;
+        border: solid;
+        border-width: medium;
+        border-color: skyblue !important;
+    }
+    .patient-being-viewed {
+        background-color: $feature-gray;
+        border-color: $feature-gray;
+    }
+    .list-item {
+        margin-bottom: 20px;
+        min-height: 100px;
+        border: solid;
+        border-width: medium;
+        border-color: $background;
     }
     .clickable {
         cursor: pointer;
     }
     .MuiList-root-250 {
         padding-top: 0px;
+        padding-bottom: 0px;
     }
     .MuiListItem-root-231 {
         padding-left: 10px;
@@ -31,8 +88,9 @@
     .MuiList-root-227 {
         padding-top: 0px;
     }
-    .app-time{ //appointment times
-        .MuiTypography-root-174{
+    .app-time {
+        //appointment times
+        .MuiTypography-root-174 {
             padding-left: 15px;
             color: $state;
         }
@@ -42,11 +100,22 @@
         padding-right: 0px;
     }
     .modal-header {
-        font-size: $size-xs;
+        font-size: $size-m;
         margin: 0px;
+        text-align: center;
+        font-weight: 550;
+        padding-top: 8px;
     }
     .fa-times {
-        margin-left: 500px;
         color: $icons-blue;
+        position: relative;
+        float: right;
+        padding-top: 8px;
+
+    }
+    .arrow {
+        color: $icons-blue;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 }

@@ -124,13 +124,13 @@ class PatientControlPanel extends Component {
                 <Paper className="panel-content">
                     <Grid fluid>
                         <Row middle="xs">
-                            <Col xs={3} lg={2} className='logo-title-column'>
+                            <Col xs={3} md={2} lg={2} className='logo-title-column'>
                                 {this.renderFluxNotesLogo()}
                             </Col>
                             <Col xs={4} md={4} lg={3} className="summary-header-column">
                                 {this.renderSummaryHeader()}
                             </Col>
-                            <Col xs={1} lg={1}>
+                            <Col xs={1} md={1} lg={1}>
                                 {this.renderSelectPatientArrow()}
                             </Col>
                             <Col xs={4} md={5} lg={6}>
