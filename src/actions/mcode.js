@@ -1,6 +1,6 @@
 import * as types from './types';
 import ServiceManager from '../config/ServiceManager';
-import {processResults} from '../mcode-pilot/utils/serviceResultsProcessing';
+import {formatResults} from '../mcode-pilot/utils/serviceResultsProcessing';
 
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
@@ -59,8 +59,8 @@ function processSimilarPatientOutcomes() {
     return (dispatch, getState) => {
         const { similarPatientProps } = getState().mcode;
         const service = new ServiceManager().getService('outcomes');
-        return service.processSimilarPatientOutcomes(similarPatientProps).then(unprocessedResults => {
-            const results = processResults(unprocessedResults);
+        return service.processSimilarPatientOutcomes(similarPatientProps).then(unformattedResults => {
+            const results = formatResults(unformattedResults);
             dispatch(updatePatientOutcomes({
                 totalPatients: results.totalPatients,
                 totalSimilarPatients: results.totalSimilarPatients,

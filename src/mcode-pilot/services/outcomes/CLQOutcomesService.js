@@ -1,6 +1,7 @@
 import request from "request";
 import IOutcomesService from './IOutcomesService';
 import FilterOptions from '../../utils/FilterOptions';
+import _ from 'lodash';
 
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
@@ -12,12 +13,12 @@ export default class CLQOutcomesService extends IOutcomesService {
 
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
-    buildDemographicsFilter(filterOptions) {
+    buildDemographicsFilter(activeFilterValues) {
         let filter = {};
-        let gender = filterOptions["shr.core.BirthSex"];
-        let race = filterOptions["shr.core.Race"];
-        let age = filterOptions["shr.core.DateOfBirth"];
-        let age_at_diagnosis = filterOptions["shr.core.DateOfDiagnosis"];
+        let gender = activeFilterValues["shr.core.BirthSex"];
+        let race = activeFilterValues["shr.core.Race"];
+        let age = activeFilterValues["shr.core.DateOfBirth"];
+        let age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
             filter.gender = {
                 codeSystemName: "AdministrativeGender",
@@ -49,13 +50,13 @@ export default class CLQOutcomesService extends IOutcomesService {
 
     /* Build the CLQ diagnosis filter based off of the Comapss Filter options
      */
-    buildDiagnosisFilter(filterOptions) {
+    buildDiagnosisFilter(activeFilterValues) {
         let filter = {};
-        let stage = filterOptions["onco.core.TNMClinicalStageGroup"];
-        let t = filterOptions["onco.core.TNMClinicalPrimaryTumorCategory"];
-        let n = filterOptions["onco.core.TNMClinicalRegionalNodesCategory"];
-        let m = filterOptions["onco.core.TNMClinicalDistantMetastasesCategory"];
-        let grade = filterOptions["onco.core.CancerHistologicGrade"];
+        let stage = activeFilterValues["onco.core.TNMClinicalStageGroup"];
+        let t = activeFilterValues["onco.core.TNMClinicalPrimaryTumorCategory"];
+        let n = activeFilterValues["onco.core.TNMClinicalRegionalNodesCategory"];
+        let m = activeFilterValues["onco.core.TNMClinicalDistantMetastasesCategory"];
+        let grade = activeFilterValues["onco.core.CancerHistologicGrade"];
         if (stage) {
             filter.stage = stage.reference.stage;
         }
@@ -78,11 +79,11 @@ export default class CLQOutcomesService extends IOutcomesService {
     /* Build the CLQ tumor markers filter sections based off the tumor makrkers found in the similar
     patient properties
     */
-    buildTumorMarkersFilter(filterOptions) {
+    buildTumorMarkersFilter(activeFilterValues) {
         let filter = [];
         // loop over options look for tumor markers and add to filter
-        let markers = filterOptions["onco.core.TumorMarkerTest"];
-        if (markers!==undefined && !Array.isArray(markers)) {
+        let markers = activeFilterValues["onco.core.TumorMarkerTest"];
+        if (!_.isEmpty(markers) && !Array.isArray(markers)) {
             markers = [markers];
         }
         for (let x in markers) {
@@ -105,10 +106,10 @@ export default class CLQOutcomesService extends IOutcomesService {
     processSimilarPatientOutcomes(similarPatientProps) {
         let filter = {};
         const fOptions = new FilterOptions(similarPatientProps);
-        const filterValues = fOptions.getAllActiveValuesByMcodeElement();
-        filter.demographics = this.buildDemographicsFilter(filterValues);
-        filter.diagnosis = this.buildDiagnosisFilter(filterValues);
-        filter.tumorMarkers = this.buildTumorMarkersFilter(filterValues);
+        const activeFilterValues = fOptions.getAllActiveValuesByMcodeElement();
+        filter.demographics = this.buildDemographicsFilter(activeFilterValues);
+        filter.diagnosis = this.buildDiagnosisFilter(activeFilterValues);
+        filter.tumorMarkers = this.buildTumorMarkersFilter(activeFilterValues);
         filter.outcomes = {survival: this.timescale.map((ts) => { return {"value": ts*12, "interval": "months" }; })};
         return new Promise((accept, reject) => {
             request({

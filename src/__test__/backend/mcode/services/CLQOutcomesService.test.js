@@ -12,7 +12,7 @@ import expectedFilter from './filter.json';
 import response from './response.json';
 import rows from './rows.js';
 import processed from './processed.js';
-import {generateOutcomeData, processResults} from '../../../../mcode-pilot/utils/serviceResultsProcessing';
+import {generateOutcomeData, formatResults} from '../../../../mcode-pilot/utils/serviceResultsProcessing';
 const nock = require('nock');
 
 
@@ -75,7 +75,7 @@ describe("CLQOutcomesService", () => {
     });
 
     it("Should be able to process results", () => {
-        let clqResults = processResults(response, [{
+        let clqResults = formatResults(response, [{
             "code": "A",
             "displayName": "A",
             "codeSystem": "2.16.840.1.113883.6.88",
@@ -105,7 +105,7 @@ describe("CLQOutcomesService", () => {
             .reply(200, response)
 
         clqService.processSimilarPatientOutcomes(similarPatientProps).then((clqResults) => {
-            clqResults = processResults(clqResults);
+            clqResults = formatResults(clqResults);
             removeRowIds(clqResults)
             removeRowIds(processed)
             expect(_.isEqual(clqResults, processed)).to.be.true
