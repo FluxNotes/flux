@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'material-ui/Modal';
-import List, { ListItem, ListItemText, ListItemIcon, ListSubheader } from 'material-ui/List';
+import List, { ListItem, ListItemText, ListItemIcon, } from 'material-ui/List';
 import Button from 'material-ui/Button';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
