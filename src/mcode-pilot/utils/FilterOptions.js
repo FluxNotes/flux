@@ -1,3 +1,4 @@
+import _ from 'lodash';
 export default class FilterOptions {
     constructor(props) {
         this.filters = props;
@@ -35,7 +36,7 @@ export default class FilterOptions {
             filterInfo.value = filter.value;
             filterInfo.reference = filter.reference;
 
-            if (returnValue[filter.mcodeElement] !== undefined) {
+            if (!_.isEmpty(returnValue[filter.mcodeElement])) {
                 if (Array.isArray(returnValue[filter.mcodeElement])) {
                     returnValue[filter.mcodeElement] = [...returnValue[filter.mcodeElement], filterInfo];
                 } else {
