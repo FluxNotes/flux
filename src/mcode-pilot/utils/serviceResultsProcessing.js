@@ -35,7 +35,7 @@ function generateOutcomeData(data) {
         let row = initializeTreatmentData(generateTreatmentDisplayName(item.treatments), item.treatments);
         row.totalPatients = item.total;
 
-        if (item.sideEffects !== undefined) {
+        if (!_.isEmpty(item.sideEffects)) {
             row.sideEffects.totalReporting = item.sideEffects.total;
             row.sideEffects.effects = item.sideEffects.effects;
         }
@@ -48,8 +48,7 @@ function generateOutcomeData(data) {
 }
 
 /* Process the entire service response. */
-function processResults(data) {
-    console.log(data);
+function formatResults(data) {
     let similarPatientTreatmentsData = generateOutcomeData(data.outcomes.survival.data);
     let similarPatientTreatments = [];
     similarPatientTreatmentsData.forEach((row) => {
@@ -71,4 +70,4 @@ function processResults(data) {
     };
 }
 
-export {processResults, generateOutcomeData};
+export {formatResults, generateOutcomeData};
