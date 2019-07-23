@@ -49,14 +49,8 @@ class PatientSelectionModal extends Component {
             });
         });
         return (<div>
-            <div className='sticky-header'>
-                <p className='modal-header'>APPOINTMENTS</p>
-                <hr className='section-divider' />
-            </div>
-            <div style={{ minHeight: '403px' }}>
-                {this.buildLists('past')}
-                {this.buildLists('future')}
-            </div>
+            {this.buildLists('past')}
+            {this.buildLists('future')}
         </div>);
     }
 
@@ -85,7 +79,7 @@ class PatientSelectionModal extends Component {
                 onMouseLeave={() => { this.setState({ hovered: null }); }}
                 onClick={() => { this.switchPatients(listItem.shrId); }}
             >
-                <ListItemText primary={listItem.time} className='app-time' style={{ minHeight: '100px' }} />
+                <ListItemText primary={listItem.time} className='app-time' />
                 <ListItemIcon><img alt='' src={listItem.pic} style={{ width: '100px', height: '100px', marginRight: '0px' }}></img></ListItemIcon>
                 <ListItemText primary={listItem.name} secondary={listItem.description} className='modal-description' />
             </ListItem>);
@@ -188,11 +182,17 @@ class PatientSelectionModal extends Component {
                 onClose={this.handleClose}
             >
                 <div style={this.getModalStyle()} className='modal'>
-                    <List className='modal-list'>
-                        <ListSubheader><FontAwesome className='fas fa-times clickable' name='close-icon' onClick={this.handleClose} /></ListSubheader>
-                        {this.fillModal()}
-                        {this.buildControlPanel()}
-                    </List>
+                    <div className='sticky-header'>
+                        <FontAwesome className='fas fa-times clickable' name='close-icon' onClick={this.handleClose} />
+                        <p className='modal-header'>APPOINTMENTS</p>
+                        <hr className='section-divider' />
+                    </div>
+                    <div className='scrolly'>
+                        <List className='modal-list'>
+                            {this.fillModal()}
+                        </List>
+                    </div>
+                    {this.buildControlPanel()}
                 </div>
             </Modal>);
         } else {

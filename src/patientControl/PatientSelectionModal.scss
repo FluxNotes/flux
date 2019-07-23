@@ -1,11 +1,15 @@
 @import "../styles/variables";
 .modal {
-    overflow-y: auto;
-    overflow-x: hidden;
     max-height: 403px;
-    width: 525px !important;
+    width: 535px !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 0px 8px 0px 8px !important;
+    .scrolly {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 288px;
+        min-height: 288px;
+    }
     .sticky-header {
         position: sticky;
         top: 0;
@@ -19,6 +23,8 @@
     }
     .modal-list {
         padding-bottom: 0px;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .button {
         color: $state;
@@ -53,16 +59,20 @@
     .hovered-list-item {
         background-color: rgba(26, 118, 180, 0.1);
         cursor: pointer;
-        outline: solid;
-        outline-width: medium;
-        outline-color: skyblue;
+        border: solid;
+        border-width: medium;
+        border-color: skyblue !important;
     }
     .patient-being-viewed {
         background-color: $feature-gray;
+        border-color: $feature-gray;
     }
     .list-item {
         margin-bottom: 20px;
         min-height: 100px;
+        border: solid;
+        border-width: medium;
+        border-color: $background;
     }
     .clickable {
         cursor: pointer;
@@ -100,7 +110,6 @@
         color: $icons-blue;
         position: relative;
         float: right;
-        margin-right: -22px;
         padding-top: 8px;
 
     }
