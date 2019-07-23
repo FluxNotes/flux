@@ -13,6 +13,7 @@ import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
 import Lang from 'lodash';
 import Reference from '../model/Reference';
+import FontAwesome from 'react-fontawesome';
 
 import SecurityManager from '../security/SecurityManager';
 import PointOfCareDashboard from '../dashboard/PointOfCareDashboard';
@@ -47,9 +48,10 @@ function getModalStyle() {
         transform: `translate(-${top}%, -${left}%)`,
         position: 'absolute',
         width: 400,
-        backgroundColor: 'white',
+        backgroundColor: '#e6e6e6',
         boxShadow: 'black',
-        padding: 8,
+        padding: 20,
+        overflowY: 'auto',
     };
 }
 
@@ -271,6 +273,7 @@ export class PointOfCareApp extends Component {
         const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
         const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
         const currNote = sourceNote;
+        console.log(currNote);
         if (currNote.signed) {
             date = currNote.signedOn;
             clinicianName = currNote.signedBy;
@@ -284,7 +287,7 @@ export class PointOfCareApp extends Component {
         }
         this.setState({
             modalTitle: title,
-            modalContent: authorString + clinicianName + " " + dateString + date + "\n" + currNote.content,
+            modalContent: authorString + clinicianName + "\n" + dateString + date + "\n\n" + currNote.content,
         });
     }
 
@@ -341,6 +344,17 @@ export class PointOfCareApp extends Component {
             );
         } else {
             return "";
+        }
+    }
+    getNoteModalStyle = () => {
+        if (this.state.openClinicalNote !== null) {
+            return {
+                width: '50%',
+                height: '75%',
+            };
+        }
+        else {
+            return {};
         }
     }
 
@@ -415,14 +429,27 @@ export class PointOfCareApp extends Component {
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
-                            onClick={this.handleModalClose}
+                            // onClick={this.handleModalClose}
                         >
-                            <div style={getModalStyle()} >
-                                <Typography id="modal-title">
-                                    {this.state.modalTitle}
-                                </Typography>
+                            <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
+                                <div className='header'>
+                                    <span className='close-div' onClick={this.handleModalClose}>
+                                        <FontAwesome className='close-button' name='times'/>
+                                        Close
+                                    </span>
+                                    <Typography id="modal-title">
+                                        {this.state.modalTitle}
+                                    </Typography>
+                                </div>
                                 <Typography id="simple-modal-description">
-                                    {this.state.modalContent}
+                                    {this.state.modalContent.split('\n').map(function (item, key) {
+                                        return (
+                                            <span key={key}>
+                                                {item}
+                                                <br />
+                                            </span>
+                                        );
+                                    })}
                                 </Typography>
                             </div>
                         </Modal>
