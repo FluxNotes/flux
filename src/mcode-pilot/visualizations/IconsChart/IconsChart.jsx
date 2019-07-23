@@ -6,7 +6,6 @@ import './IconsChart.css';
 export default class IconsChart extends Component {
     render() {
         const { numSurvive, numMoreSurvive, numLessSurvive, treatment, yearsSurvival } = this.props;
-        if (!treatment) return <div className="icons-chart helper-text">No treatment selected.</div>;
         const numDie = 100 - numSurvive;
 
         let circlesSurvive = [];
@@ -17,7 +16,8 @@ export default class IconsChart extends Component {
 
         let circlesDie = [];
         for (let i = 0; i < numDie; i++) {
-            circlesDie.push(<div className="icons-chart__circle die" key={i}></div>);
+            const klass = i >= numLessSurvive ? 'die' : 'less';
+            circlesDie.push(<div className={`icons-chart__circle ${klass}`} key={i}></div>);
         }
 
         return (
@@ -36,8 +36,10 @@ export default class IconsChart extends Component {
                     <div className="die">
                         {numMoreSurvive > 0 && <span className="num-more-survive">{numMoreSurvive} more </span>}
                         {numMoreSurvive === 0 && <span className="num-zero-more-survive">{numMoreSurvive} more </span>}
-                        {numLessSurvive && <span className="num-less-survive">{numLessSurvive} less </span>}
-                        {(numMoreSurvive || numMoreSurvive === 0 || numLessSurvive) && <span>survive with</span>}
+                        {numLessSurvive && <span className="num-less-survive">{numLessSurvive} fewer </span>}
+                        {(numMoreSurvive || numMoreSurvive === 0 || numLessSurvive) &&<span>survive</span>}
+                        {(numMoreSurvive === 1 || numLessSurvive === 1) && <span>s</span>}
+                        {(numMoreSurvive || numMoreSurvive === 0 || numLessSurvive) &&<span> with</span>}
                         {(numMoreSurvive == null) && !numLessSurvive &&
                             <span>{numDie}/100 die within {yearsSurvival} year{yearsSurvival > 0 && <span>s</span>} with</span>
                         }
@@ -53,6 +55,6 @@ IconsChart.propTypes = {
     numSurvive: PropTypes.number,
     numMoreSurvive: PropTypes.number,
     numLessSurvive: PropTypes.number,
-    treatment: PropTypes.string,
+    treatment: PropTypes.string.isRequired,
     yearsSurvival: PropTypes.string
 };

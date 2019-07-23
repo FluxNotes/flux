@@ -57,6 +57,10 @@
                 background-color: $contrast-gray;
             }
 
+            &:hover:not(.selected-treatment) {
+                background-color: lighten($icons-blue, 40%);
+            }
+
             &.selected-treatment {
                 background-color: darken($contrast-gray, 5%);
                 box-shadow: 0px 10px 8px -5px rgba(153, 153, 153, 1);

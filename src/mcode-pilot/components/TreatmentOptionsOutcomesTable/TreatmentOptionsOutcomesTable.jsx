@@ -22,6 +22,25 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.similarPatientTreatmentsData !== this.props.similarPatientTreatmentsData) {
+            const selected = nextProps.selectedTreatment;
+            const selectedTreatmentInData =
+                selected != null &&
+                nextProps.similarPatientTreatmentsData.findIndex(el => el.displayName === selected.displayName) !== -1;
+            if (!selectedTreatmentInData) {
+                // if selected treatment no longer in data, set selected treatment to null
+                nextProps.setSelectedTreatment(null);
+            } else {
+                // otherwise update selected treatment
+                const newSelectedTreatment = nextProps.similarPatientTreatmentsData.find(treatment => {
+                    return treatment.displayName === nextProps.selectedTreatment.displayName;
+                });
+                nextProps.setSelectedTreatment(newSelectedTreatment);
+            }
+        }
+    }
+
     handleChangeEffect = effect => {
         this.setState({ sideEffectSelection: effect.target.value });
     }
@@ -130,13 +149,13 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     </span>
                 </div>
 
-                <div className="flex-6 flex-padding">
-                    <div className="header-title">Overall survival rates</div>
+                <div className="flex-6">
+                    <div className="header-title flex-padding">Overall survival rates</div>
 
                     <div className="flex">
                         {this.props.timescale.map(timescaleYear => {
                             return (
-                                <div className="flex-1" key={timescaleYear}>
+                                <div className="flex-1 flex-padding" key={timescaleYear}>
                                     <span onClick={ () => { changeSort(timescaleYear); }} className="header-space">
                                         {timescaleYear} yr  <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear?sortName: "sort"} />
                                     </span>
@@ -147,8 +166,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                 </div>
 
                 <div className="flex-4 flex-padding">
-                    <div className="header-title">Side Effects</div>
-                    <div id="ccp-table-select">
+                    <div className="header-title flex-padding">Side Effects</div>
+                    <div id="ccp-table-select" className="flex-padding">
                         <Select
                             value={sideEffectSelection}
                             onChange={this.handleChangeEffect}
@@ -189,7 +208,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
                     {selectedTreatment && this.renderTreatmentRow(selectedTreatment, true)}
                     {similarPatientTreatmentsData.map(treatmentData => {
-                        if (!selectedTreatment || treatmentData.id !== selectedTreatment.id) {
+                        if (!selectedTreatment || treatmentData.displayName !== selectedTreatment.displayName) {
                             return this.renderTreatmentRow(treatmentData);
                         }
                         return null;

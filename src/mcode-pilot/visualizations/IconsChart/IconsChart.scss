@@ -48,9 +48,15 @@
             margin: 4px;
         }
 
-        &.die {
+        &.die,
+        &.less {
             border: 1px solid $icons-gray;
             background-color: $icons-gray;
+        }
+
+        &.less {
+            border: 3px solid $icons-red;
+            margin: 4px;
         }
     }
 

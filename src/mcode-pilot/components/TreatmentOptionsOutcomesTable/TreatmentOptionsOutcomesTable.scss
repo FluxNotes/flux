@@ -1,23 +1,24 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins/media-queries';
 
 .treatment-options-outcomes-table {
     &__header {
         display: flex;
         align-items: flex-end;
-        margin-bottom: 10px;
+        margin: 10px;
 
         .compare-header {
             font-size: 0.9em;
+            padding-right: 40px;
             margin-bottom: -10px;
-            padding-left: 10px;
             min-width: 120px;
+
+            @include respond-to('1024px') { padding-right: 0; }
         }
 
         .user-icon {
             text-align: center;
-            font-size: 1.5em;
-            color: $state;
-            padding-left: 12px;
+            margin-left: -2px;
         }
 
         .header-title {
@@ -53,8 +54,7 @@
     }
 
     &__table {
-        padding: 5px 10px;
-        margin-bottom: 20px;
+        margin: 10px 10px 20px 10px;
 
         .treatment-name {
             display: flex;

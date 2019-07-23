@@ -23,11 +23,19 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
             const selected = nextProps.selectedTreatment;
             const displayed = this.state.displayedTreatment;
 
-            // if selected treatment no longer in data, set selected treatment to null
             const selectedTreatmentInData =
                 selected != null &&
                 nextProps.similarPatientTreatmentsData.findIndex(el => el.displayName === selected.displayName) !== -1;
-            if (!selectedTreatmentInData) nextProps.setSelectedTreatment(null);
+            if (!selectedTreatmentInData) {
+                // if selected treatment no longer in data, set selected treatment to null
+                nextProps.setSelectedTreatment(null);
+            } else {
+                // otherwise update selected treatment
+                const newSelectedTreatment = nextProps.similarPatientTreatmentsData.find(treatment => {
+                    return treatment.displayName === nextProps.selectedTreatment.displayName;
+                });
+                nextProps.setSelectedTreatment(newSelectedTreatment);
+            }
 
             // if displayed treatment no longer in data, set displayed treatment to first treatment in sorted data
             const displayedTreatmentInData =
@@ -63,12 +71,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     }
 
     handleDisplayTreatment = treatment => {
-        const { displayedTreatment } = this.state;
-        if (displayedTreatment && displayedTreatment.id === treatment.id) {
-            this.setState({ displayedTreatment: null });
-        } else {
-            this.setState({ displayedTreatment: treatment });
-        }
+        this.setState({ displayedTreatment: treatment });
     }
 
     renderInteractionHeader = () => {
