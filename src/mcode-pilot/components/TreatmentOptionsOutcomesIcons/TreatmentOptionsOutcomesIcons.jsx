@@ -124,7 +124,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                     <div className="display-name">{treatment.displayName}</div>
                 </div>
 
-                <div className="flex-1 flex-padding total-patients">({normalizedTotalPatients})</div>
+                <div className="flex-1 flex-padding total-patients">({normalizedTotalPatients}/100)</div>
                 <div className="flex-1 flex-padding overall-survival">
                     {isSelectedTreatment || !selectedTreatment
                         ? <div className="selected-num-survive">{numSurvive}/100</div>
