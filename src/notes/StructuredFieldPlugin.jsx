@@ -2,7 +2,7 @@ import Placeholder from '../shortcuts/Placeholder';
 import InsertValue from '../shortcuts/InsertValue';
 import React from 'react';
 import Slate from '../lib/slate';
-import Lang from 'lodash';
+import _ from 'lodash';
 import getWindow from 'get-window';
 
 function createOpts(opts) {
@@ -130,7 +130,7 @@ function StructuredFieldPlugin(opts) {
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
 
         // Override native typing when typing inside a structured field
-        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
+        if (shortcut && !_.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
             splitInserterAndInsertText(e, state, editor, useFocusKey, selection, shortcut, e.key);
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
@@ -187,6 +187,7 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onChange(state, editor) {
+        // Track deletedKeys to remove things appropritately and accurately update parentContexts when appropriate
         const deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
@@ -204,16 +205,17 @@ function StructuredFieldPlugin(opts) {
         // Sort the keys in reverse order of creation -- new keys are always > old keys
         deletedKeys.sort((a, b) => b - a);
         let shortcut;
-        let result = state;
+        let transform = state.transform();
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
                 }
-                if (shortcut.hasParentContext()) {
-                    const transform = updateParentContextShortcut(state.transform(), shortcut);
-                    result = transform.apply();
+                // If there is a parent context and the parent will reamin after deletion, update its key as well.
+                // Need to check for actual shortcut.parentContext because hasParentContext returns true if "patient" is a parent context
+                if (shortcut.hasParentContext() && !_.isEmpty(shortcut.parentContext) && !_.includes(deletedKeys, shortcut.parentContext.getKey())) {
+                    transform = updateParentContextShortcut(transform, shortcut);
                 }
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.uniqueId);
@@ -221,11 +223,11 @@ function StructuredFieldPlugin(opts) {
                 idToKeysMap.set(shortcut.uniqueId, updatedShortcutKeys);
                 contextManager.contextUpdated();
             } else {
-                result = editor.getState(); // don't allow state change
+                transform = editor.getState().transform(); // don't allow state change
                 updateErrors([ "Unable to delete " + shortcut.getDisplayText() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
             }
         });
-        return result;
+        return transform.apply();
     }
 
     // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
@@ -313,15 +315,15 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.characters && node.characters.length > 0) {
                 node.characters.forEach(char => {
-                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
-                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+                    const inMarksNotLocal = _.differenceBy(char.marks, localStyle, 'type');
+                    const inLocalNotMarks = _.differenceBy(localStyle, char.marks, 'type');
                     if (inMarksNotLocal.length > 0) {
                         inMarksNotLocal.forEach(mark => {
                             result += `<${markToHTMLTag[mark.type]}>`;
                         });
                     }
                     if (inLocalNotMarks.length > 0) {
-                        Lang.reverse(inLocalNotMarks).forEach(mark => {
+                        _.reverse(inLocalNotMarks).forEach(mark => {
                             result += `</${markToHTMLTag[mark.type]}>`;
                         });
                     }
@@ -329,7 +331,7 @@ function StructuredFieldPlugin(opts) {
                     result += char.text;
                 });
                 if (localStyle.length > 0) {
-                    Lang.reverse(localStyle).forEach(mark => {
+                    _.reverse(localStyle).forEach(mark => {
                         result += `</${markToHTMLTag[mark.type]}>`;
                     });
                 }
