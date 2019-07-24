@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ContextGetHelp.css';
+import NoteParser from '../noteparser/NoteParser';
+
 
 const UP_ARROW_KEY = 38;
 const DOWN_ARROW_KEY = 40;
@@ -9,6 +11,7 @@ const ENTER_KEY = 13;
 class ContextGetHelp extends React.Component {
     constructor(props) {
         super(props);
+        this.noteParser = new NoteParser();
 
         // eventually we can set this up to have custom options as a prop
         const defaultOptions = [
@@ -29,8 +32,27 @@ class ContextGetHelp extends React.Component {
     }
 
     expand = () => {
-        console.log('the expand option has been selected, expanding ' + this.props.shortcut.initiatingTrigger);
         this.props.closePortal();
+        const transform = this.replaceCurrentShortcut(this.props.shortcut.metadata.expandedText);
+        return this.props.onSelected(transform.apply(), null);
+    }
+
+    replaceCurrentShortcut = (selection) => {
+        let transform;
+        transform = this.props.state.transform();
+        const triggers = this.noteParser.getListOfTriggersFromText(selection)[0];
+        triggers.forEach((trigger, idx) => {
+            if (idx !== 0) {
+                transform = this.props.insertShortcut(trigger.definition, trigger.trigger, trigger.selectedValue, transform, 'typed');
+            }
+            if (idx < triggers.length-1) {
+                transform = transform.insertText(selection.substring(trigger.endIndex, triggers[idx+1].startIndex));
+            }
+            else if (trigger.endIndex < selection.length) {
+                transform = transform.insertText(selection.substring(trigger.endIndex));
+            }
+        });
+        return transform;
     }
 
     setSelectedIndex = (selectedIndex) => {
@@ -81,8 +103,7 @@ class ContextGetHelp extends React.Component {
                 // the parent 'get help' option is not included in the getHelpOptions array
                 // but it is included as a selectedIndex, so there is an off by one that needs
                 // to be calculated, hence the -1
-                this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
-                return this.props.state;
+                return this.state.getHelpOptions[this.state.selectedIndex-1].onSelect();
             }
         }
     }

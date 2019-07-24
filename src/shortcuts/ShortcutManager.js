@@ -306,6 +306,7 @@ class ShortcutManager {
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
 
+
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -316,6 +317,7 @@ class ShortcutManager {
         if (Lang.isUndefined(result)) return [];
 
         result = result.filter((shortcutId) => {
+
             const shortcut = this.shortcuts[shortcutId];
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
@@ -339,9 +341,13 @@ class ShortcutManager {
                     if (typeof context.getAttributeIsSetByLabel === 'function' && !isMultiChoice) {
                         if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
                     }
-
+                    let numberOfValidTriggers;
+                    if (this.triggersPerShortcut[shortcutId]) {
                     // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
-                    const numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
+                        numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
+                    } else {
+                        numberOfValidTriggers = shortcut.label ? 1 : 0;
+                    }
                     if (Lang.isArray(value)) return value.length < numberOfValidTriggers;
                     return (!isSet);
                 } else {
