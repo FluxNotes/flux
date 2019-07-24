@@ -7,7 +7,6 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.serviceUrl = params.serviceUrl;
         this.timescale = params.timescale || [];
         this.apiKey = params.apiKey;
-
     }
 
     /*
