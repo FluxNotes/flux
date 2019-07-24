@@ -11,26 +11,26 @@ import ClassRegistry from '../../ClassRegistry';
 class PolicyHolder {
 
   /**
-   * Get the choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference.
-   * @returns {Reference} The choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference
+   * Get the choice value; one of: shr.core.Patient reference, shr.core.RelatedPerson reference, shr.core.Organization reference.
+   * @returns {Reference} The choice value; one of: shr.core.Patient reference, shr.core.RelatedPerson reference, shr.core.Organization reference
    */
   get value() {
     return this._value;
   }
 
   /**
-   * Set the choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference.
+   * Set the choice value; one of: shr.core.Patient reference, shr.core.RelatedPerson reference, shr.core.Organization reference.
    * This field/value is required.
-   * @param {Reference} value - The choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference
+   * @param {Reference} value - The choice value; one of: shr.core.Patient reference, shr.core.RelatedPerson reference, shr.core.Organization reference
    */
   set value(value) {
     this._value = value;
   }
 
   /**
-   * Set the choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference and return 'this' for chaining.
+   * Set the choice value; one of: shr.core.Patient reference, shr.core.RelatedPerson reference, shr.core.Organization reference and return 'this' for chaining.
    * This field/value is required.
-   * @param {Reference} value - The choice value; one of: shr.entity.Patient reference, shr.entity.RelatedPerson reference, shr.entity.Organization reference
+   * @param {Reference} value - The choice value; one of: shr.core.Patient reference, shr.core.RelatedPerson reference, shr.core.Organization reference
    * @returns {PolicyHolder} this.
    */
   withValue(value) {
@@ -78,6 +78,8 @@ class PolicyHolder {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.financial', 'PolicyHolder');
     const inst = new klass();
+    if (asExtension) {
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

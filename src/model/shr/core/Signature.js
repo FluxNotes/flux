@@ -38,30 +38,30 @@ class Signature {
   }
 
   /**
-   * Get the CreationTime.
-   * @returns {CreationTime} The shr.core.CreationTime
+   * Get the CreationDateTime.
+   * @returns {CreationDateTime} The shr.core.CreationDateTime
    */
-  get creationTime() {
-    return this._creationTime;
+  get creationDateTime() {
+    return this._creationDateTime;
   }
 
   /**
-   * Set the CreationTime.
+   * Set the CreationDateTime.
    * This field/value is required.
-   * @param {CreationTime} creationTime - The shr.core.CreationTime
+   * @param {CreationDateTime} creationDateTime - The shr.core.CreationDateTime
    */
-  set creationTime(creationTime) {
-    this._creationTime = creationTime;
+  set creationDateTime(creationDateTime) {
+    this._creationDateTime = creationDateTime;
   }
 
   /**
-   * Set the CreationTime and return 'this' for chaining.
+   * Set the CreationDateTime and return 'this' for chaining.
    * This field/value is required.
-   * @param {CreationTime} creationTime - The shr.core.CreationTime
+   * @param {CreationDateTime} creationDateTime - The shr.core.CreationDateTime
    * @returns {Signature} this.
    */
-  withCreationTime(creationTime) {
-    this.creationTime = creationTime; return this;
+  withCreationDateTime(creationDateTime) {
+    this.creationDateTime = creationDateTime; return this;
   }
 
   /**
@@ -193,8 +193,8 @@ class Signature {
     if (this.signatureType != null) {
       inst['SignatureType'] = this.signatureType.map(f => f.toJSON());
     }
-    if (this.creationTime != null) {
-      inst['CreationTime'] = typeof this.creationTime.toJSON === 'function' ? this.creationTime.toJSON() : this.creationTime;
+    if (this.creationDateTime != null) {
+      inst['CreationDateTime'] = typeof this.creationDateTime.toJSON === 'function' ? this.creationDateTime.toJSON() : this.creationDateTime;
     }
     if (this.signatory != null) {
       inst['Signatory'] = typeof this.signatory.toJSON === 'function' ? this.signatory.toJSON() : this.signatory;
@@ -227,7 +227,7 @@ class Signature {
     const klass = ClassRegistry.get('shr.core', 'Signature');
     const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-OnBehalfOf-extension') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-OnBehalfOf-extension') {
         inst.onBehalfOf = FHIRHelper.createInstanceFromFHIR('shr.core.OnBehalfOf', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
@@ -237,7 +237,7 @@ class Signature {
       inst.signatureType.push(inst_signatureType);
     }
     if (fhir['when'] != null) {
-      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['when'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.creationDateTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationDateTime', fhir['when'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['whoUri'] != null) {
       inst.signatory = FHIRHelper.createInstanceFromFHIR('shr.core.Signatory', fhir['whoUri'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);

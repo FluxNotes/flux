@@ -1,145 +1,68 @@
 // GENERATED CODE
 // Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
 
-import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
+import { setPropertiesFromJSON, uuid } from '../json-helper';
 
 import ClassRegistry from '../ClassRegistry';
 
-import AnatomicalLocationStructured from '../shr/core/AnatomicalLocationStructured';
+import BodyLocation from '../shr/core/BodyLocation';
 
 /**
  * Generated class for brca.BreastSite.
- * @extends AnatomicalLocationStructured
+ * @extends BodyLocation
  */
-class BreastSite extends AnatomicalLocationStructured {
+class BreastSite extends BodyLocation {
 
   /**
-   * Get the entry information.
-   * @returns {Entry} The shr.base.Entry
+   * Get the LocationCode.
+   * @returns {LocationCode} The shr.core.LocationCode
    */
-  get entryInfo() {
-    return this._entryInfo;
+  get locationCode() {
+    return this._locationCode;
   }
 
   /**
-   * Set the entry information.
-   * @param {Entry} entryInfo - The shr.base.Entry
-   */
-  set entryInfo(entryInfo) {
-    this._entryInfo = entryInfo;
-  }
-
-  /**
-   * Set the entry information and return 'this' for chaining.
-   * @param {Entry} entryInfo - The shr.base.Entry
-   * @returns {BreastSite} this.
-   */
-  withEntryInfo(entryInfo) {
-    this.entryInfo = entryInfo; return this;
-  }
-
-  /**
-   * Get the AnatomicalLocationOrLandmarkCode.
-   * @returns {AnatomicalLocationOrLandmarkCode} The shr.core.AnatomicalLocationOrLandmarkCode
-   */
-  get anatomicalLocationOrLandmarkCode() {
-    return this._anatomicalLocationOrLandmarkCode;
-  }
-
-  /**
-   * Set the AnatomicalLocationOrLandmarkCode.
+   * Set the LocationCode.
    * This field/value is required.
-   * @param {AnatomicalLocationOrLandmarkCode} anatomicalLocationOrLandmarkCode - The shr.core.AnatomicalLocationOrLandmarkCode
+   * @param {LocationCode} locationCode - The shr.core.LocationCode
    */
-  set anatomicalLocationOrLandmarkCode(anatomicalLocationOrLandmarkCode) {
-    this._anatomicalLocationOrLandmarkCode = anatomicalLocationOrLandmarkCode;
+  set locationCode(locationCode) {
+    this._locationCode = locationCode;
   }
 
   /**
-   * Set the AnatomicalLocationOrLandmarkCode and return 'this' for chaining.
+   * Set the LocationCode and return 'this' for chaining.
    * This field/value is required.
-   * @param {AnatomicalLocationOrLandmarkCode} anatomicalLocationOrLandmarkCode - The shr.core.AnatomicalLocationOrLandmarkCode
+   * @param {LocationCode} locationCode - The shr.core.LocationCode
    * @returns {BreastSite} this.
    */
-  withAnatomicalLocationOrLandmarkCode(anatomicalLocationOrLandmarkCode) {
-    this.anatomicalLocationOrLandmarkCode = anatomicalLocationOrLandmarkCode; return this;
+  withLocationCode(locationCode) {
+    this.locationCode = locationCode; return this;
   }
 
   /**
-   * Get the Laterality.
-   * @returns {Laterality} The shr.core.Laterality
+   * Get the RelationToLandmark array.
+   * @returns {Array<RelationToLandmark>} The shr.core.RelationToLandmark array
    */
-  get laterality() {
-    return this._laterality;
+  get relationToLandmark() {
+    return this._relationToLandmark;
   }
 
   /**
-   * Set the Laterality.
-   * This field/value is required.
-   * @param {Laterality} laterality - The shr.core.Laterality
+   * Set the RelationToLandmark array.
+   * @param {Array<RelationToLandmark>} relationToLandmark - The shr.core.RelationToLandmark array
    */
-  set laterality(laterality) {
-    this._laterality = laterality;
+  set relationToLandmark(relationToLandmark) {
+    this._relationToLandmark = relationToLandmark;
   }
 
   /**
-   * Set the Laterality and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Laterality} laterality - The shr.core.Laterality
+   * Set the RelationToLandmark array and return 'this' for chaining.
+   * @param {Array<RelationToLandmark>} relationToLandmark - The shr.core.RelationToLandmark array
    * @returns {BreastSite} this.
    */
-  withLaterality(laterality) {
-    this.laterality = laterality; return this;
-  }
-
-  /**
-   * Get the DistanceFromLandmark.
-   * @returns {DistanceFromLandmark} The shr.core.DistanceFromLandmark
-   */
-  get distanceFromLandmark() {
-    return this._distanceFromLandmark;
-  }
-
-  /**
-   * Set the DistanceFromLandmark.
-   * @param {DistanceFromLandmark} distanceFromLandmark - The shr.core.DistanceFromLandmark
-   */
-  set distanceFromLandmark(distanceFromLandmark) {
-    this._distanceFromLandmark = distanceFromLandmark;
-  }
-
-  /**
-   * Set the DistanceFromLandmark and return 'this' for chaining.
-   * @param {DistanceFromLandmark} distanceFromLandmark - The shr.core.DistanceFromLandmark
-   * @returns {BreastSite} this.
-   */
-  withDistanceFromLandmark(distanceFromLandmark) {
-    this.distanceFromLandmark = distanceFromLandmark; return this;
-  }
-
-  /**
-   * Get the AnatomicalDirection.
-   * @returns {AnatomicalDirection} The shr.core.AnatomicalDirection
-   */
-  get anatomicalDirection() {
-    return this._anatomicalDirection;
-  }
-
-  /**
-   * Set the AnatomicalDirection.
-   * @param {AnatomicalDirection} anatomicalDirection - The shr.core.AnatomicalDirection
-   */
-  set anatomicalDirection(anatomicalDirection) {
-    this._anatomicalDirection = anatomicalDirection;
-  }
-
-  /**
-   * Set the AnatomicalDirection and return 'this' for chaining.
-   * @param {AnatomicalDirection} anatomicalDirection - The shr.core.AnatomicalDirection
-   * @returns {BreastSite} this.
-   */
-  withAnatomicalDirection(anatomicalDirection) {
-    this.anatomicalDirection = anatomicalDirection; return this;
+  withRelationToLandmark(relationToLandmark) {
+    this.relationToLandmark = relationToLandmark; return this;
   }
 
   /**
@@ -161,28 +84,18 @@ class BreastSite extends AnatomicalLocationStructured {
    * @returns {object} a JSON object populated with the data from the element
    */
   toJSON() {
-    const inst = this._entryInfo.toJSON();
-    inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/brca/BreastSite' };
-    if (this.anatomicalLocationOrLandmarkCode != null) {
-      inst['AnatomicalLocationOrLandmarkCode'] = typeof this.anatomicalLocationOrLandmarkCode.toJSON === 'function' ? this.anatomicalLocationOrLandmarkCode.toJSON() : this.anatomicalLocationOrLandmarkCode;
+    const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/brca/BreastSite' } };
+    if (this.locationCode != null) {
+      inst['LocationCode'] = typeof this.locationCode.toJSON === 'function' ? this.locationCode.toJSON() : this.locationCode;
     }
     if (this.laterality != null) {
       inst['Laterality'] = typeof this.laterality.toJSON === 'function' ? this.laterality.toJSON() : this.laterality;
     }
-    if (this.distanceFromLandmark != null) {
-      inst['DistanceFromLandmark'] = typeof this.distanceFromLandmark.toJSON === 'function' ? this.distanceFromLandmark.toJSON() : this.distanceFromLandmark;
+    if (this.orientation != null) {
+      inst['Orientation'] = typeof this.orientation.toJSON === 'function' ? this.orientation.toJSON() : this.orientation;
     }
-    if (this.anatomicalDirection != null) {
-      inst['AnatomicalDirection'] = typeof this.anatomicalDirection.toJSON === 'function' ? this.anatomicalDirection.toJSON() : this.anatomicalDirection;
-    }
-    if (this.clockDirection != null) {
-      inst['ClockDirection'] = typeof this.clockDirection.toJSON === 'function' ? this.clockDirection.toJSON() : this.clockDirection;
-    }
-    if (this.commentOrDescription != null) {
-      inst['CommentOrDescription'] = typeof this.commentOrDescription.toJSON === 'function' ? this.commentOrDescription.toJSON() : this.commentOrDescription;
-    }
-    if (this.media != null) {
-      inst['Media'] = this.media.map(f => f.toJSON());
+    if (this.relationToLandmark != null) {
+      inst['RelationToLandmark'] = this.relationToLandmark.map(f => f.toJSON());
     }
     return inst;
   }
@@ -202,34 +115,6 @@ class BreastSite extends AnatomicalLocationStructured {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('brca', 'BreastSite');
     const inst = new klass();
-    inst.entryInfo = FHIRHelper.createInstanceFromFHIR('shr.base.Entry', {}, null);
-    inst.entryInfo.shrId = FHIRHelper.createInstanceFromFHIR('shr.base.ShrId', shrId, 'string');
-    inst.entryInfo.entryId = FHIRHelper.createInstanceFromFHIR('shr.base.EntryId', fhir['id'] || uuid(), 'string');
-    inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/brca/BreastSite', 'uri');
-    for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-DistanceFromLandmark-extension') {
-        inst.distanceFromLandmark = FHIRHelper.createInstanceFromFHIR('shr.core.DistanceFromLandmark', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-ClockDirection-extension') {
-        inst.clockDirection = FHIRHelper.createInstanceFromFHIR('shr.core.ClockDirection', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-      }
-    }
-    if (fhir['code'] != null) {
-      inst.anatomicalLocationOrLandmarkCode = FHIRHelper.createInstanceFromFHIR('shr.core.AnatomicalLocationOrLandmarkCode', fhir['code'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    for (const fhir_modifier of fhir['modifier'] || []) {
-      if (fhir_modifier['coding'] != null && fhir_modifier['coding'].some(g => g['code'] != null && FHIRHelper.valueSet('http://hl7.org/fhir/ValueSet/bodysite-laterality').includes(g['code']))) {
-        inst.laterality = FHIRHelper.createInstanceFromFHIR('shr.core.Laterality', fhir_modifier, 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-    }
-    if (fhir['description'] != null) {
-      inst.commentOrDescription = FHIRHelper.createInstanceFromFHIR('shr.core.CommentOrDescription', fhir['description'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    for (const fhir_image of fhir['image'] || []) {
-      inst.media = inst.media || [];
-      const inst_media = FHIRHelper.createInstanceFromFHIR('shr.core.Media', fhir_image, 'Attachment', shrId, allEntries, mappedResources, referencesOut, false);
-      inst.media.push(inst_media);
-    }
     return inst;
   }
 

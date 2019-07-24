@@ -105,6 +105,9 @@ class Setting {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.core', 'Setting');
     const inst = new klass();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

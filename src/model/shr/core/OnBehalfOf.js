@@ -11,26 +11,26 @@ import ClassRegistry from '../../ClassRegistry';
 class OnBehalfOf {
 
   /**
-   * Get the choice value; one of: uri, shr.entity.Organization reference.
-   * @returns {(uri|Reference)} The choice value; one of: uri, shr.entity.Organization reference
+   * Get the choice value; one of: uri, shr.core.Organization reference.
+   * @returns {(uri|Reference)} The choice value; one of: uri, shr.core.Organization reference
    */
   get value() {
     return this._value;
   }
 
   /**
-   * Set the choice value; one of: uri, shr.entity.Organization reference.
+   * Set the choice value; one of: uri, shr.core.Organization reference.
    * This field/value is required.
-   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.entity.Organization reference
+   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.core.Organization reference
    */
   set value(value) {
     this._value = value;
   }
 
   /**
-   * Set the choice value; one of: uri, shr.entity.Organization reference and return 'this' for chaining.
+   * Set the choice value; one of: uri, shr.core.Organization reference and return 'this' for chaining.
    * This field/value is required.
-   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.entity.Organization reference
+   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.core.Organization reference
    * @returns {OnBehalfOf} this.
    */
   withValue(value) {

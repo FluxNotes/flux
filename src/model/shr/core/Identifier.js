@@ -11,28 +11,28 @@ import ClassRegistry from '../../ClassRegistry';
 class Identifier {
 
   /**
-   * Get the Text.
-   * @returns {Text} The shr.core.Text
+   * Get the IdentifierString.
+   * @returns {IdentifierString} The shr.core.IdentifierString
    */
-  get text() {
-    return this._text;
+  get identifierString() {
+    return this._identifierString;
   }
 
   /**
-   * Set the Text.
-   * @param {Text} text - The shr.core.Text
+   * Set the IdentifierString.
+   * @param {IdentifierString} identifierString - The shr.core.IdentifierString
    */
-  set text(text) {
-    this._text = text;
+  set identifierString(identifierString) {
+    this._identifierString = identifierString;
   }
 
   /**
-   * Set the Text and return 'this' for chaining.
-   * @param {Text} text - The shr.core.Text
+   * Set the IdentifierString and return 'this' for chaining.
+   * @param {IdentifierString} identifierString - The shr.core.IdentifierString
    * @returns {Identifier} this.
    */
-  withText(text) {
-    this.text = text; return this;
+  withIdentifierString(identifierString) {
+    this.identifierString = identifierString; return this;
   }
 
   /**
@@ -155,8 +155,8 @@ class Identifier {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Identifier' } };
-    if (this.text != null) {
-      inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
+    if (this.identifierString != null) {
+      inst['IdentifierString'] = typeof this.identifierString.toJSON === 'function' ? this.identifierString.toJSON() : this.identifierString;
     }
     if (this.purpose != null) {
       inst['Purpose'] = typeof this.purpose.toJSON === 'function' ? this.purpose.toJSON() : this.purpose;
@@ -198,7 +198,7 @@ class Identifier {
       inst.codeSystem = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystem', fhir['system'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['value'] != null) {
-      inst.text = FHIRHelper.createInstanceFromFHIR('shr.core.Text', fhir['value'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.identifierString = FHIRHelper.createInstanceFromFHIR('shr.core.IdentifierString', fhir['value'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['period'] != null) {
       inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
