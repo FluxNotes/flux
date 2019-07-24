@@ -78,8 +78,16 @@
         border-width: 1px;
         float: right;
         padding: 1%;
+        &:hover {
+            background-color: #d1d1d1;
+            cursor: pointer;
+        }
         .close-button {
             color: $interface-blue;
+        }
+        .close-text {
+            float: right;
+            margin-left: 5px;  
         }
     }
 }

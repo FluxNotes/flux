@@ -1770,6 +1770,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     render = () => {
+        console.log('this.state.state :', this.state.state);
         const CreatorsPortal = this.suggestionsPluginCreators.SuggestionPortal;
         const InsertersPortal = this.suggestionsPluginInserters.SuggestionPortal;
         const PlaceholdersPortal = this.suggestionsPluginPlaceholders.SuggestionPortal;

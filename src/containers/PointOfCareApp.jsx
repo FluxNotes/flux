@@ -49,9 +49,9 @@ function getModalStyle() {
         position: 'absolute',
         width: 400,
         backgroundColor: '#e6e6e6',
-        boxShadow: 'black',
         padding: 20,
         overflowY: 'auto',
+        boxShadow: '2px 2px 4px -1px black',
     };
 }
 
@@ -258,6 +258,7 @@ export class PointOfCareApp extends Component {
             const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
             const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
             this.setState({
+                openClinicalNote: null,
                 isModalOpen: true,
                 modalTitle: title,
                 modalContent: item.source.sourceMessage
@@ -273,7 +274,6 @@ export class PointOfCareApp extends Component {
         const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
         const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
         const currNote = sourceNote;
-        console.log(currNote);
         if (currNote.signed) {
             date = currNote.signedOn;
             clinicianName = currNote.signedBy;
@@ -429,13 +429,12 @@ export class PointOfCareApp extends Component {
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
-                            // onClick={this.handleModalClose}
                         >
                             <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
                                 <div className='header'>
                                     <span className='close-div' onClick={this.handleModalClose}>
                                         <FontAwesome className='close-button' name='times'/>
-                                        Close
+                                        <div className='close-text'> Close </div>
                                     </span>
                                     <Typography id="modal-title">
                                         {this.state.modalTitle}
