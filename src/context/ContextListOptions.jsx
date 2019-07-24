@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContextItem from './ContextItem';
 import Lang from 'lodash';
+
 import './ContextListOptions.css';
 
 const UP_ARROW_KEY = 38;

@@ -202,7 +202,7 @@ export default class NoteParser {
                     selectedValue = possibleValue.substring(2, posOfEndBrackets);
                 }
                 const def = this.shortcutManager.getMetadataForTrigger(match[0]);
-                matches.push({trigger: match[0], definition: def, selectedValue: selectedValue, isPickList: def.getData && def.getData.itemKey });
+                matches.push({trigger: match[0], definition: def, selectedValue: selectedValue, isPickList: def.getData && def.getData.itemKey, startIndex: hashPos, endIndex: hashPos+match[0].length });
             }
             pos = hashPos + 1;
             hashPos = nextPos;
@@ -290,4 +290,5 @@ export default class NoteParser {
 
         return [this.patient.getEntries(), result[1]];
     }
+
 }
