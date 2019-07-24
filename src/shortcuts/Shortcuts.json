@@ -407,7 +407,7 @@
     "regexpTrigger": null,
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
-    "disabled": false,
+    "disabled": true,
     "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow.",
     "expandedText": "#ER #receptor status"
   },
@@ -445,7 +445,7 @@
     "regexpTrigger": null,
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
-    "disabled": false,
+    "disabled": true,
     "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow.",
     "expandedText": "#PR #receptor status"
   },
@@ -464,7 +464,7 @@
     "regexpTrigger": null,
     "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
-    "disabled": false,
+    "disabled": true,
     "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment.",
     "expandedText": "#HER2 #receptor status"
   },
