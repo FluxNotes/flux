@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 export default class FilterOptions {
     constructor(props) {
         this.filters = props;
