@@ -79,7 +79,7 @@ class GestationalAge extends Age {
     if (fhir['code'] != null) {
       inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
       inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
-      inst.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.units.value.codeValue = FHIRHelper.createInstanceFromFHIR('shr.core.CodeValue', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

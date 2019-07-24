@@ -1,66 +1,68 @@
 // GENERATED CODE
 // Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
 
-import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
+import { setPropertiesFromJSON, uuid } from '../json-helper';
 
 import ClassRegistry from '../ClassRegistry';
 
-import CodedNonIndependentFinding from '../shr/base/CodedNonIndependentFinding';
+import CodedObservationComponent from '../shr/core/CodedObservationComponent';
 
 /**
  * Generated class for brca.NuclearPleomorphismScore.
- * @extends CodedNonIndependentFinding
+ * @extends CodedObservationComponent
  */
-class NuclearPleomorphismScore extends CodedNonIndependentFinding {
+class NuclearPleomorphismScore extends CodedObservationComponent {
 
   /**
-   * Get the FindingResult.
-   * @returns {FindingResult} The shr.base.FindingResult
+   * Get the Code.
+   * @returns {Code} The shr.core.Code
    */
-  get findingResult() {
-    return this._findingResult;
+  get code() {
+    return this._code;
   }
 
   /**
-   * Set the FindingResult.
-   * @param {FindingResult} findingResult - The shr.base.FindingResult
+   * Set the Code.
+   * This field/value is required.
+   * @param {Code} code - The shr.core.Code
    */
-  set findingResult(findingResult) {
-    this._findingResult = findingResult;
+  set code(code) {
+    this._code = code;
   }
 
   /**
-   * Set the FindingResult and return 'this' for chaining.
-   * @param {FindingResult} findingResult - The shr.base.FindingResult
+   * Set the Code and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Code} code - The shr.core.Code
    * @returns {NuclearPleomorphismScore} this.
    */
-  withFindingResult(findingResult) {
-    this.findingResult = findingResult; return this;
+  withCode(code) {
+    this.code = code; return this;
   }
 
   /**
-   * Get the ExceptionValue.
-   * @returns {ExceptionValue} The shr.base.ExceptionValue
+   * Get the DataValue.
+   * @returns {DataValue} The shr.core.DataValue
    */
-  get exceptionValue() {
-    return this._exceptionValue;
+  get dataValue() {
+    return this._dataValue;
   }
 
   /**
-   * Set the ExceptionValue.
-   * @param {ExceptionValue} exceptionValue - The shr.base.ExceptionValue
+   * Set the DataValue.
+   * @param {DataValue} dataValue - The shr.core.DataValue
    */
-  set exceptionValue(exceptionValue) {
-    this._exceptionValue = exceptionValue;
+  set dataValue(dataValue) {
+    this._dataValue = dataValue;
   }
 
   /**
-   * Set the ExceptionValue and return 'this' for chaining.
-   * @param {ExceptionValue} exceptionValue - The shr.base.ExceptionValue
+   * Set the DataValue and return 'this' for chaining.
+   * @param {DataValue} dataValue - The shr.core.DataValue
    * @returns {NuclearPleomorphismScore} this.
    */
-  withExceptionValue(exceptionValue) {
-    this.exceptionValue = exceptionValue; return this;
+  withDataValue(dataValue) {
+    this.dataValue = dataValue; return this;
   }
 
   /**
@@ -83,26 +85,20 @@ class NuclearPleomorphismScore extends CodedNonIndependentFinding {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/brca/NuclearPleomorphismScore' } };
-    if (this.narrative != null) {
-      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    if (this.code != null) {
+      inst['Code'] = typeof this.code.toJSON === 'function' ? this.code.toJSON() : this.code;
     }
-    if (this.language != null) {
-      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    if (this.dataValue != null) {
+      inst['DataValue'] = typeof this.dataValue.toJSON === 'function' ? this.dataValue.toJSON() : this.dataValue;
     }
-    if (this.metadata != null) {
-      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
-    }
-    if (this.findingResult != null) {
-      inst['FindingResult'] = typeof this.findingResult.toJSON === 'function' ? this.findingResult.toJSON() : this.findingResult;
-    }
-    if (this.findingTopicCode != null) {
-      inst['FindingTopicCode'] = typeof this.findingTopicCode.toJSON === 'function' ? this.findingTopicCode.toJSON() : this.findingTopicCode;
-    }
-    if (this.exceptionValue != null) {
-      inst['ExceptionValue'] = typeof this.exceptionValue.toJSON === 'function' ? this.exceptionValue.toJSON() : this.exceptionValue;
+    if (this.dataAbsentReason != null) {
+      inst['DataAbsentReason'] = typeof this.dataAbsentReason.toJSON === 'function' ? this.dataAbsentReason.toJSON() : this.dataAbsentReason;
     }
     if (this.referenceRange != null) {
       inst['ReferenceRange'] = typeof this.referenceRange.toJSON === 'function' ? this.referenceRange.toJSON() : this.referenceRange;
+    }
+    if (this.interpretation != null) {
+      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
     }
     return inst;
   }
@@ -122,51 +118,6 @@ class NuclearPleomorphismScore extends CodedNonIndependentFinding {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('brca', 'NuclearPleomorphismScore');
     const inst = new klass();
-    if (fhir['meta'] != null) {
-      if (fhir['meta']['versionId'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], 'id', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['meta']['lastUpdated'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      for (const fhir_meta_security of fhir['meta']['security'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
-        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
-        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
-      }
-      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.tag = inst.metadata.tag || [];
-        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
-        inst.metadata.tag.push(inst_metadata_tag);
-      }
-    }
-    if (fhir['language'] != null) {
-      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['text'] != null) {
-      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], 'Narrative', shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingResult-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingResult-extension') {
-        inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-        if (fhir_extension['valueCodeableConcept'] != null) {
-          inst.findingResult.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir_extension['valueCodeableConcept'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
-        }
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension') {
-        inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ExceptionValue-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ExceptionValue-extension') {
-        inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-        if (fhir_extension['valueCodeableConcept'] != null) {
-          inst.exceptionValue.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir_extension['valueCodeableConcept'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
-        }
-      }
-    }
     return inst;
   }
 

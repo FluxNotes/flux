@@ -105,11 +105,11 @@ class ContactDetail {
     const klass = ClassRegistry.get('shr.core', 'ContactDetail');
     const inst = new klass();
     if (asExtension) {
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-HumanName-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-HumanName-extension');
       if (match_3 != null) {
         inst.humanName = FHIRHelper.createInstanceFromFHIR('shr.core.HumanName', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-ContactPoint-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-ContactPoint-extension');
       if (match_4 != null) {
         inst.contactPoint = FHIRHelper.createInstanceFromFHIR('shr.core.ContactPoint', match_4, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }

@@ -1,21 +1,48 @@
 // GENERATED CODE
 // Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
 
-import { setPropertiesFromJSON, uuid, FHIRHelper } from '../json-helper';
+import { setPropertiesFromJSON, uuid } from '../json-helper';
 
 import ClassRegistry from '../ClassRegistry';
 
-import QuantitativeNonIndependentFinding from '../shr/base/QuantitativeNonIndependentFinding';
+import QuantitativeObservationComponent from '../shr/core/QuantitativeObservationComponent';
 
 /**
  * Generated class for brca.AverageCEP17SignalsPerCell.
- * @extends QuantitativeNonIndependentFinding
+ * @extends QuantitativeObservationComponent
  */
-class AverageCEP17SignalsPerCell extends QuantitativeNonIndependentFinding {
+class AverageCEP17SignalsPerCell extends QuantitativeObservationComponent {
+
+  /**
+   * Get the Code.
+   * @returns {Code} The shr.core.Code
+   */
+  get code() {
+    return this._code;
+  }
+
+  /**
+   * Set the Code.
+   * This field/value is required.
+   * @param {Code} code - The shr.core.Code
+   */
+  set code(code) {
+    this._code = code;
+  }
+
+  /**
+   * Set the Code and return 'this' for chaining.
+   * This field/value is required.
+   * @param {Code} code - The shr.core.Code
+   * @returns {AverageCEP17SignalsPerCell} this.
+   */
+  withCode(code) {
+    this.code = code; return this;
+  }
 
   /**
    * Get the ReferenceRange.
-   * @returns {ReferenceRange} The shr.base.ReferenceRange
+   * @returns {ReferenceRange} The shr.core.ReferenceRange
    */
   get referenceRange() {
     return this._referenceRange;
@@ -23,7 +50,7 @@ class AverageCEP17SignalsPerCell extends QuantitativeNonIndependentFinding {
 
   /**
    * Set the ReferenceRange.
-   * @param {ReferenceRange} referenceRange - The shr.base.ReferenceRange
+   * @param {ReferenceRange} referenceRange - The shr.core.ReferenceRange
    */
   set referenceRange(referenceRange) {
     this._referenceRange = referenceRange;
@@ -31,7 +58,7 @@ class AverageCEP17SignalsPerCell extends QuantitativeNonIndependentFinding {
 
   /**
    * Set the ReferenceRange and return 'this' for chaining.
-   * @param {ReferenceRange} referenceRange - The shr.base.ReferenceRange
+   * @param {ReferenceRange} referenceRange - The shr.core.ReferenceRange
    * @returns {AverageCEP17SignalsPerCell} this.
    */
   withReferenceRange(referenceRange) {
@@ -58,26 +85,20 @@ class AverageCEP17SignalsPerCell extends QuantitativeNonIndependentFinding {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/brca/AverageCEP17SignalsPerCell' } };
-    if (this.narrative != null) {
-      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    if (this.code != null) {
+      inst['Code'] = typeof this.code.toJSON === 'function' ? this.code.toJSON() : this.code;
     }
-    if (this.language != null) {
-      inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
+    if (this.dataValue != null) {
+      inst['DataValue'] = typeof this.dataValue.toJSON === 'function' ? this.dataValue.toJSON() : this.dataValue;
     }
-    if (this.metadata != null) {
-      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
-    }
-    if (this.findingResult != null) {
-      inst['FindingResult'] = typeof this.findingResult.toJSON === 'function' ? this.findingResult.toJSON() : this.findingResult;
-    }
-    if (this.findingTopicCode != null) {
-      inst['FindingTopicCode'] = typeof this.findingTopicCode.toJSON === 'function' ? this.findingTopicCode.toJSON() : this.findingTopicCode;
-    }
-    if (this.exceptionValue != null) {
-      inst['ExceptionValue'] = typeof this.exceptionValue.toJSON === 'function' ? this.exceptionValue.toJSON() : this.exceptionValue;
+    if (this.dataAbsentReason != null) {
+      inst['DataAbsentReason'] = typeof this.dataAbsentReason.toJSON === 'function' ? this.dataAbsentReason.toJSON() : this.dataAbsentReason;
     }
     if (this.referenceRange != null) {
       inst['ReferenceRange'] = typeof this.referenceRange.toJSON === 'function' ? this.referenceRange.toJSON() : this.referenceRange;
+    }
+    if (this.interpretation != null) {
+      inst['Interpretation'] = typeof this.interpretation.toJSON === 'function' ? this.interpretation.toJSON() : this.interpretation;
     }
     return inst;
   }
@@ -97,45 +118,6 @@ class AverageCEP17SignalsPerCell extends QuantitativeNonIndependentFinding {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('brca', 'AverageCEP17SignalsPerCell');
     const inst = new klass();
-    if (fhir['meta'] != null) {
-      if (fhir['meta']['versionId'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], 'id', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['meta']['lastUpdated'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      for (const fhir_meta_security of fhir['meta']['security'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.securityLabel = inst.metadata.securityLabel || [];
-        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
-        inst.metadata.securityLabel.push(inst_metadata_securityLabel);
-      }
-      for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.tag = inst.metadata.tag || [];
-        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
-        inst.metadata.tag.push(inst_metadata_tag);
-      }
-    }
-    if (fhir['language'] != null) {
-      inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    if (fhir['text'] != null) {
-      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], 'Narrative', shrId, allEntries, mappedResources, referencesOut, false);
-    }
-    for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingResult-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingResult-extension') {
-        inst.findingResult = FHIRHelper.createInstanceFromFHIR('shr.base.FindingResult', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-FindingTopicCode-extension') {
-        inst.findingTopicCode = FHIRHelper.createInstanceFromFHIR('shr.base.FindingTopicCode', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-      }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-base-ExceptionValue-extension') {
-        inst.exceptionValue = FHIRHelper.createInstanceFromFHIR('shr.base.ExceptionValue', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
-      }
-    }
     return inst;
   }
 

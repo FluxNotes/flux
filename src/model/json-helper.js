@@ -230,11 +230,11 @@ export const FHIRHelper = {
   },
 
   createReferenceWithoutObject: function(shrId, entryId, entryType) {
-     return new Reference(
+    return new Reference(
       createInstance('shr.base.ShrId', { Value: shrId }),
       createInstance('shr.base.EntryId', { Value: entryId }),
       createInstance('shr.base.EntryType', { Value: entryType })
-     );
+    );
   },
 
   /**

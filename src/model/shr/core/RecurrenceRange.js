@@ -79,11 +79,11 @@ class RecurrenceRange {
     const klass = ClassRegistry.get('shr.core', 'RecurrenceRange');
     const inst = new klass();
     if (asExtension) {
-      const match_3 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-TimePeriod-extension');
+      const match_3 = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-TimePeriod-extension');
       if (match_3 != null) {
         inst.timePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.TimePeriod', match_3, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
-      const match_4 = fhir['extension'].find(e => e.url == 'http://example.com/fhir/StructureDefinition/shr-core-NumberOfRepeats-extension');
+      const match_4 = fhir['extension'].find(e => e.url == 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-NumberOfRepeats-extension');
       if (match_4 != null) {
         inst.numberOfRepeats = FHIRHelper.createInstanceFromFHIR('shr.core.NumberOfRepeats', match_4, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }

@@ -105,6 +105,9 @@ class VersionString {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.core', 'VersionString');
     const inst = new klass();
+    if (asExtension) {
+      inst.value = fhir['valueString'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

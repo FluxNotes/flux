@@ -11,26 +11,26 @@ import ClassRegistry from '../../ClassRegistry';
 class Code {
 
   /**
-   * Get the value (aliases code).
-   * @returns {code} The code
+   * Get the value (aliases codeableConcept).
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
   get value() {
-    return this._code;
+    return this._codeableConcept;
   }
 
   /**
-   * Set the value (aliases code).
+   * Set the value (aliases codeableConcept).
    * This field/value is required.
-   * @param {code} value - The code
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    */
   set value(value) {
-    this._code = value;
+    this._codeableConcept = value;
   }
 
   /**
-   * Set the value (aliases code) and return 'this' for chaining.
+   * Set the value (aliases codeableConcept) and return 'this' for chaining.
    * This field/value is required.
-   * @param {code} value - The code
+   * @param {CodeableConcept} value - The shr.core.CodeableConcept
    * @returns {Code} this.
    */
   withValue(value) {
@@ -38,30 +38,30 @@ class Code {
   }
 
   /**
-   * Get the code.
-   * @returns {code} The code
+   * Get the CodeableConcept.
+   * @returns {CodeableConcept} The shr.core.CodeableConcept
    */
-  get code() {
-    return this._code;
+  get codeableConcept() {
+    return this._codeableConcept;
   }
 
   /**
-   * Set the code.
+   * Set the CodeableConcept.
    * This field/value is required.
-   * @param {code} code - The code
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    */
-  set code(code) {
-    this._code = code;
+  set codeableConcept(codeableConcept) {
+    this._codeableConcept = codeableConcept;
   }
 
   /**
-   * Set the code and return 'this' for chaining.
+   * Set the CodeableConcept and return 'this' for chaining.
    * This field/value is required.
-   * @param {code} code - The code
+   * @param {CodeableConcept} codeableConcept - The shr.core.CodeableConcept
    * @returns {Code} this.
    */
-  withCode(code) {
-    this.code = code; return this;
+  withCodeableConcept(codeableConcept) {
+    this.codeableConcept = codeableConcept; return this;
   }
 
   /**
@@ -85,7 +85,7 @@ class Code {
   toJSON() {
     const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Code' } };
     if (this.value != null) {
-      inst['Value'] = this.value;
+      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
     }
     return inst;
   }
@@ -105,8 +105,11 @@ class Code {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.core', 'Code');
     const inst = new klass();
+    if (asExtension) {
+      inst.value = fhir['valueCodeableConcept'];
+    }
     if (!asExtension && fhir != null) {
-      inst.value = fhir;
+      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }
