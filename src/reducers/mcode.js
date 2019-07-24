@@ -1,10 +1,10 @@
 import * as types from '../actions/types';
 import getProps from '../mcode-pilot/utils/recordToProps';
 import { isSimilarPatient, generateSimilarPatientTreatments } from '../mcode-pilot/utils/filterTreatmentData.js';
-
-const transformedTreatmentData = require('../mcode-pilot/mock-data/mock-data.json').transformedData;
+import { transformedData } from '../mcode-pilot/mock-data/mock-data.json';
 
 export const defaultState = {
+    selectedTreatment: null,
     similarPatientProps: {},
     similarPatientTreatments: [],
     similarPatientTreatmentsData: [],
@@ -16,7 +16,7 @@ export const defaultState = {
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
         const { patient, condition } = action;
-        const similarPatients = transformedTreatmentData.filter(treatmentDataPatient =>
+        const similarPatients = transformedData.filter(treatmentDataPatient =>
             isSimilarPatient(treatmentDataPatient, state.similarPatientProps));
         const similarPatientTreatments = generateSimilarPatientTreatments(similarPatients);
 
@@ -93,6 +93,13 @@ export default function mcode(state = defaultState, action) {
             similarPatientTreatments: action.data.similarPatientTreatments,
             similarPatientTreatmentsData: action.data.similarPatientTreatmentsData,
             timescale: action.data.timescale
+        };
+    }
+
+    if (action.type === types.SET_SELECTED_TREATMENT) {
+        return {
+            ...state,
+            selectedTreatment: action.treatment
         };
     }
 

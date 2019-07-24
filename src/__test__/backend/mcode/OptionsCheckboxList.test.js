@@ -20,9 +20,11 @@ describe("CheckboxList", () => {
 
     beforeEach(() => {
       props = {
-        options: undefined,
-        setSelected: undefined,
-        setAllSelected: undefined,
+        category: '',
+        options: {},
+        setSelected: () => {},
+        setAllSelected: () => {},
+        selectSimilarPatientOptionRange: () => {}
       };
       checkboxList = undefined;
     });

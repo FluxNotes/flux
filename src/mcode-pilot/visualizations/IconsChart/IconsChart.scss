@@ -2,17 +2,34 @@
 
 .icons-chart {
     display: flex;
+    justify-content: center;
+    margin-top: 40px;
 
     .icons-survival-text {
         .selected-treatment {
             font-weight: 400;
+        }
+
+        .num-more-survive,
+        .num-less-survive,
+        .num-zero-more-survive {
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+
+        .num-more-survive {
+            color: $icons-green;
+        }
+
+        .num-less-survive {
+            color: $icons-red;
         }
     }
 
     &__display {
         display: flex;
         flex-wrap: wrap;
-        width: 420px;
+        width: 400px;
         height: 300px;
     }
 
@@ -27,13 +44,23 @@
         }
 
         &.additional {
-            border: 3px solid;
+            border: 3px solid $icons-green;
             margin: 4px;
         }
 
-        &.die {
+        &.die,
+        &.less {
             border: 1px solid $icons-gray;
             background-color: $icons-gray;
         }
+
+        &.less {
+            border: 3px solid $icons-red;
+            margin: 4px;
+        }
+    }
+
+    &.helper-text {
+        font-style: italic;
     }
 }

@@ -1,16 +1,24 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins/media-queries';
 
 .treatment-options-outcomes-table {
     &__header {
         display: flex;
         align-items: flex-end;
-        margin-bottom: 10px;
+        margin: 10px;
+
+        .compare-header {
+            font-size: 0.9em;
+            padding-right: 40px;
+            margin-bottom: -10px;
+            min-width: 120px;
+
+            @include respond-to('1024px') { padding-right: 0; }
+        }
 
         .user-icon {
             text-align: center;
-            font-size: 1.5em;
-            color: $state;
-            padding-left: 12px;
+            margin-left: -2px;
         }
 
         .header-title {
@@ -46,8 +54,17 @@
     }
 
     &__table {
-        padding: 5px 10px;
-        margin-bottom: 20px;
+        margin: 10px 10px 20px 10px;
+
+        .treatment-name {
+            display: flex;
+            align-items: center;
+
+            .select-icon {
+                padding-right: 10px;
+                cursor: pointer;
+            }
+        }
 
         .treatments-title {
             font-weight: bold;
@@ -68,10 +85,11 @@
 
         .top-side-effects {
             flex-direction: column;
+            min-width: 100px;
         }
 
         .table-row {
-            height: 50px;
+            height: 60px;
             align-items: center;
 
             &:nth-child(odd) {
@@ -82,8 +100,18 @@
                 font-style: italic;
             }
 
+            .treatment-name {
+                min-width: 120px;
+            }
+
             .total-patients {
                 text-align: center;
+            }
+
+            &.selected-treatment {
+                background-color: darken($contrast-gray, 5%);
+                border-top: 1px solid darken($contrast-gray, 10%);
+                box-shadow: 0px 10px 8px -5px rgba(153, 153, 153, 1);
             }
         }
     }
@@ -98,7 +126,7 @@
     .flex-center { align-items: center; }
 
     @media (max-width: 1024px) {
-        .flex-padding { 
+        .flex-padding {
             padding: 0 5px;
         }
     }

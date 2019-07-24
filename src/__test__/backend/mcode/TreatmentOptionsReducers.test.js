@@ -11,6 +11,7 @@ import TestPatient2 from '../../TestPatient2.json';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
 import stateObjects from './mock-data/testoptions.json';
+import { similarPatientTreatmentsData } from './mock-data';
 
 describe('Reducer function', () => {
     it('should return initial state on empty args', () => {
@@ -189,8 +190,8 @@ describe('Reducer function', () => {
         const selectState = stateObjects.unselectAllOptions;
         const type = types.SELECT_ALL_SIMILAR_PATIENT_OPTIONS;
         const action = {
-            type:type,
-            selected:false
+            type: type,
+            selected: false
         };
         const newState = reducer(selectState, action).similarPatientProps;
 
@@ -205,6 +206,20 @@ describe('Reducer function', () => {
         });
     });
 
+    describe("sets the selected treatment", () => {
+        const type = types.SET_SELECTED_TREATMENT;
+        const selectedTreatment = null;
+        const action = {
+            type,
+            treatment: similarPatientTreatmentsData[0]
+        };
+        const newState = reducer(defaultState, action).selectedTreatment;
+
+        it("sets the correct treatment", () => {
+            expect(newState).to.eql(similarPatientTreatmentsData[0]);
+        });
+    });
+
     /**
      * Small helper function that cleans up some clutter when checking
      * if all the categories/options are selected or not.
@@ -215,12 +230,12 @@ describe('Reducer function', () => {
     function checkAllSelected(state, recurse, selection){
         if (!recurse) {
             const all = Object.keys(state).reduce((i, element)=>{
-                return i&&(selection?state[element].selected:!state[element].selected);
+                return i && (selection ? state[element].selected : !state[element].selected);
             }, true);
             return all;
         } else {
             const all = Object.keys(state).reduce((i, element)=>{
-                return i&&checkAllSelected(state[element].options, false, selection);
+                return i && checkAllSelected(state[element].options, false, selection);
             }, true);
             return all;
         }

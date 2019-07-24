@@ -70,6 +70,13 @@ function processSimilarPatientOutcomes() {
     };
 }
 
+function setSelectedTreatment(treatment) {
+    return {
+        type: types.SET_SELECTED_TREATMENT,
+        treatment
+    };
+}
+
 export {
     initializeSimilarPatientProps,
     processSimilarPatientOutcomes,
@@ -77,4 +84,5 @@ export {
     selectAllSimilarPatientOptions,
     selectSimilarPatientOption,
     selectSimilarPatientOptionRange,
+    setSelectedTreatment,
 };

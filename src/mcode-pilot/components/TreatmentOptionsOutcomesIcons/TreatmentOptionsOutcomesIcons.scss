@@ -1,8 +1,12 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins/media-queries';
 
 .treatment-options-outcomes-icons {
     display: flex;
-    margin: 40px 0;
+    flex-direction: row;
+    margin-top: 10px;
+
+    @include respond-to('1024px') { flex-direction: column; }
 
     &.note {
         font-style: italic;
@@ -12,78 +16,81 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 10px;
+        margin: 5px;
         width: 120px;
+        height: 375px;
         font-weight: 100;
     }
 
+    .icons-interaction *,
+    .icons-interaction *:before,
+    .icons-interaction *:after {
+        box-sizing: inherit;
+    }
+
     .icons-interaction {
-        min-width: 350px;
+        box-sizing: border-box;
         margin-right: 20px;
 
-        .interaction-selection {
-            position: relative;
-            font-size: 1em;
-            margin: 0 0 5px 8px;
-            padding: 10px;
-            border-radius: 5px;
+        &__header {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 10px;
+
+            .user-icon,
+            .overall-survival {
+                text-align: center;
+            }
+        }
+
+        &__row {
+            height: 56px;
+            align-items: center;
+            cursor: pointer;
             border: 2px solid transparent;
+            border-radius: 5px;
+            min-width: 500px;
 
-            &.active {
-                border-color: $interface-blue;
+            @include respond-to('1180px') { min-width: 0; }
+
+            &:nth-child(even) {
+                background-color: $contrast-gray;
             }
 
-            .treatment-name-group {
+            &:hover:not(.selected-treatment) {
+                background-color: lighten($icons-blue, 40%);
+            }
+
+            &.selected-treatment {
+                background-color: darken($contrast-gray, 5%);
+                box-shadow: 0px 10px 8px -5px rgba(153, 153, 153, 1);
+            }
+
+            &.displayed-treatment {
+                border-color: $icons-blue;
+            }
+
+            .select-icon {
+                padding-right: 10px;
                 cursor: pointer;
-
-                .treatment-name {
-                    font-size: 1.2em;
-
-                    &.selected {
-                        font-weight: 600;
-                    }
-                }
             }
 
-            .interaction-display {
-                margin: 5px 0 15px 12px;
-                padding-bottom: 10px;
-                font-size: 1.1em;
-                font-weight: 600;
-                border-bottom: 2px solid;
+            .treatment-name {
+                align-items: center;
+                min-width: 120px;
+            }
 
-                div {
-                    margin: 5px 0;
-                }
+            .total-patients,
+            .overall-survival {
+                text-align: center;
+            }
 
-                .additional-survive-group {
-                    .additional-survive {
-                        margin-right: 5px;
-                        font-size: 1.2em;
-                    }
-                }
+            .overall-survival {
+                .diff-num-selected {
+                    font-size: 1.1em;
 
-                .side-effects-group {
-                    .side-effects-list {
-                        margin-left: 40px;
-                        font-weight: 500;
-
-                        .list-item {
-                            display: flex;
-                            align-items: center;
-                            margin: 0;
-                            padding: 0 10px;
-
-                            .item-name {
-                                flex: 2;
-                            }
-
-                            .item-effect {
-                                flex: 1;
-                                text-align: right;
-                            }
-                        }
-                    }
+                    &.positive { color: $icons-green; }
+                    &.negative { color: $icons-red; }
                 }
             }
         }
@@ -94,4 +101,10 @@
             left: -15px;
         }
     }
+
+    .flex { display: flex; }
+    .flex-1 { flex: 1; }
+    .flex-2 { flex: 2; }
+    .flex-3 { flex: 3; }
+    .flex-padding { padding: 0 20px; }
 }
