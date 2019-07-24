@@ -360,9 +360,6 @@ class Address {
     if (fhir['period'] != null) {
       inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
     }
-    if (asExtension) {
-      inst.value = fhir['valueAddress'];
-    }
     return inst;
   }
 

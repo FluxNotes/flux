@@ -11,26 +11,26 @@ import ClassRegistry from '../../ClassRegistry';
 class Signatory {
 
   /**
-   * Get the choice value; one of: uri, shr.entity.Entity reference.
-   * @returns {(uri|Reference)} The choice value; one of: uri, shr.entity.Entity reference
+   * Get the choice value; one of: uri, shr.core.Entity reference.
+   * @returns {(uri|Reference)} The choice value; one of: uri, shr.core.Entity reference
    */
   get value() {
     return this._value;
   }
 
   /**
-   * Set the choice value; one of: uri, shr.entity.Entity reference.
+   * Set the choice value; one of: uri, shr.core.Entity reference.
    * This field/value is required.
-   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.entity.Entity reference
+   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.core.Entity reference
    */
   set value(value) {
     this._value = value;
   }
 
   /**
-   * Set the choice value; one of: uri, shr.entity.Entity reference and return 'this' for chaining.
+   * Set the choice value; one of: uri, shr.core.Entity reference and return 'this' for chaining.
    * This field/value is required.
-   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.entity.Entity reference
+   * @param {(uri|Reference)} value - The choice value; one of: uri, shr.core.Entity reference
    * @returns {Signatory} this.
    */
   withValue(value) {

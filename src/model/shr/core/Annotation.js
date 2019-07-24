@@ -38,30 +38,30 @@ class Annotation {
   }
 
   /**
-   * Get the Author.
-   * @returns {Author} The shr.core.Author
+   * Get the AnnotationAuthor.
+   * @returns {AnnotationAuthor} The shr.core.AnnotationAuthor
    */
-  get author() {
-    return this._author;
+  get annotationAuthor() {
+    return this._annotationAuthor;
   }
 
   /**
-   * Set the Author.
+   * Set the AnnotationAuthor.
    * This field/value is required.
-   * @param {Author} author - The shr.core.Author
+   * @param {AnnotationAuthor} annotationAuthor - The shr.core.AnnotationAuthor
    */
-  set author(author) {
-    this._author = author;
+  set annotationAuthor(annotationAuthor) {
+    this._annotationAuthor = annotationAuthor;
   }
 
   /**
-   * Set the Author and return 'this' for chaining.
+   * Set the AnnotationAuthor and return 'this' for chaining.
    * This field/value is required.
-   * @param {Author} author - The shr.core.Author
+   * @param {AnnotationAuthor} annotationAuthor - The shr.core.AnnotationAuthor
    * @returns {Annotation} this.
    */
-  withAuthor(author) {
-    this.author = author; return this;
+  withAnnotationAuthor(annotationAuthor) {
+    this.annotationAuthor = annotationAuthor; return this;
   }
 
   /**
@@ -74,7 +74,6 @@ class Annotation {
 
   /**
    * Set the OccurrenceTime.
-   * This field/value is required.
    * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
    */
   set occurrenceTime(occurrenceTime) {
@@ -83,7 +82,6 @@ class Annotation {
 
   /**
    * Set the OccurrenceTime and return 'this' for chaining.
-   * This field/value is required.
    * @param {OccurrenceTime} occurrenceTime - The shr.core.OccurrenceTime
    * @returns {Annotation} this.
    */
@@ -114,8 +112,8 @@ class Annotation {
     if (this.text != null) {
       inst['Text'] = typeof this.text.toJSON === 'function' ? this.text.toJSON() : this.text;
     }
-    if (this.author != null) {
-      inst['Author'] = typeof this.author.toJSON === 'function' ? this.author.toJSON() : this.author;
+    if (this.annotationAuthor != null) {
+      inst['AnnotationAuthor'] = typeof this.annotationAuthor.toJSON === 'function' ? this.annotationAuthor.toJSON() : this.annotationAuthor;
     }
     if (this.occurrenceTime != null) {
       inst['OccurrenceTime'] = typeof this.occurrenceTime.toJSON === 'function' ? this.occurrenceTime.toJSON() : this.occurrenceTime;
@@ -139,7 +137,7 @@ class Annotation {
     const klass = ClassRegistry.get('shr.core', 'Annotation');
     const inst = new klass();
     if (fhir['authorString'] != null) {
-      inst.author = FHIRHelper.createInstanceFromFHIR('shr.core.Author', fhir['authorString'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.annotationAuthor = FHIRHelper.createInstanceFromFHIR('shr.core.AnnotationAuthor', fhir['authorString'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['time'] != null) {
       inst.occurrenceTime = FHIRHelper.createInstanceFromFHIR('shr.core.OccurrenceTime', fhir['time'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);

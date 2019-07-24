@@ -78,8 +78,6 @@ class NonOccurrenceTimeOrPeriod {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.core', 'NonOccurrenceTimeOrPeriod');
     const inst = new klass();
-    if (asExtension) {
-    }
     if (!asExtension && fhir != null) {
       inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }

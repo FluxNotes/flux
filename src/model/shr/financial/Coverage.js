@@ -5,13 +5,13 @@ import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import ClassRegistry from '../../ClassRegistry';
 
-import InformationItem from '../base/InformationItem';
+import DomainResource from '../core/DomainResource';
 
 /**
  * Generated class for shr.financial.Coverage.
- * @extends InformationItem
+ * @extends DomainResource
  */
-class Coverage extends InformationItem {
+class Coverage extends DomainResource {
 
   /**
    * Get the entry information.
@@ -64,55 +64,103 @@ class Coverage extends InformationItem {
   }
 
   /**
-   * Get the Type.
-   * @returns {Type} The shr.core.Type
+   * Get the CoverageType.
+   * @returns {CoverageType} The shr.financial.CoverageType
    */
-  get type() {
-    return this._type;
+  get coverageType() {
+    return this._coverageType;
   }
 
   /**
-   * Set the Type.
-   * This field/value is required.
-   * @param {Type} type - The shr.core.Type
+   * Set the CoverageType.
+   * @param {CoverageType} coverageType - The shr.financial.CoverageType
    */
-  set type(type) {
-    this._type = type;
+  set coverageType(coverageType) {
+    this._coverageType = coverageType;
   }
 
   /**
-   * Set the Type and return 'this' for chaining.
-   * This field/value is required.
-   * @param {Type} type - The shr.core.Type
+   * Set the CoverageType and return 'this' for chaining.
+   * @param {CoverageType} coverageType - The shr.financial.CoverageType
    * @returns {Coverage} this.
    */
-  withType(type) {
-    this.type = type; return this;
+  withCoverageType(coverageType) {
+    this.coverageType = coverageType; return this;
   }
 
   /**
-   * Get the InsuranceMemberId.
-   * @returns {InsuranceMemberId} The shr.financial.InsuranceMemberId
+   * Get the Subscriber.
+   * @returns {Subscriber} The shr.financial.Subscriber
    */
-  get insuranceMemberId() {
-    return this._insuranceMemberId;
+  get subscriber() {
+    return this._subscriber;
   }
 
   /**
-   * Set the InsuranceMemberId.
-   * @param {InsuranceMemberId} insuranceMemberId - The shr.financial.InsuranceMemberId
+   * Set the Subscriber.
+   * @param {Subscriber} subscriber - The shr.financial.Subscriber
    */
-  set insuranceMemberId(insuranceMemberId) {
-    this._insuranceMemberId = insuranceMemberId;
+  set subscriber(subscriber) {
+    this._subscriber = subscriber;
   }
 
   /**
-   * Set the InsuranceMemberId and return 'this' for chaining.
-   * @param {InsuranceMemberId} insuranceMemberId - The shr.financial.InsuranceMemberId
+   * Set the Subscriber and return 'this' for chaining.
+   * @param {Subscriber} subscriber - The shr.financial.Subscriber
    * @returns {Coverage} this.
    */
-  withInsuranceMemberId(insuranceMemberId) {
-    this.insuranceMemberId = insuranceMemberId; return this;
+  withSubscriber(subscriber) {
+    this.subscriber = subscriber; return this;
+  }
+
+  /**
+   * Get the SubscriberId.
+   * @returns {SubscriberId} The shr.financial.SubscriberId
+   */
+  get subscriberId() {
+    return this._subscriberId;
+  }
+
+  /**
+   * Set the SubscriberId.
+   * @param {SubscriberId} subscriberId - The shr.financial.SubscriberId
+   */
+  set subscriberId(subscriberId) {
+    this._subscriberId = subscriberId;
+  }
+
+  /**
+   * Set the SubscriberId and return 'this' for chaining.
+   * @param {SubscriberId} subscriberId - The shr.financial.SubscriberId
+   * @returns {Coverage} this.
+   */
+  withSubscriberId(subscriberId) {
+    this.subscriberId = subscriberId; return this;
+  }
+
+  /**
+   * Get the Beneficiary.
+   * @returns {Beneficiary} The shr.financial.Beneficiary
+   */
+  get beneficiary() {
+    return this._beneficiary;
+  }
+
+  /**
+   * Set the Beneficiary.
+   * @param {Beneficiary} beneficiary - The shr.financial.Beneficiary
+   */
+  set beneficiary(beneficiary) {
+    this._beneficiary = beneficiary;
+  }
+
+  /**
+   * Set the Beneficiary and return 'this' for chaining.
+   * @param {Beneficiary} beneficiary - The shr.financial.Beneficiary
+   * @returns {Coverage} this.
+   */
+  withBeneficiary(beneficiary) {
+    this.beneficiary = beneficiary; return this;
   }
 
   /**
@@ -186,23 +234,35 @@ class Coverage extends InformationItem {
   toJSON() {
     const inst = this._entryInfo.toJSON();
     inst['EntryType'] = { 'Value' : 'http://standardhealthrecord.org/spec/shr/financial/Coverage' };
-    if (this.narrative != null) {
-      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
+    if (this.metadata != null) {
+      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
     }
     if (this.language != null) {
       inst['Language'] = typeof this.language.toJSON === 'function' ? this.language.toJSON() : this.language;
     }
-    if (this.metadata != null) {
-      inst['Metadata'] = typeof this.metadata.toJSON === 'function' ? this.metadata.toJSON() : this.metadata;
+    if (this.implicitRules != null) {
+      inst['ImplicitRules'] = typeof this.implicitRules.toJSON === 'function' ? this.implicitRules.toJSON() : this.implicitRules;
+    }
+    if (this.narrative != null) {
+      inst['Narrative'] = typeof this.narrative.toJSON === 'function' ? this.narrative.toJSON() : this.narrative;
     }
     if (this.status != null) {
       inst['Status'] = typeof this.status.toJSON === 'function' ? this.status.toJSON() : this.status;
     }
-    if (this.type != null) {
-      inst['Type'] = typeof this.type.toJSON === 'function' ? this.type.toJSON() : this.type;
+    if (this.identifier != null) {
+      inst['Identifier'] = this.identifier.map(f => f.toJSON());
     }
-    if (this.insuranceMemberId != null) {
-      inst['InsuranceMemberId'] = typeof this.insuranceMemberId.toJSON === 'function' ? this.insuranceMemberId.toJSON() : this.insuranceMemberId;
+    if (this.coverageType != null) {
+      inst['CoverageType'] = typeof this.coverageType.toJSON === 'function' ? this.coverageType.toJSON() : this.coverageType;
+    }
+    if (this.subscriber != null) {
+      inst['Subscriber'] = typeof this.subscriber.toJSON === 'function' ? this.subscriber.toJSON() : this.subscriber;
+    }
+    if (this.subscriberId != null) {
+      inst['SubscriberId'] = typeof this.subscriberId.toJSON === 'function' ? this.subscriberId.toJSON() : this.subscriberId;
+    }
+    if (this.beneficiary != null) {
+      inst['Beneficiary'] = typeof this.beneficiary.toJSON === 'function' ? this.beneficiary.toJSON() : this.beneficiary;
     }
     if (this.policyHolder != null) {
       inst['PolicyHolder'] = typeof this.policyHolder.toJSON === 'function' ? this.policyHolder.toJSON() : this.policyHolder;
@@ -234,48 +294,78 @@ class Coverage extends InformationItem {
     inst.entryInfo.entryType = FHIRHelper.createInstanceFromFHIR('shr.base.EntryType', 'http://standardhealthrecord.org/spec/shr/financial/Coverage', 'uri');
     if (fhir['meta'] != null) {
       if (fhir['meta']['versionId'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.core.Metadata', {}, null, shrId);
         inst.metadata.versionId = FHIRHelper.createInstanceFromFHIR('shr.core.VersionId', fhir['meta']['versionId'], 'id', shrId, allEntries, mappedResources, referencesOut, false);
       }
       if (fhir['meta']['lastUpdated'] != null) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
-        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.base.LastUpdated', fhir['meta']['lastUpdated'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.core.Metadata', {}, null, shrId);
+        inst.metadata.lastUpdated = FHIRHelper.createInstanceFromFHIR('shr.core.LastUpdated', fhir['meta']['lastUpdated'], 'instant', shrId, allEntries, mappedResources, referencesOut, false);
+      }
+      for (const fhir_meta_profile of fhir['meta']['profile'] || []) {
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.core.Metadata', {}, null, shrId);
+        inst.metadata.profile = inst.metadata.profile || [];
+        const inst_metadata_profile = FHIRHelper.createInstanceFromFHIR('shr.core.Profile', fhir_meta_profile, 'uri', shrId, allEntries, mappedResources, referencesOut, false);
+        inst.metadata.profile.push(inst_metadata_profile);
       }
       for (const fhir_meta_security of fhir['meta']['security'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.core.Metadata', {}, null, shrId);
         inst.metadata.securityLabel = inst.metadata.securityLabel || [];
-        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.base.SecurityLabel', fhir_meta_security, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_metadata_securityLabel = FHIRHelper.createInstanceFromFHIR('shr.core.SecurityLabel', fhir_meta_security, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
         inst.metadata.securityLabel.push(inst_metadata_securityLabel);
       }
       for (const fhir_meta_tag of fhir['meta']['tag'] || []) {
-        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.base.Metadata', {}, null, shrId);
+        inst.metadata = inst.metadata || FHIRHelper.createInstanceFromFHIR('shr.core.Metadata', {}, null, shrId);
         inst.metadata.tag = inst.metadata.tag || [];
-        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.base.Tag', fhir_meta_tag, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
+        const inst_metadata_tag = FHIRHelper.createInstanceFromFHIR('shr.core.Tag', fhir_meta_tag, 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
         inst.metadata.tag.push(inst_metadata_tag);
       }
+    }
+    if (fhir['implicitRules'] != null) {
+      inst.implicitRules = FHIRHelper.createInstanceFromFHIR('shr.core.ImplicitRules', fhir['implicitRules'], 'uri', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['language'] != null) {
       inst.language = FHIRHelper.createInstanceFromFHIR('shr.core.Language', fhir['language'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['text'] != null) {
-      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.base.Narrative', fhir['text'], 'Narrative', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.narrative = FHIRHelper.createInstanceFromFHIR('shr.core.Narrative', fhir['text'], 'Narrative', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Status-extension') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-Status-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-Status-extension') {
         inst.status = FHIRHelper.createInstanceFromFHIR('shr.core.Status', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
         if (fhir_extension['valueCodeableConcept'] != null) {
           inst.status.value = FHIRHelper.createInstanceFromFHIR('shr.core.CodeableConcept', fhir_extension['valueCodeableConcept'], 'CodeableConcept', shrId, allEntries, mappedResources, referencesOut, false);
         }
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-financial-Beneficiary-extension') {
+        inst.beneficiary = FHIRHelper.createInstanceFromFHIR('shr.financial.Beneficiary', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
+      }
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-financial-PolicyHolder-extension') {
+        inst.policyHolder = FHIRHelper.createInstanceFromFHIR('shr.financial.PolicyHolder', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
     if (fhir['period'] != null) {
       inst.effectiveTimePeriod = FHIRHelper.createInstanceFromFHIR('shr.core.EffectiveTimePeriod', fhir['period'], 'Period', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['type'] != null) {
-      inst.type = FHIRHelper.createInstanceFromFHIR('shr.core.Type', fhir['type'], 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.coverageType = FHIRHelper.createInstanceFromFHIR('shr.financial.CoverageType', fhir['type'], 'Coding', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['subscriberId'] != null) {
-      inst.insuranceMemberId = FHIRHelper.createInstanceFromFHIR('shr.financial.InsuranceMemberId', fhir['subscriberId'], 'Identifier', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.subscriberId = FHIRHelper.createInstanceFromFHIR('shr.financial.SubscriberId', fhir['subscriberId'], 'Identifier', shrId, allEntries, mappedResources, referencesOut, false);
+    }
+    for (const fhir_identifier of fhir['identifier'] || []) {
+      inst.identifier = inst.identifier || [];
+      const inst_identifier = FHIRHelper.createInstanceFromFHIR('shr.core.Identifier', fhir_identifier, 'Identifier', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.identifier.push(inst_identifier);
+    }
+    if (fhir['subscriber'] != null) {
+      const entryId = fhir['subscriber']['reference'];
+      if (!mappedResources[entryId]) {
+        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
+        if (referencedEntry) {
+          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.core.Patient', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
+        }
+      }
+      inst.subscriber = mappedResources[entryId];
     }
     return inst;
   }

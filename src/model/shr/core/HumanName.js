@@ -5,62 +5,137 @@ import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import ClassRegistry from '../../ClassRegistry';
 
-import PersonName from './PersonName';
+import Name from './Name';
 
 /**
  * Generated class for shr.core.HumanName.
- * @extends PersonName
+ * @extends Name
  */
-class HumanName extends PersonName {
+class HumanName extends Name {
 
   /**
-   * Get the MiddleName array.
-   * @returns {Array<MiddleName>} The shr.core.MiddleName array
+   * Get the Purpose array.
+   * @returns {Array<Purpose>} The shr.core.Purpose array
    */
-  get middleName() {
-    return this._middleName;
+  get purpose() {
+    return this._purpose;
   }
 
   /**
-   * Set the MiddleName array.
-   * @param {Array<MiddleName>} middleName - The shr.core.MiddleName array
+   * Set the Purpose array.
+   * @param {Array<Purpose>} purpose - The shr.core.Purpose array
    */
-  set middleName(middleName) {
-    this._middleName = middleName;
+  set purpose(purpose) {
+    this._purpose = purpose;
   }
 
   /**
-   * Set the MiddleName array and return 'this' for chaining.
-   * @param {Array<MiddleName>} middleName - The shr.core.MiddleName array
+   * Set the Purpose array and return 'this' for chaining.
+   * @param {Array<Purpose>} purpose - The shr.core.Purpose array
    * @returns {HumanName} this.
    */
-  withMiddleName(middleName) {
-    this.middleName = middleName; return this;
+  withPurpose(purpose) {
+    this.purpose = purpose; return this;
   }
 
   /**
-   * Get the FamilyName array.
-   * @returns {Array<FamilyName>} The shr.core.FamilyName array
+   * Get the Prefix array.
+   * @returns {Array<Prefix>} The shr.core.Prefix array
+   */
+  get prefix() {
+    return this._prefix;
+  }
+
+  /**
+   * Set the Prefix array.
+   * @param {Array<Prefix>} prefix - The shr.core.Prefix array
+   */
+  set prefix(prefix) {
+    this._prefix = prefix;
+  }
+
+  /**
+   * Set the Prefix array and return 'this' for chaining.
+   * @param {Array<Prefix>} prefix - The shr.core.Prefix array
+   * @returns {HumanName} this.
+   */
+  withPrefix(prefix) {
+    this.prefix = prefix; return this;
+  }
+
+  /**
+   * Get the GivenName array.
+   * @returns {Array<GivenName>} The shr.core.GivenName array
+   */
+  get givenName() {
+    return this._givenName;
+  }
+
+  /**
+   * Set the GivenName array.
+   * @param {Array<GivenName>} givenName - The shr.core.GivenName array
+   */
+  set givenName(givenName) {
+    this._givenName = givenName;
+  }
+
+  /**
+   * Set the GivenName array and return 'this' for chaining.
+   * @param {Array<GivenName>} givenName - The shr.core.GivenName array
+   * @returns {HumanName} this.
+   */
+  withGivenName(givenName) {
+    this.givenName = givenName; return this;
+  }
+
+  /**
+   * Get the FamilyName.
+   * @returns {FamilyName} The shr.core.FamilyName
    */
   get familyName() {
     return this._familyName;
   }
 
   /**
-   * Set the FamilyName array.
-   * @param {Array<FamilyName>} familyName - The shr.core.FamilyName array
+   * Set the FamilyName.
+   * @param {FamilyName} familyName - The shr.core.FamilyName
    */
   set familyName(familyName) {
     this._familyName = familyName;
   }
 
   /**
-   * Set the FamilyName array and return 'this' for chaining.
-   * @param {Array<FamilyName>} familyName - The shr.core.FamilyName array
+   * Set the FamilyName and return 'this' for chaining.
+   * @param {FamilyName} familyName - The shr.core.FamilyName
    * @returns {HumanName} this.
    */
   withFamilyName(familyName) {
     this.familyName = familyName; return this;
+  }
+
+  /**
+   * Get the Suffix array.
+   * @returns {Array<Suffix>} The shr.core.Suffix array
+   */
+  get suffix() {
+    return this._suffix;
+  }
+
+  /**
+   * Set the Suffix array.
+   * @param {Array<Suffix>} suffix - The shr.core.Suffix array
+   */
+  set suffix(suffix) {
+    this._suffix = suffix;
+  }
+
+  /**
+   * Set the Suffix array and return 'this' for chaining.
+   * @param {Array<Suffix>} suffix - The shr.core.Suffix array
+   * @returns {HumanName} this.
+   */
+  withSuffix(suffix) {
+    this.suffix = suffix; return this;
   }
 
   /**
@@ -98,11 +173,8 @@ class HumanName extends PersonName {
     if (this.givenName != null) {
       inst['GivenName'] = this.givenName.map(f => f.toJSON());
     }
-    if (this.middleName != null) {
-      inst['MiddleName'] = this.middleName.map(f => f.toJSON());
-    }
     if (this.familyName != null) {
-      inst['FamilyName'] = this.familyName.map(f => f.toJSON());
+      inst['FamilyName'] = typeof this.familyName.toJSON === 'function' ? this.familyName.toJSON() : this.familyName;
     }
     if (this.suffix != null) {
       inst['Suffix'] = this.suffix.map(f => f.toJSON());
@@ -133,10 +205,8 @@ class HumanName extends PersonName {
     if (fhir['text'] != null) {
       inst.nameAsText = FHIRHelper.createInstanceFromFHIR('shr.core.NameAsText', fhir['text'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
-    for (const fhir_family of fhir['family'] || []) {
-      inst.familyName = inst.familyName || [];
-      const inst_familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir_family, 'string', shrId, allEntries, mappedResources, referencesOut, false);
-      inst.familyName.push(inst_familyName);
+    if (fhir['family'] != null && fhir['family'][0] != null) {
+      inst.familyName = FHIRHelper.createInstanceFromFHIR('shr.core.FamilyName', fhir['family'][0], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     for (const fhir_given of fhir['given'] || []) {
       inst.givenName = inst.givenName || [];

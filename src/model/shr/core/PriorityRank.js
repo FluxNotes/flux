@@ -11,30 +11,57 @@ import ClassRegistry from '../../ClassRegistry';
 class PriorityRank {
 
   /**
-   * Get the choice value; one of: positiveInt, shr.core.CodeableConcept.
-   * @returns {(positiveInt|CodeableConcept)} The choice value; one of: positiveInt, shr.core.CodeableConcept
+   * Get the value (aliases positiveInt).
+   * @returns {positiveInt} The positiveInt
    */
   get value() {
-    return this._value;
+    return this._positiveInt;
   }
 
   /**
-   * Set the choice value; one of: positiveInt, shr.core.CodeableConcept.
+   * Set the value (aliases positiveInt).
    * This field/value is required.
-   * @param {(positiveInt|CodeableConcept)} value - The choice value; one of: positiveInt, shr.core.CodeableConcept
+   * @param {positiveInt} value - The positiveInt
    */
   set value(value) {
-    this._value = value;
+    this._positiveInt = value;
   }
 
   /**
-   * Set the choice value; one of: positiveInt, shr.core.CodeableConcept and return 'this' for chaining.
+   * Set the value (aliases positiveInt) and return 'this' for chaining.
    * This field/value is required.
-   * @param {(positiveInt|CodeableConcept)} value - The choice value; one of: positiveInt, shr.core.CodeableConcept
+   * @param {positiveInt} value - The positiveInt
    * @returns {PriorityRank} this.
    */
   withValue(value) {
     this.value = value; return this;
+  }
+
+  /**
+   * Get the positiveInt.
+   * @returns {positiveInt} The positiveInt
+   */
+  get positiveInt() {
+    return this._positiveInt;
+  }
+
+  /**
+   * Set the positiveInt.
+   * This field/value is required.
+   * @param {positiveInt} positiveInt - The positiveInt
+   */
+  set positiveInt(positiveInt) {
+    this._positiveInt = positiveInt;
+  }
+
+  /**
+   * Set the positiveInt and return 'this' for chaining.
+   * This field/value is required.
+   * @param {positiveInt} positiveInt - The positiveInt
+   * @returns {PriorityRank} this.
+   */
+  withPositiveInt(positiveInt) {
+    this.positiveInt = positiveInt; return this;
   }
 
   /**
@@ -58,7 +85,7 @@ class PriorityRank {
   toJSON() {
     const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/PriorityRank' } };
     if (this.value != null) {
-      inst['Value'] = typeof this.value.toJSON === 'function' ? this.value.toJSON() : this.value;
+      inst['Value'] = this.value;
     }
     return inst;
   }
@@ -79,9 +106,10 @@ class PriorityRank {
     const klass = ClassRegistry.get('shr.core', 'PriorityRank');
     const inst = new klass();
     if (asExtension) {
+      inst.value = fhir['valuePositiveInt'];
     }
     if (!asExtension && fhir != null) {
-      inst.value = FHIRHelper.createInstanceFromFHIR(null, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
+      inst.value = fhir;
     }
     return inst;
   }

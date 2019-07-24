@@ -11,28 +11,28 @@ import ClassRegistry from '../../ClassRegistry';
 class Coding {
 
   /**
-   * Get the Code.
-   * @returns {Code} The shr.core.Code
+   * Get the CodeValue.
+   * @returns {CodeValue} The shr.core.CodeValue
    */
-  get code() {
-    return this._code;
+  get codeValue() {
+    return this._codeValue;
   }
 
   /**
-   * Set the Code.
-   * @param {Code} code - The shr.core.Code
+   * Set the CodeValue.
+   * @param {CodeValue} codeValue - The shr.core.CodeValue
    */
-  set code(code) {
-    this._code = code;
+  set codeValue(codeValue) {
+    this._codeValue = codeValue;
   }
 
   /**
-   * Set the Code and return 'this' for chaining.
-   * @param {Code} code - The shr.core.Code
+   * Set the CodeValue and return 'this' for chaining.
+   * @param {CodeValue} codeValue - The shr.core.CodeValue
    * @returns {Coding} this.
    */
-  withCode(code) {
-    this.code = code; return this;
+  withCodeValue(codeValue) {
+    this.codeValue = codeValue; return this;
   }
 
   /**
@@ -130,8 +130,8 @@ class Coding {
    */
   toJSON() {
     const inst = { 'EntryType': { 'Value' : 'http://standardhealthrecord.org/spec/shr/core/Coding' } };
-    if (this.code != null) {
-      inst['Code'] = typeof this.code.toJSON === 'function' ? this.code.toJSON() : this.code;
+    if (this.codeValue != null) {
+      inst['CodeValue'] = typeof this.codeValue.toJSON === 'function' ? this.codeValue.toJSON() : this.codeValue;
     }
     if (this.codeSystem != null) {
       inst['CodeSystem'] = typeof this.codeSystem.toJSON === 'function' ? this.codeSystem.toJSON() : this.codeSystem;
@@ -167,7 +167,7 @@ class Coding {
       inst.codeSystemVersion = FHIRHelper.createInstanceFromFHIR('shr.core.CodeSystemVersion', fhir['version'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['code'] != null) {
-      inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.codeValue = FHIRHelper.createInstanceFromFHIR('shr.core.CodeValue', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['display'] != null) {
       inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir['display'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
