@@ -1,6 +1,6 @@
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxConditionPresentAssertion from '../base/FluxConditionPresentAssertion';
+import FluxCondition from '../base/FluxCondition';
 import CancerDisorderPresent from './CancerDisorderPresent';
 import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
 import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
@@ -13,7 +13,7 @@ import FluxTumorMarker from '../oncocore/FluxTumorMarker';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
 import * as lookup from '../../lib/cancer_lookup';
 
-class FluxCancerDisorderPresent extends FluxConditionPresentAssertion {
+class FluxCancerDisorderPresent extends FluxCondition {
     constructor(json, type, patientRecord) {
         super();
         this._patientRecord = patientRecord;
