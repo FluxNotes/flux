@@ -4,7 +4,7 @@ import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPrese
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
-import FluxConditionPresentAssertion from '../model/base/FluxConditionPresentAssertion';
+import FluxCondition from '../model/base/FluxCondition';
 import FluxCancerProgression from '../model/oncocore/FluxCancerProgression';
 import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
@@ -430,7 +430,7 @@ class PatientRecord {
     }
 
     getConditions() {
-        return this.getEntriesIncludingType(FluxConditionPresentAssertion);
+        return this.getEntriesIncludingType(FluxCondition);
     }
 
     getActiveConditions() {
@@ -984,7 +984,7 @@ class PatientRecord {
 
     getFocalConditionForProgression(progression) {
         let result = this.entries.filter((item) => {
-            if (item instanceof FluxConditionPresentAssertion) {
+            if (item instanceof FluxCondition) {
                 const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
                 return progression.specificFocusOfFinding.entryId === conditionEntryId;
             } else {

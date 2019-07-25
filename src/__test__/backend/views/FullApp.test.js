@@ -22,7 +22,7 @@ import NotesPanel from '../../../panels/NotesPanel';
 import NoteAssistant from '../../../notes/NoteAssistant';
 import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
 import PatientRecord from '../../../patient/PatientRecord.jsx';
-import FluxConditionPresentAssertion from '../../../model/base/FluxConditionPresentAssertion';
+import FluxCondition from '../../../model/base/FluxCondition';
 
 import SearchIndex from '../../../patientControl/SearchIndex';
 import FluxClinicalNote from '../../../model/core/FluxClinicalNote';
@@ -238,7 +238,7 @@ describe('5 FullApp', function() {
         conditionSelector.at(0).props().onChange({target: { value: 1}});
         expect(conditionSelector.text()).to.equal('Fracture');
 
-        expect(wrapper.state('condition') instanceof FluxConditionPresentAssertion);
+        expect(wrapper.state('condition') instanceof FluxCondition);
         //const conditionName = wrapper.find('[data-test-summary-section="Summary"] [data-test-summary-item="Name"]');
        //expect(conditionName.exists()).to.equal(true);
        //expect(conditionName.text()).to.equal('Fracture');
