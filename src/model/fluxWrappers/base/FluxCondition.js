@@ -1,20 +1,19 @@
-//import BodySite from '../shr/entity/BodySite';
-import ConditionPresentAssertion from '../shr/base/ConditionPresentAssertion';
+import Condition from '../../shr/core/Condition';
 import FluxCancerProgression from '../oncocore/FluxCancerProgression';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
-import hpiConfig from '../hpi-configuration.json';
+import hpiConfig from '../../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
 import FluxEntry from './FluxEntry';
 
-class FluxConditionPresentAssertion extends FluxEntry {
+class FluxCondition extends FluxEntry {
     constructor(json, type, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = this._entry = ConditionPresentAssertion.fromJSON(json);
+        this._condition = this._entry = Condition.fromJSON(json);
     }
 
     get entryInfo() {
@@ -42,13 +41,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get code() {
-        if (!this._getTopicCodeCoding()){ return null;}
-        return this._getTopicCodeCoding().code.value;
+        if (!this._condition.code || !this._condition.code.value) return null;
+        return this._condition.code.value.coding[0].code.value;
     }
 
     get codeSystem() {
-        if (!this._getTopicCodeCoding()) return null;
-        return this._getTopicCodeCoding().codeSystem.value;
+        if (!this._condition.code || !this._condition.code.value) return null;
+        return this._condition.code.value.coding[0].codeSystem.value;
     }
 
     get codeURL() {
@@ -56,8 +55,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get type() {
-        if (!this._getTopicCodeCoding()) return null;
-        return this._displayTextOrCode(this._getTopicCodeCoding());
+        if (!this._condition.code || !this._condition.code.value) return null;
+        return this._displayTextOrCode(this._condition.code.value.coding[0]);
     }
 
     get observation() {
@@ -622,4 +621,4 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 }
 
-export default FluxConditionPresentAssertion;
+export default FluxCondition;

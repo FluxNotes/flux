@@ -1,7 +1,7 @@
 import { getNamespaceAndName } from '../json-helper';
 import FluxPatientIdentifier from './FluxPatientIdentifier';
 import ShrBaseObjectFactory from '../shr/base/ShrBaseObjectFactory';
-import FluxConditionPresentAssertion from './FluxConditionPresentAssertion';
+import FluxCondition from './FluxCondition';
 import FluxObservation from './FluxObservation';
 import FluxQuestionAnswer from './FluxQuestionAnswer';
 
@@ -14,7 +14,7 @@ export default class FluxBaseObjectFactory {
         // returns Flux wrapper class if found, otherwise use ShrBaseObjectFactory
         switch (elementName) {
             case 'Observation': return new FluxObservation(json, type, patientRecord);
-            case 'ConditionPresentAssertion': return new FluxConditionPresentAssertion(json, type, patientRecord);
+            case 'Condition': return new FluxCondition(json, type, patientRecord);
             case 'QuestionAnswer': return new FluxQuestionAnswer(json, type, patientRecord);
             case 'PatientIdentifier': return new FluxPatientIdentifier(json, type, patientRecord);
             default: return ShrBaseObjectFactory.createInstance(json, type, patientRecord);
