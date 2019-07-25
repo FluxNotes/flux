@@ -137,8 +137,8 @@ class SummaryHeader extends Component {
                 }
                 {!this.props.isTablet && <div className="patient-info item">
                     <div className="patient-name-number">
-                        <span className="patient-name">{patientName}</span>
-                        {mrn && <span className="patient-mrn">({mrn})</span>}
+                        <span className="patient-name">{patientName} </span>
+                        {mrn && <span className="patient-mrn"> ({mrn})</span>}
                     </div>
                     <div className="patient-item">DOB: <span className="no-wrap">{dateOfBirthString}</span></div>
                     <div className="patient-item">Admin. Sex:  <span>{administrativeSexString}</span></div>
