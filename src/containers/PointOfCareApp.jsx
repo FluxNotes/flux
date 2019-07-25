@@ -9,11 +9,12 @@ import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
-import Typography from 'material-ui/Typography';
+// import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
 import Lang from 'lodash';
 import Reference from '../model/Reference';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
+import Slate from '../lib/slate';
 
 import SecurityManager from '../security/SecurityManager';
 import PointOfCareDashboard from '../dashboard/PointOfCareDashboard';
@@ -28,6 +29,8 @@ import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
 import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
+import FluxNotesEditor from '../notes/FluxNotesEditor';
+
 import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
@@ -87,6 +90,7 @@ export class PointOfCareApp extends Component {
                 }
             },
         ];
+        this.initialState = Slate.Plain.deserialize('');
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -111,14 +115,20 @@ export class PointOfCareApp extends Component {
             searchSuggestions: [],
             snackbarOpen: false,
             snackbarMessage: "",
+            state: this.initialState,
             superRole: 'Clinician' // possibly add that to security manager too
         };
     }
 
-    loadPatient =(patientId) => {
+    onContextUpdate = () => {
+        this.setState({ contextManager: this.contextManager });
+    }
+
+    loadPatient(patientId) {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
@@ -130,7 +140,7 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
-                this.contextManager = new ContextManager(patient);
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 this.setState({
                     patient,
                     loading: false
@@ -358,7 +368,39 @@ export class PointOfCareApp extends Component {
         }
     }
 
+    // Update shortcuts and update patients accordingly
+    handleShortcutUpdate = (s) => {
+        let p = this.state.patient;
+        let note = this.state.openClinicalNote;
+        s.updatePatient(p, this.contextManager, note);
+    }
+
+    newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true, source) => {
+
+        let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.state.patient, shortcutData, this.handleShortcutUpdate);
+        newShortcut.setSource(source);
+        const errors = newShortcut.validateInCurrentContext(this.contextManager);
+        if (errors.length > 0) {
+            errors.forEach((error) => {
+                console.error(error);
+            });
+            newShortcut = null;
+        } else {
+            newShortcut.initialize(this.contextManager, shortcutType, updatePatient, shortcutData);
+        }
+        return newShortcut;
+    }
+
+    closeNote = () => {
+        this.handleModalClose();
+    }
+
+
+
     render() {
+        const content = this.state.openClinicalNote ? this.state.openClinicalNote.content : "";
+        const contextManager = this.contextManager ? this.contextManager : {};
+        const patient = this.state.patient ? this.state.patient : {};
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={(this.state.loading || this.state.loadingErrorObject) ? "PointOfCareApp-content loading-background" : "PointOfCareApp-content"}>
@@ -431,7 +473,44 @@ export class PointOfCareApp extends Component {
                             onClose={this.handleModalClose}
                         >
                             <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
-                                <div className='header'>
+                                <FluxNotesEditor
+                                    arrayOfPickLists={[]}
+                                    changeShortcutType={() => { }}
+                                    currentViewMode={""}
+                                    errors={[]}
+                                    handleUpdateEditorWithNote={() => {}}
+                                    itemInserted={() => {}}
+                                    noteAssistantMode={""}
+                                    selectedPickListOptions={[]}
+                                    setLayout={() => {}}
+                                    setNoteViewerEditable={() => {}}
+                                    setUndoTemplateInsertion={() => {}}
+                                    shouldUpdateShortcutType={true}
+                                    shouldRevertTemplate={true}
+                                    summaryItemToInsert={""}
+                                    updateErrors={() => {}}
+                                    updateSelectedNote={() => {}}
+
+                                    closeNote={this.closeNote}
+                                    contextManager={contextManager}
+                                    contextTrayItemToInsert={content}
+                                    isNoteViewerEditable={false}
+                                    newCurrentShortcut={this.newCurrentShortcut}
+                                    patient={patient}
+                                    saveNote={() => {}}
+                                    searchIndex={this.searchIndex}
+                                    selectedNote={this.state.openClinicalNote}
+                                    shortcutManager={this.shortcutManager}
+                                    shouldEditorContentUpdate={true}
+                                    structuredFieldMapManager={this.structuredFieldMapManager}
+                                    updatedEditorNote={this.state.openClinicalNote}
+                                    updateLocalDocumentText={() => { }}
+                                    updateNoteAssistantMode={() => {}}
+                                    updateContextTrayItemToInsert={() => {}}
+
+
+                                />
+                                {/* <div className='header'>
                                     <span className='close-div' onClick={this.handleModalClose}>
                                         <FontAwesome className='close-button' name='times'/>
                                         <div className='close-text'> Close </div>
@@ -449,7 +528,7 @@ export class PointOfCareApp extends Component {
                                             </span>
                                         );
                                     })}
-                                </Typography>
+                                </Typography> */}
                             </div>
                         </Modal>
 
