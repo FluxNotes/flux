@@ -28,9 +28,7 @@ export default class FilterOptions {
                 filterInfo.maxValue = filter.maxValue;
             }
             if (filter.hasOwnProperty("minValue")) {
-
                 filterInfo.minValue = filter.minValue;
-
             }
 
             filterInfo.value = filter.value;
@@ -51,7 +49,6 @@ export default class FilterOptions {
             return [returnValue];
         } else {
             return returnValue;
-
         }
     }
 
@@ -71,7 +68,6 @@ export default class FilterOptions {
                 return total && filter.mcodeElement.split('.')[i] === current;
             },true);
         });
-
     }
 
     recursiveFilterSearch(parentFilter, returnArray) {
