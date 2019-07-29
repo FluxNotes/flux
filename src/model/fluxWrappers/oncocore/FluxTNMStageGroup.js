@@ -9,7 +9,7 @@ import FluxTNMClinicalRegionalNodesClassification from './FluxTNMClinicalRegiona
 import FluxEntry from '../base/FluxEntry';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
-import FluxTNMStagePanelMember from './FluxTNMStagePanelMember';
+import FluxCancerStageCategory from '../onco/core/FluxCancerStageCategory';
 
 export default class FluxTNMStageGroup extends FluxEntry {
     get entryInfo() {
@@ -27,7 +27,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
     get stageComponents() { 
         const stageComponentsAsString = this._tnmStageGroup.panelMembers.observation.reduce((accumulatedString, o) => { 
             const entry = this._patientRecord.getEntryFromReference(o)
-            if (entry instanceof FluxTNMStagePanelMember) { 
+            if (entry instanceof FluxCancerStageCategory) { 
                 accumulatedString += entry.value
             }
             return accumulatedString

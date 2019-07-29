@@ -12,7 +12,7 @@ import FluxProcedureObjectFactory from './procedure/FluxProcedureObjectFactory';
 import FluxAllergyObjectFactory from './allergy/FluxAllergyObjectFactory';
 import FluxOncologyObjectFactory from './oncology/FluxOncologyObjectFactory';
 import FluxVitalObjectFactory from './vital/FluxVitalObjectFactory';
-import FluxOncocoreObjectFactory from './oncocore/FluxOncocoreObjectFactory';
+import FluxOncocoreObjectFactory from './fluxWrappers/onco/core/FluxOncocoreObjectFactory';
 import FluxTumorObjectFactory from './tumor/FluxTumorObjectFactory';
 import FluxBrcaObjectFactory from './brca/FluxBrcaObjectFactory';
 
