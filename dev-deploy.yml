@@ -1,0 +1,68 @@
+---
+- hosts: dev
+  remote_user: "{{ username }}"
+  become_method: sudo
+  vars:
+    app_dir: "/home/{{ username }}/flux"
+    datetime: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
+    backup_path: "{{ build_path }}/backup-{{ datetime }}"
+  tasks:
+  - name: Clone the desired version of flux
+    git:
+      repo: https://github.com/FluxNotes/flux
+      dest: "{{ app_dir }}"
+      version: "{{ release_version }}"
+      force: yes
+    register: git_finished
+
+  - name: Install Packages
+    yarn:
+        path: "{{ app_dir }}"
+    when: git_finished.changed
+
+  - name: Update Debra encounter dates
+    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentDebra.json 32
+    args:
+      chdir: "{{ app_dir }}"
+
+  - name: Update Ella encounter dates
+    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentTry3Ella.json 100
+    args:
+      chdir: "{{ app_dir }}"
+ 
+  - name: Update Ihanos encounter dates
+    shell: yarn patient-date-update src/dataaccess/GistAdjuvantIhanos.json 100
+    args:
+      chdir: "{{ app_dir }}"
+
+  - name: Update Jane encounter dates
+    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33
+    args:
+      chdir: "{{ app_dir }}"
+
+  - name: Build the app
+    shell: yarn build
+    args:
+      chdir: "{{ app_dir }}"
+    register: build_finished
+
+  - name: Create backup directory for current build files
+    file:
+      path: "{{ backup_path }}"
+      state: directory
+    become: yes
+
+  - name: Copy existing build files into backup directory
+    shell: cp -r {{ build_path }}/public_html/* {{ backup_path }}
+    become: yes
+
+  - name: Replace contents in build folder with newly built files
+    shell: cp -r {{ app_dir }}/build/* {{ build_path }}/public_html/
+    when: build_finished.changed
+    become: yes
+
+  - name: Restart Apache
+    service:
+      name: apache2
+      state: restarted
+    become: yes
