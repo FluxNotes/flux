@@ -1,6 +1,5 @@
 import { filterTreatmentData } from '../../utils/filterTreatmentData';
 import IOutcomesService from './IOutcomesService';
-import FilterOptions from '../../utils/FilterOptions';
 
 export default class StaticOutcomesService  extends IOutcomesService {
     constructor(config) {
@@ -8,8 +7,7 @@ export default class StaticOutcomesService  extends IOutcomesService {
         this.timescale = config.timescale;
     }
 
-    async processSimilarPatientOutcomes(similarPatientProps) {
-        const filter = new FilterOptions(similarPatientProps);
-        return filterTreatmentData(filter, this.timescale);
+    async processSimilarPatientOutcomes(fOptions) {
+        return filterTreatmentData(fOptions, this.timescale);
     }
 }
