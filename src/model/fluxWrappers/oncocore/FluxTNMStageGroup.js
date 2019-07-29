@@ -3,13 +3,13 @@ import FluxMitoticRate from '../oncology/FluxMitoticRate';
 import * as lookup from '../../lib/tnmstage_lookup.jsx';
 import * as staging from '../../lib/staging.jsx';
 import FindingResult from '../shr/base/FindingResult';
-import FluxTNMClinicalPrimaryTumorClassification from './FluxTNMClinicalPrimaryTumorClassification';
-import FluxTNMClinicalDistantMetastasesClassification from './FluxTNMClinicalDistantMetastasesClassification';
-import FluxTNMClinicalRegionalNodesClassification from './FluxTNMClinicalRegionalNodesClassification';
 import FluxEntry from '../base/FluxEntry';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
 import FluxCancerStageCategory from '../onco/core/FluxCancerStageCategory';
+import FluxTNMClinicalRegionalNodesCategory from '../onco/core/FluxTNMClinicalRegionalNodesCategory';
+import FluxTNMClinicalDistantMetastasesCategory from '../onco/core/FluxTNMClinicalDistantMetastasesCategory';
+import FluxTNMClinicalPrimaryTumorCategory from '../onco/core/FluxTNMClinicalPrimaryTumorCategory';
 
 export default class FluxTNMStageGroup extends FluxEntry {
     get entryInfo() {
@@ -62,7 +62,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from T_Stage
      */
     get t_Stage() {
-        const tReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorClassification);
+        const tReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorCategory);
         if (!tReference) return null;
         return this._patientRecord.getEntryFromReference(tReference).value;
     }
@@ -73,7 +73,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This function will lookup the corresponding coding/codesystem and set the T_Stage value on the observationComponent property
      */
     set t_Stage(tStage) {
-        const tReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorClassification);
+        const tReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorCategory);
         const tEntry = tReference ? this._patientRecord.getEntryFromReference(tReference) : null;
         if (!tStage) {
             if (tReference) this._patientRecord.removeEntryFromPatient(tEntry);
@@ -83,7 +83,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
             if (tEntry) {
                 tEntry.value = lookup.getTStageCodeableConcept(tStage);
             } else {
-                const t = new FluxTNMClinicalPrimaryTumorClassification();
+                const t = new FluxTNMClinicalPrimaryTumorCategory();
                 t.value = lookup.getTStageCodeableConcept(tStage);
                 this._patientRecord.addEntryToPatient(t);
                 this._tnmStageGroup.panelMembers.observation.push(this._patientRecord.createEntryReferenceTo(t));
@@ -97,7 +97,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from N_Stage
      */
     get n_Stage() {
-        const nReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesClassification);
+        const nReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesCategory);
         if (!nReference) return null;
         return this._patientRecord.getEntryFromReference(nReference).value;
     }
@@ -108,7 +108,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This function will lookup the corresponding coding/codesystem and set the N_Stage value on the panelMembers property
      */
     set n_Stage(nStage) {
-        const nReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesClassification);
+        const nReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesCategory);
         const nEntry = nReference ? this._patientRecord.getEntryFromReference(nReference) : null;
         if (!nStage) {
             if (nReference) {
@@ -120,7 +120,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
             if (nEntry) {
                 nEntry.value = lookup.getNStageCodeableConcept(nStage);
             } else {
-                const n = new FluxTNMClinicalRegionalNodesClassification();
+                const n = new FluxTNMClinicalRegionalNodesCategory();
                 n.value = lookup.getNStageCodeableConcept(nStage);
                 this._patientRecord.addEntryToPatient(n);
                 this._tnmStageGroup.panelMembers.observation.push(this._patientRecord.createEntryReferenceTo(n));
@@ -134,7 +134,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from M_Stage
      */
     get m_Stage() {
-        const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesClassification);
+        const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesCategory);
         if (!mReference) return null;
         return this._patientRecord.getEntryFromReference(mReference).value;
     }
@@ -145,7 +145,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This function will lookup the corresponding coding/codesystem and set the M_Stage value on the panelMembers property
      */
     set m_Stage(mStage) {
-        const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesClassification);
+        const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesCategory);
         const mEntry = mReference ? this._patientRecord.getEntryFromReference(mReference) : null;
         if (!mStage) {
             if (mEntry) this._patientRecord.removeEntryFromPatient(mEntry);
@@ -155,7 +155,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
             if (mEntry) {
                 mEntry.value = lookup.getMStageCodeableConcept(mStage);
             } else {
-                const m = new FluxTNMClinicalDistantMetastasesClassification();
+                const m = new FluxTNMClinicalDistantMetastasesCategory();
                 m.value = lookup.getMStageCodeableConcept(mStage);
                 this._patientRecord.addEntryToPatient(m);
                 this._tnmStageGroup.panelMembers.observation.push(this._patientRecord.createEntryReferenceTo(m));
