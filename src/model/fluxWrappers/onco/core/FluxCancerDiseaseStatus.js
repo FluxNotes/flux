@@ -1,7 +1,7 @@
 import * as lookup from '../../lib/progression_lookup.jsx';
-import CancerDiseaseStatus from '../../onco/core/CancerDiseaseStatus.js';
+import CancerDiseaseStatus from '../../../onco/core/CancerDiseaseStatus';
 import FluxEntry from '../base/FluxEntry';
-import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';
+import FluxEvidenceType from './FluxEvidenceType';
 import RelevantTime from '../shr/base/RelevantTime';
 import Reference from '../Reference';
 import RelatedCancerCondition from '../../../onco/core/RelatedCancerCondition.js';
@@ -88,7 +88,7 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
         });
 
         this._cancerDiseaseStatus.evidenceType = filteredEvidence.map((e) => {
-            let ev = new FluxCancerProgressionEvidence();
+            let ev = new FluxEvidenceType();
             ev.value = lookup.getEvidenceCodeableConcept(e);
             return ev;
         });
