@@ -1,5 +1,5 @@
-import FluxEntry from "../base/FluxEntry";
-import ECOGPerformanceStatus from "./ECOGPerformanceStatus";
+import FluxEntry from '../base/FluxEntry';
+import ECOGPerformanceStatus from '../../shr/core/ECOGPerformanceStatus';
 
 class FluxECOGPerformanceStatus extends FluxEntry {
     constructor(json, type, patientRecord) {
