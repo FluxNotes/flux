@@ -2,12 +2,12 @@ import _ from 'lodash';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
-function filterTreatmentData(filterOptions, timescale) {
+function filterTreatmentData(fOptions, timescale) {
     const totalPatients = transformedTreatmentData.length;
     const indices = {};
     let totalSimilar = 0;
     const similarPatients = transformedTreatmentData.reduce((filtered, treatmentDataPatient, i) => {
-        if (isSimilarPatient(treatmentDataPatient, filterOptions)) {
+        if (isSimilarPatient(treatmentDataPatient, fOptions)) {
             totalSimilar++;
             parsePatientData(treatmentDataPatient, filtered, indices, timescale);
         }
@@ -71,9 +71,9 @@ function generateSimilarPatientTreatments(similarPatients) {
     return Object.values(similarPatientTreatments).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-function isSimilarPatient(treatmentDataPatient, filterOptions) {
+function isSimilarPatient(treatmentDataPatient, fOptions) {
 
-    const activeValues = filterOptions.getAllActiveFilters();
+    const activeValues = fOptions.getAllActiveFilters();
     for (let i = 0; i < activeValues.length; i++) {
         const filter = activeValues[i];
         const { minValue, maxValue, reference } = filter;

@@ -14,13 +14,13 @@ export default class FilterOptions {
     getFiltersAsList() {
         let returnArray = [];
         Object.keys(this.filters).forEach((key) => {
-            this.recursiveFilterSearch(this.filters[key], returnArray);
+            returnArray = returnArray.concat(this.recursiveFilterSearch(this.filters[key]));
         });
 
         return returnArray;
     }
 
-    getAllActiveValuesByMcodeElement(asList=false) {
+    getAllActiveValuesByMcodeElement() {
         const returnValue = {};
         this.getAllActiveFilters().forEach((filter) => {
             const filterInfo = {};
@@ -45,11 +45,7 @@ export default class FilterOptions {
                 returnValue[filter.mcodeElement] = filterInfo;
             }
         });
-        if (!Array.isArray(returnValue) && asList) {
-            return [returnValue];
-        } else {
-            return returnValue;
-        }
+        return returnValue;
     }
 
     getFilters() {
@@ -70,11 +66,12 @@ export default class FilterOptions {
         });
     }
 
-    recursiveFilterSearch(parentFilter, returnArray) {
+    recursiveFilterSearch(parentFilter) {
+        let returnArray = [];
         Object.keys(parentFilter.options).forEach((filterKey) => {
             const filter = parentFilter.options[filterKey];
             if (filter.options) {
-                returnArray = this.recursiveFilterSearch(filter, returnArray);
+                returnArray = returnArray.concat(this.recursiveFilterSearch(filter));
             } else {
                 returnArray.push(filter);
             }
