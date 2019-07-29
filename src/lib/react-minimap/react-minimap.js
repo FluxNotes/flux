@@ -344,7 +344,7 @@ export class Minimap extends React.Component {
               <div className="minimap-children-wrapper" style={{marginLeft: tabletMarginLeft}}>
                   <button
                       className="minimap-children edit-button"
-                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`, marginLeft: tabletMarginLeft}}
+                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`}}
                       onClick={this.editMinimapSections}>
                       {editButtonText}
                   </button>
