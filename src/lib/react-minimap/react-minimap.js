@@ -121,7 +121,7 @@ export class Minimap extends React.Component {
               const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
               const title = node.getAttribute(this.props.titleAttribute);
               const shortTitle = node.getAttribute(this.props.shortTitleAttribute);
-
+              const childCompLeft = this.props.isTablet? 0 : Math.round( xM );
               if (hM < 0) {
                   diff += 0 - hM;
                   hM = 0;
@@ -132,7 +132,7 @@ export class Minimap extends React.Component {
                       key={title}
                       width={Math.round( wM )}
                       height={hM}
-                      left={Math.round( xM )}
+                      left={childCompLeft}
                       top={Math.round( yM )}
                       node={node}
                       title={title}
@@ -332,7 +332,8 @@ export class Minimap extends React.Component {
   render() {
       const {width, height, inEditMode} = this.state;
       const editButtonText = inEditMode ? 'Done' : 'Edit';
-      const tabletMarginLeft = this.props.isTablet? (this.left + 10) : '10px';
+      const tabletMarginLeft = this.props.isTablet? (this.left - 15) : '0px';
+      console.log(tabletMarginLeft, this.left);
 
       return (
           <div
@@ -340,10 +341,10 @@ export class Minimap extends React.Component {
               onScroll={this.resize}
               ref={(source) => {this.source = source;}}
           >
-              <div className="minimap-children-wrapper">
+              <div className="minimap-children-wrapper" style={{marginLeft: tabletMarginLeft}}>
                   <button
                       className="minimap-children edit-button"
-                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`, marginLeft: tabletMarginLeft}}
+                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`}}
                       onClick={this.editMinimapSections}>
                       {editButtonText}
                   </button>
