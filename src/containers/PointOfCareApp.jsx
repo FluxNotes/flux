@@ -305,7 +305,7 @@ export class PointOfCareApp extends Component {
                             </Col>
                         </Row>
                         {this.renderLoadingInformation()}
-                        <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
+                        <Fade in={!this.state.loading} timeout={this.timeoutDuration} style={{paddingLeft: '12px'}}>
                             <div>
                                 {!Lang.isNull(this.state.patient) &&
                                     <PointOfCareDashboard
