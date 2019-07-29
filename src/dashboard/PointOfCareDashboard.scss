@@ -3,14 +3,14 @@
 #point-of-care-dashboard-content {
     display: flex;
     margin-left: -12px;
-
+    position: relative;
     .poc-nav-bar {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
         flex-basis: 92px;
-        height: calc(100vh - 85px);
+        height: calc(100vh - 107px); //107 is the height of the patient control panel
         background-color: $tab-bar-blue;
         position: relative;
         z-index: 3;
@@ -29,7 +29,6 @@
 
     .right-border-box {
         margin: 15px 10px 5px;
-        border-right: 2px dashed #ddd;
         overflow: hidden;
 
         &.point-of-care-container {
@@ -47,7 +46,7 @@
             overflow-x: hidden;
             text-align: left;
             /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
-            max-height: calc(100vh - 92px - 15px);
+            max-height: calc(100vh - 117px - 20px + 10px);
             min-height: 400px !important;
             /* have to manually calculate the width due to the sidebar: 92 for the sidebar, 80 for the minimap and 42 for additional padding */
             width: calc(100vw - 92px - 80px - 42px);
@@ -65,17 +64,9 @@
 }
 
 @media only screen and (max-width: 1200px) { 
-    #point-of-care-dashboard-content .fitted-panel {
-        /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars */
-        /* add back 10px for the top margin */
-        max-height: calc(100vh - 117px - 20px + 10px) !important;
-    }
-
+    //     /* 117px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars */
+    //     /* add back 10px for the top margin */
     #point-of-care-dashboard-content .point-of-care-container {
         max-height: calc(100vh - 117px - 20px + 10px) !important;
-    }
-
-    #point-of-care-dashboard-content .poc-nav-bar {
-        height: calc(100vh - 107px) !important;
     }
 }

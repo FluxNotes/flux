@@ -200,7 +200,7 @@ class PatientSearch extends React.Component {
         };
 
         return (
-            <div id="patient-search">
+            <div id="patient-search" style={{whiteSpace: 'nowrap'}}>
                 <Autosuggest
                     ref="autosuggest"
                     getSuggestionValue={this.getSuggestionValue}
