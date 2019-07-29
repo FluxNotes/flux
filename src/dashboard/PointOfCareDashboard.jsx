@@ -13,24 +13,16 @@ import NextPatientButton from './NextPatientButton';
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
         super(props);
-
-        const note = this.getFirstInProgressNote();
-        const inMemoryClinicalNote = new InMemoryClinicalNote(this.props.shortcutManager, this.props.contextManager);
-        inMemoryClinicalNote.parse(note.content);
-        const nodes = inMemoryClinicalNote.getNodes();
-        this.placeholderList = [];
-        nodes.forEach((node, i) => {
-            if (node.type === 'shortcut') {
-                this.createShortcut(node.trigger, i);
-            } else if (node.type === 'placeholder') {
-                let newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
-                this.placeholderList.push(newPlaceholder);
-            }
-        });
-
+        this.placeholderList = this.getPlaceholders(props);
         this.state = {
             showPOC: false
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.patient.person.name !== nextProps.patient.person.name) {
+            this.placeholderList = this.getPlaceholders(nextProps);
+        }
     }
 
     moveTargetedDataPanelToSection = (sectionName) => {
@@ -99,9 +91,26 @@ export default class PointOfCareDashboard extends Component {
         );
     }
 
-    getFirstInProgressNote() {
-        const notes = this.props.patient.getInProgressNotes();
+    getFirstInProgressNote(props) {
+        const notes = props.patient.getInProgressNotes();
         return notes[0];
+    }
+
+    getPlaceholders = (props) => {
+        const placeholder = [];
+        const note = this.getFirstInProgressNote(props);
+        const inMemoryClinicalNote = new InMemoryClinicalNote(props.shortcutManager, props.contextManager);
+        inMemoryClinicalNote.parse(note.content);
+        const nodes = inMemoryClinicalNote.getNodes();
+        nodes.forEach((node, i) => {
+            if (node.type === 'shortcut') {
+                this.createShortcut(node.trigger, i);
+            } else if (node.type === 'placeholder') {
+                let newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
+                placeholder.push(newPlaceholder);
+            }
+        });
+        return placeholder;
     }
 
     placeholderCheck = (text) => {
