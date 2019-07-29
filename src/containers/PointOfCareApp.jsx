@@ -9,11 +9,11 @@ import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
 import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
-// import Typography from 'material-ui/Typography';
+import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
 import Lang from 'lodash';
 import Reference from '../model/Reference';
-// import FontAwesome from 'react-fontawesome';
+import FontAwesome from 'react-fontawesome';
 import Slate from '../lib/slate';
 
 import SecurityManager from '../security/SecurityManager';
@@ -246,6 +246,7 @@ export class PointOfCareApp extends Component {
     openReferencedModal = (item, itemLabel) => {
         if (!item.source || item.source.sourceMessage === "") {
             this.setState({
+                openClinicalNote: null,
                 snackbarOpen: true,
                 snackbarMessage: "No source information or note available."
             });
@@ -395,12 +396,81 @@ export class PointOfCareApp extends Component {
         this.handleModalClose();
     }
 
-
-
-    render() {
+    openClinicalNote = () => {
         const content = this.state.openClinicalNote ? this.state.openClinicalNote.content : "";
         const contextManager = this.contextManager ? this.contextManager : {};
         const patient = this.state.patient ? this.state.patient : {};
+
+        return (
+            <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
+                <FluxNotesEditor
+                    arrayOfPickLists={[]}
+                    changeShortcutType={() => { }}
+                    currentViewMode={""}
+                    errors={[]}
+                    handleUpdateEditorWithNote={() => { }}
+                    itemInserted={() => { }}
+                    noteAssistantMode={""}
+                    selectedPickListOptions={[]}
+                    setLayout={() => { }}
+                    setNoteViewerEditable={() => { }}
+                    setUndoTemplateInsertion={() => { }}
+                    shouldUpdateShortcutType={true}
+                    shouldRevertTemplate={true}
+                    summaryItemToInsert={""}
+                    updateErrors={() => { }}
+                    updateSelectedNote={() => { }}
+
+                    closeNote={this.closeNote}
+                    contextManager={contextManager}
+                    contextTrayItemToInsert={content}
+                    isNoteViewerEditable={false}
+                    newCurrentShortcut={this.newCurrentShortcut}
+                    patient={patient}
+                    saveNote={() => { }}
+                    searchIndex={this.searchIndex}
+                    selectedNote={this.state.openClinicalNote}
+                    shortcutManager={this.shortcutManager}
+                    shouldEditorContentUpdate={true}
+                    structuredFieldMapManager={this.structuredFieldMapManager}
+                    updatedEditorNote={this.state.openClinicalNote}
+                    updateLocalDocumentText={() => { }}
+                    updateNoteAssistantMode={() => { }}
+                    updateContextTrayItemToInsert={() => { }}
+                />
+            </div>
+        );
+    }
+
+    openSourceModal = () => {
+        return (
+            <div style={getModalStyle()}>
+                <div className='header'>
+                    <span className='close-div' onClick={this.handleModalClose}>
+                        <FontAwesome className='close-button' name='times' />
+                        <div className='close-text'> Close </div>
+                    </span>
+                    <Typography id="modal-title">
+                        {this.state.modalTitle}
+                    </Typography>
+                </div>
+                <Typography id="simple-modal-description">
+                    {this.state.modalContent.split('\n').map(function (item, key) {
+                        return (
+                            <span key={key}>
+                                {item}
+                                <br />
+                            </span>
+                        );
+                    })}
+                </Typography>
+            </div>
+        );
+    }
+
+
+
+    render() {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={(this.state.loading || this.state.loadingErrorObject) ? "PointOfCareApp-content loading-background" : "PointOfCareApp-content"}>
@@ -472,64 +542,7 @@ export class PointOfCareApp extends Component {
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
                         >
-                            <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
-                                <FluxNotesEditor
-                                    arrayOfPickLists={[]}
-                                    changeShortcutType={() => { }}
-                                    currentViewMode={""}
-                                    errors={[]}
-                                    handleUpdateEditorWithNote={() => {}}
-                                    itemInserted={() => {}}
-                                    noteAssistantMode={""}
-                                    selectedPickListOptions={[]}
-                                    setLayout={() => {}}
-                                    setNoteViewerEditable={() => {}}
-                                    setUndoTemplateInsertion={() => {}}
-                                    shouldUpdateShortcutType={true}
-                                    shouldRevertTemplate={true}
-                                    summaryItemToInsert={""}
-                                    updateErrors={() => {}}
-                                    updateSelectedNote={() => {}}
-
-                                    closeNote={this.closeNote}
-                                    contextManager={contextManager}
-                                    contextTrayItemToInsert={content}
-                                    isNoteViewerEditable={false}
-                                    newCurrentShortcut={this.newCurrentShortcut}
-                                    patient={patient}
-                                    saveNote={() => {}}
-                                    searchIndex={this.searchIndex}
-                                    selectedNote={this.state.openClinicalNote}
-                                    shortcutManager={this.shortcutManager}
-                                    shouldEditorContentUpdate={true}
-                                    structuredFieldMapManager={this.structuredFieldMapManager}
-                                    updatedEditorNote={this.state.openClinicalNote}
-                                    updateLocalDocumentText={() => { }}
-                                    updateNoteAssistantMode={() => {}}
-                                    updateContextTrayItemToInsert={() => {}}
-
-
-                                />
-                                {/* <div className='header'>
-                                    <span className='close-div' onClick={this.handleModalClose}>
-                                        <FontAwesome className='close-button' name='times'/>
-                                        <div className='close-text'> Close </div>
-                                    </span>
-                                    <Typography id="modal-title">
-                                        {this.state.modalTitle}
-                                    </Typography>
-                                </div>
-                                <Typography id="simple-modal-description">
-                                    {this.state.modalContent.split('\n').map(function (item, key) {
-                                        return (
-                                            <span key={key}>
-                                                {item}
-                                                <br />
-                                            </span>
-                                        );
-                                    })}
-                                </Typography> */}
-                            </div>
+                            {this.state.openClinicalNote ? this.openClinicalNote() : this.openSourceModal()}
                         </Modal>
 
                         <Snackbar
