@@ -5,7 +5,7 @@ import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCa
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxCondition from '../model/base/FluxCondition';
-import FluxCancerProgression from '../model/oncocore/FluxCancerProgression';
+import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
 import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
@@ -961,7 +961,7 @@ class PatientRecord {
     }
 
     getProgressions() {
-        return this.getEntriesOfType(FluxCancerProgression);
+        return this.getEntriesOfType(FluxCancerDiseaseStatus);
     }
 
     getProgressionsChronologicalOrder() {
@@ -973,7 +973,7 @@ class PatientRecord {
     getProgressionsForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxCancerProgression && item.specificFocusOfFinding.entryId === conditionEntryId;
+            return item instanceof FluxCancerDiseaseStatus && item.relatedCancerCondition.entryId === conditionEntryId;
         });
     }
 
@@ -981,7 +981,7 @@ class PatientRecord {
         let progressions = this.getProgressionsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         progressions = progressions.filter((progression) => {
-            return progression.specificFocusOfFinding.entryId === conditionEntryId;
+            return progression.relatedCancerCondition.entryId === conditionEntryId;
         });
         return progressions;
     }
@@ -990,7 +990,7 @@ class PatientRecord {
         let result = this.entries.filter((item) => {
             if (item instanceof FluxCondition) {
                 const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
-                return progression.specificFocusOfFinding.entryId === conditionEntryId;
+                return progression.relatedCancerCondition.entryId === conditionEntryId;
             } else {
                 return false;
             }
