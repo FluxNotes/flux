@@ -1,7 +1,7 @@
 import NoteParser from '../../../noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
     clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON, reduceMedicationJSON } from './NoteParserUtils';
-import FluxCancerProgression from '../../../model/oncocore/FluxCancerProgression';
+import FluxCancerDiseaseStatus from '../../../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxTNMClinicalStageGroup from '../../../model/oncocore/FluxTNMClinicalStageGroup';
 import FluxToxicReaction from '../../../model/adverse/FluxToxicAdverseDrugReaction';
 import FluxDeathInformation from '../../../model/entity/FluxDeathInformation';
@@ -35,8 +35,8 @@ const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
 const expectedOutputStaging = [[ new FluxTNMClinicalStageGroup(EntryMapper.mapEntries([stagingJSON])[0]) ], []];
-const expectedOutputDiseaseStatus = [[ new FluxCancerProgression(EntryMapper.mapEntries([diseaseStatusJSON])[0]) ], []];
-const expectedOutputDiseaseStatus2 = [[ new FluxCancerProgression(EntryMapper.mapEntries([diseaseStatus2JSON])[0]) ], []];
+const expectedOutputDiseaseStatus = [[ new FluxCancerDiseaseStatus(EntryMapper.mapEntries([diseaseStatusJSON])[0]) ], []];
+const expectedOutputDiseaseStatus2 = [[ new FluxCancerDiseaseStatus(EntryMapper.mapEntries([diseaseStatus2JSON])[0]) ], []];
 const expectedOutputToxicity = [[ new FluxToxicReaction(EntryMapper.mapEntries([toxicityJSON])[0]) ], []];
 const expectedOutputDeceased = [[ new FluxDeathInformation(deceasedJSON) ], []];
 const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialEnrollmentJSON])[0]) ], []];

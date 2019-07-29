@@ -1,5 +1,5 @@
 import Condition from '../../shr/core/Condition';
-import FluxCancerProgression from '../oncocore/FluxCancerProgression';
+import FluxCancerDiseaseStatus from '../onco/core/FluxCancerDiseaseStatus';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
@@ -485,7 +485,7 @@ class FluxCondition extends FluxEntry {
                     }
                     break;
                 }
-                case FluxCancerProgression: {
+                case FluxCancerDiseaseStatus: {
                     if (event.asOfDate && event.status) {
                         hpiText += `- ${event.status} as of ${event.asOfDate}`;
                         if (event.evidence && event.evidence.length > 0) {
@@ -525,7 +525,7 @@ class FluxCondition extends FluxEntry {
                 if (!a_startTime.isValid()) a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
             }
-            case FluxCancerProgression: {
+            case FluxCancerDiseaseStatus: {
                 a_startTime = new moment(a.asOfDate, "D MMM YYYY");
                 break;
             }
@@ -550,7 +550,7 @@ class FluxCondition extends FluxEntry {
                 if (!b_startTime.isValid()) b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
             }
-            case FluxCancerProgression: {
+            case FluxCancerDiseaseStatus: {
                 b_startTime = new moment(b.asOfDate, "D MMM YYYY");
                 break;
             }
