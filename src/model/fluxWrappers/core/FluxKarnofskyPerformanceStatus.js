@@ -1,5 +1,5 @@
-import FluxEntry from "../base/FluxEntry";
-import KarnofskyPerformanceStatus from "./KarnofskyPerformanceStatus";
+import FluxEntry from '../base/FluxEntry';
+import KarnofskyPerformanceStatus from '../../shr/core/KarnofskyPerformanceStatus';
 
 class FluxKarnofskyPerformanceStatus extends FluxEntry {
     constructor(json, type, patientRecord) {
