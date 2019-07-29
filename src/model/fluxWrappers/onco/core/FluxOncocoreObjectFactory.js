@@ -1,7 +1,7 @@
 import { getNamespaceAndName } from '../json-helper';
 import FluxCancerDisorderPresent from './FluxCancerDisorderPresent';
 import FluxTumorMarker from './FluxTumorMarker';
-import FluxCancerProgressionEvidence from './FluxCancerProgressionEvidence';
+import FluxEvidenceType from './FluxEvidenceType';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
 import FluxCancerHistologicType from './FluxCancerHistologicType';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
@@ -31,7 +31,7 @@ export default class FluxOncocoreObjectFactory {
             case 'TNMClinicalPrimaryTumorClassification': return new FluxTNMClinicalPrimaryTumorClassification(json);
             case 'TNMClinicalDistantMetastasesClassification': return new FluxTNMClinicalDistantMetastasesClassification(json);
             case 'TNMClinicalRegionalNodesClassification': return new FluxTNMClinicalRegionalNodesClassification(json);
-            case 'CancerProgressionEvidence': return new FluxCancerProgressionEvidence(json, type, patientRecord);
+            case 'EvidenceType': return new FluxEvidenceType(json, type, patientRecord);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json, type, patientRecord);
             default: return OncocoreObjectFactory.createInstance(json, type, patientRecord);
         }
