@@ -129,12 +129,12 @@ describe('parse', function() {
         expect(record[0][0]).to.be.an('object');
 
         // Disease status values should match
-        expect(record[0][0]._cancerProgression._findingResult)
-            .to.eql(expectedOutputDiseaseStatus[0][0]._cancerProgression._findingResult);
+        expect(record[0][0]._cancerDiseaseStatus._findingResult)
+            .to.eql(expectedOutputDiseaseStatus[0][0]._cancerDiseaseStatus._findingResult);
 
         // Disease status evidence should match
-        expect(record[0][0]._cancerProgression._cancerProgressionEvidence)
-            .to.eql(expectedOutputDiseaseStatus[0][0]._cancerProgression._cancerProgressionEvidence);
+        expect(record[0][0]._cancerDiseaseStatus.evidenceType)
+            .to.eql(expectedOutputDiseaseStatus[0][0]._cancerDiseaseStatus.evidenceType);
 
     });
     it('should return a patient record with disease status data when parsing a note with disease status phrases including dates', function () {
@@ -145,20 +145,20 @@ describe('parse', function() {
         expect(record[0][0]).to.be.an('object');
 
         // Disease status values should match
-        expect(record[0][0]._cancerProgression._findingResult)
-            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerProgression._findingResult);
+        expect(record[0][0]._cancerDiseaseStatus._findingResult)
+            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerDiseaseStatus._findingResult);
 
         // Disease status evidence should match
-        expect(record[0][0]._cancerProgression._cancerProgressionEvidence)
-            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerProgression._cancerProgressionEvidence);
+        expect(record[0][0]._cancerDiseaseStatus.evidenceType)
+            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerDiseaseStatus.evidenceType);
 
         // Disease status authored date time (as of date) should match
-        expect(record[0][0]._cancerProgression._metadata._authoredDateTime)
-            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerProgression._metadata._authoredDateTime);
+        expect(record[0][0]._cancerDiseaseStatus._metadata._authoredDateTime)
+            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerDiseaseStatus._metadata._authoredDateTime);
 
         // Disease status relevant time (reference date) should match
-        expect(record[0][0]._cancerProgression._relevantTime)
-            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerProgression._relevantTime);
+        expect(record[0][0]._cancerDiseaseStatus._relevantTime)
+            .to.eql(expectedOutputDiseaseStatus2[0][0]._cancerDiseaseStatus._relevantTime);
     });
     it('should return a patient record with toxicity data when parsing a note with toxicity phrases', function () {
         const record = noteParser.parse(sampleTextToxicity);
