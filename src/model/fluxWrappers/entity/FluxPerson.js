@@ -1,4 +1,4 @@
-import Person from "../shr/entity/Person";
+import Person from "../../shr/core/Person";
 
 class FluxPerson {
     constructor(json) {
