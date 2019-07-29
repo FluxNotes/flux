@@ -13,15 +13,15 @@ import NextPatientButton from './NextPatientButton';
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
         super(props);
-        this.placeholderList = this.getPlaceholders(props);
+        this.placeholderList = this.getPlaceholders(props.patient, props.shortcutManager, props.contextManager);
         this.state = {
             showPOC: false
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.patient.person.name !== nextProps.patient.person.name) {
-            this.placeholderList = this.getPlaceholders(nextProps);
+        if (this.props.patient.shrId !== nextProps.patient.shrId) {
+            this.placeholderList = this.getPlaceholders(nextProps.patient, nextProps.shortcutManager, nextProps.contextManager);
         }
     }
 
@@ -91,15 +91,15 @@ export default class PointOfCareDashboard extends Component {
         );
     }
 
-    getFirstInProgressNote(props) {
-        const notes = props.patient.getInProgressNotes();
+    getFirstInProgressNote(patient) {
+        const notes = patient.getInProgressNotes();
         return notes[0];
     }
 
-    getPlaceholders = (props) => {
+    getPlaceholders = (patient, shortcutManager, contextManager) => {
         const placeholder = [];
-        const note = this.getFirstInProgressNote(props);
-        const inMemoryClinicalNote = new InMemoryClinicalNote(props.shortcutManager, props.contextManager);
+        const note = this.getFirstInProgressNote(patient);
+        const inMemoryClinicalNote = new InMemoryClinicalNote(shortcutManager, contextManager);
         inMemoryClinicalNote.parse(note.content);
         const nodes = inMemoryClinicalNote.getNodes();
         nodes.forEach((node, i) => {
