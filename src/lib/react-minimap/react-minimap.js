@@ -333,7 +333,7 @@ export class Minimap extends React.Component {
   render() {
       const {width, height, inEditMode} = this.state;
       const editButtonText = inEditMode ? 'Done' : 'Edit';
-      const tabletMarginLeft = this.props.isTablet? (this.left - 3) : '0px';
+      const tabletMarginLeft = this.props.isTablet? (this.left + 6) : '0px';
 
       return (
           <div
