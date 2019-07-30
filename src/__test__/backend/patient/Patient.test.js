@@ -5,7 +5,7 @@ import FakeDataElement from './FakeDataElement';
 import Patient from '../../../model/shr/entity/Patient';
 import Moment from 'moment';
 import {expect} from 'chai';
-import FluxPatient from '../../../model/entity/FluxPatient';
+import FluxPatient from '../../../model/fluxWrapper/entity/FluxPatient';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 
 // The empty PatientRecord.jsx obj
