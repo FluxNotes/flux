@@ -1,0 +1,32 @@
+{
+    "outcomes": { 
+        "survival": { 
+            "data":[
+                {
+                    "outcomes": [{"interval": "months", "survivalRate": 12, "total": 3},{"interval": "months", "survivalRate": 24, "total": 2},{"interval": "months", "survivalRate": 36, "total": 1}],
+                    "sufficiency": true,
+                    "total":3,
+                    "treatments": [{"code":"000001", "codeSystem": "http://example.net", "codeSystemName": "example", "displayName": "test1 therapy"}]
+
+                },
+                {
+                    "outcomes": [{"interval": "months", "survivalRate": 12, "total": 4},{"interval": "months", "survivalRate": 24, "total": 2},{"interval": "months", "survivalRate": 36, "total": 1}],
+                    "sufficiency": true,
+                    "total":4,
+                    "treatments": [{"code":"000002", "codeSystem": "http://example.net", "codeSystemName": "example", "displayName": "test2 therapy"}]
+                },
+                {
+                    "outcomes": [{"interval": "months", "survivalRate": 12, "total": 3},{"interval": "months", "survivalRate": 24, "total": 2},{"interval": "months", "survivalRate": 36, "total": 1}],
+                    "sufficiency": true,
+                    "total":3,
+                    "treatments": [{"code":"000003", "codeSystem": "http://example.net", "codeSystemName": "example", "displayName": "test3 therapy"}]
+
+                }
+            ],
+            "total": 10
+        },
+        "total": 10
+    },
+    "total": 10,
+    "timescale": ["1","3","5"]
+}

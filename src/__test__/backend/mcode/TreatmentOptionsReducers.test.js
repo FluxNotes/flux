@@ -11,7 +11,8 @@ import TestPatient2 from '../../TestPatient2.json';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
 import stateObjects from './mock-data/testoptions.json';
-import { similarPatientTreatmentsData } from './mock-data';
+import allData from './mock-data/patients.json'
+require('../../testHelper');
 
 describe('Reducer function', () => {
     it('should return initial state on empty args', () => {
@@ -29,7 +30,8 @@ describe('Reducer function', () => {
             const action = {
                 type:type,
                 patient:testPatientObj,
-                condition: fluxCondition
+                condition: fluxCondition,
+                allData: allData
             };
             const newState = reducer(undefined, action).similarPatientProps;
             const demographics = newState.demographic.options;
