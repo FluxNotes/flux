@@ -16,7 +16,7 @@ class FluxBRCA2Variant extends FluxObservation {
     }
 
     get value() {
-        return this._brca2Variant.findingResult.value.coding[0].displayText.value;
+        return this._brca2Variant.dataValue.value.coding[0].displayText.value;
     }
 
     toJSON() {
