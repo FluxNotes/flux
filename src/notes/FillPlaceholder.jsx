@@ -465,9 +465,8 @@ export default class FillPlaceholder extends Component {
     }
 
     renderSingleEntryPlaceholder = () => {
-        const { currentField, expanded, done } = this.state;
-        const { backgroundColor, placeholder } = this.props;
-        const attribute = placeholder.attributes[currentField[0]];
+        const { expanded, done } = this.state;
+        const { backgroundColor } = this.props;
         const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
 
         return (
