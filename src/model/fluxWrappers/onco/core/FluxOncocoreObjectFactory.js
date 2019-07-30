@@ -5,12 +5,12 @@ import FluxEvidenceType from './FluxEvidenceType';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
 import FluxCancerHistologicType from './FluxCancerHistologicType';
 import OncocoreObjectFactory from './OncocoreObjectFactory';
-import FluxTNMClinicalPrimaryTumorClassification from './FluxTNMClinicalPrimaryTumorClassification';
-import FluxTNMClinicalDistantMetastasesClassification from './FluxTNMClinicalDistantMetastasesClassification';
-import FluxTNMClinicalRegionalNodesClassification from './FluxTNMClinicalRegionalNodesClassification';
 import FluxTNMClinicalStageGroup from './FluxTNMClinicalStageGroup';
 import FluxTNMPathologicStageGroup from './FluxTNMPathologicStageGroup';
 import FluxCancerDiseaseStatus from './FluxCancerDiseaseStatus';
+import FluxTNMClinicalPrimaryTumorCategory from './FluxTNMClinicalPrimaryTumorCategory';
+import FluxTNMClinicalDistantMetastasesCategory from './FluxTNMClinicalDistantMetastasesCategory';
+import FluxTNMClinicalRegionalNodesCategory from './FluxTNMClinicalRegionalNodesCategory';
 
 export default class FluxOncocoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -27,9 +27,9 @@ export default class FluxOncocoreObjectFactory {
             case 'TumorMarker': return new FluxTumorMarker(json);
             case 'TNMClinicalStageGroup': return new FluxTNMClinicalStageGroup(json, patientRecord);
             case 'TNMPathologicStageGroup': return new FluxTNMPathologicStageGroup(json, patientRecord);
-            case 'TNMClinicalPrimaryTumorClassification': return new FluxTNMClinicalPrimaryTumorClassification(json);
-            case 'TNMClinicalDistantMetastasesClassification': return new FluxTNMClinicalDistantMetastasesClassification(json);
-            case 'TNMClinicalRegionalNodesClassification': return new FluxTNMClinicalRegionalNodesClassification(json);
+            case 'TNMClinicalPrimaryTumorCategory': return new FluxTNMClinicalPrimaryTumorCategory(json);
+            case 'TNMClinicalDistantMetastasesCategory': return new FluxTNMClinicalDistantMetastasesCategory(json);
+            case 'TNMClinicalRegionalNodesCategory': return new FluxTNMClinicalRegionalNodesCategory(json);
             case 'EvidenceType': return new FluxEvidenceType(json, type, patientRecord);
             default: return OncocoreObjectFactory.createInstance(json, type, patientRecord);
         }
