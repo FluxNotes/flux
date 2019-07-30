@@ -1,9 +1,4 @@
 import FluxEntry from '../base/FluxEntry';
-import * as lookup from '../../lib/receptor_lookup.jsx';
-import Reference from '../Reference';
-import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
-import FindingResult from '../shr/base/FindingResult';
-import FindingTopicCode from '../shr/base/FindingTopicCode';
 import TumorMarkerTest from '../../onco/core/TumorMarkerTest';
 
 class FluxTumorMarkerTest extends FluxEntry {
@@ -40,63 +35,18 @@ class FluxTumorMarkerTest extends FluxEntry {
         this._tumorMarker.relevantTime = relevantTime;
     }
 
-    get findingResult() { 
-        if (!this._tumorMarker.findingResult) return null;
-        return this._tumorMarker.findingResult;
+    get dataValue() { 
+        if (!this._tumorMarker.dataValue) return null;
+        return this._tumorMarker.dataValue;
     }
 
-    set findingResult(findingResult) { 
-        this._tumorMarker.findingResult = findingResult;
+    set dataValue(dataValue) { 
+        this._tumorMarker.dataValue = dataValue;
     }
 
-    get findingStatus() { 
-        if (!this._tumorMarker.findingStatus) return null;
-        return this._tumorMarker.findingStatus;
-    }
-
-    set findingStatus(findingStatus) { 
-        this._tumorMarker.findingStatus = findingStatus;
-    }
-
-
-    get receptorTypeCodeableConcept(){
-        if (!this._tumorMarker.findingTopicCode || !this._tumorMarker.findingTopicCode.value) return null;
-        return this._tumorMarker.findingTopicCode.value.coding[0];
-    }
-    
-    // Returns a human-readable display text string
-    get receptorType() { 
-        if (!this._tumorMarker.findingTopicCode || !this._tumorMarker.findingTopicCode.value) return null;
-        return this._tumorMarker.findingTopicCode.value.coding[0].displayText.value;
-    }
-
-    set receptorType(typeVal) {
-        this._tumorMarker.findingTopicCode = new FindingTopicCode();
-        this._tumorMarker.findingTopicCode.value = lookup.getReceptorTypeCodeableConcept(typeVal);
-    }
-
-    setReceptorType(receptorType) {
-        if (!receptorType) {
-            this.receptorType = null;
-        } else {
-            this.receptorType = receptorType;
-        }
-    }
-    
-    /**
-     * Getter for shr.oncology.ReceptorType
-     */
-    get status() {
-        if (!this._tumorMarker.findingResult || !this._tumorMarker.findingResult.value) return null;
-        return this._tumorMarker.findingResult.value.coding[0].displayText.value;
-    }
-
-    /**
-     * Setter for shr.oncology.ReceptorType
-     */
-    set status(statusVal) {
-        this._tumorMarker.findingResult = new FindingResult();
-        this._tumorMarker.findingResult.value = lookup.getReceptorValueCodeableConcept(statusVal);
+    get code() {
+        if (!this._tumorMarker.code) return null;
+        return this._tumorMarker.code;
     }
 
     get specificFocusOfFinding() {
@@ -106,21 +56,6 @@ class FluxTumorMarkerTest extends FluxEntry {
 
     set specificFocusOfFinding(val) {
         this._tumorMarker.specificFocusOfFinding = val;
-    }
-
-    setSpecificFocusOfFinding(obj) {
-        if (!obj) {
-            this.specificFocusOfFinding = null;
-        } else {
-            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let sff = new SpecificFocusOfFinding();
-            sff.value = ref;
-            this.specificFocusOfFinding = sff;
-        }
-    }
-
-    get statusSign() {
-        return this.status === 'Positive' ? '+' : '-';
     }
 
     toJSON() {
