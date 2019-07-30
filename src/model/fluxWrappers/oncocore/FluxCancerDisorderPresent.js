@@ -9,7 +9,7 @@ import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import FluxKarnofskyPerformanceStatus from '../core/FluxKarnofskyPerformanceStatus';
 import FluxECOGPerformanceStatus from '../core/FluxECOGPerformanceStatus';
 import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
-import FluxTumorMarker from '../oncocore/FluxTumorMarker';
+import FluxTumorMarkerTest from '../onco/core/FluxTumorMarkerTest';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
 import * as lookup from '../../lib/cancer_lookup';
 
@@ -254,7 +254,7 @@ class FluxCancerDisorderPresent extends FluxCondition {
     getReceptorsOfType(receptorType) {
         if (!this._condition.entryInfo) return [];
         const conditionEntryId = this._condition.entryInfo.entryId;
-        return this._patientRecord.getEntriesOfType(FluxTumorMarker).filter(item => {
+        return this._patientRecord.getEntriesOfType(FluxTumorMarkerTest).filter(item => {
             // Filter our TumorMarkers to those with the specified type
             return item.receptorType === receptorType && item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
         });
@@ -333,7 +333,7 @@ class FluxCancerDisorderPresent extends FluxCondition {
     }
 
     getMostRecentTumorMarkers(sinceDate = null) {
-        let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarker);
+        let tumorMarkersList = this._patientRecord.getEntriesOfType(FluxTumorMarkerTest);
         // If we have none, return null
         if (tumorMarkersList.length === 0) return null;
         const sortedTumorMarkersList = tumorMarkersList
