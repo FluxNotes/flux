@@ -12,7 +12,6 @@ import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
 import Lang from 'lodash';
-import Reference from '../model/Reference';
 import FontAwesome from 'react-fontawesome';
 import Slate from '../lib/slate';
 
@@ -404,23 +403,7 @@ export class PointOfCareApp extends Component {
         return (
             <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
                 <FluxNotesEditor
-                    arrayOfPickLists={[]}
-                    changeShortcutType={() => { }}
-                    currentViewMode={""}
-                    errors={[]}
-                    handleUpdateEditorWithNote={() => { }}
-                    itemInserted={() => { }}
-                    noteAssistantMode={""}
-                    selectedPickListOptions={[]}
-                    setLayout={() => { }}
-                    setNoteViewerEditable={() => { }}
-                    setUndoTemplateInsertion={() => { }}
-                    shouldUpdateShortcutType={true}
-                    shouldRevertTemplate={true}
-                    summaryItemToInsert={""}
-                    updateErrors={() => { }}
-                    updateSelectedNote={() => { }}
-
+                    // the following are required in order for FluxNotesEditor to run or it will cause the application to crash
                     closeNote={this.closeNote}
                     contextManager={contextManager}
                     contextTrayItemToInsert={content}
@@ -437,6 +420,23 @@ export class PointOfCareApp extends Component {
                     updateLocalDocumentText={() => { }}
                     updateNoteAssistantMode={() => { }}
                     updateContextTrayItemToInsert={() => { }}
+                    // thes following props are marked as required props by FluxNotesEditor
+                    arrayOfPickLists={[]}
+                    changeShortcutType={() => { }}
+                    currentViewMode={""}
+                    errors={[]}
+                    handleUpdateEditorWithNote={() => { }}
+                    itemInserted={() => { }}
+                    noteAssistantMode={""}
+                    selectedPickListOptions={[]}
+                    setLayout={() => { }}
+                    setNoteViewerEditable={() => { }}
+                    setUndoTemplateInsertion={() => { }}
+                    shouldUpdateShortcutType={true}
+                    shouldRevertTemplate={true}
+                    summaryItemToInsert={""}
+                    updateErrors={() => { }}
+                    updateSelectedNote={() => { }}
                 />
             </div>
         );
@@ -471,7 +471,6 @@ export class PointOfCareApp extends Component {
 
 
     render() {
-        console.log(this.actions);
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={(this.state.loading || this.state.loadingErrorObject) ? "PointOfCareApp-content loading-background" : "PointOfCareApp-content"}>
