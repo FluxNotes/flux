@@ -1,17 +1,17 @@
 import FluxEntry from '../base/FluxEntry';
 import * as lookup from '../../lib/receptor_lookup.jsx';
-import TumorMarker from './TumorMarker';
 import Reference from '../Reference';
 import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
 import FindingResult from '../shr/base/FindingResult';
 import FindingTopicCode from '../shr/base/FindingTopicCode';
+import TumorMarkerTest from '../../onco/core/TumorMarkerTest';
 
-class FluxTumorMarker extends FluxEntry {
+class FluxTumorMarkerTest extends FluxEntry {
     constructor(json) {
         super(json);
-        this._entry = this._tumorMarker = TumorMarker.fromJSON(json);
+        this._entry = this._tumorMarker = TumorMarkerTest.fromJSON(json);
         if (!this._tumorMarker.entryInfo) {
-            this._tumorMarker.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/genetics/TumorMarker');
+            this._tumorMarker.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/onco/core/TumorMarkerTest');
         }
     }
 
@@ -128,4 +128,4 @@ class FluxTumorMarker extends FluxEntry {
     }
 }
 
-export default FluxTumorMarker;
+export default FluxTumorMarkerTest;
