@@ -1,8 +1,8 @@
-import FluxEntry from '../base/FluxEntry';
-import Observation from '../shr/base/Observation';
-import Quantity from '../shr/core/Quantity';
+import FluxEntry from './FluxEntry';
+import Observation from '../../shr/core/Observation';
+import Quantity from '../../shr/core/Quantity';
 import Reference from '../Reference';
-import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding.js';
+import SubjectOfRecord from '../../shr/core/SubjectOfRecord';
 
 class FluxObservation extends FluxEntry {
     constructor(json) {
@@ -28,10 +28,10 @@ class FluxObservation extends FluxEntry {
      *  Otherwise return null;
      */
     get quantity() {
-        if (this._observation.findingResult.value instanceof Quantity) {
+        if (this._observation.dataValue.value instanceof Quantity) {
             return {
-                number: this._observation.findingResult.value.number.decimal,
-                unit: this._observation.findingResult.value.units.coding.code.value,
+                number: this._observation.dataValue.value.number.decimal,
+                unit: this._observation.dataValue.value.units.coding.codeValue,
             };
         } else {
             return null;
@@ -39,19 +39,19 @@ class FluxObservation extends FluxEntry {
     }
 
     get name() {
-        if (this._observation.findingTopicCode.value.coding.length > 0) {
-            return this._observation.findingTopicCode.value.coding[0].displayText.value;
+        if (this._observation.category.value.coding.length > 0) {
+            return this._observation.category.value.coding[0].displayText.value;
         } else {
             return null;
         }
     }
 
     get codeableConceptCode() {
-        if (this._observation.findingTopicCode
-            && this._observation.findingTopicCode.value.coding
-            && this._observation.findingTopicCode.value.coding.length > 0
-            && this._observation.findingTopicCode.value.coding[0].code) {
-            return this._observation.findingTopicCode.value.coding[0].code.value;
+        if (this._observation.category
+            && this._observation.category.value.coding
+            && this._observation.category.value.coding.length > 0
+            && this._observation.category.value.coding[0].code) {
+            return this._observation.category.value.coding[0].codeValue;
         } else {
             return null;
         }
@@ -65,25 +65,25 @@ class FluxObservation extends FluxEntry {
         }
     }
 
-    get specificFocusOfFinding() {
-        if (this._observation.specificFocusOfFinding) {
-            return this._observation.specificFocusOfFinding;
+    get subjectOfRecord() {
+        if (this._observation.subjectOfRecord) {
+            return this._observation.subjectOfRecord;
         }
         return null;
     }
 
-    set specificFocusOfFinding(val) {
-        this._observation.specificFocusOfFinding = val;
+    set subjectOfRecord(val) {
+        this._observation.subjectOfRecord = val;
     }
 
-    setSpecificFocusOfFinding(obj) {
+    setSubjectOfRecord(obj) {
         if (!obj) {
-            this.specificFocusOfFinding = null;
+            this.subjectOfRecord = null;
         } else {
             let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let sff = new SpecificFocusOfFinding();
+            let sff = new SubjectOfRecord();
             sff.value = ref;
-            this.specificFocusOfFinding = sff;
+            this.subjectOfRecord = sff;
         }
     }
 
