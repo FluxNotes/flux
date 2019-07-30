@@ -304,7 +304,7 @@ export class PointOfCareApp extends Component {
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
+            return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
     }
@@ -471,6 +471,7 @@ export class PointOfCareApp extends Component {
 
 
     render() {
+        console.log(this.actions);
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={(this.state.loading || this.state.loadingErrorObject) ? "PointOfCareApp-content loading-background" : "PointOfCareApp-content"}>
