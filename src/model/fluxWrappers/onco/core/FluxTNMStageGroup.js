@@ -2,14 +2,14 @@ import RelevantTime from '../shr/base/RelevantTime';
 import FluxMitoticRate from '../oncology/FluxMitoticRate';
 import * as lookup from '../../lib/tnmstage_lookup.jsx';
 import * as staging from '../../lib/staging.jsx';
-import FindingResult from '../shr/base/FindingResult';
+import DataValue from '../../../shr/core/DataValue';
 import FluxEntry from '../base/FluxEntry';
 import Reference from '../Reference';
-import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
 import FluxCancerStageCategory from '../onco/core/FluxCancerStageCategory';
 import FluxTNMClinicalRegionalNodesCategory from '../onco/core/FluxTNMClinicalRegionalNodesCategory';
 import FluxTNMClinicalDistantMetastasesCategory from '../onco/core/FluxTNMClinicalDistantMetastasesCategory';
 import FluxTNMClinicalPrimaryTumorCategory from '../onco/core/FluxTNMClinicalPrimaryTumorCategory';
+import PrimaryCancerCondition from '../../../onco/core/PrimaryCancerCondition';
 
 export default class FluxTNMStageGroup extends FluxEntry {
     get entryInfo() {
@@ -40,10 +40,10 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        if (!this._tnmStageGroup.findingResult || !this._tnmStageGroup.findingResult.value) { 
+        if (!this._tnmStageGroup.dataValue || !this._tnmStageGroup.dataValue.value) { 
             return null;
         } else { 
-            return this._tnmStageGroup.findingResult.value.coding[0].displayText.value;
+            return this._tnmStageGroup.dataValue.value.coding[0].displayText.value;
         }
     }
 
@@ -53,8 +53,8 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  The function will lookup the corresponding coding/codesystem and set the TNMStage entry value property
      */
     set stage(stage) {
-        this._tnmStageGroup.findingResult = new FindingResult();
-        this._tnmStageGroup.findingResult.value = lookup.getStagingCodeableConcept(stage);
+        this._tnmStageGroup.dataValue = new DataValue();
+        this._tnmStageGroup.dataValue.value = lookup.getStagingCodeableConcept(stage);
     }
 
     /**
@@ -193,25 +193,25 @@ export default class FluxTNMStageGroup extends FluxEntry {
         this.stage = staging.breastCancerPrognosticStage(t, n, m);
     }
 
-    get specificFocusOfFinding() {
-        if (this._tnmStageGroup.specificFocusOfFinding) {
-            return this._tnmStageGroup.specificFocusOfFinding;
+    get primaryCancerCondition() {
+        if (this._tnmStageGroup.primaryCancerCondition) {
+            return this._tnmStageGroup.primaryCancerCondition;
         }
         return null;
     }
 
-    set specificFocusOfFinding(val) {
-        this._tnmStageGroup.specificFocusOfFinding = val;
+    set primaryCancerCondition(val) {
+        this._tnmStageGroup.primaryCancerCondition = val;
     }
 
-    setSpecificFocusOfFinding(obj) {
+    setPrimaryCancerCondition(obj) {
         if (!obj) {
-            this.specificFocusOfFinding = null;
+            this.primaryCancerCondition = null;
         } else {
             let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let sff = new SpecificFocusOfFinding();
-            sff.value = ref;
-            this.specificFocusOfFinding = sff;
+            let pcc = new PrimaryCancerCondition();
+            pcc.value = ref;
+            this.primaryCancerCondition = pcc;
         }
     }
 

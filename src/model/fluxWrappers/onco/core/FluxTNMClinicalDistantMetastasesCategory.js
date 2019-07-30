@@ -1,7 +1,7 @@
 import TNMClinicalDistantMetastasesCategory from '../../onco/core/TNMClinicalDistantMetastasesCategory';
 import FluxCancerStageCategory from '../onco/core/FluxCancerStageCategory';
 
-class TNMClinicalDistantMetastasesCategory extends FluxCancerStageCategory {
+class FluxTNMClinicalDistantMetastasesCategory extends FluxCancerStageCategory {
     constructor(json) {
         super(json);
         this._cancerStageCategory = TNMClinicalDistantMetastasesCategory.fromJSON(json);
@@ -11,4 +11,4 @@ class TNMClinicalDistantMetastasesCategory extends FluxCancerStageCategory {
     }
 }
 
-export default TNMClinicalDistantMetastasesCategory;
+export default FluxTNMClinicalDistantMetastasesCategory;
