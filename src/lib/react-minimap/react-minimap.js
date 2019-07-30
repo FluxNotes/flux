@@ -38,7 +38,7 @@ export class Minimap extends React.Component {
       this.init = this.init.bind(this);
       this.up = this.up.bind(this);
 
-      this.resize = _.throttle(this.synchronize, 100);
+      this.resize = _.throttle(this.synchronize, 200);
 
       this.state = {
           children: null,
@@ -333,7 +333,7 @@ export class Minimap extends React.Component {
       return (
           <div
               className={"minimap-container " + this.props.className}
-              onScroll={this.synchronize}
+              onScroll={this.resize}
               ref={(source) => {this.source = source;}}
           >
               <div className="minimap-children-wrapper">
