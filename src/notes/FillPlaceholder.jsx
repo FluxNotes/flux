@@ -435,7 +435,7 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
 
         return (
-            <Grid item xs={3} className='checkbox-container'>
+            <Grid item xs={2} className='checkbox-container'>
                 <span className="done-checkbox">
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span>
@@ -475,11 +475,11 @@ export default class FillPlaceholder extends Component {
                 <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     <Grid container>
                         {this.renderCheckbox()}
-                        <Grid item xs={9}>
+                        <Grid item xs={10}>
                             {this.renderColumns()}
                         </Grid>
                         {this.renderError()}
-                        {expanded ? '' : this.createCurrentFieldRowInSummary(attribute)}
+                        {/* {!expanded ? '' : this.createCurrentFieldRowInSummary(attribute)} */}
                     </Grid>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
@@ -494,7 +494,6 @@ export default class FillPlaceholder extends Component {
     renderMultipleEntriesPlaceholder = () => {
         const { currentField, expanded, done } = this.state;
         const { backgroundColor, placeholder } = this.props;
-
         // Loop through all entries and render summaries
         let entries;
         if (!expanded) {
@@ -503,13 +502,12 @@ export default class FillPlaceholder extends Component {
 
                 return (
                     <Grid container key={`${i}-container`}>
-                        {i === 0 ? this.renderCheckbox() : <Grid item xs={3} />}
-                        <Grid item xs={9}>
+                        {i === 0 ? this.renderCheckbox() : <Grid item xs={2} />}
+                        <Grid item xs={10} md={10}>
                             {this.renderColumns(i)}
                             {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                         </Grid>
-                        {''}
-                        {expanded ? '' : this.createCurrentFieldRowInSummary(attribute, i)}
+                        {!expanded ? '' : this.createCurrentFieldRowInSummary(attribute, i)}
                         <Divider className="divider" />
                     </Grid>
                 );
@@ -524,7 +522,7 @@ export default class FillPlaceholder extends Component {
                 </Grid>
             )
             : (
-                <div>
+                <div style={{width: '100%'}}>
                     {this.renderError()}
                     {entries}
                     <div style={{ width: '100%' }}>
