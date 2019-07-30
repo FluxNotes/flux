@@ -62,7 +62,7 @@ class FluxCondition extends FluxEntry {
     get observation() {
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return this._patientRecord.getEntriesOfType(FluxObservation).filter((item) => {
-            return item._observation && item._observation.specificFocusOfFinding && item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
+            return item._observation && item._observation.subjectOfRecord && item._observation.subjectOfRecord.value._entryId === conditionEntryId;
         }).map((item) => {
             return this._patientRecord.getEntryFromReference(item);
         }) || [];
@@ -224,7 +224,7 @@ class FluxCondition extends FluxEntry {
     getObservationsWithObservationCode(code) {
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return this._patientRecord.getEntriesOfType(FluxObservation).filter((item) => {
-            return item._observation && item._observation.specificFocusOfFinding && item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
+            return item._observation && item._observation.subjectOfRecord && item._observation.subjectOfRecord.value._entryId === conditionEntryId;
         }).filter((item) => {
             return item.codeableConceptCode === code;
         });
