@@ -104,7 +104,7 @@ describe("CLQOutcomesService", () => {
             .post('/outcomes')
             .reply(200, response)
 
-        clqService.processSimilarPatientOutcomes(similarPatientProps).then((clqResults) => {
+        clqService.processSimilarPatientOutcomes(new FilterOptions({})).then((clqResults) => {
             clqResults = formatResults(clqResults);
             removeRowIds(clqResults)
             removeRowIds(processed)

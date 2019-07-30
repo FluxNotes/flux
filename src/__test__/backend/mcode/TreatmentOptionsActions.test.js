@@ -11,7 +11,7 @@ import PatientRecord from '../../../patient/PatientRecord';
 import TestPatient2 from '../../TestPatient2.json';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
-
+import allData from './mock-data/patients.json'
 require('../../testHelper');
 
 const mockStore = configureMockStore([ thunk ]);
@@ -27,9 +27,11 @@ describe ('actions', () => {
         const expectedAction = {
             type: types.INITIALIZE_SIMILAR_PATIENT_PROPS,
             patient,
-            condition
+            condition,
+            allData
         };
-        expect(actions.initializeSimilarPatientProps(patient,condition)).to.eql(expectedAction);
+        
+        expect(actions.initializeSimilarPatientProps(patient, condition, allData)).to.eql(expectedAction);
     });
 
     it ('should create an action to select option', () => {
