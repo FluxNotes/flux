@@ -475,11 +475,10 @@ export default class FillPlaceholder extends Component {
                 <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     <Grid container>
                         {this.renderCheckbox()}
-                        <Grid item xs={10}>
+                        <Grid item xs={10} style={{width: '100%'}}>
                             {this.renderColumns()}
                         </Grid>
                         {this.renderError()}
-                        {/* {!expanded ? '' : this.createCurrentFieldRowInSummary(attribute)} */}
                     </Grid>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
