@@ -1,4 +1,4 @@
-import Encounter from '../shr/encounter/Encounter';
+import Encounter from '../../shr/core/Encounter';
 
 class FluxEncounter {
     constructor(json) {
