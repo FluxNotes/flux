@@ -12,7 +12,7 @@ import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
-import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
+import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
 import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
 import FluxBloodPressure from '../model/vital/FluxBloodPressure';
@@ -839,7 +839,7 @@ class PatientRecord {
     }
 
     getProcedures() {
-        return this.getEntriesOfType(FluxProcedureRequested);
+        return this.getEntriesOfType(FluxProcedureRequest);
     }
 
     getProceduresChronologicalOrder() {
@@ -851,7 +851,7 @@ class PatientRecord {
     getProceduresForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedureRequested && item.reasons && item.reasons.some((r) => {
+            return item instanceof FluxProcedureRequest && item.reasons && item.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });

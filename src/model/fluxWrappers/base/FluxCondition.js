@@ -3,7 +3,7 @@ import FluxCancerDiseaseStatus from '../onco/core/FluxCancerDiseaseStatus';
 import FluxMedicationRequested from '../medication/FluxMedicationRequested';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
-import FluxProcedureRequested from '../procedure/FluxProcedureRequested';
+import FluxProcedureRequest from '../core/FluxProcedureRequest';
 import hpiConfig from '../../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
@@ -438,7 +438,7 @@ class FluxCondition extends FluxEntry {
         const today = new moment();
         events.forEach((event) => {
             switch (event.constructor) {
-                case FluxProcedureRequested: {
+                case FluxProcedureRequest: {
                     if (event.occurrenceTime.timePeriodStart) {
                         let procedureText = procedureTemplates['range'];
                         procedureText = procedureText.replace('{0}', event.name);
@@ -515,7 +515,7 @@ class FluxCondition extends FluxEntry {
         let a_startTime, b_startTime;
 
         switch (a.constructor) {
-            case FluxProcedureRequested: {
+            case FluxProcedureRequest: {
                 a_startTime = new moment(a.occurrenceTime, "D MMM YYYY");
                 if (!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
                 break;
@@ -540,7 +540,7 @@ class FluxCondition extends FluxEntry {
         }
 
         switch (b.constructor) {
-            case FluxProcedureRequested: {
+            case FluxProcedureRequest: {
                 b_startTime = new moment(b.occurrenceTime, "D MMM YYYY");
                 if (!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
                 break;
