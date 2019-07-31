@@ -31,6 +31,7 @@ function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
     dataSegment.outcomes.map((outcome) => {
         if (treatmentDataPatient.diseaseStatus.survivalMonths >= outcome.survivalRate) {
             outcome.total+=1;
+            outcome.proportion_surviving = outcome.total/dataSegment.total;
         }
 
         return outcome;
