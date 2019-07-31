@@ -570,7 +570,6 @@ class FluxNotesEditor extends React.Component {
     }
 
     isBlock1BeforeBlock2(key1, offset1, key2, offset2, state) {
-
         if (Lang.isUndefined(state)) {
             state = this.state.state;
         }

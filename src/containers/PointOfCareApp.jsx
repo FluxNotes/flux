@@ -7,7 +7,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
@@ -112,8 +111,6 @@ export class PointOfCareApp extends Component {
             patient: null,
             searchSelectedItem: null,
             searchSuggestions: [],
-            snackbarOpen: false,
-            snackbarMessage: "",
             state: this.initialState,
             superRole: 'Clinician' // possibly add that to security manager too
         };
@@ -236,22 +233,13 @@ export class PointOfCareApp extends Component {
     }
 
     sourceActionIsDisabled = (element) => {
-        if (element.source) {
-            return false;
+        if (!element.source || element.source.sourceMessage === "") {
+            return true;
         }
-        return true;
+        return false;
     }
 
     openReferencedModal = (item, itemLabel) => {
-        if (!item.source || item.source.sourceMessage === "") {
-            this.setState({
-                openClinicalNote: null,
-                snackbarOpen: true,
-                snackbarMessage: "No source information or note available."
-            });
-            return;
-        }
-
         if (item.source.link) {
             window.open(`${item.source.link}`);
         }
@@ -306,10 +294,6 @@ export class PointOfCareApp extends Component {
             return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
-    }
-
-    handleSnackbarClose = () => {
-        this.setState({ snackbarOpen: false });
     }
 
     handleModalClose = () => {
@@ -544,14 +528,6 @@ export class PointOfCareApp extends Component {
                         >
                             {this.state.openClinicalNote ? this.openClinicalNote() : this.openSourceModal()}
                         </Modal>
-
-                        <Snackbar
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}
-                            autoHideDuration={3000}
-                            onClose={this.handleSnackbarClose}
-                            open={this.state.snackbarOpen}
-                            message={this.state.snackbarMessage}
-                        />
                     </Grid>
                 </div>
             </MuiThemeProvider>
