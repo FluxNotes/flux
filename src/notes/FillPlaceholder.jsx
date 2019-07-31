@@ -97,7 +97,7 @@ export default class FillPlaceholder extends Component {
         }
 
         data.fields.forEach((field) => {
-            error = this.onSetValue(source, {name: field.name }, entryIndex, field.value, false);
+            error = this.onSetValue(source, {name: field.name }, entryIndex, field.value);
             if (!Lang.isNull(error) && Lang.isNull(errorToReturn)) errorToReturn = error;
         });
 
@@ -126,34 +126,7 @@ export default class FillPlaceholder extends Component {
         this.setState({ expanded: !expanded });
     };
 
-    onClickOnField = (attributeIndex, entryIndex = 0) => {
-        const { currentField } = this.state;
-
-        currentField[entryIndex] = attributeIndex;
-        this.setState({ currentField });
-    };
-
-    nextField = (entryIndex = 0) => {
-        let { currentField, done } = this.state;
-        const { placeholder } = this.props;
-
-        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
-            // User has entered final attribute, so mark row as done
-            if (placeholder.multiplicity !== 'many') {
-                done = true;
-                this.props.placeholder.done = true;
-                this.setState({ done });
-            } else {
-                currentField[entryIndex] = 0;
-                this.setState({ currentField });
-            }
-        } else {
-            currentField[entryIndex] += 1;
-            this.setState({ currentField });
-        }
-    };
-
-    onSetValue = (source, attributeSpec, entryIndex, newValue, moveToNextField = true) => {
+    onSetValue = (source, attributeSpec, entryIndex, newValue) => {
         const { placeholder } = this.props;
         //if (entryIndex === -1) entryIndex = placeholder.entryShortcuts.length - 1;
         const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
@@ -164,12 +137,6 @@ export default class FillPlaceholder extends Component {
             error = placeholder.setAttributeValue(attributeSpec.name, attributes, entryIndex, source);
         } else {
             error = placeholder.setAttributeValue(attributeSpec.name, newValue, entryIndex, source);
-
-            // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
-            // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
-            if (moveToNextField && Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
-                this.nextField(entryIndex);
-            }
         }
 
         this.setState({ error });
@@ -283,27 +250,10 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
         let currentFieldRowInSummary = '';
         let multiSelect = "";
-        let nextButton = "";
 
         if (attribute.type === 'checkboxes') {
             multiSelect =
                 <span className="multi-select"> (select multiple) </span>;
-            if (!expanded) {
-                nextButton =
-                <Grid item xs={2}>
-                    <Button
-                        variant="raised"
-                        classes={{
-                            root: "poc-next-item-btn"
-                        }}
-                        onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
-                    >
-                        <span>
-                            Next
-                        </span>
-                    </Button>
-                </Grid>;
-            }
         }
 
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
@@ -323,7 +273,6 @@ export default class FillPlaceholder extends Component {
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
                     </Grid>
-                    {nextButton}
                 </Grid>
             );
         }
@@ -435,7 +384,7 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
 
         return (
-            <Grid item xs={3} className='checkbox-container'>
+            <Grid item xs={2} className='checkbox-container'>
                 <span className="done-checkbox">
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span>
@@ -455,9 +404,9 @@ export default class FillPlaceholder extends Component {
 
             columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${attributeIndex}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
+                columns.push(<span className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{ Lang.isArray(value) ? value.join(', ') : value }</span>);
+                columns.push(<span className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{ Lang.isArray(value) ? value.join(', ') : value }</span>);
             }
         });
 
@@ -465,9 +414,8 @@ export default class FillPlaceholder extends Component {
     }
 
     renderSingleEntryPlaceholder = () => {
-        const { currentField, expanded, done } = this.state;
-        const { backgroundColor, placeholder } = this.props;
-        const attribute = placeholder.attributes[currentField[0]];
+        const { expanded, done } = this.state;
+        const { backgroundColor } = this.props;
         const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
 
         return (
@@ -475,11 +423,10 @@ export default class FillPlaceholder extends Component {
                 <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     <Grid container>
                         {this.renderCheckbox()}
-                        <Grid item xs={9}>
+                        <Grid item xs={10} style={{width: '100%'}}>
                             {this.renderColumns()}
                         </Grid>
                         {this.renderError()}
-                        {expanded ? '' : this.createCurrentFieldRowInSummary(attribute)}
                     </Grid>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
@@ -494,7 +441,6 @@ export default class FillPlaceholder extends Component {
     renderMultipleEntriesPlaceholder = () => {
         const { currentField, expanded, done } = this.state;
         const { backgroundColor, placeholder } = this.props;
-
         // Loop through all entries and render summaries
         let entries;
         if (!expanded) {
@@ -503,13 +449,12 @@ export default class FillPlaceholder extends Component {
 
                 return (
                     <Grid container key={`${i}-container`}>
-                        {i === 0 ? this.renderCheckbox() : <Grid item xs={3} />}
-                        <Grid item xs={9}>
+                        {i === 0 ? this.renderCheckbox() : <Grid item xs={2} />}
+                        <Grid item xs={10} md={10}>
                             {this.renderColumns(i)}
                             {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                         </Grid>
-                        {''}
-                        {expanded ? '' : this.createCurrentFieldRowInSummary(attribute, i)}
+                        {!expanded ? '' : this.createCurrentFieldRowInSummary(attribute, i)}
                         <Divider className="divider" />
                     </Grid>
                 );
@@ -524,7 +469,7 @@ export default class FillPlaceholder extends Component {
                 </Grid>
             )
             : (
-                <div>
+                <div style={{width: '100%'}}>
                     {this.renderError()}
                     {entries}
                     <div style={{ width: '100%' }}>
