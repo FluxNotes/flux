@@ -63,7 +63,10 @@
 .date-picker-container > * {
     z-index: 999;
 }
-
+.MuiExpansionPanelSummary-expandIcon-234 {
+    left: -15px;
+    right: unset;
+}
 /* Allows calendar picker modal to overflow over ExpansionPanel */
 .expanded-style > * {
     overflow: visible !important;
