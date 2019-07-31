@@ -238,6 +238,25 @@ export class PointOfCareApp extends Component {
         return false;
     }
 
+    nameSourceAction = (element) => {
+        if (element.source) {
+            return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
+        }
+        return "No source information";
+    }
+
+    getNoteModalStyle = () => {
+        if (this.state.openClinicalNote !== null) {
+            return {
+                width: '50%',
+                height: '75%',
+            };
+        }
+        else {
+            return {};
+        }
+    }
+
     openReferencedModal = (item, itemLabel) => {
         if (item.source.link) {
             window.open(`${item.source.link}`);
@@ -288,13 +307,6 @@ export class PointOfCareApp extends Component {
         });
     }
 
-    nameSourceAction = (element) => {
-        if (element.source) {
-            return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
-        }
-        return "No source information";
-    }
-
     handleModalClose = () => {
         this.setState({ isModalOpen: false });
     }
@@ -337,17 +349,6 @@ export class PointOfCareApp extends Component {
             );
         } else {
             return "";
-        }
-    }
-    getNoteModalStyle = () => {
-        if (this.state.openClinicalNote !== null) {
-            return {
-                width: '50%',
-                height: '75%',
-            };
-        }
-        else {
-            return {};
         }
     }
 

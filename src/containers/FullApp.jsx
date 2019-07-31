@@ -309,7 +309,6 @@ export class FullApp extends Component {
         if (!element.source || element.source.sourceMessage === "") {
             return true;
         }
-
         return false;
     }
 

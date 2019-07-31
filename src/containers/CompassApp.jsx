@@ -7,7 +7,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
@@ -28,8 +27,8 @@ import '../styles/CompassApp.css';
 
 const theme = createMuiTheme({
     palette: {
-        primary: {...lightBlue, A700: '#1384b5'},
-        secondary: {...green, A400: '#00e677'},
+        primary: { ...lightBlue, A700: '#1384b5' },
+        secondary: { ...green, A400: '#00e677' },
         error: red
     }
 });
@@ -89,8 +88,6 @@ export class CompassApp extends Component {
             patient: null,
             searchSelectedItem: null,
             searchSuggestions: [],
-            snackbarOpen: false,
-            snackbarMessage: "",
             superRole: 'Clinician' // possibly add that to security manager too
         };
     }
@@ -146,7 +143,7 @@ export class CompassApp extends Component {
     componentWillMount() {
         const userProfile = this.securityManager.getDemoUser(this.props.clinicianId);
         if (userProfile) {
-            this.setState({loginUser: userProfile});
+            this.setState({ loginUser: userProfile });
             this.preferenceManager = new PreferenceManager(userProfile);
         } else {
             console.error("Login failed");
@@ -165,7 +162,7 @@ export class CompassApp extends Component {
 
     // pass this function to children to set full app global state
     setFullAppState = (state, value) => {
-        this.setState({[state]: value});
+        this.setState({ [state]: value });
     }
 
     setForceRefresh = (value) => {
@@ -196,21 +193,17 @@ export class CompassApp extends Component {
     }
 
     sourceActionIsDisabled = (element) => {
-        if (element.source) {
-            return false;
+        if (!element.source || element.source.sourceMessage === "") {
+            return true;
         }
-        return true;
+        return false;
     }
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
+            return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
-    }
-
-    handleSnackbarClose = () => {
-        this.setState({ snackbarOpen: false });
     }
 
     handleModalClose = () => {
@@ -326,14 +319,6 @@ export class CompassApp extends Component {
                                 </Typography>
                             </div>
                         </Modal>
-
-                        <Snackbar
-                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
-                            autoHideDuration={3000}
-                            onClose={this.handleSnackbarClose}
-                            open={this.state.snackbarOpen}
-                            message={this.state.snackbarMessage}
-                        />
                     </Grid>
                 </div>
             </MuiThemeProvider>
@@ -355,14 +340,14 @@ CompassApp.propTypes = {
 // these props are used for dispatching actions
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-    // TODO: add actions
+        // TODO: add actions
     }, dispatch);
 }
 
 // these props come from the application's state when it is started
 function mapStateToProps(state) {
     return {
-    // TODO: add state
+        // TODO: add state
     };
 }
 
