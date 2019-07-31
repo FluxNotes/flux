@@ -118,7 +118,6 @@ export class Minimap extends React.Component {
               let hM = Math.round(height * ratioY);
               const xM = this.props.isTablet? (sourceRect.width + 92 + 15) : ((left + scrollLeft - sourceRect.left) * ratioX); //92 is the width of the left navigation bar and 15 is buffer space
               this.left = xM;
-              //const xM = this.props.isTablet? 700: (left + scrollLeft - sourceRect.left) * ratioX;
               const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
               const title = node.getAttribute(this.props.titleAttribute);
               const shortTitle = node.getAttribute(this.props.shortTitleAttribute);
