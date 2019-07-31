@@ -385,9 +385,9 @@ export default class FillPlaceholder extends Component {
 
         return (
             <Grid item xs={2} className='checkbox-container'>
-                <span className="done-checkbox">
+                {/* <span className="done-checkbox">
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
-                </span>
+                </span> */}
                 <span className="shortcut-name" key="0">
                     {placeholder.shortcutName}
                 </span>
