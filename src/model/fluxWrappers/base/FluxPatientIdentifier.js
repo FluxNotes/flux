@@ -1,6 +1,6 @@
-import FluxEntry from '../base/FluxEntry';
-import CreationTime from '../shr/core/CreationTime';
-import LastUpdated from '../shr/base/LastUpdated';
+import FluxEntry from './FluxEntry';
+import CreationDateTime from '../../shr/core/CreationDateTime';
+import LastUpdated from '../../shr/core/LastUpdated';
 import moment from 'moment';
 
 class FluxPatientIdentifier extends FluxEntry {
@@ -10,7 +10,7 @@ class FluxPatientIdentifier extends FluxEntry {
         this._entryInfo.shrId = json['ShrId'];
         this._entryInfo.entryId = json['EntryId'];
         let today = new moment().format("D MMM YYYY");
-        this._entryInfo.creationTime = new CreationTime();
+        this._entryInfo.creationTime = new CreationDateTime();
         this._entryInfo.creationTime.dateTime = today;
         this._entryInfo.lastUpdated = new LastUpdated();
         this._entryInfo.lastUpdated.instant = today;
