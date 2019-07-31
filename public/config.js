@@ -32,7 +32,8 @@ CONFIG = {
         isExact: true,
         dataSource: 'McodeV05SmartOnFhirDataSource',
         dataSourceProps: {
-            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure']
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure'],
+            mapper: 'syntheaToV05'
         },
         logoObject: {
             path: './compass-logo.png',

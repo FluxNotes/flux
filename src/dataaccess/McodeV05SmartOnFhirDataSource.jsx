@@ -1,6 +1,6 @@
 import IDataSource from './IDataSource';
 import processFHIRResources from './utils/fhir-entry-processor';
-
+import mappers from 'fhir-mapper';
 import 'fhirclient';
 
 class McodeV05SmartOnFhirDataSource extends IDataSource {
@@ -24,7 +24,7 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
                 sync: false
             }
         };
-
+        this.mapper = props && props.mapper ? mappers[props.mapper] : null;
         this.resourceTypes = props && props.resourceTypes;
     }
     getGestalt() {
@@ -114,7 +114,7 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
 
     getPatient(id, callback) {
         this.fetchResources()
-            .then(resources => callback(processFHIRResources(resources, this._client.patient.id)));
+            .then(resources => callback(processFHIRResources(resources, this._client.patient.id,this.mapper)));
     }
 
     getListOfPatients() {
