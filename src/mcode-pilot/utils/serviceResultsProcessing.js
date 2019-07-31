@@ -35,10 +35,16 @@ function generateOutcomeData(data) {
         let row = initializeTreatmentData(generateTreatmentDisplayName(item.treatments), item.treatments);
         row.totalPatients = item.total;
 
+        if (!_.isEmpty(item.sideEffects)) {
+            row.sideEffects.totalReporting = item.sideEffects.total;
+            row.sideEffects.effects = item.sideEffects.effects;
+        }
+
         item.outcomes.forEach((outcome) => {
             let survivalRate = parseInt(outcome.survivalRate)/12;
             row.survivorsPerYear[survivalRate] = Math.floor(item.total * outcome.proportion_surviving);
         });
+
         return row;
     }).filter((x) => x);
 }
