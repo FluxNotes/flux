@@ -2,6 +2,7 @@ import { getNamespaceAndName } from '../json-helper';
 import ShrCoreObjectFactory from '../shr/core/ShrCoreObjectFactory';
 import FluxClinicalNote from './FluxClinicalNote';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
+import FluxProcedureRequest from './FluxProcedureRequest';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -13,6 +14,7 @@ export default class FluxCoreObjectFactory {
         switch (elementName) {
             case 'ClinicalNote': return new FluxClinicalNote(json);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json);
+            case 'ProcedureRequest': return new FluxProcedureRequest(json);
             default: return ShrCoreObjectFactory.createInstance(json, type);
         }
     }

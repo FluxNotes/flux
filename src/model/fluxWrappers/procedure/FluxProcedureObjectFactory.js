@@ -1,7 +1,6 @@
 import { getNamespaceAndName } from '../json-helper';
 import ShrProcedureObjectFactory from '../shr/procedure/ShrProcedureObjectFactory';
 import FluxProcedurePerformed from './FluxProcedurePerformed';
-import FluxProcedureRequested from './FluxProcedureRequested';
 import FluxImagingProcedurePerformed from './FluxImagingProcedurePerformed';
 
 export default class FluxProcedureObjectFactory {
@@ -14,7 +13,6 @@ export default class FluxProcedureObjectFactory {
         switch (elementName) {
             case 'ImagingProcedurePerformed': return new FluxImagingProcedurePerformed(json);
             case 'ProcedurePerformed': return new FluxProcedurePerformed(json);
-            case 'ProcedureRequested': return new FluxProcedureRequested(json);
             default: return ShrProcedureObjectFactory.createInstance(json, type);
         }
     }
