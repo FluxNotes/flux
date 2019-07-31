@@ -6,7 +6,6 @@ import MaterialButton from 'material-ui/Button';
 import Lang from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import ContextTray from '../context/ContextTray';
-import PickListOptionsPanel from '../panels/PickListOptionsPanel';
 import Button from '../elements/Button';
 import NotesIndexer from '../patientControl/NotesIndexer';
 import moment from 'moment';
@@ -49,9 +48,7 @@ export default class NoteAssistant extends Component {
             this.onNotesToggleButtonClicked();
         }
 
-        if (nextProps.noteAssistantMode === "pick-list-options-panel") {
-            this.disableAllButtons();
-        } else if (!nextProps.isNoteViewerEditable) {
+        if (!nextProps.isNoteViewerEditable) {
             this.disableContextToggleButton();
         }
     }
@@ -233,10 +230,7 @@ export default class NoteAssistant extends Component {
                         contextManager={this.props.contextManager}
                         updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
                         patient={this.props.patient}
-                        setInsertingTemplate={this.props.setInsertingTemplate}
                         shortcutManager={this.props.shortcutManager}
-                        showTemplateView={this.props.showTemplateView}
-                        updateShowTemplateView={this.props.updateShowTemplateView}
                     />
                     {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
                 </div>
@@ -262,30 +256,10 @@ export default class NoteAssistant extends Component {
                 </div>
             );
 
-            // Render the pick list options panel which allows users to select options for the pick lists
-        case "pick-list-options-panel": {
-            return this.renderPickListOptions();
-        }
         default:
             console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
             return "";
         }
-    }
-
-    renderPickListOptions() {
-        return (
-            <PickListOptionsPanel
-                arrayOfPickLists={this.props.arrayOfPickLists}
-                contextManager={this.props.contextManager}
-                insertingTemplate={this.props.insertingTemplate}
-                setInsertingTemplate={this.props.setInsertingTemplate}
-                updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                updateSelectedPickListOptions={this.props.updateSelectedPickListOptions}
-                updateNoteAssistantMode={this.props.updateNoteAssistantMode}
-                setUndoTemplateInsertion={this.props.setUndoTemplateInsertion}
-                changeShortcutType={this.props.changeShortcutType}
-            />
-        );
     }
 
     renderNewNote() {
@@ -549,9 +523,8 @@ export default class NoteAssistant extends Component {
 
         // If the note viewer is editable then we want to be able to edit notes and view the context tray
         // If the note viewer is read only the we want to be able to view the clinical notes
-        // If the editor is read only because we need to select picklists, then we need the note assistant mode to open the portal
         let noteAssistantMode = "clinical-notes";
-        if (this.props.isNoteViewerEditable || this.props.noteAssistantMode === 'pick-list-options-panel') {
+        if (this.props.isNoteViewerEditable) {
             noteAssistantMode = this.props.noteAssistantMode;
         }
         const noteAssistantDisabledClass = this.props.isAppBlurred ? 'content-disabled' : '';
@@ -567,15 +540,12 @@ export default class NoteAssistant extends Component {
 }
 
 NoteAssistant.propTypes = {
-    arrayOfPickLists: PropTypes.array.isRequired,
-    changeShortcutType: PropTypes.func.isRequired,
     closeNote: PropTypes.func.isRequired,
     currentlyEditingEntryId: PropTypes.number.isRequired,
     contextManager: PropTypes.object.isRequired,
     contextTrayItemToInsert: PropTypes.string,
     deleteSelectedNote: PropTypes.func.isRequired,
     handleSummaryItemSelected: PropTypes.func.isRequired,
-    handleUpdateArrayOfPickLists: PropTypes.func.isRequired,
     handleUpdateEditorWithNote: PropTypes.func.isRequired,
     isAppBlurred: PropTypes.bool,
     isNoteViewerEditable: PropTypes.bool.isRequired,
@@ -595,16 +565,11 @@ NoteAssistant.propTypes = {
     setNoteViewerVisible: PropTypes.func.isRequired,
     setOpenClinicalNote: PropTypes.func.isRequired,
     setSearcbSelectedItem: PropTypes.func,
-    setUndoTemplateInsertion: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
-    shouldEditorContentUpdate: PropTypes.bool.isRequired,
-    showTemplateView: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     updateNoteAssistantMode: PropTypes.func.isRequired,
     updateSelectedNote: PropTypes.func.isRequired,
     updateContextTrayItemToInsert: PropTypes.func.isRequired,
-    updateSelectedPickListOptions: PropTypes.func.isRequired,
     updatedEditorNote: PropTypes.object,
-    updateErrors: PropTypes.func.isRequired,
-    updateShowTemplateView: PropTypes.func.isRequired
+    updateErrors: PropTypes.func.isRequired
 };
