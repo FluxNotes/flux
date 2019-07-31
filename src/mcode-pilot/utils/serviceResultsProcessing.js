@@ -25,7 +25,7 @@ function generateTreatmentDisplayName(treatments) {
     }).join(" & ");
 }
 
-/* Map an individual CLQ service resonse for a set of treatments into the internal format
+/* Map an individual CLQ service response for a set of treatments into the internal format
 expected by the Compass UI components. */
 function generateOutcomeData(data) {
     return data.map((item) => {
