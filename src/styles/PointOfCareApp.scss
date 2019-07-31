@@ -72,22 +72,27 @@
 
 .header {
     .close-div {
-        border-style: solid;
-        border-radius: 2px;
-        border-color: $icons-gray;
+        background-color: white !important;
+        font-weight: $weight-regular;
+        border: 1px solid $line-gray;
+        border-radius: 3px;
+        color: $body-black;
         border-width: 1px;
         float: right;
-        padding: 1%;
+        padding: 10px;
+        margin-top: 0px !important;
+        text-transform: none !important;
         &:hover {
-            background-color: #d1d1d1;
+            background: #e6e6e6 !important;
             cursor: pointer;
         }
         .close-button {
             color: $interface-blue;
+            margin-right: 5px;
         }
         .close-text {
             float: right;
-            margin-left: 5px;  
+            margin-left: 5px;
         }
     }
 }
