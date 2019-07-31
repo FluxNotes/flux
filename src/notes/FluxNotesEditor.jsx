@@ -113,7 +113,6 @@ class FluxNotesEditor extends React.Component {
 
         this.noteParser = new NoteParser(this.props.shortcutManager, this.props.contextManager);
         this.plugins = [];
-        this.previousState = {};
 
         this.noteContentIndexer = new NoteContentIndexer();
 
@@ -420,6 +419,10 @@ class FluxNotesEditor extends React.Component {
                 shortcut.setValueObject(selection.object);
                 if (!Lang.includes(this.contextManager.contexts, shortcut)) this.contextManager.addShortcutToContext(shortcut);
                 this.contextManager.contextUpdated();
+
+                // TODO: Use this function to update child shortcuts when parent value is selected (ex: update @ONCOHIST after @condition selected)
+                // Current issue is that child isn't added to parent because incomplete shortcuts are removed from context so child can't determine parentContext to add to
+                // transform = this.updateChildShortcuts(transform, shortcut);
             }
         }
 
@@ -508,16 +511,9 @@ class FluxNotesEditor extends React.Component {
 
     closeNote = () => {
         this.props.searchIndex.removeDataBySection('Open Note');
-        if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            const documentText = this.getNoteText(this.previousState);
-            this.revertTemplate();
-            this.props.saveNote(documentText);
-            this.props.closeNote();
-        } else {
-            const documentText = this.getNoteText(this.state.state);
-            this.props.saveNote(documentText);
-            this.props.closeNote();
-        }
+        const documentText = this.getNoteText(this.state.state);
+        this.props.saveNote(documentText);
+        this.props.closeNote();
     }
 
     onFocus = () => {
@@ -712,58 +708,34 @@ class FluxNotesEditor extends React.Component {
         }
     }
 
-    updateTemplateWithPickListOptions = (nextProps) => {
-        if (nextProps.shouldUpdateShortcutType) {
-            let transform = this.state.state.transform();
-            let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
-            this.scrollToData(state.document, nextProps.shortcutKey);
-            this.setState({ state });
-        }
-        nextProps.selectedPickListOptions.forEach(picklist => {
-            if (picklist.selectedOption) {
-                const { shortcut } = picklist;
-                const { object } = shortcut.getValueSelectionOptions().find(opt => {
-                    return opt.context === picklist.selectedOption;
-                });
-                if (shortcut.getText() !== picklist.selectedOption) {
-                    shortcut.setText(picklist.selectedOption);
-                    if (shortcut.isContext()) {
-                        shortcut.setValueObject(object);
-
-                        let transform = this.state.state.transform();
-
-                        // Update the children of the shortcut whose values just got selected.
-                        const childShortcuts = shortcut.getChildren();
-                        childShortcuts.forEach(childShortcut => {
-                            if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
-                                // Set the text, then change the data of the shortcut to trigger a re-render.
-                                const text = childShortcut.determineText(this.contextManager);
-                                childShortcut.setText(text);
-                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
-                            } else {
-                                childShortcut.setText(null);
-                                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
-                            }
-                        });
-
-                        // Force shortcut to re-render with updated data
-                        transform = this.resetShortcutData(shortcut, transform);
-                        let state = transform.apply();
-                        this.setState({ state }, () => {
-                            this.scrollToData(state.document, shortcut.getKey());
-                        });
-                    }
-                }
+    updateChildShortcuts = (transform, shortcut) => {
+        // Update the children of the shortcut whose values just got selected.
+        const childShortcuts = shortcut.getChildren();
+        childShortcuts.forEach(childShortcut => {
+            if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
+                // Set the text, then change the data of the shortcut to trigger a re-render.
+                const text = childShortcut.determineText(this.contextManager);
+                childShortcut.setText(text);
+                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
+            } else {
+                childShortcut.setText(null);
+                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
             }
         });
+
+        // Force shortcut to re-render with updated data
+        transform = this.resetShortcutData(shortcut, transform);
+        let state = transform.apply();
+        this.setState({ state }, () => {
+            this.scrollToData(state.document, shortcut.getKey());
+        });
+        return transform;
     }
 
     componentDidMount = () => {
-        if (this.props.shouldEditorContentUpdate && !Lang.isEmpty(this.props.contextTrayItemToInsert) && this.props.contextTrayItemToInsert.length > 0) {
+        if (!Lang.isEmpty(this.props.contextTrayItemToInsert) && this.props.contextTrayItemToInsert.length > 0) {
             // When the user selects a template, insert the contextTrayItem
             this.insertContextTrayItem(this.props.contextTrayItemToInsert);
-            // And save the state of the editor before it is inserted in case they want to cancel
-            this.previousState = initialState;
         }
     }
 
@@ -775,36 +747,20 @@ class FluxNotesEditor extends React.Component {
 
     // This gets called before the component receives new properties
     componentWillReceiveProps = (nextProps) => {
-        // Only update text if the shouldEditorContentUpdate is true. For example, this will be false if the user is inserting a template
         // Check if the item to be inserted is updated
-        if (nextProps.shouldEditorContentUpdate && this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
+        if (this.props.summaryItemToInsert !== nextProps.summaryItemToInsert && nextProps.summaryItemToInsert.length > 0) {
             if (this.props.isNoteViewerEditable) {
                 this.insertTextWithStructuredPhrases(nextProps.summaryItemToInsert, undefined, true, nextProps.summaryItemToInsertSource);
                 this.props.itemInserted();
             }
         }
 
-        // When the user selects a template, save the state of the editor before it is inserted in case they want to cancel
-        if (this.props.contextTrayItemToInsert === null && nextProps.contextTrayItemToInsert !== null) {
-            this.previousState = this.state.state;
-        }
-
-        // Update pick list selection in real time during template insertion
-        if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-            this.updateTemplateWithPickListOptions(nextProps);
-        }
-
-        if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
+        if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
 
         // Check if the updatedEditorNote property has been updated
-        if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
-            if (this.props.noteAssistantMode === 'pick-list-options-panel') {
-                console.log("Trying to revert a template in FluxNotesEditor");
-                this.revertTemplate();
-            }
-
+        if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
             if (nextProps.updatedEditorNote === "") {
@@ -842,20 +798,8 @@ class FluxNotesEditor extends React.Component {
         }
 
         // Check if the current view mode changes
-        if (nextProps.shouldEditorContentUpdate && this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
+        if (this.props.currentViewMode !== nextProps.currentViewMode && !Lang.isNull(nextProps.currentViewMode)) {
             this.resetEditorAndContext(() => { this.props.updateSelectedNote(null); });
-        }
-
-        // Check if mode is changing from 'pick-list-options-panel' to 'context-tray'
-        // This means user either clicked the OK or Cancel button on the pick list options panel
-        if (this.props.noteAssistantMode === 'pick-list-options-panel' && nextProps.noteAssistantMode === 'context-tray') {
-            this.adjustActiveContexts(this.state.state.selection, this.state.state);
-            this.props.setNoteViewerEditable(true);
-            // If the user clicks cancel button, change editor state back to what it was before they clicked the template
-            if (nextProps.shouldRevertTemplate) {
-                this.revertTemplate();
-            }
-            this.scrollToAnchorElement();
         }
 
         // The note will still scroll to structured data when the user clicks on `Open Source Note` action but note is already open
@@ -1129,14 +1073,6 @@ class FluxNotesEditor extends React.Component {
         return length;
     }
 
-    revertTemplate = () => {
-        this.props.changeShortcutType(null, false, null);
-        this.props.deleteSelectedNote();
-        // this.setState({ state: this.previousState }, () => {
-        //     this.props.setUndoTemplateInsertion(false);
-        // });
-    }
-
     insertNewLine = (transform) => {
         return transform
             .splitBlock();
@@ -1387,7 +1323,7 @@ class FluxNotesEditor extends React.Component {
     /*
      * Handle updates when we have a new insert text with structured phrase
      */
-    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, source, arrayOfPickLists) => {
+    insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, source) => {
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
@@ -1396,8 +1332,6 @@ class FluxNotesEditor extends React.Component {
         inMemoryClinicalNote.parse(textToBeInserted);
         const nodes = inMemoryClinicalNote.getNodes();
 
-        let pickListCount = 0;
-
         if (!Lang.isNull(nodes)) {
             nodes.forEach((node) => {
                 if (node.type === 'text') {
@@ -1405,15 +1339,10 @@ class FluxNotesEditor extends React.Component {
                 } else if (node.type === 'shortcut') {
                     // Update the context position based on selection
                     const shortcutsUntilSelection = this.getContextsBeforeSelection(transform.state);
-                    if (arrayOfPickLists && node.trigger.isPickList && !node.trigger.selectedValue) {
-                        transform = this.updateExistingShortcut(arrayOfPickLists[pickListCount].shortcut, transform, shortcutsUntilSelection.length);
-                        pickListCount++;
-                    } else {
-                        // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
-                        const nodeText = node.trigger.selectedValue || "";
-                        transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
-                        this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
-                    }
+                    // This value could be undefined or null based on how the trigger is defined; we can safeguard against bad values for nodetext with this check.
+                    const nodeText = node.trigger.selectedValue || "";
+                    transform = this.insertShortcut(node.trigger.definition, node.trigger.trigger, nodeText, transform, updatePatient, source, shortcutsUntilSelection.length);
+                    this.adjustActiveContexts(transform.state.selection, transform.state); // Updates active contexts based on cursor position
                 } else if (node.type === 'placeholder') {
                     this.insertPlaceholder(node.placeholder.placeholder, transform, node.placeholder.selectedValue);
                 }
@@ -1445,63 +1374,11 @@ class FluxNotesEditor extends React.Component {
      *  Checks if any of the shortcuts in the contextTrayItem require the user to choose from pick list
      *  If not, function will call insertTextWithStructuredPhrases to insert completed contextTrayItem into editor
      */
+
     insertContextTrayItem = (contextTrayItem) => {
-        let remainder = contextTrayItem;
-        let start, end;
-        let localArrayOfPickLists = [];
-        const triggers = this.noteParser.getListOfTriggersFromText(contextTrayItem)[0];
-
-        // Loop through shortcut triggers to determine if any of them require users to choose from pick list
-        if (!Lang.isNull(triggers)) {
-            triggers.forEach((trigger) => {
-                start = remainder.indexOf(trigger.trigger);
-                remainder = remainder.substring(start + trigger.trigger.length);
-
-                // Check if the shortcut is a pick list. If it is a pick list, check if it already has an option selected
-                // If no option is selected, then push the shortcut to the array
-                if (trigger.isPickList && !(remainder.startsWith("[["))) {
-                    localArrayOfPickLists.push(trigger);
-                }
-
-                if (remainder.startsWith("[[")) {
-                    end = remainder.indexOf("]]");
-                    // FIXME: 2 is a magic number based on [[ length, ditto for 2 below for ]]
-                    remainder = remainder.substring(end + 2);
-                }
-            });
-        }
-
-        // Build array of pick lists and store options for each pick list
-        if (localArrayOfPickLists.length > 0) {
-            let localArrayOfPickListsWithOptions = [];
-            let shortcutOptions = [];
-
-            localArrayOfPickLists.forEach((pickList) => {
-                // Create shortcut from trigger to be inserted before selection chosen. Also uses to get shortcutOptions.
-                let shortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
-                shortcut.setSource("pick list/template");
-                shortcut.initialize(this.props.contextManager, pickList.trigger, false);
-                shortcutOptions = shortcut.getValueSelectionOptions();
-                localArrayOfPickListsWithOptions.push(
-                    {
-                        'trigger': pickList.trigger,
-                        'options': shortcutOptions,
-                        'shortcut': shortcut
-                    }
-                );
-            });
-
-            this.props.handleUpdateArrayOfPickLists(localArrayOfPickListsWithOptions);
-            this.props.setNoteViewerEditable(false);
-            // Switch note assistant view to the pick list options panel
-            this.props.updateNoteAssistantMode('pick-list-options-panel');
-            // Insert content by default
-            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Picklist", localArrayOfPickListsWithOptions);
-        } else { // If the text to be inserted does not contain any pick lists, insert the text
-            this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Shortcuts in Context");
-            this.props.updateContextTrayItemToInsert(null);
-            this.props.updateNoteAssistantMode('context-tray');
-        }
+        this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Shortcuts in Context");
+        this.props.updateContextTrayItemToInsert(null);
+        this.props.updateNoteAssistantMode('context-tray');
     }
 
     /**
@@ -1899,8 +1776,6 @@ class FluxNotesEditor extends React.Component {
 }
 
 FluxNotesEditor.propTypes = {
-    arrayOfPickLists: PropTypes.array.isRequired,
-    changeShortcutType: PropTypes.func.isRequired,
     closeNote: PropTypes.func.isRequired,
     contextManager: PropTypes.object.isRequired,
     contextTrayItemToInsert: PropTypes.string,
@@ -1920,18 +1795,14 @@ FluxNotesEditor.propTypes = {
     saveNote: PropTypes.func.isRequired,
     searchSuggestions: PropTypes.array,
     selectedNote: PropTypes.object,
-    selectedPickListOptions: PropTypes.array.isRequired,
     setForceRefresh: PropTypes.func,
     setLayout: PropTypes.func.isRequired,
     setNoteViewerEditable: PropTypes.func.isRequired,
     setOpenSourceNotEntryId: PropTypes.func,
-    setUndoTemplateInsertion: PropTypes.func.isRequired,
     shortcutKey: PropTypes.string,
     shortcutManager: PropTypes.object.isRequired,
     shortcutType: PropTypes.string,
-    shouldEditorContentUpdate: PropTypes.bool.isRequired,
     shouldUpdateShortcutType: PropTypes.bool.isRequired,
-    shouldRevertTemplate: PropTypes.bool.isRequired,
     structuredFieldMapManager: PropTypes.object.isRequired,
     summaryItemToInsert: PropTypes.string.isRequired,
     updatedEditorNote: PropTypes.object,
