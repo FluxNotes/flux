@@ -15,10 +15,10 @@ import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
 import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
 import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
-import FluxBloodPressure from '../model/vital/FluxBloodPressure';
-import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
-import FluxBodyWeight from '../model/vital/FluxBodyWeight';
-import FluxHeartRate from '../model/vital/FluxHeartRate';
+import FluxBloodPressure from '../model/fluxWrappers/vital/FluxBloodPressure';
+import FluxBodyTemperature from '../model/fluxWrappers/core/FluxBodyTemperature';
+import FluxBodyWeight from '../model/fluxWrappers/core/FluxBodyWeight';
+import FluxHeartRate from '../model/fluxWrappers/core/FluxHeartRate';
 import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
 import FluxPathologyReport from '../model/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
