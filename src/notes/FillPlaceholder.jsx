@@ -97,7 +97,7 @@ export default class FillPlaceholder extends Component {
         }
 
         data.fields.forEach((field) => {
-            error = this.onSetValue(source, {name: field.name }, entryIndex, field.value, false);
+            error = this.onSetValue(source, {name: field.name }, entryIndex, field.value);
             if (!Lang.isNull(error) && Lang.isNull(errorToReturn)) errorToReturn = error;
         });
 
@@ -124,33 +124,6 @@ export default class FillPlaceholder extends Component {
         const { expanded } = this.state;
 
         this.setState({ expanded: !expanded });
-    };
-
-    onClickOnField = (attributeIndex, entryIndex = 0) => {
-        const { currentField } = this.state;
-
-        currentField[entryIndex] = attributeIndex;
-        this.setState({ currentField });
-    };
-
-    nextField = (entryIndex = 0) => {
-        let { currentField, done } = this.state;
-        const { placeholder } = this.props;
-
-        if (currentField[entryIndex] + 1 === placeholder.attributes.length) {
-            // User has entered final attribute, so mark row as done
-            if (placeholder.multiplicity !== 'many') {
-                done = true;
-                this.props.placeholder.done = true;
-                this.setState({ done });
-            } else {
-                currentField[entryIndex] = 0;
-                this.setState({ currentField });
-            }
-        } else {
-            currentField[entryIndex] += 1;
-            this.setState({ currentField });
-        }
     };
 
     onSetValue = (source, attributeSpec, entryIndex, newValue) => {
@@ -431,9 +404,9 @@ export default class FillPlaceholder extends Component {
 
             columns.push(<span className="shortcut-field-title" key={`${entryIndex}-${attributeIndex}-label`}>{`${attribute.title}: `}</span>);
             if (!this.isValidAttribute(value)) {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
+                columns.push(<span className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
             } else {
-                columns.push(<span onClick={this.onClickOnField.bind(this, attributeIndex, entryIndex)} className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{ Lang.isArray(value) ? value.join(', ') : value }</span>);
+                columns.push(<span className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{ Lang.isArray(value) ? value.join(', ') : value }</span>);
             }
         });
 
