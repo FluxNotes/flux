@@ -359,7 +359,6 @@ export class PointOfCareApp extends Component {
     }
 
     newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true, source) => {
-
         let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.state.patient, shortcutData, this.handleShortcutUpdate);
         newShortcut.setSource(source);
         const errors = newShortcut.validateInCurrentContext(this.contextManager);
