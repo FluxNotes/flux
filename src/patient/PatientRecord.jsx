@@ -19,7 +19,7 @@ import FluxBloodPressure from '../model/vital/FluxBloodPressure';
 import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
 import FluxBodyWeight from '../model/vital/FluxBodyWeight';
 import FluxHeartRate from '../model/vital/FluxHeartRate';
-import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
+import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
 import FluxPathologyReport from '../model/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
@@ -799,7 +799,7 @@ class PatientRecord {
     }
 
     getRecentImagingChronologicalOrder() {
-        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
         const numberOfMonths = 6;
         const sinceDate = new moment(moment().subtract(numberOfMonths, 'months'), 'D MMM YYYY');
 
@@ -864,7 +864,7 @@ class PatientRecord {
     }
 
     getImagingProceduresForConditionChronologicalOrder(condition) {
-        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
 
         imagingProcedures.sort(this._proceduresTimeSorter);
