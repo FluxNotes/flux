@@ -4,6 +4,7 @@ import FluxClinicalNote from './FluxClinicalNote';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
 import FluxProcedureRequest from './FluxProcedureRequest';
 import FluxProcedure from './FluxProcedure';
+import FluxImagingProcedure from './FluxImagingProcedure';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -14,6 +15,7 @@ export default class FluxCoreObjectFactory {
         // returns Flux wrapper class if found, otherwise use ShrCoreObjectFactory
         switch (elementName) {
             case 'ClinicalNote': return new FluxClinicalNote(json);
+            case 'ImagingProcedure': return new FluxImagingProcedure(json);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json);
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
