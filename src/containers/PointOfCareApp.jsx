@@ -51,7 +51,6 @@ function getModalStyle() {
         width: 400,
         backgroundColor: '#e6e6e6',
         padding: 20,
-        overflowY: 'auto',
         boxShadow: '2px 2px 4px -1px black',
     };
 }
