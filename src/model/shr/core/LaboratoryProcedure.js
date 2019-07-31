@@ -422,36 +422,6 @@ class LaboratoryProcedure extends Procedure {
         const entryType = 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest';
         inst.relatedRequest.value = FHIRHelper.createReferenceWithoutObject(shrId, entryId, entryType);
       }
-      inst.relatedRequest = inst.relatedRequest || FHIRHelper.createInstanceFromFHIR('shr.core.RelatedRequest', {}, null, shrId);
-      const entryId = fhir['request']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.core.ProcedureRequest', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      if (mappedResources[entryId]) {
-        inst.relatedRequest.value = FHIRHelper.createReference(mappedResources[entryId], referencesOut);
-      }
-      else {
-        const entryType = 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest';
-        inst.relatedRequest.value = FHIRHelper.createReferenceWithoutObject(shrId, entryId, entryType);
-      }
-      inst.relatedRequest = inst.relatedRequest || FHIRHelper.createInstanceFromFHIR('shr.core.RelatedRequest', {}, null, shrId);
-      const entryId = fhir['request']['reference'];
-      if (!mappedResources[entryId]) {
-        const referencedEntry = allEntries.find(e => e.fullUrl === entryId);
-        if (referencedEntry) {
-          mappedResources[entryId] = FHIRHelper.createInstanceFromFHIR('shr.core.ProcedureRequest', referencedEntry['resource'], 'undefined', shrId, allEntries, mappedResources, referencesOut);
-        }
-      }
-      if (mappedResources[entryId]) {
-        inst.relatedRequest.value = FHIRHelper.createReference(mappedResources[entryId], referencesOut);
-      }
-      else {
-        const entryType = 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest';
-        inst.relatedRequest.value = FHIRHelper.createReferenceWithoutObject(shrId, entryId, entryType);
-      }
     }
     for (const fhir_notes of fhir['notes'] || []) {
       inst.annotation = inst.annotation || [];
