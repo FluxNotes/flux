@@ -17,6 +17,7 @@
 
         button {
             padding: 75px 0px;
+            min-width: 79px;
         }
         .content {
             margin: auto;
@@ -26,7 +27,9 @@
             margin: 0;
         }
     }
-
+    .content {
+        width: 92px;
+    }
     .right-border-box {
         margin: 15px 10px 5px;
         overflow: hidden;
