@@ -7,7 +7,6 @@
                     "sufficiency": true,
                     "total":3,
                     "treatments": [{"code":"000001", "codeSystem": "http://example.net", "codeSystemName": "example", "displayName": "test1 therapy"}]
-
                 },
                 {
                     "outcomes": [{"interval": "months", "survivalRate": 12, "total": 4},{"interval": "months", "survivalRate": 24, "total": 2},{"interval": "months", "survivalRate": 36, "total": 1}],
@@ -20,7 +19,6 @@
                     "sufficiency": true,
                     "total":3,
                     "treatments": [{"code":"000003", "codeSystem": "http://example.net", "codeSystemName": "example", "displayName": "test3 therapy"}]
-
                 }
             ],
             "total": 10

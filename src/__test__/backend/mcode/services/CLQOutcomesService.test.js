@@ -71,6 +71,8 @@ describe("CLQOutcomesService", () => {
 
     it("Should be able to translate results to rows", () => {
         let clqResults = generateOutcomeData(response.outcomes.survival.data)
+        console.log(response.outcomes.survival.data);
+        console.log(clqResults);
         expect(_.isEqual(clqResults, rows)).to.be.true
     });
 

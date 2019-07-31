@@ -25,7 +25,7 @@ function generateTreatmentDisplayName(treatments) {
     }).join(" & ");
 }
 
-/* Map an individual service response for a set of treatments into the internal format
+/* Map an individual CLQ service resonse for a set of treatments into the internal format
 expected by the Compass UI components. */
 function generateOutcomeData(data) {
     return data.map((item) => {
@@ -35,17 +35,14 @@ function generateOutcomeData(data) {
         let row = initializeTreatmentData(generateTreatmentDisplayName(item.treatments), item.treatments);
         row.totalPatients = item.total;
 
-        if (!_.isEmpty(item.sideEffects)) {
-            row.sideEffects.totalReporting = item.sideEffects.total;
-            row.sideEffects.effects = item.sideEffects.effects;
-        }
         item.outcomes.forEach((outcome) => {
             let survivalRate = parseInt(outcome.survivalRate)/12;
-            row.survivorsPerYear[survivalRate] = outcome.total;
+            row.survivorsPerYear[survivalRate] = Math.floor(item.total * outcome.proportion_surviving);
         });
         return row;
     }).filter((x) => x);
 }
+
 
 /* Process the entire service response. */
 function formatResults(data) {
