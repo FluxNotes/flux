@@ -153,7 +153,7 @@ export default class FillPlaceholder extends Component {
         }
     };
 
-    onSetValue = (source, attributeSpec, entryIndex, newValue, moveToNextField = true) => {
+    onSetValue = (source, attributeSpec, entryIndex, newValue) => {
         const { placeholder } = this.props;
         //if (entryIndex === -1) entryIndex = placeholder.entryShortcuts.length - 1;
         const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
@@ -164,12 +164,6 @@ export default class FillPlaceholder extends Component {
             error = placeholder.setAttributeValue(attributeSpec.name, attributes, entryIndex, source);
         } else {
             error = placeholder.setAttributeValue(attributeSpec.name, newValue, entryIndex, source);
-
-            // We only want to increment the field if we are working on a non-expanded and non-multiselect attribute
-            // This might only be a temporary workaround, we have to see how it goes as the other fields get implemented
-            if (moveToNextField && Lang.isNull(error) && !(this.state.expanded || Lang.isArray(attributes))) {
-                this.nextField(entryIndex);
-            }
         }
 
         this.setState({ error });
@@ -283,27 +277,10 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
         let currentFieldRowInSummary = '';
         let multiSelect = "";
-        let nextButton = "";
 
         if (attribute.type === 'checkboxes') {
             multiSelect =
                 <span className="multi-select"> (select multiple) </span>;
-            if (!expanded) {
-                nextButton =
-                <Grid item xs={2}>
-                    <Button
-                        variant="raised"
-                        classes={{
-                            root: "poc-next-item-btn"
-                        }}
-                        onClick={expanded ? null : this.nextField.bind(this, entryIndex)}
-                    >
-                        <span>
-                            Next
-                        </span>
-                    </Button>
-                </Grid>;
-            }
         }
 
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
@@ -323,7 +300,6 @@ export default class FillPlaceholder extends Component {
                             {this.createFillFieldForPlaceholder(attribute, value, entryIndex)}
                         </span>
                     </Grid>
-                    {nextButton}
                 </Grid>
             );
         }
