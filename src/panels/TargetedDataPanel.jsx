@@ -116,7 +116,7 @@ export default class TargetedDataPanel extends Component {
                         preferenceManager={this.props.preferenceManager}
                         doneEditingMinimap={this.doneEditingMinimap}
                         startEditingMinimap={this.startEditingMinimap}
-                        isTablet={this.props.isTablet}
+                        isRightAligned={this.props.isTablet}
                     >
                         <div id={`summary-subpanel`}>
                             <div className={`summary-section ${tdpDisabledClass}`}>

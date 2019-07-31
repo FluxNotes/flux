@@ -17,7 +17,7 @@ export class Minimap extends React.Component {
       titleAttribute: PropTypes.string,
       onMountCenterOnX: PropTypes.bool,
       onMountCenterOnY: PropTypes.bool,
-      isTablet: PropTypes.bool,
+      isRightAligned: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -116,12 +116,12 @@ export class Minimap extends React.Component {
 
               const wM = width * ratioX;
               let hM = Math.round(height * ratioY);
-              const xM = this.props.isTablet? (sourceRect.width + 92 + 15) : ((left + scrollLeft - sourceRect.left) * ratioX); //92 is the width of the left navigation bar and 15 is buffer space
+              const xM = this.props.isRightAligned? (sourceRect.width + 92 + 15) : ((left + scrollLeft - sourceRect.left) * ratioX); //92 is the width of the left navigation bar and 15 is buffer space
               this.left = xM;
               const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
               const title = node.getAttribute(this.props.titleAttribute);
               const shortTitle = node.getAttribute(this.props.shortTitleAttribute);
-              const childCompLeft = this.props.isTablet? 0 : Math.round( xM );
+              const childCompLeft = this.props.isRightAligned? 0 : Math.round( xM );
               if (hM < 0) {
                   diff += 0 - hM;
                   hM = 0;
@@ -332,7 +332,7 @@ export class Minimap extends React.Component {
   render() {
       const {width, height, inEditMode} = this.state;
       const editButtonText = inEditMode ? 'Done' : 'Edit';
-      const tabletMarginLeft = this.props.isTablet? (this.left + 6) : '0px';
+      const tabletMarginLeft = this.props.isRightAligned? (this.left + 6) : '0px';
 
       return (
           <div
