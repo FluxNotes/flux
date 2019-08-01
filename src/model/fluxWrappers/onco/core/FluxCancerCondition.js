@@ -13,7 +13,7 @@ import FluxTumorMarkerTest from '../onco/core/FluxTumorMarkerTest';
 import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
 import * as lookup from '../../lib/cancer_lookup';
 
-class FluxCancerDisorderPresent extends FluxCondition {
+class FluxCancerCondition extends FluxCondition {
     constructor(json, type, patientRecord) {
         super();
         this._patientRecord = patientRecord;
@@ -353,4 +353,4 @@ class FluxCancerDisorderPresent extends FluxCondition {
     }
 }
 
-export default FluxCancerDisorderPresent;
+export default FluxCancerCondition;
