@@ -1,6 +1,6 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
-import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
+import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
@@ -916,7 +916,7 @@ class PatientRecord {
     }
 
     getMostRecentTumorMarkers(condition) {
-        if (!(condition instanceof FluxCancerDisorderPresent)) return null;
+        if (!(condition instanceof FluxCancerCondition)) return null;
 
         if (condition.isCancerType('Invasive ductal carcinoma of breast')) {
             // Display ER, PR, HER2 if Breast Cancer Condition

@@ -26,7 +26,7 @@ import LoadingError from '../loading/LoadingError';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
-import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
+import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
 import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
@@ -120,7 +120,7 @@ export class PointOfCareApp extends Component {
                     loading: false
                 });
                 const cancer = patient.getActiveConditions().find((condition) => {
-                    return condition instanceof FluxCancerDisorderPresent;
+                    return condition instanceof FluxCancerCondition;
                 });
                 this.setCondition(cancer);
             } catch (error) {
