@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { getNamespaceAndName } from '../../../json-helper';
+=======
+import { getNamespaceAndName } from '../json-helper';
+>>>>>>> Changes for CancerDisorderPresent --> CancerCondition
 import FluxCancerCondition from './FluxCancerCondition';
 import FluxEvidenceType from './FluxEvidenceType';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';

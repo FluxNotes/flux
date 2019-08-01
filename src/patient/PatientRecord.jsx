@@ -1,7 +1,16 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
+<<<<<<< HEAD
 import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
 import FluxClinicalNote from '../model/fluxWrappers/core/FluxClinicalNote';
 import FluxCondition from '../model/fluxWrappers/core/FluxCondition';
+=======
+import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
+import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
+import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
+import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
+import FluxClinicalNote from '../model/core/FluxClinicalNote';
+import FluxCondition from '../model/base/FluxCondition';
+>>>>>>> Changes for CancerDisorderPresent --> CancerCondition
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
