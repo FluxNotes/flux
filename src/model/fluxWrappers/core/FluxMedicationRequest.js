@@ -1,24 +1,22 @@
-import Medication from '../shr/entity/Medication';
+import MedicationCodeOrReference from '../../shr/core/MedicationCodeOrReference';
 import RecurrencePattern from '../shr/core/RecurrencePattern';
 import TimePeriod from '../shr/core/TimePeriod';
 import BeginDateTime from '../shr/core/BeginDateTime';
 import EndDateTime from '../shr/core/EndDateTime';
-import Timing from '../shr/core/Timing';
+import MedicationRequest from '../../shr/core/MedicationRequest';
 import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
 import Type from '../shr/core/Type';
 import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
 import * as lookup from '../../lib/MedicationInformationService.jsx';
-import ClassRegistry from '../ClassRegistry';
 
-class FluxMedicationRequested extends FluxEntry {
+class FluxMedicationRequest extends FluxEntry {
     constructor(json) {
         super();
-        const MedicationRequested = ClassRegistry.get('shr.medication', 'MedicationRequested');
 
-        this._entry = this._medicationRequested = MedicationRequested.fromJSON(json);
-        if (!this._medicationRequested.entryInfo) {
-            this._medicationRequested.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/medication/MedicationRequested');
+        this._entry = this._medicationRequest = MedicationRequest.fromJSON(json);
+        if (!this._medicationRequest.entryInfo) {
+            this._medicationRequest.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/MedicationRequest');
         }
     }
 
@@ -27,19 +25,17 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns object containing timePeriodStart and timePeriodEnd value
      */
     get expectedPerformanceTime() {
-        if (!this._medicationRequested.expectedPerformanceTime) {
+        if (!this._medicationRequest.expectedPerformanceTime) {
             return null;
         }
         // doesn't support Timing option right now
-        if (this._medicationRequested.expectedPerformanceTime.value instanceof Timing) {
-            return null;
-        } else if (this._medicationRequested.expectedPerformanceTime.value instanceof TimePeriod) {
+         if (this._medicationRequest.expectedPerformanceTime.value instanceof TimePeriod) {
             return {
-                timePeriodStart: (this._medicationRequested.expectedPerformanceTime.value.beginDateTime ? this._medicationRequested.expectedPerformanceTime.value.beginDateTime.value : null),
-                timePeriodEnd: (this._medicationRequested.expectedPerformanceTime.value.endDateTime ? this._medicationRequested.expectedPerformanceTime.value.endDateTime.value : null)
+                timePeriodStart: (this._medicationRequest.expectedPerformanceTime.value.beginDateTime ? this._medicationRequest.expectedPerformanceTime.value.beginDateTime.value : null),
+                timePeriodEnd: (this._medicationRequest.expectedPerformanceTime.value.endDateTime ? this._medicationRequest.expectedPerformanceTime.value.endDateTime.value : null)
             };
         } else {
-            const date = this._medicationRequested.expectedPerformanceTime.value;
+            const date = this._medicationRequest.expectedPerformanceTime.value;
             return { timePeriodStart: date, timePeriodEnd: date };
         }
     }
@@ -56,7 +52,7 @@ class FluxMedicationRequested extends FluxEntry {
         //   so we expect it to always be present
         // both statementDateTime and expectedPerformanceTime.timePeriodStart have a value of type dateTime
         // so they should be interchangeable for our purposes
-        if (this._medicationRequested.statementDateTime) return this._medicationRequested.statementDateTime;
+        if (this._medicationRequest.statementDateTime) return this._medicationRequest.statementDateTime;
 
         return null;
     }
@@ -65,16 +61,16 @@ class FluxMedicationRequested extends FluxEntry {
      *  Set the start date and create new objects on medicationRequested object if none exist so that the timePeriodStart can be set
      */
     set startDate(date) {
-        if (!this._medicationRequested.expectedPerformanceTime) {
-            this._medicationRequested.expectedPerformanceTime = new ExpectedPerformanceTime();
+        if (!this._medicationRequest.expectedPerformanceTime) {
+            this._medicationRequest.expectedPerformanceTime = new ExpectedPerformanceTime();
         }
-        if (!this._medicationRequested.expectedPerformanceTime.value) {
-            this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
+        if (!this._medicationRequest.expectedPerformanceTime.value) {
+            this._medicationRequest.expectedPerformanceTime.value = new TimePeriod();
         }
 
         const beginDateTime = new BeginDateTime();
         beginDateTime.value = date;
-        this._medicationRequested.expectedPerformanceTime.value.beginDateTime = beginDateTime;
+        this._medicationRequest.expectedPerformanceTime.value.beginDateTime = beginDateTime;
     }
 
     get endDate() {
@@ -83,16 +79,16 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     set endDate(date) {
-        if (!this._medicationRequested.expectedPerformanceTime) {
-            this._medicationRequested.expectedPerformanceTime = new ExpectedPerformanceTime();
+        if (!this._medicationRequest.expectedPerformanceTime) {
+            this._medicationRequest.expectedPerformanceTime = new ExpectedPerformanceTime();
         }
-        if (!this._medicationRequested.expectedPerformanceTime.value) {
-            this._medicationRequested.expectedPerformanceTime.value = new TimePeriod();
+        if (!this._medicationRequest.expectedPerformanceTime.value) {
+            this._medicationRequest.expectedPerformanceTime.value = new TimePeriod();
         }
 
         const endDateTime = new EndDateTime();
         endDateTime.value = date;
-        this._medicationRequested.expectedPerformanceTime.value.endDateTime = endDateTime;
+        this._medicationRequest.expectedPerformanceTime.value.endDateTime = endDateTime;
     }
 
     isActiveAsOf(date) {
@@ -117,7 +113,7 @@ class FluxMedicationRequested extends FluxEntry {
     }
 
     get entryInfo() {
-        return this._medicationRequested.entryInfo;
+        return this._medicationRequest.entryInfo;
     }
 
     /*
@@ -125,7 +121,7 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns string corresponding to entryId
      */
     get entryId() {
-        return this._medicationRequested.entryInfo.entryId;
+        return this._medicationRequest.entryInfo.entryId;
     }
 
     /*
@@ -133,18 +129,18 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns displayText string for medication
      */
     get medication() {
-        return this._displayTextOrCode(this._medicationRequested.medication.type.value.coding[0]);
+        return this._displayTextOrCode(this._medicationRequest.medicationCodeOrReference.type.value.coding[0]);
     }
 
     /**
      *  Setter for medication
      */
     set medication(medicationName) {
-        const medication = new Medication();
+        const medicationCodeOrReference = new MedicationCodeOrReference();
         const type = new Type();
         type.value = lookup.getCodeableConceptFromName(medicationName);
-        medication.type = type;
-        this._medicationRequested.medication = medication;
+        medicationCodeOrReference.type = type;
+        this._medicationRequest.medicationCodeOrReference = medicationCodeOrReference;
     }
 
     /*
@@ -152,8 +148,8 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns boolean value for medicationsOrCode of medication type. Returns undefined for codeable concepts.
      */
     get overTheCounter() {
-        if (!this._medicationRequested.medication.overTheCounter) return undefined;
-        return this._medicationRequested.medication.overTheCounter.value;
+        if (!this._medicationRequest.medication.overTheCounter) return undefined;
+        return this._medicationRequest.medication.overTheCounter.value;
     }
 
     /*
@@ -161,16 +157,16 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns object with value and units
      */
     get amountPerDose() {
-        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return null;
+        if (!this._medicationRequest.dosage || !this._medicationRequest.dosage.doseAmount) return null;
         return {
-            value: this._medicationRequested.dosage.doseAmount.value.number.decimal,
-            units: this._medicationRequested.dosage.doseAmount.value.units.coding.code.value
+            value: this._medicationRequest.dosage.doseAmount.value.number.decimal,
+            units: this._medicationRequest.dosage.doseAmount.value.units.coding.code.value
         };
     }
 
     set dose(amount) {
-        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.doseAmount) return;
-        this._medicationRequested.dosage.doseAmount.value.number.decimal = amount;
+        if (!this._medicationRequest.dosage || !this._medicationRequest.dosage.doseAmount) return;
+        this._medicationRequest.dosage.doseAmount.value.number.decimal = amount;
     }
 
     /*
@@ -178,9 +174,9 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns object with value and units
      */
     get timingOfDoses() {
-        if (!this._medicationRequested.dosage
-            || !this._medicationRequested.dosage.timingOfDoses) return null;
-        let timingOfDoses = this._medicationRequested.dosage.timingOfDoses;
+        if (!this._medicationRequest.dosage
+            || !this._medicationRequest.dosage.timingOfDoses) return null;
+        let timingOfDoses = this._medicationRequest.dosage.timingOfDoses;
         if (timingOfDoses.timing
             && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
             let units;
@@ -211,7 +207,7 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns status string
      */
     get status() {
-        return this._medicationRequested.status.value; //.coding[0].displayText.value.value;
+        return this._medicationRequest.status.value; //.coding[0].displayText.value.value;
     }
 
     /*
@@ -219,7 +215,7 @@ class FluxMedicationRequested extends FluxEntry {
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequested.metadata.informationRecorder || null;
+        return this._medicationRequest.metadata.informationRecorder || null;
     }
 
     /*
@@ -227,12 +223,12 @@ class FluxMedicationRequested extends FluxEntry {
      * Returns date as a string
      */
     get whenPrescribed() {
-        if (this._medicationRequested.metadata
-            && this._medicationRequested.metadata.authoredDateTime) {
-            return this._medicationRequested.metadata.authoredDateTime.dateTime;
+        if (this._medicationRequest.metadata
+            && this._medicationRequest.metadata.authoredDateTime) {
+            return this._medicationRequest.metadata.authoredDateTime.dateTime;
         }
-        if (this._medicationRequested.statementDateTime) {
-            return this._medicationRequested.statementDateTime.dateTime;
+        if (this._medicationRequest.statementDateTime) {
+            return this._medicationRequest.statementDateTime.dateTime;
         }
         return null;
     }
@@ -242,45 +238,45 @@ class FluxMedicationRequested extends FluxEntry {
      *  Returns array of reasons
      */
     get reasons() {
-        return this._medicationRequested.reason || [];
+        return this._medicationRequest.reason || [];
     }
 
     get code() {
-        return this._medicationRequested.medication.type.value.coding[0].code.value;
+        return this._medicationRequest.medication.type.value.coding[0].code.value;
     }
 
     get routeIntoBody() {
-        if (!this._medicationRequested.dosage || !this._medicationRequested.dosage.routeIntoBody) return null;
-        return this._displayTextOrCode(this._medicationRequested.dosage.routeIntoBody.value.coding[0]);
+        if (!this._medicationRequest.dosage || !this._medicationRequest.dosage.routeIntoBody) return null;
+        return this._displayTextOrCode(this._medicationRequest.dosage.routeIntoBody.value.coding[0]);
     }
 
     get numberOfRefillsAllowed() {
-        if (!this._medicationRequested.numberOfRefillsAllowed) return null;
-        return this._medicationRequested.numberOfRefillsAllowed.value;
+        if (!this._medicationRequest.numberOfRefillsAllowed) return null;
+        return this._medicationRequest.numberOfRefillsAllowed.value;
     }
 
     get asNeededIndicator() {
-        if (!this._medicationRequested.dosage
-            || !this._medicationRequested.dosage.asNeededIndicator) {
+        if (!this._medicationRequest.dosage
+            || !this._medicationRequest.dosage.asNeededIndicator) {
             return null;
         }
-        return this._medicationRequested.dosage.asNeededIndicator.value;
+        return this._medicationRequest.dosage.asNeededIndicator.value;
     }
 
     get doseInstructionsText() {
-        if (!this._medicationRequested.dosage
-            || !this._medicationRequested.dosage.dosageInstructionsText) {
+        if (!this._medicationRequest.dosage
+            || !this._medicationRequest.dosage.dosageInstructionsText) {
             return null;
         }
-        return this._medicationRequested.dosage.dosageInstructionsText.value;
+        return this._medicationRequest.dosage.dosageInstructionsText.value;
     }
 
     /**
      * Return a JSON representation of medicationRequested
      */
     toJSON() {
-        return this._medicationRequested.toJSON();
+        return this._medicationRequest.toJSON();
     }
 }
 
-export default FluxMedicationRequested;
+export default FluxMedicationRequest;

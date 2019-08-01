@@ -1,6 +1,6 @@
 import Condition from '../../shr/core/Condition';
 import FluxCancerDiseaseStatus from '../onco/core/FluxCancerDiseaseStatus';
-import FluxMedicationRequested from '../medication/FluxMedicationRequested';
+import FluxMedicationRequest from '../core/FluxMedicationRequest';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
 import FluxObservation from '../base/FluxObservation';
 import FluxProcedureRequest from '../core/FluxProcedureRequest';
@@ -459,7 +459,7 @@ class FluxCondition extends FluxEntry {
                     hpiText += '\r\n';
                     break;
                 }
-                case FluxMedicationRequested: {
+                case FluxMedicationRequest: {
                     const active = event.isActiveAsOf(today);
                     if (!active) {
                         let medicationText = medicationTemplates['range'];
@@ -520,7 +520,7 @@ class FluxCondition extends FluxEntry {
                 if (!a_startTime.isValid()) a_startTime = new moment(a.occurrenceTime.timePeriodStart, "D MMM YYYY");
                 break;
             }
-            case FluxMedicationRequested: {
+            case FluxMedicationRequest: {
                 a_startTime = new moment(a.expectedPerformanceTime, "D MMM YYYY");
                 if (!a_startTime.isValid()) a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
@@ -545,7 +545,7 @@ class FluxCondition extends FluxEntry {
                 if (!b_startTime.isValid()) b_startTime = new moment(b.occurrenceTime.timePeriodStart, "D MMM YYYY");
                 break;
             }
-            case FluxMedicationRequested: {
+            case FluxMedicationRequest: {
                 b_startTime = new moment(b.expectedPerformanceTime, "D MMM YYYY");
                 if (!b_startTime.isValid()) b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
