@@ -4,8 +4,10 @@
     border-radius: 5px !important;
     border-color: $background;
     line-height: 0.9rem !important;
-    margin: 0.5px !important;
-
+    margin: 2px !important;
+    width: 115px !important;
+    height: 47px !important;
+    border-radius: 4px !important;
     &.selected {
       background-color: $interface-blue !important;
       color: $background;

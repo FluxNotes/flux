@@ -8,13 +8,17 @@
 .done-checkbox {
     margin-inline-end: 5px;
     vertical-align: top;
+    color: $state-gray;
+    font-weight: $weight-regular;
+    font-size: 13px;
 }
 
 .shortcut-name {
     margin-inline-end: 10px;
     vertical-align: top;
-    font-weight: bold;
-    font-size: 0.9rem;
+    font-weight: $weight-semibold;
+    font-size: 13px;
+    color: $body-black;
 }
 .error-message {
     color: #FF0000;
@@ -63,12 +67,12 @@
 .date-picker-container > * {
     z-index: 999;
 }
-.MuiExpansionPanelSummary-expandIcon-234 {
+.MuiExpansionPanelSummary-expandIcon-234 { //expand icon when not expanded
     left: -15px;
     right: unset !important;
     transform: translateY(-50%) rotate(-90deg) !important;
 }
-.MuiExpansionPanelSummary-expandIconExpanded-235 {
+.MuiExpansionPanelSummary-expandIconExpanded-235 { //expand icon when expanded
     transform: translateY(-50%) rotate(0deg) !important;
 }
 /* Allows calendar picker modal to overflow over ExpansionPanel */
@@ -98,7 +102,9 @@
 }
 
 .attribute-title {
-    font-size: 0.9rem;
+    font-size: 13px;
+    font-weight: $weight-regular;
+    color: $body-black;
 }
 
 .field-row {
@@ -106,19 +112,9 @@
 }
 
 .multi-select {
-    font-size: 12px;
-}
-
-.poc-next-item-btn {
-    float: right;
-    line-height: 2.1rem;
-    text-transform: none;
-    background-color: white !important;
-    padding-top: 20px; 
-}
-
-.poc-next-item-btn:hover {
-    background-color: #E6E6E6 !important;
+    font-size: 11px;
+    font-weight: $weight-regular;
+    color: $body-black;
 }
 
 @media only screen and (max-width: 1024px) { 
