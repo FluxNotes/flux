@@ -2,7 +2,7 @@ import MetadataSection from "./MetadataSection";
 import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
 import Lang from 'lodash';
-import FluxCancerDisorderPresent from "../../model/oncocore/FluxCancerDisorderPresent";
+import FluxCancerCondition from "../../model/fluxWrappers/onco/core/FluxCancerCondition";
 
 export default class PathologySection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -103,7 +103,7 @@ export default class PathologySection extends MetadataSection {
         };
 
         // Include receptor statuses for Breast Cancer metadata
-        if (condition instanceof FluxCancerDisorderPresent && condition.isCancerType('Invasive ductal carcinoma of breast')) {
+        if (condition instanceof FluxCancerCondition && condition.isCancerType('Invasive ductal carcinoma of breast')) {
             metadata.narrative.push({
                 defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
             });

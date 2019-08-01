@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import IActiveTreatmentSummary from './IActiveTreatmentSummary';
-import FluxCancerDisorderPresent from '../../model/oncocore/FluxCancerDisorderPresent';
+import FluxCancerCondition from '../../model/fluxWrappers/onco/core/FluxCancerCondition';
 
 class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummary {
     constructor() {
@@ -34,7 +34,7 @@ class CancerDisorderPresentActiveTreatmentSummary extends IActiveTreatmentSummar
 
     getActiveTreatmentSummary(patient, currentConditionEntry) {
         // If the condition isn't a cancer, return null - this algorithm cannot provide information about
-        if (!currentConditionEntry instanceof FluxCancerDisorderPresent) return null;
+        if (!currentConditionEntry instanceof FluxCancerCondition) return null;
         let activeTreatment = {};
         // Get all relevant medications
         const activeNonOTCMeds = this._getActiveNonOTCMedsForCondition(patient, currentConditionEntry);
