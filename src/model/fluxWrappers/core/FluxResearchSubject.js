@@ -1,7 +1,7 @@
 import ResearchSubject from '../shr/research/ResearchSubject';
 import FluxEntry from '../base/FluxEntry';
 import Status from '../shr/core/Status';
-import Study from '../shr/research/Study';
+import ResearchStudy from '../../shr/core/ResearchStudy';
 import TimePeriod from '../shr/core/TimePeriod';
 import Title from '../shr/core/Title';
 import CommentOrDescription from '../shr/core/CommentOrDescription';
@@ -17,7 +17,7 @@ class FluxResearchSubject extends FluxEntry {
         super();
         this._entry = this._researchSubject = ResearchSubject.fromJSON(json);
         if (!this._researchSubject.entryInfo) {
-            this._researchSubject.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/research/ResearchSubject');
+            this._researchSubject.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/ResearchSubject');
         }
     }
 
@@ -30,17 +30,17 @@ class FluxResearchSubject extends FluxEntry {
      *  This will return the displayText value from the Title object
      */
     get title() {
-        if (this._researchSubject.study && this._researchSubject.study.title) {
-            return this._researchSubject.study.title.value;
+        if (this._researchSubject.researchStudy && this._researchSubject.researchStudy.title) {
+            return this._researchSubject.researchStudy.title.value;
         } else {
             return "";
         }
     }
 
-    _createStudyIfNeeded() {
-        if (!this._researchSubject.study) {
-            this._researchSubject.study = new Study();
-            this._researchSubject.study.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/research/Study');
+    _createResearchStudyIfNeeded() {
+        if (!this._researchSubject.researchStudy) {
+            this._researchSubject.researchStudy = new ResearchStudy();
+            this._researchSubject.researchStudy.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/ResearchStudy');
         }
     }
 
@@ -50,23 +50,23 @@ class FluxResearchSubject extends FluxEntry {
      *  The method will create a Title object and set the value to the title string
      */
     set title(title) {
-        this._createStudyIfNeeded();
+        this._createResearchStudyIfNeeded();
 /*        if (Lang.isNull(title)) {
             this._researchSubject.study.title = null;
             return;
         }*/
-        if (!this._researchSubject.study.title) {
-            this._researchSubject.study.title = new Title();
+        if (!this._researchSubject.researchStudy.title) {
+            this._researchSubject.researchStudy.title = new Title();
         }
-        this._researchSubject.study.title.value = title;
+        this._researchSubject.researchStudy.title.value = title;
     }
     /**
      *  Getter for detail
      *  This will return the displayText value from the CommentOrDescription object
      */
     get details() {
-        if (this._researchSubject.study && this._researchSubject.study.commentOrDescription) {
-            return this._researchSubject.study.commentOrDescription.value;
+        if (this._researchSubject.researchStudy && this._researchSubject.researchStudy.commentOrDescription) {
+            return this._researchSubject.researchStudy.commentOrDescription.value;
         } else {
             return "";
         }
@@ -79,10 +79,10 @@ class FluxResearchSubject extends FluxEntry {
      */
     set details(description) {
         if (Lang.isNull(description)) return;
-        this._createStudyIfNeeded();
+        this._createResearchStudyIfNeeded();
         let commentOrDescriptionObj = new CommentOrDescription();
         commentOrDescriptionObj.value = description;
-        this._researchSubject.study.commentOrDescription = commentOrDescriptionObj;
+        this._researchSubject.researchStudy.commentOrDescription = commentOrDescriptionObj;
     }
 
     /**
@@ -90,7 +90,7 @@ class FluxResearchSubject extends FluxEntry {
      *  This will return the displayText value from the Identifier object
      */
     get identifier() {
-        return this._researchSubject.study.identifier.value || "";
+        return this._researchSubject.researchStudy.identifier.value || "";
     }
 
     /**
@@ -99,10 +99,10 @@ class FluxResearchSubject extends FluxEntry {
      *  The method will create an Identifier object and set the value to the identifier string
      */
     set identifier(identifier) {
-        this._createStudyIfNeeded();
+        this._createResearchStudyIfNeeded();
         let i = new Identifier();
         i.value = identifier;
-        this._researchSubject.study.identifier = i;
+        this._researchSubject.researchStudy.identifier = i;
     }
 
     get enrollmentDate() {
