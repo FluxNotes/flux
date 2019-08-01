@@ -17,6 +17,7 @@ export class Minimap extends React.Component {
       titleAttribute: PropTypes.string,
       onMountCenterOnX: PropTypes.bool,
       onMountCenterOnY: PropTypes.bool,
+      isRightAligned: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -50,6 +51,7 @@ export class Minimap extends React.Component {
 
       this.downState = false;
       this.initState = false;
+      this.left = 0;
   }
 
   componentDidMount() {
@@ -114,11 +116,12 @@ export class Minimap extends React.Component {
 
               const wM = width * ratioX;
               let hM = Math.round(height * ratioY);
-              const xM = (left + scrollLeft - sourceRect.left) * ratioX;
+              const xM = this.props.isRightAligned? (sourceRect.width + 92 + 15) : ((left + scrollLeft - sourceRect.left) * ratioX); //92 is the width of the left navigation bar and 15 is buffer space
+              this.left = xM;
               const yM = ((top + scrollTop - sourceRect.top) * ratioY) + diff;
               const title = node.getAttribute(this.props.titleAttribute);
               const shortTitle = node.getAttribute(this.props.shortTitleAttribute);
-
+              const childCompLeft = this.props.isRightAligned? 0 : Math.round( xM );
               if (hM < 0) {
                   diff += 0 - hM;
                   hM = 0;
@@ -129,7 +132,7 @@ export class Minimap extends React.Component {
                       key={title}
                       width={Math.round( wM )}
                       height={hM}
-                      left={Math.round( xM )}
+                      left={childCompLeft}
                       top={Math.round( yM )}
                       node={node}
                       title={title}
@@ -329,6 +332,7 @@ export class Minimap extends React.Component {
   render() {
       const {width, height, inEditMode} = this.state;
       const editButtonText = inEditMode ? 'Done' : 'Edit';
+      const tabletMarginLeft = this.props.isRightAligned? (this.left + 6) : '0px';
 
       return (
           <div
@@ -336,10 +340,10 @@ export class Minimap extends React.Component {
               onScroll={this.resize}
               ref={(source) => {this.source = source;}}
           >
-              <div className="minimap-children-wrapper">
+              <div className="minimap-children-wrapper" style={{marginLeft: tabletMarginLeft}}>
                   <button
                       className="minimap-children edit-button"
-                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px` }}
+                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`}}
                       onClick={this.editMinimapSections}>
                       {editButtonText}
                   </button>

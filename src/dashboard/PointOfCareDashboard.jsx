@@ -218,6 +218,7 @@ export default class PointOfCareDashboard extends Component {
                     appState={this.props.appState}
                     highlightedSearchSuggestion={this.props.highlightedSearchSuggestion}
                     isNoteViewerEditable={false}
+                    isTablet={this.props.isTablet}
                     isTargetedDataSubpanelVisible={true}
                     isWide={true}
                     loginUser={this.props.loginUser}
@@ -278,4 +279,5 @@ PointOfCareDashboard.propTypes = {
     structuredFieldMapManager: PropTypes.object.isRequired,
     searchSuggestions: PropTypes.array,
     highlightedSearchSuggestion: PropTypes.object,
+    isTablet: PropTypes.bool
 };
