@@ -11,7 +11,6 @@ import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
 import Lang from 'lodash';
-import Reference from '../model/Reference';
 
 import SecurityManager from '../security/SecurityManager';
 import CompassAppDashboard from '../dashboard/CompassAppDashboard';
@@ -190,20 +189,6 @@ export class CompassApp extends Component {
         this.setState({
             highlightedSearchSuggestion: suggestion
         });
-    }
-
-    sourceActionIsDisabled = (element) => {
-        if (!element.source || element.source.sourceMessage === "") {
-            return true;
-        }
-        return false;
-    }
-
-    nameSourceAction = (element) => {
-        if (element.source) {
-            return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
-        }
-        return "No source information";
     }
 
     handleModalClose = () => {
