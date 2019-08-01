@@ -30,7 +30,7 @@ CONFIG = {
         display: 'Compass™',
         app: "CompassApp",
         isExact: true,
-        dataSource: 'McodeV05SmartOnFhirDataSource',
+        dataSource: 'GenericSmartOnFhirDstu2DataSource',
         dataSourceProps: {
             resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure'],
             mapper: 'syntheaToV05'
