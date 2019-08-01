@@ -7,7 +7,7 @@ import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxCondition from '../model/base/FluxCondition';
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
-import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
+import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/entity/FluxPatient';
@@ -596,7 +596,7 @@ class PatientRecord {
     }
 
     getMedications() {
-        return this.getEntriesOfType(FluxMedicationRequested);
+        return this.getEntriesOfType(FluxMedicationRequest);
     }
 
     getMedicationsAsText() {
@@ -640,7 +640,7 @@ class PatientRecord {
         let medications = this.getMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -709,7 +709,7 @@ class PatientRecord {
         let medications = this.getActiveMedications();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });
@@ -736,7 +736,7 @@ class PatientRecord {
         let medications = this.getActiveMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -747,7 +747,7 @@ class PatientRecord {
         let medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
