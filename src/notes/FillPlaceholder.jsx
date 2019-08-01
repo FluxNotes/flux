@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid';
-import Checkbox from 'material-ui/Checkbox';
+// import Checkbox from 'material-ui/Checkbox';
 import Divider from 'material-ui/Divider';
 import ExpansionPanel, { ExpansionPanelSummary, ExpansionPanelDetails } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
@@ -380,7 +380,7 @@ export default class FillPlaceholder extends Component {
     }
 
     renderCheckbox = () => {
-        const { done } = this.state;
+        // const { done } = this.state;
         const { placeholder } = this.props;
 
         return (
@@ -389,7 +389,7 @@ export default class FillPlaceholder extends Component {
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span> */}
                 <span className="shortcut-name" key="0">
-                    {placeholder.shortcutName}
+                    {placeholder.shortcutName.substring(1,placeholder.shortcutName.length)}
                 </span>
             </Grid>
         );

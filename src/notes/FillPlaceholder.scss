@@ -65,7 +65,11 @@
 }
 .MuiExpansionPanelSummary-expandIcon-234 {
     left: -15px;
-    right: unset;
+    right: unset !important;
+    transform: translateY(-50%) rotate(-90deg) !important;
+}
+.MuiExpansionPanelSummary-expandIconExpanded-235 {
+    transform: translateY(-50%) rotate(0deg) !important;
 }
 /* Allows calendar picker modal to overflow over ExpansionPanel */
 .expanded-style > * {
