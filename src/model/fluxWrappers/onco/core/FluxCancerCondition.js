@@ -1,10 +1,10 @@
 import Lang from 'lodash';
 import moment from 'moment';
 import FluxCondition from '../base/FluxCondition';
-import CancerDisorderPresent from './CancerDisorderPresent';
+import CancerCondition from '../../../onco/core/CancerCondition';
 import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
 import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
-import FluxCancerHistologicGrade from '../oncocore/FluxCancerHistologicGrade';
+import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
 import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
 import FluxKarnofskyPerformanceStatus from '../core/FluxKarnofskyPerformanceStatus';
 import FluxECOGPerformanceStatus from '../core/FluxECOGPerformanceStatus';
@@ -17,7 +17,7 @@ class FluxCancerCondition extends FluxCondition {
     constructor(json, type, patientRecord) {
         super();
         this._patientRecord = patientRecord;
-        this._condition = this._entry = CancerDisorderPresent.fromJSON(json);
+        this._condition = this._entry = CancerCondition.fromJSON(json);
     }
 
     toJSON() {

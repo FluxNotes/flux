@@ -1,14 +1,14 @@
-import CancerHistologicGrade from './CancerHistologicGrade';
+import CancerHistologicGrade from '../../../onco/core/CancerHistologicGrade';
 import FluxObservation from '../base/FluxObservation';
 
 class FluxCancerHistologicGrade extends FluxObservation {
     constructor(json) {
         super();
-        this._histologicGrade = this._observation = this._entry = CancerHistologicGrade.fromJSON(json);
+        this._cancerHistologicGrade = this._observation = this._entry = CancerHistologicGrade.fromJSON(json);
     }
 
     get entryInfo() {
-        return this._histologicGrade.entryInfo;
+        return this._cancerHistologicGrade.entryInfo;
     }
 
     /**
@@ -16,11 +16,11 @@ class FluxCancerHistologicGrade extends FluxObservation {
      *  This will return the displayText string from CodeableConcept Value
      */
     get grade() {
-        return this._displayTextOrCode(this._histologicGrade.findingResult.value.coding[0]);
+        return this._displayTextOrCode(this._cancerHistologicGrade.dataValue.value.coding[0]);
     }
 
     getGradeAsSimpleNumber() {
-        const code = this._histologicGrade.findingResult.value.coding[0].code.value;
+        const code = this._cancerHistologicGrade.dataValue.value.coding[0].code.value;
         if (code === "369792005") {
             return 3;
         } else if (code === "369791003") {
@@ -48,7 +48,7 @@ class FluxCancerHistologicGrade extends FluxObservation {
     }
 
     toJSON() {
-        return this._histologicGrade.toJSON();
+        return this._cancerHistologicGrade.toJSON();
     }
 }
 
