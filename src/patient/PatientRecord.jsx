@@ -12,14 +12,14 @@ import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/entity/FluxPatient';
 import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
-import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
+import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
 import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/research/FluxResearchSubject';
-import FluxBloodPressure from '../model/vital/FluxBloodPressure';
-import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
-import FluxBodyWeight from '../model/vital/FluxBodyWeight';
-import FluxHeartRate from '../model/vital/FluxHeartRate';
-import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
+import FluxBloodPressure from '../model/fluxWrappers/vital/FluxBloodPressure';
+import FluxBodyTemperature from '../model/fluxWrappers/core/FluxBodyTemperature';
+import FluxBodyWeight from '../model/fluxWrappers/core/FluxBodyWeight';
+import FluxHeartRate from '../model/fluxWrappers/core/FluxHeartRate';
+import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
 import FluxPathologyReport from '../model/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
@@ -799,7 +799,7 @@ class PatientRecord {
     }
 
     getRecentImagingChronologicalOrder() {
-        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
         const numberOfMonths = 6;
         const sinceDate = new moment(moment().subtract(numberOfMonths, 'months'), 'D MMM YYYY');
 
@@ -835,7 +835,7 @@ class PatientRecord {
     }
 
     getProcedures() {
-        return this.getEntriesOfType(FluxProcedureRequested);
+        return this.getEntriesOfType(FluxProcedureRequest);
     }
 
     getProceduresChronologicalOrder() {
@@ -847,7 +847,7 @@ class PatientRecord {
     getProceduresForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedureRequested && item.reasons && item.reasons.some((r) => {
+            return item instanceof FluxProcedureRequest && item.reasons && item.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });
@@ -864,7 +864,7 @@ class PatientRecord {
     }
 
     getImagingProceduresForConditionChronologicalOrder(condition) {
-        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
 
         imagingProcedures.sort(this._proceduresTimeSorter);
