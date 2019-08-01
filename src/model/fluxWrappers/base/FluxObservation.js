@@ -65,28 +65,6 @@ class FluxObservation extends FluxEntry {
         }
     }
 
-    get subjectOfRecord() {
-        if (this._observation.subjectOfRecord) {
-            return this._observation.subjectOfRecord;
-        }
-        return null;
-    }
-
-    set subjectOfRecord(val) {
-        this._observation.subjectOfRecord = val;
-    }
-
-    setSubjectOfRecord(obj) {
-        if (!obj) {
-            this.subjectOfRecord = null;
-        } else {
-            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let sff = new SubjectOfRecord();
-            sff.value = ref;
-            this.subjectOfRecord = sff;
-        }
-    }
-
     toJSON() {
         return this._observation.toJSON();
     }
