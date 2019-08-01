@@ -261,7 +261,6 @@ export class PointOfCareApp extends Component {
         if (item.source.link) {
             window.open(`${item.source.link}`);
         }
-
         // if item.source.note is defined, open the referenced note
         else if (item.source.note) {
             const sourceNote = this.state.patient.getEntryFromReference(item.source.note);
@@ -269,7 +268,6 @@ export class PointOfCareApp extends Component {
                 openClinicalNote: sourceNote,
                 isModalOpen: true,
             });
-            this.setModalContent(item, itemLabel, sourceNote);
         } else {
             const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
             const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
@@ -280,31 +278,6 @@ export class PointOfCareApp extends Component {
                 modalContent: item.source.sourceMessage
             });
         }
-    }
-
-    setModalContent = (item, itemLabel, sourceNote) => {
-        let date;
-        let authorString = "";
-        let dateString = "";
-        let clinicianName;
-        const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
-        const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
-        const currNote = sourceNote;
-        if (currNote.signed) {
-            date = currNote.signedOn;
-            clinicianName = currNote.signedBy;
-            authorString = "Signed by: ";
-            dateString = "Signed date: ";
-        } else {
-            date = currNote.createdOn;
-            clinicianName = currNote.createdBy;
-            authorString = "Created by: ";
-            dateString = "Created date: ";
-        }
-        this.setState({
-            modalTitle: title,
-            modalContent: authorString + clinicianName + "\n" + dateString + date + "\n\n" + currNote.content,
-        });
     }
 
     handleModalClose = () => {
