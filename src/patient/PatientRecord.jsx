@@ -1,5 +1,4 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
-import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
 import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
 import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
@@ -31,6 +30,7 @@ import moment from 'moment';
 import { v4 } from 'uuid';
 import _ from 'lodash';
 import Metadata from '../model/shr/base/Metadata';
+import FluxAllergyIntolerance from '../model/fluxWrappers/core/FluxAllergyIntolerance';
 
 class PatientRecord {
     constructor(shrJson = null) {

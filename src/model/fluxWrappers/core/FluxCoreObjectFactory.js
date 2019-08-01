@@ -12,6 +12,7 @@ import FluxHeartRate from './FluxHeartRate';
 import FluxResearchStudy from './FluxResearchStudy';
 import FluxResearchSubject from './FluxResearchSubject';
 import FluxMedicationRequest from './FluxMedicationRequest';
+import FluxAllergyIntolerance from './FluxAllergyIntolerance';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -21,6 +22,7 @@ export default class FluxCoreObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrCoreObjectFactory
         switch (elementName) {
+            case 'AllergyIntolerance': return new FluxAllergyIntolerance(json);
             case 'BloodPressure': return new FluxBloodPressure(json);
             case 'BodyTemperature': return new FluxBodyTemperature(json);
             case 'BodyWeight': return new FluxBodyWeight(json);
