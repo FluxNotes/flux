@@ -10,6 +10,7 @@ import FluxBodyTemperature from './FluxBodyTemperature';
 import FluxBodyWeight from './FluxBodyWeight';
 import FluxHeartRate from './FluxHeartRate';
 import FluxResearchStudy from './FluxResearchStudy';
+import FluxResearchSubject from './FluxResearchSubject';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -29,6 +30,7 @@ export default class FluxCoreObjectFactory {
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
             case 'ResearchStudy': return new FluxResearchStudy(json);
+            case 'ResearchSubject': return new FluxResearchSubject(json);
             default: return ShrCoreObjectFactory.createInstance(json, type);
         }
     }
