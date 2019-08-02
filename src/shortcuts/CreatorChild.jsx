@@ -42,8 +42,6 @@ export default class CreatorChild extends Shortcut {
             }
         }
         if (trigger === this.metadata.label) {
-            // Set text to the label value (placeholder)
-            this.text = this._getTriggerWithoutPrefix(trigger);
             this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
         } else if (!found || !picker) {
             this.setText(trigger, updatePatient);
@@ -130,7 +128,7 @@ export default class CreatorChild extends Shortcut {
     }
 
     getDisplayText() {
-        return this.text;
+        return this.text ? this.text : this._getTriggerWithoutPrefix(this.metadata.label);
     }
 
 
