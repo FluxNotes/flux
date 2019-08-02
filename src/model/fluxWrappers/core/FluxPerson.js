@@ -45,7 +45,7 @@ class FluxPerson {
 
     get race() {
         if (this._person.race) {
-            return this._person.race.raceCode.value.coding[0].code.value;
+            return this._person.race.raceCode.value.coding[0].codeValue;
         }
 
         return null;
@@ -53,7 +53,7 @@ class FluxPerson {
 
     get gender() {
         if (this._person.administrativeGender) {
-            return this._person.administrativeGender.value.coding[0].code.value;
+            return this._person.administrativeGender.value.coding[0].codeValue;
         }
         return null;
     }
