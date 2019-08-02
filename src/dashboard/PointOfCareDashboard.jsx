@@ -202,7 +202,7 @@ export default class PointOfCareDashboard extends Component {
         return (
             <div className='content'>
                 <div className='poc-nav-bar'>
-                    <span style={{whiteSpace: 'nowrap', width: '92px'}}>
+                    <span style={{whiteSpace: 'nowrap'}}>
                         <Button onClick={() => this.togglePOC(false)}>
                             {this.renderTdpIcon()}
                         </Button>
