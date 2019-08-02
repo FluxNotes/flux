@@ -15,6 +15,8 @@ import FluxMedicationRequest from './FluxMedicationRequest';
 import FluxAllergyIntolerance from './FluxAllergyIntolerance';
 import FluxPerson from './FluxPerson';
 import FluxPatient from './FluxPatient';
+import FluxEncounter from './FluxEncounter';
+import FluxReferralRequest from './FluxReferralRequest';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -29,6 +31,7 @@ export default class FluxCoreObjectFactory {
             case 'BodyTemperature': return new FluxBodyTemperature(json);
             case 'BodyWeight': return new FluxBodyWeight(json);
             case 'ClinicalNote': return new FluxClinicalNote(json);
+            case 'Encounter': return new FluxEncounter(json);
             case 'HeartRate': return new FluxHeartRate(json);
             case 'ImagingProcedure': return new FluxImagingProcedure(json);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json);
@@ -37,6 +40,7 @@ export default class FluxCoreObjectFactory {
             case 'Person': return new FluxPerson(json);
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
+            case 'ReferralRequest': return new FluxReferralRequest(json);
             case 'ResearchStudy': return new FluxResearchStudy(json);
             case 'ResearchSubject': return new FluxResearchSubject(json);
             default: return ShrCoreObjectFactory.createInstance(json, type);
