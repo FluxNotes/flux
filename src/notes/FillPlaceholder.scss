@@ -15,6 +15,18 @@
         font-size: 13px;
     }
 
+    .expand-icon {
+        right: unset !important;
+        transform: rotate(-90deg) !important;
+    }
+    .close-expand-icon {
+        transform: rotate(180deg) !important;
+    }
+    .summary-panel {
+        div[role='button'] {
+            left: -15px !important;
+        }
+    }
     .shortcut-name {
         margin-inline-end: 10px;
         vertical-align: top;
@@ -65,19 +77,7 @@
     .date-picker-container > * {
         z-index: 999;
     }
-
-    .MuiExpansionPanelSummary-expandIcon-452 {
-        //expand icon when not expanded
-        left: -15px;
-        right: unset !important;
-        transform: translateY(-50%) rotate(-90deg) !important;
-    }
-
-    .MuiExpansionPanelSummary-expandIconExpanded-453 {
-        //expand icon when expanded
-        transform: translateY(-50%) rotate(0deg) !important;
-    }
-
+    
     .arrow-container {
         float: right;
         margin-right: 5px;

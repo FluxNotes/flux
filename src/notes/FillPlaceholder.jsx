@@ -389,11 +389,12 @@ export default class FillPlaceholder extends Component {
     renderSingleEntryPlaceholder = () => {
         const { expanded, done } = this.state;
         const { backgroundColor } = this.props;
-        const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
+        let expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} className='expand-icon'/>; // remove expand icon if done
+        expandIcon = expanded? <ExpandMoreIcon onClick={this.onExpand} className='close-expand-icon'/> : expandIcon;
 
         return (
             <ExpansionPanel expanded={expanded} className="expanded-style">
-                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
+                <ExpansionPanelSummary className='summary-panel' style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     <Grid container>
                         {this.renderCheckbox()}
                         <Grid item xs={10} style={{width: '100%'}}>
@@ -472,11 +473,11 @@ export default class FillPlaceholder extends Component {
                 </div>
             </Grid>
         );
-        const expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} />; // remove expand icon if done
-
+        let expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} className='expand-icon'/>; // remove expand icon if done
+        expandIcon = expanded? <ExpandMoreIcon onClick={this.onExpand} className='close-expand-icon'/> : expandIcon;
         return (
             <ExpansionPanel expanded={expanded} className="expanded-style">
-                <ExpansionPanelSummary style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
+                <ExpansionPanelSummary className='summary-panel' style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     {expansionSummary}
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails style={{ backgroundColor }}>
