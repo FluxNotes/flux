@@ -26,28 +26,28 @@ export default class FillPlaceholder extends Component {
         this.onDone = this.onDone.bind(this);
         this.calendarDom = null;
 
-        const firstUnfilledFields = placeholder.entryShortcuts.map((_, i) => {
-            // Determine the first field with no data entered for it; this field will be displayed upon startup.
-            const firstUnfilledField = placeholder.attributes.findIndex(attribute => !this.isValidAttribute(placeholder.getAttributeValue(attribute.name, i)));
+        // const firstUnfilledFields = placeholder.entryShortcuts.map((_, i) => {
+        //     // Determine the first field with no data entered for it; this field will be displayed upon startup.
+        //     const firstUnfilledField = placeholder.attributes.findIndex(attribute => !this.isValidAttribute(placeholder.getAttributeValue(attribute.name, i)));
 
-            return firstUnfilledField;
-        });
+        //     return firstUnfilledField;
+        // });
 
         // If all fields are filled out, mark as done for single entry placeholders
         // Wrap around to first field for multiple entry placeholders
         let done = false;
-        let currentField;
-        if (firstUnfilledFields.length === 1 && placeholder.multiplicity !== 'many') {
-            if (firstUnfilledFields[0] === -1) {
-                done = true;
-                currentField = [0];
-            } else {
-                currentField = [firstUnfilledFields[0]];
-            }
-        } else {
-            const finishedFields = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField === -1);
-            currentField = finishedFields.map((d, i) => (!d ? firstUnfilledFields[i] : 0));
-        }
+        let currentField = [0];
+        // if (firstUnfilledFields.length === 1 && placeholder.multiplicity !== 'many') {
+        //     if (firstUnfilledFields[0] === -1) {
+        //         done = true;
+        //         currentField = [0];
+        //     } else {
+        //         currentField = [firstUnfilledFields[0]];
+        //     }
+        // } else {
+        //     const finishedFields = firstUnfilledFields.map(firstUnfilledField => firstUnfilledField === -1);
+        //     currentField = finishedFields.map((d, i) => (!d ? firstUnfilledFields[i] : 0));
+        // }
 
         // If placeholder had been previously filled out, mark as done.
         if (placeholder.done) done = true;
@@ -250,18 +250,21 @@ export default class FillPlaceholder extends Component {
         const { placeholder } = this.props;
         let currentFieldRowInSummary = '';
         let multiSelect = "";
-
+        let centerFieldName = 'centered-field';
         if (attribute.type === 'checkboxes') {
             multiSelect =
                 <span className="multi-select"> (select multiple) </span>;
         }
 
         const value = placeholder.getAttributeValue(attribute.name, entryIndex);
+        if (attribute.type === 'radioButtons' || attribute.type === 'checkboxes' || attribute.type === 'menuItems') {
+            centerFieldName = 'not-centered-field';
+        }
         if (expanded || !done) {
             currentFieldRowInSummary = (
                 <Grid className="field-row" container key={attribute.name}>
                     <Grid item xs={1} />
-                    <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
+                    <Grid item xs={2} style={{ display: 'flex' }} className={centerFieldName}>
                         <span className="attribute-title">
                             {attribute.title} <br/>
                             {multiSelect}

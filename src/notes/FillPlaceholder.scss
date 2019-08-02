@@ -8,7 +8,7 @@
 .done-checkbox {
     margin-inline-end: 5px;
     vertical-align: top;
-    color: $state-gray;
+    color: $state;
     font-weight: $weight-regular;
     font-size: 13px;
 }
@@ -107,6 +107,13 @@
     color: $body-black;
 }
 
+.centered-field {
+    align-items: center;
+}
+.not-centered-field {
+    align-items: baseline !important;
+    padding-top: 23.5px !important;
+}
 .field-row {
     margin-top: 5px !important;
 }
