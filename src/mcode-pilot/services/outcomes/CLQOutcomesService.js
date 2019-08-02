@@ -8,6 +8,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.serviceUrl = params.serviceUrl;
         this.timescale = params.timescale || [];
         this.apiKey = params.apiKey;
+        this.filters = params.filters;
     }
 
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria

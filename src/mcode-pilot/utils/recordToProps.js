@@ -4,7 +4,7 @@ import FluxTNMClinicalPrimaryTumorClassification from '../../model/oncocore/Flux
 import FluxTNMClinicalRegionalNodesClassification from '../../model/oncocore/FluxTNMClinicalRegionalNodesClassification';
 import FluxTNMClinicalDistantMetastasesClassification from '../../model/oncocore/FluxTNMClinicalDistantMetastasesClassification';
 
-export default function getProps(patient, condition) {
+export default function getProps(patient, condition, filters) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
     let tnminfo;
@@ -134,7 +134,7 @@ export default function getProps(patient, condition) {
     }
 
 
-    return _mapProp(propDict);
+    return _mapProp(propDict, filters);
 }
 
 function _safeGet(object, property) {
@@ -160,7 +160,7 @@ function processPanel(panelMembers, patient) {
 }
 
 // a map of similar patient props to the patient record
-function _mapProp(propDict) {
+function _mapProp(propDict, filters) {
     const similarPatientProps = {};
     // categories
     for (const key of Object.keys(propDict)) {
@@ -174,7 +174,8 @@ function _mapProp(propDict) {
             const option = propDict[key][prop];
             // drops option boxes that don't have
             // a value from the patient record
-            if (option.value) {
+            if ((filters!==undefined && filters.includes(option.mcodeElement) && option.value !== null && option.value !== undefined) ||
+                 (filters===undefined && option.value !== null && option.value !== undefined)) {
                 let propEntry = {
                     selected: false,
                     displayText: option.display
