@@ -13,6 +13,8 @@ import FluxResearchStudy from './FluxResearchStudy';
 import FluxResearchSubject from './FluxResearchSubject';
 import FluxMedicationRequest from './FluxMedicationRequest';
 import FluxAllergyIntolerance from './FluxAllergyIntolerance';
+import FluxPerson from './FluxPerson';
+import FluxPatient from './FluxPatient';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -31,6 +33,8 @@ export default class FluxCoreObjectFactory {
             case 'ImagingProcedure': return new FluxImagingProcedure(json);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json);
             case 'MedicationRequest': return new FluxMedicationRequest(json);
+            case 'Patient': return new FluxPatient(json);
+            case 'Person': return new FluxPerson(json);
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
             case 'ResearchStudy': return new FluxResearchStudy(json);
