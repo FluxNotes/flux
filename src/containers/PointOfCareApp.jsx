@@ -119,7 +119,7 @@ export class PointOfCareApp extends Component {
         this.setState({ contextManager: this.contextManager });
     }
 
-    loadPatient(patientId) {
+    loadPatient = (patientId) => {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
