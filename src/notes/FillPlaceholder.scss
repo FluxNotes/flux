@@ -31,14 +31,14 @@
 
 .fill-missing-data {
     margin-inline-end: 20px;
-    border-bottom: 1px solid rgba(255, 0, 0, 0.5);
+    border-bottom: 1px solid $missing-data-red;
     text-decoration: none;
     font-size: 0.9rem;
 }
 
 .fill-structured-data {
     margin-inline-end: 20px;
-    border-bottom: 1.5px dashed rgba(1, 130, 215, 0.8);
+    border-bottom: 1.5px dashed $shr-context-line;
     text-decoration: none;
     font-size: 0.9rem;
 }
