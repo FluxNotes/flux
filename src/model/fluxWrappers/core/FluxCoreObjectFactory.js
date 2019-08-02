@@ -9,6 +9,10 @@ import FluxBloodPressure from '../vital/FluxBloodPressure';
 import FluxBodyTemperature from './FluxBodyTemperature';
 import FluxBodyWeight from './FluxBodyWeight';
 import FluxHeartRate from './FluxHeartRate';
+import FluxResearchStudy from './FluxResearchStudy';
+import FluxResearchSubject from './FluxResearchSubject';
+import FluxMedicationRequest from './FluxMedicationRequest';
+import FluxAllergyIntolerance from './FluxAllergyIntolerance';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type) {
@@ -18,6 +22,7 @@ export default class FluxCoreObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrCoreObjectFactory
         switch (elementName) {
+            case 'AllergyIntolerance': return new FluxAllergyIntolerance(json);
             case 'BloodPressure': return new FluxBloodPressure(json);
             case 'BodyTemperature': return new FluxBodyTemperature(json);
             case 'BodyWeight': return new FluxBodyWeight(json);
@@ -25,8 +30,11 @@ export default class FluxCoreObjectFactory {
             case 'HeartRate': return new FluxHeartRate(json);
             case 'ImagingProcedure': return new FluxImagingProcedure(json);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json);
+            case 'MedicationRequest': return new FluxMedicationRequest(json);
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
+            case 'ResearchStudy': return new FluxResearchStudy(json);
+            case 'ResearchSubject': return new FluxResearchSubject(json);
             default: return ShrCoreObjectFactory.createInstance(json, type);
         }
     }

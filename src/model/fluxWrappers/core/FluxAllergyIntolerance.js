@@ -1,4 +1,4 @@
-import AllergyIntolerance from '../shr/allergy/AllergyIntolerance';
+import AllergyIntolerance from '../../shr/core/AllergyIntolerance';
 import moment from 'moment';
 
 class FluxAllergyIntolerance {
@@ -15,7 +15,7 @@ class FluxAllergyIntolerance {
      *  Returns displayText string for allergy
      */
     get name() {
-        return this._allergyIntolerance.findingResult.value.coding[0].displayText.value;
+        return this._allergyIntolerance.code.value.coding[0].displayText.value;
     }
 
     /*

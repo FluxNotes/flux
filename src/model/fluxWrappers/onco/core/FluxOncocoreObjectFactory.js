@@ -1,5 +1,5 @@
 import { getNamespaceAndName } from '../json-helper';
-import FluxCancerDisorderPresent from './FluxCancerDisorderPresent';
+import FluxCancerCondition from './FluxCancerCondition';
 import FluxEvidenceType from './FluxEvidenceType';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
 import FluxCancerHistologicType from './FluxCancerHistologicType';
@@ -21,7 +21,7 @@ export default class FluxOncocoreObjectFactory {
         // returns Flux wrapper class if found, otherwise use OncocoreObjectFactory
         switch (elementName) {
             case 'CancerDiseaseStatus': return new FluxCancerDiseaseStatus(json, type, patientRecord);
-            case 'CancerDisorderPresent': return new FluxCancerDisorderPresent(json, type, patientRecord);
+            case 'CancerCondition': return new FluxCancerCondition(json, type, patientRecord);
             case 'CancerHistologicGrade': return new FluxCancerHistologicGrade(json, type, patientRecord);
             case 'CancerHistologicType': return new FluxCancerHistologicType(json, type, patientRecord);
             case 'TumorMarkerTest': return new FluxTumorMarkerTest(json);

@@ -27,7 +27,7 @@ import FluxCondition from '../../../model/base/FluxCondition';
 import SearchIndex from '../../../patientControl/SearchIndex';
 import FluxClinicalNote from '../../../model/core/FluxClinicalNote';
 import PreferenceManager from '../../../preferences/PreferenceManager';
-import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
+import FluxCancerCondition from '../../../model/fluxWrappers/onco/core/FluxCancerCondition';
 import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 
 const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
@@ -80,7 +80,7 @@ describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata();
-        const condition = new FluxCancerDisorderPresent({
+        const condition = new FluxCancerCondition({
             "FindingResult": {
                 "Value": {
                     "Coding": [
@@ -155,7 +155,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
     it('4.1 correct default visualizer', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
-        const condition = new FluxCancerDisorderPresent({
+        const condition = new FluxCancerCondition({
             "FindingTopicCode": {
                 "Value": {
                     "EntryType": {
