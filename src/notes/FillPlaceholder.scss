@@ -1,142 +1,141 @@
 @import "../styles/variables";
 
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-.done-checkbox {
-    margin-inline-end: 5px;
-    vertical-align: top;
-    color: $state;
-    font-weight: $weight-regular;
-    font-size: 13px;
-}
-
-.shortcut-name {
-    margin-inline-end: 10px;
-    vertical-align: top;
-    font-weight: $weight-semibold;
-    font-size: 13px;
-    color: $body-black;
-}
-.error-message {
-    color: #ff0000;
-}
-
-.shortcut-field-title {
-    margin-inline-end: 5px;
-    font-size: 0.9rem;
-}
-
-.fill-missing-data {
-    margin-inline-end: 20px;
-    border-bottom: 1px solid $missing-data-red;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.fill-structured-data {
-    margin-inline-end: 20px;
-    border-bottom: 1.5px dashed $shr-context-line;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.date-picker-button {
-    border: 1px solid #555555;
-    width: 175px;
-    display: inline-block;
-    color: #555555;
-    background-color: white;
-    padding: 5px;
-    border-radius: 3px;
-    cursor: pointer;
-    text-align: left;
-}
-
-.date-picker-container {
-    position: relative;
-}
-
 .expanded-style {
     padding-bottom: 24px;
-}
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
+    .done-checkbox {
+        margin-inline-end: 5px;
+        vertical-align: top;
+        color: $state;
+        font-weight: $weight-regular;
+        font-size: 13px;
+    }
 
-/* Shows calendar picker modal over every other component */
-.date-picker-container > * {
-    z-index: 999;
-}
+    .shortcut-name {
+        margin-inline-end: 10px;
+        vertical-align: top;
+        font-weight: $weight-semibold;
+        font-size: 13px;
+        color: $body-black;
+    }
+    .error-message {
+        color: #ff0000;
+    }
 
-.MuiExpansionPanelSummary-expandIcon-452 {
-    //expand icon when not expanded
-    left: -15px !important;
-    right: unset !important;
-    transform: translateY(-50%) rotate(-90deg) !important;
-}
+    .shortcut-field-title {
+        margin-inline-end: 5px;
+        font-size: 0.9rem;
+    }
 
-.MuiExpansionPanelSummary-expandIconExpanded-453 {
-    //expand icon when expanded
-    transform: translateY(-50%) rotate(0deg) !important;
+    .fill-missing-data {
+        margin-inline-end: 20px;
+        border-bottom: 1px solid $missing-data-red;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .fill-structured-data {
+        margin-inline-end: 20px;
+        border-bottom: 1.5px dashed $shr-context-line;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .date-picker-button {
+        border: 1px solid #555555;
+        width: 175px;
+        display: inline-block;
+        color: #555555;
+        background-color: white;
+        padding: 5px;
+        border-radius: 3px;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .date-picker-container {
+        position: relative;
+    }
+
+    /* Shows calendar picker modal over every other component */
+    .date-picker-container > * {
+        z-index: 999;
+    }
+
+    .MuiExpansionPanelSummary-expandIcon-452 {
+        //expand icon when not expanded
+        left: -15px;
+        right: unset !important;
+        transform: translateY(-50%) rotate(-90deg) !important;
+    }
+
+    .MuiExpansionPanelSummary-expandIconExpanded-453 {
+        //expand icon when expanded
+        transform: translateY(-50%) rotate(0deg) !important;
+    }
+
+    .arrow-container {
+        float: right;
+        margin-right: 5px;
+    }
+
+    .date-picker-button i {
+        border: solid 1px black;
+        border-width: 0 1px 1px 0;
+        padding: 3px;
+        float: right;
+    }
+
+    .arrow-down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
+    .divider {
+        width: 100%;
+    }
+
+    .attribute-title {
+        font-size: 13px;
+        font-weight: $weight-regular;
+        color: $body-black;
+    }
+
+    .centered-field {
+        align-items: center;
+    }
+    .not-centered-field {
+        align-items: baseline !important;
+        padding-top: 23.5px !important;
+    }
+    .field-row {
+        margin-top: 5px !important;
+    }
+
+    .multi-select {
+        font-size: 11px;
+        font-weight: $weight-regular;
+        color: $body-black;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        .checkbox-container {
+            flex-wrap: wrap-reverse;
+        }
+    }
+
+    .link {
+        /* $shr-context-dark */
+        color: #0084b8;
+        cursor: pointer;
+    }
 }
 
 /* Allows calendar picker modal to overflow over ExpansionPanel */
 .expanded-style > * {
     overflow: visible !important;
-}
-
-.arrow-container {
-    float: right;
-    margin-right: 5px;
-}
-
-.date-picker-button i {
-    border: solid 1px black;
-    border-width: 0 1px 1px 0;
-    padding: 3px;
-    float: right;
-}
-
-.arrow-down {
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-}
-
-.divider {
-    width: 100%;
-}
-
-.attribute-title {
-    font-size: 13px;
-    font-weight: $weight-regular;
-    color: $body-black;
-}
-
-.centered-field {
-    align-items: center;
-}
-.not-centered-field {
-    align-items: baseline !important;
-    padding-top: 23.5px !important;
-}
-.field-row {
-    margin-top: 5px !important;
-}
-
-.multi-select {
-    font-size: 11px;
-    font-weight: $weight-regular;
-    color: $body-black;
-}
-
-@media only screen and (max-width: 1024px) {
-    .checkbox-container {
-        flex-wrap: wrap-reverse;
-    }
-}
-
-.link {
-    /* $shr-context-dark */
-    color: #0084b8;
-    cursor: pointer;
 }
