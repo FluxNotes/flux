@@ -5,7 +5,7 @@ import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model
 import FluxClinicalNote from '../model/core/FluxClinicalNote';
 import FluxCondition from '../model/base/FluxCondition';
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
-import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
+import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
 import FluxMedicationChange from '../model/medication/FluxMedicationChange';
 import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
@@ -270,7 +270,7 @@ class PatientRecord {
 
     // return the closest encounter by absolute time(past or future)
     getClosestEncounter() {
-        const encounters = this.getEntriesOfType(FluxConsultRequested).filter(e => !e.resultingClinicalNote);
+        const encounters = this.getEntriesOfType(FluxReferralRequest).filter(e => !e.resultingClinicalNote);
         if (encounters.length === 0) return null;
 
         // Find the shortest absolute difference in time between today and encounter dates
@@ -296,7 +296,7 @@ class PatientRecord {
 
     // returns sorted list of encounters
     getEncountersChronologicalOrder() {
-        const encounters = this.getEntriesOfType(FluxConsultRequested);
+        const encounters = this.getEntriesOfType(FluxReferralRequest);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
     }
@@ -345,7 +345,7 @@ class PatientRecord {
     }
 
     hasEncounterToday() {
-        let encounters = this.getEntriesOfType(FluxConsultRequested);
+        let encounters = this.getEntriesOfType(FluxReferralRequest);
         const today = new moment().format("D MMM YYYY");
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => {

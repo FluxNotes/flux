@@ -1,8 +1,8 @@
-import ConsultRequested from '../shr/encounter/ConsultRequested';
+import ReferralRequest from '../../shr/core/ReferralRequest';
 import Reference from '../Reference';
 import Lang from 'lodash';
 
-class FluxConsultRequested {
+class FluxReferralRequest {
     constructor(json) {
         if (json) {
             if (json["ReferralDate"]) {
@@ -18,13 +18,13 @@ class FluxConsultRequested {
             const clonedJSON = Lang.cloneDeep(json);
             delete clonedJSON.ReferralDate;
             delete clonedJSON.ResultingClinicalNote;
-            this._consultRequested = ConsultRequested.fromJSON(clonedJSON);
+            this._referralRequest = ReferralRequest.fromJSON(clonedJSON);
         } else {
-            this._consultRequested = new ConsultRequested();
+            this._referralRequest = new ReferralRequest();
         }
     }
 
-    get ReferralDate() {
+    get referralDate() {
         return this._referralDate;
     }
 
@@ -33,27 +33,27 @@ class FluxConsultRequested {
     }
 
     get entryInfo() {
-        return this._consultRequested.entryInfo;
+        return this._referralRequest.entryInfo;
     }
 
-    get reasons() {
-        return this._consultRequested.reason;
+    get reasonReference() {
+        return this._referralRequest.reasonReference;
     }
 
     get expectedPerformanceTime() {
-        return this._consultRequested._encounter.timePeriod.beginDateTime.value;
+        return this._referralRequest.expectedPerformanceTime.value;
     }
 
     get practitioner() {
-        if (this._consultRequested.expectedPerformer)
-            return this._consultRequested.expectedPerformer.value.person.name;
+        if (this._referralRequest.expectedPerformer)
+            return this._referralRequest.expectedPerformer.value.practitioner.name;
         return null;
     }
 
     get department() {
-        if (this._consultRequested.expectedPerformer) {
-            let org = this._consultRequested.expectedPerformer.value.person.partOf;
-            while (org && org.type.value.coding[0].code.value !== 'dept') {
+        if (this._referralRequest.expectedPerformer) {
+            let org = this._referralRequest.expectedPerformer.value.person.partOf;
+            while (org && org.type.value.coding[0].codeValue !== 'dept') {
                 org = org.partOf;
             }
             if (org) {
@@ -65,9 +65,9 @@ class FluxConsultRequested {
     }
 
     get provider() {
-        if (this._consultRequested.expectedPerformer) {
-            let org = this._consultRequested.expectedPerformer.value.person.partOf;
-            while (org && org.type.value.coding[0].code.value !== 'prov') {
+        if (this._referralRequest.expectedPerformer) {
+            let org = this._referralRequest.expectedPerformer.value.person.partOf;
+            while (org && org.type.value.coding[0].codeValue !== 'prov') {
                 org = org.partOf;
             }
             if (org) {
@@ -79,16 +79,16 @@ class FluxConsultRequested {
     }
 
     get author() {
-        if (this._consultRequested.author) {
-            return this._consultRequested.author.value;
+        if (this._referralRequest.author) {
+            return this._referralRequest.author.value;
         } else {
             return null;
         }
     }
 
     get informant() {
-        if (this._consultRequested.informant) {
-            return this._consultRequested.informant.value;
+        if (this._referralRequest.informant) {
+            return this._referralRequest.informant.value;
         } else {
             return null;
         }
@@ -105,7 +105,7 @@ class FluxConsultRequested {
     }
 
     toJSON() {
-        const json = this._consultRequested.toJSON();
+        const json = this._referralRequest.toJSON();
 
         if (this._resultingClinicalNote) json.ResultingClinicalNote = this._resultingClinicalNote.toJSON();
 
@@ -113,4 +113,4 @@ class FluxConsultRequested {
     }
 }
 
-export default FluxConsultRequested;
+export default FluxReferralRequest;
