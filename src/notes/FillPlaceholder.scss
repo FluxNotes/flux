@@ -1,4 +1,4 @@
-@import '../styles/variables';
+@import "../styles/variables";
 
 .checkbox-container {
     display: flex;
@@ -21,7 +21,7 @@
     color: $body-black;
 }
 .error-message {
-    color: #FF0000;
+    color: #ff0000;
 }
 
 .shortcut-field-title {
@@ -67,14 +67,19 @@
 .date-picker-container > * {
     z-index: 999;
 }
-.MuiExpansionPanelSummary-expandIcon-234 { //expand icon when not expanded
-    left: -15px;
+
+.MuiExpansionPanelSummary-expandIcon-452 {
+    //expand icon when not expanded
+    left: -15px !important;
     right: unset !important;
     transform: translateY(-50%) rotate(-90deg) !important;
 }
-.MuiExpansionPanelSummary-expandIconExpanded-235 { //expand icon when expanded
+
+.MuiExpansionPanelSummary-expandIconExpanded-453 {
+    //expand icon when expanded
     transform: translateY(-50%) rotate(0deg) !important;
 }
+
 /* Allows calendar picker modal to overflow over ExpansionPanel */
 .expanded-style > * {
     overflow: visible !important;
@@ -124,7 +129,7 @@
     color: $body-black;
 }
 
-@media only screen and (max-width: 1024px) { 
+@media only screen and (max-width: 1024px) {
     .checkbox-container {
         flex-wrap: wrap-reverse;
     }
@@ -132,6 +137,6 @@
 
 .link {
     /* $shr-context-dark */
-    color: #0084B8;
+    color: #0084b8;
     cursor: pointer;
 }
