@@ -21,6 +21,7 @@ import position from '../lib/slate-suggestions-dist/caret-position';
 import StructuredFieldPlugin from './StructuredFieldPlugin';
 import SingleHashtagKeywordStructuredFieldPlugin from './SingleHashtagKeywordStructuredFieldPlugin';
 import NLPHashtagPlugin from './NLPHashtagPlugin';
+import KeyboardShortcutsPlugin from './KeyboardShortcutsPlugin';
 import Placeholder from '../shortcuts/Placeholder';
 import NoteParser from '../noteparser/NoteParser';
 import './FluxNotesEditor.css';
@@ -133,6 +134,9 @@ class FluxNotesEditor extends React.Component {
         };
         this.NLPHashtagPlugin = NLPHashtagPlugin(NLPHashtagPluginOptions);
         this.plugins.push(this.NLPHashtagPlugin);
+
+        // setup KeyboardShortcutsPlugin
+        this.plugins.push(KeyboardShortcutsPlugin());
 
         // Track all the indexes needed for suggestions portals
         this.suggestionPortalSearchIndexes = [];
