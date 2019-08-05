@@ -1,8 +1,6 @@
 import * as types from '../actions/types';
 import getProps from '../mcode-pilot/utils/recordToProps';
 
-import { formatResults } from '../mcode-pilot/utils/serviceResultsProcessing';
-
 export const defaultState = {
     selectedTreatment: null,
     similarPatientProps: {},
@@ -15,15 +13,11 @@ export const defaultState = {
 
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
-        const { patient, condition, allData } = action;
-        const formattedResults = formatResults(allData);
-        const similarPatientTreatments = formattedResults.similarPatientTreatments;
+        const { patient, condition } = action;
 
         return {
             ...state,
-            similarPatientProps: { ...getProps(patient, condition) },
-            similarPatientTreatments,
-            totalSimilarPatients: formattedResults.totalPatients,
+            similarPatientProps: { ...getProps(patient, condition) }
         };
     }
 

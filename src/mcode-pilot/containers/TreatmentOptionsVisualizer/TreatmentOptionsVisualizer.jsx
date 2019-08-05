@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ServiceManager from '../../../config/ServiceManager';
 import numberWithCommas from '../../utils/numberWithCommas';
 
 import TreatmentOptionsSelector from '../../components/TreatmentOptionsSelector/TreatmentOptionsSelector';
@@ -26,11 +25,7 @@ import FilterOptions from '../../utils/FilterOptions';
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
         const { patient, condition, initializeSimilarPatientProps, processSimilarPatientOutcomes } = this.props;
-        const service = new ServiceManager().getService('outcomes');
-        service.processSimilarPatientOutcomes(new FilterOptions({})).then((allData) => {
-            initializeSimilarPatientProps(patient, condition, allData);
-        });
-
+        initializeSimilarPatientProps(patient, condition);
         processSimilarPatientOutcomes();
     }
 
