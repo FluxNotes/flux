@@ -4,12 +4,11 @@ import {formatResults} from '../mcode-pilot/utils/serviceResultsProcessing';
 import FilterOptions from '../mcode-pilot/utils/FilterOptions';
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
-function initializeSimilarPatientProps(patient, condition, allData) {
+function initializeSimilarPatientProps(patient, condition) {
     return {
         type: types.INITIALIZE_SIMILAR_PATIENT_PROPS,
         patient,
-        condition,
-        allData
+        condition
     };
 }
 
