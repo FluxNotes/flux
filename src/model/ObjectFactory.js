@@ -3,8 +3,6 @@
 
 import { getNamespaceAndName, getNamespaceAndNameFromFHIR, uuid } from './json-helper';
 import BrcaObjectFactory from './brca/BrcaObjectFactory';
-import DmeObjectFactory from './dme/DmeObjectFactory';
-import OdhObjectFactory from './odh/OdhObjectFactory';
 import OncoCoreObjectFactory from './onco/core/OncoCoreObjectFactory';
 import ShrBaseObjectFactory from './shr/base/ShrBaseObjectFactory';
 import ShrCoreObjectFactory from './shr/core/ShrCoreObjectFactory';
@@ -12,7 +10,6 @@ import ShrFhxObjectFactory from './shr/fhx/ShrFhxObjectFactory';
 import ShrFinancialObjectFactory from './shr/financial/ShrFinancialObjectFactory';
 import ShrLabObjectFactory from './shr/lab/ShrLabObjectFactory';
 import ShrSdohObjectFactory from './shr/sdoh/ShrSdohObjectFactory';
-import SwObjectFactory from './sw/SwObjectFactory';
 
 /**
  * Generated top-level object factory for SHR classes.
@@ -28,8 +25,6 @@ export default class ObjectFactory {
     const { namespace } = getNamespaceAndName(json, type);
     switch (namespace) {
     case 'brca': return BrcaObjectFactory.createInstance(json, type);
-    case 'dme': return DmeObjectFactory.createInstance(json, type);
-    case 'odh': return OdhObjectFactory.createInstance(json, type);
     case 'onco.core': return OncoCoreObjectFactory.createInstance(json, type);
     case 'shr.base': return ShrBaseObjectFactory.createInstance(json, type);
     case 'shr.core': return ShrCoreObjectFactory.createInstance(json, type);
@@ -37,7 +32,6 @@ export default class ObjectFactory {
     case 'shr.financial': return ShrFinancialObjectFactory.createInstance(json, type);
     case 'shr.lab': return ShrLabObjectFactory.createInstance(json, type);
     case 'shr.sdoh': return ShrSdohObjectFactory.createInstance(json, type);
-    case 'sw': return SwObjectFactory.createInstance(json, type);
     default: throw new Error(`Unsupported namespace: ${namespace}`);
     }
   }
@@ -53,8 +47,6 @@ export default class ObjectFactory {
     const { namespace } = getNamespaceAndNameFromFHIR(fhir, shrType);
     switch (namespace) {
     case 'brca': return BrcaObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'dme': return DmeObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'odh': return OdhObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'onco.core': return OncoCoreObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'shr.base': return ShrBaseObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'shr.core': return ShrCoreObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
@@ -62,7 +54,6 @@ export default class ObjectFactory {
     case 'shr.financial': return ShrFinancialObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'shr.lab': return ShrLabObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'shr.sdoh': return ShrSdohObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
-    case 'sw': return SwObjectFactory.createInstanceFromFHIR(shrType, fhir, fhirType, shrId, allEntries, mappedResources, referencesOut, asExtension);
     case 'primitive': return fhir;
     default: throw new Error(`Unsupported namespace: ${namespace}`);
     }
