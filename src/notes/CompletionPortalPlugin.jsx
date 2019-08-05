@@ -1,9 +1,18 @@
 import CompletionComponentFactory from './CompletionComponentFactory';
 
 export default function CompletionPortalPlugin(opts) {
+    let collapsed = true;
 
     const onKeyDown = (...args) => {
         const completionComponent = opts.getCompletionComponent();
+        if (Array.of(...args)[1].isCmd || Array.of(...args)[1].isCtrl) { // ...args[1] is data
+            if (Array.of(...args)[1].key === 'a') {
+                collapsed = false;
+                return Array.of(...args)[2]; // return state
+            }
+        } else {
+            collapsed = true;
+        }
         if (completionComponent && completionComponent.onKeyDown) {
             return completionComponent.onKeyDown(...args);
         }
@@ -17,7 +26,7 @@ export default function CompletionPortalPlugin(opts) {
         if (previousNodeShortcut && previousNodeShortcut.completionComponentName) {
             // But only if the portal isn't already open
             const completionComponent = CompletionComponentFactory.createInstance(previousNodeShortcut.completionComponentName);
-            if (!opts.getCompletionComponent()) {
+            if (!opts.getCompletionComponent() && collapsed) {
                 opts.openPortal(previousNodeShortcut, completionComponent);
             }
         } else if (opts.getCompletionComponent()) {
