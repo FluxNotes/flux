@@ -75,7 +75,7 @@ export default class FillPlaceholder extends Component {
         }
 
         data.fields.forEach((field) => {
-            error = this.onSetValue(source, {name: field.name }, entryIndex, field.value);
+            error = this.onSetValue(source, { name: field.name }, entryIndex, field.value);
             if (!Lang.isNull(error) && Lang.isNull(errorToReturn)) errorToReturn = error;
         });
 
@@ -244,7 +244,7 @@ export default class FillPlaceholder extends Component {
                     <Grid item xs={1} />
                     <Grid item xs={2} style={{ display: 'flex' }} className={centerFieldName}>
                         <span className="attribute-title">
-                            {attribute.title} <br/>
+                            {attribute.title} <br />
                             {multiSelect}
                             {attribute.type === 'menuItems' && this.renderShowHide(entryIndex)}
                         </span>
@@ -379,7 +379,7 @@ export default class FillPlaceholder extends Component {
             if (!this.isValidAttribute(value)) {
                 columns.push(<span className="fill-missing-data" key={`${entryIndex}-${attributeIndex}-value`}>No Data</span>);
             } else {
-                columns.push(<span className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{ Lang.isArray(value) ? value.join(', ') : value }</span>);
+                columns.push(<span className="fill-structured-data" key={`${entryIndex}-${attributeIndex}-value`}>{Lang.isArray(value) ? value.join(', ') : value}</span>);
             }
         });
 
@@ -389,15 +389,15 @@ export default class FillPlaceholder extends Component {
     renderSingleEntryPlaceholder = () => {
         const { expanded, done } = this.state;
         const { backgroundColor } = this.props;
-        let expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} className='expand-icon'/>; // remove expand icon if done
-        expandIcon = expanded? <ExpandMoreIcon onClick={this.onExpand} className='close-expand-icon'/> : expandIcon;
+        let expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} className='expand-icon' />; // remove expand icon if done
+        expandIcon = expanded ? <ExpandMoreIcon onClick={this.onExpand} className='close-expand-icon' /> : expandIcon;
 
         return (
             <ExpansionPanel expanded={expanded} className="expanded-style">
                 <ExpansionPanelSummary className='summary-panel' style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     <Grid container>
                         {this.renderCheckbox()}
-                        <Grid item xs={10} style={{width: '100%'}}>
+                        <Grid item xs={10} style={{ width: '100%' }}>
                             {this.renderColumns()}
                         </Grid>
                         {this.renderError()}
@@ -437,10 +437,13 @@ export default class FillPlaceholder extends Component {
             ? (
                 <Grid container>
                     {this.renderCheckbox()}
+                    <Grid item xs={10} style={{ width: '100%' }}>
+                        {this.renderColumns()}
+                    </Grid>
                 </Grid>
             )
             : (
-                <div style={{width: '100%'}}>
+                <div style={{ width: '100%' }}>
                     {this.renderError()}
                     {entries}
                     <div style={{ width: '100%' }}>
@@ -456,7 +459,6 @@ export default class FillPlaceholder extends Component {
                 <Grid container key={`${i}-expanded-rows`}>
                     <Grid item xs={3} />
                     <Grid item xs={9}>
-                        {this.renderColumns(i)}
                         {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                     </Grid>
                     {this.createAllRows(i)}
@@ -473,8 +475,8 @@ export default class FillPlaceholder extends Component {
                 </div>
             </Grid>
         );
-        let expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} className='expand-icon'/>; // remove expand icon if done
-        expandIcon = expanded? <ExpandMoreIcon onClick={this.onExpand} className='close-expand-icon'/> : expandIcon;
+        let expandIcon = done ? "" : <ExpandMoreIcon onClick={this.onExpand} className='expand-icon' />; // remove expand icon if done
+        expandIcon = expanded ? <ExpandMoreIcon onClick={this.onExpand} className='close-expand-icon' /> : expandIcon;
         return (
             <ExpansionPanel expanded={expanded} className="expanded-style">
                 <ExpansionPanelSummary className='summary-panel' style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
