@@ -12,19 +12,19 @@ export function stringForMedicationChangeDate(date) {
      */
 export function stringForMedicationChangeType(changeType) {
     switch (changeType) {
-    case "reduced":
-        return 'Reduced';
-    case "increased":
-        return 'Increased';
-    case "temp_stop":
-        return 'Temporarily stopped';
-    case "swap":
-        return 'Swapped';
-    case "stop":
-        return 'Stopped';
-    default:
-        console.error('Unsupported medication change type used in medication: ' + changeType);
-        return `${changeType}`;
+        case "reduced":
+            return 'Reduced';
+        case "increased":
+            return 'Increased';
+        case "temp_stop":
+            return 'Temporarily stopped';
+        case "swap":
+            return 'Swapped';
+        case "stop":
+            return 'Stopped';
+        default:
+            console.error('Unsupported medication change type used in medication: ' + changeType);
+            return `${changeType}`;
     }
 };
 
@@ -34,18 +34,18 @@ export function stringForMedicationChangeType(changeType) {
      */
 export function stringForMedicationChangePriorAmount(changeType, medBefore) {
     switch (changeType) {
-    case "reduced":
-        return ` from ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
-    case "increased":
-        return ` from ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
-    case "temp_stop":
-        return ``;
-    case "swap":
-        return `with ${medBefore.medication}}`;
-    case "stop":
-        return ` (dose was ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units})`;
-    default:
-        return `${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
+        case "reduced":
+            return ` from ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
+        case "increased":
+            return ` from ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
+        case "temp_stop":
+            return ``;
+        case "swap":
+            return `with ${medBefore.medication}}`;
+        case "stop":
+            return ` (dose was ${medBefore.amountPerDose.value}${medBefore.amountPerDose.units})`;
+        default:
+            return `${medBefore.amountPerDose.value}${medBefore.amountPerDose.units} `;
     }
 };
 
