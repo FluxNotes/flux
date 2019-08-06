@@ -19,7 +19,6 @@ import {
 } from '../../../actions/mcode';
 
 import './TreatmentOptionsVisualizer.css';
-import FilterOptions from '../../utils/FilterOptions';
 
 
 export class TreatmentOptionsVisualizer extends Component {
