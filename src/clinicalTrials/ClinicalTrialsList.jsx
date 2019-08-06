@@ -52,20 +52,20 @@ class ClinicalTrialsList {
 
     static getDescription(dataElement) {
         switch (dataElement) {
-        case "clinicalTrialEnrollment":
-            return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
-        case "clinicalTrialUnenrolled":
-            return "Unenrolling from a clinical trial includes the title of a clinical trial and an end date.";
-        case "trialEnrollment":
-            return "Clinical trial the patient is enrolled in.";
-        case "trialUnenrolled":
-            return "Clinical trial the patient unenrolled from.";
-        case "enrollmentDate":
-            return "Date the patient was enrolled in the chosen clinical trial.";
-        case "endDate":
-            return "Date the patient left the clinical trial.";
-        default:
-            return null;
+            case "clinicalTrialEnrollment":
+                return "Clinical trial enrollment includes the title of a clinical trial and an enrollment date.";
+            case "clinicalTrialUnenrolled":
+                return "Unenrolling from a clinical trial includes the title of a clinical trial and an end date.";
+            case "trialEnrollment":
+                return "Clinical trial the patient is enrolled in.";
+            case "trialUnenrolled":
+                return "Clinical trial the patient unenrolled from.";
+            case "enrollmentDate":
+                return "Date the patient was enrolled in the chosen clinical trial.";
+            case "endDate":
+                return "Date the patient left the clinical trial.";
+            default:
+                return null;
         }
     }
 

@@ -252,28 +252,28 @@ export default class VisualizerManager {
 
     getIndexer(dataType) {
         switch (dataType) {
-        case "NameValuePairs":
-        case "NarrativeOnly":
-            return new NameValuePairsIndexer();
-        case "Columns":
-            return new ColumnsIndexer();
-        case "Events":
-            return new EventsIndexer();
-        case "Medications":
-            return new MedicationsIndexer();
-        case "ValueOverTime":
-            return new ValueOverTimeIndexer();
-        case "DiseaseStatusValues":
-            return new DiseaseStatusValuesIndexer();
-        case "ReviewOfSystemsValues":
-            return new ReviewOfSystemsValuesIndexer();
-        case "ClusterPoints":
-            return new ClusterPointsIndexer();
-        case "TreatmentOptions":
-            return new BaseIndexer();
-        default:
-            console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
-            return null;
+            case "NameValuePairs":
+            case "NarrativeOnly":
+                return new NameValuePairsIndexer();
+            case "Columns":
+                return new ColumnsIndexer();
+            case "Events":
+                return new EventsIndexer();
+            case "Medications":
+                return new MedicationsIndexer();
+            case "ValueOverTime":
+                return new ValueOverTimeIndexer();
+            case "DiseaseStatusValues":
+                return new DiseaseStatusValuesIndexer();
+            case "ReviewOfSystemsValues":
+                return new ReviewOfSystemsValuesIndexer();
+            case "ClusterPoints":
+                return new ClusterPointsIndexer();
+            case "TreatmentOptions":
+                return new BaseIndexer();
+            default:
+                console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
+                return null;
         }
     }
 
