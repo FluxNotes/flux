@@ -94,16 +94,16 @@ class FluxCondition extends FluxEntry {
     }
 
     get author() {
-        if (this._condition.author) {
-            return this._condition.author.value;
+        if (this._condition.asserter) {
+            return this._condition.asserter.value;
         } else {
             return null;
         }
     }
 
     get relatedEncounterReference() {
-        if (this._condition.relatedEncounter) {
-            return this._condition.relatedEncounter.value;
+        if (this._condition.careContext) {
+            return this._condition.careContext.value;
         } else {
             return null;
         }
