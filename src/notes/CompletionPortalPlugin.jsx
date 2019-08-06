@@ -17,7 +17,7 @@ export default function CompletionPortalPlugin(opts) {
         if (previousNodeShortcut && previousNodeShortcut.completionComponentName) {
             // But only if the portal isn't already open
             const completionComponent = CompletionComponentFactory.createInstance(previousNodeShortcut.completionComponentName);
-            if (!opts.getCompletionComponent()) {
+            if (!opts.getCompletionComponent() && state.selection.isCollapsed) {
                 opts.openPortal(previousNodeShortcut, completionComponent);
             }
         } else if (opts.getCompletionComponent()) {
