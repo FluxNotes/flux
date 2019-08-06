@@ -101,14 +101,6 @@ class FluxCondition extends FluxEntry {
         }
     }
 
-    get informant() {
-        if (this._condition.informant) {
-            return this._condition.informant.value;
-        } else {
-            return null;
-        }
-    }
-
     get relatedEncounterReference() {
         if (this._condition.relatedEncounter) {
             return this._condition.relatedEncounter.value;

@@ -64,12 +64,8 @@ export default class MetadataSection {
         }
 
         let result = "";
-        if (entry.author && entry.informant && entry.author === entry.informant) {
-            result += "Recorded and informed by " + entry.author;
-        } else {
-            if (entry.author) result += "Recorded by " + entry.author;
-            if (entry.informant) result += (result.length > 0 ? " b" : "B") + "ased on information from " + entry.informant;
-        }
+        if (entry.author) result += "Recorded by " + entry.author;
+
         if (entry.relatedEncounterReference) {
             const relatedEncounter = patient.getEntryFromReference(entry.relatedEncounterReference);
             if (relatedEncounter instanceof Encounter) {
