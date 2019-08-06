@@ -1,5 +1,5 @@
-import FluxEntry from '../base/FluxEntry';
-import TumorMarkerTest from '../../onco/core/TumorMarkerTest';
+import FluxEntry from '../../base/FluxEntry';
+import TumorMarkerTest from '../../../onco/core/TumorMarkerTest';
 
 class FluxTumorMarkerTest extends FluxEntry {
     constructor(json) {

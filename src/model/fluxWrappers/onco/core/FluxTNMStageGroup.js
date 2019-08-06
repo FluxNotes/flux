@@ -1,14 +1,14 @@
-import RelevantTime from '../shr/base/RelevantTime';
-import FluxMitoticRate from '../oncology/FluxMitoticRate';
-import * as lookup from '../../lib/tnmstage_lookup.jsx';
-import * as staging from '../../lib/staging.jsx';
+import RelevantTime from '../../../shr/core/RelevantTime';
+import FluxMitoticRate from '../../oncology/FluxMitoticRate';
+import * as lookup from '../../../../lib/tnmstage_lookup.jsx';
+import * as staging from '../../../../lib/staging.jsx';
 import DataValue from '../../../shr/core/DataValue';
-import FluxEntry from '../base/FluxEntry';
-import Reference from '../Reference';
-import FluxCancerStageCategory from '../onco/core/FluxCancerStageCategory';
-import FluxTNMClinicalRegionalNodesCategory from '../onco/core/FluxTNMClinicalRegionalNodesCategory';
-import FluxTNMClinicalDistantMetastasesCategory from '../onco/core/FluxTNMClinicalDistantMetastasesCategory';
-import FluxTNMClinicalPrimaryTumorCategory from '../onco/core/FluxTNMClinicalPrimaryTumorCategory';
+import FluxEntry from '../../base/FluxEntry';
+import Reference from '../../../Reference';
+import FluxCancerStageCategory from './FluxCancerStageCategory';
+import FluxTNMClinicalRegionalNodesCategory from './FluxTNMClinicalRegionalNodesCategory';
+import FluxTNMClinicalDistantMetastasesCategory from './FluxTNMClinicalDistantMetastasesCategory';
+import FluxTNMClinicalPrimaryTumorCategory from './FluxTNMClinicalPrimaryTumorCategory';
 import PrimaryCancerCondition from '../../../onco/core/PrimaryCancerCondition';
 
 export default class FluxTNMStageGroup extends FluxEntry {

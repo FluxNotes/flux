@@ -1,5 +1,5 @@
-import { getNamespaceAndName } from '../json-helper';
-import ShrMedicationObjectFactory from '../shr/medication/ShrMedicationObjectFactory';
+import { getNamespaceAndName } from '../../json-helper';
+// import ShrMedicationObjectFactory from '../shr/medication/ShrMedicationObjectFactory';
 import FluxMedicationChange from './FluxMedicationChange';
 import FluxMedicationAfterChange from './FluxMedicationAfterChange';
 import FluxMedicationBeforeChange from './FluxMedicationBeforeChange';
@@ -16,7 +16,7 @@ export default class FluxMedicationObjectFactory {
             case 'MedicationAfterChange': return new FluxMedicationAfterChange(json);
             case 'MedicationBeforeChange': return new FluxMedicationBeforeChange(json);
 
-            default: return ShrMedicationObjectFactory.createInstance(json, type);
+            // default: return ShrMedicationObjectFactory.createInstance(json, type);
         }
     }
 }

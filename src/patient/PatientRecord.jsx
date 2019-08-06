@@ -1,35 +1,34 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
-import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
-import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
-import FluxClinicalNote from '../model/core/FluxClinicalNote';
-import FluxCondition from '../model/base/FluxCondition';
+import FluxBreastCancerGeneticAnalysisPanel from '../model/fluxWrappers/oncology/FluxBreastCancerGeneticAnalysisPanel';
+import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/fluxWrappers/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
+import FluxClinicalNote from '../model/fluxWrappers/core/FluxClinicalNote';
+import FluxCondition from '../model/fluxWrappers/base/FluxCondition';
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
-import FluxMedicationChange from '../model/medication/FluxMedicationChange';
-import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
-import FluxPatient from '../model/entity/FluxPatient';
-import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
+import FluxMedicationChange from '../model/fluxWrappers/medication/FluxMedicationChange';
+import FluxNoKnownAllergy from '../model/fluxWrappers/allergy/FluxNoKnownAllergy';
+import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
+import FluxPatientIdentifier from '../model/fluxWrappers/base/FluxPatientIdentifier';
 import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
-import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
-import FluxResearchSubject from '../model/research/FluxResearchSubject';
-import FluxBloodPressure from '../model/fluxWrappers/vital/FluxBloodPressure';
+import FluxQuestionAnswer from '../model/fluxWrappers/base/FluxQuestionAnswer';
+import FluxResearchSubject from '../model/fluxWrappers/core/FluxResearchSubject';
+import FluxBloodPressure from '../model/fluxWrappers/core/FluxBloodPressure';
 import FluxBodyTemperature from '../model/fluxWrappers/core/FluxBodyTemperature';
 import FluxBodyWeight from '../model/fluxWrappers/core/FluxBodyWeight';
 import FluxHeartRate from '../model/fluxWrappers/core/FluxHeartRate';
 import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
-import FluxPathologyReport from '../model/finding/FluxPathologyReport';
+import FluxPathologyReport from '../model/fluxWrappers/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
-import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
-import LastUpdated from '../model/shr/base/LastUpdated';
+import LastUpdated from '../model/shr/core/LastUpdated';
 import Reference from '../model/Reference';
 import * as mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import _ from 'lodash';
-import Metadata from '../model/shr/base/Metadata';
+import Metadata from '../model/shr/core/Metadata';
 import FluxAllergyIntolerance from '../model/fluxWrappers/core/FluxAllergyIntolerance';
 
 class PatientRecord {
@@ -151,8 +150,6 @@ class PatientRecord {
         const metadata = new Metadata();
         metadata.lastUpdated = new LastUpdated();
         metadata.lastUpdated.instant = today;
-        metadata.authoredDateTime = new AuthoredDateTime();
-        metadata.authoredDateTime.dateTime = today;
         entry.metadata = metadata;
 
         this.entries.push(entry);

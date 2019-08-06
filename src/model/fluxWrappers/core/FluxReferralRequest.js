@@ -1,5 +1,5 @@
 import ReferralRequest from '../../shr/core/ReferralRequest';
-import Reference from '../Reference';
+import Reference from '../../Reference';
 import Lang from 'lodash';
 
 class FluxReferralRequest {

@@ -1,8 +1,8 @@
-import MedicationBeforeChange from '../shr/medication/MedicationBeforeChange';
+// import MedicationBeforeChange from '../shr/medication/MedicationBeforeChange';
 
 class FluxMedicationBeforeChange {
     constructor(json) {
-        this._medicationBeforeChange = MedicationBeforeChange.fromJSON(json);
+        // this._medicationBeforeChange = MedicationBeforeChange.fromJSON(json);
     }
     /**
      * Get the object's value, the reference the referenced Medication.

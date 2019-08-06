@@ -1,6 +1,6 @@
-import { getNamespaceAndName } from '../json-helper';
+import { getNamespaceAndName } from '../../json-helper';
 import FluxPatientIdentifier from './FluxPatientIdentifier';
-import ShrBaseObjectFactory from '../shr/base/ShrBaseObjectFactory';
+import ShrBaseObjectFactory from '../../shr/base/ShrBaseObjectFactory';
 import FluxCondition from './FluxCondition';
 import FluxObservation from './FluxObservation';
 import FluxQuestionAnswer from './FluxQuestionAnswer';

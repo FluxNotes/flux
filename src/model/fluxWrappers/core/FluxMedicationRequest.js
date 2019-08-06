@@ -1,14 +1,14 @@
 import MedicationCodeOrReference from '../../shr/core/MedicationCodeOrReference';
-import RecurrencePattern from '../shr/core/RecurrencePattern';
-import TimePeriod from '../shr/core/TimePeriod';
-import BeginDateTime from '../shr/core/BeginDateTime';
-import EndDateTime from '../shr/core/EndDateTime';
+import RecurrencePattern from '../../shr/core/RecurrencePattern';
+import TimePeriod from '../../shr/core/TimePeriod';
+import BeginDateTime from '../../shr/core/BeginDateTime';
+import EndDateTime from '../../shr/core/EndDateTime';
 import MedicationRequest from '../../shr/core/MedicationRequest';
-import ExpectedPerformanceTime from '../shr/base/ExpectedPerformanceTime';
-import Type from '../shr/core/Type';
+import ExpectedPerformanceTime from '../../shr/core/ExpectedPerformanceTime';
+import Type from '../../shr/core/Type';
 import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
-import * as lookup from '../../lib/MedicationInformationService.jsx';
+import * as lookup from '../../../lib/MedicationInformationService.jsx';
 
 class FluxMedicationRequest extends FluxEntry {
     constructor(json) {
@@ -148,8 +148,8 @@ class FluxMedicationRequest extends FluxEntry {
      *  Returns boolean value for medicationsOrCode of medication type. Returns undefined for codeable concepts.
      */
     get overTheCounter() {
-        if (!this._medicationRequest.medication.overTheCounter) return undefined;
-        return this._medicationRequest.medication.overTheCounter.value;
+        if (!this._medicationRequest.medicationCodeOrReference.overTheCounter) return undefined;
+        return this._medicationRequest.medicationCodeOrReference.overTheCounter.value;
     }
 
     /*
@@ -242,7 +242,7 @@ class FluxMedicationRequest extends FluxEntry {
     }
 
     get code() {
-        return this._medicationRequest.medication.type.value.coding[0].code.value;
+        return this._medicationRequest.medicationCodeOrReference.type.value.coding[0].code.value;
     }
 
     get routeIntoBody() {
