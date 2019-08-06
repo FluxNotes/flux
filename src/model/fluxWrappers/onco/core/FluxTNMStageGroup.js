@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/model/fluxWrappers/onco/core/FluxTNMStageGroup.js
 import RelevantTime from '../../../shr/core/RelevantTime';
 import * as lookup from '../../../../lib/tnmstage_lookup.jsx';
 import * as staging from '../../../../lib/staging.jsx';
@@ -10,20 +9,6 @@ import FluxTNMClinicalRegionalNodesCategory from './FluxTNMClinicalRegionalNodes
 import FluxTNMClinicalDistantMetastasesCategory from './FluxTNMClinicalDistantMetastasesCategory';
 import FluxTNMClinicalPrimaryTumorCategory from './FluxTNMClinicalPrimaryTumorCategory';
 import PrimaryCancerCondition from '../../../onco/core/PrimaryCancerCondition';
-=======
-import RelevantTime from '../shr/base/RelevantTime';
-import FluxMitoticRate from '../oncology/FluxMitoticRate';
-import * as lookup from '../../lib/tnmstage_lookup.jsx';
-import * as staging from '../../lib/staging.jsx';
-import FindingResult from '../shr/base/FindingResult';
-import FluxEntry from '../base/FluxEntry';
-import Reference from '../Reference';
-import SpecificFocusOfFinding from '../shr/base/SpecificFocusOfFinding';
-import FluxCancerStageCategory from '../onco/core/FluxCancerStageCategory';
-import FluxTNMClinicalRegionalNodesCategory from '../onco/core/FluxTNMClinicalRegionalNodesCategory';
-import FluxTNMClinicalDistantMetastasesCategory from '../onco/core/FluxTNMClinicalDistantMetastasesCategory';
-import FluxTNMClinicalPrimaryTumorCategory from '../onco/core/FluxTNMClinicalPrimaryTumorCategory';
->>>>>>> updated references for changes to TNM category classes.:src/model/fluxWrappers/oncocore/FluxTNMStageGroup.js
 
 export default class FluxTNMStageGroup extends FluxEntry {
     get entryInfo() {
@@ -120,14 +105,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from N_Stage
      */
     get n_Stage() {
-<<<<<<< HEAD:src/model/fluxWrappers/onco/core/FluxTNMStageGroup.js
         if (!this._tnmStageGroup
             || !this._tnmStageGroup.panelMembers
             || !this._tnmStageGroup.panelMembers.observation) {
             return null;
         }
-=======
->>>>>>> updated references for changes to TNM category classes.:src/model/fluxWrappers/oncocore/FluxTNMStageGroup.js
         const nReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesCategory);
         if (!nReference) return null;
         return this._patientRecord.getEntryFromReference(nReference).value;
@@ -165,14 +147,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from M_Stage
      */
     get m_Stage() {
-<<<<<<< HEAD:src/model/fluxWrappers/onco/core/FluxTNMStageGroup.js
         if (!this._tnmStageGroup
             || !this._tnmStageGroup.panelMembers
             || !this._tnmStageGroup.panelMembers.observation) {
             return null;
         }
-=======
->>>>>>> updated references for changes to TNM category classes.:src/model/fluxWrappers/oncocore/FluxTNMStageGroup.js
         const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesCategory);
         if (!mReference) return null;
         return this._patientRecord.getEntryFromReference(mReference).value;
