@@ -1,4 +1,4 @@
-import Encounter from '../../model/shr/encounter/Encounter';
+import Encounter from '../../model/shr/core/Encounter';
 import moment from 'moment';
 import Lang from 'lodash';
 import Media from '../../model/shr/core/Media';

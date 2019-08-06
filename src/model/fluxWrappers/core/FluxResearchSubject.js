@@ -1,16 +1,16 @@
-import ResearchSubject from '../shr/research/ResearchSubject';
+import ResearchSubject from '../../shr/core/ResearchSubject';
 import FluxEntry from '../base/FluxEntry';
-import Status from '../shr/core/Status';
+import Status from '../../shr/core/Status';
 import ResearchStudy from '../../shr/core/ResearchStudy';
-import TimePeriod from '../shr/core/TimePeriod';
-import Title from '../shr/core/Title';
-import CommentOrDescription from '../shr/core/CommentOrDescription';
-import Identifier from '../shr/core/Identifier';
-import ParticipationPeriod from '../shr/base/ParticipationPeriod';
-import BeginDateTime from '../shr/core/BeginDateTime';
-import EndDateTime from '../shr/core/EndDateTime';
+import TimePeriod from '../../shr/core/TimePeriod';
+import Title from '../../shr/core/Title';
+import CommentOrDescription from '../../shr/core/CommentOrDescription';
+import Identifier from '../../shr/core/Identifier';
+import ParticipationPeriod from '../../shr/core/ParticipationPeriod';
+import BeginDateTime from '../../shr/core/BeginDateTime';
+import EndDateTime from '../../shr/core/EndDateTime';
 import Lang from 'lodash';
-import * as lookup from '../../lib/clinicaltrial_lookup.jsx';
+import * as lookup from '../../../lib/clinicaltrial_lookup.jsx';
 
 class FluxResearchSubject extends FluxEntry {
     constructor(json) {

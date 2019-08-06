@@ -1,5 +1,5 @@
-import FluxEntry from '../base/FluxEntry';
-import CancerStageCategory from '../../onco/core/CancerStageCategory';
+import FluxEntry from '../../base/FluxEntry';
+import CancerStageCategory from '../../../onco/core/CancerStageCategory';
 import DataValue from '../../../shr/core/DataValue';
 
 class FluxCancerStageCategory extends FluxEntry {

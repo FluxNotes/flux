@@ -4,9 +4,7 @@ import RestApiDataSource from './RestApiDataSource';
 import FHIRApiDataSource from './FHIRApiDataSource';
 import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
 import McodeV05SmartOnFhirDataSource from './McodeV05SmartOnFhirDataSource';
-import HardCodedMcodeV01DataSource from './mcodev0.1-datasource/HardCodedMcodeV01DataSource';
 import GenericSmartOnFhirDstu2DataSource from './GenericSmartOnFhirDstu2DataSource';
-import HardcodedTabletMcodeV01DataSource from './HardcodedTabletMcodeV01DataSource';
 
 export default class DataAccess {
     static DEMO_PATIENT_ID = "788dcbc3-ed18-470c-89ef-35ff91854c7d";
@@ -19,7 +17,7 @@ export default class DataAccess {
         } else if (dataSourceName === 'FHIRApiDataSource') {
             this.dataSource = new FHIRApiDataSource();
         } else if (dataSourceName === 'HardCodedMcodeV01DataSource') {
-            this.dataSource = new HardCodedMcodeV01DataSource();
+            // this.dataSource = new HardCodedMcodeV01DataSource();
         } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
             this.dataSource = new HardCodedMcodeV05DataSource();
         } else if (dataSourceName === 'McodeV05SmartOnFhirDataSource') {
@@ -27,7 +25,7 @@ export default class DataAccess {
         } else if (dataSourceName === 'GenericSmartOnFhirDstu2DataSource') {
             this.dataSource = new GenericSmartOnFhirDstu2DataSource(dataSourceProps);
         } else if (dataSourceName === 'HardcodedTabletMcodeV01DataSource') {
-            this.dataSource = new HardcodedTabletMcodeV01DataSource();
+            // this.dataSource = new HardcodedTabletMcodeV01DataSource();
         } else {
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }

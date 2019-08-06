@@ -1,4 +1,4 @@
-import TimePeriod from '../shr/core/TimePeriod';
+import TimePeriod from '../../shr/core/TimePeriod';
 import ImagingProcedure from '../../shr/core/ImagingProcedure';
 
 class FluxImagingProcedure {

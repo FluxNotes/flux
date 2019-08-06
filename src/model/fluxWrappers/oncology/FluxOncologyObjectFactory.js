@@ -1,4 +1,4 @@
-import { getNamespaceAndName } from '../json-helper';
+import { getNamespaceAndName } from '../../json-helper';
 import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnalysisPanel';
 import FluxBRCA1Variant from './FluxBRCA1Variant';
 import FluxBRCA2Variant from './FluxBRCA2Variant';

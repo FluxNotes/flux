@@ -1,6 +1,6 @@
-import { getNamespaceAndName } from '../json-helper';
+import { getNamespaceAndName } from '../../json-helper';
 import FluxTumorDimensions from './FluxTumorDimensions';
-import TumorObjectFactory from './TumorObjectFactory';
+// import TumorObjectFactory from './TumorObjectFactory';
 import FluxTumorMargins from './FluxTumorMargins';
 
 export default class FluxTumorObjectFactory {
@@ -14,7 +14,7 @@ export default class FluxTumorObjectFactory {
         switch (elementName) {
             case 'TumorDimensions': return new FluxTumorDimensions(json, patientRecord);
             case 'TumorMargins': return new FluxTumorMargins(json, patientRecord);
-            default: return TumorObjectFactory.createInstance(json, type);
+            // default: return TumorObjectFactory.createInstance(json, type);
         }
     }
 }

@@ -1,6 +1,6 @@
 import MetadataSection from "./MetadataSection";
-import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
-import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
+import FluxTumorDimensions from '../../model/fluxWrappers/tumor/FluxTumorDimensions';
+import FluxTumorMargins from '../../model/fluxWrappers/tumor/FluxTumorMargins';
 import Lang from 'lodash';
 import FluxCancerCondition from "../../model/fluxWrappers/onco/core/FluxCancerCondition";
 

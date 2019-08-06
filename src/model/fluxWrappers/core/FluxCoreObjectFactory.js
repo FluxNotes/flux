@@ -1,11 +1,11 @@
-import { getNamespaceAndName } from '../json-helper';
-import ShrCoreObjectFactory from '../shr/core/ShrCoreObjectFactory';
+import { getNamespaceAndName } from '../../json-helper';
+import ShrCoreObjectFactory from '../../shr/core/ShrCoreObjectFactory';
 import FluxClinicalNote from './FluxClinicalNote';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
 import FluxProcedureRequest from './FluxProcedureRequest';
 import FluxProcedure from './FluxProcedure';
 import FluxImagingProcedure from './FluxImagingProcedure';
-import FluxBloodPressure from '../vital/FluxBloodPressure';
+import FluxBloodPressure from './FluxBloodPressure';
 import FluxBodyTemperature from './FluxBodyTemperature';
 import FluxBodyWeight from './FluxBodyWeight';
 import FluxHeartRate from './FluxHeartRate';

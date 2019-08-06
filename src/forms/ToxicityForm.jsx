@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 import {Row, Col} from 'react-flexbox-grid';
 import Divider from 'material-ui/Divider';
 import * as toxicityLookup from '../lib/toxicreaction_lookup';
-import FluxToxicAdverseDrugReaction from '../model/adverse/FluxToxicAdverseDrugReaction';
+import FluxToxicAdverseDrugReaction from '../model/fluxWrappers/adverse/FluxToxicAdverseDrugReaction';
 import Lang from 'lodash';
 import Collection from 'lodash';
 import './ToxicityForm.css';

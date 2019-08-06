@@ -2,8 +2,6 @@ import BloodPressure from "../../shr/core/BloodPressure";
 
 class FluxBloodPressure {
     constructor(json) {
-        super(json);
-
         this._bloodPressure = BloodPressure.fromJSON(json);
     }
 

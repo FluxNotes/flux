@@ -1,16 +1,16 @@
-import * as lookup from '../../lib/progression_lookup.jsx';
+import * as lookup from '../../../../lib/progression_lookup.jsx';
 import CancerDiseaseStatus from '../../../onco/core/CancerDiseaseStatus';
-import FluxEntry from '../base/FluxEntry';
+import FluxEntry from '../../base/FluxEntry';
 import FluxEvidenceType from './FluxEvidenceType';
-import RelevantTime from '../shr/base/RelevantTime';
-import Reference from '../Reference';
+import RelevantTime from '../../../shr/core/RelevantTime';
+import Reference from '../../../Reference';
 import RelatedCancerCondition from '../../../onco/core/RelatedCancerCondition.js';
-import EntryType from '../shr/base/EntryType';
-import Metadata from '../shr/base/Metadata.js';
-import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
+import EntryType from '../../../shr/base/EntryType';
+import Metadata from '../../../shr/core/Metadata';
+// import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
 import DataValue from '../../../shr/core/DataValue.js';
 
-import ClassRegistry from '../ClassRegistry';
+import ClassRegistry from '../../../ClassRegistry';
 
 export default class FluxCancerDiseaseStatus extends FluxEntry {
     constructor(json) {
@@ -119,7 +119,8 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
     set asOfDate(val) {
         if (!this._cancerDiseaseStatus.metadata) this._cancerDiseaseStatus.metadata = new Metadata();
         if (!this._cancerDiseaseStatus.metadata.authoredDateTime) {
-            const authoredDateTime = new AuthoredDateTime();
+            // const authoredDateTime = new AuthoredDateTime();
+            const authoredDateTime = {};
             authoredDateTime.value = val;
             this._cancerDiseaseStatus.metadata.authoredDateTime = authoredDateTime;
         } else {
