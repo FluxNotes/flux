@@ -1,17 +1,17 @@
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxCondition from '../base/FluxCondition';
+import FluxCondition from '../../base/FluxCondition';
 import CancerCondition from '../../../onco/core/CancerCondition';
-import FluxTumorDimensions from '../tumor/FluxTumorDimensions';
-import FluxCancerHistologicType from '../oncocore/FluxCancerHistologicType';
+import FluxTumorDimensions from '../../tumor/FluxTumorDimensions';
+import FluxCancerHistologicType from '../../oncocore/FluxCancerHistologicType';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
-import FluxTNMClinicalStageGroup from '../oncocore/FluxTNMClinicalStageGroup';
-import FluxKarnofskyPerformanceStatus from '../core/FluxKarnofskyPerformanceStatus';
-import FluxECOGPerformanceStatus from '../core/FluxECOGPerformanceStatus';
-import FluxTNMStageGroup from '../oncocore/FluxTNMStageGroup';
-import FluxTumorMarkerTest from '../onco/core/FluxTumorMarkerTest';
-import FluxTNMPathologicStageGroup from '../oncocore/FluxTNMPathologicStageGroup';
-import * as lookup from '../../lib/cancer_lookup';
+import FluxTNMClinicalStageGroup from './FluxTNMClinicalStageGroup';
+import FluxKarnofskyPerformanceStatus from '../../core/FluxKarnofskyPerformanceStatus';
+import FluxECOGPerformanceStatus from '../../core/FluxECOGPerformanceStatus';
+import FluxTNMStageGroup from './FluxTNMStageGroup';
+import FluxTumorMarkerTest from './FluxTumorMarkerTest';
+import FluxTNMPathologicStageGroup from './FluxTNMPathologicStageGroup';
+import * as lookup from '../../../../lib/cancer_lookup';
 
 class FluxCancerCondition extends FluxCondition {
     constructor(json, type, patientRecord) {

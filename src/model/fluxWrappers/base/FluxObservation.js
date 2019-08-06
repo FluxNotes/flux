@@ -1,8 +1,6 @@
 import FluxEntry from './FluxEntry';
 import Observation from '../../shr/core/Observation';
 import Quantity from '../../shr/core/Quantity';
-import Reference from '../Reference';
-import SubjectOfRecord from '../../shr/core/SubjectOfRecord';
 
 class FluxObservation extends FluxEntry {
     constructor(json) {

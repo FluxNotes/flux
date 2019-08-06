@@ -1,18 +1,18 @@
-import ToxicAdverseDrugReaction from '../shr/adverse/ToxicAdverseDrugReaction';
-import Reference from '../Reference';
-import AdverseEventCondition from '../shr/adverse/AdverseEventCondition';
-import Seriousness from '../shr/adverse/Seriousness';
-import * as lookup from '../../lib/toxicreaction_lookup.jsx';
-import Type from '../shr/core/Type';
-import CausalAttribution from '../shr/adverse/CausalAttribution';
-import CauseCategory from '../shr/adverse/CauseCategory';
+// import ToxicAdverseDrugReaction from '../shr/adverse/ToxicAdverseDrugReaction';
+import Reference from '../../Reference';
+// import AdverseEventCondition from '../shr/adverse/AdverseEventCondition';
+// import Seriousness from '../shr/adverse/Seriousness';
+import * as lookup from '../../../lib/toxicreaction_lookup.jsx';
+import Type from '../../shr/core/Type';
+// import CausalAttribution from '../shr/adverse/CausalAttribution';
+// import CauseCategory from '../shr/adverse/CauseCategory';
 import FluxEntry from '../base/FluxEntry';
-import PossibleCause from '../shr/adverse/PossibleCause';
+// import PossibleCause from '../shr/adverse/PossibleCause';
 
 class FluxToxicAdverseDrugReaction extends FluxEntry {
     constructor(json, patientRecord) {
         super();
-        this._entry = this._toxicAdverseDrugReaction = ToxicAdverseDrugReaction.fromJSON(json);
+        // this._entry = this._toxicAdverseDrugReaction = ToxicAdverseDrugReaction.fromJSON(json);
         if (!this._toxicAdverseDrugReaction.entryInfo) {
             this._toxicAdverseDrugReaction.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction');
         }

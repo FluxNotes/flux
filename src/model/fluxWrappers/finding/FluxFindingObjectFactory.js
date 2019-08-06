@@ -1,4 +1,4 @@
-import { getNamespaceAndName } from '../json-helper';
+import { getNamespaceAndName } from '../../json-helper';
 import FluxPathologyReport from './FluxPathologyReport';
 
 export default class FluxFindingObjectFactory {

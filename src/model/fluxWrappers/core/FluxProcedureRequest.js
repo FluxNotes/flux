@@ -1,4 +1,4 @@
-import TimePeriod from '../shr/core/TimePeriod';
+import TimePeriod from '../../shr/core/TimePeriod';
 import ProcedureRequest from '../../shr/core/ProcedureRequest';
 import FluxEntry from '../base/FluxEntry';
 

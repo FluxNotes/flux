@@ -1,4 +1,4 @@
-import ClassRegistry from '../ClassRegistry';
+import ClassRegistry from '../../ClassRegistry';
 
 class FluxEntry {
     get sourceClinicalNoteReference() {

@@ -1,5 +1,5 @@
 import TNMClinicalStageGroup from '../../../onco/core/TNMClinicalStageGroup';
-import PanelMembers from '../shr/base/PanelMembers';
+import PanelMembers from '../../../shr/core/PanelMembers';
 import FluxTNMStageGroup from './FluxTNMStageGroup';
 import moment from 'moment';
 

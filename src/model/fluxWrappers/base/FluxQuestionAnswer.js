@@ -1,9 +1,9 @@
-import QuestionAnswer from '../shr/base/QuestionAnswer';
+// import QuestionAnswer from '../shr/base/QuestionAnswer';
 import Lang from 'lodash';
 
 class FluxQuestionAnswer {
     constructor(json) {
-        this._questionAnswer = QuestionAnswer.fromJSON(json);
+        // this._questionAnswer = QuestionAnswer.fromJSON(json);
     }
 
     get entryInfo() {

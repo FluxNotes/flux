@@ -1,8 +1,8 @@
-import NoKnownAllergy from '../shr/allergy/NoKnownAllergy';
+// import NoKnownAllergy from '../shr/allergy/NoKnownAllergy';
 
 class FluxNoKnownAllergy {
     constructor(json) {
-        this._noKnownAllergy = NoKnownAllergy.fromJSON(json);
+        // this._noKnownAllergy = NoKnownAllergy.fromJSON(json);
     }
 
     get entryInfo() {

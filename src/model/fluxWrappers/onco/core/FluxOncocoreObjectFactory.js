@@ -1,9 +1,8 @@
-import { getNamespaceAndName } from '../json-helper';
+import { getNamespaceAndName } from '../../../json-helper';
 import FluxCancerCondition from './FluxCancerCondition';
 import FluxEvidenceType from './FluxEvidenceType';
 import FluxCancerHistologicGrade from './FluxCancerHistologicGrade';
-import FluxCancerHistologicType from './FluxCancerHistologicType';
-import OncocoreObjectFactory from './OncocoreObjectFactory';
+import FluxCancerHistologicType from '../../oncocore/FluxCancerHistologicType';
 import FluxTNMClinicalStageGroup from './FluxTNMClinicalStageGroup';
 import FluxTNMPathologicStageGroup from './FluxTNMPathologicStageGroup';
 import FluxCancerDiseaseStatus from './FluxCancerDiseaseStatus';
@@ -11,6 +10,7 @@ import FluxTNMClinicalPrimaryTumorCategory from './FluxTNMClinicalPrimaryTumorCa
 import FluxTNMClinicalDistantMetastasesCategory from './FluxTNMClinicalDistantMetastasesCategory';
 import FluxTNMClinicalRegionalNodesCategory from './FluxTNMClinicalRegionalNodesCategory';
 import FluxTumorMarkerTest from './FluxTumorMarkerTest';
+import OncoCoreObjectFactory from '../../../onco/core/OncoCoreObjectFactory';
 
 export default class FluxOncocoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -31,7 +31,7 @@ export default class FluxOncocoreObjectFactory {
             case 'TNMClinicalDistantMetastasesCategory': return new FluxTNMClinicalDistantMetastasesCategory(json);
             case 'TNMClinicalRegionalNodesCategory': return new FluxTNMClinicalRegionalNodesCategory(json);
             case 'EvidenceType': return new FluxEvidenceType(json, type, patientRecord);
-            default: return OncocoreObjectFactory.createInstance(json, type, patientRecord);
+            default: return OncoCoreObjectFactory.createInstance(json, type, patientRecord);
         }
     }
 }
