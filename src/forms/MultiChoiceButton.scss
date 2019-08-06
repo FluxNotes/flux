@@ -9,6 +9,8 @@
     height: 47px !important;
     border-radius: 4px !important;
     color: $body-black !important;
+    box-shadow: 0px 0px 0px 0px #DDDDDD, 0px 0px 0px 0px #DDDDDD, 0px 0px 0px 1px #DDDDDD !important;
+
     &.selected {
       background-color: $interface-blue !important;
       color: $background;
