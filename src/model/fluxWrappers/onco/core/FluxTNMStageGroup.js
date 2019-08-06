@@ -223,14 +223,6 @@ export default class FluxTNMStageGroup extends FluxEntry {
         }
     }
 
-    get informant() {
-        if (this._tnmStageGroup.informant) {
-            return this._tnmStageGroup.informant.value;
-        } else {
-            return null;
-        }
-    }
-
     toJSON() {
         return this._tnmStageGroup.toJSON();
     }

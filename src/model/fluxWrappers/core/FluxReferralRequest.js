@@ -86,14 +86,6 @@ class FluxReferralRequest {
         }
     }
 
-    get informant() {
-        if (this._referralRequest.informant) {
-            return this._referralRequest.informant.value;
-        } else {
-            return null;
-        }
-    }
-
     // returns resulting clinical note reference
     get resultingClinicalNote() {
         return this._resultingClinicalNote;
