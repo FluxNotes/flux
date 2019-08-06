@@ -220,55 +220,55 @@ export default class NoteAssistant extends Component {
         // Temporarily disabling opening source note on click
         notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
         switch (noteAssistantMode) {
-        case "poc":
-            return (
-                <div>
-                </div>
-            );
+            case "poc":
+                return (
+                    <div>
+                    </div>
+                );
             // Render the context tray
-        case "context-tray":
-            return (
-                <div>
-                    <ContextTray
-                        contextManager={this.props.contextManager}
-                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                        patient={this.props.patient}
-                        setInsertingTemplate={this.props.setInsertingTemplate}
-                        shortcutManager={this.props.shortcutManager}
-                        showTemplateView={this.props.showTemplateView}
-                        updateShowTemplateView={this.props.updateShowTemplateView}
-                    />
-                    {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
-                </div>
-            );
+            case "context-tray":
+                return (
+                    <div>
+                        <ContextTray
+                            contextManager={this.props.contextManager}
+                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                            patient={this.props.patient}
+                            setInsertingTemplate={this.props.setInsertingTemplate}
+                            shortcutManager={this.props.shortcutManager}
+                            showTemplateView={this.props.showTemplateView}
+                            updateShowTemplateView={this.props.updateShowTemplateView}
+                        />
+                        {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
+                    </div>
+                );
 
             // Render the clinical notes view which includes new note button, resume note button,
             // number of previous notes label, sort selection, and preview of previous notes
-        case "clinical-notes":
-            return (
-                <div className="clinical-notes-panel">
-                    {this.renderNewNote()}
-                    <div id="in-progress-note-list">
-                        {this.renderInProgressNotes()}
-                    </div>
+            case "clinical-notes":
+                return (
+                    <div className="clinical-notes-panel">
+                        {this.renderNewNote()}
+                        <div id="in-progress-note-list">
+                            {this.renderInProgressNotes()}
+                        </div>
 
-                    <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
-                    <div id="signed-note-list">
-                        {/*TODO: Complete and enable sort selection/more-notes button*/}
-                        {/*this.renderSortSelection()*/}
-                        {this.renderNotes()}
-                        {/*this.renderMoreNotesButton()*/}
+                        <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
+                        <div id="signed-note-list">
+                            {/*TODO: Complete and enable sort selection/more-notes button*/}
+                            {/*this.renderSortSelection()*/}
+                            {this.renderNotes()}
+                            {/*this.renderMoreNotesButton()*/}
+                        </div>
                     </div>
-                </div>
-            );
+                );
 
             // Render the pick list options panel which allows users to select options for the pick lists
-        case "pick-list-options-panel": {
-            return this.renderPickListOptions();
-        }
-        default:
-            console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
-            return "";
+            case "pick-list-options-panel": {
+                return this.renderPickListOptions();
+            }
+            default:
+                console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
+                return "";
         }
     }
 

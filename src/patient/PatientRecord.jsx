@@ -1156,31 +1156,31 @@ class PatientRecord {
         let a_severity, b_severity;
 
         switch (a.severity) {
-        case "Severe": {
-            a_severity = 1;
-            break;
-        }
-        case "Moderate": {
-            a_severity = 0;
-            break;
-        }
-        default: {
-            a_severity = -1;
-        }
+            case "Severe": {
+                a_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                a_severity = 0;
+                break;
+            }
+            default: {
+                a_severity = -1;
+            }
         }
 
         switch (b.severity) {
-        case "Severe": {
-            b_severity = 1;
-            break;
-        }
-        case "Moderate": {
-            b_severity = 0;
-            break;
-        }
-        default: {
-            b_severity = -1;
-        }
+            case "Severe": {
+                b_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                b_severity = 0;
+                break;
+            }
+            default: {
+                b_severity = -1;
+            }
         }
 
         if (a_severity > b_severity) return -1;

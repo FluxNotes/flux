@@ -156,20 +156,20 @@ class BandedLineChartVisualizer extends Visualizer {
                 let color = null;
 
                 switch (band.assessment) {
-                case 'bad':
-                    color = "red";
-                    break;
+                    case 'bad':
+                        color = "red";
+                        break;
 
-                case 'average':
-                    color = "yellow";
-                    break;
+                    case 'average':
+                        color = "yellow";
+                        break;
 
-                case 'good':
-                    color = "green";
-                    break;
+                    case 'good':
+                        color = "green";
+                        break;
 
-                default:
-                    console.log("Type of band is not recognized. Please check summary metadata");
+                    default:
+                        console.log("Type of band is not recognized. Please check summary metadata");
                 }
 
                 bands.push({
