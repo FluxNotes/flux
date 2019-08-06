@@ -426,7 +426,7 @@ export default class FillPlaceholder extends Component {
                             {this.renderColumns(i)}
                             {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                         </Grid>
-                        <Divider className="divider" />
+                        <Divider className="divider" id="poc-divider"/>
                     </Grid>
                 );
             });
@@ -462,7 +462,7 @@ export default class FillPlaceholder extends Component {
                         {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                     </Grid>
                     {this.createAllRows(i)}
-                    <Divider className="divider" />
+                    <Divider className="divider" id="poc-divider"/>
                 </Grid>
             ));
         }
