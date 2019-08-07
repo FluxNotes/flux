@@ -28,7 +28,7 @@ CONFIG = {
     {
         path: '/smartcompass',
         display: 'Compass™',
-        app: "CompassApp",
+        app: "SmartCompassApp",
         isExact: true,
         dataSource: 'McodeV05SmartOnFhirDataSource',
         dataSourceProps: {
@@ -174,7 +174,7 @@ CONFIG = {
     },
     {
         path: '/ccp',
-        display: 'Compass',
+        display: 'Compass™',
         app: "CompassApp",
         isExact: true,
         dataSource: 'HardCodedMcodeV05DataSource',
@@ -188,7 +188,7 @@ CONFIG = {
     },
     {
         path: '/ccp2',
-        display: 'Compass',
+        display: 'Compass™',
         app: "CompassApp",
         isExact: true,
         dataSource: 'HardCodedMcodeV01DataSource',

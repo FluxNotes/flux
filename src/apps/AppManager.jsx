@@ -1,9 +1,8 @@
-import {
-    CompassApp
-} from '../containers/CompassApp';
-import FullApp from '../containers/FullApp';
-import SlimApp from '../containers/SlimApp';
+import { CompassApp } from '../containers/CompassApp';
+import SmartCompassApp from '../containers/SmartCompassApp';
+import { FullApp } from '../containers/FullApp';
 import SmartApp from '../containers/SmartApp';
+import SlimApp from '../containers/SlimApp';
 import PointOfCareApp from '../containers/PointOfCareApp';
 import LandingPage from '../components/LandingPage';
 import LaunchPage from '../components/LaunchPage';
@@ -16,6 +15,7 @@ const APPS = {
     'LaunchPage': LaunchPage,
     'LandingPage': LandingPage,
     'CompassApp': CompassApp,
+    'SmartCompassApp': SmartCompassApp,
     'PointOfCareApp': PointOfCareApp,
 };
 
