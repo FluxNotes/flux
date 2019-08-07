@@ -11,7 +11,7 @@ import 'fhirclient';
     NOTE: the redirect_url property used in the launchContext for the /launch endpoint
           will need to be changed in different environments
 */
-export default function withSmartData(WrappedAppComponent) {
+export default function WithSmartData(WrappedAppComponent) {
     return class extends WrappedAppComponent {
         componentDidMount() {
             window.FHIR.oauth2.ready((smart) => {

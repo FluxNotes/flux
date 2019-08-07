@@ -1,5 +1,5 @@
 import { CompassApp } from "./CompassApp";
-import withSmartData from './withSmartData';
+import WithSmartData from './WithSmartData';
 
-const SmartCompassApp = withSmartData(CompassApp);
+const SmartCompassApp = WithSmartData(CompassApp);
 export default SmartCompassApp;
