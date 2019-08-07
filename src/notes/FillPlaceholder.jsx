@@ -282,7 +282,7 @@ export default class FillPlaceholder extends Component {
     renderAddButton = () => {
         const { done } = this.state;
         const { placeholder } = this.props;
-        const shortcutNameWithoutPrefix = placeholder.shortcutName.slice(1);
+        const shortcutNameWithoutPrefix = placeholder.shortcutDisplayText;
 
         let addButton = '';
         if (!done) {
@@ -311,7 +311,7 @@ export default class FillPlaceholder extends Component {
     renderDeleteButton = (entryIndex) => {
         const { done } = this.state;
         const { placeholder } = this.props;
-        const shortcutNameWithoutPrefix = placeholder.shortcutName.slice(1);
+        const shortcutNameWithoutPrefix = placeholder.shortcutDisplayText;
 
         let deleteButton = '';
         if (!done) {
@@ -362,7 +362,7 @@ export default class FillPlaceholder extends Component {
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span> */}
                 <span className="shortcut-name" key="0">
-                    {placeholder.shortcutName.slice(1)}
+                    {placeholder.shortcutDisplayText}
                 </span>
             </Grid>
         );
