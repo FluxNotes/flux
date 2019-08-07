@@ -1,5 +1,5 @@
 import TNMPathologicStageGroup from '../../../onco/core/TNMPathologicStageGroup';
-import PanelMembers from '../shr/base/PanelMembers';
+import PanelMembers from '../../../shr/core/PanelMembers';
 import FluxTNMStageGroup from './FluxTNMStageGroup';
 
 class FluxTNMPathologicStageGroup extends FluxTNMStageGroup {

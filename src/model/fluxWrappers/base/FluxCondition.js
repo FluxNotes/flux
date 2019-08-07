@@ -69,12 +69,10 @@ class FluxCondition extends FluxEntry {
     }
 
     get bodySite() {
-        if (!this._condition.anatomicalLocation || this._condition.anatomicalLocation.length < 1) {
+        if (!this._condition.bodyLocation || this._condition.bodyLocation.length < 1) {
             return null;
-        // } else if (this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode instanceof BodySite) {
-        //     return this._displayTextOrCode(this._condition.anatomicalLocation[0].anatomicalLocationOrLandmarkCode.value.coding[0]);
         } else { // CodeableConcept
-            return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.anatomicalLocationOrLandmarkCode.value.coding[0]);
+            return this._displayTextOrCode(this._condition.bodyLocation[0].locationCode.value.coding[0]);
         }
     }
 
@@ -84,34 +82,25 @@ class FluxCondition extends FluxEntry {
 
     get laterality() {
         if (
-            !this._condition.anatomicalLocation
-            || this._condition.anatomicalLocation.length < 1
-            || !this._condition.anatomicalLocation[0].value
-            || !this._condition.anatomicalLocation[0].value.laterality
-            || !this._condition.anatomicalLocation[0].value.laterality.value
+            !this._condition.bodyLocation
+            || this._condition.bodyLocation.length < 1
+            || !this._condition.bodyLocation[0].laterality
+            || !this._condition.bodyLocation[0].laterality.value
         ) return null;
-        return this._displayTextOrCode(this._condition.anatomicalLocation[0].value.laterality.value.coding[0]);
+        return this._displayTextOrCode(this._condition.bodyLocation[0].laterality.value.coding[0]);
     }
 
     get author() {
-        if (this._condition.author) {
-            return this._condition.author.value;
-        } else {
-            return null;
-        }
-    }
-
-    get informant() {
-        if (this._condition.informant) {
-            return this._condition.informant.value;
+        if (this._condition.asserter) {
+            return this._condition.asserter.value;
         } else {
             return null;
         }
     }
 
     get relatedEncounterReference() {
-        if (this._condition.relatedEncounter) {
-            return this._condition.relatedEncounter.value;
+        if (this._condition.careContext) {
+            return this._condition.careContext.value;
         } else {
             return null;
         }

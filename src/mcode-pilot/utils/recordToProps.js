@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
+import FluxTumorDimensions from '../../model/fluxWrappers/tumor/FluxTumorDimensions';
 import FluxTNMClinicalPrimaryTumorCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalPrimaryTumorCategory';
 import FluxTNMClinicalRegionalNodesCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalRegionalNodesCategory';
-import FluxTNMClinicalDistantMetastasesCategory from '../../model/onco/core/FluxTNMClinicalDistantMetastasesCategory';
+import FluxTNMClinicalDistantMetastasesCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalDistantMetastasesCategory';
 
 export default function getProps(patient, condition) {
 

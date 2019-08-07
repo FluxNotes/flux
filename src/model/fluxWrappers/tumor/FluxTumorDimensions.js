@@ -1,4 +1,4 @@
-import TumorDimensions from './TumorDimensions';
+import TumorDimensions from '../../onco/core/TumorDimensions';
 import FluxObservation from '../base/FluxObservation';
 
 class FluxTumorDimensions extends FluxObservation {

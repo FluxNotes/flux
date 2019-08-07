@@ -1,5 +1,5 @@
-import Reference from '../Reference';
-import Metadata from '../shr/base/Metadata';
+import Reference from '../../Reference';
+import Metadata from '../../shr/core/Metadata';
 import Lang from 'lodash';
 import FluxEntry from '../base/FluxEntry';
 

@@ -1,4 +1,4 @@
-import TimePeriod from '../shr/core/TimePeriod';
+import TimePeriod from '../../shr/core/TimePeriod';
 import Procedure from '../../shr/core/Procedure';
 
 class FluxProcedure {

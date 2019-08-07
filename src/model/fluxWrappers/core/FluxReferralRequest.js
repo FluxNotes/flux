@@ -1,5 +1,5 @@
 import ReferralRequest from '../../shr/core/ReferralRequest';
-import Reference from '../Reference';
+import Reference from '../../Reference';
 import Lang from 'lodash';
 
 class FluxReferralRequest {
@@ -81,14 +81,6 @@ class FluxReferralRequest {
     get author() {
         if (this._referralRequest.author) {
             return this._referralRequest.author.value;
-        } else {
-            return null;
-        }
-    }
-
-    get informant() {
-        if (this._referralRequest.informant) {
-            return this._referralRequest.informant.value;
         } else {
             return null;
         }

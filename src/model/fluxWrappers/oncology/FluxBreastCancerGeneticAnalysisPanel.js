@@ -1,8 +1,8 @@
-import BreastCancerGeneticAnalysisPanel from '../shr/oncology/BreastCancerGeneticAnalysisPanel';
+// import BreastCancerGeneticAnalysisPanel from '../shr/oncology/BreastCancerGeneticAnalysisPanel';
 
 class FluxBreastCancerGeneticAnalysisPanel {
     constructor(json, patientRecord) {
-        this._breastCancerGeneticAnalysisPanel = BreastCancerGeneticAnalysisPanel.fromJSON(json);
+        // this._breastCancerGeneticAnalysisPanel = BreastCancerGeneticAnalysisPanel.fromJSON(json);
         this._patientRecord = patientRecord;
     }
 
