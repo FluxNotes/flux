@@ -12,23 +12,25 @@
 
 .minimap {
 	float: right;
-	position: fixed;
+	position: static;
+	-webkit-overflow-scrolling: touch; 
 	right: 0;
-	z-index: 1;
+	z-index: 20000000000000000000;
 	margin: 10px;
 	background-color: rgba(0, 0, 0, 0.29);
 	border: 1px solid rgba(0, 0, 0, 0.17);
 }
 
 .minimap-container {
-	overflow: scroll;
+	// overflow: scroll;
+	
 	width: 100%;
 	height: 100%;
 }
 
 .minimap-children-wrapper {
 	position: absolute;
-	left: 0;
+	left: 0px;
 }
 
 .minimap-children {
