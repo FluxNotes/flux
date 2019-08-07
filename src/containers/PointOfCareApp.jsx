@@ -245,18 +245,6 @@ export class PointOfCareApp extends Component {
         return "No source information";
     }
 
-    getNoteModalStyle = () => {
-        if (this.state.openClinicalNote !== null) {
-            return {
-                width: '50%',
-                height: '75%',
-            };
-        }
-        else {
-            return {};
-        }
-    }
-
     openReferencedModal = (item, itemLabel) => {
         if (item.source.link) {
             window.open(`${item.source.link}`);
@@ -351,6 +339,14 @@ export class PointOfCareApp extends Component {
         this.handleModalClose();
     }
 
+    getNoteModalStyle = () => {
+        const clinicalNoteStyle = {
+            width: '50%',
+            height: '75%',
+        };
+        return Object.assign(getModalStyle(), clinicalNoteStyle);
+    }
+
     openClinicalNote = () => {
         const content = this.state.openClinicalNote ? this.state.openClinicalNote.content : "";
         const contextManager = this.contextManager ? this.contextManager : {};
@@ -358,7 +354,7 @@ export class PointOfCareApp extends Component {
 
         return (
             // adds the clinical note modal style to the clinical note along with the normal modal style
-            <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
+            <div style={this.getNoteModalStyle()}>
                 <FluxNotesEditor
                     // the following are required in order for FluxNotesEditor to run or it will cause the application to crash
                     closeNote={this.closeNote}
@@ -425,8 +421,6 @@ export class PointOfCareApp extends Component {
         );
     }
 
-
-
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -459,7 +453,7 @@ export class PointOfCareApp extends Component {
                             </Col>
                         </Row>
                         {this.renderLoadingInformation()}
-                        <Fade in={!this.state.loading} timeout={this.timeoutDuration} style={{paddingLeft: '12px'}}>
+                        <Fade in={!this.state.loading} timeout={this.timeoutDuration} style={{ paddingLeft: '12px' }}>
                             <div>
                                 {!Lang.isNull(this.state.patient) &&
                                     <PointOfCareDashboard
