@@ -7,7 +7,7 @@ import FluxCondition from '../model/fluxWrappers/base/FluxCondition';
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
-import FluxMedicationChange from '../model/fluxWrappers/medication/FluxMedicationChange';
+import FluxMedicationStatement from '../model/fluxWrappers/core/FluxMedicationStatement';
 import FluxNoKnownAllergy from '../model/fluxWrappers/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
 import FluxPatientIdentifier from '../model/fluxWrappers/base/FluxPatientIdentifier';
@@ -655,7 +655,7 @@ class PatientRecord {
         return allmeds.filter((med) => {
             let medChanges = this.getMedicationChanges();
             let stopMedicationFound = medChanges.some((medChange) => {
-                return ((medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value)) && (medChange.type === "stop"));
+                return (medChange.stopDate && medChange.status.value.coding[0].codeValue === "stop");
             });
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
@@ -755,7 +755,7 @@ class PatientRecord {
     }
 
     getMedicationChanges() {
-        return this.getEntriesOfType(FluxMedicationChange);
+        return this.getEntriesOfType(FluxMedicationStatement);
     }
 
     getMedicationChangesChronologicalOrder() {
@@ -769,12 +769,12 @@ class PatientRecord {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         medicationsChanges = medicationsChanges.filter((change) => {
             const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.value) : null;
-            const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.value) : null;
+            const medAfterChange = change.medicationStatementAfterChange ? this.getEntryFromReference(change.medicationStatementAfterChange.value) : null;
 
             let eitherChangeIsRelated;
 
-            if (medAfterChange && medBeforeChange) {
-                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
+            if (medAfterChange) {
+                eitherChangeIsRelated = change.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === conditionEntryId;
                 }) || medAfterChange.reasons.some((r) => {
                     return r.value.entryId && r.value.entryId === conditionEntryId;
@@ -786,7 +786,7 @@ class PatientRecord {
             } else {
                 return false;
             }
-            return change instanceof FluxMedicationChange && eitherChangeIsRelated;
+            return change instanceof FluxMedicationStatement && eitherChangeIsRelated;
         });
         return medicationsChanges;
     }
