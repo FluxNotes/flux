@@ -357,6 +357,7 @@ export class PointOfCareApp extends Component {
         const patient = this.state.patient ? this.state.patient : {};
 
         return (
+            // adds the clinical note modal style to the clinical note along with the normal modal style
             <div style={Object.assign(getModalStyle(), this.getNoteModalStyle())} >
                 <FluxNotesEditor
                     // the following are required in order for FluxNotesEditor to run or it will cause the application to crash
