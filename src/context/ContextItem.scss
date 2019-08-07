@@ -1,17 +1,15 @@
 @import '../styles/variables';
 
-.context-portal .context-menu-item {
-    padding: 5px 10px;
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
+.context-portal {
+    .context-menu-item {
+        padding: 5px 10px;
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        &[data-active="true"] {
+            background-color: $interface-blue;
+            color: #fff;
+        }
+    }
 }
 
-.context-portal .context-menu-item[data-active="true"] {
-    background-color: $interface-blue;
-    color: #fff;
-}
-
-.right-aligned {
-    padding-left: 15px;
-}
