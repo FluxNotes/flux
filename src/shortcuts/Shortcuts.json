@@ -36,7 +36,7 @@
     "id": "DateOfBirthInserter",
     "getData": {"object": "patient", "method": "getDateOfBirth"},
     "isContext": false,
-    "stringTriggers": [{"name": "@dateofbirth", "description": "Patient's date of birth in DD.MMM.YYYY format (e.g., 5 APR 1966)"}],
+    "stringTriggers": [{"name": "@date of birth", "description": "Patient's date of birth in DD.MMM.YYYY format (e.g., 5 APR 1966)"}],
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
@@ -504,7 +504,7 @@
     "id": "DateOfDiagnosisInserter",
     "getData": {"object": "$parentValueObject", "method": "getDiagnosisDate"},
     "isContext": false,
-    "stringTriggers": [{"name": "@dateofdiagnosis", "description": "Patient's date of diagnosis in DD.MMM.YYYY format (e.g., 5 APR 1966)"}],
+    "stringTriggers": [{"name": "@date of diagnosis", "description": "Patient's date of diagnosis in DD.MMM.YYYY format (e.g., 5 APR 1966)"}],
     "knownParentContexts": "ConditionInserter"
   },
   { "type": "CreatorBase",
