@@ -65,7 +65,7 @@ class MenuItemSetFillForPlaceholder extends Component {
 
     handleOptionSelection = (e, i) => {
         e.preventDefault();
-        const newValue = this._options[i].name;
+        const newValue = this._options[i].name === this.props.value? '' : this._options[i].name;
         this.props.updateValue(newValue);
     }
 

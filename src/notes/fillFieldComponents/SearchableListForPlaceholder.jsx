@@ -39,15 +39,18 @@ class SearchableListForPlaceholder extends Component {
     }
 
 
-    handleAdverseEventSelection = (newAdverseEvent) => {
-        // A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
+    handleAdverseEventSelection = (newAdverseEvent, index) => {
+        //A null or undefined value for newAdverseEvent should trigger the deletion of the current adverseEvent
         if (Lang.isUndefined(newAdverseEvent) || Lang.isNull(newAdverseEvent)) {
             this.props.updateValue(null);
-        } else {
+        } else if (!(this.props.value === this.topAdverseEvents[index])) { // if the button is not already selected
             this.props.updateValue(newAdverseEvent);
             this.setState({
                 searchText: titlecase(newAdverseEvent),
             });
+        }
+        else { //if the button is already selected
+            this.props.updateValue('');
         }
     }
 
@@ -177,7 +180,7 @@ class SearchableListForPlaceholder extends Component {
                                 <SingleChoiceButton
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
-                                    onClick={(e) => this.handleAdverseEventSelection(adverseEvent.name)}
+                                    onClick={(e) => this.handleAdverseEventSelection(adverseEvent.name, i)}
                                     isSelected={this.props.value === this.topAdverseEvents[i]}
                                     marginSize={marginSize}
                                 />
