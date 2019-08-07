@@ -64,7 +64,7 @@ CONFIG = {
     {
         path: '/smart',
         display: 'Flux Notes™',
-        app: "SmartApp",
+        app: "SmartFullApp",
         isExact: true,
         dataSource: 'McodeV05SmartOnFhirDataSource',
         shortcuts: []
@@ -91,7 +91,7 @@ CONFIG = {
     {
         path: '/synthea',
         display: 'Flux Notes™',
-        app: "SmartApp",
+        app: "SmartFullApp",
         isExact: true,
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
