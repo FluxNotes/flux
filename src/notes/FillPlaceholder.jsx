@@ -426,7 +426,7 @@ export default class FillPlaceholder extends Component {
                             {this.renderColumns(i)}
                             {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                         </Grid>
-                        <Divider className="divider" id="poc-divider"/>
+                        <Divider className="divider" id="poc-divider" />
                     </Grid>
                 );
             });
@@ -437,9 +437,6 @@ export default class FillPlaceholder extends Component {
             ? (
                 <Grid container>
                     {this.renderCheckbox()}
-                    <Grid item xs={10} style={{ width: '100%' }}>
-                        {this.renderColumns()}
-                    </Grid>
                 </Grid>
             )
             : (
@@ -459,15 +456,18 @@ export default class FillPlaceholder extends Component {
                 <Grid container key={`${i}-expanded-rows`}>
                     <Grid item xs={3} />
                     <Grid item xs={9}>
+                        <div style={{marginLeft: '-70px'}}>
+                            {this.renderColumns()}
+                        </div>
                         {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                     </Grid>
                     {this.createAllRows(i)}
-                    <Divider className="divider" id="poc-divider"/>
+                    <Divider className="divider" id="poc-divider" />
                 </Grid>
             ));
         }
         const expansionDetails = !expanded ? '' : (
-            <Grid container>
+            <Grid container style={{zIndex: 0}}>
                 {this.renderError()}
                 {allRowsAndColumns}
                 <div style={{ width: '100%' }}>
@@ -482,7 +482,7 @@ export default class FillPlaceholder extends Component {
                 <ExpansionPanelSummary className='summary-panel' style={{ backgroundColor, cursor: 'default' }} expandIcon={expandIcon}>
                     {expansionSummary}
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails style={{ backgroundColor }}>
+                <ExpansionPanelDetails style={{ backgroundColor , marginTop: '-50px'}}>
                     {expansionDetails}
                 </ExpansionPanelDetails>
             </ExpansionPanel>
