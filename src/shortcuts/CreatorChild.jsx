@@ -83,7 +83,8 @@ export default class CreatorChild extends Shortcut {
     // return 'date-id' opens calendar.
     determineText(contextManager) {
         if (!Lang.isObject(this.metadata.picker)) {
-            return this.metadata.picker;
+            const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || 'date-id' : 'date-id';
+            return attributeValue;
         } else if (Lang.isArray(this.metadata.picker)) {
             return this.metadata.picker;
         } else {
