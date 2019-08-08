@@ -51,6 +51,9 @@ class SearchableListForPlaceholder extends Component {
         }
         else { //if the button is already selected
             this.props.updateValue('');
+            this.setState({
+                searchText: '',
+            });
         }
     }
 
