@@ -343,7 +343,7 @@ export class PointOfCareApp extends Component {
             width: '50%',
             height: '75%',
         };
-        // Merge the default modal styles with the clinicalNoteModal-specific styles 
+        // Merge the default modal styles with the clinicalNoteModal-specific styles
         return Object.assign(getModalStyle(), clinicalNoteStyle);
     }
 
