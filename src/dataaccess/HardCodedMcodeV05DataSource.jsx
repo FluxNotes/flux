@@ -1,6 +1,7 @@
 import IDataSource from './IDataSource';
 import BreastMainTreatmentDiabetesHypertensionJaneV05 from './BreastMainTreatmentDiabetesHypertensionJaneV05.json';
 import PatientRecord from '../patient/PatientRecord.jsx';
+import  * as McodeV05EntryMapper from './McodeV05EntryMapper';
 
 class HardCodedMcodeV05DataSource extends IDataSource {
     constructor() {
@@ -36,7 +37,7 @@ class HardCodedMcodeV05DataSource extends IDataSource {
         } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
-        return new PatientRecord(patientJSON);
+        return new PatientRecord(McodeV05EntryMapper.mapEntries(patientJSON));
     }
 
     getListOfPatients() {
