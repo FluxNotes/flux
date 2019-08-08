@@ -8,9 +8,9 @@ import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerD
 import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
 import FluxMedicationStatement from '../model/fluxWrappers/core/FluxMedicationStatement';
-import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
-import FluxPatient from '../model/entity/FluxPatient';
-import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
+import FluxNoKnownAllergy from '../model/fluxWrappers/allergy/FluxNoKnownAllergy';
+import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
+import FluxPatientIdentifier from '../model/fluxWrappers/base/FluxPatientIdentifier';
 import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
 import FluxQuestionAnswer from '../model/fluxWrappers/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/fluxWrappers/core/FluxResearchSubject';
