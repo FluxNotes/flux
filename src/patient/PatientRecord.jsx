@@ -3,7 +3,7 @@ import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondi
 import FluxBreastCancerGeneticAnalysisPanel from '../model/fluxWrappers/oncology/FluxBreastCancerGeneticAnalysisPanel';
 import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/fluxWrappers/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/fluxWrappers/core/FluxClinicalNote';
-import FluxCondition from '../model/fluxWrappers/base/FluxCondition';
+import FluxCondition from '../model/fluxWrappers/core/FluxCondition';
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
@@ -966,7 +966,9 @@ class PatientRecord {
     getProgressionsForCondition(condition) {
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         return this.entries.filter((item) => {
-            return item instanceof FluxCancerDiseaseStatus && item.relatedCancerCondition.entryId === conditionEntryId;
+            return item instanceof FluxCancerDiseaseStatus
+                && item.relatedCancerCondition
+                && item.relatedCancerCondition.entryId === conditionEntryId;
         });
     }
 
@@ -974,7 +976,8 @@ class PatientRecord {
         let progressions = this.getProgressionsChronologicalOrder();
         const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
         progressions = progressions.filter((progression) => {
-            return progression.relatedCancerCondition.entryId === conditionEntryId;
+            return progression.relatedCancerCondition
+                && progression.relatedCancerCondition.entryId === conditionEntryId;
         });
         return progressions;
     }

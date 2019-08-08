@@ -1,5 +1,5 @@
 import TumorDimensions from '../../onco/core/TumorDimensions';
-import FluxObservation from '../base/FluxObservation';
+import FluxObservation from '../core/FluxObservation';
 
 class FluxTumorDimensions extends FluxObservation {
     constructor(json) {

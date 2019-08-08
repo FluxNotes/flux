@@ -23,7 +23,7 @@ export default class FluxObjectFactory {
             case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type, patientRecord);
-            case 'oncocore': return FluxOncocoreObjectFactory.createInstance(json, type, patientRecord);
+            case 'onco.core': return FluxOncocoreObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
             case 'tumor': return FluxTumorObjectFactory.createInstance(json, type, patientRecord);

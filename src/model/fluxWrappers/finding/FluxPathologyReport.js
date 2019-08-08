@@ -1,4 +1,4 @@
-import FluxObservation from '../base/FluxObservation';
+import FluxObservation from '../core/FluxObservation';
 import Lang from 'lodash';
 
 class FluxPathologyReport extends FluxObservation {

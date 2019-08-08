@@ -15,13 +15,16 @@ import OncoCoreObjectFactory from '../../../onco/core/OncoCoreObjectFactory';
 export default class FluxOncocoreObjectFactory {
     static createInstance(json, type, patientRecord) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
-        if (namespace !== 'oncocore') {
+        if (namespace !== 'onco.core') {
             throw new Error(`Unsupported type in OncocoreObjectFactory: ${type}`);
         }
         // returns Flux wrapper class if found, otherwise use OncocoreObjectFactory
         switch (elementName) {
             case 'CancerDiseaseStatus': return new FluxCancerDiseaseStatus(json, type, patientRecord);
             case 'CancerCondition': return new FluxCancerCondition(json, type, patientRecord);
+            // TODO: does this need to be reviewed?
+            case 'PrimaryCancerCondition': return new FluxCancerCondition(json, type, patientRecord);
+            case 'SecondaryCancerCondition': return new FluxCancerCondition(json, type, patientRecord);
             case 'CancerHistologicGrade': return new FluxCancerHistologicGrade(json, type, patientRecord);
             case 'CancerHistologicType': return new FluxCancerHistologicType(json, type, patientRecord);
             case 'TumorMarkerTest': return new FluxTumorMarkerTest(json);

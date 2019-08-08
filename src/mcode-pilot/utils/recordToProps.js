@@ -8,8 +8,12 @@ export default function getProps(patient, condition) {
 
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
     let tnminfo;
-    if (condition.getMostRecentClinicalStaging()) {
-        tnminfo = processPanel(condition.getMostRecentClinicalStaging()._tnmStageGroup._panelMembers.observation, patient);
+    const clinStage = condition.getMostRecentClinicalStaging();
+    if (clinStage
+        && clinStage._tnmStageGroup
+        && clinStage._tnmStageGroup._panelMembers
+        && clinStage._tnmStageGroup._panelMembers.observation) {
+        tnminfo = processPanel(clinStage._tnmStageGroup._panelMembers.observation, patient);
     }
     const propDict = {
         // demographics

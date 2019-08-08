@@ -13,6 +13,10 @@ class FluxHeartRate {
         return this._heartRate.dataValue.quantity.unit;
     }
 
+    get entryInfo() {
+        return this._heartRate.entryInfo;
+    }
+
     toJSON() {
         return this._heartRate.toJSON();
     }
