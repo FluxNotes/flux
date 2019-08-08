@@ -1,0 +1,15 @@
+@import '../styles/variables';
+
+.context-portal {
+    .context-menu-item {
+        padding: 5px 10px;
+        width: 300px;
+        display: flex;
+        justify-content: space-between;
+        &[data-active="true"] {
+            background-color: $interface-blue;
+            color: #fff;
+        }
+    }
+}
+
