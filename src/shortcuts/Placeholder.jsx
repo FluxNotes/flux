@@ -52,6 +52,10 @@ class Placeholder {
         return this._shortcutName;
     }
 
+    get shortcutDisplayText() {
+        return this._shortcutName.slice(1);
+    }
+
     get metadata() {
         return this._metadata;
     }

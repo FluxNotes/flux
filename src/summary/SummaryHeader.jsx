@@ -115,10 +115,10 @@ class SummaryHeader extends Component {
                                     </Col>
                                     <Col xs={12} md={12} lg={6}>
                                         <Row start='xs'>
-                                            <Col xs={5} md={5} lg={5}>
+                                            <Col xs={5} md={5} lg={6}>
                                                 <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Admin. Sex: {administrativeSexString}</span>
                                             </Col>
-                                            <Col xs={7} md={7} lg={7}>
+                                            <Col xs={7} md={7} lg={6}>
                                                 <span className={`patient-item no-wrap ${tabletPatienInfoSpacing}`}>Location: {locationString}</span>
                                             </Col>
                                         </Row>

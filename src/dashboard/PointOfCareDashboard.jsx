@@ -9,6 +9,7 @@ import './PointOfCareDashboard.css';
 import InMemoryClinicalNote from '../notes/InMemoryClinicalNote';
 import moment from 'moment';
 import NextPatientButton from './NextPatientButton';
+import FontAwesome from 'react-fontawesome';
 
 export default class PointOfCareDashboard extends Component {
     constructor(props) {
@@ -201,12 +202,18 @@ export default class PointOfCareDashboard extends Component {
         return (
             <div className='content'>
                 <div className='poc-nav-bar'>
-                    <Button onClick={() => this.togglePOC(false)}>
-                        {this.renderTdpIcon()}
-                    </Button>
-                    <Button onClick={() => this.togglePOC(true)}>
-                        {this.renderPocIcon()}
-                    </Button>
+                    <span style={{whiteSpace: 'nowrap'}}>
+                        <Button onClick={() => this.togglePOC(false)}>
+                            {this.renderTdpIcon()}
+                        </Button>
+                        {!this.state.showPOC && <FontAwesome className='fas fa-caret-left fa-2x' name='left-arrow' style={{ color: 'white', verticalAlign: 'middle'}} />}
+                    </span>
+                    <span style={{whiteSpace: 'nowrap'}}>
+                        <Button onClick={() => this.togglePOC(true)}>
+                            {this.renderPocIcon()}
+                        </Button>
+                        {this.state.showPOC && <FontAwesome className='fas fa-caret-left fa-2x' name='left-arrow' style={{ color: 'white', verticalAlign: 'middle'}} />}
+                    </span>
                 </div>
                 <NextPatientButton className='next-patient' renderNextPatient={this.renderNextPatient} />
             </div>
