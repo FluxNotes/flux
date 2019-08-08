@@ -1,13 +1,13 @@
 import Condition from '../../shr/core/Condition';
 import FluxCancerDiseaseStatus from '../onco/core/FluxCancerDiseaseStatus';
-import FluxMedicationRequest from '../core/FluxMedicationRequest';
+import FluxMedicationRequest from './FluxMedicationRequest';
 import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
-import FluxObservation from '../base/FluxObservation';
-import FluxProcedureRequest from '../core/FluxProcedureRequest';
+import FluxObservation from './FluxObservation';
+import FluxProcedureRequest from './FluxProcedureRequest';
 import hpiConfig from '../../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxEntry from './FluxEntry';
+import FluxEntry from '../base/FluxEntry';
 
 class FluxCondition extends FluxEntry {
     constructor(json, type, patientRecord) {
@@ -42,7 +42,7 @@ class FluxCondition extends FluxEntry {
 
     get code() {
         if (!this._condition.code || !this._condition.code.value) return null;
-        return this._condition.code.value.coding[0].code.value;
+        return this._condition.code.value.coding[0].codeValue.value; // TODO fix this badness
     }
 
     get codeSystem() {

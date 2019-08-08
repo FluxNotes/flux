@@ -1,4 +1,4 @@
-import FluxObservation from '../base/FluxObservation';
+import FluxObservation from '../core/FluxObservation';
 
 class FluxMitoticRate extends FluxObservation {
     constructor(json, patientRecord) {

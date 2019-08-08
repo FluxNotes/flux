@@ -1,10 +1,12 @@
 import Patient from "../../shr/core/Patient";
 import Deceased from "../../shr/core/Deceased";
+import FluxPerson from './FluxPerson';
 
 class FluxPatient {
     constructor(json, type, patientRecord) {
         this._patient = Patient.fromJSON(json);
         this._patientRecord = patientRecord;
+        this._person = new FluxPerson(this._patient.person); // TODO: not ideal
     }
 
     get entryInfo() {
@@ -12,7 +14,7 @@ class FluxPatient {
     }
 
     get gender() {
-        return this.person.gender;
+        return this.person.gender.value;
     }
 
     get race() {
@@ -20,7 +22,7 @@ class FluxPatient {
     }
 
     get person() {
-        return this._patientRecord.getEntryFromReference(this._patient.person);
+        return this._person;
     }
 
     get deceased() {

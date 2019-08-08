@@ -2,6 +2,8 @@ import {setObjectFactory} from './json-helper';
 import ObjectFactory from './ObjectFactory';
 import ClassRegistry from './ClassRegistry';
 
+import CodingFix from './fluxExtensions/CodingFix';
+import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import BloodPressureFix from './fluxExtensions/BloodPressureFix';
 import DataValueFix from './fluxExtensions/DataValueFix';
 import MedicationCodeOrReferenceFix from './fluxExtensions/MedicationCodeOrReferenceFix';
@@ -17,6 +19,9 @@ function init() {
   setObjectFactory(ObjectFactory);
 
   ClassRegistry.initialize();
+
+  ClassRegistry.set('shr.core', 'Coding', CodingFix);
+  ClassRegistry.set('shr.core', 'CodeableConcept', CodeableConceptFix);
   ClassRegistry.set('shr.core', 'BloodPressure', BloodPressureFix);
   ClassRegistry.set('shr.core', 'DataValue', DataValueFix);
   ClassRegistry.set('shr.core', 'MedicationCodeOrReference', MedicationCodeOrReferenceFix);
