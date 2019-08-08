@@ -259,16 +259,19 @@ class ShortcutManager {
                 // build up trigger to shortcut mapping
                 const triggers = item["stringTriggers"];
                 const keywords = item["keywords"];
+                let duplicate = false;
                 if (triggers) {
                     this.triggersPerShortcut[item.id] = [];
                     if (Lang.isArray(triggers)) {
                         triggers.forEach((trigger) => {
+                            // if a stringTrigger is the same as the label, set a flag to ensure it is not added twice
+                            if (item.label === trigger.name) duplicate = true;
                             addTriggerForCurrentShortcut.bind(this)(trigger, item);
                         });
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
-                    if (item.label) {
+                    if (item.label && !duplicate) {
                         // Add a string trigger for incomplete placeholder
                         addTriggerForCurrentShortcut.bind(this)({
                             name: item.label,
