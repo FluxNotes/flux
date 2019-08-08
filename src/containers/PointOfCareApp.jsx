@@ -28,7 +28,6 @@ import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
 import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
-
 import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
