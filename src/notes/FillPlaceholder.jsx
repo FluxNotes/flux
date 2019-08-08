@@ -457,7 +457,7 @@ export default class FillPlaceholder extends Component {
                     <Grid item xs={3} />
                     <Grid item xs={9}>
                         <div style={{marginLeft: '-70px'}}>
-                            {this.renderColumns()}
+                            {this.renderColumns(i)}
                         </div>
                         {placeholder.entryShortcuts.length === 1 ? null : this.renderDeleteButton(i)}
                     </Grid>
