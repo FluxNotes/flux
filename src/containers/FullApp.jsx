@@ -7,7 +7,6 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
@@ -102,8 +101,6 @@ export class FullApp extends Component {
             patient: null,
             searchSelectedItem: null,
             searchSuggestions: [],
-            snackbarOpen: false,
-            snackbarMessage: "",
             summaryItemToInsert: '',
             summaryItemToInsertSource: ''
         };
@@ -312,7 +309,6 @@ export class FullApp extends Component {
         if (!element.source || element.source.sourceMessage === "") {
             return true;
         }
-
         return false;
     }
 
@@ -324,14 +320,6 @@ export class FullApp extends Component {
     }
 
     openReferencedNote = (item, itemLabel) => {
-        if (!item.source || item.source.sourceMessage === "") {
-            this.setState({
-                snackbarOpen: true,
-                snackbarMessage: "No source information or note available."
-            });
-            return;
-        }
-
         if (item.source.link) {
             window.open(`${item.source.link}`);
         }
@@ -389,10 +377,6 @@ export class FullApp extends Component {
     // Enrolls the patient in the selected trial
     addEnrollmentToEditor = (item) => {
         this.setState({ summaryItemToInsert: `#enrollment #${item.value}`, summaryItemToInsertSource: 'Targeted Data Panel action'});
-    }
-
-    handleSnackbarClose = () => {
-        this.setState({ snackbarOpen: false });
     }
 
     handleModalClose = () => {
@@ -534,14 +518,6 @@ export class FullApp extends Component {
                                 </Typography>
                             </div>
                         </Modal>
-
-                        <Snackbar
-                            anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}
-                            autoHideDuration={3000}
-                            onClose={this.handleSnackbarClose}
-                            open={this.state.snackbarOpen}
-                            message={this.state.snackbarMessage}
-                        />
                     </Grid>
                 </div>
             </MuiThemeProvider>

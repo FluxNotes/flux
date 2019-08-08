@@ -7,12 +7,12 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import lightBlue from 'material-ui/colors/lightBlue';
 import green from 'material-ui/colors/green';
 import red from 'material-ui/colors/red';
-import Snackbar from 'material-ui/Snackbar';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
 import Lang from 'lodash';
-import Reference from '../model/Reference';
+import FontAwesome from 'react-fontawesome';
+import Slate from '../lib/slate';
 
 import SecurityManager from '../security/SecurityManager';
 import PointOfCareDashboard from '../dashboard/PointOfCareDashboard';
@@ -27,6 +27,7 @@ import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
 import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
+import FluxNotesEditor from '../notes/FluxNotesEditor';
 import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
@@ -47,9 +48,9 @@ function getModalStyle() {
         transform: `translate(-${top}%, -${left}%)`,
         position: 'absolute',
         width: 400,
-        backgroundColor: 'white',
-        boxShadow: 'black',
-        padding: 8,
+        backgroundColor: '#e6e6e6',
+        padding: 20,
+        boxShadow: '2px 2px 4px -1px black',
     };
 }
 
@@ -71,6 +72,21 @@ export class PointOfCareApp extends Component {
         this.searchIndex = new SearchIndex();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.structuredFieldMapManager = new StructuredFieldMapManager();
+        this.actions = [
+            {
+                //change handler to open note modal and follow this down
+                handler: this.openReferencedModal,
+                textfunction: this.nameSourceAction,
+                isdisabled: this.sourceActionIsDisabled,
+                icon: "sticky-note",
+                whenToDisplay: {
+                    valueExists: true,
+                    existingValueSigned: "either",
+                    editableNoteOpen: "either"
+                }
+            },
+        ];
+        this.initialState = Slate.Plain.deserialize('');
 
         this.state = {
             clinicalEvent: "pre-encounter",
@@ -93,16 +109,20 @@ export class PointOfCareApp extends Component {
             patient: null,
             searchSelectedItem: null,
             searchSuggestions: [],
-            snackbarOpen: false,
-            snackbarMessage: "",
+            state: this.initialState,
             superRole: 'Clinician' // possibly add that to security manager too
         };
     }
 
-    loadPatient =(patientId) => {
+    onContextUpdate = () => {
+        this.setState({ contextManager: this.contextManager });
+    }
+
+    loadPatient = (patientId) => {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 if (!Lang.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
@@ -114,7 +134,7 @@ export class PointOfCareApp extends Component {
             // Else, assume sync
             try {
                 let patient = this.dataAccess.getPatient(patientId);
-                this.contextManager = new ContextManager(patient);
+                this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 this.setState({
                     patient,
                     loading: false
@@ -211,21 +231,40 @@ export class PointOfCareApp extends Component {
     }
 
     sourceActionIsDisabled = (element) => {
-        if (element.source) {
-            return false;
+        if (!element.source || element.source.sourceMessage === "") {
+            return true;
         }
-        return true;
+        return false;
     }
 
     nameSourceAction = (element) => {
         if (element.source) {
-            return (element.source instanceof Reference ? "Open Source Note" : "View Source");
+            return (element.source.note ? "Open Source Note" : (element.source.link ? "View Source Attachment" : (element.source.sourceMessage !== "" ? "View Source" : "No Source information")));
         }
         return "No source information";
     }
 
-    handleSnackbarClose = () => {
-        this.setState({ snackbarOpen: false });
+    openReferencedModal = (item, itemLabel) => {
+        if (item.source.link) {
+            window.open(`${item.source.link}`);
+        }
+        // if item.source.note is defined, open the referenced note
+        else if (item.source.note) {
+            const sourceNote = this.state.patient.getEntryFromReference(item.source.note);
+            this.setState({
+                openClinicalNote: sourceNote,
+                isModalOpen: true,
+            });
+        } else {
+            const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
+            this.setState({
+                openClinicalNote: null,
+                isModalOpen: true,
+                modalTitle: title,
+                modalContent: item.source.sourceMessage
+            });
+        }
     }
 
     handleModalClose = () => {
@@ -273,6 +312,115 @@ export class PointOfCareApp extends Component {
         }
     }
 
+    // Update shortcuts and update patients accordingly
+    handleShortcutUpdate = (s) => {
+        let p = this.state.patient;
+        let note = this.state.openClinicalNote;
+        s.updatePatient(p, this.contextManager, note);
+    }
+
+    newCurrentShortcut = (shortcutC, shortcutType, shortcutData, updatePatient = true, source) => {
+        let newShortcut = this.shortcutManager.createShortcut(shortcutC, shortcutType, this.state.patient, shortcutData, this.handleShortcutUpdate);
+        newShortcut.setSource(source);
+        const errors = newShortcut.validateInCurrentContext(this.contextManager);
+        if (errors.length > 0) {
+            errors.forEach((error) => {
+                console.error(error);
+            });
+            newShortcut = null;
+        } else {
+            newShortcut.initialize(this.contextManager, shortcutType, updatePatient, shortcutData);
+        }
+        return newShortcut;
+    }
+
+    closeNote = () => {
+        this.handleModalClose();
+    }
+
+    getNoteModalStyle = () => {
+        const clinicalNoteStyle = {
+            width: '50%',
+            height: '75%',
+        };
+        // Merge the default modal styles with the clinicalNoteModal-specific styles
+        return Object.assign(getModalStyle(), clinicalNoteStyle);
+    }
+
+    openClinicalNote = () => {
+        const content = this.state.openClinicalNote ? this.state.openClinicalNote.content : "";
+        const contextManager = this.contextManager ? this.contextManager : {};
+        const patient = this.state.patient ? this.state.patient : {};
+
+        return (
+            // adds the clinical note modal style to the clinical note along with the normal modal style
+            <div style={this.getNoteModalStyle()}>
+                <FluxNotesEditor
+                    // the following are required in order for FluxNotesEditor to run or it will cause the application to crash
+                    closeNote={this.closeNote}
+                    contextManager={contextManager}
+                    contextTrayItemToInsert={content}
+                    isNoteViewerEditable={false}
+                    newCurrentShortcut={this.newCurrentShortcut}
+                    patient={patient}
+                    saveNote={() => { }}
+                    searchIndex={this.searchIndex}
+                    selectedNote={this.state.openClinicalNote}
+                    shortcutManager={this.shortcutManager}
+                    shouldEditorContentUpdate={true}
+                    structuredFieldMapManager={this.structuredFieldMapManager}
+                    updatedEditorNote={this.state.openClinicalNote}
+                    updateLocalDocumentText={() => { }}
+                    updateNoteAssistantMode={() => { }}
+                    updateContextTrayItemToInsert={() => { }}
+                    // thes following props are marked as required props by FluxNotesEditor
+                    arrayOfPickLists={[]}
+                    changeShortcutType={() => { }}
+                    currentViewMode={""}
+                    errors={[]}
+                    handleUpdateEditorWithNote={() => { }}
+                    itemInserted={() => { }}
+                    noteAssistantMode={""}
+                    selectedPickListOptions={[]}
+                    setLayout={() => { }}
+                    setNoteViewerEditable={() => { }}
+                    setUndoTemplateInsertion={() => { }}
+                    shouldUpdateShortcutType={true}
+                    shouldRevertTemplate={true}
+                    summaryItemToInsert={""}
+                    updateErrors={() => { }}
+                    updateSelectedNote={() => { }}
+                />
+            </div>
+        );
+    }
+
+    openSourceModal = () => {
+        return (
+            <div style={getModalStyle()}>
+                <div className='header'>
+                    <span className='close-div' onClick={this.handleModalClose}>
+                        <FontAwesome className='close-button' name='times' />
+                        <div className='close-text'> Close </div>
+                    </span>
+                    <Typography id="modal-title">
+                        {this.state.modalTitle}
+                    </Typography>
+                </div>
+                <Typography id="simple-modal-description">
+                    {this.state.modalContent.split('\n').map(function (item, key) {
+                        return (
+                            <span key={key}>
+                                {item}
+                                <br />
+                            </span>
+                        );
+                    })}
+                </Typography>
+            </div>
+        );
+    }
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -305,12 +453,12 @@ export class PointOfCareApp extends Component {
                             </Col>
                         </Row>
                         {this.renderLoadingInformation()}
-                        <Fade in={!this.state.loading} timeout={this.timeoutDuration} style={{paddingLeft: '12px'}}>
+                        <Fade in={!this.state.loading} timeout={this.timeoutDuration} style={{ paddingLeft: '12px' }}>
                             <div>
                                 {!Lang.isNull(this.state.patient) &&
                                     <PointOfCareDashboard
                                         // App default settings
-                                        actions={[]}
+                                        actions={this.actions}
                                         shortcutManager={this.shortcutManager}
                                         structuredFieldMapManager={this.structuredFieldMapManager}
                                         contextManager={this.contextManager}
@@ -344,25 +492,9 @@ export class PointOfCareApp extends Component {
                             aria-describedby="simple-modal-description"
                             open={this.state.isModalOpen}
                             onClose={this.handleModalClose}
-                            onClick={this.handleModalClose}
                         >
-                            <div style={getModalStyle()} >
-                                <Typography id="modal-title">
-                                    {this.state.modalTitle}
-                                </Typography>
-                                <Typography id="simple-modal-description">
-                                    {this.state.modalContent}
-                                </Typography>
-                            </div>
+                            {this.state.openClinicalNote ? this.openClinicalNote() : this.openSourceModal()}
                         </Modal>
-
-                        <Snackbar
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}
-                            autoHideDuration={3000}
-                            onClose={this.handleSnackbarClose}
-                            open={this.state.snackbarOpen}
-                            message={this.state.snackbarMessage}
-                        />
                     </Grid>
                 </div>
             </MuiThemeProvider>

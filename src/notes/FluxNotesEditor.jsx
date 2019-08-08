@@ -582,7 +582,7 @@ class FluxNotesEditor extends React.Component {
             const parentNode = state.document.getParent(state.selection.anchorKey);
             const shortcut = this.props.structuredFieldMapManager.keyToShortcutMap.get(parentNode.key);
             if (shortcut && shortcut.getKey() === key1) return false;
-            return state.document.areDescendantsSorted(key1, key2);
+            return state.document.areDescendantsSorted(key1.toString(), key2.toString());
         }
     }
 
@@ -778,7 +778,6 @@ class FluxNotesEditor extends React.Component {
         if (nextProps.shouldEditorContentUpdate && this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
-
         // Check if the updatedEditorNote property has been updated
         if (nextProps.shouldEditorContentUpdate && this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
             if (this.props.noteAssistantMode === 'pick-list-options-panel') {
