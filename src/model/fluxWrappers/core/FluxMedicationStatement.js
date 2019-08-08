@@ -1,13 +1,8 @@
 import FluxEntry from '../base/FluxEntry';
 import MedicationStatement from '../../shr/core/MedicationStatement';
 import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
-<<<<<<< HEAD
 import EndDateTime from '../../shr/core/EndDateTime';
 import * as codeableConceptUtils from '../../CodeableConceptUtils.jsx';
-=======
-import EndDateTime from '../shr/core/EndDateTime';
-import * as codeableConceptUtils from '../CodeableConceptUtils.jsx';
->>>>>>> Upgrade FluxMedicationChange -> FluxMedicationStatement, FluxMedicationAfterChange -> FluxMedicationStatementAfterChange, and removed FluxMedicationBeforeChange
 import Lang from 'lodash';
 import moment from 'moment';
 import Category from '../../shr/core/Category';
