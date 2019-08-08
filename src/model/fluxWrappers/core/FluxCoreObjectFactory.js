@@ -1,6 +1,7 @@
 import { getNamespaceAndName } from '../../json-helper';
 import ShrCoreObjectFactory from '../../shr/core/ShrCoreObjectFactory';
 import FluxClinicalNote from './FluxClinicalNote';
+import FluxCondition from './FluxCondition';
 import FluxKarnofskyPerformanceStatus from './FluxKarnofskyPerformanceStatus';
 import FluxProcedureRequest from './FluxProcedureRequest';
 import FluxProcedure from './FluxProcedure';
@@ -13,6 +14,7 @@ import FluxResearchStudy from './FluxResearchStudy';
 import FluxResearchSubject from './FluxResearchSubject';
 import FluxMedicationRequest from './FluxMedicationRequest';
 import FluxAllergyIntolerance from './FluxAllergyIntolerance';
+import FluxObservation from './FluxObservation';
 import FluxPerson from './FluxPerson';
 import FluxPatient from './FluxPatient';
 import FluxEncounter from './FluxEncounter';
@@ -21,7 +23,7 @@ import FluxMedicationStatement from './FluxMedicationStatement';
 import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
 
 export default class FluxCoreObjectFactory {
-    static createInstance(json, type) {
+    static createInstance(json, type, patientRecord) {
         const { namespace, elementName } = getNamespaceAndName(json, type);
         if (namespace !== 'shr.core') {
             throw new Error(`Unsupported type in ShrCoreObjectFactory: ${type}`);
@@ -33,15 +35,17 @@ export default class FluxCoreObjectFactory {
             case 'BodyTemperature': return new FluxBodyTemperature(json);
             case 'BodyWeight': return new FluxBodyWeight(json);
             case 'ClinicalNote': return new FluxClinicalNote(json);
+            case 'Condition': return new FluxCondition(json, type, patientRecord);
             case 'Encounter': return new FluxEncounter(json);
             case 'HeartRate': return new FluxHeartRate(json);
             case 'ImagingProcedure': return new FluxImagingProcedure(json);
-            case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json);
+            case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json, type, patientRecord);
             case 'MedicationRequest': return new FluxMedicationRequest(json);
-            case 'MedicationStatement': return new FluxMedicationStatement(json);
+            case 'MedicationStatement': return new FluxMedicationStatement(json, patientRecord);
             case 'MedicationStatementAfterChange': return new FluxMedicationStatementAfterChange(json);
-            case 'Patient': return new FluxPatient(json);
-            case 'Person': return new FluxPerson(json);
+            case 'Observation': return new FluxObservation(json, type, patientRecord);
+            case 'Patient': return new FluxPatient(json, type, patientRecord);
+            // case 'Person': return new FluxPerson(json);
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
             case 'ReferralRequest': return new FluxReferralRequest(json);

@@ -1,4 +1,4 @@
-import FluxEntry from './FluxEntry';
+import FluxEntry from '../base/FluxEntry';
 import Observation from '../../shr/core/Observation';
 import Quantity from '../../shr/core/Quantity';
 

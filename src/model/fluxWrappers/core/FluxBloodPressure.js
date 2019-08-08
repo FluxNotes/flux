@@ -9,6 +9,10 @@ class FluxBloodPressure {
         return this._bloodPressure.dataValue;
     }
 
+    get entryInfo() {
+        return this._bloodPressure.entryInfo;
+    }
+
     toJSON() {
         return this._bloodPressure.toJSON();
     }

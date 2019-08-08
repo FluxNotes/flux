@@ -13,6 +13,10 @@ class FluxBodyWeight {
         return this._bodyWeight.dataValue.quantity.unit;
     }
 
+    get entryInfo() {
+        return this._bodyWeight.entryInfo;
+    }
+
     toJSON() {
         return this._bodyWeight.toJSON();
     }

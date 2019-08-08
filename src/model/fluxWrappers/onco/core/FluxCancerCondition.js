@@ -1,6 +1,6 @@
 import Lang from 'lodash';
 import moment from 'moment';
-import FluxCondition from '../../base/FluxCondition';
+import FluxCondition from '../../core/FluxCondition';
 import CancerCondition from '../../../onco/core/CancerCondition';
 import FluxTumorDimensions from '../../tumor/FluxTumorDimensions';
 import FluxCancerHistologicType from '../../oncocore/FluxCancerHistologicType';

@@ -1,5 +1,5 @@
 // import TumorMargins from './TumorMargins';
-import FluxObservation from '../base/FluxObservation';
+import FluxObservation from '../core/FluxObservation';
 
 class FluxTumorMargins extends FluxObservation {
     constructor(json, patientRecord) {

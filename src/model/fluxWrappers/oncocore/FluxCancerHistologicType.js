@@ -1,5 +1,5 @@
 // import CancerHistologicType from '../oncocore/CancerHistologicType';
-import FluxObservation from '../base/FluxObservation';
+import FluxObservation from '../core/FluxObservation';
 
 class FluxCancerHistologicType extends FluxObservation {
     constructor(json) {

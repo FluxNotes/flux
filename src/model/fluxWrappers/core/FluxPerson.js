@@ -1,8 +1,8 @@
 import Person from "../../shr/core/Person";
 
 class FluxPerson {
-    constructor(json) {
-        this._person = Person.fromJSON(json);
+    constructor(person) {
+        this._person = person;
     }
 
     get entryInfo() {
@@ -22,7 +22,7 @@ class FluxPerson {
         const namePieces = [];
 
         if (nameObj.givenName) namePieces.push( ...nameObj.givenName.map(gn => gn.value) );
-        if (nameObj.familyName) namePieces.push( ...nameObj.familyName.map(fn => fn.value) );
+        if (nameObj.familyName) namePieces.push( nameObj.familyName.value );
         if (nameObj.suffix) namePieces.push( ...nameObj.suffix.map(s => s.value) );
 
         return namePieces.join(' ');

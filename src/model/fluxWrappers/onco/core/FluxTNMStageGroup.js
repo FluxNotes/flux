@@ -24,7 +24,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
         this._tnmStageGroup.metadata = metadata;
     }
 
-    get stageComponents() { 
+    get stageComponents() {
+        if (!this._tnmStageGroup.panelMembers 
+            || !this._tnmStageGroup.panelMembers.observation) {
+            return '';
+        }
         const stageComponentsAsString = this._tnmStageGroup.panelMembers.observation.reduce((accumulatedString, o) => { 
             const entry = this._patientRecord.getEntryFromReference(o)
             if (entry instanceof FluxCancerStageCategory) { 
@@ -62,6 +66,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from T_Stage
      */
     get t_Stage() {
+        if (!this._tnmStageGroup
+            || !this._tnmStageGroup.panelMembers
+            || !this._tnmStageGroup.panelMembers.observation) {
+            return null;
+        }
         const tReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorCategory);
         if (!tReference) return null;
         return this._patientRecord.getEntryFromReference(tReference).value;
@@ -97,6 +106,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from N_Stage
      */
     get n_Stage() {
+        if (!this._tnmStageGroup
+            || !this._tnmStageGroup.panelMembers
+            || !this._tnmStageGroup.panelMembers.observation) {
+            return null;
+        }
         const nReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalRegionalNodesCategory);
         if (!nReference) return null;
         return this._patientRecord.getEntryFromReference(nReference).value;
@@ -134,6 +148,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from M_Stage
      */
     get m_Stage() {
+        if (!this._tnmStageGroup
+            || !this._tnmStageGroup.panelMembers
+            || !this._tnmStageGroup.panelMembers.observation) {
+            return null;
+        }
         const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesCategory);
         if (!mReference) return null;
         return this._patientRecord.getEntryFromReference(mReference).value;
