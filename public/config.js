@@ -28,7 +28,7 @@ CONFIG = {
     {
         path: '/smartcompass',
         display: 'Compass™',
-        app: "CompassApp",
+        app: "SmartCompassApp",
         isExact: true,
         dataSource: 'McodeV05SmartOnFhirDataSource',
         dataSourceProps: {
@@ -64,7 +64,7 @@ CONFIG = {
     {
         path: '/smart',
         display: 'Flux Notes™',
-        app: "SmartApp",
+        app: "SmartFullApp",
         isExact: true,
         dataSource: 'McodeV05SmartOnFhirDataSource',
         shortcuts: []
@@ -91,7 +91,7 @@ CONFIG = {
     {
         path: '/synthea',
         display: 'Flux Notes™',
-        app: "SmartApp",
+        app: "SmartFullApp",
         isExact: true,
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
@@ -174,7 +174,7 @@ CONFIG = {
     },
     {
         path: '/ccp',
-        display: 'Compass',
+        display: 'Compass™',
         app: "CompassApp",
         isExact: true,
         dataSource: 'HardCodedMcodeV05DataSource',
@@ -188,7 +188,7 @@ CONFIG = {
     },
     {
         path: '/ccp2',
-        display: 'Compass',
+        display: 'Compass™',
         app: "CompassApp",
         isExact: true,
         dataSource: 'HardCodedMcodeV01DataSource',

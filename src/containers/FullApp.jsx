@@ -10,7 +10,7 @@ import red from 'material-ui/colors/red';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
-import Lang from 'lodash';
+import _ from 'lodash';
 
 import SecurityManager from '../security/SecurityManager';
 import DashboardManager from '../dashboard/DashboardManager';
@@ -63,7 +63,7 @@ export class FullApp extends Component {
         // Determines how long the fade-in v. fade-out animation lasts
         this.timeoutDuration = 1000;
 
-        if (Lang.isUndefined(this.props.dataSource)) {
+        if (_.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedMcodeV01DataSource");
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
@@ -202,6 +202,15 @@ export class FullApp extends Component {
     }
 
     componentDidMount() {
+        // If we have a custom display, we should update the title of the page
+        if (!_.isEmpty(this.props.display)) document.title = this.props.display;
+        // If we have a custom logoObject, we should update our favicons
+        if (!_.isEmpty(this.props.logoObject)) {
+            const icons = document.querySelectorAll('link[rel="icon"]');
+            for (const icon of icons) {
+                icon.href = this.props.logoObject.path;
+            };
+        }
         // Once the component has mounted, we can try to load the patient data
         this.loadPatient(this.props.patientId);
     }
@@ -333,7 +342,7 @@ export class FullApp extends Component {
                 openSourceNoteEntryId: item.source.entryId,
             });
         } else {
-            const labelForItem = itemLabel; // (Lang.isArray(itemLabel) ? itemLabel[0] : itemLabel );
+            const labelForItem = itemLabel; // (_.isArray(itemLabel) ? itemLabel[0] : itemLabel );
             const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
             this.setState({
                 isModalOpen: true,
@@ -347,11 +356,11 @@ export class FullApp extends Component {
     handleSummaryItemSelected = (item, arrayIndex = -1, source = undefined) => {
         if (item) {
             let newStateValues;
-            if (Lang.isArray(item.value)) item.value = item.value[0];
+            if (_.isArray(item.value)) item.value = item.value[0];
             // calls to this method from the buttons on a ListType pass in 'item' as an array.
-            if (Lang.isArray(item) && arrayIndex >= 0) {
+            if (_.isArray(item) && arrayIndex >= 0) {
                 // If the object to insert has an associated shortcut, is will be an object like {name: x, shortcut: z}
-                if (Lang.isObject(item[arrayIndex])) {
+                if (_.isObject(item[arrayIndex])) {
                     newStateValues = { summaryItemToInsert: `${item[arrayIndex].shortcut}[[${item[arrayIndex].name}]]` };
                 } else {
                     newStateValues = { summaryItemToInsert: item[arrayIndex] };
@@ -367,7 +376,7 @@ export class FullApp extends Component {
             } else {
                 newStateValues = { summaryItemToInsert: item };
             }
-            if (!Lang.isUndefined(source)) {
+            if (!_.isUndefined(source)) {
                 newStateValues["summaryItemToInsertSource"] = source;
             }
             this.setState(newStateValues);
@@ -408,7 +417,7 @@ export class FullApp extends Component {
         // We define a loading error as occuring when:
         // - The app has no patient
         // - The app is not loading
-        const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
+        const isSomeError = _.isEmpty(this.state.patient) && !this.state.loading;
         if (this.state.loading || isSomeError) { // don't render div if we aren't loading and we don't have an error
             return (
                 <div>
@@ -461,7 +470,7 @@ export class FullApp extends Component {
                         {this.renderLoadingInformation()}
                         <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
                             <div>
-                                {!Lang.isNull(this.state.patient) &&
+                                {!_.isNull(this.state.patient) &&
                                     <CurrentDashboard
                                         // App default settings
                                         actions={this.actions}

@@ -10,8 +10,7 @@ import red from 'material-ui/colors/red';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import { Fade } from 'material-ui';
-import Lang from 'lodash';
-
+import _ from 'lodash';
 import SecurityManager from '../security/SecurityManager';
 import CompassAppDashboard from '../dashboard/CompassAppDashboard';
 import DataAccess from '../dataaccess/DataAccess';
@@ -55,7 +54,7 @@ export class CompassApp extends Component {
         // Determines how long the fade-in v. fade-out animation lasts
         this.timeoutDuration = 1000;
 
-        if (Lang.isUndefined(this.props.dataSource)) {
+        if (_.isUndefined(this.props.dataSource)) {
             this.dataAccess = new DataAccess("HardCodedReadOnlyDataSource");
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource, this.props.dataSourceProps);
@@ -95,7 +94,7 @@ export class CompassApp extends Component {
         const DAGestalt = this.dataAccess.getGestalt();
         if (DAGestalt.read.async) {
             this.dataAccess.getPatient(patientId, (patient, error) => {
-                if (!Lang.isEmpty(error)) console.error(error);
+                if (!_.isEmpty(error)) console.error(error);
                 this.setState({
                     patient,
                     loading: false,
@@ -127,10 +126,11 @@ export class CompassApp extends Component {
         }
     }
 
-    componentDidMount = () => {
-        document.title = this.props.display;
+    componentDidMount() {
+        // If we have a custom display, we should update the title of the page
+        if (!_.isEmpty(this.props.display)) document.title = this.props.display;
         // If we have a custom logoObject, we should update our favicons
-        if (!Lang.isEmpty(this.props.logoObject)) {
+        if (!_.isEmpty(this.props.logoObject)) {
             const icons = document.querySelectorAll('link[rel="icon"]');
             for (const icon of icons) {
                 icon.href = this.props.logoObject.path;
@@ -212,7 +212,7 @@ export class CompassApp extends Component {
         // We define a loading error as occuring when:
         // - The app has no patient
         // - The app is not loading
-        const isSomeError = Lang.isEmpty(this.state.patient) && !this.state.loading;
+        const isSomeError = _.isEmpty(this.state.patient) && !this.state.loading;
         if (this.state.loading || isSomeError) { // don't render div if we aren't loading and we don't have an error
             return (
                 <div>
@@ -263,7 +263,7 @@ export class CompassApp extends Component {
                         {this.renderLoadingInformation()}
                         <Fade in={!this.state.loading} timeout={this.timeoutDuration}>
                             <div>
-                                {!Lang.isNull(this.state.patient) &&
+                                {!_.isNull(this.state.patient) &&
                                     <CompassAppDashboard
                                         // App default settings
                                         actions={[]}
