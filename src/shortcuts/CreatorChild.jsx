@@ -132,7 +132,6 @@ export default class CreatorChild extends Shortcut {
         return this.text ? this.text : this._getTriggerWithoutPrefix(this.metadata.label);
     }
 
-
     getShortcutType() {
         return this.metadata["id"];
         //throw new Error("getShortcutType on CreatorChild called.");
