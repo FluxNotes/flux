@@ -111,6 +111,10 @@ export function mapEntries(v05Json) {
                 // Person is now a property on Patient entry
                 return;
             }
+            // TODO
+            case 'PatientIdentifier': {
+                break;
+            }
             case 'CancerDisorderPresent': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
                 changeEntryType(entry.Onset, 'http://standardhealthrecord.org/spec/shr/core/Onset');
@@ -134,6 +138,31 @@ export function mapEntries(v05Json) {
                 changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
 
                 mapAnatomicalLocation(resultJson, entry.AnatomicalLocation);
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'ProcedureRequested': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest');
+
+                resultJson.ReasonReference = [...entry.Reason];
+                resultJson.ReasonReference.forEach((r) => {
+                    changeEntryType(r, 'http://standardhealthrecord.org/spec/shr/core/ReasonReference');
+                    r.Value._EntryType = 'http://standardhealthrecord.org/spec/onco/core/CancerCondition';
+                });
+
+                resultJson.Status = {...entry.Status};
+                mapCoding(resultJson.Status.Value.Coding);
+
+                resultJson.Type = {...entry.ProcedureCode};
+                changeEntryType(resultJson.Type, 'http://standardhealthrecord.org/spec/shr/core/Type');
+
+                resultJson.ExpectedPerformanceTime = entry.ExpectedPerformanceTime;
+                changeEntryType(resultJson.ExpectedPerformanceTime, 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime');
+
+                // TODO: Map ExpectedPerformer... Should Practictioner be an entry on PatientRecord?
+                // resultJson.ExpectedPerformer = entry.ExpectedPerformer;
+                // changeEntryType(resultJson.ExpectedPerformer, 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformer');
+
                 v09Json.push(resultJson);
                 break;
             }
