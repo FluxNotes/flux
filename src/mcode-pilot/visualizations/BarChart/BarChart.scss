@@ -1,7 +1,7 @@
 @import '../../../styles/variables';
 
 .bar-chart {
-    width: 100px;
+    min-width: 70px;
     padding: 0;
     font-size: 0.9em;
 
@@ -21,6 +21,7 @@
         height: 100%;
         position: relative;
         background-color: $background;
+        width: 100%;
     }
 
     .prog-fill {
@@ -69,15 +70,5 @@
 
     .bar-chart-text.decrease {
         color: $table-dark-red;
-    }
-
-    @media (max-width: 1024px) {
-        .progress-bar { 
-            width: 80px;
-        }
-
-        .right-text {
-            padding-right: 20px;
-        }
     }
 }

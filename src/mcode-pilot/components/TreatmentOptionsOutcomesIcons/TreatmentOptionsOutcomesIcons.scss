@@ -31,10 +31,15 @@
     .icons-interaction {
         box-sizing: border-box;
         margin-right: 20px;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        td {
+            padding: 0 10px;
+            font-size: 1.1em;
+        }
 
         &__header {
-            display: flex;
-            align-items: flex-end;
             margin-bottom: 10px;
 
             .user-icon,
@@ -45,15 +50,9 @@
 
         &__row {
             height: 56px;
-            align-items: center;
             cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 5px;
-            min-width: 500px;
 
-            @include respond-to('1180px') { min-width: 0; }
-
-            &:nth-child(even) {
+            &:nth-child(odd) {
                 background-color: $contrast-gray;
             }
 
@@ -66,18 +65,40 @@
                 box-shadow: 0px 10px 8px -5px rgba(153, 153, 153, 1);
             }
 
-            &.displayed-treatment {
+            &.displayed-treatment td {
                 border-color: $icons-blue;
+
+                &.treatment-name {
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                }
+
+                &.overall-survival {
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
             }
 
-            .select-icon {
-                padding-right: 10px;
-                cursor: pointer;
+            .treatment-name,
+            .total-patients,
+            .overall-survival {
+                border-top: 2px solid transparent;
+                border-bottom: 2px solid transparent;
             }
 
             .treatment-name {
-                align-items: center;
-                min-width: 120px;
+                vertical-align: middle;
+                border-left: 2px solid transparent;
+
+                .select-icon {
+                    display: inline-block;
+                    padding-right: 10px;
+                    cursor: pointer;
+                }
+
+                .display-name {
+                    display: inline-block;
+                }
             }
 
             .total-patients,
@@ -86,6 +107,8 @@
             }
 
             .overall-survival {
+                border-right: 2px solid transparent;
+
                 .diff-num-selected {
                     font-size: 1.1em;
 
