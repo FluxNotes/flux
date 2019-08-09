@@ -44,7 +44,7 @@ class FluxCancerHistologicGrade extends FluxObservation {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.code.value;
+        return coding.displayText ? coding.displayText.value : coding.codeValue.value;
     }
 
     toJSON() {
