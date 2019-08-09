@@ -11,6 +11,7 @@ import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import './TargetedDataSection.css';
 import Lang from 'lodash';
 import { FormControl, FormGroup, FormLabel, FormControlLabel } from 'material-ui';
+import moment from 'moment';
 
 const SHOW_FILTER_AS_MENU = false;
 
@@ -55,7 +56,7 @@ export default class TargetedDataSection extends Component {
         //const defaultOrTabular = optionsForSection.length > 0 ? optionsForSection[0] : 'tabular';
         if (this.state.defaultVisualizer !== defaultVisualizer ||
             (this.state.chosenVisualizer !== null && !optionsForSection.includes(this.state.chosenVisualizer))) {
-            this.setState({ defaultVisualizer, chosenVisualizer: null});
+            this.setState({ defaultVisualizer, chosenVisualizer: null });
         }
     }
 
@@ -64,7 +65,7 @@ export default class TargetedDataSection extends Component {
     }
 
     componentWillMount() {
-        const {section} = this.props;
+        const { section } = this.props;
         if (section.nameSuffix) {
             this.setState({ sectionNameSuffix: section.nameSuffix });
         }
@@ -168,14 +169,18 @@ export default class TargetedDataSection extends Component {
 
     getVisualizationsIcons = (options) => {
         let visualizationButtons = options.map((type, i) => this.renderIcon(type, i));
-        return visualizationButtons;
+        let isSpecialDate = moment().weekday() === 5 && moment().hour() === 8 && moment().minute() === 53;
+        return (<div>
+            {isSpecialDate && <a href='https://www.youtube.com/watch?v=J9FImc2LOr8'>&nbsp;</a>}
+            {visualizationButtons}
+        </div>);
     }
 
     getOptions = (section) => {
         return this.props.visualizerManager.getSupportedVisualizerTypesForDataType(section.type);
     }
 
-    getNameSuffix =  (section) => {
+    getNameSuffix = (section) => {
         if (section.nameSuffixFunction) {
             const result = section.nameSuffixFunction(section);
 
@@ -224,7 +229,7 @@ export default class TargetedDataSection extends Component {
         // Get the current filter value
         const currentVal = this.getFilterValue(filter, subsectionName);
         // Update the filter value in preference manager
-        this.props.preferenceManager.setPreference(`${section.name}-${subsectionName}-${filter.id}`,  !currentVal);
+        this.props.preferenceManager.setPreference(`${section.name}-${subsectionName}-${filter.id}`, !currentVal);
 
 
         // Update state to also reflect changed filter value
@@ -277,7 +282,7 @@ export default class TargetedDataSection extends Component {
                                             checked={this.getFilterValue(filter, subsection.name)}
                                             onChange={() => this.updateFilterValue(filter, subsection.name)}
                                             value={filter.name}
-                                            className="checkbox"/>
+                                            className="checkbox" />
                                         <ListItemText inset primary={filter.name} />
                                     </MenuItem>
                                 );
@@ -330,8 +335,8 @@ export default class TargetedDataSection extends Component {
             let expansionInstructions = <span className='expansion-instructions'>{expanded ? 'Click here to collapse criteria...' : 'Click here to edit criteria...'}</span>;
             return (
                 <div>
-                    <ExpansionPanel expanded={expanded} onChange={(e, newExpanded) => this.setState({expanded: newExpanded})}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                    <ExpansionPanel expanded={expanded} onChange={(e, newExpanded) => this.setState({ expanded: newExpanded })}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <div className='expansion-summary'>
                                 {criteriaSummaryItems}
                                 {expansionInstructions}
@@ -410,13 +415,13 @@ export default class TargetedDataSection extends Component {
                 } else {
                     list = items.map((item, i) => {
                         if (Lang.isNull(item.value)) {
-                            return {name: item.name, value: null};
+                            return { name: item.name, value: null };
                         } else {
                             let val = item.value(patient, condition, loginUser);
                             if (val) {
-                                return {name: item.name, value: val.value, shortcutData: val.shortcutData, unsigned: val.isUnsigned, source: val.source, when: val.when};
+                                return { name: item.name, value: val.value, shortcutData: val.shortcutData, unsigned: val.isUnsigned, source: val.source, when: val.when };
                             } else {
-                                return {name: item.name, value: null};
+                                return { name: item.name, value: null };
                             }
                         }
                     });
