@@ -160,7 +160,7 @@ class FluxMedicationRequest extends FluxEntry {
         if (!this._medicationRequest.dosage || !this._medicationRequest.dosage.doseAmount) return null;
         return {
             value: this._medicationRequest.dosage.doseAmount.value.number.decimal,
-            units: this._medicationRequest.dosage.doseAmount.value.units.coding.code.value
+            units: this._medicationRequest.dosage.doseAmount.value.units.coding.codeValue.value
         };
     }
 
