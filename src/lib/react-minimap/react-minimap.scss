@@ -17,26 +17,36 @@
 	right: 0;
 	z-index: 20000000000000000000;
 	margin: 10px;
-	background-color: rgba(0, 0, 0, 0.29);
+	background-color: rgba(0, 0, 0, 0.29);	
 	border: 1px solid rgba(0, 0, 0, 0.17);
+	height: 100%;
 }
 
 .minimap-container {
 	// overflow: scroll;
-	
+	// -webkit-overflow-scrolling: touch;
 	width: 100%;
 	height: 100%;
 }
 
 .minimap-children-wrapper {
 	position: absolute;
-	left: 0px;
+	height: 100%;
+	overflow: auto;
+	left: -50px;
+	z-index: 200000000000000;
 }
 
 .minimap-children {
 	background: #CCC;
 	border: 1px solid black;
 	box-sizing: border-box;
+}
+.minimap-children-content {
+	// overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	max-height: calc(100vh - 117px - 20px + 10px);
+    min-height: 400px !important;
 }
 
 .edit-button {

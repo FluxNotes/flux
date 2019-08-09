@@ -30,7 +30,7 @@
     .right-border-box {
         margin: 15px 10px 5px;
         overflow: hidden;
-        -webkit-overflow-scrolling: touch; 
+        // position: relative;
 
         &.point-of-care-container {
             // THESE TWO LINES BELOW OF CSS IS DOING SOMETHING TO THE SCROLLBAR

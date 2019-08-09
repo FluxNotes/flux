@@ -368,7 +368,7 @@ export class Minimap extends React.Component {
                   </div>
               </div>
 
-              <div ref={(container) => { this.ref = container; }}>
+              <div className="minimap-children-content fitted-panel" ref={(container) => { this.ref = container; }}>
                   {this.props.children}
               </div>
           </div>
