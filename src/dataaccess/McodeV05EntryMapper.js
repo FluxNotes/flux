@@ -40,7 +40,7 @@ const mapAnatomicalLocation = (entry, anatomicalLocation) => {
 
     entry.BodyLocation.forEach((b) => {
         changeEntryType(b, 'http://standardhealthrecord.org/spec/shr/core/BodyLocation');
-        console.log(anatomicalLocation);
+
         b.LocationCode = {
             EntryType: {
                 Value: 'http://standardhealthrecord.org/spec/shr/core/LocationCode',
@@ -49,11 +49,29 @@ const mapAnatomicalLocation = (entry, anatomicalLocation) => {
         };
         mapCoding(b.LocationCode.Value.Coding);
 
-        b.Laterality = {...b.Value.Laterality};
-        mapCoding(b.Laterality.Value.Coding);
+        if (b.Laterality) {
+            b.Laterality = {...b.Value.Laterality};
+            mapCoding(b.Laterality.Value.Coding);
+        }
 
         delete b.Value;
     });
+};
+
+const mapCondition = (resultJson , entryJson) => {
+    changeEntryType(entryJson.Onset, 'http://standardhealthrecord.org/spec/shr/core/Onset');
+    resultJson.Onset = entryJson.Onset;
+
+    resultJson.Category = entryJson.Category;
+    mapCoding(resultJson.Category.Value.Coding);
+
+    resultJson.ClinicalStatus = entryJson.ClinicalStatus;
+    changeEntryType(resultJson.ClinicalStatus, 'http://standardhealthrecord.org/spec/shr/core/ClinicalStatus');
+
+    resultJson.Code = entryJson.FindingTopicCode;
+    changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+
+    mapAnatomicalLocation(resultJson, entryJson.AnatomicalLocation);
 };
 
 export function mapEntries(v05Json) {
@@ -117,9 +135,7 @@ export function mapEntries(v05Json) {
             }
             case 'CancerDisorderPresent': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
-                changeEntryType(entry.Onset, 'http://standardhealthrecord.org/spec/shr/core/Onset');
-                resultJson.Onset = entry.Onset;
-
+                mapCondition(resultJson, entry);
                 resultJson.SubjectOfRecord = {
                     EntryType: {
                         Value: 'http://standardhealthrecord.org/spec/shr/core/PatientSubjectOfRecord',
@@ -128,16 +144,13 @@ export function mapEntries(v05Json) {
                 };
                 resultJson.SubjectOfRecord.Patient._EntryType = 'http://standardhealthrecord.org/spec/shr/core/Patient';
 
-                resultJson.Category = entry.Category;
-                mapCoding(resultJson.Category.Value.Coding);
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'ConditionPresentAssertion': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Condition');
+                mapCondition(resultJson, entry);
 
-                resultJson.ClinicalStatus = entry.ClinicalStatus;
-                changeEntryType(resultJson.ClinicalStatus, 'http://standardhealthrecord.org/spec/shr/core/ClinicalStatus');
-
-                resultJson.Code = entry.FindingTopicCode;
-                changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
-
-                mapAnatomicalLocation(resultJson, entry.AnatomicalLocation);
                 v09Json.push(resultJson);
                 break;
             }
