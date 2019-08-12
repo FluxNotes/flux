@@ -191,7 +191,7 @@ CONFIG = {
         display: 'Compass',
         app: "CompassApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV05DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         logoObject: {
             path: './compass-logo.png',
@@ -205,7 +205,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV05DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7d',
         shortcuts: []
     },
@@ -214,7 +214,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV05DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7e',
         shortcuts: []
     },
@@ -223,7 +223,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV05DataSource',
         patientId: 'urn:x-person:123456',
         shortcuts: []
     },
@@ -232,7 +232,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV05DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567890',
         shortcuts: []
@@ -242,7 +242,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV05DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567891',
         shortcuts: []

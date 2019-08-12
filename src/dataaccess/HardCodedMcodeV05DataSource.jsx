@@ -1,4 +1,8 @@
 import IDataSource from './IDataSource';
+import DataAccess from './DataAccess';
+import BreastMainTreatmentDebra from './BreastMainTreatmentDebraV05.json';
+import BreastMainTreatmentTry3Ella from './BreastMainTreatmentTry3EllaV05.json';
+import GistAdjuvantIhanos from './GistAdjuvantIhanosV05.json';
 import BreastMainTreatmentDiabetesHypertensionJaneV05 from './BreastMainTreatmentDiabetesHypertensionJaneV05.json';
 import PatientRecord from '../patient/PatientRecord.jsx';
 import  * as McodeV05EntryMapper from './McodeV05EntryMapper';
@@ -32,7 +36,13 @@ class HardCodedMcodeV05DataSource extends IDataSource {
 
     getPatient(id) {
         let patientJSON;
-        if (BreastMainTreatmentDiabetesHypertensionJaneV05[0]["ShrId"] === id) {
+        if (id === DataAccess.DEMO_PATIENT_ID) {
+            patientJSON = BreastMainTreatmentDebra;
+        } else if (BreastMainTreatmentTry3Ella[0]["ShrId"] === id) {
+            patientJSON = BreastMainTreatmentTry3Ella;
+        } else if (GistAdjuvantIhanos[0]['ShrId'] === id) {
+            patientJSON = GistAdjuvantIhanos;
+        } else if (BreastMainTreatmentDiabetesHypertensionJaneV05[0]["ShrId"] === id) {
             patientJSON = BreastMainTreatmentDiabetesHypertensionJaneV05;
         } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
