@@ -116,14 +116,16 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         return (
             <tr className={rowClass} key={treatment.id} onClick={() => this.handleDisplayTreatment(treatment)}>
                 <td className="treatment-name">
-                    <div className="select-icon">
-                        {isSelectedTreatment
-                            ? <CompareSelectedIcon onClick={event => this.handleSelectTreatment(event, null)} />
-                            : <CompareUnselectedIcon onClick={event => this.handleSelectTreatment(event, treatment)} />
-                        }
-                    </div>
+                    <div className="flex flex-center">
+                        <div className="select-icon">
+                            {isSelectedTreatment
+                                ? <CompareSelectedIcon onClick={event => this.handleSelectTreatment(event, null)} />
+                                : <CompareUnselectedIcon onClick={event => this.handleSelectTreatment(event, treatment)} />
+                            }
+                        </div>
 
-                    <div className="display-name">{treatment.displayName}</div>
+                        <div className="display-name">{treatment.displayName}</div>
+                    </div>
                 </td>
 
                 <td className="total-patients">({normalizedTotalPatients}/100)</td>
