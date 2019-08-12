@@ -16,12 +16,16 @@ const mapEntryInfo = (entry, json) => {
 
 // In mCODE v0.5 the Coding array contains Code objects
 // In mCODE v0.9 the Coding array contains CodeValue objects
-const mapCoding = (coding) => {
-    coding.forEach((c) => {
-        c.CodeValue = {...c.Code};
-        c.CodeValue.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/CodeValue';
-        delete c.Code;
+const mapCodingArray = (codingArray) => {
+    codingArray.forEach((c) => {
+        mapCoding(c);
     });
+};
+
+const mapCoding = (c) => {
+    c.CodeValue = {...c.Code};
+    c.CodeValue.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/CodeValue';
+    delete c.Code;
 };
 
 // Changes entryType of entry but keeps value the same
@@ -31,7 +35,7 @@ const changeEntryType = (entry, newEntryType) => {
 
     // If Value is a CodeableConcept, change Code -> CodeValue
     if (entry.Value && entry.Value.EntryType && entry.Value.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept') {
-        mapCoding(entry.Value.Coding);
+        mapCodingArray(entry.Value.Coding);
     }
 };
 
@@ -47,11 +51,11 @@ const mapAnatomicalLocation = (entry, anatomicalLocation) => {
             },
             Value: {...b.Value.AnatomicalLocationOrLandmarkCode.Value},
         };
-        mapCoding(b.LocationCode.Value.Coding);
+        mapCodingArray(b.LocationCode.Value.Coding);
 
         if (b.Laterality) {
             b.Laterality = {...b.Value.Laterality};
-            mapCoding(b.Laterality.Value.Coding);
+            mapCodingArray(b.Laterality.Value.Coding);
         }
 
         delete b.Value;
@@ -63,7 +67,7 @@ const mapCondition = (resultJson , entryJson) => {
     resultJson.Onset = entryJson.Onset;
 
     resultJson.Category = entryJson.Category;
-    mapCoding(resultJson.Category.Value.Coding);
+    mapCodingArray(resultJson.Category.Value.Coding);
 
     resultJson.ClinicalStatus = entryJson.ClinicalStatus;
     changeEntryType(resultJson.ClinicalStatus, 'http://standardhealthrecord.org/spec/shr/core/ClinicalStatus');
@@ -108,15 +112,15 @@ export function mapEntries(v05Json) {
                     personEntry.Communication = [...personEntry.LanguageUsed];
                     personEntry.Communication.forEach((c) => {
                         changeEntryType(c, 'http://standardhealthrecord.org/spec/shr/core/Communication');
-                        mapCoding(c.Language.Value.Coding);
+                        mapCodingArray(c.Language.Value.Coding);
                     });
                     delete personEntry.LanguageUsed;
 
                     // Properties with CodeableConcept values have to map Code -> CodeValue
-                    personEntry.Address.forEach(a => mapCoding(a.Purpose.Value.Coding));
+                    personEntry.Address.forEach(a => mapCodingArray(a.Purpose.Value.Coding));
                     personEntry.ContactPoint.forEach((c) => {
-                        mapCoding(c.Type.Value.Coding);
-                        mapCoding(c.Purpose.Value.Coding);
+                        mapCodingArray(c.Type.Value.Coding);
+                        mapCodingArray(c.Purpose.Value.Coding);
                     });
 
                     resultJson.Person = personEntry;
@@ -154,6 +158,25 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'Observation': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Observation');
+
+                resultJson.RelevantTime = { ...entry.RelevantTime };
+                changeEntryType(resultJson.RelevantTime, 'http://standardhealthrecord.org/spec/shr/core/RelevantTime');
+
+                resultJson.Status = { ...entry.FindingStatus };
+                changeEntryType(resultJson.Status, 'http://standardhealthrecord.org/spec/shr/core/Status');
+
+                resultJson.DataValue = { ...entry.FindingResult };
+                changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
+                mapCoding(resultJson.DataValue.Value.Units.Value);
+
+                resultJson.Code = { ...entry.FindingTopicCode };
+                changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'ProcedureRequested': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest');
 
@@ -164,7 +187,7 @@ export function mapEntries(v05Json) {
                 });
 
                 resultJson.Status = {...entry.Status};
-                mapCoding(resultJson.Status.Value.Coding);
+                mapCodingArray(resultJson.Status.Value.Coding);
 
                 resultJson.Type = {...entry.ProcedureCode};
                 changeEntryType(resultJson.Type, 'http://standardhealthrecord.org/spec/shr/core/Type');
@@ -191,7 +214,7 @@ export function mapEntries(v05Json) {
                         Value: 'http://standardhealthrecord.org/spec/onco/core/TumorMarkerTestDataValue',
                     },
                 };
-                mapCoding(resultJson.DataValue.Value.Coding);
+                mapCodingArray(resultJson.DataValue.Value.Coding);
 
                 resultJson.Status = {...entry.FindingStatus};
                 changeEntryType(resultJson.Status, 'http://standardhealthrecord.org/spec/shr/core/Status');
@@ -206,8 +229,6 @@ export function mapEntries(v05Json) {
                 break;
             }
         }
-        console.log(resultJson);
-        // v09Json.push(resultJson);
     });
 
     return v09Json;
