@@ -28,9 +28,10 @@ describe ('actions', () => {
         const expectedAction = {
             type: types.INITIALIZE_SIMILAR_PATIENT_PROPS,
             patient,
-            condition
+            condition,
+            filters
         };
-        expect(actions.initializeSimilarPatientProps(patient, condition)).to.eql(expectedAction);
+        expect(actions.initializeSimilarPatientProps(patient, condition, filters)).to.eql(expectedAction);
 
     });
 

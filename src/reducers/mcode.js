@@ -13,10 +13,10 @@ export const defaultState = {
 
 export default function mcode(state = defaultState, action) {
     if (action.type === types.INITIALIZE_SIMILAR_PATIENT_PROPS) {
-        const { patient, condition } = action;
+        const { patient, condition, filters} = action;
         return {
             ...state,
-            similarPatientProps: { ...getProps(patient, condition) }
+            similarPatientProps: { ...getProps(patient, condition, filters) }
         };
     }
 
