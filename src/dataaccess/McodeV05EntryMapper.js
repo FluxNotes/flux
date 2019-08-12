@@ -179,6 +179,29 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'TumorMarker': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TumorMarkerTest');
+
+                resultJson.Code = {...entry.FindingTopicCode};
+                changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+
+                resultJson.DataValue = {
+                    Value: {...entry.FindingResult.Value},
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/onco/core/TumorMarkerTestDataValue',
+                    },
+                };
+                mapCoding(resultJson.DataValue.Value.Coding);
+
+                resultJson.Status = {...entry.FindingStatus};
+                changeEntryType(resultJson.Status, 'http://standardhealthrecord.org/spec/shr/core/Status');
+
+                resultJson.RelevantTime = {...entry.RelevantTime};
+                changeEntryType(resultJson.RelevantTime, 'http://standardhealthrecord.org/spec/shr/core/RelevantTime');
+
+                v09Json.push(resultJson);
+                break;
+            }
             default: {
                 break;
             }
