@@ -102,7 +102,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             let code = option.reference.receptorTypeCodeableConcept;
             let value = option.value;
             filter.push({
-                code: code.code.code,
+                code: code.codeValue.code,
                 codeSystem: code.codeSystem.uri,
                 displayName: code.displayText.string,
                 value: value
