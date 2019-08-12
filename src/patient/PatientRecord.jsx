@@ -193,6 +193,10 @@ class PatientRecord {
         return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
     }
 
+    getShrId() {
+        return this.person.entryInfo.shrId;
+    }
+
     getName() {
         if (Lang.isNull(this.person)) return null;
         return this.person.name;

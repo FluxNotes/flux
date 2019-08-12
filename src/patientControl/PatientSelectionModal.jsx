@@ -23,7 +23,7 @@ class PatientSelectionModal extends Component {
         this.pastAppTimes = [];
         this.futureAppTimes = [];
         const patientList = this.props.dataAccess.dataSource.getListOfPatients();
-        this.currentPatientViewed = patientList[patientList.length - 1].person.entryInfo.shrId;
+        this.currentPatientViewed = patientList[patientList.length - 1].getShrId();
     }
 
     fillModal = () => {
@@ -32,9 +32,9 @@ class PatientSelectionModal extends Component {
         const { dataAccess } = this.props;
         const patientList = dataAccess.dataSource.getListOfPatients();
         patientList.forEach((patient) => {
-            const name = patient.person.name;
-            const pic = patient.person.photographicImage;
-            const shrId = patient.person.entryInfo.shrId;
+            const name = patient.getName();
+            const pic = patient.getMostRecentPhoto();
+            const shrId = patient.getShrId();
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
