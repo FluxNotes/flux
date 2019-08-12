@@ -338,24 +338,35 @@ export class Minimap extends React.Component {
           <div
               className={"minimap-container " + this.props.className}
               onScroll={this.resize}
-              ref={(source) => {this.source = source;}}
+              ref={source => {
+                  this.source = source;
+              }}
           >
-              <div className="minimap-children-wrapper" style={{marginLeft: tabletMarginLeft}}>
+              <div
+                  className="minimap-children-wrapper"
+                  style={{ marginLeft: tabletMarginLeft }}
+              >
                   <button
                       className="minimap-children edit-button"
-                      style={{ width: `${width}px`, height: `${this.heightOfEditButton}px`}}
-                      onClick={this.editMinimapSections}>
+                      style={{
+                          width: `${width}px`,
+                          height: `${this.heightOfEditButton}px`
+                      }}
+                      onClick={this.editMinimapSections}
+                  >
                       {editButtonText}
                   </button>
                   <div
                       className="minimap"
                       style={{
                           width: `${width}px`,
-                          height: `${height - this.heightOfEditButton - 6}px`,
+                          height: `${height -
+                              this.heightOfEditButton -
+                              6}px`
                       }}
-
-                      ref={(minimap) => { this.minimap = minimap; }}
-
+                      ref={minimap => {
+                          this.minimap = minimap;
+                      }}
                       onMouseDown={this.down}
                       onTouchStart={this.down}
                       onTouchMove={this.move}
@@ -368,7 +379,13 @@ export class Minimap extends React.Component {
                   </div>
               </div>
 
-              <div className="minimap-children-content fitted-panel" ref={(container) => { this.ref = container; }}>
+              {/* <div className="minimap-children-content fitted-panel" ref={(container) => { this.ref = container; }}> */}
+              <div
+                  className="minimap-children-content"
+                  ref={container => {
+                      this.ref = container;
+                  }}
+              >
                   {this.props.children}
               </div>
           </div>

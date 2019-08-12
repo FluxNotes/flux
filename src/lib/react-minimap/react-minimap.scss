@@ -5,6 +5,7 @@
 	box-sizing: border-box;
 	background-color: rgba(0, 0, 0, 0.4);
 	z-index: 1;
+	height: 20% !important;
 	cursor: move;
 	-webkit-transition: width .5s, height .5s; /* Safari */
 	transition: 		width .5s, height .5s;
@@ -15,11 +16,11 @@
 	position: static;
 	-webkit-overflow-scrolling: touch; 
 	right: 0;
-	z-index: 20000000000000000000;
+	z-index: 5;
 	margin: 10px;
 	background-color: rgba(0, 0, 0, 0.29);	
 	border: 1px solid rgba(0, 0, 0, 0.17);
-	height: 100%;
+	// height: 100%;
 }
 
 .minimap-container {
@@ -27,14 +28,16 @@
 	// -webkit-overflow-scrolling: touch;
 	width: 100%;
 	height: 100%;
+	// border: 1px solid rgba(0, 0, 0, 0.17);
 }
 
 .minimap-children-wrapper {
 	position: absolute;
 	height: 100%;
+	// removing the overflow causes the minimap to go out of bounds but having it causes minimap to scroll
 	overflow: auto;
-	left: -50px;
-	z-index: 200000000000000;
+	z-index: 5;
+	left: 0;
 }
 
 .minimap-children {
@@ -43,7 +46,10 @@
 	box-sizing: border-box;
 }
 .minimap-children-content {
-	// overflow: scroll;
+	// webkit overflow scrolling needs some overflow property either here or in fitted-panel to work
+	// problem is that is overflow scroll causes the minimap to spread out
+	overflow: scroll;
+	// overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	max-height: calc(100vh - 117px - 20px + 10px);
     min-height: 400px !important;

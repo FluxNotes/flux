@@ -44,8 +44,9 @@
         }
 
         .fitted-panel {
-            overflow-y: auto;
-            overflow-x: hidden;
+            // overflow-y: auto;
+            // overflow-x: hidden;
+            overflow: auto;
             text-align: left;
             /* 106px is the height of the on large screens Patient Control Panel, 20px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
             max-height: calc(100vh - 117px - 20px + 10px);
