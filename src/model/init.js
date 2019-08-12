@@ -7,6 +7,7 @@ import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import BloodPressureFix from './fluxExtensions/BloodPressureFix';
 import DataValueFix from './fluxExtensions/DataValueFix';
 import MedicationCodeOrReferenceFix from './fluxExtensions/MedicationCodeOrReferenceFix';
+import TumorMarkerTestDataValueFix from './fluxExtensions/TumorMarkerTestDataValueFix';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -25,6 +26,8 @@ function init() {
   ClassRegistry.set('shr.core', 'BloodPressure', BloodPressureFix);
   ClassRegistry.set('shr.core', 'DataValue', DataValueFix);
   ClassRegistry.set('shr.core', 'MedicationCodeOrReference', MedicationCodeOrReferenceFix);
+
+  ClassRegistry.set('onco.core', 'TumorMarkerTestDataValue', TumorMarkerTestDataValueFix)
 }
 
 init();
