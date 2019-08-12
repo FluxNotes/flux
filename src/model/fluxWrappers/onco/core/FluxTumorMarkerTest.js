@@ -49,6 +49,27 @@ class FluxTumorMarkerTest extends FluxEntry {
         return this._tumorMarker.code;
     }
 
+    // Returns a human-readable display text string
+    get receptorType() { 
+        if (!this._tumorMarker.code 
+            || !this._tumorMarker.code.value
+            || !this._tumorMarker.code.value.coding
+            || !this._tumorMarker.code.value.coding[0]) return null;
+        return this._displayTextOrCode(this._tumorMarker.code.value.coding[0]);
+    }
+    
+    /**
+     * Getter for shr.oncology.ReceptorType
+     */
+    get status() {
+        // TODO: TumorMarkerDataValue.value can be CodeableConcept|Quantity|Ratio
+        // this assumes it's only a CodeableConcept
+        if (!this._tumorMarker.dataValue 
+            || !this._tumorMarker.dataValue.value
+            || !this._tumorMarker.dataValue.value.coding
+            || !this._tumorMarker.dataValue.value.coding[0]) return null;
+        return this._displayTextOrCode(this._tumorMarker.dataValue.value.coding[0]);    }
+
     get specificFocusOfFinding() {
         if (!this._tumorMarker.specificFocusOfFinding) return null;
         return this._tumorMarker.specificFocusOfFinding.value;

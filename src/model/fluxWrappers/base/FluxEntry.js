@@ -13,7 +13,8 @@ class FluxEntry {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.codeValue;
+        return coding.displayText ? coding.displayText.value :
+               coding.codeValue ? coding.codeValue.value : '';
     }
 
     /**
