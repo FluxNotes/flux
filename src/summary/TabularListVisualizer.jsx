@@ -265,7 +265,7 @@ export default class TabularListVisualizer extends Visualizer {
         let colText = _.isObject(col.value) ? col.value.value : col.value;
         const longElementText = colText;
 
-        if (!_.isNull(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
+        if (!_.isEmpty(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
 
         let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
         if (subsectionActions.length > 0 || this.props.actions.length > 0) {
