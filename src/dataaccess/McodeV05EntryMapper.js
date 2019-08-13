@@ -95,6 +95,11 @@ const mapFindingTopicCode = (resultJson, findingTopicCode) => {
     changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
 };
 
+const mapFindingResult = (resultJson, findingResult) => {
+    resultJson.DataValue = { ...findingResult };
+    changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
+};
+
 export function mapEntries(v05Json) {
     const v09Json = [];
 
@@ -132,8 +137,7 @@ export function mapEntries(v05Json) {
                 mapFindingStatus(resultJson, entry.FindingStatus);
                 mapFindingTopicCode(resultJson, entry.FindingTopicCode);
 
-                resultJson.DataValue = { ...entry.FindingResult };
-                changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
+                mapFindingResult(resultJson, entry.FindingResult);
                 mapCoding(resultJson.DataValue.Value.Units.Value);
 
                 v09Json.push(resultJson);
@@ -214,6 +218,27 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'TNMClinicalPrimaryTumorClassification': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory');
+                mapFindingResult(resultJson, entry.FindingResult);
+
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'TNMClinicalRegionalNodesClassification': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalRegionalNodesCategory');
+                mapFindingResult(resultJson, entry.FindingResult);
+
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'TNMClinicalDistantMetastasesClassification': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalDistantMetastasesCategory');
+                mapFindingResult(resultJson, entry.FindingResult);
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'TNMClinicalStageGroup': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalStageGroup');
 
@@ -241,8 +266,7 @@ export function mapEntries(v05Json) {
                 resultJson.Method = { ...entry.FindingMethod };
                 changeEntryType(resultJson.Method, 'http://standardhealthrecord.org/spec/shr/core/Method');
 
-                resultJson.DataValue = { ...entry.FindingResult };
-                changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
+                mapFindingResult(resultJson, entry.FindingResult);
 
                 resultJson.PrimaryCancerCondition = { ...entry.SpecificFocusOfFinding.Value };
                 resultJson.PrimaryCancerCondition._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition';
@@ -259,8 +283,8 @@ export function mapEntries(v05Json) {
                         Value: 'http://standardhealthrecord.org/spec/onco/core/TumorMarkerTestDataValue',
                     },
                 };
-
                 mapCodingArray(resultJson.DataValue.Value.Coding);
+
                 mapRelevantTime(resultJson, entry.RelevantTime);
                 mapFindingStatus(resultJson, entry.FindingStatus);
                 mapFindingTopicCode(resultJson, entry.FindingTopicCode);

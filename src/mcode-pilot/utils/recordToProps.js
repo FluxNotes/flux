@@ -153,11 +153,11 @@ function processPanel(panelMembers, patient) {
     panelMembers.forEach((e) => {
         const entry = patient.getEntryById(e._entryId);
         if (entry instanceof FluxTNMClinicalPrimaryTumorCategory) {
-            returnJson.t = entry._tnmStagePanelMember.findingResult.value.coding[0];
+            returnJson.t = entry._cancerStageCategory.dataValue.value.coding[0];
         } else if (entry instanceof FluxTNMClinicalRegionalNodesCategory) {
-            returnJson.n = entry._tnmStagePanelMember.findingResult.value.coding[0];
+            returnJson.n = entry._cancerStageCategory.dataValue.value.coding[0];
         } else if (entry instanceof FluxTNMClinicalDistantMetastasesCategory) {
-            returnJson.m = entry._tnmStagePanelMember.findingResult.value.coding[0];
+            returnJson.m = entry._cancerStageCategory.dataValue.value.coding[0];
         }
     });
     return returnJson;
