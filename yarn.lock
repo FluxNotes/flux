@@ -4682,13 +4682,12 @@ fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.6, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fhir-mapper@^1.0.6:
+fhir-mapper@standardhealth/fhir-mapper#syntheaToV09_rebase:
   version "1.0.6"
-  resolved "https://registry.yarnpkg.com/fhir-mapper/-/fhir-mapper-1.0.6.tgz#1c82971ff236feb82b2f0fc9ef7e530dcd56727c"
-  integrity sha512-UttkCJIJ7/cX/8jg6/toWJvPgHG9qwJK5iXuosS1IEBKWCVikifp418FHVU8zkSZA2CON1drD6bWBtkDXKsdNg==
+  resolved "https://codeload.github.com/standardhealth/fhir-mapper/tar.gz/c2a799c11add555844c71df6f2eb93d22d250340"
   dependencies:
     fhirpath "^0.10.3"
-    lodash "^4.17.11"
+    lodash "^4.17.13"
 
 fhirclient@^0.1.12:
   version "0.1.15"
@@ -7016,6 +7015,11 @@ lodash@4.17.13, "lodash@4.6.1 || ^4.16.1", "lodash@>=3.5 <5", lodash@^4.0.0, lod
   version "4.17.13"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.13.tgz#0bdc3a6adc873d2f4e0c4bac285df91b64fc7b93"
   integrity sha512-vm3/XWXfWtRua0FkUyEHBZy8kCPjErNBT9fJx8Zvs+U6zjqPbTUOpkaoum3O5uiA8sm+yNMHXfYkTUHFoMxFNA==
+
+lodash@^4.17.13:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 log-update@^1.0.2:
   version "1.0.2"

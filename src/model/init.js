@@ -7,7 +7,12 @@ import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import BloodPressureFix from './fluxExtensions/BloodPressureFix';
 import DataValueFix from './fluxExtensions/DataValueFix';
 import MedicationCodeOrReferenceFix from './fluxExtensions/MedicationCodeOrReferenceFix';
+import PrimaryCancerConditionFix from './fluxExtensions/PrimaryCancerConditionFix';
+import RelatedCancerConditionFix from './fluxExtensions/RelatedCancerConditionFix';
+import CancerReasonReferenceFix from './fluxExtensions/CancerReasonReferenceFix';
 import TumorMarkerTestDataValueFix from './fluxExtensions/TumorMarkerTestDataValueFix';
+import TNMClinicalStageGroupFix from './fluxExtensions/TNMClinicalStageGroupFix';
+import TNMPathologicStageGroupFix from './fluxExtensions/TNMPathologicStageGroupFix';
 
 /**
  * The init function initializes the ES helper functions with the necessary dependencies for creating
@@ -27,7 +32,12 @@ function init() {
   ClassRegistry.set('shr.core', 'DataValue', DataValueFix);
   ClassRegistry.set('shr.core', 'MedicationCodeOrReference', MedicationCodeOrReferenceFix);
 
-  ClassRegistry.set('onco.core', 'TumorMarkerTestDataValue', TumorMarkerTestDataValueFix)
+  ClassRegistry.set('onco.core', 'PrimaryCancerCondition', PrimaryCancerConditionFix);
+  ClassRegistry.set('onco.core', 'RelatedCancerCondition', RelatedCancerConditionFix);
+  ClassRegistry.set('onco.core', 'CancerReasonReference', CancerReasonReferenceFix);
+  ClassRegistry.set('onco.core', 'TumorMarkerTestDataValue', TumorMarkerTestDataValueFix);
+  ClassRegistry.set('onco.core', 'TNMClinicalStageGroup', TNMClinicalStageGroupFix);
+  ClassRegistry.set('onco.core', 'TNMPathologicStageGroup', TNMPathologicStageGroupFix);
 }
 
 init();

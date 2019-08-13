@@ -30,7 +30,6 @@ CONFIG = {
         display: 'Compass™',
         app: "SmartCompassApp",
         isExact: true,
-        dataSource: 'McodeV05SmartOnFhirDataSource',
         dataSourceProps: {
             resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure']
         },
@@ -40,7 +39,11 @@ CONFIG = {
             width: '45px',
             height: '45px'
         },
-        shortcuts: []
+        dataSource: 'GenericSmartOnFhirDstu2DataSource',
+        shortcuts: [],
+        dataSourceProps: {
+            mapper: 'syntheaToV09'
+        }
     },
     {
         path: '/launch',
@@ -96,7 +99,7 @@ CONFIG = {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-            mapper: 'syntheaToV05'
+            mapper: 'syntheaToV09'
         }
     },
     {
