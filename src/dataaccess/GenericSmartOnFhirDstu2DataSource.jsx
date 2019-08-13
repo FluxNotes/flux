@@ -1,6 +1,6 @@
 import McodeV05SmartOnFhirDataSource from "./McodeV05SmartOnFhirDataSource";
 import processFHIRResources from './utils/fhir-entry-processor';
-import mappers from 'fhir-mapper';
+import {mappers} from 'fhir-mapper';
 
 class GenericSmartOnFhirDstu2DataSource extends McodeV05SmartOnFhirDataSource {
     constructor(props) {

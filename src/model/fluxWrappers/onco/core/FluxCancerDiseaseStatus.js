@@ -112,8 +112,18 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
 
     // Flux added
     get asOfDate() {
-        if (!this._cancerDiseaseStatus.metadata || !this._cancerDiseaseStatus.metadata.authoredDateTime) return null;
-        return this._cancerDiseaseStatus.metadata.authoredDateTime.value;
+        if (this._cancerDiseaseStatus.statementDateTime
+            && this._cancerDiseaseStatus.statementDateTime.value) {
+            return this._cancerDiseaseStatus.statementDateTime.value;
+        }
+
+        if (this._cancerDiseaseStatus.metadata 
+            && this._cancerDiseaseStatus.metadata.authoredDateTime
+            && this._cancerDiseaseStatus.metadata.authoredDateTime.value) {
+            return this._cancerDiseaseStatus.metadata.authoredDateTime.value;
+        }
+
+        return null;
     }
 
     set asOfDate(val) {

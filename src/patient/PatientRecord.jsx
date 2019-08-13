@@ -945,7 +945,7 @@ class PatientRecord {
         return this.entries.filter((item) => {
             return item instanceof FluxCancerDiseaseStatus
                 && item.relatedCancerCondition
-                && item.relatedCancerCondition.entryId === conditionEntryId;
+                && this._entryIdsMatch(item.relatedCancerCondition.entryId, conditionEntryId);
         });
     }
 
