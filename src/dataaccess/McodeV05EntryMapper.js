@@ -89,6 +89,46 @@ export function mapEntries(v05Json) {
 
         mapEntryInfo(resultJson, entry);
         switch (elementName) {
+            case 'CancerDisorderPresent': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
+                mapCondition(resultJson, entry);
+                resultJson.SubjectOfRecord = {
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/shr/core/PatientSubjectOfRecord',
+                    },
+                    Patient: entry.Patient,
+                };
+                resultJson.SubjectOfRecord.Patient._EntryType = 'http://standardhealthrecord.org/spec/shr/core/Patient';
+
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'ConditionPresentAssertion': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Condition');
+                mapCondition(resultJson, entry);
+
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'Observation': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Observation');
+
+                resultJson.RelevantTime = { ...entry.RelevantTime };
+                changeEntryType(resultJson.RelevantTime, 'http://standardhealthrecord.org/spec/shr/core/RelevantTime');
+
+                resultJson.Status = { ...entry.FindingStatus };
+                changeEntryType(resultJson.Status, 'http://standardhealthrecord.org/spec/shr/core/Status');
+
+                resultJson.DataValue = { ...entry.FindingResult };
+                changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
+                mapCoding(resultJson.DataValue.Value.Units.Value);
+
+                resultJson.Code = { ...entry.FindingTopicCode };
+                changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'Patient': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Patient');
 
@@ -131,53 +171,13 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
-            case 'Person': {
-                // Person is now a property on Patient entry
-                return;
-            }
             // TODO
             case 'PatientIdentifier': {
                 break;
             }
-            case 'CancerDisorderPresent': {
-                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
-                mapCondition(resultJson, entry);
-                resultJson.SubjectOfRecord = {
-                    EntryType: {
-                        Value: 'http://standardhealthrecord.org/spec/shr/core/PatientSubjectOfRecord',
-                    },
-                    Patient: entry.Patient,
-                };
-                resultJson.SubjectOfRecord.Patient._EntryType = 'http://standardhealthrecord.org/spec/shr/core/Patient';
-
-                v09Json.push(resultJson);
-                break;
-            }
-            case 'ConditionPresentAssertion': {
-                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Condition');
-                mapCondition(resultJson, entry);
-
-                v09Json.push(resultJson);
-                break;
-            }
-            case 'Observation': {
-                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Observation');
-
-                resultJson.RelevantTime = { ...entry.RelevantTime };
-                changeEntryType(resultJson.RelevantTime, 'http://standardhealthrecord.org/spec/shr/core/RelevantTime');
-
-                resultJson.Status = { ...entry.FindingStatus };
-                changeEntryType(resultJson.Status, 'http://standardhealthrecord.org/spec/shr/core/Status');
-
-                resultJson.DataValue = { ...entry.FindingResult };
-                changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
-                mapCoding(resultJson.DataValue.Value.Units.Value);
-
-                resultJson.Code = { ...entry.FindingTopicCode };
-                changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
-
-                v09Json.push(resultJson);
-                break;
+            case 'Person': {
+                // Person is now a property on Patient entry
+                return;
             }
             case 'ProcedureRequested': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest');
