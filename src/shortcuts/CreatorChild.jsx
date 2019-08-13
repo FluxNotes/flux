@@ -131,7 +131,7 @@ export default class CreatorChild extends Shortcut {
     }
 
     serialize() {
-        return `${this.getPrefixCharacter()}${this.getText()}`;
+        return `${this.getPrefixCharacter()}${this.getDisplayText()}`;
     }
 
     getDisplayText() {
@@ -151,7 +151,7 @@ export default class CreatorChild extends Shortcut {
             // If we have a multi-choice shortcut, it is incomplete only if the label inserted with no value selected
             if (Lang.isArray(parentAttributeValue)) {
                 // If text matches the label, no value selected yet. Render as incomplete
-                return this.getText() !== this.metadata.label.substring(1);
+                return this.getDisplayText() !== this.metadata.label.substring(1);
             }
 
             return !!parentAttributeValue; // If parent attribute is defined, shortcut is complete, else it is incomplete
