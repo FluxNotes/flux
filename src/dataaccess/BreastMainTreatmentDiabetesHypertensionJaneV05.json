@@ -6345,7 +6345,12 @@
             "Value": {
                 "Coding": [
                     {
-                        "Code": "",
+                        "Code":{
+                            "Value": "",
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            }
+                        },
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
@@ -6373,7 +6378,7 @@
                 "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7g",
                 "_EntryId": "8",
                 "_EntryType": {
-                    "Value": "http://standardhealthrecord.org/spec/shr/oncology/GastrointestinalStromalTumor"
+                    "Value": "http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"
                 }
             },
             "EntryType": {
