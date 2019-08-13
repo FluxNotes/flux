@@ -113,7 +113,13 @@ export default class CreatorChild extends Shortcut {
         this.text = this._getTriggerWithoutPrefix(text);
         let value = this.text;
         if (this.metadata.picker === 'date-id') {
-            value = moment(text, 'D MMM YYYY').format('D MMM YYYY');
+            let date = moment(text, 'D MMM YYYY', true);
+            if (!date.isValid()) {
+                // Date format is #MM/DD/YYYY. Non-strict parsing used due to leading #.
+                date = moment(text, 'MM/DD/YYYY');
+            }
+            // Format all dates to same format, regardless of incoming format
+            value = date.format('D MMM YYYY');
         }
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient, previousText);
