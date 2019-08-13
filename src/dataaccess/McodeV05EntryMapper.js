@@ -1,16 +1,18 @@
 import { getNamespaceAndName } from "../model/json-helper";
 
-const mapEntryInfo = (entry, json) => {
-    json.EntryId = entry.EntryId;
-    json.ShrId = entry.ShrId;
-    json.EntryType = entry.EntryType;
+const mapEntryInfo = (resultJson, entryJson) => {
+    resultJson.EntryId = entryJson.EntryId;
+    resultJson.ShrId = entryJson.ShrId;
+    resultJson.EntryType = entryJson.EntryType;
 
-    if (entry.Metadata) {
+    if (entryJson.Metadata) {
         // TODO: What should we map AuthoredDateTime to?
-        delete entry.Metadata.AuthoredDateTime;
-        changeEntryType(entry.Metadata, 'http://standardhealthrecord.org/spec/shr/core/Metadata');
-        changeEntryType(entry.Metadata.LastUpdated, 'http://standardhealthrecord.org/spec/shr/core/LastUpdated');
-        json.Metadata = entry.Metadata;
+        // TODO: What should we map InformationRecorder to?
+        delete entryJson.Metadata.AuthoredDateTime;
+        delete entryJson.Metadata.InformationRecorder;
+        changeEntryType(entryJson.Metadata, 'http://standardhealthrecord.org/spec/shr/core/Metadata');
+        changeEntryType(entryJson.Metadata.LastUpdated, 'http://standardhealthrecord.org/spec/shr/core/LastUpdated');
+        resultJson.Metadata = entryJson.Metadata;
     }
 };
 
@@ -39,10 +41,10 @@ const changeEntryType = (entry, newEntryType) => {
     }
 };
 
-const mapAnatomicalLocation = (entry, anatomicalLocation) => {
-    entry.BodyLocation = [...anatomicalLocation];
+const mapAnatomicalLocation = (resultJson, anatomicalLocation) => {
+    resultJson.BodyLocation = [...anatomicalLocation];
 
-    entry.BodyLocation.forEach((b) => {
+    resultJson.BodyLocation.forEach((b) => {
         changeEntryType(b, 'http://standardhealthrecord.org/spec/shr/core/BodyLocation');
 
         b.LocationCode = {
@@ -85,7 +87,7 @@ export function mapEntries(v05Json) {
         const { elementName } = getNamespaceAndName(entry);
         const resultJson = {};
 
-        mapEntryInfo(entry, resultJson);
+        mapEntryInfo(resultJson, entry);
         switch (elementName) {
             case 'Patient': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Patient');
