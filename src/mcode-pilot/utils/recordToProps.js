@@ -159,6 +159,16 @@ function processPanel(panelMembers, patient) {
     return returnJson;
 }
 
+function checkFilter(filters, option) {
+    const isValueEmpty = option.value !== null && option.value !== undefined;
+    if (filters !== undefined) {
+        // there are filters in the config, make sure the current option is in the list
+        return filters.includes(option.mcodeElement) && isValueEmpty;
+    } else {
+        // no filter list supplied, assume all filters are active
+        return isValueEmpty;
+    }
+}
 // a map of similar patient props to the patient record
 function _mapProp(propDict, filters) {
     const similarPatientProps = {};
@@ -174,8 +184,7 @@ function _mapProp(propDict, filters) {
             const option = propDict[key][prop];
             // drops option boxes that don't have
             // a value from the patient record
-            if ((filters!==undefined && filters.includes(option.mcodeElement) && option.value !== null && option.value !== undefined) ||
-                 (filters===undefined && option.value !== null && option.value !== undefined)) {
+            if (checkFilter(filters, option)) {
                 let propEntry = {
                     selected: false,
                     displayText: option.display

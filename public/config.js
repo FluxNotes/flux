@@ -277,7 +277,9 @@ CONFIG = {
     ],
 
     services: {
-        outcomes: {"name": 'StaticOutcomesService', "timescale": ["1","3","5"],
+        outcomes: {
+            "name": 'StaticOutcomesService',
+            "timescale": ["1","3","5"],
             "filters": [
                 "shr.core.DateOfBirth",
                 "shr.core.DateOfDiagnosis",
@@ -289,4 +291,4 @@ CONFIG = {
                 "onco.core.TNMClinicalDistantMetastasesCategory",
             ]}
     }
-}
+};
