@@ -60,11 +60,12 @@ export default class TemplateOption extends Component {
                     {title}
                 </div>
                 {this.renderDesignedBy()}
-                <div> 
-                    <TemplateOptionPreviewButton onClick={() => { console.log('hi') }} onMouseEnter={() => { this.setState({ modalContent: this.props.content, isModalOpen: true }); console.log(this.state); }} />
+                <div>
+                    <TemplateOptionPreviewButton onClick={() => { console.log('hi'); }} onMouseOver={() => { this.setState({ modalContent: this.props.content, isModalOpen: true }); console.log(this.state); }} />
                 </div>
                 
                 <Modal
+                    disableAutoFocus={true}
                     open={this.state.isModalOpen}
                     onClose={this.handleModalClose}
                 >
