@@ -5,7 +5,7 @@ import "./TemplateOptionPreviewButton.css";
 export default class TemplateOptionPreviewButton extends Component {
     render() {
         return (
-            <div className="template-preview-button">
+            <div onClick={() => {this.props.onClick()}} className="template-preview-button">
                 <RemoveRedEye/>
             </div>
         );
