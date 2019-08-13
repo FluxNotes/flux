@@ -259,23 +259,20 @@ class ShortcutManager {
                 // build up trigger to shortcut mapping
                 const triggers = item["stringTriggers"];
                 const keywords = item["keywords"];
-                let duplicate = false;
                 if (triggers) {
                     this.triggersPerShortcut[item.id] = [];
                     if (_.isArray(triggers)) {
                         triggers.forEach((trigger) => {
-                            // if a stringTrigger is the same as the label, set a flag to ensure it is not added twice
-                            if (item.label === trigger.name) duplicate = true;
                             addTriggerForCurrentShortcut.bind(this)(trigger, item);
                         });
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
-                    if (item.label && !duplicate) {
+                    if (item.label) {
                         // Add a string trigger for incomplete placeholder
                         addTriggerForCurrentShortcut.bind(this)({
                             name: item.label,
-                            description: 'Incomplete placeholder for ' + item.label,
+                            description: item.description ? item.description : 'Incomplete placeholder for ' + item.label,
                             picker: true
                         }, item);
                     }
@@ -403,24 +400,13 @@ class ShortcutManager {
     // Returns all triggers for a shortcut but filters out the label if one is defined
     getTriggersWithoutLabelForShortcut(shortcutId, context) {
         const label = this.shortcuts[shortcutId].label;
+        // stringTriggers is directly from shortcut metadata
         const stringTriggers = this.shortcuts[shortcutId].stringTriggers;
-        let triggers = this.getTriggersForShortcut(shortcutId, context);
+        // triggers is the computed options based on the valueset defined in metadata
+        const triggers = this.getTriggersForShortcut(shortcutId, context);
 
-        triggers = triggers.filter(trigger => {
-            let duplicate = false;
-
-            // if the label is also a string trigger, do NOT filter it out
-            if (_.isArray(stringTriggers)) {
-                stringTriggers.forEach((st) => {
-                    if (label === st.name) duplicate = true;
-                });
-            }
-
-            if (trigger.name === label && !duplicate) return false;
-            return true;
-        });
-
-        return triggers;
+        // Filter out the label from triggers if there are defined triggers that can be added
+        return triggers.filter(t =>  stringTriggers.length === 0 || t.name !== label);
     }
 
     getKeywordsForShortcut(shortcutId, context) {
