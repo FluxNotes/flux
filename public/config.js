@@ -30,18 +30,18 @@ CONFIG = {
         display: 'Compass™',
         app: "SmartCompassApp",
         isExact: true,
-        dataSource: 'GenericSmartOnFhirDstu2DataSource',
-        dataSourceProps: {
-            mapper: 'cernerSandbox',
-            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
-        },
         logoObject: {
             path: './compass-logo.png',
             altText: 'Compass logo',
             width: '45px',
             height: '45px'
         },
-        shortcuts: []
+        dataSource: 'GenericSmartOnFhirDstu2DataSource',
+        shortcuts: [],
+        dataSourceProps: {
+            mapper: 'cernerSandbox',
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
+        },
     },
     {
         path: '/launch',
