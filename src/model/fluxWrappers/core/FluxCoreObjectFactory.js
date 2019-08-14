@@ -15,12 +15,12 @@ import FluxResearchSubject from './FluxResearchSubject';
 import FluxMedicationRequest from './FluxMedicationRequest';
 import FluxAllergyIntolerance from './FluxAllergyIntolerance';
 import FluxObservation from './FluxObservation';
-import FluxPerson from './FluxPerson';
 import FluxPatient from './FluxPatient';
 import FluxEncounter from './FluxEncounter';
 import FluxReferralRequest from './FluxReferralRequest';
 import FluxMedicationStatement from './FluxMedicationStatement';
 import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
+import FluxQuestionnaireResponse from './FluxQuestionnaireResponse';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -45,9 +45,9 @@ export default class FluxCoreObjectFactory {
             case 'MedicationStatementAfterChange': return new FluxMedicationStatementAfterChange(json);
             case 'Observation': return new FluxObservation(json, type, patientRecord);
             case 'Patient': return new FluxPatient(json, type, patientRecord);
-            // case 'Person': return new FluxPerson(json);
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
+            case 'QuestionnaireResponse': return new FluxQuestionnaireResponse(json);
             case 'ReferralRequest': return new FluxReferralRequest(json);
             case 'ResearchStudy': return new FluxResearchStudy(json);
             case 'ResearchSubject': return new FluxResearchSubject(json);

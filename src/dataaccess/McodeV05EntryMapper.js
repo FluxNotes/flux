@@ -239,6 +239,45 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'QuestionAnswer': {
+                if (entry.PanelMembers) {
+                    changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/QuestionnaireResponse');
+
+                    // Questions and Answers used to be entries on the patient record
+                    // Now their instances are contained in the `QuestionnaireResponseItem` property of `QuestionnaireResponse`
+                    resultJson.QuestionnaireResponseItem = entry.PanelMembers.Observation.map((o) => {
+                        const questionAnswerEntry = v05Json.find(e => e.EntryId === o._EntryId);
+
+                        return {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/QuestionnaireResponseItem',
+                            },
+                            Question: {
+                                EntryType: {
+                                    Value: 'http://standardhealthrecord.org/spec/shr/core/Question',
+                                },
+                                Value: questionAnswerEntry.QuestionText.Value,
+                            },
+                            Answer: [
+                                {
+                                    EntryType: {
+                                        Value: 'http://standardhealthrecord.org/spec/shr/core/Answer',
+                                    },
+                                    AnswerValue: {
+                                        EntryType: {
+                                            Value: 'http://standardhealthrecord.org/spec/shr/core/AnswerValue',
+                                        },
+                                        Value: questionAnswerEntry.FindingResult.Value,
+                                    },
+                                }
+                            ],
+                        };
+                    });
+
+                    v09Json.push(resultJson);
+                }
+                break;
+            }
             case 'TNMClinicalPrimaryTumorClassification': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory');
                 mapFindingResult(resultJson, entry.FindingResult);
