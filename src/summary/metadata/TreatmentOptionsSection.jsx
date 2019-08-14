@@ -55,7 +55,7 @@ export default class TreatmentOptionsSection extends MetadataSection {
                         },
                         {
                             id: "grade", name: "Grade", servicePropertyName: "dxGrade", category: "Pathology", value: true,
-                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber(); }
+                            propertyValueFunction: (patient, condition) => { return condition.getMostRecentHistologicalGrade() ? condition.getMostRecentHistologicalGrade().getGradeAsSimpleNumber() : null; }
                         },
                         {
                             id: "stage", name: "Stage", servicePropertyName: "stage", category: "Pathology", value: !Lang.isNull(condition.getMostRecentStaging()),
