@@ -7,6 +7,8 @@ import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import BloodPressureFix from './fluxExtensions/BloodPressureFix';
 import DataValueFix from './fluxExtensions/DataValueFix';
 import MedicationCodeOrReferenceFix from './fluxExtensions/MedicationCodeOrReferenceFix';
+import MedicationRequestFix from './fluxExtensions/MedicationRequestFix';
+import ReasonReferenceFix from './fluxExtensions/ReasonReferenceFix';
 import PrimaryCancerConditionFix from './fluxExtensions/PrimaryCancerConditionFix';
 import RelatedCancerConditionFix from './fluxExtensions/RelatedCancerConditionFix';
 import CancerReasonReferenceFix from './fluxExtensions/CancerReasonReferenceFix';
@@ -31,6 +33,8 @@ function init() {
   ClassRegistry.set('shr.core', 'BloodPressure', BloodPressureFix);
   ClassRegistry.set('shr.core', 'DataValue', DataValueFix);
   ClassRegistry.set('shr.core', 'MedicationCodeOrReference', MedicationCodeOrReferenceFix);
+  ClassRegistry.set('shr.core', 'MedicationRequest', MedicationRequestFix);
+  ClassRegistry.set('shr.core', 'ReasonReference', ReasonReferenceFix);
 
   ClassRegistry.set('onco.core', 'PrimaryCancerCondition', PrimaryCancerConditionFix);
   ClassRegistry.set('onco.core', 'RelatedCancerCondition', RelatedCancerConditionFix);
