@@ -129,7 +129,8 @@ class FluxMedicationRequest extends FluxEntry {
      *  Returns displayText string for medication
      */
     get medication() {
-        return this._displayTextOrCode(this._medicationRequest.medicationCodeOrReference.type.value.coding[0]);
+        // TODO: handle reference case
+        return this._displayTextOrCode(this._medicationRequest.medicationCodeOrReference.value.coding[0]);
     }
 
     /**
@@ -180,7 +181,7 @@ class FluxMedicationRequest extends FluxEntry {
         if (timingOfDoses.timing
             && timingOfDoses.timing.recurrencePattern instanceof RecurrencePattern) {
             let units;
-            if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.code.value === 'd') {
+            if (timingOfDoses.timing.recurrencePattern.recurrenceInterval.duration.units.value.codeValue.value === 'd') {
                 units = 'per day';
             }
             return {
@@ -238,11 +239,15 @@ class FluxMedicationRequest extends FluxEntry {
      *  Returns array of reasons
      */
     get reasons() {
-        return this._medicationRequest.reason || [];
+        const reasons = [];
+        if (this._medicationRequest.reasonCode) reasons.push(...this._medicationRequest.reasonCode);
+        if (this._medicationRequest.reasonReference) reasons.push(...this._medicationRequest.reasonReference);
+        return reasons;
     }
 
     get code() {
-        return this._medicationRequest.medicationCodeOrReference.type.value.coding[0].code.value;
+        // TODO: handle reference case
+        return this._medicationRequest.medicationCodeOrReference.value.coding[0].codeValue.value;
     }
 
     get routeIntoBody() {
