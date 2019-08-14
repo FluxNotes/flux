@@ -102,11 +102,7 @@ CONFIG = {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-<<<<<<< HEAD
-            mapper: 'syntheaToV09'
-=======
-            mapper: 'cernerSandbox'
->>>>>>> adding exploded scops to launchcompass path and including cernerSanbox as the mapper to use for the time being
+          mapper: 'cernerSandbox'
         }
     },
     {
