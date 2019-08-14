@@ -62,7 +62,7 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
      *  This will return the code string from CodeableConcept, corresponding to the status' code
      */
     get statusAsCode() {
-        return this._cancerDiseaseStatus.dataValue.value.coding[0].code.value;
+        return this._cancerDiseaseStatus.dataValue.value.coding[0].codeValue.value;
     }
 
     /**

@@ -6715,7 +6715,12 @@
                         "EntryType": {
                             "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
                         },
-                        "Code": "",
+                        "Code": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+                            },
+                            "Value": ""
+                        },
                         "CodeSystem": {
                             "EntryType": {
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"

@@ -107,6 +107,7 @@ export function mapEntries(v05Json) {
         const { elementName } = getNamespaceAndName(entry);
         const resultJson = {};
 
+        const authoredDateTime = entry.Metadata ? { ...entry.Metadata.AuthoredDateTime } : null;
         mapEntryInfo(resultJson, entry);
         switch (elementName) {
             case 'CancerDisorderPresent': {
@@ -119,6 +120,26 @@ export function mapEntries(v05Json) {
                     Patient: entry.Patient,
                 };
                 resultJson.SubjectOfRecord.Patient._EntryType = 'http://standardhealthrecord.org/spec/shr/core/Patient';
+
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'CancerProgression': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerDiseaseStatus');
+                mapFindingResult(resultJson, entry.FindingResult);
+                mapFindingTopicCode(resultJson, entry.FindingTopicCode);
+
+                resultJson.Status = { ...entry.FindingStatus };
+                changeEntryType(resultJson.Status, 'http://standardhealthrecord.org/spec/shr/core/Status');
+
+                // TODO: Might need to do a mapping of the actual reference here, but just mapping it to the new data element for now
+                resultJson.RelatedCancerCondition = { ...entry.SpecificFocusOfFinding };
+                changeEntryType(resultJson.RelatedCancerCondition, 'http://standardhealthrecord.org/spec/onco/core/RelatedCancerCondition');
+
+                if (authoredDateTime) {
+                    resultJson.StatementDateTime = { ...authoredDateTime };
+                    changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
+                }
 
                 v09Json.push(resultJson);
                 break;
