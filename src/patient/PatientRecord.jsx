@@ -12,7 +12,6 @@ import FluxNoKnownAllergy from '../model/fluxWrappers/allergy/FluxNoKnownAllergy
 import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
 import FluxPatientIdentifier from '../model/fluxWrappers/base/FluxPatientIdentifier';
 import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
-import FluxQuestionAnswer from '../model/fluxWrappers/base/FluxQuestionAnswer';
 import FluxResearchSubject from '../model/fluxWrappers/core/FluxResearchSubject';
 import FluxBloodPressure from '../model/fluxWrappers/core/FluxBloodPressure';
 import FluxBodyTemperature from '../model/fluxWrappers/core/FluxBodyTemperature';
@@ -30,6 +29,7 @@ import { v4 } from 'uuid';
 import _ from 'lodash';
 import Metadata from '../model/shr/core/Metadata';
 import FluxAllergyIntolerance from '../model/fluxWrappers/core/FluxAllergyIntolerance';
+import FluxQuestionnaireResponse from '../model/fluxWrappers/core/FluxQuestionnaireResponse';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -347,10 +347,7 @@ class PatientRecord {
     }
 
     getReviewOfSystems() {
-        return this.entries.find((e) => {
-            // C95618 is code for ROS
-            return e instanceof FluxQuestionAnswer && e.isROS();
-        });
+        return this.entries.find(e => e instanceof FluxQuestionnaireResponse);
     }
 
     getReviewOfSystemsAsText() {
