@@ -30,7 +30,12 @@ CONFIG = {
         display: 'Compass™',
         app: "SmartCompassApp",
         isExact: true,
-        logoObject: {
+        dataSource: 'GenericSmartOnFhirDstu2DataSource',
+        dataSourceProps: {
+            mapper: null,
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure']
+        },
+logoObject: {
             path: './compass-logo.png',
             altText: 'Compass logo',
             width: '45px',
