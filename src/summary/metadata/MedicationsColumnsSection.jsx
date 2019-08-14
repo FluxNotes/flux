@@ -7,7 +7,7 @@ export default class MedicationsColumnsSection extends MedicationsSection {
             shortName: "Meds",
             clinicalEvents: ["pre-encounter"],
             defaultVisualizer: "tabular",
-            type: "Columns",
+            type: "Medications",
             data: [
                 {
                     name: "",
