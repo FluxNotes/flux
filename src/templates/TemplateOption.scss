@@ -1,4 +1,4 @@
-@import '../styles/variables';
+@import "../styles/variables";
 
 .template-option {
     position: relative;
@@ -43,14 +43,25 @@
         text-overflow: ellipsis;
     }
 
-    .preview-modal {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .preview-tooltip {
+        background-color: $contrast-gray;
+        color: $interface-blue;
+        padding: 4px 8px;
+        font-size: 12px;
+        line-height: 16px;
+        min-width: 300px;
+        border-radius: 10px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: black;
         position: absolute;
-        width: 400;
-        background-color: #e6e6e6;
-        padding: 20;
-        box-shadow: 2px 2px 4px -1px black;
+        top: 50px;
+        right: -100px;
+        // max-width: 500px;
+        // margin-top: 800px;
     }
+
+    // .tooltip-placement {
+    //     margin: 200px;
+    // }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TemplateOptionPreviewButton from './TemplateOptionPreviewButton';
 import Lang from 'lodash';
-import Modal from 'material-ui/Modal';
+import Tooltip from 'material-ui/Tooltip';
 import "./TemplateOption.css";
 
 export default class TemplateOption extends Component {
@@ -19,7 +19,6 @@ export default class TemplateOption extends Component {
     handleTemplateSelection = (e) => {
         e.preventDefault();
         const { insertTemplate, content } = this.props;
-        console.log(content);
         insertTemplate(content);
     }
 
@@ -39,12 +38,32 @@ export default class TemplateOption extends Component {
         }
     }
 
-    openPreview = () => {
-        console.log('sadfasdf');
+    getPreviewButton = () => {
+        if (!Lang.isEqual(this.props.content, "")) {
+            return (
+                <Tooltip
+                    title={this.formatText(this.props.content)}
+                    classes={{ tooltip: 'preview-tooltip' }}
+                >
+                    <div>
+                        <TemplateOptionPreviewButton />
+                    </div>
+                </Tooltip>
+            );
+        }
+        return "";
+    }
+
+    formatText = (text) => {
         return (
-            <div className="preview-modal">
-                {this.state.modalContent};
-            </div>
+            text.split('\n').map(function (item, key) {
+                return (
+                    <span key={key}>
+                        {item}
+                        <br />
+                    </span>
+                );
+            })
         );
     }
 
@@ -55,22 +74,12 @@ export default class TemplateOption extends Component {
     render() {
         const { title } = this.props;
         return (
-            <div className="template-option">
+            <div className="template-option" onClick={this.handleTemplateSelection}>
                 <div className="template-title">
                     {title}
                 </div>
                 {this.renderDesignedBy()}
-                <div>
-                    <TemplateOptionPreviewButton onClick={() => { console.log('hi'); }} onMouseOver={() => { this.setState({ modalContent: this.props.content, isModalOpen: true }); console.log(this.state); }} />
-                </div>
-                
-                <Modal
-                    disableAutoFocus={true}
-                    open={this.state.isModalOpen}
-                    onClose={this.handleModalClose}
-                >
-                    {this.openPreview()}
-                </Modal>
+                {this.getPreviewButton()}
             </div>
         );
     }
