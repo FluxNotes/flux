@@ -45,7 +45,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
     getItemListForROS = (patient, currentConditionEntry) => {
         const ros = patient.getReviewOfSystemsMembers(currentConditionEntry);
 
-        return ros.map(r => {
+        return ros.map((r) => {
             const name = r.questionText;
             const upperCaseName = `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
             const newValue = r.value ? 'positive' : 'negative';
@@ -63,7 +63,7 @@ export default class ReviewOfSystemsSection extends MetadataSection {
         const ros = patient.getReviewOfSystems();
         const result = [
             {
-                date: ros.relevantTime,
+                date: ros.statementDateTime,
                 questions: this.getSortedListForROS(patient, currentConditionEntry)
             }
         ];

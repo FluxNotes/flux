@@ -387,11 +387,7 @@ class PatientRecord {
             return "No review of systems found in record.";
         }
 
-        // get FluxQuestionAnswer instances from references
-        const members = ros.members.map((m) => {
-            return this.getEntryFromReference(m);
-        });
-        return members;
+        return ros.members;
     }
 
     getEligibleClinicalTrials(currentConditionEntry, currentlyEnrolledTrials) {

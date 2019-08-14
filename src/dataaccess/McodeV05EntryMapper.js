@@ -274,6 +274,9 @@ export function mapEntries(v05Json) {
                         };
                     });
 
+                    resultJson.StatementDateTime = { ...entry.RelevantTime };
+                    changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
+
                     v09Json.push(resultJson);
                 }
                 break;

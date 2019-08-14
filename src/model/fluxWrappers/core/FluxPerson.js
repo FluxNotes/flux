@@ -1,5 +1,3 @@
-import Person from "../../shr/core/Person";
-
 class FluxPerson {
     constructor(person) {
         this._person = person;
@@ -47,13 +45,13 @@ class FluxPerson {
 
     get race() {
         if (!this._person.race
-            || !this.person.race.raceCode
+            || !this._person.race.raceCode
             || !this._person.race.raceCode.value
             || !this._person.race.raceCode.value.coding
             || !this._person.race.raceCode.value.coding[0]) {
             return null;
         }
-        return this._person.race.raceCode.value.coding[0].codeValue;
+        return this._person.race.raceCode.value.coding[0].codeValue.value;
     }
 
     get gender() {
