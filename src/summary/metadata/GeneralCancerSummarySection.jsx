@@ -279,7 +279,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
             return {
                 name: receptor.receptorType,
                 value: {
-                    value: `${receptor.status}`,
+                    value: receptor.status,
                     isUnsigned: patient.isUnsigned(receptor),
                     source: this.determineSource(patient, receptor),
                 }
