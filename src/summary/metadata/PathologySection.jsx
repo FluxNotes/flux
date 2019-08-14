@@ -1,7 +1,7 @@
 import MetadataSection from "./MetadataSection";
 import FluxTumorDimensions from '../../model/fluxWrappers/tumor/FluxTumorDimensions';
 import FluxTumorMargins from '../../model/fluxWrappers/tumor/FluxTumorMargins';
-import Lang from 'lodash';
+import _ from 'lodash';
 import FluxCancerCondition from "../../model/fluxWrappers/onco/core/FluxCancerCondition";
 
 export default class PathologySection extends MetadataSection {
@@ -90,8 +90,11 @@ export default class PathologySection extends MetadataSection {
                         {
                             name: "Histological Grade",
                             value: (patient, currentConditionEntry) => {
-                                let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                return  {   value: histologicalGrade.grade,
+                                const histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
+                                if (_.isNull(histologicalGrade)) return null;
+
+                                return  {
+                                    value: histologicalGrade.grade,
                                     isUnsigned: patient.isUnsigned(histologicalGrade),
                                     source: this.determineSource(patient, histologicalGrade)
                                 };
@@ -112,7 +115,7 @@ export default class PathologySection extends MetadataSection {
                     name: "Receptor Status ER",
                     value: (patient, currentConditionEntry) => {
                         let er = currentConditionEntry.getMostRecentERReceptorStatus();
-                        if (Lang.isNull(er)) {
+                        if (_.isNull(er)) {
                             return null;
                         } else {
                             return  {   value: er.status,
@@ -126,7 +129,7 @@ export default class PathologySection extends MetadataSection {
                     name: "Receptor Status PR",
                     value: (patient, currentConditionEntry) => {
                         let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
-                        if (Lang.isNull(pr)) {
+                        if (_.isNull(pr)) {
                             return null;
                         } else {
                             return  {   value: pr.status,
@@ -140,7 +143,7 @@ export default class PathologySection extends MetadataSection {
                     name: "Receptor Status HER2",
                     value: (patient, currentConditionEntry) => {
                         let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
-                        if (Lang.isNull(her2)) {
+                        if (_.isNull(her2)) {
                             return null;
                         } else {
                             return  {   value: her2.status,

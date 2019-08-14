@@ -67,7 +67,7 @@ class FluxProcedureRequest extends FluxEntry {
      */
     get code() {
         if (!this._procedureRequest.type) return null;
-        return this._procedureRequest.type.value.coding[0].code.value;
+        return this._procedureRequest.type.value.coding[0].codeValue.value;
     }
 
     /*
