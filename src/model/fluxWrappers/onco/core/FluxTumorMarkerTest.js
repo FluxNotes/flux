@@ -60,10 +60,19 @@ class FluxTumorMarkerTest extends FluxEntry {
     // Returns a human-readable display text string
     get receptorType() { 
         if (!this._tumorMarkerTest.code 
-            || !this._tumorMarkerTest.code.value
-            || !this._tumorMarkerTest.code.value.coding
-            || !this._tumorMarkerTest.code.value.coding[0]) return null;
-        return this._displayTextOrCode(this._tumorMarkerTest.code.value.coding[0]);
+            || !this._tumorMarkerTest.code.value) return null;
+
+        if (this._tumorMarkerTest.code.value.displayText 
+            && this._tumorMarkerTest.code.value.displayText.value) {
+            return this._tumorMarkerTest.code.value.displayText.value;
+        }
+
+        if (this._tumorMarkerTest.code.value.coding
+            && this._tumorMarkerTest.code.value.coding[0]) {
+            return this._displayTextOrCode(this._tumorMarkerTest.code.value.coding[0]);  
+        }
+
+        return null;
     }
     
     /**
