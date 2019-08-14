@@ -84,31 +84,31 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         }).sort((a, b) => b.occurrences - a.occurrences).slice(0, 2);
 
         return (
-            <div className={`table-row flex ${isSelectedTreatment ? 'selected-treatment' : ''}`} key={row.id}>
-                <div className="flex-2 flex-padding treatment-name">
-                    <div className="select-icon">
-                        {isSelectedTreatment
-                            ? <CompareSelectedIcon onClick={() => setSelectedTreatment(null)} />
-                            : <CompareUnselectedIcon onClick={() => setSelectedTreatment(row)} />
-                        }
+            <tr className={`table-row ${isSelectedTreatment ? 'selected-treatment' : ''}`} key={row.id}>
+                <td className="treatment-name">
+                    <div className="flex flex-center">
+                        <div className="select-icon">
+                            {isSelectedTreatment
+                                ? <CompareSelectedIcon onClick={() => setSelectedTreatment(null)} />
+                                : <CompareUnselectedIcon onClick={() => setSelectedTreatment(row)} />
+                            }
+                        </div>
+
+                        <div className="display-name">{displayName}</div>
                     </div>
+                </td>
 
-                    <div className="display-name">{displayName}</div>
-                </div>
+                <td className="total-patients">({totalPatients})</td>
 
-                <div className="flex-1 flex-padding total-patients">({totalPatients})</div>
+                {timescale.map((timescaleYear) => {
+                    return (
+                        <td key={timescaleYear}>
+                            {this.renderBarChart(row, selectedTreatment, timescaleYear)}
+                        </td>
+                    );
+                })}
 
-                <div className="flex flex-6 flex-padding flex-center">
-                    {timescale.map((timescaleYear) => {
-                        return (
-                            <div key={timescaleYear} className="flex-1">
-                                {this.renderBarChart(row, selectedTreatment, timescaleYear)}
-                            </div>
-                        );
-                    })}
-                </div>
-
-                <div className="flex flex-4 top-side-effects">
+                <td className="top-side-effects">
                     {sideEffectSelection === "Most Common"
                         ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                             <div key={i} className="side-effect">
@@ -124,8 +124,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                             }%
                         </div>
                     }
-                </div>
-            </div>
+                </td>
+            </tr>
         );
     }
 
@@ -137,37 +137,40 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const sideEffects = this.gatherSideEffects(similarPatientTreatmentsData);
 
         return (
-            <div className="treatment-options-outcomes-table__header">
-                <div className="flex-2 compare-header">
-                    {selectedTreatment ? 'comparing against' : 'compare'}
-                </div>
+            <thead className="treatment-options-outcomes-table__header">
+                <tr>
+                    <td colSpan="2" />
+                    <td colSpan={this.props.timescale.length} className="header-title">
+                        Overall survival rates
+                    </td>
+                    <td>
+                        Side Effects
+                    </td>
+                </tr>
+                <tr>
+                    <td className="compare-header">
+                        {selectedTreatment ? 'comparing against' : 'compare'}
+                    </td>
 
-                <div className="flex-1 flex-padding user-icon">
-                    <span onClick={() => changeSort('totalPatients')} className="header-space">
-                        <PersonIcon />
-                        <FontAwesome className={this.getSortClass(sortP)} name={sortP ? sortName : 'sort'} />
-                    </span>
-                </div>
+                    <td className="user-icon">
+                        <span onClick={() => changeSort('totalPatients')} className="header-space">
+                            <PersonIcon />
+                            <FontAwesome className={this.getSortClass(sortP)} name={sortP ? sortName : 'sort'} />
+                        </span>
+                    </td>
 
-                <div className="flex-6">
-                    <div className="header-title flex-padding">Overall survival rates</div>
+                    {this.props.timescale.map(timescaleYear => {
+                        return (
+                            <td key={timescaleYear}>
+                                <span onClick={() => changeSort(timescaleYear)} className="header-space">
+                                    {timescaleYear} yr
+                                    <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear ? sortName: "sort"} />
+                                </span>
+                            </td>
+                        );
+                    })}
 
-                    <div className="flex">
-                        {this.props.timescale.map(timescaleYear => {
-                            return (
-                                <div className="flex-1 flex-padding" key={timescaleYear}>
-                                    <span onClick={ () => { changeSort(timescaleYear); }} className="header-space">
-                                        {timescaleYear} yr  <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear?sortName: "sort"} />
-                                    </span>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-
-                <div className="flex-4 flex-padding">
-                    <div className="header-title flex-padding">Side Effects</div>
-                    <div id="ccp-table-select" className="flex-padding">
+                    <td id="ccp-table-select">
                         <Select
                             value={sideEffectSelection}
                             onChange={this.handleChangeEffect}
@@ -186,9 +189,9 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                                 );
                             })}
                         </Select>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                </tr>
+            </thead>
         );
     }
 
@@ -196,14 +199,16 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const { selectedTreatment, similarPatientTreatmentsData } = this.props;
 
         return (
-            <div className="treatment-options-outcomes-table">
+            <table className="treatment-options-outcomes-table">
                 {this.renderHeader()}
 
-                <div className="treatment-options-outcomes-table__table">
+                <tbody className="treatment-options-outcomes-table__table">
                     {similarPatientTreatmentsData.length === 0 &&
-                        <div className="helper-text">
-                            No data. Choose a different selection or similar patients criteria.
-                        </div>
+                        <tr>
+                            <td className="helper-text" colSpan="6">
+                                No data. Choose a different selection or similar patients criteria.
+                            </td>
+                        </tr>
                     }
 
                     {selectedTreatment && this.renderTreatmentRow(selectedTreatment, true)}
@@ -213,10 +218,16 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                         }
                         return null;
                     })}
-                </div>
+                </tbody>
 
-                <TableLegend compareRow={selectedTreatment} />
-            </div>
+                <tfoot>
+                    <tr>
+                        <td colSpan="6">
+                            <TableLegend compareRow={selectedTreatment} />
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         );
     }
 }

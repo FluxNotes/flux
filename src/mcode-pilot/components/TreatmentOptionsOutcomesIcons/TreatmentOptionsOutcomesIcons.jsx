@@ -77,14 +77,16 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
     renderInteractionHeader = () => {
         const { selectedTreatment } = this.props;
         return (
-            <div className="icons-interaction__header">
-                <div className="flex-3 flex-padding compare-header">
-                    {selectedTreatment ? 'comparing against' : 'compare'}
-                </div>
+            <thead className="icons-interaction__header">
+                <tr>
+                    <td className="compare-header">
+                        {selectedTreatment ? 'comparing against' : 'compare'}
+                    </td>
 
-                <div className="flex-1 flex-padding user-icon"><PersonIcon /></div>
-                <div className="flex-1 flex-padding overall-survival">Overall survival</div>
-            </div>
+                    <td className="user-icon"><PersonIcon /></td>
+                    <td className="overall-survival">Overall survival</td>
+                </tr>
+            </thead>
         );
     }
 
@@ -99,7 +101,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         const normalizedTotalPatients = Math.floor(treatment.totalPatients / totalPatientsAllTreatments * 100);
         const numSurvive = this.getNumSurvive(treatment, timescaleToggle);
         const isDisplayedTreatment = displayedTreatment && displayedTreatment.displayName === treatment.displayName;
-        const rowClass = `icons-interaction__row flex ${isSelectedTreatment ? 'selected-treatment' : ''} ${isDisplayedTreatment ? 'displayed-treatment' : ''}`;
+        const rowClass = `icons-interaction__row ${isSelectedTreatment ? 'selected-treatment' : ''} ${isDisplayedTreatment ? 'displayed-treatment' : ''}`;
 
         let selectedNumSurvive;
         let numSurviveDiff;
@@ -112,20 +114,22 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         }
 
         return (
-            <div className={rowClass} key={treatment.id} onClick={() => this.handleDisplayTreatment(treatment)}>
-                <div className="flex flex-3 flex-padding treatment-name">
-                    <div className="select-icon">
-                        {isSelectedTreatment
-                            ? <CompareSelectedIcon onClick={event => this.handleSelectTreatment(event, null)} />
-                            : <CompareUnselectedIcon onClick={event => this.handleSelectTreatment(event, treatment)} />
-                        }
+            <tr className={rowClass} key={treatment.id} onClick={() => this.handleDisplayTreatment(treatment)}>
+                <td className="treatment-name">
+                    <div className="flex flex-center">
+                        <div className="select-icon">
+                            {isSelectedTreatment
+                                ? <CompareSelectedIcon onClick={event => this.handleSelectTreatment(event, null)} />
+                                : <CompareUnselectedIcon onClick={event => this.handleSelectTreatment(event, treatment)} />
+                            }
+                        </div>
+
+                        <div className="display-name">{treatment.displayName}</div>
                     </div>
+                </td>
 
-                    <div className="display-name">{treatment.displayName}</div>
-                </div>
-
-                <div className="flex-1 flex-padding total-patients">({normalizedTotalPatients}/100)</div>
-                <div className="flex-1 flex-padding overall-survival">
+                <td className="total-patients">({normalizedTotalPatients}/100)</td>
+                <td className="overall-survival">
                     {isSelectedTreatment || !selectedTreatment
                         ? <div className="selected-num-survive">{numSurvive}/100</div>
                         : <div className={numSurviveDiffClass}>
@@ -134,8 +138,8 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                             {Math.abs(numSurviveDiff)}
                         </div>
                     }
-                </div>
-            </div>
+                </td>
+            </tr>
         );
     }
 
@@ -166,16 +170,19 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
 
         return (
             <div className="treatment-options-outcomes-icons">
-                <div className="icons-interaction">
+                <table className="icons-interaction">
                     {this.renderInteractionHeader()}
-                    {selectedTreatmentInData && this.renderInteractionRow(selectedTreatment, true)}
-                    {similarPatientTreatmentsData.map(treatmentData => {
-                        if (!selectedTreatment || treatmentData.displayName !== selectedTreatment.displayName) {
-                            return this.renderInteractionRow(treatmentData);
-                        }
-                        return null;
-                    })}
-                </div>
+
+                    <tbody>
+                        {selectedTreatmentInData && this.renderInteractionRow(selectedTreatment, true)}
+                        {similarPatientTreatmentsData.map(treatmentData => {
+                            if (!selectedTreatment || treatmentData.displayName !== selectedTreatment.displayName) {
+                                return this.renderInteractionRow(treatmentData);
+                            }
+                            return null;
+                        })}
+                    </tbody>
+                </table>
 
                 <IconsChart
                     numSurvive={displayedNumSurvive}
