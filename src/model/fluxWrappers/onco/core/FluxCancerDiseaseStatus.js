@@ -43,7 +43,11 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
      *  This will return the displayText string from CodeableConcept Value
      */
     get status() {
-        if (!this._cancerDiseaseStatus.dataValue || !this._cancerDiseaseStatus.dataValue.value) return null;
+        if (!this._cancerDiseaseStatus.dataValue
+            || !this._cancerDiseaseStatus.dataValue.value
+            || !this._cancerDiseaseStatus.dataValue.value.coding
+            || !this._cancerDiseaseStatus.dataValue.value.coding[0]
+            || !this._cancerDiseaseStatus.dataValue.value.coding[0].displayText) return null;
         return this._cancerDiseaseStatus.dataValue.value.coding[0].displayText.value;
     }
 
@@ -62,6 +66,11 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
      *  This will return the code string from CodeableConcept, corresponding to the status' code
      */
     get statusAsCode() {
+        if (!this._cancerDiseaseStatus.dataValue
+            || !this._cancerDiseaseStatus.dataValue.value
+            || !this._cancerDiseaseStatus.dataValue.value.coding
+            || !this._cancerDiseaseStatus.dataValue.value.coding[0]
+            || !this._cancerDiseaseStatus.dataValue.value.coding[0].codeValue) return null;
         return this._cancerDiseaseStatus.dataValue.value.coding[0].codeValue.value;
     }
 
