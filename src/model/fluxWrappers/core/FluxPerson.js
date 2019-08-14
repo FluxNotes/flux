@@ -39,23 +39,31 @@ class FluxPerson {
     }
 
     get photographicImage() {
-        if (!this._person.photographicImage || !this._person.photographicImage[0].resourceLocation) return null;
+        if (!this._person.photographicImage 
+            || !this._person.photographicImage[0] 
+            || !this._person.photographicImage[0].resourceLocation) return null;
         return this._person.photographicImage[0].resourceLocation.uri;
     }
 
     get race() {
-        if (this._person.race) {
-            return this._person.race.raceCode.value.coding[0].codeValue;
+        if (!this._person.race
+            || !this.person.race.raceCode
+            || !this._person.race.raceCode.value
+            || !this._person.race.raceCode.value.coding
+            || !this._person.race.raceCode.value.coding[0]) {
+            return null;
         }
-
-        return null;
+        return this._person.race.raceCode.value.coding[0].codeValue;
     }
 
     get gender() {
-        if (this._person.administrativeGender) {
-            return this._person.administrativeGender.value.coding[0].codeValue;
+        if (!this._person.administrativeGender
+            || !this._person.administrativeGender.value
+            || !this._person.administrativeGender.value.coding
+            || !this._person.administrativeGender.value.coding[0]) {
+            return null;
         }
-        return null;
+        return this._person.administrativeGender.value.coding[0].codeValue;
     }
 
     get partOf() {

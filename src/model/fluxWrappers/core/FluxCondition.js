@@ -41,12 +41,20 @@ class FluxCondition extends FluxEntry {
     }
 
     get code() {
-        if (!this._condition.code || !this._condition.code.value) return null;
-        return this._condition.code.value.coding[0].codeValue.value; // TODO fix this badness
+        if (!this._condition.code 
+            || !this._condition.code.value
+            || !this._condition.code.value.coding
+            || !this._condition.code.value.coding[0]
+            || !this._condition.code.value.coding[0].codeValue) return null;
+        return this._condition.code.value.coding[0].codeValue.value;
     }
 
     get codeSystem() {
-        if (!this._condition.code || !this._condition.code.value) return null;
+        if (!this._condition.code 
+            || !this._condition.code.value
+            || !this._condition.code.value.coding
+            || !this._condition.code.value.coding[0]
+            || !this._condition.code.value.coding[0].codeSystem) return null;
         return this._condition.code.value.coding[0].codeSystem.value;
     }
 
@@ -55,7 +63,10 @@ class FluxCondition extends FluxEntry {
     }
 
     get type() {
-        if (!this._condition.code || !this._condition.code.value) return null;
+        if (!this._condition.code 
+            || !this._condition.code.value
+            || !this._condition.code.value.coding
+            || !this._condition.code.value.coding[0]) return null;
         return this._displayTextOrCode(this._condition.code.value.coding[0]);
     }
 
@@ -86,6 +97,8 @@ class FluxCondition extends FluxEntry {
             || this._condition.bodyLocation.length < 1
             || !this._condition.bodyLocation[0].laterality
             || !this._condition.bodyLocation[0].laterality.value
+            || !this._condition.bodyLocation[0].laterality.value.coding
+            || !this._condition.bodyLocation[0].laterality.value.coding[0]
         ) return null;
         return this._displayTextOrCode(this._condition.bodyLocation[0].laterality.value.coding[0]);
     }
@@ -585,24 +598,6 @@ class FluxCondition extends FluxEntry {
             return 1;
         }
         return 0;
-    }
-
-    _getTopicCodeCoding(){
-        if (this._condition.findingTopicCode &&
-            this._condition.findingTopicCode.value && 
-            this._condition.findingTopicCode.value.coding && 
-            this._condition.findingTopicCode.value.coding.length > 0 ) return this._condition.findingTopicCode.value.coding[0];
-        return null;
-    }
-    /**
-     * Extract a human-readable string from a code.
-     *
-     * @param {Coding} coding
-     * @returns {string} the display text if available, otherwise the code.
-     * @private
-     */
-    _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.codeValue.value;
     }
 
     toJSON() {

@@ -20,6 +20,15 @@ class FluxCancerHistologicGrade extends FluxObservation {
     }
 
     getGradeAsSimpleNumber() {
+        if (!this._cancerHistologicGrade.dataValue
+            || this._cancerHistologicGrade.dataValue.value
+            || this._cancerHistologicGrade.dataValue.value.coding
+            || this._cancerHistologicGrade.dataValue.value.coding[0]
+            || this._cancerHistologicGrade.dataValue.value.coding[0].code
+            || this._cancerHistologicGrade.dataValue.value.coding[0].code.value) {
+            return null;
+        }
+
         const code = this._cancerHistologicGrade.dataValue.value.coding[0].code.value;
         if (code === "369792005") {
             return 3;
@@ -34,17 +43,6 @@ class FluxCancerHistologicGrade extends FluxObservation {
         } else {
             return null;
         }
-    }
-
-    /**
-     * Extract a human-readable string from a code.
-     *
-     * @param {Coding} coding
-     * @returns {string} the display text if available, otherwise the code.
-     * @private
-     */
-    _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.codeValue.value;
     }
 
     toJSON() {

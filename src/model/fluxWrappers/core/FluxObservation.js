@@ -26,7 +26,8 @@ class FluxObservation extends FluxEntry {
      *  Otherwise return null;
      */
     get quantity() {
-        if (this._observation.dataValue.value instanceof Quantity) {
+        if (this._observation.dataValue 
+            && this._observation.dataValue.value instanceof Quantity) {
             return {
                 number: this._observation.dataValue.value.number.decimal,
                 unit: this._observation.dataValue.value.units.coding.codeValue,
@@ -37,7 +38,10 @@ class FluxObservation extends FluxEntry {
     }
 
     get name() {
-        if (this._observation.category.value.coding.length > 0) {
+        if (this._observation.category
+            && this._observation.category.value.coding
+            && this._observation.category.value.coding.length > 0
+            && this._observation.category.value.coding[0].displayText) {
             return this._observation.category.value.coding[0].displayText.value;
         } else {
             return null;
@@ -48,7 +52,7 @@ class FluxObservation extends FluxEntry {
         if (this._observation.category
             && this._observation.category.value.coding
             && this._observation.category.value.coding.length > 0
-            && this._observation.category.value.coding[0].code) {
+            && this._observation.category.value.coding[0].codeValue) {
             return this._observation.category.value.coding[0].codeValue;
         } else {
             return null;
