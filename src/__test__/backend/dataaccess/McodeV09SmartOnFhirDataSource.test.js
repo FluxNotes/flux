@@ -1,6 +1,6 @@
 import '../../../model/init';
 
-import McodeV05SmartOnFhirDataSource from '../../../dataaccess/McodeV05SmartOnFhirDataSource';
+import McodeV09SmartOnFhirDataSource from '../../../dataaccess/McodeV09SmartOnFhirDataSource';
 import GenericSmartOnFhirDstu2DataSource from '../../../dataaccess/GenericSmartOnFhirDstu2DataSource';
 import {expect, assert} from 'chai';
 import hardCodedFHIRPatient from '../../../dataaccess/HardCodedFHIRPatient.json';
@@ -65,7 +65,7 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, samplePatientSearchData);
 
-        const dataSource = new McodeV05SmartOnFhirDataSource();
+        const dataSource = new McodeV09SmartOnFhirDataSource();
 
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {
@@ -86,7 +86,7 @@ describe('SMART on FHIR data source', function() {
           .reply(200, sampleObservationSearchData);
           // in this case it doesn't need to fetch the metadata since the resourceTypes are manually specified
 
-        const dataSource = new McodeV05SmartOnFhirDataSource({ resourceTypes: ['Patient', 'Observation'] });
+        const dataSource = new McodeV09SmartOnFhirDataSource({ resourceTypes: ['Patient', 'Observation'] });
 
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {
@@ -114,7 +114,7 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, patientSearchBundle);
 
-        const dataSource = new GenericSmartOnFhirDstu2DataSource({ mapper: "syntheaToV05" });
+        const dataSource = new GenericSmartOnFhirDstu2DataSource({ mapper: "syntheaToV09" });
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {
                 scope.done();

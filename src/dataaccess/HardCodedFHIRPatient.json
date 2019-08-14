@@ -104,7 +104,7 @@
         ],
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/fhirURL/StructureDefinition/shr-entity-Patient"
+            "http://hl7.org/fhir/us/fhirURL/StructureDefinition/shr-core-Patient"
           ]
         }
       },
@@ -140,7 +140,7 @@
         "dateRecorded": "2011-07-12T11:19:32-04:00",
         "meta": {
           "profile": [
-            "http://example.com/shr-base-ConditionPresentAssertion"
+            "http://example.com/shr-core-Condition"
           ]
         }
       },
@@ -185,7 +185,7 @@
         "valueString": "167 cm",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/fhirURL/StructureDefinition/shr-base-Observation"
+            "http://hl7.org/fhir/us/fhirURL/StructureDefinition/shr-core-Observation"
           ]
         }
       },

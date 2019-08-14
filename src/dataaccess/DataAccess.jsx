@@ -3,7 +3,7 @@ import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';
 import FHIRApiDataSource from './FHIRApiDataSource';
 import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
-import McodeV05SmartOnFhirDataSource from './McodeV05SmartOnFhirDataSource';
+import McodeV09SmartOnFhirDataSource from './McodeV09SmartOnFhirDataSource';
 import GenericSmartOnFhirDstu2DataSource from './GenericSmartOnFhirDstu2DataSource';
 
 export default class DataAccess {
@@ -20,8 +20,8 @@ export default class DataAccess {
             // this.dataSource = new HardCodedMcodeV01DataSource();
         } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
             this.dataSource = new HardCodedMcodeV05DataSource();
-        } else if (dataSourceName === 'McodeV05SmartOnFhirDataSource') {
-            this.dataSource = new McodeV05SmartOnFhirDataSource(dataSourceProps);
+        } else if (dataSourceName === 'McodeV09SmartOnFhirDataSource') {
+            this.dataSource = new McodeV09SmartOnFhirDataSource(dataSourceProps);
         } else if (dataSourceName === 'GenericSmartOnFhirDstu2DataSource') {
             this.dataSource = new GenericSmartOnFhirDstu2DataSource(dataSourceProps);
         } else if (dataSourceName === 'HardcodedTabletMcodeV01DataSource') {

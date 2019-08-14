@@ -3,7 +3,7 @@ import processFHIRResources from './utils/fhir-entry-processor';
 
 import 'fhirclient';
 
-class McodeV05SmartOnFhirDataSource extends IDataSource {
+class McodeV09SmartOnFhirDataSource extends IDataSource {
     constructor(props) {
         super();
         this._gestalt = {
@@ -118,15 +118,15 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
     }
 
     getListOfPatients() {
-        console.error("listing of patients is not implemented in McodeV05SmartOnFhirDataSource.");
+        console.error("listing of patients is not implemented in McodeV09SmartOnFhirDataSource.");
     }
 
     newPatient() {
-        console.error("creating a new patient is not implemented in McodeV05SmartOnFhirDataSource.");
+        console.error("creating a new patient is not implemented in McodeV09SmartOnFhirDataSource.");
     }
 
     savePatient(patient) {
-        console.error("saving a patient is not implemented in McodeV05SmartOnFhirDataSource.");
+        console.error("saving a patient is not implemented in McodeV09SmartOnFhirDataSource.");
         // TODO. presumably we want to use
         // this._client.patient.api.update, or some combination of update/create. update uses PUT, create uses POST. for now assume PUT works everywhere
         // TODO: is there the possibility of deletes?
@@ -140,4 +140,4 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
     }
 }
 
-export default McodeV05SmartOnFhirDataSource;
+export default McodeV09SmartOnFhirDataSource;
