@@ -69,7 +69,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "SmartApp",
         isExact: true,
-        dataSource: 'McodeV05SmartOnFhirDataSource',
+        dataSource: 'McodeV09SmartOnFhirDataSource',
         shortcuts: []
     },
     {

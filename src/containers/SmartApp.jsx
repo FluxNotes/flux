@@ -25,7 +25,7 @@ class SmartApp extends FullApp {
 
                     // default to the smart data source if none is provided in props
                     if (!this.props.dataSource) {
-                        this.dataAccess = new DataAccess("McodeV05SmartOnFhirDataSource");
+                        this.dataAccess = new DataAccess("McodeV09SmartOnFhirDataSource");
                         this.loadPatient(smart.patient.id);
                     } else {
                         this.dataAccess = new DataAccess(this.props.dataSource, this.props.dataSourceProps);
