@@ -100,6 +100,12 @@ const mapFindingResult = (resultJson, findingResult) => {
     changeEntryType(resultJson.DataValue, 'http://standardhealthrecord.org/spec/shr/core/DataValue');
 };
 
+// Maps SpecificFocusOfFinding Reference to PrimaryCancerCondition Reference
+const mapSffToPcc = (resultJson, sff) => {
+    resultJson.PrimaryCancerCondition = { ...sff.Value };
+    resultJson.PrimaryCancerCondition._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition';
+};
+
 export function mapEntries(v05Json) {
     const v09Json = [];
 
@@ -120,6 +126,17 @@ export function mapEntries(v05Json) {
                     Patient: entry.Patient,
                 };
                 resultJson.SubjectOfRecord.Patient._EntryType = 'http://standardhealthrecord.org/spec/shr/core/Patient';
+
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'CancerHistologicGrade': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerHistologicGrade');
+
+                mapFindingResult(resultJson, entry.FindingResult);
+                mapFindingStatus(resultJson, entry.FindingStatus);
+                mapRelevantTime(resultJson, entry.RelevantTime);
+                mapSffToPcc(resultJson, entry.SpecificFocusOfFinding);
 
                 v09Json.push(resultJson);
                 break;
@@ -330,9 +347,7 @@ export function mapEntries(v05Json) {
                 changeEntryType(resultJson.Method, 'http://standardhealthrecord.org/spec/shr/core/Method');
 
                 mapFindingResult(resultJson, entry.FindingResult);
-
-                resultJson.PrimaryCancerCondition = { ...entry.SpecificFocusOfFinding.Value };
-                resultJson.PrimaryCancerCondition._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition';
+                mapSffToPcc(resultJson, entry.SpecificFocusOfFinding);
 
                 v09Json.push(resultJson);
                 break;
