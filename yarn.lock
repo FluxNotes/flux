@@ -4682,9 +4682,9 @@ fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.6, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fhir-mapper@standardhealth/fhir-mapper#syntheaToV09_rebase:
-  version "1.0.6"
-  resolved "https://codeload.github.com/standardhealth/fhir-mapper/tar.gz/c2a799c11add555844c71df6f2eb93d22d250340"
+fhir-mapper@standardhealth/fhir-mapper#syntheaToV09:
+  version "2.0.0"
+  resolved "https://codeload.github.com/standardhealth/fhir-mapper/tar.gz/2febbde021a0b6f4accd888d9233ca73bc1b7642"
   dependencies:
     fhirpath "^0.10.3"
     lodash "^4.17.13"
