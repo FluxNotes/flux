@@ -175,7 +175,7 @@ describe('use smart on fhir as data source with simple mock', function() {
         window.FHIR = mockWindowFhir;
     });
 
-    const smartOnFhirDataAccess = new DataAccess("McodeV05SmartOnFhirDataSource");
+    const smartOnFhirDataAccess = new DataAccess("McodeV09SmartOnFhirDataSource");
 
     it('getPatient should return the hard coded fhir patient', function(done) {
         let i = 1;
