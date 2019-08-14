@@ -14,10 +14,12 @@ class FluxPatient {
     }
 
     get gender() {
+        if (!this.person || !this.person.gender) return null;
         return this.person.gender.value;
     }
 
     get race() {
+        if (!this.person) return null;
         return this.person.race;
     }
 

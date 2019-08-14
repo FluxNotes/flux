@@ -158,7 +158,9 @@ class FluxMedicationRequest extends FluxEntry {
      *  Returns object with value and units
      */
     get amountPerDose() {
-        if (!this._medicationRequest.dosage || !this._medicationRequest.dosage.doseAmount) return null;
+        if (!this._medicationRequest.dosage
+            || !this._medicationRequest.dosage.doseAmount
+            || !this._medicationRequest.dosage.doseAmount.value) return null;
         return {
             value: this._medicationRequest.dosage.doseAmount.value.number.decimal,
             units: this._medicationRequest.dosage.doseAmount.value.units.coding.codeValue.value

@@ -349,7 +349,9 @@ class FluxCancerCondition extends FluxCondition {
     isCancerType(cancerName) {
         const code = lookup.getCancerCodeableConcept(cancerName);
 
-        return (this.code === code.coding[0].code.code);
+        if (!code || !code.coding || !code.coding[0] || !code.coding[0].codeValue) return false;
+
+        return (this.code === code.coding[0].codeValue.code);
     }
 }
 
