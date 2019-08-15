@@ -3,7 +3,6 @@ import {
     mappers,
     utils
 } from 'fhir-mapper';
-console.log(buildMappers);
 
 const primaryCancerConditionCodes = [
     '254837009', // Malignant neoplasm of breast (disorder) (B)
