@@ -186,12 +186,52 @@ const mapSimpleVital = (resultJson, vitalEntryType, entry) => {
     mapCoding(resultJson.DataValue.Value.Units.Value);
 };
 
-const calculateNextEntryId = (entries) => {
-    return entries.map(e => e.EntryId).reduce((a, b) => Math.max(a, b)) + 1;
+const getOrCreatePractitionerByName = (v09Json, name, nextEntryId, shrId) => {
+    const practitionerEntry = v09Json.find(e => e.Person && e.Person.HumanName[0].NameAsText.Value === name);
+
+    if (practitionerEntry) {
+        return practitionerEntry.EntryId.Value;
+    } else {
+        const practitionerEntryToAdd = {
+            ShrId: shrId,
+            EntryId: {
+                EntryType: {
+                    Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId'
+                },
+                Value: `${nextEntryId}`
+            },
+            EntryType: {
+                Value: 'http://standardhealthrecord.org/spec/shr/core/Practitioner'
+            },
+            Person: {
+                EntryType: {
+                    Value: 'http://standardhealthrecord.org/spec/shr/core/Person'
+                },
+                HumanName: [
+                    {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/HumanName'
+                        },
+                        NameAsText: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/NameAsText'
+                            },
+                            Value: name
+                        }
+                    }
+                ]
+            }
+        };
+
+        v09Json.push(practitionerEntryToAdd);
+        return nextEntryId;
+    }
 };
 
 export function mapEntries(v05Json) {
     const v09Json = [];
+
+    let nextEntryId = v05Json.map(e => e.EntryId).reduce((a, b) => Math.max(a, b)) + 1;
 
     v05Json.forEach((entry) => {
         const { elementName } = getNamespaceAndName(entry);
@@ -379,64 +419,18 @@ export function mapEntries(v05Json) {
                 if (entry.ExpectedPerformer) {
                     // Check if practitioner entry has already been added to patient record
                     const expectedPerformerName = entry.ExpectedPerformer.Value.Person.HumanName[0].NameAsText.Value;
-                    const practitionerEntry = v09Json.find(e => e.Person && e.Person.HumanName[0].NameAsText.Value === expectedPerformerName);
+                    const practitionerEntryID = getOrCreatePractitionerByName(v09Json, expectedPerformerName, nextEntryId++, { ...resultJson.ShrId });
 
-                    if (!practitionerEntry) {
-                        const nextEntryId = calculateNextEntryId(v05Json);
-                        const practitionerEntryToAdd = {
-                            ShrId: { ...resultJson.ShrId },
-                            EntryId: {
-                                EntryType: {
-                                    Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId'
-                                },
-                                Value: `${nextEntryId}`
-                            },
-                            EntryType: {
-                                Value: 'http://standardhealthrecord.org/spec/shr/core/Practitioner'
-                            },
-                            Person: {
-                                EntryType: {
-                                    Value: 'http://standardhealthrecord.org/spec/shr/core/Person'
-                                },
-                                HumanName: [
-                                    {
-                                        EntryType: {
-                                            Value: 'http://standardhealthrecord.org/spec/shr/core/HumanName'
-                                        },
-                                        NameAsText: {
-                                            EntryType: {
-                                                Value: 'http://standardhealthrecord.org/spec/shr/core/NameAsText'
-                                            },
-                                            Value: expectedPerformerName
-                                        }
-                                    }
-                                ]
-                            }
-                        };
-
-                        v09Json.push(practitionerEntryToAdd);
-                        resultJson.ReferralRecipient = {
-                            EntryType: {
-                                Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
-                            },
-                            Value: {
-                                _ShrId: entry.ShrId,
-                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
-                                _EntryId: `${nextEntryId}`
-                            }
-                        };
-                    } else {
-                        resultJson.ReferralRecipient = {
-                            EntryType: {
-                                Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
-                            },
-                            Value: {
-                                _ShrId: entry.ShrId,
-                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
-                                _EntryId: practitionerEntry.EntryId.Value
-                            }
-                        };
-                    }
+                    resultJson.ReferralRecipient = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
+                        },
+                        Value: {
+                            _ShrId: entry.ShrId,
+                            _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                            _EntryId: practitionerEntryID
+                        }
+                    };
                 }
 
                 v09Json.push(resultJson);
@@ -457,52 +451,16 @@ export function mapEntries(v05Json) {
                 }
 
                 if (informationRecorder) {
-                    // we used metadata.informationRecorder as the prescriber, which should actually be represented as a Practitioner reference
-                    // but for now i'm doing this crazy hack
-                    resultJson.Narrative = {
+                    const practitionerEntryID = getOrCreatePractitionerByName(v09Json, informationRecorder, nextEntryId++, { ...resultJson.ShrId });
+
+                    resultJson.MedicationRequester = {
                         EntryType: {
-                            Value: 'http://standardhealthrecord.org/spec/shr/core/Narrative',
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/MedicationRequester'
                         },
-                        NarrativeText: {
-                            EntryType: {
-                                Value: 'http://standardhealthrecord.org/spec/shr/core/NarrativeText',
-                            },
-                            Value: informationRecorder
-                        },
-                        NarrativeQualifier: {
-                            EntryType: {
-                                Value: 'http://standardhealthrecord.org/spec/shr/core/NarrativeQualifier',
-                            },
-                            Value: {
-                                "EntryType": {
-                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-                                },
-                                "Coding": [
-                                    {
-                                        "EntryType": {
-                                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-                                        },
-                                        "CodeValue": {
-                                            "EntryType": {
-                                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-                                            },
-                                            "Value": "420158005"
-                                        },
-                                        "CodeSystem": {
-                                            "EntryType": {
-                                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
-                                            },
-                                            "Value": "http://snomed.info/sct"
-                                        }
-                                    }
-                                ],
-                                "DisplayText": {
-                                    "EntryType": {
-                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                                    },
-                                    "Value": "Performer"
-                                }
-                            }
+                        Value: {
+                            _ShrId: entry.ShrId,
+                            _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                            _EntryId: `${practitionerEntryID}`
                         }
                     };
                 }

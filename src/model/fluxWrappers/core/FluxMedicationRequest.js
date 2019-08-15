@@ -11,13 +11,13 @@ import moment from 'moment';
 import * as lookup from '../../../lib/MedicationInformationService.jsx';
 
 class FluxMedicationRequest extends FluxEntry {
-    constructor(json) {
+    constructor(json, patientRecord) {
         super();
-
         this._entry = this._medicationRequest = MedicationRequest.fromJSON(json);
         if (!this._medicationRequest.entryInfo) {
             this._medicationRequest.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/MedicationRequest');
         }
+        this._patientRecord = patientRecord;
     }
 
     /*
@@ -222,13 +222,16 @@ class FluxMedicationRequest extends FluxEntry {
             return this._medicationRequest.metadata.informationRecorder; 
         }
 
-        if (this._medicationRequest.narrative 
-            && this._medicationRequest.narrative.narrativeQualifier 
-            && this._medicationRequest.narrative.narrativeQualifier.value.coding[0].codeValue.value === '420158005'
-            && this._medicationRequest.narrative.narrativeText) {
-            // secret code for Performer
-            return this._medicationRequest.narrative.narrativeText.value;
-        }
+        if (this._medicationRequest.medicationRequester && this._medicationRequest.medicationRequester.value) {
+            const requester = this._patientRecord.getEntryFromReference(this._medicationRequest.medicationRequester.value);
+            if (requester 
+                && requester.person 
+                && requester.person.humanName 
+                && requester.person.humanName[0]
+                && requester.person.humanName[0].nameAsText) {
+                return requester.person.humanName[0].nameAsText.value;
+            }
+        } 
 
         return null;
     }
