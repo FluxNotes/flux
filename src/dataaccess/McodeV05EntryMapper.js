@@ -186,6 +186,10 @@ const mapSimpleVital = (resultJson, vitalEntryType, entry) => {
     mapCoding(resultJson.DataValue.Value.Units.Value);
 };
 
+const calculateNextEntryId = (entries) => {
+    return entries.map(e => e.EntryId).reduce((a, b) => Math.max(a, b)) + 1;
+};
+
 export function mapEntries(v05Json) {
     const v09Json = [];
 
@@ -351,6 +355,93 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'ConsultRequested': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ReferralRequest');
+
+                resultJson.CommentOrDescription = { ...entry.Reason[0] };
+                changeEntryType(resultJson.CommentOrDescription, 'http://standardhealthrecord.org/spec/shr/core/CommentOrDescription');
+
+                resultJson.RequestIntent = { ...entry.RequestIntent };
+                changeEntryType(resultJson.RequestIntent, 'http://standardhealthrecord.org/spec/shr/core/RequestIntent');
+
+                resultJson.Status = { ...entry.Encounter.Status };
+                mapCodingArray(resultJson.Status.Value.Coding);
+
+                resultJson.ExpectedPerformanceTime = {
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime'
+                    },
+                    Value: { ...entry.Encounter.TimePeriod }
+                };
+
+                // We used to embed a Practitioner object in the ExpectedPerformer property
+                // In 0.9 we will map add Practitioner to the patient record and reference in the ReferralRecipient property
+                if (entry.ExpectedPerformer) {
+                    // Check if practitioner entry has already been added to patient record
+                    const expectedPerformerName = entry.ExpectedPerformer.Value.Person.HumanName[0].NameAsText.Value;
+                    const practitionerEntry = v09Json.find(e => e.Person && e.Person.HumanName[0].NameAsText.Value === expectedPerformerName);
+
+                    if (!practitionerEntry) {
+                        const nextEntryId = calculateNextEntryId(v05Json);
+                        const practitionerEntryToAdd = {
+                            ShrId: { ...resultJson.ShrId },
+                            EntryId: {
+                                EntryType: {
+                                    Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId'
+                                },
+                                Value: `${nextEntryId}`
+                            },
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/Practitioner'
+                            },
+                            Person: {
+                                EntryType: {
+                                    Value: 'http://standardhealthrecord.org/spec/shr/core/Person'
+                                },
+                                HumanName: [
+                                    {
+                                        EntryType: {
+                                            Value: 'http://standardhealthrecord.org/spec/shr/core/HumanName'
+                                        },
+                                        NameAsText: {
+                                            EntryType: {
+                                                Value: 'http://standardhealthrecord.org/spec/shr/core/NameAsText'
+                                            },
+                                            Value: expectedPerformerName
+                                        }
+                                    }
+                                ]
+                            }
+                        };
+
+                        v09Json.push(practitionerEntryToAdd);
+                        resultJson.ReferralRecipient = {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
+                            },
+                            Value: {
+                                _ShrId: entry.ShrId,
+                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                                _EntryId: `${nextEntryId}`
+                            }
+                        };
+                    } else {
+                        resultJson.ReferralRecipient = {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
+                            },
+                            Value: {
+                                _ShrId: entry.ShrId,
+                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                                _EntryId: practitionerEntry.EntryId.Value
+                            }
+                        };
+                    }
+                }
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'HeartRate': {
                 mapSimpleVital(resultJson, 'http://standardhealthrecord.org/spec/shr/core/HeartRate', entry);
                 v09Json.push(resultJson);
@@ -452,7 +543,7 @@ export function mapEntries(v05Json) {
 
                 // Person used to be an entry on the patient record and the Patient entry had a reference to it
                 // In mCODE v0.9, Person is a property on the Patient entry
-                const personEntry = v05Json.find(e => e.EntryId === entry.Person._EntryId);
+                const personEntry = { ...v05Json.find(e => e.EntryId === entry.Person._EntryId) };
 
                 if (personEntry) {
                     // Since Person is not an entry, it no longer has these properties
