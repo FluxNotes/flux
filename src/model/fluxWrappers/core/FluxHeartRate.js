@@ -5,16 +5,24 @@ class FluxHeartRate {
         this._heartRate = HeartRate.fromJSON(json);
     }
 
-    get value() {
-        return this._heartRate.dataValue.quantity.number;
-    }
-
-    get units() {
-        return this._heartRate.dataValue.quantity.unit;
+    get code() {
+        return this._heartRate.code.value.coding[0].codeValue.code;
     }
 
     get entryInfo() {
         return this._heartRate.entryInfo;
+    }
+
+    get relevantTime() {
+        return this._heartRate.relevantTime.value;
+    }
+
+    get units() {
+        return this._heartRate.dataValue.value.units.coding.codeValue.value;
+    }
+
+    get value() {
+        return this._heartRate.dataValue.value.number.decimal;
     }
 
     toJSON() {
