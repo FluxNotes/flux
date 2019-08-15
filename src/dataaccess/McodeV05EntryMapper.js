@@ -775,6 +775,30 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            // The genetic markers below are all mapped the same way
+            case 'BRCA1Variant':
+            case 'BRCA2Variant':
+            case 'KITVariant':
+            case 'PDGFRAVariant': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/GeneticMutationTestResult');
+                mapFindingResult(resultJson, entry.FindingResult);
+
+                resultJson.MutationTested = {
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/onco/core/MutationTested'
+                    },
+                    VariantIdentifier: {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/onco/core/VariantIdentifier'
+                        },
+                        Value: { ...entry.SpecificFocusOfFinding.Value }
+                    }
+                };
+                mapCodingArray(resultJson.MutationTested.VariantIdentifier.Value.Coding);
+
+                v09Json.push(resultJson);
+                break;
+            }
             default: {
                 break;
             }
