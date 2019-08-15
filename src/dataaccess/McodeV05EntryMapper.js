@@ -5,8 +5,20 @@ const isReference = (obj) => {
 };
 
 const mapEntryInfo = (resultJson, entryJson) => {
-    resultJson.EntryId = entryJson.EntryId;
-    resultJson.ShrId = entryJson.ShrId;
+    resultJson.EntryId = {
+        EntryType: {
+            Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId',
+        },
+        Value: entryJson.EntryId
+    };
+
+    resultJson.ShrId = {
+        EntryType: {
+            Value: 'http://standardhealthrecord.org/spec/shr/base/ShrId',
+        },
+        Value: entryJson.ShrId
+    };
+
     resultJson.EntryType = entryJson.EntryType;
 
     if (entryJson.Metadata) {
