@@ -5,16 +5,24 @@ class FluxBodyWeight {
         this._bodyWeight = BodyWeight.fromJSON(json);
     }
 
-    get value() {
-        return this._bodyWeight.dataValue.quantity.number;
-    }
-
-    get units() {
-        return this._bodyWeight.dataValue.quantity.unit;
+    get code() {
+        return this._bodyWeight.code.value.coding[0].codeValue.code;
     }
 
     get entryInfo() {
         return this._bodyWeight.entryInfo;
+    }
+
+    get relevantTime() {
+        return this._bodyWeight.relevantTime.value;
+    }
+
+    get units() {
+        return this._bodyWeight.dataValue.value.units.coding.codeValue.value;
+    }
+
+    get value() {
+        return this._bodyWeight.dataValue.value.number.decimal;
     }
 
     toJSON() {
