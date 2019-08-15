@@ -126,6 +126,56 @@ export function mapEntries(v05Json) {
         const authoredDateTime = entry.Metadata ? { ...entry.Metadata.AuthoredDateTime } : null;
         mapEntryInfo(resultJson, entry);
         switch (elementName) {
+            case 'AllergyIntolerance': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/AllergyIntolerance');
+                if (entry.Patient) {
+                    resultJson.SubjectOfRecord = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/PatientSubjectOfRecord',
+                        },
+                        Patient: entry.Patient,
+                    };
+                    changeEntryType(resultJson.SubjectOfRecord.Patient, 'http://standardhealthrecord.org/spec/shr/core/Patient');
+                }
+
+                if (entry.FindingResult) {
+                    // unlike other FindingResults that turn into DataValue, this one turns into Code
+                    resultJson.Code = { ...entry.FindingResult };
+                    changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+                    mapCodingArray(resultJson.Code.Value.Coding);
+                }
+
+                if (entry.SubstanceCategory) {
+                    resultJson.SubstanceCategory = { ...entry.SubstanceCategory };
+                    changeEntryType(resultJson.SubstanceCategory, 'http://standardhealthrecord.org/spec/shr/core/SubstanceCategory');
+                    mapCodingArray(resultJson.SubstanceCategory.Value.Coding);
+                }
+
+                if (entry.AllergyIntoleranceReaction) {
+                    resultJson.AllergyIntoleranceReaction = [];
+                    entry.AllergyIntoleranceReaction.forEach(air => {
+                        const mappedAIR = { ...air };
+                        changeEntryType(mappedAIR, 'http://standardhealthrecord.org/spec/shr/core/AllergyIntoleranceReaction');
+
+                        if (mappedAIR.Manifestation) {
+                            mappedAIR.Manifestation.forEach(m => {
+                                changeEntryType(m, 'http://standardhealthrecord.org/spec/shr/core/Manifestation');
+                                mapCodingArray(m.Value.Coding);
+                            });
+                        }
+
+                        if (mappedAIR.Severity) {
+                            changeEntryType(mappedAIR.Severity, 'http://standardhealthrecord.org/spec/shr/core/Severity');
+                            mapCodingArray(mappedAIR.Severity.Value.Coding);
+                        }
+
+                        resultJson.AllergyIntoleranceReaction.push(mappedAIR);
+                    });
+                }
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'BloodPressure': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BloodPressure');
                 mapFindingTopicCode(resultJson, entry.FindingTopicCode);
