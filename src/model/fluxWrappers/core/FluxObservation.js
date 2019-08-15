@@ -30,7 +30,7 @@ class FluxObservation extends FluxEntry {
             && this._observation.dataValue.value instanceof Quantity) {
             return {
                 number: this._observation.dataValue.value.number.decimal,
-                unit: this._observation.dataValue.value.units.coding.codeValue,
+                unit: this._observation.dataValue.value.units.coding.codeValue.value,
             };
         } else {
             return null;
