@@ -95,7 +95,8 @@
     "react-scripts": "2.1.8",
     "react-test-renderer": "15.6.2",
     "redux-mock-store": "1.5.3",
-    "testcafe": "0.17.1"
+    "testcafe": "0.17.1",
+    "copy-webpack-plugin" : "5.0.4"
   },
   "resolutions": {
     "moment": "2.22.0",
