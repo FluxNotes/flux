@@ -13,14 +13,6 @@ class FluxReferralRequest {
         this._patientRecord = patientRecord;
     }
 
-    get referralDate() {
-        return this._referralDate;
-    }
-
-    set referralDate(date) {
-        this._referralDate = date;
-    }
-
     get entryInfo() {
         return this._referralRequest.entryInfo;
     }
@@ -30,7 +22,7 @@ class FluxReferralRequest {
     }
 
     get expectedPerformanceTime() {
-        return this._referralRequest.expectedPerformanceTime.value;
+        return this._referralRequest.expectedPerformanceTime.value.beginDateTime.value;
     }
 
     get practitioner() {
