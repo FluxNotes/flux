@@ -284,6 +284,13 @@ export function mapEntries(v05Json) {
                     changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
                 }
 
+                if (entry.CancerProgressionEvidence) {
+                    resultJson.EvidenceType = [ ...entry.CancerProgressionEvidence ];
+                    resultJson.EvidenceType.forEach(e => {
+                        changeEntryType(e, 'http://standardhealthrecord.org/spec/onco/core/EvidenceType');
+                    });
+                }
+
                 v09Json.push(resultJson);
                 break;
             }
