@@ -9,8 +9,8 @@ export default class VitalsSubsection extends MetadataSection {
                 let processedVital = {};
 
                 processedVital["start_time"] = v.relevantTime;
-                processedVital[subsection.name] = v.quantity.number;
-                processedVital["unit"] = v.quantity.unit;
+                processedVital[subsection.name] = v.value;
+                processedVital["unit"] = v.units;
 
                 return processedVital;
             });
