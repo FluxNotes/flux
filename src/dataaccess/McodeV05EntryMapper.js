@@ -579,9 +579,21 @@ export function mapEntries(v05Json) {
                 resultJson.ExpectedPerformanceTime = entry.ExpectedPerformanceTime;
                 changeEntryType(resultJson.ExpectedPerformanceTime, 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime');
 
-                // TODO: Map ExpectedPerformer... Should Practictioner be an entry on PatientRecord?
-                // resultJson.ExpectedPerformer = entry.ExpectedPerformer;
-                // changeEntryType(resultJson.ExpectedPerformer, 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformer');
+                if (entry.ExpectedPerformer) {
+                    const expectedPerformerName = entry.ExpectedPerformer.Value.Person.HumanName[0].NameAsText.Value;
+                    const practitionerEntryID = getOrCreatePractitionerByName(v09Json, expectedPerformerName, nextEntryId++, { ...resultJson.ShrId });
+
+                    resultJson.ExpectedPerformer = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformer'
+                        },
+                        Value: {
+                            _ShrId: entry.ShrId,
+                            _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                            _EntryId: `${practitionerEntryID}`
+                        }
+                    };
+                }
 
                 v09Json.push(resultJson);
                 break;

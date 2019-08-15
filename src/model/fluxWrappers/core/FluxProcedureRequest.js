@@ -3,9 +3,10 @@ import ProcedureRequest from '../../shr/core/ProcedureRequest';
 import FluxEntry from '../base/FluxEntry';
 
 class FluxProcedureRequest extends FluxEntry {
-    constructor(json) {
+    constructor(json, patientRecord) {
         super();
         this._entry = this._procedureRequest = ProcedureRequest.fromJSON(json);
+        this._patientRecord = patientRecord;
     }
 
     get entryInfo() {
@@ -96,11 +97,19 @@ class FluxProcedureRequest extends FluxEntry {
     }
 
     get expectedPerformer() {
-        if (this._procedureRequest.expectedPerformer && this._procedureRequest.expectedPerformer.value && this._procedureRequest.expectedPerformer.value.person) {
-            return this._procedureRequest.expectedPerformer.value.person.name;
-        } else {
-            return null;
+        if (this._procedureRequest.expectedPerformer && this._procedureRequest.expectedPerformer.value) {
+            const requester = this._patientRecord.getEntryFromReference(this._procedureRequest.expectedPerformer.value);
+
+            if (requester 
+                && requester.person 
+                && requester.person.humanName 
+                && requester.person.humanName[0]
+                && requester.person.humanName[0].nameAsText) {
+                return requester.person.humanName[0].nameAsText.value;
+            }
         }
+
+        return null;
     }
 
     toJSON() {
