@@ -1221,7 +1221,7 @@ class PatientRecord {
 
     getVitalByCode(code) {
         return this.entries
-            .filter(e => e.codeableConceptCode === code) // Find vital of matching code
+            .filter(e => e.code === code) // Find vital of matching code
             .sort(this._relevantTimeTimeSorter);
     }
 

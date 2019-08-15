@@ -111,6 +111,11 @@ const mapSffToPcc = (resultJson, sff) => {
     resultJson.PrimaryCancerCondition._EntryType = 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition';
 };
 
+const mapPanelMembers = (resultJson, panelMembers) => {
+    resultJson.PanelMembers = { ...panelMembers };
+    changeEntryType(resultJson.PanelMembers, 'http://standardhealthrecord.org/spec/shr/core/PanelMembers');
+};
+
 export function mapEntries(v05Json) {
     const v09Json = [];
 
@@ -121,6 +126,42 @@ export function mapEntries(v05Json) {
         const authoredDateTime = entry.Metadata ? { ...entry.Metadata.AuthoredDateTime } : null;
         mapEntryInfo(resultJson, entry);
         switch (elementName) {
+            case 'BloodPressure': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BloodPressure');
+                mapFindingTopicCode(resultJson, entry.FindingTopicCode);
+                mapFindingStatus(resultJson, entry.FindingStatus);
+                mapRelevantTime(resultJson, entry.RelevantTime);
+
+                if (entry.PanelMembers) {
+                    resultJson.Components = entry.PanelMembers.Observation.map(ref => {
+                        const bloodPressureReading = v05Json.find(e => e.EntryId === ref._EntryId);
+                        const bloodPressureType = getNamespaceAndName(bloodPressureReading).elementName;
+                        const DataValue = {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/DataValue'
+                            },
+                            Value: {
+                                EntryType: {
+                                    Value: 'http://standardhealthrecord.org/spec/shr/core/Quantity'
+                                },
+                                ...bloodPressureReading.Value
+                            }
+                        };
+
+                        mapCoding(DataValue.Value.Units.Value);
+
+                        return {
+                            EntryType: {
+                                Value: `http://standardhealthrecord.org/spec/shr/core/${bloodPressureType}`
+                            },
+                            DataValue
+                        };
+                    });
+                }
+                v09Json.push(resultJson);
+                console.log('resultJson: ', resultJson);
+                break;
+            }
             case 'CancerDisorderPresent': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
                 mapCondition(resultJson, entry);
@@ -345,8 +386,7 @@ export function mapEntries(v05Json) {
                 // Mapping PanelMembers
                 // Need to change namespace for t, n, and m references
                 // Removing all other observations
-                resultJson.PanelMembers = { ...entry.PanelMembers };
-                changeEntryType(resultJson.PanelMembers, 'http://standardhealthrecord.org/spec/shr/core/PanelMembers');
+                mapPanelMembers(resultJson, entry.PanelMembers);
                 resultJson.PanelMembers.Observation.forEach((p, i, arr) => {
                     if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification') {
                         p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory';
