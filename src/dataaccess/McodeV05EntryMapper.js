@@ -221,7 +221,16 @@ export function mapEntries(v05Json) {
                     });
                 }
                 v09Json.push(resultJson);
-                console.log('resultJson: ', resultJson);
+                break;
+            }
+            case 'BodyTemperature': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BodyTemperature');
+                mapFindingResult(resultJson, entry.FindingResult);
+                mapFindingTopicCode(resultJson, entry.FindingTopicCode);
+                mapFindingStatus(resultJson, entry.FindingStatus);
+                mapRelevantTime(resultJson, entry.RelevantTime);
+                mapCoding(resultJson.DataValue.Value.Units.Value);
+                v09Json.push(resultJson);
                 break;
             }
             case 'CancerDisorderPresent': {
