@@ -128,6 +128,15 @@ const mapPanelMembers = (resultJson, panelMembers) => {
     changeEntryType(resultJson.PanelMembers, 'http://standardhealthrecord.org/spec/shr/core/PanelMembers');
 };
 
+const mapSimpleVital = (resultJson, vitalEntryType, entry) => {
+    changeEntryType(resultJson, vitalEntryType);
+    mapFindingResult(resultJson, entry.FindingResult);
+    mapFindingTopicCode(resultJson, entry.FindingTopicCode);
+    mapFindingStatus(resultJson, entry.FindingStatus);
+    mapRelevantTime(resultJson, entry.RelevantTime);
+    mapCoding(resultJson.DataValue.Value.Units.Value);
+};
+
 export function mapEntries(v05Json) {
     const v09Json = [];
 
@@ -224,12 +233,12 @@ export function mapEntries(v05Json) {
                 break;
             }
             case 'BodyTemperature': {
-                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BodyTemperature');
-                mapFindingResult(resultJson, entry.FindingResult);
-                mapFindingTopicCode(resultJson, entry.FindingTopicCode);
-                mapFindingStatus(resultJson, entry.FindingStatus);
-                mapRelevantTime(resultJson, entry.RelevantTime);
-                mapCoding(resultJson.DataValue.Value.Units.Value);
+                mapSimpleVital(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BodyTemperature', entry);
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'BodyWeight': {
+                mapSimpleVital(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BodyWeight', entry);
                 v09Json.push(resultJson);
                 break;
             }
@@ -282,6 +291,11 @@ export function mapEntries(v05Json) {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Condition');
                 mapCondition(resultJson, entry);
 
+                v09Json.push(resultJson);
+                break;
+            }
+            case 'HeartRate': {
+                mapSimpleVital(resultJson, 'http://standardhealthrecord.org/spec/shr/core/HeartRate', entry);
                 v09Json.push(resultJson);
                 break;
             }
