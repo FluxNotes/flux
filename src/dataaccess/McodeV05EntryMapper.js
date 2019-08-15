@@ -388,6 +388,18 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'ClinicalNote': {
+                delete entry.ShrId;
+                delete entry.EntryId;
+                delete entry.Metadata;
+
+                // TODO: Figure out what to do with DocumentedEncounter
+
+                // Passing through the properties that we care about on the entry since FluxClinicalNote
+                // is remaining its own entity
+                v09Json.push({ ...resultJson, ...entry});
+                break;
+            }
             case 'ConditionPresentAssertion': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Condition');
                 mapCondition(resultJson, entry);

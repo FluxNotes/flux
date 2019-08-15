@@ -57,7 +57,7 @@ class FluxClinicalNote extends FluxEntry {
     }
 
     get createdOn() {
-        return this.metadata.authoredDateTime.value;
+        return this.metadata.lastUpdated.value;
     }
 
     get signedBy() {
