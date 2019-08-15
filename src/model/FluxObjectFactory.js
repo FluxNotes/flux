@@ -8,7 +8,6 @@ import FluxCoreObjectFactory from './fluxWrappers/core/FluxCoreObjectFactory';
 import FluxFindingObjectFactory from './fluxWrappers/finding/FluxFindingObjectFactory';
 import FluxMedicationObjectFactory from './fluxWrappers/medication/FluxMedicationObjectFactory';
 import FluxOncologyObjectFactory from './fluxWrappers/oncology/FluxOncologyObjectFactory';
-import FluxTumorObjectFactory from './fluxWrappers/tumor/FluxTumorObjectFactory';
 
 /*
  *  FluxObjectFactory class returns instances of Flux model classes
@@ -26,7 +25,6 @@ export default class FluxObjectFactory {
             case 'onco.core': return FluxOncocoreObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.medication': return FluxMedicationObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.oncology': return FluxOncologyObjectFactory.createInstance(json, type, patientRecord);
-            case 'tumor': return FluxTumorObjectFactory.createInstance(json, type, patientRecord);
             default: return ObjectFactory.createInstance(json, type, patientRecord);
         }
     }
