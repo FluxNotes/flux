@@ -43,7 +43,7 @@ export default class TemplateOption extends Component {
             return (
                 <Tooltip
                     title={this.formatText(this.props.content)}
-                    classes={{ tooltip: 'preview-tooltip' }}
+                    classes={{ tooltip: 'preview-tooltip', popper: 'tooltip-position' }}
                 >
                     <div>
                         <TemplateOptionPreviewButton />
@@ -55,10 +55,16 @@ export default class TemplateOption extends Component {
     }
 
     formatText = (text) => {
+        let prevString = "";
         return (
             text.split('\n').map(function (item, key) {
+                let bold = "";
+                if (Lang.isEqual(prevString, "")) {
+                    bold = "bolded";
+                }
+                prevString = item;
                 return (
-                    <span key={key}>
+                    <span className={bold} key={key}>
                         {item}
                         <br />
                     </span>
