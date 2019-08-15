@@ -1,5 +1,9 @@
 import { getNamespaceAndName } from "../model/json-helper";
 
+const isReference = (obj) => {
+    return obj && typeof obj === 'object' & obj._ShrId && obj._EntryId && obj._EntryType;
+};
+
 const mapEntryInfo = (resultJson, entryJson) => {
     resultJson.EntryId = entryJson.EntryId;
     resultJson.ShrId = entryJson.ShrId;
@@ -26,13 +30,14 @@ const mapCodingArray = (codingArray) => {
 
 const mapCoding = (c) => {
     c.CodeValue = {...c.Code};
-    c.CodeValue.EntryType.Value = 'http://standardhealthrecord.org/spec/shr/core/CodeValue';
+    changeEntryType(c.CodeValue, 'http://standardhealthrecord.org/spec/shr/core/CodeValue');
     delete c.Code;
 };
 
 // Changes entryType of entry but keeps value the same
 // If value is a CodeableConcept, will perform mapping for Code -> CodeValue
 const changeEntryType = (entry, newEntryType) => {
+    if (entry == null) return;
     entry.EntryType = { Value: newEntryType };
 
     // If Value is a CodeableConcept, change Code -> CodeValue
@@ -234,11 +239,20 @@ export function mapEntries(v05Json) {
             case 'ProcedureRequested': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest');
 
-                resultJson.ReasonReference = [...entry.Reason];
-                resultJson.ReasonReference.forEach((r) => {
-                    changeEntryType(r, 'http://standardhealthrecord.org/spec/shr/core/ReasonReference');
-                    r.Value._EntryType = 'http://standardhealthrecord.org/spec/onco/core/CancerCondition';
-                });
+                if (entry.Reason) {
+                    resultJson.ReasonReference = [];
+                    // resultJson.ReasonCode = [];
+                    entry.Reason.forEach((r) => {
+                        if (isReference(r.Value))  {
+                            changeEntryType(r, 'http://standardhealthrecord.org/spec/shr/core/ReasonReference');
+                            changeEntryType(r.Value, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
+                            resultJson.ReasonReference.push(r);
+                        } else {
+                            // TODO: handle ReasonCode. I think there is only one example of a non-reference, "proactive" in Ella's mammography
+                        }
+                    });
+                }
+
 
                 resultJson.Status = {...entry.Status};
                 mapCodingArray(resultJson.Status.Value.Coding);
