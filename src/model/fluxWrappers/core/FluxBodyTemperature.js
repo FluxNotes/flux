@@ -5,12 +5,24 @@ class FluxBodyTemperature {
         this._bodyTemperature = BodyTemperature.fromJSON(json);
     }
 
-    get value() {
-        return this._bodyTemperature.dataValue.quantity.number;
+    get code() {
+        return this._bodyTemperature.code.value.coding[0].codeValue.code;
+    }
+
+    get entryInfo() {
+        return this._bodyTemperature.entryInfo;
+    }
+
+    get relevantTime() {
+        return this._bodyTemperature.relevantTime.value;
     }
 
     get units() {
-        return this._bodyTemperature.dataValue.quantity.unit;
+        return this._bodyTemperature.dataValue.value.units.coding.codeValue.value;
+    }
+
+    get value() {
+        return this._bodyTemperature.dataValue.value.number.decimal;
     }
 
     toJSON() {
