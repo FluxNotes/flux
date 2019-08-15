@@ -11,7 +11,7 @@ export default class LabTestSubsection extends MetadataSection {
             const processedLab = {};
             processedLab["start_time"] = lab.relevantTime;
             processedLab[subsection.name] = lab.quantity.number;
-            processedLab["unit"] = lab.quantity.unit;
+            processedLab["unit"] = lab.quantity.unit.value;
 
             return processedLab;
         });
