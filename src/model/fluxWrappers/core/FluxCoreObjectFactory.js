@@ -40,7 +40,7 @@ export default class FluxCoreObjectFactory {
             case 'HeartRate': return new FluxHeartRate(json);
             case 'ImagingProcedure': return new FluxImagingProcedure(json);
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json, type, patientRecord);
-            case 'MedicationRequest': return new FluxMedicationRequest(json);
+            case 'MedicationRequest': return new FluxMedicationRequest(json, patientRecord);
             case 'MedicationStatement': return new FluxMedicationStatement(json, patientRecord);
             case 'MedicationStatementAfterChange': return new FluxMedicationStatementAfterChange(json);
             case 'Observation': return new FluxObservation(json, type, patientRecord);
