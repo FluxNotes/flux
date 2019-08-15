@@ -83,7 +83,6 @@
     "label": "#tumor size",
     "parentAttribute": "T",
     "stringTriggers": {"category":"staging", "valueSet":"T", "args":"7", "prefix": "#"},
-    "picker": {"category":"staging", "valueSet":"T", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"T", "args":"7", "prefix": ""},
     "knownParentContexts": "StagingCreator",
     "description":"Describes the original (primary) tumor.",
@@ -95,7 +94,6 @@
     "label": "#node size",
     "parentAttribute": "N",
     "stringTriggers": {"category":"staging", "valueSet":"N", "args":"7", "prefix": "#"},
-    "picker": {"category":"staging", "valueSet":"N", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"N", "args":"7", "prefix": ""},
     "knownParentContexts": "StagingCreator",
     "description":"Describes the degree to which the cancer has reached nearby lymph nodes.",
@@ -107,7 +105,6 @@
     "label": "#metastasis",
     "parentAttribute": "M",
     "stringTriggers": {"category":"staging", "valueSet":"M", "args":"7", "prefix": "#"},
-    "picker": {"category":"staging", "valueSet":"M", "args":"7", "prefix": "#"},
     "keywords": {"category":"staging", "valueSet":"M", "args":"7", "prefix": ""},
     "knownParentContexts": "StagingCreator",
     "description":"Whether or not the cancer has spread to other parts of the body.",
@@ -151,7 +148,6 @@
     "parentAttribute": "status",
     "label": "#status",
     "stringTriggers": {"category":"progression", "valueSet":"status", "prefix": "#"},
-    "picker": {"category": "progression", "valueSet": "status", "prefix": "#"},
     "keywords": {"category":"progression", "valueSet":"status", "prefix": ""},
     "knownParentContexts": "ProgressionCreator",
     "description":"Based on on the patient data available to the clinician at the time of evaluation.",
@@ -163,7 +159,6 @@
     "parentAttribute": "reasons",
     "label": "#reason",
     "stringTriggers": {"category":"progression", "valueSet":"reason", "prefix": "#"},
-    "picker": {"category": "progression", "valueSet": "reason", "prefix": "#"},
     "keywords": {"category":"progression", "valueSet":"reason", "prefix": ""},
     "knownParentContexts": "ProgressionCreator",
     "description":"Rationale for the choice of status.",
@@ -235,7 +230,6 @@
     "label": "#grade",
     "parentAttribute": "grade",
     "stringTriggers": {"category":"toxicity", "valueSet":"grade", "prefix": "#"},
-    "picker": {"category": "toxicity", "valueSet": "grade", "prefix": "#"},
     "keywords": {"category":"toxicity", "valueSet":"grade", "prefix": ""},
     "description":"The severity of the adverse event. The CTCAE displays Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.",
     "shortcutGroupName":"Grade"
@@ -249,7 +243,6 @@
     "label": "#adverse event",
     "parentAttribute": "adverseEvent",
     "stringTriggers": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": "#"},
-    "picker": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": "#"},
     "keywords": {"category":"toxicity", "valueSet":"adverseEvent", "prefix": ""},
     "description":"Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.",
     "shortcutGroupName":"Adverse Event"
@@ -263,7 +256,6 @@
     "label": "#attribution",
     "parentAttribute": "attribution",
     "stringTriggers": {"category":"toxicity", "valueSet":"attribution", "prefix": "#"},
-    "picker": {"category":"toxicity", "valueSet":"attribution", "prefix": "#"},
     "keywords": {"category":"toxicity", "valueSet":"attribution", "prefix": ""},
     "description":"The relationship of the event or cause to the adverse event.",
     "shortcutGroupName":"Attribution"
@@ -345,7 +337,6 @@
     "parentAttribute": "date",
     "stringTriggers": [],
     "regexpTrigger": "(#\\d{1,2}\\/\\d{1,2}\\/\\d{4})",
-    "picker": "date-id",
     "description":"Allows entry of a date.",
     "shortcutGroupName":"Date"
   },
@@ -354,9 +345,8 @@
     "id": "ClinicalTrialTitleCreator",
     "label": "#title",
     "parentAttribute": "title",
-    "stringTriggers": [ {"category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": "#"} ],
+    "stringTriggers": { "category": "clinicalTrial", "valueSet": "clinicalTrials", "prefix": "#" },
     "keywords": { "category":"clinicalTrial", "valueSet":"clinicalTrials", "prefix": ""},
-    "picker": { "category": "clinicalTrial", "valueSet": "clinicalTrials", "prefix": "#"},
     "description":"Allows selection of the clinical trial.",
     "shortcutGroupName":"Clinical Trial"
   },
@@ -366,7 +356,7 @@
     "getData": {"object": "patient", "method": "getConditions", "itemKey": "entryInfo.entryId.id", "itemContext":"type", "dateLabel": "diagnosisDate"},
     "isContext": true,
     "isGlobalContext": true,
-    "stringTriggers": [{"name":"@condition", "description": "Select a condition of the patient to insert and support capturing further information about.", "picker": true }],
+    "stringTriggers": [{"name":"@condition", "description": "Select a condition of the patient to insert and support capturing further information about." }],
     "knownParentContexts": "Patient"
   },
   { "type": "InsertValue",
@@ -422,7 +412,6 @@
       "valueSet": "status",
       "prefix": "#"
     },
-    "picker": {"category": "receptor", "valueSet": "status", "prefix": "#"},
     "keywords": {
       "category": "receptor",
       "valueSet": "status",
