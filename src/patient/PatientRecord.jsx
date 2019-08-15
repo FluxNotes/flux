@@ -43,13 +43,13 @@ class PatientRecord {
             this.patient = this.getPatient();
             this.person = this.getPerson();
             //this.patientReference = new Reference(this.patient.entryInfo.shrId, this.patient.entryInfo.entryId, this.patient.entryInfo.entryType);
-            this.shrId = this.patient.entryInfo.shrId;
+            this.patientShrId = this.patient.entryInfo.shrId;
             this._calculateNextEntryId();
         } else { // create a new patient
             this.entries = [];
             this.patient = null;
             this.person = null;
-            this.shrId = v4();
+            this.patientShrId = v4();
             this.nextEntryId = 1;
             //this.patientReference = null;
         }
@@ -141,7 +141,7 @@ class PatientRecord {
     }
 
     addEntryToPatient(entry, clinicalNote) {
-        entry.entryInfo.shrId = this.shrId;
+        entry.entryInfo.shrId = this.patientShrId;
         entry.entryInfo.entryId = this.nextEntryId;
         this.nextEntryId = this.nextEntryId + 1;
         if (clinicalNote) {
@@ -191,6 +191,10 @@ class PatientRecord {
             return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
         }
         return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
+    }
+
+    get shrId() {
+        return this.patientShrId;
     }
 
     getName() {
