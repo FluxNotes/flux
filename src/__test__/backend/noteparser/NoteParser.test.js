@@ -168,15 +168,15 @@ describe('parse', function() {
         expect(record[0][0]).to.be.an('object');
 
         // The actual toxicity value should match
-        expect(record[0][0]._toxicAdverseDrugReaction._type)
-            .to.eql(expectedOutputToxicity[0][0]._toxicAdverseDrugReaction._type);
+        expect(record[0][0]._adverseDrugReaction._type)
+            .to.eql(expectedOutputToxicity[0][0]._adverseDrugReaction._type);
 
         // The grade of the toxicities should match
-        expect(record[0][0]._toxicAdverseDrugReaction._seriousness)
-            .to.eql(expectedOutputToxicity[0][0]._toxicAdverseDrugReaction._seriousness);
+        expect(record[0][0]._adverseDrugReaction._seriousness)
+            .to.eql(expectedOutputToxicity[0][0]._adverseDrugReaction._seriousness);
 
         // Result should have an attribution
-        expect(record[0][0]._toxicAdverseDrugReaction._causalAttribution).to.exist;
+        expect(record[0][0]._adverseDrugReaction._causalAttribution).to.exist;
     });
     it('should return a patient record with deceased data when parsing a note with deceased phrases', function () {
         const record = noteParser.parse(sampleTextDeceased);
