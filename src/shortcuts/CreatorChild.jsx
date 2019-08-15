@@ -105,7 +105,8 @@ export default class CreatorChild extends Shortcut {
                 date = moment(text, 'MM/DD/YYYY');
             }
             // Format all dates to same format, regardless of incoming format
-            value = date.format('D MMM YYYY');
+            value = date.format('D MMM YYYY'); // value updates the entry and requires this format
+            this.text = date.format('MM/DD/YYYY'); // this.text is used for displaying values of shortcut in editor
         }
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient, previousText);
