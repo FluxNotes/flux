@@ -234,11 +234,7 @@ class FluxCondition extends FluxEntry {
 
     getObservationsOfType(type) {
         if (!this._condition.entryInfo) return [];
-        const conditionEntryId = this._condition.entryInfo.entryId;
-        return this._patientRecord.getEntriesOfType(type).filter((item) => {
-            return  item._observation && item._observation.specificFocusOfFinding &&
-                    item._observation.specificFocusOfFinding.value._entryId === conditionEntryId;
-        });
+        return this._patientRecord.getEntriesOfType(type).filter(item => item._observation);
     }
 
     getTests() {

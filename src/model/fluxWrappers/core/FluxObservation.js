@@ -38,25 +38,11 @@ class FluxObservation extends FluxEntry {
     }
 
     get name() {
-        if (this._observation.category
-            && this._observation.category.value.coding
-            && this._observation.category.value.coding.length > 0
-            && this._observation.category.value.coding[0].displayText) {
-            return this._observation.category.value.coding[0].displayText.value;
-        } else {
-            return null;
-        }
+        return this._observation.code.value.coding[0].displayText.value;
     }
 
     get codeableConceptCode() {
-        if (this._observation.category
-            && this._observation.category.value.coding
-            && this._observation.category.value.coding.length > 0
-            && this._observation.category.value.coding[0].codeValue) {
-            return this._observation.category.value.coding[0].codeValue;
-        } else {
-            return null;
-        }
+        return this._observation.code.value.coding[0].codeValue.code;
     }
 
     get relevantTime() {
