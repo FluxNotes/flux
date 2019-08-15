@@ -642,6 +642,45 @@ export function mapEntries(v05Json) {
                 }
                 break;
             }
+            case 'ToxicAdverseDrugReaction': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/AdverseDrugReaction');
+
+                resultJson.Type = { ...entry.Type };
+                mapCodingArray(resultJson.Type.Value.Coding);
+
+                resultJson.Seriousness = { ...entry.Seriousness };
+                changeEntryType(resultJson.Seriousness, 'http://standardhealthrecord.org/spec/shr/core/Seriousness');
+
+                if (entry.AdverseEventCondition) {
+                    resultJson.AdverseEventCondition = entry.AdverseEventCondition.map(ref => {
+                        const { _ShrId, _EntryId } = ref.ConditionPresentAssertion;
+                        return {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/AdverseEventCondition'
+                            },
+                            Condition: {
+                                _ShrId,
+                                _EntryId,
+                                _EntryType: 'http://standardhealthrecord.org/spec/onco/core/CancerCondition'
+                            }
+                        };
+                    });
+                }
+
+                // TODO (?) Map source clinical note
+
+                if (entry.CausalAttribution) {
+                    resultJson.CausalAttribution = [ ...entry.CausalAttribution ];
+                    resultJson.CausalAttribution.forEach(attr => {
+                        changeEntryType(attr, 'http://standardhealthrecord.org/spec/shr/core/CausalAttribution');
+                        changeEntryType(attr.CauseCategory, 'http://standardhealthrecord.org/spec/shr/core/CauseCategory');
+                    });
+
+                }
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'TNMClinicalPrimaryTumorClassification': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory');
                 mapFindingResult(resultJson, entry.FindingResult);

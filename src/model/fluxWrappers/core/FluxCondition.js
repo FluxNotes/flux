@@ -1,7 +1,7 @@
 import Condition from '../../shr/core/Condition';
 import FluxCancerDiseaseStatus from '../onco/core/FluxCancerDiseaseStatus';
 import FluxMedicationRequest from './FluxMedicationRequest';
-import FluxToxicAdverseDrugReaction from '../adverse/FluxToxicAdverseDrugReaction';
+import FluxAdverseDrugReaction from './FluxAdverseDrugReaction';
 import FluxObservation from './FluxObservation';
 import FluxProcedureRequest from './FluxProcedureRequest';
 import hpiConfig from '../../hpi-configuration.json';
@@ -204,10 +204,10 @@ class FluxCondition extends FluxEntry {
     }
 
     getToxicities() {
-        const entries = this._patientRecord.getEntriesOfType(FluxToxicAdverseDrugReaction);
+        const entries = this._patientRecord.getEntriesOfType(FluxAdverseDrugReaction);
         const conditionEntryId = this._condition.entryInfo.entryId.value || this._condition.entryInfo.entryId;
         return entries.filter((item) => {
-            return item instanceof FluxToxicAdverseDrugReaction && item.adverseEventCondition && item.adverseEventCondition._conditionPresentAssertion._entryId === conditionEntryId;
+            return item instanceof FluxAdverseDrugReaction && item.adverseEventCondition && item.adverseEventCondition.condition.entryId === conditionEntryId;
         });
     }
 
