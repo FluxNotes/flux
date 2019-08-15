@@ -4732,9 +4732,10 @@ fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.6, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fhir-mapper@standardhealth/fhir-mapper:
+fhir-mapper@^2.0.0:
   version "2.0.0"
-  resolved "https://codeload.github.com/standardhealth/fhir-mapper/tar.gz/be4f7cbfa56a82ce3d50dbaf086b1ad9e541ca96"
+  resolved "https://registry.yarnpkg.com/fhir-mapper/-/fhir-mapper-2.0.0.tgz#8720c013b6eeba8c957fd7cae7957a9a152e0679"
+  integrity sha512-zgqSgNOzGYI7V9fkZFl00+NlaT27yRiDR+utvso2iVpZYnJ/sv2vCwpcCeMJfOow9qWFOAl6oAisNLKbYxqY3g==
   dependencies:
     fhirpath "^0.10.3"
     lodash "^4.17.13"
