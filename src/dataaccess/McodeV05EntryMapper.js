@@ -108,7 +108,7 @@ const mapFindingResult = (resultJson, findingResult) => {
 // Maps SpecificFocusOfFinding Reference to PrimaryCancerCondition Reference
 const mapSffToPcc = (resultJson, sff) => {
     resultJson.PrimaryCancerCondition = { ...sff.Value };
-    changeEntryType(resultJson.PrimaryCancerCondition, 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition');
+    resultJson.PrimaryCancerCondition._EntryType = 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition';
 };
 
 export function mapEntries(v05Json) {
@@ -349,11 +349,11 @@ export function mapEntries(v05Json) {
                 changeEntryType(resultJson.PanelMembers, 'http://standardhealthrecord.org/spec/shr/core/PanelMembers');
                 resultJson.PanelMembers.Observation.forEach((p, i, arr) => {
                     if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification') {
-                        p._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory';
+                        p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory';
                     } else if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification') {
-                        p._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalRegionalNodesCategory';
+                        p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalRegionalNodesCategory';
                     } else if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification') {
-                        p._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalDistantMetastasesCategory';
+                        p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalDistantMetastasesCategory';
                     } else {
                         arr.splice(i, 1);
                     }
