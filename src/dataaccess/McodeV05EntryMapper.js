@@ -33,7 +33,7 @@ const mapCoding = (c) => {
 // Changes entryType of entry but keeps value the same
 // If value is a CodeableConcept, will perform mapping for Code -> CodeValue
 const changeEntryType = (entry, newEntryType) => {
-    entry.EntryType.Value = newEntryType;
+    entry.EntryType = { Value: newEntryType };
 
     // If Value is a CodeableConcept, change Code -> CodeValue
     if (entry.Value && entry.Value.EntryType && entry.Value.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept') {
@@ -103,7 +103,7 @@ const mapFindingResult = (resultJson, findingResult) => {
 // Maps SpecificFocusOfFinding Reference to PrimaryCancerCondition Reference
 const mapSffToPcc = (resultJson, sff) => {
     resultJson.PrimaryCancerCondition = { ...sff.Value };
-    resultJson.PrimaryCancerCondition._EntryType.Value = 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition';
+    changeEntryType(resultJson.PrimaryCancerCondition, 'http://standardhealthrecord.org/spec/onco/core/PrimaryCancerCondition');
 };
 
 export function mapEntries(v05Json) {
@@ -291,8 +291,10 @@ export function mapEntries(v05Json) {
                         };
                     });
 
-                    resultJson.StatementDateTime = { ...entry.RelevantTime };
-                    changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
+                    if (entry.RelevantTime) {
+                        resultJson.StatementDateTime = { ...entry.RelevantTime };
+                        changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
+                    }
 
                     v09Json.push(resultJson);
                 }
