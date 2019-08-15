@@ -60,7 +60,7 @@ const mapAnatomicalLocation = (resultJson, anatomicalLocation) => {
         };
         mapCodingArray(b.LocationCode.Value.Coding);
 
-        if (b.Laterality) {
+        if (b.Value.Laterality) {
             b.Laterality = {...b.Value.Laterality};
             mapCodingArray(b.Laterality.Value.Coding);
         }
