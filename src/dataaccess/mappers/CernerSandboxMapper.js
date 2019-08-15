@@ -31,40 +31,42 @@ const primaryCancerConditionCodes = [
 let mapper = {
     filter: () => true,
     default: (resource, context) => mappers['syntheaToV05'].execute(resource, context),
-    mappers: [{
+    mappers: [
+      {
         filter: "Condition.code.coding.where($this.code in %primaryCancerConditionCodes.first())",
         exec: (resource, context) =>
             utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-CancerDisorderPresent')
     },
-    {filter: "Observation.code.text  = 'AJCCV7 Breast Distant Metastasis (M) Pat'",
+    {filter: "Observation.code.text = 'AJCCV7 Breast Distant Metastasis (M) Pat'",
         exec: (resource, context) => {
-            resource.code = {codeing: [{code: ''  , system: 'http://loinc.org'}]};
-            resource.valueCodableConcept = {code: '' , codeSystem: ''};
-            utils.applyProfile(resource, '');
+            resource.code = {coding: [{code: '21901-4'  , system: 'http://loinc.org'}]};
+            resource.valueCodeableConcept.coding = [{code:resource.valueCodeableConcept.text }]
+            
+           // utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/');
             return resource;
         }
     },
     {filter: "Observation.code.text  = 'AJCCV7 Breast Distant Metastasis (M) Cli'",
         exec: (resource, context) => {
-            resource.code = {codeing: [{code: ''  , system: 'http://loinc.org'}]};
-            resource.valueCodableConcept = {code: '' , system: 'ajcc'};
-            utils.applyProfile(resource, '');
+            resource.code = {coding: [{code: '21907-1'  , system: 'http://loinc.org'}]};
+            resource.valueCodeableConcept.coding = [{code:resource.valueCodeableConcept.text }]
+            utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-TNMClinicalDistantMetastasesClassification');
             return resource;
         }
     },
     {filter: "Observation.code.text  = 'AJCCV7 Breast Regional Lymph Nodes (N) P'",
         exec: (resource, context) => {
-            resource.code = {codeing: [{code: ''  , system: 'http://loinc.org'}]};
-            resource.valueCodableConcept = {code: '' , codeSystem: ''};
-            utils.applyProfile(resource, '');
+            resource.code = {coding: [{code: '21900-6'  , system: 'http://loinc.org'}]};
+            resource.valueCodeableConcept.coding = [{code:resource.valueCodeableConcept.text }]
+            //utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/');
             return resource;
         }
     },
     {filter: "Observation.code.text  = 'AJCCV7 Breast Regional Lymph Nodes (N) C'",
         exec: (resource, context) => {
-            resource.code = {codeing: [{code: ''  , system: 'http://loinc.org'}]};
-            resource.valueCodableConcept = {code: '' , codeSystem: ''};
-            utils.applyProfile(resource, '');
+            resource.code = {coding: [{code: '21906-3'  , system: 'http://loinc.org'}]};
+            resource.valueCodeableConcept.coding = [{code:resource.valueCodeableConcept.text }]
+            utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-TNMClinicalRegionalNodesClassification');
             return resource;
         }
     }],
