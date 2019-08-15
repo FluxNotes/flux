@@ -18,7 +18,7 @@ export default class CreatorChild extends Shortcut {
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
         const text = this.determineText(contextManager);
         if (!Lang.isUndefined(text)) {
-            if (Lang.isArray(text) || text === 'date-id') {
+            if (Lang.isArray(text)) {
                 this.flagForTextSelection(text);
             } else {
                 this.setText(text);
@@ -28,22 +28,9 @@ export default class CreatorChild extends Shortcut {
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
-        let found = false;
-        let picker = false;
-        if (this.metadata.stringTriggers) {
-            for (let i = 0; i < this.metadata.stringTriggers.length; i++) {
-                if (this.metadata.stringTriggers[i].name === trigger) {
-                    found = true;
-                    if (this.metadata.stringTriggers[i].picker) {
-                        picker = true;
-                    }
-                    break;
-                }
-            }
-        }
         if (trigger === this.metadata.label) {
             this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
-        } else if (!found || !picker) {
+        } else {
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
         }
@@ -77,27 +64,26 @@ export default class CreatorChild extends Shortcut {
         return result;
     }
 
-    // This returns a placeholder object to trigger opening the Context Portal.
-    // return 'date-id' opens calendar.
+    // This returns an array of possible text values (if text values are enumerated) or the set text value.
     determineText(contextManager) {
-        if (!Lang.isObject(this.metadata.picker)) {
-            const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || 'date-id' : 'date-id';
-            return attributeValue;
-        } else if (Lang.isArray(this.metadata.picker)) {
-            return this.metadata.picker;
-        } else {
-            // Check the attribute value of the parent to filter the options based on which ones exist in the editor already
-            const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || [] : [];
-            return this.getValueSet(this.metadata.picker).filter(item => {
-                // If the current attribute value contains this item in the ValueSet, don't include it in the options to select from
-                return !Lang.includes(attributeValue, item.name);
-            }).map((item) => {
-                return {"key": item.id || item.code || item["MedDRA v12.0 Code"], "context": item.name, "object": item};
-            });
-        }
+        // TODO: If we need to support stringTriggers as arrays, we will need this case and will need to add a unique key to the array returned
+        // if (Lang.isArray(this.metadata.stringTriggers)) {
+        //     return this.metadata.stringTriggers;
+        // }
+        // Check the attribute value of the parent to filter the options based on which ones exist in the editor already
+        const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || [] : [];
+        // If an attributeValue is set and there are no stringTriggers, we can return the value
+        if (!Lang.isEmpty(attributeValue) && Lang.isEmpty(this.metadata.stringTriggers)) return attributeValue;
+        return this.getValueSet(this.metadata.stringTriggers).filter(item => {
+            // If the current attribute value contains this item in the ValueSet, don't include it in the options to select from
+            return !Lang.includes(attributeValue, item.name);
+        }).map((item) => {
+            return {"key": item.id || item.code || item["MedDRA v12.0 Code"], "context": item.name, "object": item};
+        });
     }
 
     getValueSet(spec) {
+        if (Lang.isEmpty(spec)) return [];
         const args = spec["args"];
         const category = spec["category"];
         const valueSet = spec["valueSet"];
@@ -112,7 +98,7 @@ export default class CreatorChild extends Shortcut {
         const previousText = this.text; // Store previous text to allow for reselection of multi-choice subtypess
         this.text = this._getTriggerWithoutPrefix(text);
         let value = this.text;
-        if (this.metadata.picker === 'date-id') {
+        if (this.metadata.subtype === 'date') {
             let date = moment(text, 'D MMM YYYY', true);
             if (!date.isValid()) {
                 // Date format is #MM/DD/YYYY. Non-strict parsing used due to leading #.
