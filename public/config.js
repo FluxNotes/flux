@@ -30,9 +30,6 @@ CONFIG = {
         display: 'Compass™',
         app: "CompassApp",
         isExact: true,
-        dataSourceProps: {
-            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure']
-        },
         logoObject: {
             path: './compass-logo.png',
             altText: 'Compass logo',
@@ -42,7 +39,8 @@ CONFIG = {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-            mapper: 'syntheaToV09'
+            mapper: 'syntheaToV09',
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Organization', 'Practitioner', 'Procedure']
         }
     },
     {
