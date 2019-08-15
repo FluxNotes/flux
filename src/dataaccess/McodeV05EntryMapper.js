@@ -1,7 +1,7 @@
 import { getNamespaceAndName } from "../model/json-helper";
 
 const isReference = (obj) => {
-    return obj && typeof obj === 'object' & obj._ShrId && obj._EntryId && obj._EntryType;
+    return obj && typeof obj === 'object' && obj._ShrId && obj._EntryId && obj._EntryType;
 };
 
 const mapEntryInfo = (resultJson, entryJson) => {
@@ -41,6 +41,7 @@ const mapCodingArray = (codingArray) => {
 };
 
 const mapCoding = (c) => {
+    if (c.CodeValue && !c.Code) return; // safety check to prevent deleting something in case we double-map
     c.CodeValue = {...c.Code};
     changeEntryType(c.CodeValue, 'http://standardhealthrecord.org/spec/shr/core/CodeValue');
     delete c.Code;
@@ -97,6 +98,54 @@ const mapCondition = (resultJson , entryJson) => {
     mapAnatomicalLocation(resultJson, entryJson.AnatomicalLocation);
 };
 
+const mapMedication = (resultJson, medication) => {
+    resultJson.MedicationCodeOrReference = { ...medication.Type };
+    changeEntryType(resultJson.MedicationCodeOrReference, 'http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference');
+    // debugger;
+    // mapCodingArray(resultJson.MedicationCodeOrReference.Value.Coding);
+
+    // NOTE: OverTheCounter is a field on v05 shr.entity.Medication, but not available in v09 if we translate to a code vs a ref(Medication)
+};
+
+const mapDosage = (resultJson, dosage) => {
+    // structure is the same but all the profiles changed from shr.medication to shr.core
+    resultJson.Dosage = { ...dosage };
+
+    changeEntryType(resultJson.Dosage, 'http://standardhealthrecord.org/spec/shr/core/Dosage');
+    changeEntryType(resultJson.Dosage.DoseAmount, 'http://standardhealthrecord.org/spec/shr/core/DoseAmount');
+    mapCoding(resultJson.Dosage.DoseAmount.Value.Units.Value);
+    changeEntryType(resultJson.Dosage.TimingOfDoses, 'http://standardhealthrecord.org/spec/shr/core/TimingOfDoses');
+    if (resultJson.Dosage.TimingOfDoses.Value.RecurrencePattern &&
+        resultJson.Dosage.TimingOfDoses.Value.RecurrencePattern.RecurrenceInterval) {
+        mapCoding(resultJson.Dosage.TimingOfDoses.Value.RecurrencePattern.RecurrenceInterval.Value.Units.Value);
+    }
+    if (resultJson.Dosage.TimingOfDoses.Value.TimingCode) {
+        mapCodingArray(resultJson.Dosage.TimingOfDoses.Value.TimingCode.Value.Coding);
+    }
+    changeEntryType(resultJson.Dosage.AsNeededIndicator, 'http://standardhealthrecord.org/spec/shr/core/AsNeededIndicator');
+    changeEntryType(resultJson.Dosage.RouteIntoBody, 'http://standardhealthrecord.org/spec/shr/core/RouteIntoBody');
+    mapCodingArray(resultJson.Dosage.RouteIntoBody.Value.Coding);
+    changeEntryType(resultJson.Dosage.DosageInstructionsText, 'http://standardhealthrecord.org/spec/shr/core/DosageInstructionsText');
+    if (resultJson.Dosage.AdditionalDosageInstruction)
+        resultJson.Dosage.AdditionalDosageInstruction.forEach(adi => changeEntryType(adi, 'http://standardhealthrecord.org/spec/shr/core/AdditionalDosageInstruction'));
+};
+
+const mapReasons = (resultJson, reasons) => {
+    if (!reasons) return;
+
+    resultJson.ReasonReference = [];
+    // resultJson.ReasonCode = [];
+    reasons.forEach((r) => {
+        if (isReference(r.Value))  {
+            changeEntryType(r, 'http://standardhealthrecord.org/spec/shr/core/ReasonReference');
+            r.Value._EntryType = 'http://standardhealthrecord.org/spec/onco/core/CancerCondition';
+            resultJson.ReasonReference.push(r);
+        } else {
+            // TODO: handle ReasonCode?
+        }
+    });
+};
+
 const mapRelevantTime = (resultJson, relevantTime) => {
     resultJson.RelevantTime = { ...relevantTime };
     changeEntryType(resultJson.RelevantTime, 'http://standardhealthrecord.org/spec/shr/core/RelevantTime');
@@ -145,6 +194,7 @@ export function mapEntries(v05Json) {
         const resultJson = {};
 
         const authoredDateTime = entry.Metadata ? { ...entry.Metadata.AuthoredDateTime } : null;
+        const informationRecorder = entry.Metadata && entry.Metadata.InformationRecorder;
         mapEntryInfo(resultJson, entry);
         switch (elementName) {
             case 'AllergyIntolerance': {
@@ -306,6 +356,84 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'MedicationRequested': {
+
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/MedicationRequest');
+
+                if (authoredDateTime) {
+                    resultJson.StatementDateTime = { ...authoredDateTime };
+                    changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
+                }
+
+                if (informationRecorder) {
+                    // we used metadata.informationRecorder as the prescriber, which should actually be represented as a Practitioner reference
+                    // but for now i'm doing this crazy hack
+                    resultJson.Narrative = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/Narrative',
+                        },
+                        NarrativeText: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/NarrativeText',
+                            },
+                            Value: informationRecorder
+                        },
+                        NarrativeQualifier: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/NarrativeQualifier',
+                            },
+                            Value: {
+                                "EntryType": {
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+                                },
+                                "Coding": [
+                                    {
+                                        "EntryType": {
+                                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                                        },
+                                        "CodeValue": {
+                                            "EntryType": {
+                                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+                                            },
+                                            "Value": "420158005"
+                                        },
+                                        "CodeSystem": {
+                                            "EntryType": {
+                                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                                            },
+                                            "Value": "http://snomed.info/sct"
+                                        }
+                                    }
+                                ],
+                                "DisplayText": {
+                                    "EntryType": {
+                                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                                    },
+                                    "Value": "Performer"
+                                }
+                            }
+                        }
+                    };
+                }
+
+                mapReasons(resultJson, entry.Reason);
+
+                resultJson.Status = { ...entry.Status };
+                mapCodingArray(resultJson.Status.Value.Coding);
+
+
+                resultJson.ExpectedPerformanceTime = { ...entry.ExpectedPerformanceTime };
+                changeEntryType(resultJson.ExpectedPerformanceTime, 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime');
+
+                mapMedication(resultJson, entry.Medication);
+                mapDosage(resultJson, entry.Dosage);
+
+                resultJson.NumberOfRefillsAllowed = { ...entry.NumberOfRefillsAllowed };
+                changeEntryType(resultJson.NumberOfRefillsAllowed, 'http://standardhealthrecord.org/spec/shr/core/NumberOfRefillsAllowed');
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'Observation': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Observation');
 
@@ -372,20 +500,8 @@ export function mapEntries(v05Json) {
             case 'ProcedureRequested': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ProcedureRequest');
 
-                if (entry.Reason) {
-                    resultJson.ReasonReference = [];
-                    // resultJson.ReasonCode = [];
-                    entry.Reason.forEach((r) => {
-                        if (isReference(r.Value))  {
-                            changeEntryType(r, 'http://standardhealthrecord.org/spec/shr/core/ReasonReference');
-                            changeEntryType(r.Value, 'http://standardhealthrecord.org/spec/onco/core/CancerCondition');
-                            resultJson.ReasonReference.push(r);
-                        } else {
-                            // TODO: handle ReasonCode. I think there is only one example of a non-reference, "proactive" in Ella's mammography
-                        }
-                    });
-                }
-
+                mapReasons(resultJson, entry.Reason);
+                // TODO: handle ReasonCode. I think there is only one example of a non-reference, "proactive" in Ella's mammography
 
                 resultJson.Status = {...entry.Status};
                 mapCodingArray(resultJson.Status.Value.Coding);
