@@ -69,7 +69,7 @@ class McodeV05SmartOnFhirDataSource extends IDataSource {
     }
 
     _handleResponseBundle(newBundle, prevBundle=null) {
-        if (prevBundle) {
+        if (prevBundle && newBundle && newBundle.entry) {
             // merge the entries from the previous bundle into the new one
             newBundle.entry.unshift(...prevBundle.entry);
             newBundle.total = newBundle.entry.length;
