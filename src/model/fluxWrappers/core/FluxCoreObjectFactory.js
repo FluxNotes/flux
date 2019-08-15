@@ -21,6 +21,7 @@ import FluxReferralRequest from './FluxReferralRequest';
 import FluxMedicationStatement from './FluxMedicationStatement';
 import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
 import FluxQuestionnaireResponse from './FluxQuestionnaireResponse';
+import FluxAdverseDrugReaction from './FluxAdverseDrugReaction';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -30,6 +31,7 @@ export default class FluxCoreObjectFactory {
         }
         // returns Flux wrapper class if found, otherwise use ShrCoreObjectFactory
         switch (elementName) {
+            case 'AdverseDrugReaction': return new FluxAdverseDrugReaction(json, patientRecord);
             case 'AllergyIntolerance': return new FluxAllergyIntolerance(json);
             case 'BloodPressure': return new FluxBloodPressure(json);
             case 'BodyTemperature': return new FluxBodyTemperature(json);
