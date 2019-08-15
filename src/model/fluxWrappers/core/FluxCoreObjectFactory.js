@@ -48,7 +48,7 @@ export default class FluxCoreObjectFactory {
             case 'Procedure': return new FluxProcedure(json);
             case 'ProcedureRequest': return new FluxProcedureRequest(json);
             case 'QuestionnaireResponse': return new FluxQuestionnaireResponse(json);
-            case 'ReferralRequest': return new FluxReferralRequest(json);
+            case 'ReferralRequest': return new FluxReferralRequest(json, patientRecord);
             case 'ResearchStudy': return new FluxResearchStudy(json);
             case 'ResearchSubject': return new FluxResearchSubject(json);
             default: return ShrCoreObjectFactory.createInstance(json, type);
