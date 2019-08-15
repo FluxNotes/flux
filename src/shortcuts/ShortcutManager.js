@@ -274,7 +274,6 @@ class ShortcutManager {
                         addTriggerForCurrentShortcut.bind(this)({
                             name: item.label,
                             description: item.description ? item.description : 'Incomplete placeholder for ' + item.label,
-                            picker: true
                         }, item);
                     }
                 }
@@ -406,7 +405,7 @@ class ShortcutManager {
         // triggers is the computed options based on the valueset defined in metadata
         const triggers = this.getTriggersForShortcut(shortcutId, context);
 
-        // Filter out the label from triggers if there are defined triggers that can be added
+        // Filter out the label from triggers if there are defined stringTriggers that can be added
         return triggers.filter(t =>  stringTriggers.length === 0 || t.name !== label);
     }
 
