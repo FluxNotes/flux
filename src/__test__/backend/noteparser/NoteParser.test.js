@@ -3,7 +3,7 @@ import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, decea
     clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON, reduceMedicationJSON } from './NoteParserUtils';
 import FluxCancerDiseaseStatus from '../../../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
 import FluxTNMClinicalStageGroup from '../../../model/oncocore/FluxTNMClinicalStageGroup';
-import FluxToxicReaction from '../../../model/adverse/FluxToxicAdverseDrugReaction';
+import FluxToxicReaction from '../../../model/core/FluxAdverseDrugReaction';
 import FluxDeathInformation from '../../../model/entity/FluxDeathInformation';
 import FluxResearchSubject from '../../../model/research/FluxResearchSubject';
 import FluxMedicationChange from '../../../model/medication/FluxMedicationChange';
