@@ -500,6 +500,17 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'TumorDimensions': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TumorDimensions');
+                mapRelevantTime(resultJson, entry.RelevantTime);
+                mapFindingStatus(resultJson, entry.FindingStatus);
+                mapFindingResult(resultJson, entry.FindingResult);
+                mapFindingTopicCode(resultJson, entry.FindingTopicCode);
+                mapCoding(resultJson.DataValue.Value.Units.Value);
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'TumorMarker': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/TumorMarkerTest');
 
