@@ -218,7 +218,19 @@ class FluxMedicationRequest extends FluxEntry {
      * Returns author string
      */
     get prescribedBy() {
-        return this._medicationRequest.metadata.informationRecorder || null;
+        if (this._medicationRequest.metadata && this._medicationRequest.metadata.informationRecorder) {
+            return this._medicationRequest.metadata.informationRecorder; 
+        }
+
+        if (this._medicationRequest.narrative 
+            && this._medicationRequest.narrative.narrativeQualifier 
+            && this._medicationRequest.narrative.narrativeQualifier.value.coding[0].codeValue.value === '420158005'
+            && this._medicationRequest.narrative.narrativeText) {
+            // secret code for Performer
+            return this._medicationRequest.narrative.narrativeText.value;
+        }
+
+        return null;
     }
 
     /*
