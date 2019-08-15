@@ -483,6 +483,24 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'ImagingProcedurePerformed': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/ImagingProcedure');
+                mapReasons(resultJson, entry.Reason);
+
+                resultJson.Status = {...entry.Status};
+                mapCodingArray(resultJson.Status.Value.Coding);
+
+                resultJson.Code = {...entry.ProcedureCode};
+                changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+
+                resultJson.OccurrenceTimeOrPeriod = { ...entry.OccurrenceTimeOrPeriod };
+                if (entry.Annotation) {
+                    resultJson.Annotation = [ ...entry.Annotation ];
+                }
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'Observation': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Observation');
 

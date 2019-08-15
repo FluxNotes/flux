@@ -14566,15 +14566,15 @@
                                 "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
                             },
                             "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"
+                        },
+                       "DisplayText": {
+                            "EntryType": {
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+                            },
+                            "Value": "completed"
                         }
                     }
-                ],
-                "DisplayText": {
-                    "EntryType": {
-                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-                    },
-                    "Value": "completed"
-                }
+                ]
             }
         },
         "ProcedureCode": {
