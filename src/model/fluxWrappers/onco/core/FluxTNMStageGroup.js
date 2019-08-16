@@ -1,5 +1,4 @@
 import RelevantTime from '../../../shr/core/RelevantTime';
-import FluxMitoticRate from '../../oncology/FluxMitoticRate';
 import * as lookup from '../../../../lib/tnmstage_lookup.jsx';
 import * as staging from '../../../../lib/staging.jsx';
 import DataValue from '../../../shr/core/DataValue';
@@ -181,12 +180,6 @@ export default class FluxTNMStageGroup extends FluxEntry {
             }
         }
         this._calculateStage();
-    }
-
-    get mitoticRate() {
-        const mitoticRate = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxMitoticRate);
-        if (!mitoticRate) return null;
-        return mitoticRate.value;
     }
 
     /*

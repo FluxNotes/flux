@@ -515,6 +515,7 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'MitoticRate': // removing the MitoticRate class and just making it a generic Observation
             case 'Observation': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Observation');
 
@@ -523,7 +524,12 @@ export function mapEntries(v05Json) {
                 mapFindingTopicCode(resultJson, entry.FindingTopicCode);
 
                 mapFindingResult(resultJson, entry.FindingResult);
-                mapCoding(resultJson.DataValue.Value.Units.Value);
+                if (resultJson.DataValue.Value.Units) {
+                    mapCoding(resultJson.DataValue.Value.Units.Value);
+                }
+                if (resultJson.DataValue.Value.Coding) {
+                    mapCodingArray(resultJson.DataValue.Value.Coding);
+                }
 
                 v09Json.push(resultJson);
                 break;
