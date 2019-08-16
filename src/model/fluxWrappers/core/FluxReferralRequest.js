@@ -18,7 +18,8 @@ class FluxReferralRequest {
     }
 
     get reasonReference() {
-        return this._referralRequest.reasonReference;
+        // DP: Is this an appropriate change here?
+        return this._referralRequest.commentOrDescription.value;
     }
 
     get expectedPerformanceTime() {
