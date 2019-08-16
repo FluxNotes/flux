@@ -59,7 +59,7 @@ export default class MetadataSection {
 
         else if (entry.value instanceof Media) {
             return {
-                link: entry.value.resourceLocation.uri
+                link: entry.value.attachment.resourceLocation.uri
             };
         }
 

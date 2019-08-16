@@ -534,6 +534,70 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'PathologyReport': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/DiagnosticReport');
+                mapRelevantTime(resultJson, entry.RelevantTime);
+
+                if (informationRecorder) {
+                    const practitionerEntryID = getOrCreatePractitionerByName(v09Json, informationRecorder, nextEntryId++, { ...resultJson.ShrId });
+
+                    resultJson.Participation = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/Participation'
+                        },
+                        Participant: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/Participant'
+                            },
+                            Value: {
+                                _ShrId: entry.ShrId,
+                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                                _EntryId: `${practitionerEntryID}`
+                            }
+                        }
+                    };
+                }
+
+                const pdfEntryId = nextEntryId++;
+                const newMedia = {
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/shr/core/Media'
+                    },
+                    ShrId: {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/base/ShrId',
+                        },
+                        Value: entry.ShrId,
+                    },
+                    EntryId: {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId',
+                        },
+                        Value: `${pdfEntryId}`
+                    },
+                    Attachment: {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/Attachment'
+                        },
+                        ResourceLocation: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/ResourceLocation'
+                            },
+                            Value: entry.FindingResult.Value.ResourceLocation.Value
+                        }
+                    }
+                };
+                v09Json.push(newMedia);
+
+                resultJson.Media = {
+                    _ShrId: entry.ShrId,
+                    _EntryId: `${pdfEntryId}`,
+                    _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Media'
+                };
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'Patient': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/Patient');
 
