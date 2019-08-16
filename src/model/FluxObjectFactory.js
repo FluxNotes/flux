@@ -1,7 +1,6 @@
 import { getNamespaceAndName, uuid } from './json-helper';
 import ObjectFactory from './ObjectFactory';
 import FluxOncocoreObjectFactory from './fluxWrappers/onco/core/FluxOncocoreObjectFactory';
-import FluxAllergyObjectFactory from './fluxWrappers/allergy/FluxAllergyObjectFactory';
 import FluxBaseObjectFactory from './fluxWrappers/base/FluxBaseObjectFactory';
 import FluxCoreObjectFactory from './fluxWrappers/core/FluxCoreObjectFactory';
 import FluxFindingObjectFactory from './fluxWrappers/finding/FluxFindingObjectFactory';
@@ -16,7 +15,6 @@ export default class FluxObjectFactory {
     static createInstance(json, type, patientRecord) {
         const { namespace } = getNamespaceAndName(json, type);
         switch (namespace) {
-            case 'shr.allergy': return FluxAllergyObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.base': return FluxBaseObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.core': return FluxCoreObjectFactory.createInstance(json, type, patientRecord);
             case 'shr.finding': return FluxFindingObjectFactory.createInstance(json, type, patientRecord);
