@@ -301,7 +301,7 @@ class PatientRecord {
         if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
         // Tried replacing breast cancer condition text to establish condition context
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
-        return nextEncounter.reasons.map((r) => { return r.value; }).join(',');
+        return nextEncounter.reasonReference;
     }
 
     getPreviousEncountersChronologicalOrder(sinceDate = '') {
@@ -328,7 +328,7 @@ class PatientRecord {
     getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
         if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
-        return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
+        return previousEncounter.reasonReference;
     }
 
     getTodayOrMostRecentEncounterDate() {
@@ -360,18 +360,14 @@ class PatientRecord {
             return "No review of systems found in record.";
         }
 
-        // get FluxQuestionAnswer instances from references
-        const members = ros.members.map((m) => {
-            return this.getEntryFromReference(m);
-        });
         // get all the questionAnswers that have a value of true
-        const trueAnswers = members.filter((m) => {
+        const trueAnswers = ros.members.filter((m) => {
             return m.value === true;
         }).map((m) => {
             return m.questionText;
         });
 
-        result = `A complete ${members.length} point ROS was done and was unremarkable`;
+        result = `A complete ${ros.members.length} point ROS was done and was unremarkable`;
         if (trueAnswers.length >= 3) {
             result += ` except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}`;
         } else if (trueAnswers.length === 2) {
