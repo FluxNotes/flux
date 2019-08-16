@@ -50,12 +50,12 @@
     "id": "StagingCreator",
     "name": "staging",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/oncocore/TNMClinicalStageGroup",
+    "valueObject": "http://standardhealthrecord.org/spec/onco/core/TNMClinicalStageGroup",
     "valueObjectAttributes": [  {"name":"T", "attribute":"t_Stage", "isSettable":"true", "setMethod":"t_Stage", "childShortcut": "StagingTCreator"},
                                 {"name":"N", "attribute":"n_Stage", "isSettable":"true", "setMethod":"n_Stage", "childShortcut": "StagingNCreator"},
                                 {"name":"M", "attribute":"m_Stage", "isSettable":"true", "setMethod":"m_Stage", "childShortcut": "StagingMCreator"},
                                 {"name":"stage", "attribute":"stage", "isSettable":"false"} ],
-    "updatePatient": [ 
+    "updatePatient": [
                         {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}
     ],
@@ -70,7 +70,7 @@
                       ]
     },
     "structuredPhrase": "${*staging} ${T} ${N}${% ${M}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "description": "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.",
     "structuredPhraseDocumentation": "stagingSheet.pdf"
@@ -106,7 +106,7 @@
     "id": "ProgressionCreator",
     "name": "disease status",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/oncocore/CancerProgression",
+    "valueObject": "http://standardhealthrecord.org/spec/onco/core/CancerDiseaseStatus",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ProgressionStatusCreator"},
                                 {"name":"reasons", "attribute":"evidence[]", "isSettable":"true", "setMethod": "evidence", "childShortcut": "ProgressionReasonsCreator"},
                                 {"name":"referenceDate", "childShortcut": "ProgressionReferenceDateCreator"},
@@ -127,7 +127,7 @@
                                   ]
                 },
     "structuredPhrase": "${*disease status}${% is ${status}}${% based on ${reasons}}${& relative to ${reference date} ${referenceDateDate}}${& ${as of} ${asOfDateDate}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "description": "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.",
     "structuredPhraseDocumentation": "diseaseStatusSheet.pdf"
@@ -177,7 +177,7 @@
     "id": "ToxicityCreator",
     "name": "toxicity",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/AdverseDrugReaction",
     "valueObjectAttributes": [  {"name":"grade", "attribute":"seriousness", "isSettable":"true", "setMethod": "seriousness", "childShortcut": "ToxicityGradeCreator"},
                                 {"name":"adverseEvent", "attribute":"type", "isSettable":"true", "setMethod": "type", "childShortcut": "ToxicityAdverseEventCreator"},
                                 {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "ToxicityAttributionCreator"},
@@ -188,7 +188,7 @@
     "stringTriggers": [{ "name": "#toxicity", "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010)."}],
     "regexpTrigger": null,
     "form": "ToxicityForm",
-    "formSpec": {   
+    "formSpec": {
         "title": "Toxicity",
         "multiplicity": "many",
         "attributes": [ {   "title":"Adverse Event", "name":"adverseEvent", "type":"searchableList", "values": {"category":"toxicity", "valueSet":"adverseEvent", "topAdverseEventSection": ["Febrile neutropenia", "Fatigue", "Generalized muscle weakness","Anemia","Nausea","Platelet count decreased"]} },
@@ -197,7 +197,7 @@
                       ]
     },
     "structuredPhrase": "${*toxicity} of ${grade} ${adverseEvent}${% related to ${attribution}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
     "structuredPhraseDocumentation": "toxicitySheet.pdf"
@@ -239,8 +239,8 @@
     "id": "ClinicalTrialCreator",
     "name": "enrollment",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
-    "valueObjectAttributes": [  
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/ResearchSubject",
+    "valueObjectAttributes": [
         {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"},
         {"name":"date", "attribute":"enrollmentDate", "isSettable":"true", "setMethod": "enrollmentDate", "default": "$today", "childShortcut": "DateCreator"}
     ],
@@ -264,11 +264,11 @@
     "id": "ClinicalTrialUnenrolledCreator",
     "name": "unenrolled",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/research/ResearchSubject",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/ResearchSubject",
     "idAttributes": [
         {"name":"title", "attribute":"title", "isSettable":"true", "setMethod": "title", "childShortcut": "ClinicalTrialTitleCreator"}
     ],
-    "valueObjectAttributes": [  
+    "valueObjectAttributes": [
         {"name":"date", "attribute":"endDate", "isSettable":"true", "setMethod": "endDate", "childShortcut": "DateCreator"}
     ],
     "updatePatient": [  {"object":"$valueObject", "attribute": "status", "args": [ "completed"]} ],
@@ -285,7 +285,7 @@
     "id": "DeceasedCreator",
     "name": "deceased",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/entity/DeathInformation",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/Deceased",
     "valueObjectAttributes": [  {"name":"date", "attribute":"dateOfDeath", "isSettable":"true", "setMethod": "dateOfDeath", "childShortcut": "DateCreator"} ],
     "updatePatient": [{"object":"patient", "method": "setDeceased", "args": [ "$valueObject" ]},
                       {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
@@ -352,16 +352,16 @@
     "id": "EstrogenReceptorCreator",
     "name": "ER",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/oncocore/TumorMarker",
+    "valueObject": "http://standardhealthrecord.org/spec/onco/core/TumorMarkerTest",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ReceptorStatusCreator"}],
-    "updatePatient": [ {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}, 
+    "updatePatient": [ {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]},
                        {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]},
                        {"object":"$valueObject", "method": "setReceptorType", "args": ["Estrogen Receptor"]}
                       ],
     "isContext": true,
     "stringTriggers": [{ "name": "#ER", "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."}],
     "regexpTrigger": null,
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "disabled": true,
     "description": "Estrogen receptors (ERs) are a group of proteins found inside cells. They are receptors that are activated by the hormone estrogen. Estrogen receptors may be found in breast cancer cells (ER positive). Cancer cells with these receptors depend on estrogen to grow."
@@ -381,12 +381,12 @@
     },
     "description":"?",
     "shortcutGroupName":"Receptor"
-  }, 
+  },
   { "type": "SingleHashtagKeyword",
     "id": "ProgesteroneReceptorCreator",
     "name": "PR",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/oncocore/TumorMarker",
+    "valueObject": "http://standardhealthrecord.org/spec/onco/core/TumorMarkerTest",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ReceptorStatusCreator"}],
     "updatePatient": [ {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]},
                        {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]},
@@ -395,16 +395,16 @@
     "isContext": true,
     "stringTriggers": [{ "name": "#PR", "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."}],
     "regexpTrigger": null,
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "disabled": true,
     "description": "The progesterone receptor (PR) is a protein found inside cells. It is activated by the steroid hormone progesterone. Progesterone receptors may be found in breast cancer cells (PR positive). Cancer cells with these receptors depend on progesterone to grow."
   },
   { "type": "SingleHashtagKeyword",
     "id": "HumanEpiduralGrowthFactorReceptor2Creator",
-    "name": "HER2",  
+    "name": "HER2",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/oncocore/TumorMarker",
+    "valueObject": "http://standardhealthrecord.org/spec/onco/core/TumorMarkerTest",
     "valueObjectAttributes": [  {"name":"status", "attribute":"status", "isSettable":"true", "setMethod": "status", "childShortcut": "ReceptorStatusCreator"}],
     "updatePatient": [ {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]},
                        {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]},
@@ -413,7 +413,7 @@
     "isContext": true,
     "stringTriggers": [{ "name": "#HER2", "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment."}],
     "regexpTrigger": null,
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "disabled": true,
     "description": "Human epidermal growth factor receptor 2 (HER2) is a protein involved in normal cell growth. It is found on some types of cancer cells (HER2 positive), including breast and ovarian. Cancer cells removed from the body may be tested for the presence of human epidermal growth factor receptor 2 to help decide the best type of treatment."
@@ -445,7 +445,7 @@
     "isContext": false,
     "isEditable": true,
     "stringTriggers": [{"name": "@ONCOHIST", "description": "Insert patient's oncology history"}],
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter"
   },
   {
@@ -573,7 +573,7 @@
     "name": "nlptoxicity",
     "nlpTemplate": "toxicity",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/adverse/ToxicAdverseDrugReaction",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/AdverseDrugReaction",
     "valueObjectAttributes": [  {"name":"grade", "attribute":"seriousness", "isSettable":"true", "setMethod": "seriousness", "childShortcut": "ToxicityGradeCreator"},
                                 {"name":"adverseEvent", "attribute":"type", "isSettable":"true", "setMethod": "type", "childShortcut": "ToxicityAdverseEventCreator"},
                                 {"name":"attribution", "attribute":"causeCategory", "isSettable":"true", "setMethod": "causeCategory", "childShortcut": "ToxicityAttributionCreator"} ],
@@ -584,7 +584,7 @@
     "regexpTrigger": null,
     "form": "ToxicityForm",
     "structuredPhrase": "{*nlptoxicity} of ${grade} ${adverseEvent}${% related to ${attribution}}",
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition"],
     "knownParentContexts": "ConditionInserter",
     "description": "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).",
     "structuredPhraseDocumentation": "nlptoxicitySheet.pdf"
@@ -601,7 +601,7 @@
     "getData": {"object": "$parentValueObject", "method": "getMostRecentLabResultsAsText"},
     "isContext": false,
     "stringTriggers": [{"name": "@recent labs", "description": "Insert patient's recent lab results"}],
-    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/oncocore/CancerDisorderPresent", "http://standardhealthrecord.org/spec/shr/condition/Injury"],
+    "contextValueObjectEntryTypes": ["http://standardhealthrecord.org/spec/onco/core/CancerCondition", "http://standardhealthrecord.org/spec/shr/core/Condition"],
     "knownParentContexts": "ConditionInserter"
   },
   { "type": "InsertValue",
