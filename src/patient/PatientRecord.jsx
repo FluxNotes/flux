@@ -6,7 +6,6 @@ import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerD
 import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
 import FluxMedicationStatement from '../model/fluxWrappers/core/FluxMedicationStatement';
-import FluxNoKnownAllergy from '../model/fluxWrappers/allergy/FluxNoKnownAllergy';
 import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
 import FluxPatientIdentifier from '../model/fluxWrappers/base/FluxPatientIdentifier';
 import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
@@ -450,10 +449,7 @@ class PatientRecord {
 
     // gets all allergy entries from patient
     getAllAllergies() {
-        let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
-        const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
-        const allAllergies = allergies.concat(noKnownAllergies);
-        return allAllergies;
+        return this.getEntriesIncludingType(FluxAllergyIntolerance);
     }
 
     getAllergyIntolerancesSortedBySeverity() {
@@ -464,13 +460,6 @@ class PatientRecord {
     getAllergyIntolerances() {
         return this.getAllAllergies().filter((a) => {
             return a instanceof FluxAllergyIntolerance;
-        });
-    }
-
-    // gets all no known allergies
-    getNoKnownAllergies() {
-        return this.getAllAllergies().filter((a) => {
-            return a instanceof FluxNoKnownAllergy;
         });
     }
 
@@ -498,9 +487,7 @@ class PatientRecord {
             if (!first) {
                 result += "\r\n";
             }
-            if (allergy instanceof FluxNoKnownAllergy) {
-                result += allergy.noKnownAllergy;
-            } else if (allergy instanceof FluxAllergyIntolerance) {
+            if (allergy instanceof FluxAllergyIntolerance) {
                 result += allergy.name;
             } else {
                 result += allergy.value.coding[0].displayText.value;
