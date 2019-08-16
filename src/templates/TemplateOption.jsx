@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TemplateOptionPreviewButton from './TemplateOptionPreviewButton';
 import Lang from 'lodash';
-import Tooltip from 'material-ui/Tooltip';
+import Popover from 'material-ui/Popover';
 import "./TemplateOption.css";
 
 export default class TemplateOption extends Component {
@@ -10,7 +10,7 @@ export default class TemplateOption extends Component {
     constructor() {
         super();
         this.state = {
-            isModalOpen: false,
+            isPopoverOpen: false,
             modalContent: "",
         };
 
@@ -38,22 +38,35 @@ export default class TemplateOption extends Component {
         }
     }
 
+    handleClick = () => {
+        this.setState({ isPopoverOpen: true });
+    }
+
+    handlePopoverClose = () => {
+        this.setState({ isPopoverOpen: false });
+    }
+
+    // only returns a popover if the preview has content, i.e. not a blank note
     getPreviewButton = () => {
         if (!Lang.isEqual(this.props.content, "")) {
             return (
-                <Tooltip
-                    title={this.formatText(this.props.content)}
-                    classes={{ tooltip: 'preview-tooltip', popper: 'tooltip-position' }}
-                >
-                    <div>
-                        <TemplateOptionPreviewButton />
-                    </div>
-                </Tooltip>
+                <div>
+                    <TemplateOptionPreviewButton onClick={this.handleClick} />
+                    <Popover
+                        open={this.state.isPopoverOpen}
+                        onClose={this.handlePopoverClose}
+                        classes={{ paper: 'popover-style' }}
+                    >
+                        {this.formatText(this.props.content)}
+                    </Popover>
+                </div>
+
             );
         }
         return "";
     }
 
+    // bolds all of the lines that come after a blank line to highlight the title lines
     formatText = (text) => {
         let prevString = "";
         return (

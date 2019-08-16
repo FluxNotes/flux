@@ -42,37 +42,23 @@
         color: $state;
         text-overflow: ellipsis;
     }
+}
 
-    .bolded {
-        font-weight: bold;
-    }
+.bolded {
+    font-weight: bold;
+}
 
-    .preview-tooltip {
-        background-color: $contrast-gray;
-        color: black;
-        position: fixed !important;
-        padding: 4px 8px;
-        font-size: 12px;
-        line-height: 16px;
-        border-radius: 10px;
-        border-style: solid;
-        border-width: 2px;
-        border-color: black;
-        overflow-y: hidden;
-        width: 50vw;
-        height: 35vh;
-        transform: translate(72%, 105%);
-    }
-
-    .tooltip-position {
-        position: fixed !important;
-        left: 200%;
-        top: 100%;
-        // transform: translate(-65%, -10%) !important,
-        // transform: translate(105%, 110%) !important;
-    }
-
-    // .tooltip-placement {
-    //     margin: 200px;s
-    // }
+.popover-style {
+    background-color: $contrast-gray !important;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    width: 50% !important;
+    height: 35% !important;
+    left: 41% !important;
+    top: 50% !important;
+    padding: 5px;
+    margin: 5px;
+    overflow-y: auto !important;
 }

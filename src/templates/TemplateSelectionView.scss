@@ -3,6 +3,7 @@
 $cancel-button-height: 65px;
 
 #template-option-container {
+    position: relative;
     text-align: left;
     /* 92x is the height of the on large screens Patient Control Panel, 15px is the height of the top margin of post encounter view content and a little extra for potential scroll bars*/
     max-height: calc(100vh - 92px - 15px - #{$cancel-button-height});
