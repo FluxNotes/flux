@@ -56,7 +56,7 @@
                                 {"name":"M", "attribute":"m_Stage", "isSettable":"true", "setMethod":"m_Stage", "childShortcut": "StagingMCreator"},
                                 {"name":"stage", "attribute":"stage", "isSettable":"false"} ],
     "updatePatient": [
-                        {"object":"$valueObject", "method": "setSpecificFocusOfFinding", "args": [ "$parentValueObject"]},
+                        {"object":"$valueObject", "method": "setPrimaryCancerCondition", "args": [ "$parentValueObject"]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}
     ],
     "isContext": true,
