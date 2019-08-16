@@ -15,7 +15,6 @@ import FluxBodyTemperature from '../model/fluxWrappers/core/FluxBodyTemperature'
 import FluxBodyWeight from '../model/fluxWrappers/core/FluxBodyWeight';
 import FluxHeartRate from '../model/fluxWrappers/core/FluxHeartRate';
 import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
-import FluxPathologyReport from '../model/fluxWrappers/finding/FluxPathologyReport';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import LastUpdated from '../model/shr/core/LastUpdated';
 import Reference from '../model/Reference';
@@ -28,6 +27,7 @@ import Metadata from '../model/shr/core/Metadata';
 import FluxAllergyIntolerance from '../model/fluxWrappers/core/FluxAllergyIntolerance';
 import FluxQuestionnaireResponse from '../model/fluxWrappers/core/FluxQuestionnaireResponse';
 import FluxGenomicsReport from '../model/fluxWrappers/onco/core/FluxGenomicsReport';
+import FluxDiagnosticReport from '../model/fluxWrappers/core/FluxDiagnosticReport';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -902,9 +902,7 @@ class PatientRecord {
     }
 
     getPathologyReports() {
-        var result = this.getEntriesOfType(FluxPathologyReport);
-
-        return result;
+        return this.getEntriesOfType(FluxDiagnosticReport);
     }
 
     getProgressions() {
