@@ -170,7 +170,7 @@ class FluxCancerCondition extends FluxCondition {
     
     _buildHpiNarrativeForGISTGeneticPanels(patient) {
         let hpiText = "";
-        const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+        const geneticpanels = patient.getGenomicsReportChronologicalOrder();
         if (geneticpanels && geneticpanels.length > 0) {
             hpiText += "-";
             const panel = geneticpanels.pop();
@@ -187,7 +187,7 @@ class FluxCancerCondition extends FluxCondition {
     // assumed to be undefined for other cancer types so only returns a value if this is a GIST cancer
     getGeneticMutationValue(geneticMutationAbbreviatedName, patient) {
         if (this.isCancerType("Gastrointestinal stromal tumor")) {
-            const geneticpanels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+            const geneticpanels = patient.getGenomicsReportChronologicalOrder();
             const panel = geneticpanels.pop();
             const mutation = panel.members.find((item) => {
                 return (item.abbreviatedName.startsWith(geneticMutationAbbreviatedName));

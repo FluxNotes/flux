@@ -178,7 +178,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             name: "Genetics",
                             value: (patient, currentConditionEntry) => {
                                 // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
-                                const panels = patient.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
+                                const panels = patient.getGenomicsReportChronologicalOrder();
                                 if (!panels || panels.length === 0) return null;
                                 const panel = panels.pop();
                                 return  {   value: panel.members.filter((item) => {
