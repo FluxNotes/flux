@@ -233,6 +233,8 @@ export function mapEntries(v05Json) {
 
     let nextEntryId = v05Json.map(e => e.EntryId).reduce((a, b) => Math.max(a, b)) + 1;
 
+    v05Json = JSON.parse(JSON.stringify(v05Json)); // dup the JSON to ensure we don't unintentionally modify it. this prevents certain test cases from breaking where the same file is imported twice
+
     v05Json.forEach((entry) => {
         const { elementName } = getNamespaceAndName(entry);
         const resultJson = {};
