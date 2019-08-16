@@ -775,7 +775,7 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
-            // The genetic markers below are all mapped the same way
+            // The genetic mutations below are all mapped the same way
             case 'BRCA1Variant':
             case 'BRCA2Variant':
             case 'KITVariant':
@@ -795,6 +795,25 @@ export function mapEntries(v05Json) {
                     }
                 };
                 mapCodingArray(resultJson.MutationTested.VariantIdentifier.Value.Coding);
+
+                v09Json.push(resultJson);
+                break;
+            }
+            // The genetic analysis panels are all mapped the same way
+            case 'BreastCancerGeneticAnalysisPanel':
+            case 'GastrointestinalStromalTumorCancerGeneticAnalysisPanel': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/onco/core/GenomicsReport');
+                mapRelevantTime(resultJson, entry.RelevantTime);
+
+                resultJson.Observation = entry.PanelMembers.Observation.map((o) => {
+                    const { _ShrId, _EntryId } = o;
+
+                    return {
+                        _ShrId,
+                        _EntryId,
+                        _EntryType: 'http://standardhealthrecord.org/spec/onco/core/GeneticMutationTestResult'
+                    };
+                });
 
                 v09Json.push(resultJson);
                 break;

@@ -13,6 +13,7 @@ import FluxTumorMarkerTest from './FluxTumorMarkerTest';
 import OncoCoreObjectFactory from '../../../onco/core/OncoCoreObjectFactory';
 import FluxTumorDimensions from '../../tumor/FluxTumorDimensions';
 import FluxGeneticMutationTestResult from './FluxGeneticMutationTestResult';
+import FluxGenomicsReport from './FluxGenomicsReport';
 
 export default class FluxOncocoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -30,6 +31,7 @@ export default class FluxOncocoreObjectFactory {
             case 'CancerHistologicGrade': return new FluxCancerHistologicGrade(json, type, patientRecord);
             case 'CancerHistologicType': return new FluxCancerHistologicType(json, type, patientRecord);
             case 'GeneticMutationTestResult': return new FluxGeneticMutationTestResult(json);
+            case 'GenomicsReport': return new FluxGenomicsReport(json, patientRecord);
             case 'TumorDimensions': return new FluxTumorDimensions(json);
             case 'TumorMarkerTest': return new FluxTumorMarkerTest(json);
             case 'TNMClinicalStageGroup': return new FluxTNMClinicalStageGroup(json, patientRecord);
