@@ -44,16 +44,12 @@
     }
 }
 
-.bolded {
-    font-weight: bold;
-}
-
 .popover-style {
     background-color: $contrast-gray !important;
     border-radius: 5px;
     border-style: solid;
     border-width: 2px;
-    border-color: black;
+    border-color: $icons-gray;
     width: 50% !important;
     height: 35% !important;
     left: 41% !important;
@@ -61,4 +57,31 @@
     padding: 5px;
     margin: 5px;
     overflow-y: auto !important;
+    .popover-container {
+        position: relative !important;
+        height: 100%;
+        overflow-y: auto;
+        .bolded {
+            font-weight: bold;
+        }
+        .close {
+            color: $interface-blue;
+            position: fixed;
+            top: 2%;
+            right: 2%;
+            // margin-right: 2%;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .choose-template {
+            color: $interface-blue;
+            position: fixed;
+            bottom: 2%;
+            right: 2%;
+            // margin-right: 2%;
+        }
+    }
 }

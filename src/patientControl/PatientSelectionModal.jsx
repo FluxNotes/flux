@@ -183,7 +183,7 @@ class PatientSelectionModal extends Component {
             >
                 <div style={this.getModalStyle()} className='modal'>
                     <div className='sticky-header'>
-                        <FontAwesome className='fas fa-times clickable' name='close-icon' onClick={this.handleClose} />
+                        <FontAwesome className='fa-times clickable' name='close-icon' onClick={this.handleClose} />
                         <p className='modal-header'>APPOINTMENTS</p>
                         <hr className='section-divider' />
                     </div>
