@@ -313,7 +313,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "Genetic Testing",
                                     value: (patient, currentConditionEntry) => {
-                                        const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
+                                        const panels = patient.getGenomicsReportChronologicalOrder();
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
                                         return  {   value: panel.members.map((item) => {

@@ -1,7 +1,5 @@
 import { getNamespaceAndName } from '../../json-helper';
-import FluxBreastCancerGeneticAnalysisPanel from './FluxBreastCancerGeneticAnalysisPanel';
 import FluxMitoticRate from './FluxMitoticRate';
-import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from './FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 
 export default class FluxOncologyObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -12,8 +10,6 @@ export default class FluxOncologyObjectFactory {
 
         // returns Flux wrapper class if found, otherwise use ShrOncologyObjectFactory
         switch (elementName) {
-            case 'BreastCancerGeneticAnalysisPanel': return new FluxBreastCancerGeneticAnalysisPanel(json, patientRecord);
-            case 'GastrointestinalStromalTumorCancerGeneticAnalysisPanel': return new FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel(json, patientRecord);
             case 'MitoticRate': return new FluxMitoticRate(json, patientRecord);
             default: console.error("unknown Flux wrapper in oncology package: " + elementName);
         }

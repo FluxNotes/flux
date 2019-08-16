@@ -5,6 +5,14 @@ class FluxEntry {
         return this._entry.entryInfo.sourceClinicalNote;
     }
 
+    get entryInfo() {
+        return this._entry.entryInfo;
+    }
+
+    toJSON() {
+        return this._entry.toJSON();
+    }
+
     /**
      * Extract a human-readable string from a code.
      *

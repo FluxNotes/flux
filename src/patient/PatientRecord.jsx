@@ -1,7 +1,5 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
 import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
-import FluxBreastCancerGeneticAnalysisPanel from '../model/fluxWrappers/oncology/FluxBreastCancerGeneticAnalysisPanel';
-import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/fluxWrappers/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
 import FluxClinicalNote from '../model/fluxWrappers/core/FluxClinicalNote';
 import FluxCondition from '../model/fluxWrappers/core/FluxCondition';
 import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
@@ -30,6 +28,7 @@ import _ from 'lodash';
 import Metadata from '../model/shr/core/Metadata';
 import FluxAllergyIntolerance from '../model/fluxWrappers/core/FluxAllergyIntolerance';
 import FluxQuestionnaireResponse from '../model/fluxWrappers/core/FluxQuestionnaireResponse';
+import FluxGenomicsReport from '../model/fluxWrappers/onco/core/FluxGenomicsReport';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -897,14 +896,8 @@ class PatientRecord {
         });
     }
 
-    getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {
-        let panels = this.getEntriesOfType(FluxBreastCancerGeneticAnalysisPanel);
-        panels.sort(this._relevantTimeTimeSorter);
-        return panels;
-    }
-
-    getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder() {
-        let panels = this.getEntriesOfType(FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel);
+    getGenomicsReportChronologicalOrder() {
+        let panels = this.getEntriesOfType(FluxGenomicsReport);
         panels.sort(this._relevantTimeTimeSorter);
         return panels;
     }
