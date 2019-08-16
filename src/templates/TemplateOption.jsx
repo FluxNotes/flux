@@ -13,8 +13,8 @@ export default class TemplateOption extends Component {
         this.state = {
             isPopoverOpen: false,
         };
-
     }
+
     // Prevent default event behavior, then insert this option's content via the insertTemplateFn
     handleTemplateSelection = (e) => {
         e.preventDefault();
@@ -47,7 +47,7 @@ export default class TemplateOption extends Component {
         this.setState({ isPopoverOpen: false });
     }
 
-    // only returns a popover if the preview has content, i.e. not a blank note
+    // only returns a popover if the preview has content
     getPreviewButton = () => {
         if (!Lang.isEqual(this.props.content, "")) {
             return (

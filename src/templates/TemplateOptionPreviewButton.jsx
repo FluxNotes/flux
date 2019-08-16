@@ -4,6 +4,7 @@ import "./TemplateOptionPreviewButton.css";
 
 export default class TemplateOptionPreviewButton extends Component {
     handleClick = (e) => {
+        // stops note from opening and instead only shows note preview popover
         e.stopPropagation();
         this.props.onClick();
     }
