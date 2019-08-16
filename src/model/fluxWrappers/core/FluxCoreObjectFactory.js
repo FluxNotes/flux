@@ -22,6 +22,7 @@ import FluxMedicationStatement from './FluxMedicationStatement';
 import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
 import FluxQuestionnaireResponse from './FluxQuestionnaireResponse';
 import FluxAdverseDrugReaction from './FluxAdverseDrugReaction';
+import FluxDiagnosticReport from './FluxDiagnosticReport';
 
 export default class FluxCoreObjectFactory {
     static createInstance(json, type, patientRecord) {
@@ -38,6 +39,7 @@ export default class FluxCoreObjectFactory {
             case 'BodyWeight': return new FluxBodyWeight(json);
             case 'ClinicalNote': return new FluxClinicalNote(json);
             case 'Condition': return new FluxCondition(json, type, patientRecord);
+            case 'DiagnosticReport': return new FluxDiagnosticReport(json, patientRecord);
             case 'Encounter': return new FluxEncounter(json);
             case 'HeartRate': return new FluxHeartRate(json);
             case 'ImagingProcedure': return new FluxImagingProcedure(json);
