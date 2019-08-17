@@ -455,6 +455,59 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'MedicationChange': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/MedicationStatement');
+
+                if (authoredDateTime) {
+                    resultJson.StatementDateTime = { ...authoredDateTime };
+                    changeEntryType(resultJson.StatementDateTime, 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime');
+                }
+
+                if (informationRecorder) {
+                    const practitionerEntryID = getOrCreatePractitionerByName(v09Json, informationRecorder, nextEntryId++, { ...resultJson.ShrId });
+
+                    resultJson.MedicationStatementInformationSource = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/MedicationStatementInformationSource'
+                        },
+                        Value: {
+                            _ShrId: entry.ShrId,
+                            _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                            _EntryId: `${practitionerEntryID}`
+                        }
+                    };
+                }
+
+                resultJson.TreatmentIntent = { ...entry.Category };
+                changeEntryType(resultJson.TreatmentIntent, 'http://standardhealthrecord.org/spec/shr/core/TreatmentIntent');
+
+                resultJson.ReasonCode = [ ...entry.Reason ];
+                resultJson.ReasonCode.forEach(r => changeEntryType(r, 'http://standardhealthrecord.org/spec/shr/core/ReasonCode'));
+
+                resultJson.Status = { ...entry.Status };
+                mapCodingArray(resultJson.Status.Value.Coding);
+
+                resultJson.RelatedRequest = {
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/shr/core/RelatedRequest'
+                    },
+                    Value: { ...entry.MedicationBeforeChange[0].Value }
+                };
+                resultJson.RelatedRequest.Value._EntryType = 'http://standardhealthrecord.org/spec/shr/core/MedicationRequest';
+
+                // Find and copy over all properties from MedicationRequested referenced in MedicationAfterChange
+                const medicationAfterChange = v05Json.find(e => e.EntryId === entry.MedicationAfterChange[0].Value._EntryId);
+                mapReasons(resultJson, medicationAfterChange.Reason);
+
+                resultJson.OccurrenceTimeOrPeriod = { ...medicationAfterChange.ExpectedPerformanceTime };
+                changeEntryType(resultJson.OccurrenceTimeOrPeriod, 'http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod');
+
+                mapMedication(resultJson, medicationAfterChange.Medication);
+                mapDosage(resultJson, medicationAfterChange.Dosage);
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'MedicationRequested': {
 
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/MedicationRequest');
