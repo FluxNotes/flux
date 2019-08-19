@@ -391,6 +391,8 @@ export function mapEntries(v05Json) {
                 break;
             }
             case 'ClinicalNote': {
+                // We want to get rid of these properties so that they don't
+                // override the resultJson equivalents when we desctructure the objects below
                 delete entry.ShrId;
                 delete entry.EntryId;
                 delete entry.Metadata;

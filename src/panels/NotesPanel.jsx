@@ -203,7 +203,7 @@ export default class NotesPanel extends Component {
         const newNoteEntryId = this.props.patient.addClinicalNote(signedOn, subject, hospital, clinician, null, content, signed);
         // Use newNoteEntryId to get a reference to the newNote
         const newNote = this.props.patient.getNotes().find(function (curNote) {
-            return Lang.isEqual(curNote.entryInfo.entryId, newNoteEntryId);
+            return Lang.isEqual(curNote.entryInfo.entryId.id, newNoteEntryId);
         });
 
         this.openNote(newNote);
