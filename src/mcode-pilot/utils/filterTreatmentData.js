@@ -6,8 +6,9 @@ function filterTreatmentData(fOptions, timescale) {
     const totalPatients = transformedTreatmentData.length;
     const indices = {};
     let totalSimilar = 0;
+    const activeValues = fOptions.getAllActiveFilters();
     const similarPatients = transformedTreatmentData.reduce((filtered, treatmentDataPatient, i) => {
-        if (isSimilarPatient(treatmentDataPatient, fOptions)) {
+        if (isSimilarPatient(treatmentDataPatient, activeValues)) {
             totalSimilar++;
             parsePatientData(treatmentDataPatient, filtered, indices, timescale);
         }
@@ -72,9 +73,9 @@ function generateSimilarPatientTreatments(similarPatients) {
     return Object.values(similarPatientTreatments).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-function isSimilarPatient(treatmentDataPatient, fOptions) {
+function isSimilarPatient(treatmentDataPatient, activeValues) {
 
-    const activeValues = fOptions.getAllActiveFilters();
+
     for (let i = 0; i < activeValues.length; i++) {
         const filter = activeValues[i];
         const { minValue, maxValue, reference } = filter;
@@ -100,10 +101,9 @@ function isSimilarPatient(treatmentDataPatient, fOptions) {
             }
         } else if (filter.mcodeElement === 'shr.core.DateOfDiagnosis') {
             // age at diagnosis
-            const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
-            const [dxYear] = diseaseStatus.diagnosisDate.split('-').map((value) => parseInt(value, 10));
-            const dxAge = dxYear - birthYear;
-
+            const birthYear = new Date(birthDate).getTime();
+            const dxYear = new Date(diseaseStatus.diagnosisDate).getTime();
+            const dxAge = (dxYear - birthYear)/31557600000; // 1000*60*60*24*365.25
             if (dxAge < minValue || dxAge > maxValue) {
                 return false;
             }

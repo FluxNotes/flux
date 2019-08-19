@@ -30,6 +30,10 @@ export class TreatmentOptionsVisualizer extends Component {
         processSimilarPatientOutcomes();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.similarPatientProps !== this.props.similarPatientProps) {
             this.props.processSimilarPatientOutcomes();

@@ -4,32 +4,41 @@ import Checkbox from 'material-ui/Checkbox';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import { FormControl, FormLabel, FormControlLabel } from 'material-ui';
 import FontAwesome from 'react-fontawesome';
+import FilterOptions from '../../utils/FilterOptions';
 
 import OptionsRangeSelector from '../OptionsRangeSelector/OptionsRangeSelector';
+import OptionsCheckboxUnit from '../OptionsCheckboxUnit/OptionsCheckboxUnit';
 
 import './OptionsCheckboxList.css';
 
 export default class OptionsCheckboxList extends Component {
     constructor(props) {
         super(props);
-
+        this.fOptions = new FilterOptions({});
+        this.name = this.props.category;
+        this.selectListLen = 0;
+        this.currentTime = 0;
         this.state = {
-            expanded: true,
-            openRangeSelector: { age: false, diagnosedAge: false }
+            expanded: true
         };
     }
 
+    componentDidMount() {
+        this.selectListLen = this.fOptions.recursiveFilterSearch(this.props.options).filter((option) => { return option.selected; }).length;
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        this.currentTime = Date.now();
+        return this.selectListLen !== this.fOptions.recursiveFilterSearch(nextProps.options).filter((option) => { return option.selected; }).length || this.state.expanded !== nextState.expanded;
+    }
+
+    componentDidUpdate(prevProps) {
+        this.selectListLen = this.fOptions.recursiveFilterSearch(prevProps.options).filter((option) => { return option.selected; }).length;
+        console.log(Date.now()-this.currentTime);
+    }
     handleExpand = () => {
         this.setState({ expanded: !this.state.expanded });
     };
-
-    handleOpenRangeSelector = option => {
-        this.setState(({ openRangeSelector }) => ({ openRangeSelector: { ...openRangeSelector, [option]: true } }));
-    }
-
-    handleCloseRangeSelector = option => {
-        this.setState(({ openRangeSelector }) => ({ openRangeSelector: { ...openRangeSelector, [option]: false } }));
-    }
 
     toggleOption = option => {
         this.props.setSelected(option, !this.props.options.options[option].selected);
@@ -38,7 +47,6 @@ export default class OptionsCheckboxList extends Component {
     renderOptions = () => {
         const { category, selectSimilarPatientOptionRange } = this.props;
         const { options } = this.props.options;
-        const { openRangeSelector } = this.state;
 
         return (
             <div className="selection-options">
@@ -50,50 +58,27 @@ export default class OptionsCheckboxList extends Component {
                     const optionText = <span className="display-text">{`${displayText}: ${value}`}</span>;
 
                     return (
-                        <FormControl key={key} className="selection-options__selection">
-                            <FormLabel>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={selected}
-                                            onChange={() => this.toggleOption(key)}
-                                            value={displayText}
-                                            className="checkbox" />
-                                    }
-                                    label={
-                                        <span className="selection-options__title">
-                                            {!hasRange && optionText}
-                                            {hasRange && <span className="display-text">{displayText}: </span>}
-                                        </span>
-                                    }
-                                />
-                            </FormLabel>
+                        <OptionsCheckboxUnit
+                            key = {key}
+                            name = {key}
+                            selected = {selected}
+                            displayText = {displayText}
+                            minValue = {minValue}
+                            maxValue = {maxValue}
+                            defaultMinValue = {defaultMinValue}
+                            defaultMaxValue = {defaultMaxValue}
+                            value = {value}
+                            hasRange = {hasRange}
+                            optionText = {optionText}
+                            toggleOption = {this.toggleOption}
+                            unit = {unit}
+                            category = {category}
+                            selectSimilarPatientOptionRange = {selectSimilarPatientOptionRange}
 
-                            {hasRange &&
-                                <div>
-                                    <span className="range" onClick={() => this.handleOpenRangeSelector(key)}>
-                                        {minValue}-{maxValue}
-                                    </span>
-                                    {openRangeSelector[key] &&
-                                        <ClickAwayListener onClickAway={() => this.handleCloseRangeSelector(key)}>
-                                            <OptionsRangeSelector
-                                                className={displayText}
-                                                name={displayText}
-                                                unit={unit}
-                                                value={value}
-                                                min={minValue}
-                                                max={maxValue}
-                                                defaultMin={defaultMinValue}
-                                                defaultMax={defaultMaxValue}
-                                                category={category}
-                                                keyy={key}
-                                                selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
-                                            />
-                                        </ClickAwayListener>
-                                    }
-                                </div>
-                            }
-                        </FormControl>
+
+                        >
+
+                        </OptionsCheckboxUnit>
                     );
                 })}
             </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import OptionsCheckboxList from '../OptionsCheckboxList/OptionsCheckboxList';
 
 import './SimilarPatientsSelector.css';
