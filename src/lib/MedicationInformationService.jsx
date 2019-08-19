@@ -1,4 +1,4 @@
-import * as codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../model/CodeableConceptUtils';
 
 // List of medications
 // (Note: this is currently used only by the note parser to look up active medications when parsing a #stop medication note)
