@@ -85,6 +85,7 @@ class MenuItemSetFillForPlaceholder extends Component {
             return (
                 <SingleChoiceButton
                     key={i}
+                    className='placeholder-button'
                     buttonKey={i}
                     buttonText={option.name}
                     onClick={(e) => this.handleOptionSelection(e, i)}

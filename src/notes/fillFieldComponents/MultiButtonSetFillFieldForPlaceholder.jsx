@@ -23,6 +23,7 @@ class MultiButtonSetFillFieldForPlaceholder extends Component {
             <div key={optionName} className="tooltip-progression-form">
                 {/* <span id={optionName} className={tooltipClass}>{optionDescription}</span> */}
                 <MultiChoiceButton
+                    className='placeholder-button'
                     buttonKey={i}
                     buttonText={optionName}
                     onClick={(e) => this.handleOptionSelection(e, i)}
