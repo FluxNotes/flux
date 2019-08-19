@@ -1,6 +1,6 @@
 const Lang = require('lodash/lang');
 const Collection = require('lodash/collection');
-const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [

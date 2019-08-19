@@ -1,27 +1,27 @@
-import Lang from 'lodash/lang';
+import _ from 'lodash';
 import CodeableConcept from '../model/shr/core/CodeableConcept';
-import Code from '../model/shr/core/Code';
 import Coding from '../model/shr/core/Coding';
 import CodeSystem from '../model/shr/core/CodeSystem';
 import DisplayText from '../model/shr/core/DisplayText';
+import CodeValue from './shr/core/CodeValue';
 
 /*
  *  Converts a tuple with the properties value, codeSystem, and displayText into a CodeableConcept object
  */
 function getCodeableConceptFromTuple(tuple) {
-    let codeableConcept = new CodeableConcept();
+    const codeableConcept = new CodeableConcept();
 
-    let coding = new Coding();
-    let code = new Code();
+    const coding = new Coding();
+    const code = new CodeValue();
     code.value = tuple.value;
-    coding.code = code;
+    coding.codeValue = code;
 
-    let codeSystem = new CodeSystem();
+    const codeSystem = new CodeSystem();
     codeSystem.value = tuple.codeSystem;
     coding.codeSystem = codeSystem;
     codeableConcept.coding = [coding];
 
-    let displayText = new DisplayText();
+    const displayText = new DisplayText();
     displayText.value = tuple.displayText;
     coding.displayText = displayText;
     codeableConcept.displayText = displayText;
@@ -40,11 +40,11 @@ function getCodeableConceptFromOptions(possibleValue, options){
         codeSystem: "",
         displayText: ""
     };
-    if (!Lang.isNull(possibleValue)) {
+    if (!_.isNull(possibleValue)) {
         const index = options.findIndex((option) => { return option.name.toLowerCase() === possibleValue.toLowerCase()});
 
         let value = index === -1 ? null : options[index];
-        if(!Lang.isNull(value)) {
+        if(!_.isNull(value)) {
             tuple = {
                 value: value.code,
                 codeSystem: value.codeSystem,

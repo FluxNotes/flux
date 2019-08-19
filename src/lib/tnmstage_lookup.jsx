@@ -1,4 +1,4 @@
-const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils');
 
 // Breast Cancer Staging lookups
 

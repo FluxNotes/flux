@@ -1,4 +1,4 @@
-import * as  codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as  codeableConceptUtils from '../model/CodeableConceptUtils';
 
 const clinicalTrialStatusOptions = [
     {

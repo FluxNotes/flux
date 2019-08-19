@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import * as  codeableConceptUtils from '../../../model/CodeableConceptUtils.jsx';
+import * as  codeableConceptUtils from '../../../model/CodeableConceptUtils';
 
 describe('getCodeableConceptFromTuple', function() {
     const tuple = {
