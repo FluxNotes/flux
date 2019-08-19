@@ -17,6 +17,7 @@ import FluxHeartRate from '../model/fluxWrappers/core/FluxHeartRate';
 import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
 import LastUpdated from '../model/shr/core/LastUpdated';
+import EntryId from '../model/shr/base/EntryId';
 import Reference from '../model/Reference';
 import * as mapper from '../lib/FHIRMapper';
 import Lang from 'lodash';
@@ -73,6 +74,22 @@ class PatientRecord {
         });
     }
 
+    // Helper: Get the entry id associated with the condtion
+    _getConditionEntryId(condition) {
+        return condition.entryInfo.entryId.id || condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+    }
+
+    // Helper: Create a new EntryId object given the numeric representation of the id
+    _createNewEntryId(newId) {
+        const EntryIdJSON = {
+            EntryType: {
+                Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId',
+            },
+            Value: newId
+        };
+        return EntryId.fromJSON(EntryIdJSON);
+    }
+
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry) {
         if (Lang.isNull(entry)) return false;
@@ -97,7 +114,7 @@ class PatientRecord {
                 if (!Lang.isNull(entryType)) {
                     const shrObj = FluxObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
-                    shrObj.entryInfo.entryId = nextEntryId;
+                    shrObj.entryInfo.entryId = this._createNewEntryId(nextEntryId);
                     nextEntryId += 1;
                     this.entries.push(shrObj);
                 }
@@ -165,7 +182,7 @@ class PatientRecord {
             this.entries.splice(index, 1);
             this._calculateNextEntryId();
         } else {
-            console.error("Attempted to delete an entry that does not exist: " + entry.entryInfo.entryId);
+            console.error("Attempted to delete an entry that does not exist: " + entry.entryInfo.entryId.id);
         }
     }
 
@@ -183,7 +200,7 @@ class PatientRecord {
 
     createEntryReferenceTo(entry) {
         if (entry.entryInfo) {
-            return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
+            return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId.id, entry.entryInfo.entryType.value);
         }
         return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
     }
@@ -519,7 +536,7 @@ class PatientRecord {
             closestEncounter.resultingClinicalNote = this.createEntryReferenceTo(clinicalNote);
         }
 
-        return clinicalNote.entryInfo.entryId;
+        return clinicalNote.entryInfo.entryId.id;
     }
 
     // Remove a given clinical note from a patient record
@@ -560,7 +577,7 @@ class PatientRecord {
         let conditions = this.getConditions();
         let result = [];
         conditions.forEach((c) => {
-            if (c.entryInfo.entryId === condition.entryInfo.entryId) {
+            if (c.entryInfo.entryId.id === condition.entryInfo.entryId.id) {
                 result.push({
                     name: "diagnosis date - " + c.type,
                     start_time: c.diagnosisDate
@@ -614,7 +631,7 @@ class PatientRecord {
 
     getMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getMedicationsReverseChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
@@ -683,7 +700,7 @@ class PatientRecord {
 
     getActiveMedicationsForCondition(condition) {
         let medications = this.getActiveMedications();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
@@ -710,7 +727,7 @@ class PatientRecord {
 
     getActiveMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getActiveMedicationsReverseChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
             return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
@@ -721,7 +738,7 @@ class PatientRecord {
 
     getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         return medications.filter((med) => {
             return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
@@ -741,7 +758,7 @@ class PatientRecord {
 
     getMedicationChangesForConditionChronologicalOrder(condition) {
         let medicationsChanges = this.getMedicationChangesChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medicationsChanges = medicationsChanges.filter((change) => {
             const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.value) : null;
             const medAfterChange = change.medicationStatementAfterChange ? this.getEntryFromReference(change.medicationStatementAfterChange.value) : null;
@@ -821,7 +838,7 @@ class PatientRecord {
     }
 
     getProceduresForCondition(condition) {
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         return this.entries.filter((item) => {
             return item instanceof FluxProcedureRequest && item.reasons && item.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
@@ -841,7 +858,7 @@ class PatientRecord {
 
     getImagingProceduresForConditionChronologicalOrder(condition) {
         const imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
 
         imagingProcedures.sort(this._proceduresTimeSorter);
 
@@ -912,7 +929,7 @@ class PatientRecord {
     }
 
     getProgressionsForCondition(condition) {
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         return this.entries.filter((item) => {
             return item instanceof FluxCancerDiseaseStatus
                 && item.relatedCancerCondition
@@ -922,7 +939,7 @@ class PatientRecord {
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         progressions = progressions.filter((progression) => {
             return progression.relatedCancerCondition
                 && progression.relatedCancerCondition.entryId === conditionEntryId;
@@ -933,7 +950,7 @@ class PatientRecord {
     getFocalConditionForProgression(progression) {
         let result = this.entries.filter((item) => {
             if (item instanceof FluxCondition) {
-                const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
+                const conditionEntryId = this._getConditionEntryId(item);
                 return progression.relatedCancerCondition.entryId === conditionEntryId;
             } else {
                 return false;
@@ -1167,7 +1184,7 @@ class PatientRecord {
     getEntriesWithSourceClinicalNote(note) {
         return this.entries.filter((entry) => {
             if (entry.sourceClinicalNoteReference) {
-                return entry.sourceClinicalNoteReference.entryId === note.entryInfo.entryId;
+                return entry.sourceClinicalNoteReference.entryId.id === note.entryInfo.entryId.id;
             } else {
                 return false;
             }

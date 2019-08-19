@@ -2,14 +2,19 @@ import Reference from '../../Reference';
 import Metadata from '../../shr/core/Metadata';
 import Lang from 'lodash';
 import FluxEntry from '../base/FluxEntry';
+import EntryId from '../../shr/base/EntryId';
 
 class FluxClinicalNote extends FluxEntry {
     constructor(json) {
         super(json);
         if (json) {
             this._entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/ClinicalNote');
+            // Since we don't use ClinicalNote.fromJSON in order to construct this instance of FluxCN, we need to use the EntryId classes defined in shr/base
+            // This ensures that the schema and shape of our EntryId values align with the standard representation of EntryId
+            // Question: Should this use the classRegistry? Unclear
+            this._entryInfo.entryId = EntryId.fromJSON(json.EntryId);
+            // Question: Should this too use ShrID.fromJSON? Unclear
             this._entryInfo.shrId = json.ShrId;
-            this._entryInfo.entryId = json.EntryId;
             if (json.signedOn) this._signedOn = json.signedOn;
             if (json.subject) this._subject = json.subject;
             if (json.hospital) this._hospital = json.hospital;
