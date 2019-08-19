@@ -7,7 +7,6 @@ import FontAwesome from 'react-fontawesome';
 import "./TemplateOption.css";
 
 export default class TemplateOption extends Component {
-
     constructor() {
         super();
         this.state = {
@@ -89,10 +88,6 @@ export default class TemplateOption extends Component {
                 );
             })
         );
-    }
-
-    handleModalClose = () => {
-        this.setState({ isModalOpen: false });
     }
 
     render() {
