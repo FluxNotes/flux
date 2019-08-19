@@ -1,13 +1,12 @@
 import Reference from '../../Reference';
-// import AdverseEventCondition from '../shr/adverse/AdverseEventCondition';
-// import Seriousness from '../shr/adverse/Seriousness';
 import * as lookup from '../../../lib/toxicreaction_lookup.jsx';
 import Type from '../../shr/core/Type';
-// import CausalAttribution from '../shr/adverse/CausalAttribution';
-// import CauseCategory from '../shr/adverse/CauseCategory';
 import FluxEntry from '../base/FluxEntry';
 import AdverseDrugReaction from '../../shr/core/AdverseDrugReaction';
-// import PossibleCause from '../shr/adverse/PossibleCause';
+import Seriousness from '../../shr/core/Seriousness';
+import AdverseEventCondition from '../../shr/core/AdverseEventCondition';
+import CausalAttribution from '../../shr/core/CausalAttribution';
+import CauseCategory from '../../shr/core/CauseCategory';
 
 class FluxAdverseDrugReaction extends FluxEntry {
     constructor(json, patientRecord) {
@@ -44,9 +43,9 @@ class FluxAdverseDrugReaction extends FluxEntry {
         if (!obj) {
             this.adverseEventCondition = null;
         } else {
-            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let adverseEventCondition = new AdverseEventCondition();
-            adverseEventCondition.conditionPresentAssertion = ref;
+            const ref = new Reference(obj.entryInfo.shrId.id, obj.entryInfo.entryId.id, obj.entryInfo.entryType.value);
+            const adverseEventCondition = new AdverseEventCondition();
+            adverseEventCondition.condition = ref;
             this.adverseEventCondition = adverseEventCondition;
         }
     }
