@@ -1,5 +1,7 @@
 import FluxEntry from '../../base/FluxEntry';
 import TumorMarkerTest from '../../../onco/core/TumorMarkerTest';
+import * as lookup from '../../../../lib/receptor_lookup';
+import Code from '../../../shr/core/Code';
 
 class FluxTumorMarkerTest extends FluxEntry {
     constructor(json) {
@@ -47,6 +49,15 @@ class FluxTumorMarkerTest extends FluxEntry {
     get code() {
         if (!this._tumorMarkerTest.code) return null;
         return this._tumorMarkerTest.code;
+    }
+
+    set code(typeVal) {
+        this._tumorMarkerTest.code = new Code();
+        this._tumorMarkerTest.code.value = lookup.getReceptorTypeCodeableConcept(typeVal);
+    }
+
+    setCode(code) {
+        this.code = code;
     }
 
     get receptorTypeCodeableConcept() {
