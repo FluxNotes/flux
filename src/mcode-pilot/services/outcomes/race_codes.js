@@ -925,7 +925,8 @@ let codes = [{"level": "1","code": "1002-5","text": "American Indian or Alaska N
 let codes_to_top = {};
 
 let current_top = null;
-codes.map((x) => {
+
+codes.forEach(function(x){
     if (x.level === "1") {
         current_top = x;
     }
