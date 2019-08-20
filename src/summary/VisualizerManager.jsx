@@ -242,6 +242,7 @@ export default class VisualizerManager {
     }
 
     getVisualizer(dataType, visualizerType) {
+        // TODO: Use a `find` or `pluck` here to get the element by reference, instead of getting an array and chosing the first thing
         let result = this.visualizers.filter((viz) => {
             return (viz.dataType === dataType && viz.visualizerType === visualizerType);
         });
