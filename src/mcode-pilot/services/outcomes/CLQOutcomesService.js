@@ -81,7 +81,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             };
         }
         if (race) {
-            filter.race = this.__raceCodeMapping(race.value)           
+            filter.race = this.__raceCodeMapping(race.value);
         }
 
         if (ethnicity) {
