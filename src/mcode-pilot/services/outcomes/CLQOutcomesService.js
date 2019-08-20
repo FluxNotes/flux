@@ -13,18 +13,18 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.filters = params.filters;
     }
 
-    _genderMapping(gender){
-        let lowered = gender ? _.toLower(gender) : null
-        let code = 'UNK'
-        let display = 'UNKOWN'
-        if(lowered === "female" || lowered === 'f'){
+    _genderMapping(gender) {
+        let lowered = gender ? _.toLower(gender) : null;
+        let code = 'UNK';
+        let display = 'UNKOWN';
+        if (lowered === "female" || lowered === 'f') {
             code = '703118005';
             display = 'Female';
-        }else if (lowered === 'male' || lowered === 'm'){
+        } else if (lowered === 'male' || lowered === 'm') {
             code = '703117000';
-            display = 'Male'; 
+            display = 'Male';
         }
-        return {code: code, display: display, codeSystem: 'SNOMEDCT'}
+        return {code: code, display: display, codeSystem: 'SNOMEDCT'};
     }
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
@@ -36,7 +36,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         let age = activeFilterValues["shr.core.DateOfBirth"];
         let age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
-            filter.gender =  this._genderMapping(gender.value)
+            filter.gender =  this._genderMapping(gender.value);
         }
         if (age) {
             filter.age = {
