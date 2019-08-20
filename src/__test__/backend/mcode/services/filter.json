@@ -1,9 +1,9 @@
 {
     "demographics": {
         "gender": {
-            "codeSystemName": "AdministrativeGender",
-            "codeSystem": "2.16.840.1.113883.4.642.2.1",
-            "code": "female"
+            "codeSystem": "SNOMEDCT",
+            "displayName": "Female",
+            "code": "703118005"
         },
         "age": {
             "min": 42,
@@ -16,8 +16,10 @@
         "race": {
             "codeSystemName": "HL7 v3 Code System Race",
             "codeSystem": "2.16.840.1.113883.5.104",
-            "code": "white"
+            "displayName": "White",
+            "code" : "2106-3"
         }
+
     },
     "diagnosis" : { "stage": "IA", "grade": 3, "tnm": { "t": "T1c", "m": "M0", 
       "n" : "N0" } },

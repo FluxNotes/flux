@@ -933,9 +933,9 @@ codes.map((x) => {
     codes_to_top[_.toLower(x.text)] = current_top;
 });
 
-let find_code = function(code_or_value) {
+let find_race_code = function(code_or_value) {
     if (code_or_value == null) { return null; }
     return codes_to_top[code_or_value] || codes_to_top[_.toLower(code_or_value)];
 };
 
-export default find_code;
+export default find_race_code;
