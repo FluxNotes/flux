@@ -54,12 +54,13 @@ export class TreatmentOptionsVisualizer extends Component {
             selectSimilarPatientOption,
             selectSimilarPatientOptionRange,
             setSelectedTreatment,
+            showSideEffects,
             similarPatientProps,
             similarPatientTreatments,
             similarPatientTreatmentsData,
-            totalPatients,
-            totalSimilarPatients,
             timescale,
+            totalPatients,
+            totalSimilarPatients
         } = this.props;
         return (
             <div className="treatment-options-visualizer">
@@ -72,19 +73,20 @@ export class TreatmentOptionsVisualizer extends Component {
                     title="Similar patients"
                     subTitle={this._renderedSimilarPatientsSubtitle(numberWithCommas(totalSimilarPatients))}>
                     <SimilarPatientsSelector
-                        patient={patient}
                         condition={condition}
-                        similarPatientProps={similarPatientProps}
-                        selectSimilarPatientOption={selectSimilarPatientOption}
-                        selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
+                        patient={patient}
                         selectAllCategorySimilarPatientOptions={selectAllCategorySimilarPatientOptions}
                         selectAllSimilarPatientOptions={selectAllSimilarPatientOptions}
+                        selectSimilarPatientOption={selectSimilarPatientOption}
+                        selectSimilarPatientOptionRange={selectSimilarPatientOptionRange}
+                        similarPatientProps={similarPatientProps}
                     />
                 </TreatmentOptionsSelector>
 
                 <TreatmentOptionsOutcomes
                     selectedTreatment={selectedTreatment}
                     setSelectedTreatment={setSelectedTreatment}
+                    showSideEffects={showSideEffects}
                     similarPatientTreatments={similarPatientTreatments}
                     similarPatientTreatmentsData={similarPatientTreatmentsData}
                     timescale={timescale}
@@ -105,12 +107,13 @@ TreatmentOptionsVisualizer.propTypes = {
     selectSimilarPatientOption: PropTypes.func.isRequired,
     selectSimilarPatientOptionRange: PropTypes.func.isRequired,
     setSelectedTreatment: PropTypes.func.isRequired,
+    showSideEffects: PropTypes.bool.isRequired,
     similarPatientProps: PropTypes.object.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
-    totalPatients: PropTypes.number.isRequired,
-    totalSimilarPatients: PropTypes.number.isRequired,
     timescale: PropTypes.array.isRequired,
+    totalPatients: PropTypes.number.isRequired,
+    totalSimilarPatients: PropTypes.number.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -128,12 +131,13 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     return {
         selectedTreatment: state.mcode.selectedTreatment,
+        showSideEffects: state.mcode.showSideEffects,
         similarPatientProps: state.mcode.similarPatientProps,
         similarPatientTreatments: state.mcode.similarPatientTreatments,
         similarPatientTreatmentsData: state.mcode.similarPatientTreatmentsData,
+        timescale: state.mcode.timescale,
         totalPatients: state.mcode.totalPatients,
-        totalSimilarPatients: state.mcode.totalSimilarPatients,
-        timescale: state.mcode.timescale
+        totalSimilarPatients: state.mcode.totalSimilarPatients
     };
 }
 

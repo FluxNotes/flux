@@ -131,6 +131,7 @@ export default class TreatmentOptionsOutcomes extends Component {
         const {
             selectedTreatment,
             setSelectedTreatment,
+            showSideEffects,
             similarPatientTreatments,
             similarPatientTreatmentsData,
             timescale
@@ -155,6 +156,7 @@ export default class TreatmentOptionsOutcomes extends Component {
                         changeSort={this.handleChangeSort}
                         selectedTreatment={selectedTreatment}
                         setSelectedTreatment={setSelectedTreatment}
+                        showSideEffects={showSideEffects}
                         similarPatientTreatments={similarPatientTreatments}
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
                         sortColumn={sortColumn}
@@ -178,6 +180,7 @@ export default class TreatmentOptionsOutcomes extends Component {
 TreatmentOptionsOutcomes.propTypes = {
     selectedTreatment: PropTypes.object,
     setSelectedTreatment: PropTypes.func.isRequired,
+    showSideEffects: PropTypes.bool.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
     timescale: PropTypes.array.isRequired

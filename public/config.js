@@ -278,9 +278,10 @@ CONFIG = {
 
     services: {
         outcomes: {
-            "name": 'StaticOutcomesService',
-            "timescale": ["1","3","5"],
-            "filters": [
+            name: 'StaticOutcomesService',
+            timescale: ['1', '3', '5'],
+            showSideEffects: true,
+            filters: [
                 "shr.core.DateOfBirth",
                 "shr.core.DateOfDiagnosis",
                 "shr.core.Race",

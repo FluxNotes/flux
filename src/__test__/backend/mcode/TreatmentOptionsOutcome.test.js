@@ -15,8 +15,9 @@ describe('TreatmentOptionsOutcome', () => {
         props = {
             selectedTreatment: null,
             setSelectedTreatment: () => {},
-            similarPatientTreatmentsData,
+            showSideEffects: true,
             similarPatientTreatments,
+            similarPatientTreatmentsData,
             timescale: ['1','3','5']
         };
         optionsOutcome = null;
