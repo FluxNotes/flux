@@ -2,7 +2,7 @@ import request from "request";
 import IOutcomesService from './IOutcomesService';
 import _ from 'lodash';
 
-import race_codes from './race_codes';
+import find_race_code from './race_codes';
 
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
@@ -24,7 +24,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             code = '703117000';
             display = 'Male';
         }
-        return {code: code, display: display, codeSystem: 'SNOMEDCT'};
+        return {code: code, displayName: display, codeSystem: 'SNOMEDCT'};
     }
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
@@ -51,7 +51,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             };
         }
         if (race) {
-            let code = race_codes(race.value);
+            let code = find_race_code(race.value);
             if (code) {
                 // if the value is one of the codes from the code system make sure it is one that clq supports
                 if (!['2028-9','2106-3','2054-5','2131-1'].indexOf(code.code)) {
@@ -61,7 +61,7 @@ export default class CLQOutcomesService extends IOutcomesService {
                     "codeSystemName": "HL7 v3 Code System Race",
                     "codeSystem": "2.16.840.1.113883.5.104",
                     "code": code.code,
-                    "text": code.text
+                    "displayName": code.text
                 };
             } else {
                 filter.race = {
@@ -76,8 +76,8 @@ export default class CLQOutcomesService extends IOutcomesService {
         if (ethnicity) {
             let ethCode = ethnicity.value;
             filter.ethnicity = {
-                "codeSystemName": "HL7 v3 Code System Race",
-                "codeSystem": "2.16.840.1.113883.5.104",
+                "codeSystemName": "HL7 v3 Code System Ethnicity",
+                "codeSystem": "2.16.840.1.113883.5.50",
                 "code": ethCode};
         }
         return filter;
