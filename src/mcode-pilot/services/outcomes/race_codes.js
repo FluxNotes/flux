@@ -926,7 +926,7 @@ let codes_to_top = {};
 
 let current_top = null;
 codes.map((x) => {
-    if (x.level == "1") {
+    if (x.level === "1") {
         current_top = x;
     }
     codes_to_top[x.code] = current_top;
@@ -934,7 +934,7 @@ codes.map((x) => {
 });
 
 let find_race_code = function(code_or_value) {
-    if (code_or_value == null) { return null; }
+    if (code_or_value === null) { return null; }
     return codes_to_top[code_or_value] || codes_to_top[_.toLower(code_or_value)];
 };
 
