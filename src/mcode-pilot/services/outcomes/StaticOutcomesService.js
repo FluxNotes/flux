@@ -5,6 +5,7 @@ export default class StaticOutcomesService  extends IOutcomesService {
     constructor(config) {
         super();
         this.timescale = config.timescale;
+        this.filters = config.filters;
     }
 
     async processSimilarPatientOutcomes(fOptions) {

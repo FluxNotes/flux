@@ -24,13 +24,15 @@ describe ('actions', () => {
     it ('should create an action to initialize options', () => {
         const patient=testPatientObj;
         const condition = fluxCondition;
+        const filters = ["some.mcode.element"]
         const expectedAction = {
             type: types.INITIALIZE_SIMILAR_PATIENT_PROPS,
             patient,
-            condition
+            condition,
+            filters
         };
-        
-        expect(actions.initializeSimilarPatientProps(patient, condition)).to.eql(expectedAction);
+        expect(actions.initializeSimilarPatientProps(patient, condition, filters)).to.eql(expectedAction);
+
     });
 
     it ('should create an action to select option', () => {

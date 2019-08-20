@@ -14,7 +14,7 @@ CONFIG = {
         launchContext: {
             client: {
                 client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
-                scope:  'patient/*.read user/*.* openid profile',
+                scope: 'patient/*.read user/*.* openid profile',
                 // note: the redirect_uri below may need to change in different environments.
                 // a relative URL (ex. /smart or ../smart) won't work in IE
                 redirect_uri: 'http://localhost:3000/smartcompass'
@@ -50,7 +50,7 @@ CONFIG = {
         launchContext: {
             client: {
                 client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
-                scope:  'patient/*.read user/*.* openid profile',
+                scope: 'patient/*.read user/*.* openid profile',
                 // note: the redirect_uri below may need to change in different environments.
                 // a relative URL (ex. /smart or ../smart) won't work in IE
                 redirect_uri: 'http://localhost:3000/smart'
@@ -77,7 +77,7 @@ CONFIG = {
         launchContext: {
             client: {
                 client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
-                scope:  'patient/*.read user/*.* openid profile',
+                scope: 'patient/*.read user/*.* openid profile',
                 // note: the redirect_uri below may need to change in different environments.
                 // a relative URL (ex. /smart or ../smart) won't work in IE
                 redirect_uri: 'http://localhost:3000/synthea'
@@ -277,6 +277,18 @@ CONFIG = {
     ],
 
     services: {
-        outcomes: {"name": 'StaticOutcomesService', "timescale": ["1","3","5"]}
+        outcomes: {
+            "name": 'StaticOutcomesService',
+            "timescale": ["1","3","5"],
+            "filters": [
+                "shr.core.DateOfBirth",
+                "shr.core.DateOfDiagnosis",
+                "shr.core.Race",
+                "shr.core.BirthSex",
+                "onco.core.TumorMarkerTest",
+                "onco.core.TNMClinicalPrimaryTumorCategory",
+                "onco.core.TNMClinicalRegionalNodesCategory",
+                "onco.core.TNMClinicalDistantMetastasesCategory",
+            ]}
     }
 }
