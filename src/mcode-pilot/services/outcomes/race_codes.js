@@ -926,7 +926,7 @@ let codes_to_top = {};
 
 let current_top = null;
 
-codes.forEach(function(x){
+codes.forEach(function(x) {
     if (x.level === "1") {
         current_top = x;
     }
