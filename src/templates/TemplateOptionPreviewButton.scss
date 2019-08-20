@@ -10,11 +10,14 @@
     border-top-left-radius: 5px;
     border-bottom: 0px;
     border-right: 0px;
+    svg > * {
+        fill: $icons-gray;
+    }
     &:hover {
         cursor: pointer;
         background-color: $interface-blue;
-    }
-    * { 
-        fill: $icons-gray;
+        svg > * {
+            fill: $background;
+        }
     }
 }
