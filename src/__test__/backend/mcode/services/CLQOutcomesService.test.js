@@ -55,8 +55,6 @@ describe("CLQOutcomesService", () => {
 
     it("Should be able to create demographics filter", () => {
         let clqFilter = clqService.buildDemographicsFilter(filterValues);
-        console.log(clqFilter, expectedFilter.demographics);
-        
         expect(_.isEqual(clqFilter, expectedFilter.demographics)).to.be.true
     });
 
