@@ -2,7 +2,8 @@ import request from "request";
 import IOutcomesService from './IOutcomesService';
 import _ from 'lodash';
 
-import race_codes from './race_codes'
+import race_codes from './race_codes';
+
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
         super();
@@ -12,6 +13,19 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.filters = params.filters;
     }
 
+    _genderMapping(gender){
+        let lowered = gender ? _.toLower(gender) : null
+        let code = 'UNK'
+        let display = 'UNKOWN'
+        if(lowered === "female" || lowered === 'f'){
+            code = '703118005';
+            display = 'Female';
+        }else if (lowered === 'male' || lowered === 'm'){
+            code = '703117000';
+            display = 'Male'; 
+        }
+        return {code: code, display: display, codeSystem: 'SNOMEDCT'}
+    }
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
     buildDemographicsFilter(activeFilterValues) {
@@ -22,13 +36,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         let age = activeFilterValues["shr.core.DateOfBirth"];
         let age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
-            filter.gender =  {
-                codeSystemName: "AdministrativeGender",
-                codeSystem: "2.16.840.1.113883.4.642.2.1",
-                code:  _.startCase(_.toLower(gender.value)),
-                value:  _.startCase(_.toLower(gender.value)),
-                text:  _.startCase(_.toLower(gender.value))
-            };
+            filter.gender =  this._genderMapping(gender.value)
         }
         if (age) {
             filter.age = {
@@ -44,10 +52,10 @@ export default class CLQOutcomesService extends IOutcomesService {
         }
         if (race) {
             let code = race_codes(race.value);
-            if(code) {
+            if (code) {
                 // if the value is one of the codes from the code system make sure it is one that clq supports
-                if(!['2028-9','2106-3','2054-5','2131-1'].indexOf(code.code)){
-                    code = {code: '2131-1', text: 'Other Race'}
+                if (!['2028-9','2106-3','2054-5','2131-1'].indexOf(code.code)) {
+                    code = {code: '2131-1', text: 'Other Race'};
                 }
                 filter.race = {
                     "codeSystemName": "HL7 v3 Code System Race",
@@ -55,7 +63,7 @@ export default class CLQOutcomesService extends IOutcomesService {
                     "code": code.code,
                     "text": code.text
                 };
-            }else {
+            } else {
                 filter.race = {
                     "codeSystemName": "HL7 v3 Code System Race",
                     "codeSystem": "2.16.840.1.113883.5.104",
@@ -65,12 +73,12 @@ export default class CLQOutcomesService extends IOutcomesService {
 
         }
 
-        if(ethnicity){
-            let ethCode = ethnicity.value
+        if (ethnicity) {
+            let ethCode = ethnicity.value;
             filter.ethnicity = {
                 "codeSystemName": "HL7 v3 Code System Race",
                 "codeSystem": "2.16.840.1.113883.5.104",
-                "code": ethCode}
+                "code": ethCode};
         }
         return filter;
     }
