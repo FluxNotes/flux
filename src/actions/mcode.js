@@ -64,11 +64,12 @@ function processSimilarPatientOutcomes() {
         return service.processSimilarPatientOutcomes(fOptions).then(unformattedResults => {
             const results = formatResults(unformattedResults);
             dispatch(updatePatientOutcomes({
-                totalPatients: results.totalPatients,
-                totalSimilarPatients: results.totalSimilarPatients,
+                showSideEffects: service.showSideEffects,
                 similarPatientTreatments: results.similarPatientTreatments,
                 similarPatientTreatmentsData: results.similarPatientTreatmentsData,
-                timescale: results.timescale
+                timescale: results.timescale,
+                totalPatients: results.totalPatients,
+                totalSimilarPatients: results.totalSimilarPatients
             }));
         });
     };

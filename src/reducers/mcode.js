@@ -3,12 +3,13 @@ import getProps from '../mcode-pilot/utils/recordToProps';
 
 export const defaultState = {
     selectedTreatment: null,
+    showSideEffects: true,
     similarPatientProps: {},
     similarPatientTreatments: [],
     similarPatientTreatmentsData: [],
+    timescale: [],
     totalPatients: 0,
-    totalSimilarPatients: 0,
-    timescale: []
+    totalSimilarPatients: 0
 };
 
 export default function mcode(state = defaultState, action) {
@@ -80,11 +81,12 @@ export default function mcode(state = defaultState, action) {
     if (action.type === types.UPDATE_PATIENT_OUTCOMES) {
         return {
             ...state,
-            totalPatients: action.data.totalPatients,
-            totalSimilarPatients: action.data.totalSimilarPatients,
+            showSideEffects: action.data.showSideEffects,
             similarPatientTreatments: action.data.similarPatientTreatments,
             similarPatientTreatmentsData: action.data.similarPatientTreatmentsData,
-            timescale: action.data.timescale
+            timescale: action.data.timescale,
+            totalPatients: action.data.totalPatients,
+            totalSimilarPatients: action.data.totalSimilarPatients
         };
     }
 

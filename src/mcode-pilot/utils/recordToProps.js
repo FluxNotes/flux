@@ -5,7 +5,6 @@ import FluxTNMClinicalRegionalNodesClassification from '../../model/oncocore/Flu
 import FluxTNMClinicalDistantMetastasesClassification from '../../model/oncocore/FluxTNMClinicalDistantMetastasesClassification';
 
 export default function getProps(patient, condition, filters) {
-
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
     let tnminfo;
     if (condition.getMostRecentClinicalStaging()) {
@@ -133,7 +132,6 @@ export default function getProps(patient, condition, filters) {
         delete propDict.pathology.clinical_stage;
     }
 
-
     return _mapProp(propDict, filters);
 }
 
@@ -144,6 +142,7 @@ function _safeGet(object, property) {
         return object;
     }
 }
+
 function processPanel(panelMembers, patient) {
     const returnJson = {};
     panelMembers.forEach((e) => {
