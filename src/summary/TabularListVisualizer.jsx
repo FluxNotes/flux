@@ -51,11 +51,11 @@ export default class TabularListVisualizer extends Visualizer {
         let isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
 
         // Iterate over all subsections to determine the max number of columsn taken up by subsections
-        const maxNumColumns = Collection.reduce(subsections, (maxSize, subsection) => {
+        const maxNumColumns = _.reduce(subsections, (maxSize, subsection) => {
             // if this subsection has no dataCache, or if the length of a single element in that cache is less than our maxSize, stick with max;
             // else, the single element has more attributes than our previous max; use its length as new max.
             return (subsection.data_cache.length === 0 || maxSize >= subsection.data_cache[0].length) ? maxSize : subsection.data_cache[0].length;
-        }, 1) // Start wiht a minimum of one column
+        }, 1);  // Start wiht a minimum of one column
 
         // If there is only space for one column, if the maxNumber of columns is greater than 2, or if number of subsections we have is just one,
         // render subsections using full width available.
