@@ -5,7 +5,6 @@ import FluxTNMClinicalRegionalNodesCategory from '../../model/fluxWrappers/onco/
 import FluxTNMClinicalDistantMetastasesCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalDistantMetastasesCategory';
 
 export default function getProps(patient, condition, filters) {
-
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
     let tnminfo;
     const clinStage = condition.getMostRecentClinicalStaging();
@@ -137,7 +136,6 @@ export default function getProps(patient, condition, filters) {
         delete propDict.pathology.clinical_stage;
     }
 
-
     return _mapProp(propDict, filters);
 }
 
@@ -148,6 +146,7 @@ function _safeGet(object, property) {
         return object;
     }
 }
+
 function processPanel(panelMembers, patient) {
     const returnJson = {};
     panelMembers.forEach((e) => {

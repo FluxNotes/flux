@@ -1,9 +1,6 @@
-import {
-    ConfigManagerInstance
-} from './ConfigManager';
+import { ConfigManagerInstance } from './ConfigManager';
 import StaticOutcomesService from '../mcode-pilot/services/outcomes/StaticOutcomesService';
 import CLQOutcomesService from '../mcode-pilot/services/outcomes/CLQOutcomesService';
-
 
 const SERVICES = {
     'StaticOutcomesService': StaticOutcomesService,
@@ -11,7 +8,6 @@ const SERVICES = {
 };
 
 export default class ServiceManager {
-
     constructor() {
         this.services = ConfigManagerInstance.get('services', {});
         const keys = Object.keys(this.services);

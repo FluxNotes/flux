@@ -35,7 +35,7 @@ CONFIG = {
             mapper: 'cernerSandbox',
             resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
         },
-logoObject: {
+        logoObject: {
             path: './compass-logo.png',
             altText: 'Compass logo',
             width: '45px',
@@ -102,7 +102,7 @@ logoObject: {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-            mapper: 'cernerSandbox'
+          mapper: 'cernerSandbox'
         }
     },
     {
@@ -312,9 +312,10 @@ logoObject: {
 
     services: {
         outcomes: {
-            "name": 'StaticOutcomesService',
-            "timescale": ["1","3","5"],
-            "filters": [
+            name: 'StaticOutcomesService',
+            timescale: ['1', '3', '5'],
+            showSideEffects: true,
+            filters: [
                 "shr.core.DateOfBirth",
                 "shr.core.DateOfDiagnosis",
                 "shr.core.Race",

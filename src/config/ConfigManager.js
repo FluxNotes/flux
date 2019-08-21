@@ -1,13 +1,14 @@
 import axios from 'axios';
-export default class ConfigManager {
 
+export default class ConfigManager {
     constructor(config = {}) {
-        this.config = global.CONFIG ? { ...global.CONFIG , ...config} : {...config};
+        this.config = global.CONFIG ? { ...global.CONFIG , ...config } : { ...config };
     }
 
     addConfiguration(conf) {
         if (conf) {
-            this.config = {...this.config,
+            this.config = {
+                ...this.config,
                 ...conf
             };
         }
@@ -32,5 +33,6 @@ export default class ConfigManager {
         return value || defaultValue;
     }
 }
+
 const instance = new ConfigManager();
-export {instance as ConfigManagerInstance };
+export { instance as ConfigManagerInstance };

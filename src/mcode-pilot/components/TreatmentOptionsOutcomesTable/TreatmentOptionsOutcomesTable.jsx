@@ -74,7 +74,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderTreatmentRow(row, isSelectedTreatment = false) {
-        const { selectedTreatment, setSelectedTreatment, timescale } = this.props;
+        const { selectedTreatment, setSelectedTreatment, timescale, showSideEffects } = this.props;
         const { sideEffectSelection } = this.state;
         if (row == null || row.length === 0) return null;
 
@@ -108,29 +108,38 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                     );
                 })}
 
-                <td className="top-side-effects">
-                    {sideEffectSelection === "Most Common"
-                        ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
-                            <div key={i} className="side-effect">
-                                {`${sideEffect.toLowerCase()} `}
-                                ({Math.floor(occurrences / totalPatients * 100)}%)
+                {showSideEffects &&
+                    <td className="top-side-effects">
+                        {sideEffectSelection === "Most Common"
+                            ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
+                                <div key={i} className="side-effect">
+                                    {`${sideEffect.toLowerCase()} `}
+                                    ({Math.floor(occurrences / totalPatients * 100)}%)
+                                </div>
+                            )
+                            :
+                            <div className="side-effect-percent">
+                                {sideEffects.effects[sideEffectSelection]
+                                    ? Math.floor(sideEffects.effects[sideEffectSelection] / totalPatients * 100)
+                                    : 0
+                                }%
                             </div>
-                        )
-                        :
-                        <div className="side-effect-percent">
-                            {sideEffects.effects[sideEffectSelection]
-                                ? Math.floor(sideEffects.effects[sideEffectSelection] / totalPatients * 100)
-                                : 0
-                            }%
-                        </div>
-                    }
-                </td>
+                        }
+                    </td>
+                }
             </tr>
         );
     }
 
     renderHeader = () => {
-        const { similarPatientTreatmentsData, changeSort, selectedTreatment, sortColumn, sortDirection } = this.props;
+        const {
+            changeSort,
+            selectedTreatment,
+            showSideEffects,
+            similarPatientTreatmentsData,
+            sortColumn,
+            sortDirection
+        } = this.props;
         const { sideEffectSelection } = this.state;
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
         const sortP = sortColumn === 'totalPatients';
@@ -140,12 +149,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
             <thead className="treatment-options-outcomes-table__header">
                 <tr>
                     <td colSpan="2" />
-                    <td colSpan={this.props.timescale.length} className="header-title">
-                        Overall survival rates
-                    </td>
-                    <td>
-                        Side Effects
-                    </td>
+                    <td colSpan={this.props.timescale.length} className="header-title">Overall survival rates</td>
+                    {showSideEffects && <td>Side Effects</td>}
                 </tr>
                 <tr>
                     <td className="compare-header">
@@ -170,26 +175,28 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                         );
                     })}
 
-                    <td id="ccp-table-select">
-                        <Select
-                            value={sideEffectSelection}
-                            onChange={this.handleChangeEffect}
-                            name="sideEffect"
-                            className="custom-select"
-                        >
-                            <MenuItem value="Most Common" className="side-effect-option">
-                                <em>Most Common</em>
-                            </MenuItem>
+                    {showSideEffects &&
+                        <td id="ccp-table-select">
+                            <Select
+                                value={sideEffectSelection}
+                                onChange={this.handleChangeEffect}
+                                name="sideEffect"
+                                className="custom-select"
+                            >
+                                <MenuItem value="Most Common" className="side-effect-option">
+                                    <em>Most Common</em>
+                                </MenuItem>
 
-                            {sideEffects.map(effect => {
-                                return (
-                                    <MenuItem value={effect} key={effect} className="side-effect-option">
-                                        {effect.toLowerCase()}
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </td>
+                                {sideEffects.map(effect => {
+                                    return (
+                                        <MenuItem value={effect} key={effect} className="side-effect-option">
+                                            {effect.toLowerCase()}
+                                        </MenuItem>
+                                    );
+                                })}
+                            </Select>
+                        </td>
+                    }
                 </tr>
             </thead>
         );
@@ -236,6 +243,7 @@ TreatmentOptionsOutcomesTable.propTypes = {
     changeSort: PropTypes.func.isRequired,
     selectedTreatment: PropTypes.object,
     setSelectedTreatment: PropTypes.func.isRequired,
+    showSideEffects: PropTypes.bool.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
     sortColumn: PropTypes.string.isRequired,

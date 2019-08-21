@@ -157,12 +157,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         filter.diagnosis = this.buildDiagnosisFilter(activeFilterValues);
         filter.tumorMarkers = this.buildTumorMarkersFilter(activeFilterValues);
         filter.outcomes = {
-            survival: this.timescale.map((ts) => {
-                return {
-                    "value": ts * 12,
-                    "interval": "months"
-                };
-            })
+            survival: this.timescale.map((ts) => { return { "value": ts * 12, "interval": "months" }; })
         };
         return new Promise((accept, reject) => {
             request({

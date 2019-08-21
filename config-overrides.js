@@ -10,7 +10,8 @@ const {
 module.exports = override( 
     useEslintRc(),
     addWebpackExternals({
-        'fhir-mapper': "Mapper"
+        'fhir-mapper': "Mapper",
+        'babel-polyfill': "_babelPolyfill"
       }),
       addWebpackPlugin(new CopyWebpackPlugin([
         { context:'node_modules/fhir-mapper/dist/', from: 'app.bundle.js*', to: 'static/js/fhir-mapper' }
