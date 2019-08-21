@@ -45,16 +45,13 @@
 }
 
 .popover-style {
-    background-color: $contrast-gray !important;
+    background-color: $background !important;
     border-radius: 5px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: $icons-gray;
     width: 50% !important;
     height: 35% !important;
     left: 41% !important;
     top: 50% !important;
-    padding: 5px;
+    padding: 20px 20px 25px 20px;
     margin: 5px;
     overflow-y: auto !important;
     .popover-container {
@@ -81,5 +78,8 @@
             bottom: 2%;
             right: 2%;
         }
+    }
+    >   ::-webkit-scrollbar-track {
+        background-color: $background;
     }
 }
