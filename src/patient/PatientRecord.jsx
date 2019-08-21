@@ -647,7 +647,7 @@ class PatientRecord {
         return allmeds.filter((med) => {
             const medChanges = this.getMedicationChanges();
             const stopMedicationFound = medChanges.some((medChange) => {
-                return (medChange.stopDate && medChange.type.value === "stop");
+                return (medChange.stopDate && medChange.type === "stop");
             });
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
@@ -973,8 +973,8 @@ class PatientRecord {
     }
 
     _medChangesTimeSorter(a, b) {
-        const a_time = a.metadata.authoredDateTime.dateTime;
-        const b_time = b.metadata.authoredDateTime.dateTime;
+        const a_time = a.whenChanged;
+        const b_time = b.whenChanged;
         const a_startTime = new moment(a_time.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b_time.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
