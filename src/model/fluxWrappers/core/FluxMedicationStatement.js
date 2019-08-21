@@ -1,12 +1,11 @@
-import FluxEntry from '../base/FluxEntry';
 import MedicationStatement from '../../shr/core/MedicationStatement';
 import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
-import EndDateTime from '../../shr/core/EndDateTime';
 import * as codeableConceptUtils from '../../CodeableConceptUtils';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
-import Category from '../../shr/core/Category';
 import FluxMedicationBase from './FluxMedicationBase';
+import StatementDateTime from '../../shr/core/StatementDateTime';
+import TreatmentIntent from '../../shr/core/TreatmentIntent';
 
 class FluxMedicationStatement extends FluxMedicationBase {
     constructor(json, patientRecord) {
@@ -15,6 +14,10 @@ class FluxMedicationStatement extends FluxMedicationBase {
         this._patientRecord = patientRecord;
         if (!this._medicationStatement.entryInfo) {
             this._medicationStatement.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/MedicationStatement');
+            const today = new moment().format('D MMM YYYY');
+            const statementDateTime = new StatementDateTime();
+            statementDateTime.dateTime = today;
+            this._medicationStatement.statementDateTime = statementDateTime;
         }
     }
 
@@ -40,15 +43,15 @@ class FluxMedicationStatement extends FluxMedicationBase {
      * Returns type as a string
      */
     get type() {
-        return this._medicationStatement.treatmentIntent.value.coding[0].codeValue;
+        return this._medicationStatement.treatmentIntent.value.coding[0].codeValue.value;
     }
 
     set type(code) {
-        if (!this._medicationStatement.category) {
-            this._medicationStatement.category = new Category();
+        if (!this._medicationStatement.treatmentIntent) {
+            this._medicationStatement.treatmentIntent = new TreatmentIntent();
         }
 
-        this._medicationStatement.category.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
+        this._medicationStatement.treatmentIntent.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
     }
 
     /**
@@ -83,7 +86,7 @@ class FluxMedicationStatement extends FluxMedicationBase {
     }
 
     get relatedRequest() {
-        return this._medicationStatement.relatedRequest.value;
+        return this._medicationStatement.relatedRequest ? this._medicationStatement.relatedRequest.value: null;
     }
 
     // Clones medicationBefore and sets medicationAfter to cloned object
@@ -92,7 +95,7 @@ class FluxMedicationStatement extends FluxMedicationBase {
     createMedicationAfterFromMedicationStopDate() {
         const medBefore = this._patientRecord.getEntryFromReference(this._medicationStatement);
         const today = new moment().format('D MMM YYYY');
-        const medAfter = Lang.cloneDeep(medBefore);
+        const medAfter = _.cloneDeep(medBefore);
 
         // set stopDate to today
         medBefore.stopDate = today;
