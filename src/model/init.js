@@ -2,6 +2,7 @@ import {setObjectFactory} from './json-helper';
 import ObjectFactory from './ObjectFactory';
 import ClassRegistry from './ClassRegistry';
 
+import EntryFix from './fluxExtensions/EntryFix';
 import CodingFix from './fluxExtensions/CodingFix';
 import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import BloodPressureFix from './fluxExtensions/BloodPressureFix';
@@ -27,6 +28,8 @@ function init() {
   setObjectFactory(ObjectFactory);
 
   ClassRegistry.initialize();
+
+  ClassRegistry.set('shr.base', 'Entry', EntryFix);
 
   ClassRegistry.set('shr.core', 'Coding', CodingFix);
   ClassRegistry.set('shr.core', 'CodeableConcept', CodeableConceptFix);
