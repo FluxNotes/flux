@@ -2,7 +2,8 @@ import request from "request";
 import IOutcomesService from './IOutcomesService';
 import _ from 'lodash';
 
-import race_codes from './race_codes'
+import find_race_code from './race_codes';
+
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
         super();
@@ -12,6 +13,49 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.filters = params.filters;
     }
 
+    _genderMapping(gender) {
+        let lowered = gender ? _.toLower(gender) : null;
+        let code = 'UNK';
+        let display = 'UNKNOWN';
+        if (lowered === "female" || lowered === 'f') {
+            code = '703118005';
+            display = 'Female';
+        } else if (lowered === 'male' || lowered === 'm') {
+            code = '703117000';
+            display = 'Male';
+        }
+        return {
+            code: code,
+            displayName: display,
+            codeSystem: 'SNOMEDCT'
+        };
+    }
+
+    __raceCodeMapping(race) {
+        let code = find_race_code(race);
+        if (code) {
+            // if the value is one of the codes from the code system make sure it is one that clq supports
+            if (!['2028-9', '2106-3', '2054-5', '2131-1'].includes(code.code)) {
+                code = {
+                    code: '2131-1',
+                    text: 'Other Race'
+                };
+            }
+            return {
+                "codeSystemName": "HL7 v3 Code System Race",
+                "codeSystem": "2.16.840.1.113883.5.104",
+                "code": code.code,
+                "displayName": code.text
+            };
+        }
+
+        return {
+            "codeSystemName": "HL7 v3 Code System Race",
+            "codeSystem": "2.16.840.1.113883.5.104",
+            "code": 'UNK'
+        };
+
+    }
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
     buildDemographicsFilter(activeFilterValues) {
@@ -22,13 +66,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         let age = activeFilterValues["shr.core.DateOfBirth"];
         let age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
-            filter.gender =  {
-                codeSystemName: "AdministrativeGender",
-                codeSystem: "2.16.840.1.113883.4.642.2.1",
-                code:  _.startCase(_.toLower(gender.value)),
-                value:  _.startCase(_.toLower(gender.value)),
-                text:  _.startCase(_.toLower(gender.value))
-            };
+            filter.gender = this._genderMapping(gender.value);
         }
         if (age) {
             filter.age = {
@@ -43,34 +81,16 @@ export default class CLQOutcomesService extends IOutcomesService {
             };
         }
         if (race) {
-            let code = race_codes(race.value);
-            if(code) {
-                // if the value is one of the codes from the code system make sure it is one that clq supports
-                if(!['2028-9','2106-3','2054-5','2131-1'].indexOf(code.code)){
-                    code = {code: '2131-1', text: 'Other Race'}
-                }
-                filter.race = {
-                    "codeSystemName": "HL7 v3 Code System Race",
-                    "codeSystem": "2.16.840.1.113883.5.104",
-                    "code": code.code,
-                    "text": code.text
-                };
-            }else {
-                filter.race = {
-                    "codeSystemName": "HL7 v3 Code System Race",
-                    "codeSystem": "2.16.840.1.113883.5.104",
-                    "code": 'UNK'
-                };
-            }
-
+            filter.race = this.__raceCodeMapping(race.value);
         }
 
-        if(ethnicity){
-            let ethCode = ethnicity.value
+        if (ethnicity) {
+            let ethCode = ethnicity.value;
             filter.ethnicity = {
-                "codeSystemName": "HL7 v3 Code System Race",
-                "codeSystem": "2.16.840.1.113883.5.104",
-                "code": ethCode}
+                "codeSystemName": "HL7 v3 Code System Ethnicity",
+                "codeSystem": "2.16.840.1.113883.5.50",
+                "code": ethCode
+            };
         }
         return filter;
     }
@@ -136,12 +156,21 @@ export default class CLQOutcomesService extends IOutcomesService {
         filter.demographics = this.buildDemographicsFilter(activeFilterValues);
         filter.diagnosis = this.buildDiagnosisFilter(activeFilterValues);
         filter.tumorMarkers = this.buildTumorMarkersFilter(activeFilterValues);
-        filter.outcomes = {survival: this.timescale.map((ts) => { return {"value": ts*12, "interval": "months" }; })};
+        filter.outcomes = {
+            survival: this.timescale.map((ts) => {
+                return {
+                    "value": ts * 12,
+                    "interval": "months"
+                };
+            })
+        };
         return new Promise((accept, reject) => {
             request({
                 url: this.serviceUrl,
                 method: "POST",
-                headers: {'Authorization': this.apiKey},
+                headers: {
+                    'Authorization': this.apiKey
+                },
                 json: filter
             }, (err, _response, data) => {
                 if (err) {
