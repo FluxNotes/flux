@@ -60,7 +60,7 @@ export default class TemplateOption extends Component {
                         <div className='popover-container'>
                             <FontAwesome className='fa-times clickable close' name='close-icon' onClick={this.handlePopoverClose} />
                             {this.formatText(this.props.content)}
-                            <div className='choose-template clickable' onClick={this.handleTemplateSelection}> Choose this template </div>
+                            <div className='choose-template clickable' onClick={this.handleTemplateSelection}> Choose template </div>
                         </div>
                     </Popover>
                 </div>
