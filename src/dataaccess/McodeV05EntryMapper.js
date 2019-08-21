@@ -30,6 +30,8 @@ const mapEntryInfo = (resultJson, entryJson) => {
         changeEntryType(entryJson.Metadata.LastUpdated, 'http://standardhealthrecord.org/spec/shr/core/LastUpdated');
         resultJson.Metadata = entryJson.Metadata;
     }
+
+    if (entryJson.SourceClinicalNote) resultJson.SourceClinicalNote = { ...entryJson.SourceClinicalNote };
 };
 
 // In mCODE v0.5 the Coding array contains Code objects
