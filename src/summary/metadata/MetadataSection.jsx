@@ -69,14 +69,12 @@ export default class MetadataSection {
         if (entry.relatedEncounterReference) {
             const relatedEncounter = patient.getEntryFromReference(entry.relatedEncounterReference);
             if (relatedEncounter instanceof Encounter) {
-                result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
+                result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.actionContext.occurrenceTimeOrPeriod.timePeriod.timePeriodStart.value, 'D MMM YYYY HH:mm Z').format('D MMM YYYY hh:mm a');
             } else {
-                result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.expectedPerformanceTime, 'D MMM YYY HH:mm Z').format('D MMM YYY hh:mm a');
+                result += (result.length > 0 ? " f" : "F") + "rom encounter on " + new moment(relatedEncounter.expectedPerformanceTime, 'D MMM YYYY HH:mm Z').format('D MMM YYYY hh:mm a');
             }
         } else if (entry.lastUpdated) {
-            result += (result.length > 0 ? " o" : "O") + "n " + entry.lastUpdated.format('D MMM YYY hh:mm a');
-        } else if (entry.creationTime) {
-            result += (result.length > 0 ? " o" : "O") + "n " + entry.creationTime.format('D MMM YYY hh:mm a');
+            result += (result.length > 0 ? " o" : "O") + "n " + new moment(entry.lastUpdated, 'DD MMM YYYY').format('D MMM YYYY hh:mm a');
         } else if (entry.diagnosisDate) {
             result += (result.length > 0 ? " c" : "C") + "linically recognized on " + new moment(entry.diagnosisDate, 'D MMM YYYY').format('D MMM YYYY');
         }

@@ -645,9 +645,9 @@ class PatientRecord {
         const today = new moment();
 
         return allmeds.filter((med) => {
-            let medChanges = this.getMedicationChanges();
-            let stopMedicationFound = medChanges.some((medChange) => {
-                return (medChange.stopDate && medChange.status.value.coding[0].codeValue === "stop");
+            const medChanges = this.getMedicationChanges();
+            const stopMedicationFound = medChanges.some((medChange) => {
+                return (medChange.stopDate && medChange.type.value === "stop");
             });
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
@@ -737,10 +737,10 @@ class PatientRecord {
     }
 
     getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
-        let medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
+        const medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder().concat(this.getEntriesOfType(FluxMedicationStatement));
         const conditionEntryId = this._getConditionEntryId(condition);
         return medications.filter((med) => {
-            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -751,36 +751,24 @@ class PatientRecord {
     }
 
     getMedicationChangesChronologicalOrder() {
-        let list = this.getMedicationChanges();
-        list.sort(this._medChangesTimeSorter);
-        return list;
+        return this.getMedicationChanges().sort(this._medChangesTimeSorter);
     }
 
     getMedicationChangesForConditionChronologicalOrder(condition) {
-        let medicationsChanges = this.getMedicationChangesChronologicalOrder();
+        const medicationsChanges = this.getMedicationChangesChronologicalOrder();
         const conditionEntryId = this._getConditionEntryId(condition);
-        medicationsChanges = medicationsChanges.filter((change) => {
-            const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.value) : null;
-            const medAfterChange = change.medicationStatementAfterChange ? this.getEntryFromReference(change.medicationStatementAfterChange.value) : null;
+        return medicationsChanges.filter((change) => {
+            const medBeforeChange = change.relatedRequest ? this.getEntryFromReference(change.relatedRequest) : null;
 
-            let eitherChangeIsRelated;
+            if (medBeforeChange) {
+                return medBeforeChange.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
 
-            if (medAfterChange) {
-                eitherChangeIsRelated = change.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                }) || medAfterChange.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                });
-            } else if (medBeforeChange) {
-                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                });
-            } else {
-                return false;
+            } else if (change.medicationCodeOrReference) {
+                return change.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
             }
-            return change instanceof FluxMedicationStatement && eitherChangeIsRelated;
+
+            return false;
         });
-        return medicationsChanges;
     }
 
     createActiveMedication(selectedValue) {
