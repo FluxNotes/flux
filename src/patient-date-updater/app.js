@@ -27,7 +27,8 @@ const orderedOutput = program.orderedOutput;
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
 let encounter;
 if (entryid) {
-    encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' && entry.EntryId === entryid);
+
+    encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/core/ReferralRequest' && entry.EntryId.Value === entryid);
     // Encounter not found in patient entries so exit the program
     if (encounter === undefined) {
         console.error(`Encounter with entryid ${entryid} not found.`);
@@ -43,7 +44,7 @@ if (encounter) {
     console.log(`Saved backup JSON file to ${input}.backup`);
 
     // encounterDateValue grabs the correct date value based on whether the patient JSON is in mCODE v0.1 or v0.5
-    const encounterDateValue = encounter.Encounter.TimePeriod.TimePeriodStart ? encounter.Encounter.TimePeriod.TimePeriodStart.Value : encounter.Encounter.TimePeriod.BeginDateTime.Value;
+    const encounterDateValue = encounter.ExpectedPerformanceTime.Value.BeginDateTime.Value;
     const encounterDate = moment(encounterDateValue, 'D MMM YYYY HH:mm ZZ').startOf('day');
     today = moment().startOf('day');
     deltaDuration = moment.duration(today.diff(encounterDate));
@@ -55,7 +56,8 @@ patientEntries.forEach((entry, i) => {
     const flattenedEntry = flatten(entry);
     let change = false;
     let isDate;
-    const entryId = flattenedEntry.EntryId;
+
+    const entryId = flattenedEntry['EntryId.Value'];
     const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
     let specificFocusOfFinding = flattenedEntry["SpecificFocusOfFinding.Value._EntryId"];
     if (!specificFocusOfFinding) specificFocusOfFinding = flattenedEntry["Reason.0.Value._EntryId"];
