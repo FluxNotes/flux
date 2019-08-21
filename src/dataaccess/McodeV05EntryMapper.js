@@ -491,7 +491,7 @@ export function mapEntries(v05Json) {
 
                 resultJson.RelatedRequest = {
                     EntryType: {
-                        Value: 'http://standardhealthrecord.org/spec/shr/core/RelatedRequest'
+                        Value: 'http://standardhealthrecord.org/spec/shr/core/MedicationStatementRelatedRequest'
                     },
                     Value: { ...entry.MedicationBeforeChange[0].Value }
                 };

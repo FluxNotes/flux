@@ -78,7 +78,7 @@ export default class MedicationsSection extends MetadataSection {
                     medToViz.medicationChange = {
                         isUnsigned,
                         source,
-                        type: change.type.value,
+                        type: change.type,
                         date: change.whenChanged,
                         medBeforeChange: medToViz.medication,
                     };

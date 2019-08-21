@@ -6,6 +6,7 @@ import moment from 'moment';
 import FluxMedicationBase from './FluxMedicationBase';
 import StatementDateTime from '../../shr/core/StatementDateTime';
 import TreatmentIntent from '../../shr/core/TreatmentIntent';
+import MedicationStatementRelatedRequest from '../../shr/core/MedicationStatementRelatedRequest';
 
 class FluxMedicationStatement extends FluxMedicationBase {
     constructor(json, patientRecord) {
@@ -87,6 +88,25 @@ class FluxMedicationStatement extends FluxMedicationBase {
 
     get relatedRequest() {
         return this._medicationStatement.relatedRequest ? this._medicationStatement.relatedRequest.value: null;
+    }
+
+    set relatedRequest(medication) {
+        if (medication) {
+            // Add reference to related Medication Request
+            const relatedRequest = new MedicationStatementRelatedRequest();
+            relatedRequest.value = this._patientRecord.createEntryReferenceTo(medication);
+            this._medicationStatement.relatedRequest = relatedRequest;
+
+            // if (this.medAfterDoseAmount && !this.medicationAfterChange) {
+            //     const medAfter = this.createMedicationAfterFromMedicationBefore();
+            //     medAfter.dose = this.medAfterDoseAmount;
+            // }
+        } else {
+            // if (this.medicationAfterChange) {
+            //     this.removeMedicationAfterAndMedicationBefore();
+            // }
+            this._medicationStatement.relatedRequest = null;
+        }
     }
 
     // Clones medicationBefore and sets medicationAfter to cloned object

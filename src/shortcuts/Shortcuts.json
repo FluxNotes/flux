@@ -510,7 +510,7 @@
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/core/MedicationStatement",
     "valueObjectAttributes": [
-      {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"}
+      {"name":"medication", "attribute":"relatedRequest", "isSettable":"true", "setMethod": "relatedRequest", "childShortcut": "ActiveMedicationInserter"}
     ],
     "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "stop" ]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
