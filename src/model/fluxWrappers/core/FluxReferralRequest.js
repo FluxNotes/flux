@@ -1,11 +1,20 @@
 import ReferralRequest from '../../shr/core/ReferralRequest';
 import Reference from '../../Reference';
-import Lang from 'lodash';
+import _ from 'lodash';
 
 class FluxReferralRequest {
     constructor(json, patientRecord) {
         if (json) {
-            this._referralRequest = ReferralRequest.fromJSON(json);
+            if (json.ResultingClinicalNote) {
+                const { _ShrId, _EntryId, _EntryType } = json.ResultingClinicalNote;
+                this._resultingClinicalNote = new Reference(_ShrId, _EntryId, _EntryType);
+            }
+
+            // Clone the json first otherwise the backend test fails
+            const clonedJSON = _.cloneDeep(json);
+            delete clonedJSON.ResultingClinicalNote;
+
+            this._referralRequest = ReferralRequest.fromJSON(clonedJSON);
         } else {
             this._referralRequest = new ReferralRequest();
         }

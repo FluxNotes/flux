@@ -449,6 +449,8 @@ export function mapEntries(v05Json) {
                     };
                 }
 
+                if (entry.ResultingClinicalNote) resultJson.ResultingClinicalNote = { ...entry.ResultingClinicalNote };
+
                 v09Json.push(resultJson);
                 break;
             }
