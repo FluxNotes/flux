@@ -197,6 +197,34 @@ logoObject: {
         display: 'Compass™',
         app: "CompassApp",
         isExact: true,
+        dataSource: 'HardCodedMcodeV09DataSource',
+        patientId: '888dcbc3-ed18-470c-89ef-35ff91854c7g',
+        logoObject: {
+            path: './compass-logo.png',
+            altText: 'Compass logo',
+            width: '45px',
+            height: '45px'
+        }
+    },
+    {
+        path: '/ccp3',
+        display: 'Compass™',
+        app: "CompassApp",
+        isExact: true,
+        dataSource: 'HardCodedMcodeV09DataSource',
+        patientId: '988dcbc3-ed18-470c-89ef-35ff91854c7g',
+        logoObject: {
+            path: './compass-logo.png',
+            altText: 'Compass logo',
+            width: '45px',
+            height: '45px'
+        }
+    },
+    {
+        path: '/ccp4',
+        display: 'Compass™',
+        app: "CompassApp",
+        isExact: true,
         dataSource: 'HardCodedMcodeV05DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         logoObject: {
