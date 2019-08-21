@@ -6,8 +6,9 @@ import * as codeableConceptUtils from '../../CodeableConceptUtils';
 import Lang from 'lodash';
 import moment from 'moment';
 import Category from '../../shr/core/Category';
+import FluxMedicationBase from './FluxMedicationBase';
 
-class FluxMedicationStatement extends FluxEntry {
+class FluxMedicationStatement extends FluxMedicationBase {
     constructor(json, patientRecord) {
         super(json);
         this._entry = this._medicationStatement = MedicationStatement.fromJSON(json);
@@ -15,13 +16,6 @@ class FluxMedicationStatement extends FluxEntry {
         if (!this._medicationStatement.entryInfo) {
             this._medicationStatement.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/MedicationStatement');
         }
-    }
-    /**
-     * Get the entry information.
-     * Returns entryInfo object
-     */
-    get entryInfo() {
-        return this._medicationStatement.entryInfo;
     }
 
     get metadata() {
@@ -40,13 +34,13 @@ class FluxMedicationStatement extends FluxEntry {
         if (!this._medicationStatement.medicationStatementAfterChange) return null;
         return this._medicationStatement.medicationStatementAfterChange;
     }
+
     /**
      * Get the type of medication change
      * Returns type as a string
      */
     get type() {
-        // Return code
-        return this._medicationStatement.category.value.coding[0].codeValue;
+        return this._medicationStatement.treatmentIntent.value.coding[0].codeValue;
     }
 
     set type(code) {
@@ -54,7 +48,7 @@ class FluxMedicationStatement extends FluxEntry {
             this._medicationStatement.category = new Category();
         }
 
-        this._medicationChange.category.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
+        this._medicationStatement.category.value = codeableConceptUtils.getCodeableConceptFromTuple({value: code, codeSystem: "http://standardhealthrecord.org/spec/shr/medication/cs/#MedicationChangeTypeCS", displayText: code} );
     }
 
     /**
@@ -75,7 +69,7 @@ class FluxMedicationStatement extends FluxEntry {
                 this.medAfterDoseAmount = null;
             }
         } else {
-            if (this._medicationChange.medicationStatementAfterChange) {
+            if (this._medicationStatement.medicationStatementAfterChange) {
                 const medAfter = this._patientRecord.getEntryFromReference(this.medicationStatementAfterChange.value);
                 medAfter.dose = amount;
             } else if (this.stopDate) {
@@ -86,6 +80,10 @@ class FluxMedicationStatement extends FluxEntry {
                 this.medAfterDoseAmount = amount;
             }
         }
+    }
+
+    get relatedRequest() {
+        return this._medicationStatement.relatedRequest.value;
     }
 
     // Clones medicationBefore and sets medicationAfter to cloned object
@@ -104,7 +102,7 @@ class FluxMedicationStatement extends FluxEntry {
         this._patientRecord.addEntryToPatient(medAfter);
         const medAfterChange = new FluxMedicationStatementAfterChange();
         medAfterChange.value = this._patientRecord.createEntryReferenceTo(medAfter);
-        this._medicationChange.medicationStatementAfterChange = [medAfterChange];
+        this._medicationStatement.medicationStatementAfterChange = [medAfterChange];
 
         return medAfter;
     }
@@ -114,30 +112,18 @@ class FluxMedicationStatement extends FluxEntry {
         // Delete medicationAfterChange entry if no amount and reset end date
         const medAfter = this._patientRecord.getEntryFromReference(this.medicationStatementAfterChange.value);
         this._patientRecord.removeEntryFromPatient(medAfter);
-        this._medicationChange.medicationStatementAfterChange = null;
+        this._medicationStatement.medicationStatementAfterChange = null;
         if (this.stopDate) {
             this.stopDate = medAfter.stopDate;
         }
     }
 
-    // Get the stop time for the medication or return null
-    get stopDate() {
-        return this._medicationStatement.stopDate;
-
+    get startDate() {
+        return this._medicationStatement.occurrenceTimeOrPeriod.value.beginDateTime.dateTime;
     }
 
-    // Set the end date for medication
-    set stopDate(date) {
-        const endDateTime = new EndDateTime();
-        endDateTime.value = date;
-        this._medicationStatement.stopDate = endDateTime;
-    }
-
-    /**
-     * Return a JSON representation of medicationChange
-     */
-    toJSON() {
-        return this._medicationStatement.toJSON();
+    get whenChanged() {
+        return this._medicationStatement.statementDateTime.dateTime;
     }
 }
 

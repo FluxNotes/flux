@@ -508,11 +508,11 @@
     "id": "MedicationChangeStopCreator",
     "name": "stop medication",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/MedicationStatement",
     "valueObjectAttributes": [
       {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"}
     ],
-    "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "stop"]},
+    "updatePatient": [  {"object":"$valueObject", "attribute": "type", "args": [ "stop" ]},
                         {"object":"patient", "method": "addEntryToPatientWithPatientFocalSubject", "args": [ "$valueObject", "$clinicalNote" ]}],
     "isContext": true,
     "stringTriggers": [{ "name": "#stop medication", "description": "Support specifying medication change to stop for a medication."}],
@@ -524,7 +524,7 @@
     "id": "MedicationChangeReduceCreator",
     "name": "reduce medication",
     "getData": null,
-    "valueObject": "http://standardhealthrecord.org/spec/shr/medication/MedicationChange",
+    "valueObject": "http://standardhealthrecord.org/spec/shr/core/MedicationStatement",
     "valueObjectAttributes": [
       {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"},
       {"name":"to", "childShortcut": "MedicationDosageAmount"},

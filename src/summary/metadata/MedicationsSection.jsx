@@ -26,7 +26,7 @@ export default class MedicationsSection extends MetadataSection {
         let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition).filter(change => {
             // Filter reduced medication changes that don't have medBefore and medAfter
-            if (change.type === 'reduced') return change.medicationBeforeChange && change.medicationAfterChange;
+            if (change.type === 'reduced') return change.relatedRequest && change.medicationCodeOrReference;
             return true;
         });
 
@@ -42,24 +42,22 @@ export default class MedicationsSection extends MetadataSection {
             const isUnsigned = patient.isUnsigned(change);
             const source = this.determineSource(patient, change);
 
-            // If medicationChange has both medicationAfterChange and medicationBeforeChange
-            if (change.medicationAfterChange && change.medicationBeforeChange) {
-                const medAfterChangeRef = change.medicationAfterChange.reference;
-
+            // If medicationChange has both medicationCodeOrReference and relatedRequest
+            if (change.medicationCodeOrReference && change.relatedRequest) {
                 // Determine if the medAfterChange corresponds to a med
                 // Get that med if it exists, undefined otherwise
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === medAfterChangeRef.entryId);
+                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === change.entryId);
 
                 if (medToViz) {
                     // Add the medBeforeChange to the med, for use in visualization
-                    const medBeforeChangeRef = change.medicationBeforeChange.reference;
+                    const medBeforeChangeRef = change.relatedRequest;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
 
-                    // medAfterChange.medicationBeforeChange = medBeforeChange;
+                    // medAfterChange.relatedRequest = medBeforeChange;
                     medToViz.medicationChange = {
                         isUnsigned,
                         source,
-                        type: change.type,
+                        type: change.type.value,
                         date: change.whenChanged,
                         medBeforeChange: medBeforeChange,
                         medAfterChange: medToViz.medication,
@@ -71,16 +69,16 @@ export default class MedicationsSection extends MetadataSection {
                     });
                 }
             }
-            // If medication change only has medicationBeforeChange (does not have medicationAfterChange)
-            else if (change.medicationBeforeChange && !change.medicationAfterChange) {
-                const medBeforeChangeRef = change.medicationBeforeChange.reference;
+            // If medication change only has relatedRequest (does not have medicationCodeOrReference)
+            else if (change.relatedRequest && !change.medicationCodeOrReference) {
+                const medBeforeChangeRef = change.relatedRequest;
                 const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === medBeforeChangeRef.entryId);
 
                 if (medToViz) {
                     medToViz.medicationChange = {
                         isUnsigned,
                         source,
-                        type: change.type,
+                        type: change.type.value,
                         date: change.whenChanged,
                         medBeforeChange: medToViz.medication,
                     };
