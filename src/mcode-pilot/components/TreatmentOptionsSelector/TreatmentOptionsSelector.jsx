@@ -17,6 +17,10 @@ export default class TreatmentOptionsSelector extends PureComponent {
         this.setState({ expanded: !this.state.expanded });
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.subTitle.props.children[0].props.children !== nextProps.subTitle.props.children[0].props.children || nextState.expanded !== this.state.expanded;
+    }
+
     render() {
         const { title, subTitle, subHeader, children } = this.props;
         const { expanded } = this.state;

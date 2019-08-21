@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import './BarChart.css';
 
-export default class BarChart extends Component {
+export default class BarChart extends PureComponent {
     _getStyles = (survivedPercent, compareToPercent, percentChange, roundedPercent) => {
         let mainStyle, changeStyle;
         if (percentChange < 0) {

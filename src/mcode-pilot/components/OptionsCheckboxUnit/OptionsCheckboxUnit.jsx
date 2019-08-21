@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import { FormControl, FormLabel, FormControlLabel } from 'material-ui';
-import FontAwesome from 'react-fontawesome';
 
 import OptionsRangeSelector from '../OptionsRangeSelector/OptionsRangeSelector';
 
@@ -25,11 +24,9 @@ export default class OptionsCheckboxUnit extends Component {
 
 
     shouldComponentUpdate(nextProps, nextState) {
-        this.currentTime = Date.now();
         return nextProps.selected!==this.currentSelect || this.state.openRangeSelector !== nextState.openRangeSelector;
     }
     componentDidUpdate(prevProps) {
-        console.log(Date.now()-this.currentTime);
         this.currentSelect = this.props.selected;
     }
     handleOpenRangeSelector() {
@@ -45,13 +42,13 @@ export default class OptionsCheckboxUnit extends Component {
     }
 
     render() {
-        
         const { openRangeSelector} = this.state;
         const { selected, name,displayText,hasRange,optionText, minValue, maxValue, unit, value, defaultMinValue, defaultMaxValue, category, selectSimilarPatientOptionRange} = this.props;
         return (
             <div className="options-checkbox-unit">
                 <FormControl key={name} className="selection-options__selection">
                     <FormLabel>
+
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -98,3 +95,13 @@ export default class OptionsCheckboxUnit extends Component {
         );
     }
 }
+
+OptionsCheckboxUnit.propTypes = {
+    selected: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    displayText: PropTypes.string.isRequired,
+    hasRange: PropTypes.bool.isRequired,
+    optionText: PropTypes.object.isRequired,
+    category: PropTypes.string.isRequired,
+    selectSimilarPatientOptionRange: PropTypes.func.isRequired,
+};

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
-import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
-import { FormControl, FormLabel, FormControlLabel } from 'material-ui';
+import { FormLabel, FormControlLabel } from 'material-ui';
 import FontAwesome from 'react-fontawesome';
 import FilterOptions from '../../utils/FilterOptions';
 
-import OptionsRangeSelector from '../OptionsRangeSelector/OptionsRangeSelector';
 import OptionsCheckboxUnit from '../OptionsCheckboxUnit/OptionsCheckboxUnit';
 
 import './OptionsCheckboxList.css';
@@ -17,7 +15,6 @@ export default class OptionsCheckboxList extends Component {
         this.fOptions = new FilterOptions({});
         this.name = this.props.category;
         this.selectListLen = 0;
-        this.currentTime = 0;
         this.state = {
             expanded: true
         };
@@ -28,13 +25,11 @@ export default class OptionsCheckboxList extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        this.currentTime = Date.now();
         return this.selectListLen !== this.fOptions.recursiveFilterSearch(nextProps.options).filter((option) => { return option.selected; }).length || this.state.expanded !== nextState.expanded;
     }
 
     componentDidUpdate(prevProps) {
         this.selectListLen = this.fOptions.recursiveFilterSearch(prevProps.options).filter((option) => { return option.selected; }).length;
-        console.log(Date.now()-this.currentTime);
     }
     handleExpand = () => {
         this.setState({ expanded: !this.state.expanded });

@@ -79,7 +79,7 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
     for (let i = 0; i < activeValues.length; i++) {
         const filter = activeValues[i];
         const { minValue, maxValue, reference } = filter;
-        const value = _.lowerCase(filter.value);
+        const value = typeof filter.value === 'string'?filter.value.toLowerCase():filter.value;
 
         // demographics
         const { demographics, diseaseStatus, tumorMarkers } = treatmentDataPatient;
@@ -107,7 +107,7 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
             if (dxAge < minValue || dxAge > maxValue) {
                 return false;
             }
-        } else if (filter.mcodeElement === 'shr.core.Race' && value !== _.lowerCase(race)) {
+        } else if (filter.mcodeElement === 'shr.core.Race' && value !== race.toLowerCase()) {
             return false;
         } else if (filter.mcodeElement === 'shr.core.BirthSex' && value !== _.lowerCase(gender)) {
             return false;
@@ -128,8 +128,8 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
             || filter.mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory'
             || filter.mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
             && (diseaseStatus.tnm.filter(status => {
-                return (_.lowerCase(status.codeSystem) === _.lowerCase(reference.codeSystem.value)
-                    && _.lowerCase(status.code) === _.lowerCase(reference.codeValue.value));
+                return (status.codeSystem.toLowerCase() === reference.codeSystem.value.toLowerCase()
+                    && status.code.toLowerCase() === reference.code.value.toLowerCase());
             }).length===0)) { // no data available
             return false;
         } else if (filter.mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade

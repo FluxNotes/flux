@@ -21,17 +21,13 @@ import {
 
 import './TreatmentOptionsVisualizer.css';
 
-
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
+
         const { patient, condition, initializeSimilarPatientProps, processSimilarPatientOutcomes } = this.props;
         const service = new ServiceManager().getService('outcomes');
         initializeSimilarPatientProps(patient, condition, service.filters);
         processSimilarPatientOutcomes();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
     }
 
     componentWillReceiveProps(nextProps) {
