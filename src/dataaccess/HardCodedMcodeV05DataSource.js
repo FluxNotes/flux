@@ -51,7 +51,9 @@ class HardCodedMcodeV05DataSource extends IDataSource {
     }
 
     getListOfPatients() {
-        const patients = [ BreastMainTreatmentDiabetesHypertensionJaneV05 ];
+        const debra = McodeV05EntryMapper.mapEntries(BreastMainTreatmentDiabetesHypertensionJaneV05);
+        const jane = McodeV05EntryMapper.mapEntries(BreastMainTreatmentDebra);
+        const patients = [ debra, jane ];
         return patients.map(p => new PatientRecord(p));
     }
 
