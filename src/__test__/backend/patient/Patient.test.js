@@ -1,12 +1,12 @@
 import '../../../model/init';
 import PatientRecord from '../../../patient/PatientRecord';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebraV05.json';
 import FakeDataElement from './FakeDataElement';
-import Patient from '../../../model/shr/entity/Patient';
+import Patient from '../../../model/shr/core/Patient';
 import Moment from 'moment';
 import {expect} from 'chai';
-import FluxPatient from '../../../model/fluxWrapper/entity/FluxPatient';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import FluxPatient from '../../../model/fluxWrappers/core/FluxPatient';
+import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
 
 // The empty PatientRecord.jsx obj
 const emptyPatientObj = new PatientRecord(null);
