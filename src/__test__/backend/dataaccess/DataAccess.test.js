@@ -1,7 +1,7 @@
 import DataAccess from '../../../dataaccess/DataAccess';
 import BreastMainTreatmentDebraV05 from '../../../dataaccess/BreastMainTreatmentDebraV05.json';
 import hardCodedFHIRPatient from '../../../dataaccess/HardCodedFHIRPatient.json';
-import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatient.json';
+import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatientV09.json';
 import PatientRecord from '../../../patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../dataaccess/HardCodedPatient.json';
 import moment from 'moment';
@@ -181,12 +181,7 @@ describe('use smart on fhir as data source with simple mock', function() {
         let i = 1;
         smartOnFhirDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID, (smartPatientResult, _error) => {
             const smartPatientResultJSON = smartPatientResult.entries.map(entry => entry.toJSON());
-            // at this point smartPatientResultJSON and hardCodedConvertedFHIRPatient should be equal, except for the Person.entryID which is randomized at creation time
-            // hack to get this working, find the Person.entryID, stringify eveything and replace the entryID with the expected one 2835f59d-cf36-4598-9982-0c539ba052e9
-            const personEntryID = smartPatientResultJSON[0]._Person._EntryId.value;  // Person no longer had entry ID. Should we tweak the patient entryID instead?
-            const regex = new RegExp(personEntryID, 'g');
-            const tweakedJSON = JSON.parse(JSON.stringify(smartPatientResultJSON).replace(regex, '2835f59d-cf36-4598-9982-0c539ba052e9'));
-            expect(tweakedJSON).to.deep.equal(hardCodedConvertedFHIRPatient);
+            expect(smartPatientResultJSON).to.deep.equal(hardCodedConvertedFHIRPatient);
             done();
         });
     });
