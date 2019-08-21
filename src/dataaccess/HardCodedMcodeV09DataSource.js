@@ -45,7 +45,7 @@ class HardCodedMcodeV09DataSource extends IDataSource {
         else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
-        return new PatientRecord(McodeV05EntryMapper.mapEntries(patientJSON));
+        return new PatientRecord((patientJSON));
     }
 
     getListOfPatients() {

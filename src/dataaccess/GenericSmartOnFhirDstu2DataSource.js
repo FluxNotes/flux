@@ -2,7 +2,7 @@ import McodeV09SmartOnFhirDataSource from "./McodeV09SmartOnFhirDataSource";
 import processFHIRResources from './utils/fhir-entry-processor';
 import mappers from './mappers';
 
-class GenericSmartOnFhirDstu2DataSource extends McodeV05SmartOnFhirDataSource {
+class GenericSmartOnFhirDstu2DataSource extends McodeV09SmartOnFhirDataSource {
     constructor(props) {
         super(props);
         if (props && typeof props.mapper === 'string') {

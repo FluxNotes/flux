@@ -596,8 +596,6 @@ class FluxCondition extends FluxEntry {
         return 0;
     }
 
-<<<<<<< HEAD:src/model/fluxWrappers/core/FluxCondition.js
-=======
     _getTopicCodeCoding(){
         if (this._condition.findingTopicCode &&
             this._condition.findingTopicCode.value && 
@@ -613,10 +611,12 @@ class FluxCondition extends FluxEntry {
      * @private
      */
     _displayTextOrCode(coding) {
-        return coding.displayText ? coding.displayText.value : coding.code.value;
+        if(coding && (coding.displayText || coding.code)){
+            return coding.displayText ? coding.displayText.value : coding.code.value;
+        }
+        return '';
     }
 
->>>>>>> adding eternals to webpack config to support fhir-mapper within the src/ codebase as well as including via script tag to support configuration of mapper eternal to source code.  Fixing issue in FluxConditionPResent class to deal with issues of data not being available as expected.  Adding simple mapper to extend the synthea05 mapper with addtional codes for cancer condition present.:src/model/base/FluxConditionPresentAssertion.js
     toJSON() {
         return this._condition.toJSON();
     }
