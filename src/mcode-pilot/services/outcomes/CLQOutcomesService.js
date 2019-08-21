@@ -16,7 +16,7 @@ export default class CLQOutcomesService extends IOutcomesService {
     _genderMapping(gender) {
         let lowered = gender ? _.toLower(gender) : null;
         let code = 'UNK';
-        let display = 'UNKOWN';
+        let display = 'UNKNOWN';
         if (lowered === "female" || lowered === 'f') {
             code = '703118005';
             display = 'Female';
