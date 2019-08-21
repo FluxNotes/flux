@@ -2,15 +2,15 @@ import NoteParser from '../../../noteparser/NoteParser';
 import { stagingJSON, diseaseStatusJSON, diseaseStatus2JSON, toxicityJSON, deceasedJSON,
     clinicalTrialEnrollmentJSON, clinicalTrialEnrollmentMinimalJSON, clinicalTrialUnenrolledJSON, stopMedicationJSON, reduceMedicationJSON } from './NoteParserUtils';
 import FluxCancerDiseaseStatus from '../../../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
-import FluxTNMClinicalStageGroup from '../../../model/oncocore/FluxTNMClinicalStageGroup';
-import FluxToxicReaction from '../../../model/core/FluxAdverseDrugReaction';
+import FluxTNMClinicalStageGroup from '../../../model/fluxWrappers/onco/core/FluxTNMClinicalStageGroup';
+import FluxAdverseDrugReaction from '../../../model/fluxWrappers/core/FluxAdverseDrugReaction';
 import FluxDeathInformation from '../../../model/entity/FluxDeathInformation';
 import FluxResearchSubject from '../../../model/research/FluxResearchSubject';
 import FluxMedicationChange from '../../../model/medication/FluxMedicationChange';
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
 
 const today = new moment().format("D MMM YYYY");
 
@@ -37,7 +37,7 @@ const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
 const expectedOutputStaging = [[ new FluxTNMClinicalStageGroup(EntryMapper.mapEntries([stagingJSON])[0]) ], []];
 const expectedOutputDiseaseStatus = [[ new FluxCancerDiseaseStatus(EntryMapper.mapEntries([diseaseStatusJSON])[0]) ], []];
 const expectedOutputDiseaseStatus2 = [[ new FluxCancerDiseaseStatus(EntryMapper.mapEntries([diseaseStatus2JSON])[0]) ], []];
-const expectedOutputToxicity = [[ new FluxToxicReaction(EntryMapper.mapEntries([toxicityJSON])[0]) ], []];
+const expectedOutputToxicity = [[ new FluxAdverseDrugReaction(EntryMapper.mapEntries([toxicityJSON])[0]) ], []];
 const expectedOutputDeceased = [[ new FluxDeathInformation(deceasedJSON) ], []];
 const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialEnrollmentJSON])[0]) ], []];
 const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialEnrollmentMinimalJSON])[0]) ], []];

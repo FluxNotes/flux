@@ -20,17 +20,17 @@ import FluxNotesEditor from '../../../notes/FluxNotesEditor';
 
 import NotesPanel from '../../../panels/NotesPanel';
 import NoteAssistant from '../../../notes/NoteAssistant';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDebraV05 from '../../../dataaccess/BreastMainTreatmentDebraV05.json';
 import PatientRecord from '../../../patient/PatientRecord.jsx';
-import FluxCondition from '../../../model/base/FluxCondition';
+import FluxCondition from '../../../model/fluxWrappers/core/FluxCondition';
 
 import SearchIndex from '../../../patientControl/SearchIndex';
-import FluxClinicalNote from '../../../model/core/FluxClinicalNote';
+import FluxClinicalNote from '../../../model/fluxWrappers/core/FluxClinicalNote';
 import PreferenceManager from '../../../preferences/PreferenceManager';
 import FluxCancerCondition from '../../../model/fluxWrappers/onco/core/FluxCancerCondition';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
 
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebraV05);
 
 Enzyme.configure({ adapter: new Adapter() });
 

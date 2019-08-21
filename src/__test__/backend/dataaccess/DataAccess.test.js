@@ -1,22 +1,22 @@
 import DataAccess from '../../../dataaccess/DataAccess';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDebraV05 from '../../../dataaccess/BreastMainTreatmentDebraV05.json';
 import hardCodedFHIRPatient from '../../../dataaccess/HardCodedFHIRPatient.json';
 import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatient.json';
 import PatientRecord from '../../../patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../dataaccess/HardCodedPatient.json';
 import moment from 'moment';
 import {expect} from 'chai';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
 import util from 'util';
 
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebraV05);
 // reference hard coded Patient
 const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 // reference person of record
 const referencePatient = referenceHardCodedPatient.getPatient();
 
 // Data Access with hard coded read only data source
-const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV01DataSource");
+const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV05DataSource");
 // The patient shr object
 const hardCodedPatientObj = hardCodedReadOnlyDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
 // The patient record entry -- should be an shr object
@@ -182,9 +182,8 @@ describe('use smart on fhir as data source with simple mock', function() {
         smartOnFhirDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID, (smartPatientResult, _error) => {
             const smartPatientResultJSON = smartPatientResult.entries.map(entry => entry.toJSON());
             // at this point smartPatientResultJSON and hardCodedConvertedFHIRPatient should be equal, except for the Person.entryID which is randomized at creation time
-
             // hack to get this working, find the Person.entryID, stringify eveything and replace the entryID with the expected one 2835f59d-cf36-4598-9982-0c539ba052e9
-            const personEntryID = smartPatientResultJSON[0].Person._EntryId.value;
+            const personEntryID = smartPatientResultJSON[0]._Person._EntryId.value;  // Person no longer had entry ID. Should we tweak the patient entryID instead?
             const regex = new RegExp(personEntryID, 'g');
             const tweakedJSON = JSON.parse(JSON.stringify(smartPatientResultJSON).replace(regex, '2835f59d-cf36-4598-9982-0c539ba052e9'));
             expect(tweakedJSON).to.deep.equal(hardCodedConvertedFHIRPatient);
@@ -210,7 +209,7 @@ describe('use smart on fhir as data source with simple mock', function() {
 });
 
 describe('test multiple hardcoded read only data source', function() {
-    const hardcodedTabletV01DataSource = new DataAccess("HardcodedTabletMcodeV01DataSource");
+    const hardcodedTabletV01DataSource = new DataAccess("HardcodedTabletMcodeV05DataSource");
     const ihanosPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7f");
     const ellaPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7e");
     const ellaNewNoteContent = '@condition[[{"text":"Invasive ductal carcinoma of breast","entryId":"8"}]] <disease status>';

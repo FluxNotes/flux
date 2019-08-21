@@ -5,12 +5,14 @@ import { expect } from 'chai'
 import '../../../model/init';
 
 import PatientRecord from '../../../patient/PatientRecord';
-import TestPatient from '../../TestPatient.json';
+import TestPatientV05 from '../../TestPatientV05.json';
 
 import PatientSearch from '../../../patientControl/PatientSearch'
 import SearchIndex from '../../../patientControl/SearchIndex';
 import NotesIndexer from '../../../patientControl/NotesIndexer';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
+
+
 const testPatientShrId = '123456'
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -22,7 +24,7 @@ const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
 
-const mcodePatientJson = EntryMapper.mapEntries(TestPatient);
+const mcodePatientJson = EntryMapper.mapEntries(TestPatientV05);
 // The hardcoded PatientRecord.jsx obj
 const testPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries
@@ -81,7 +83,7 @@ describe('PatientSearch', function () {
         />);
 
         // Assumes we're testing against TestPatient
-        expect(testPatientObj.shrId)
+        expect(testPatientObj.shrId.id)
             .to.equal(testPatientShrId)
 
         testSearch(wrapper, () => {
@@ -99,7 +101,7 @@ describe('PatientSearch', function () {
             searchIndex={searchIndex}
         />);
         // Assumes we're testing against TestPatient
-        expect(testPatientObj.shrId)
+        expect(testPatientObj.shrId.id)
             .to.equal(testPatientShrId)
 
         testSearch(wrapper, () => {

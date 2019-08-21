@@ -20,16 +20,15 @@ class FluxCancerHistologicGrade extends FluxObservation {
     }
 
     getGradeAsSimpleNumber() {
-        if (!this._cancerHistologicGrade.dataValue
+        if (!(this._cancerHistologicGrade.dataValue
             || this._cancerHistologicGrade.dataValue.value
             || this._cancerHistologicGrade.dataValue.value.coding
             || this._cancerHistologicGrade.dataValue.value.coding[0]
             || this._cancerHistologicGrade.dataValue.value.coding[0].code
-            || this._cancerHistologicGrade.dataValue.value.coding[0].code.value) {
+            || this._cancerHistologicGrade.dataValue.value.coding[0].codeValue)){
             return null;
         }
-
-        const code = this._cancerHistologicGrade.dataValue.value.coding[0].code.value;
+        const code = this._cancerHistologicGrade.dataValue.value.coding[0].codeValue.code;
         if (code === "369792005") {
             return 3;
         } else if (code === "369791003") {
