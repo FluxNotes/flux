@@ -152,7 +152,7 @@ describe('3 TargetedDataControl', function() {
     });
 });
 describe('4 TargetedDataControl - correct default visualizer Medications', function() {
-    it('4.1 correct default visualizer', function() {
+    it.only('4.1 correct default visualizer', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
         const condition = new FluxCancerCondition({
@@ -195,15 +195,15 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         const metadata = summaryMetadata.getMetadata(null, null, condition, null, null, null);
         // Look for the first NameValuePair section which should be Summary. Assumes it does not have a defaultVisualizer property
         const section = metadata.sections.find((section) => {
-            return (section.type === "Medications");
+             return (section.type === "Medications");
         });
-        const expectedDefault = 'chart';
-
+        const expectedDefault = 'tabular';
+        //console.log(metadata.sections)
         const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
         const wrapper = shallow(<TargetedDataSection searchSuggestions={[]} patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} defaultVisualizer={section.defaultVisualizer} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
-
+      
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
             .to.eq(expectedDefault);
@@ -229,7 +229,7 @@ describe('5 FullApp', function() {
     it('5.1 Selecting a condition changes the active condition', () => {
         const wrapper = mount(<FullApp
                 display='Flux Notes'
-                dataSource='HardCodedMcodeV01DataSource'
+                dataSource='HardCodedMcodeV05DataSource'
                 patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const conditionSelector = wrapper.find('SelectInput');
         expect(conditionSelector.exists()).to.equal(true);
@@ -246,7 +246,7 @@ describe('5 FullApp', function() {
     it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the template selection screen', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV05DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -263,7 +263,7 @@ describe('5 FullApp', function() {
     it('5.3 Clicking "New Note" button in pre-encounter mode changes layout, and selecting a blank note should display the editor', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV05DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -285,7 +285,7 @@ describe('5 FullApp', function() {
     it('5.4 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV05DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
 
         // Click on new note button to open the editor
@@ -315,7 +315,7 @@ describe('5 FullApp', function() {
     it('5.5 Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV05DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
             { attachTo: document.body });
 

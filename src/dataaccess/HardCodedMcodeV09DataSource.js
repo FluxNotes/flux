@@ -1,6 +1,7 @@
 import IDataSource from './IDataSource';
 import BreastMainTreatmentDiabetesHypertensionJaneV09 from './BreastMainTreatmentDiabetesHypertensionJaneV09.json';
 import PatientRecord from '../patient/PatientRecord.jsx';
+import  * as McodeV05EntryMapper from './McodeV05EntryMapper';
 
 class HardCodedMcodeV09DataSource extends IDataSource {
     constructor() {
@@ -31,13 +32,12 @@ class HardCodedMcodeV09DataSource extends IDataSource {
 
     getPatient(id) {
         let patientJSON;
-
         if (BreastMainTreatmentDiabetesHypertensionJaneV09[0].ShrId.Value === id) {
             patientJSON = BreastMainTreatmentDiabetesHypertensionJaneV09;
         } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
-        return new PatientRecord((patientJSON));
+        return new PatientRecord(McodeV05EntryMapper.mapEntries(patientJSON));
     }
 
     getListOfPatients() {

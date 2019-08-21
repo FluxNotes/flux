@@ -63,8 +63,8 @@ class PatientRecord {
 
     _calculateNextEntryId() {
         this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-            return o.entryInfo.entryId;
-        })) + 1;
+            return (o.entryInfo.entryId.id || o.entryInfo.entryId.Value);
+        })) + 1; 
     }
 
     _loadJSON(shrJson) {
@@ -515,7 +515,7 @@ class PatientRecord {
 
         const clinicalNote = new FluxClinicalNote(clinicalNoteJson);
         this.addEntryToPatientWithPatientFocalSubject(clinicalNote, null);
-
+       
         // Get closest encounter and link to new note
         const closestEncounter = this.getClosestEncounter();
         if (closestEncounter) {
