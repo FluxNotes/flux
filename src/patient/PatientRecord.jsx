@@ -1212,10 +1212,10 @@ class PatientRecord {
         if (list.length === 1) return list[0];
         list = list.filter(e => e.metadata);
         let maxDate = Math.max.apply(null, list.map(function (o) {
-            return new Date(o.metadata.lastUpdated.instant);
+            return new Date(o.metadata.lastUpdated.value);
         }));
         let result = list.filter((item) => {
-            return new Date(item.metadata.lastUpdated.instant).getTime() === new Date(maxDate).getTime();
+            return new Date(item.metadata.lastUpdated.value).getTime() === new Date(maxDate).getTime();
         });
         if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
             return null;
