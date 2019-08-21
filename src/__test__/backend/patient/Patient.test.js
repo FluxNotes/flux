@@ -44,8 +44,8 @@ describe('getMostRecentEntryFromList', function () {
     it('should return an element (could be multiple) with the most recent last updated date from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () {
         //slice to clone obj
         const sortedList = hardCodedPatientEntries.filter(e => e.metadata).slice().sort(function (a,b) {
-            const a_lastUpdateDate = new Moment(a.metadata.lastUpdated.instant, "D MMM YYYY");
-            const b_lastUpdateDate = new Moment(b.metadata.lastUpdated.instant, "D MMM YYYY");
+            const a_lastUpdateDate = new Moment(a.metadata.lastUpdated.dateTime, "D MMM YYYY");
+            const b_lastUpdateDate = new Moment(b.metadata.lastUpdated.dateTime, "D MMM YYYY");
             if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
             if (a_lastUpdateDate > b_lastUpdateDate) { return -1; }
             return 0;

@@ -7,6 +7,7 @@ import BreastMainTreatmentDiabetesHypertensionJaneV05 from '../../../../dataacce
 import PatientRecord from '../../../../patient/PatientRecord.jsx';
 import getProps from '../../../../mcode-pilot/utils/recordToProps';
 import FilterOptions from '../../../../mcode-pilot/utils/FilterOptions';
+import * as McodeV05EntryMapper from '../../../../dataaccess/McodeV05EntryMapper';
 import '../../../../model/init.js';
 import expectedFilter from './filter.json';
 import response from './response.json';
@@ -14,7 +15,7 @@ import rows from './rows.js';
 import processed from './processed.js';
 import {generateOutcomeData, formatResults} from '../../../../mcode-pilot/utils/serviceResultsProcessing';
 const nock = require('nock');
-
+const patientMcode = McodeV05EntryMapper.mapEntries(BreastMainTreatmentDiabetesHypertensionJaneV05);
 
 describe("CLQOutcomesService", () => {
     // this removes the unquie row identifiers for a set of results to allow for testing
@@ -29,7 +30,7 @@ describe("CLQOutcomesService", () => {
         "timescale": ["1","3","5"]
     });
 
-    let patient = new PatientRecord(BreastMainTreatmentDiabetesHypertensionJaneV05);
+    let patient = new PatientRecord(patientMcode);
     
     
     let similarPatientProps = getProps(patient, patient.getActiveConditions()[0])
