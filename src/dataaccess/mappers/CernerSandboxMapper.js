@@ -35,14 +35,14 @@ let mapper = {
         {
             filter: "Condition.code.coding.where($this.code in %primaryCancerConditionCodes.first())",
             exec: (resource, context) =>
-                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-CancerDisorderPresent')
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-CancerDisorderPresent')
         },
         {filter: "Observation.code.text = 'AJCCV7 Breast Distant Metastasis (M) Pat'",
             exec: (resource, context) => {
                 resource.code = {coding: [{code: '21901-4'  , system: 'http://loinc.org'}]};
                 resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
 
-                // utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/');
+                // utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMPathologicDistantMetastasesClassification');
                 return resource;
             }
         },
@@ -50,7 +50,7 @@ let mapper = {
             exec: (resource, context) => {
                 resource.code = {coding: [{code: '21907-1'  , system: 'http://loinc.org'}]};
                 resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
-                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-TNMClinicalDistantMetastasesClassification');
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMClinicalDistantMetastasesClassification');
                 return resource;
             }
         },
@@ -58,7 +58,7 @@ let mapper = {
             exec: (resource, context) => {
                 resource.code = {coding: [{code: '21900-6'  , system: 'http://loinc.org'}]};
                 resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
-                //utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/');
+                //utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMPatholgicRegionalNodesClassification');
                 return resource;
             }
         },
@@ -66,7 +66,71 @@ let mapper = {
             exec: (resource, context) => {
                 resource.code = {coding: [{code: '21906-3'  , system: 'http://loinc.org'}]};
                 resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
-                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-TNMClinicalRegionalNodesClassification');
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMClinicalRegionalNodesClassification');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO P Stage'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21902-2'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMPatholgicStageGroup');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO C Stage'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21908-9'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMClinicalStageGroup');
+                return resource;
+            }
+        },///
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO M Category P'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21901-4'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMPathologicDistantMetastasesClassification');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO N Category P'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21900-6'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMPatholgicRegionalNodesClassification');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO T Category P'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21899-0'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMPathologicPrimaryTumorCategory');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO M Category C'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21907-1'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMClinicalDistantMetastasesClassificationn');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO N Category C'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21906-3'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMClinicalRegionalNodesClassification');
+                return resource;
+            }
+        },
+        {filter: "Observation.code.text  = 'AJCCV8 MAG-PRO T Category C'",
+            exec: (resource, context) => {
+                resource.code = {coding: [{code: '21905-5'  , system: 'http://loinc.org'}]};
+                resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/onco-core-TNMClinicalPrimaryTumorCategory');
                 return resource;
             }
         }],
