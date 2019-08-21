@@ -35,7 +35,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         let code = find_race_code(race);
         if (code) {
             // if the value is one of the codes from the code system make sure it is one that clq supports
-            if (!['2028-9', '2106-3', '2054-5', '2131-1'].indexOf(code.code)) {
+            if (!['2028-9', '2106-3', '2054-5', '2131-1'].includes(code.code)) {
                 code = {
                     code: '2131-1',
                     text: 'Other Race'
