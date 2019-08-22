@@ -526,7 +526,7 @@
     "getData": null,
     "valueObject": "http://standardhealthrecord.org/spec/shr/core/MedicationStatement",
     "valueObjectAttributes": [
-      {"name":"medication", "attribute":"medicationBeforeChange", "isSettable":"true", "setMethod": "medicationBeforeChange", "childShortcut": "ActiveMedicationInserter"},
+      {"name":"medication", "attribute":"relatedRequest", "isSettable":"true", "setMethod": "relatedRequest", "childShortcut": "ActiveMedicationInserter"},
       {"name":"to", "childShortcut": "MedicationDosageAmount"},
       {"name":"toDosageAmount", "attribute": "afterDosage", "isSettable": "true", "setMethod": "afterDosage"}
     ],

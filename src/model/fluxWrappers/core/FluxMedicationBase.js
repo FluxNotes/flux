@@ -20,6 +20,9 @@ class FluxMedicationBase extends FluxEntry {
      */
     get medication() {
         // TODO: handle reference case
+        if (!this._entry.medicationCodeOrReference
+            || !this._entry.medicationCodeOrReference.value) return null;
+
         return this._displayTextOrCode(this._entry.medicationCodeOrReference.value.coding[0]);
     }
 
@@ -35,7 +38,11 @@ class FluxMedicationBase extends FluxEntry {
     }
 
     get medicationCodeOrReference() {
-        return this._medicationStatement.medicationCodeOrReference;
+        return this._entry.medicationCodeOrReference;
+    }
+
+    set medicationCodeOrReference(medicationCodeOrReference) {
+        this._entry.medicationCodeOrReference = medicationCodeOrReference;
     }
 
     /*
@@ -64,6 +71,14 @@ class FluxMedicationBase extends FluxEntry {
     set dose(amount) {
         if (!this._entry.dosage || !this._entry.dosage.doseAmount) return;
         this._entry.dosage.doseAmount.value.number.decimal = amount;
+    }
+
+    get dosage() {
+        return this._entry.dosage;
+    }
+
+    set dosage(dosage) {
+        this._entry.dosage = dosage;
     }
 
     /*
