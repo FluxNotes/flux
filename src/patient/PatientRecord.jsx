@@ -20,7 +20,6 @@ import LastUpdated from '../model/shr/core/LastUpdated';
 import EntryId from '../model/shr/base/EntryId';
 import Reference from '../model/Reference';
 import * as mapper from '../lib/FHIRMapper';
-import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import _ from 'lodash';
@@ -36,7 +35,7 @@ class PatientRecord {
         this.missingEligibleTrialData = [];
         this.eligibleTrials = [];
         this.refreshClinicalTrials = true;
-        if (!Lang.isNull(shrJson)) { // load existing from JSON
+        if (!_.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
             this.patient = this.getPatient();
             this.person = this.getPerson();
@@ -92,7 +91,7 @@ class PatientRecord {
 
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry) {
-        if (Lang.isNull(entry)) return false;
+        if (_.isNull(entry)) return false;
 
         if (entry.entryInfo.sourceClinicalNote) {
             let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
@@ -111,7 +110,7 @@ class PatientRecord {
         fhirJson.entry.forEach((entry) => {
             const entryTypes =  mapper.mapToEntryTypes(entry);
             entryTypes.forEach((entryType) => {
-                if (!Lang.isNull(entryType)) {
+                if (!_.isNull(entryType)) {
                     const shrObj = FluxObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
                     shrObj.entryInfo.entryId = this._createNewEntryId(nextEntryId);
@@ -128,9 +127,9 @@ class PatientRecord {
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
     updateExistingEntry(updatedEntry) {
         var found = this.entries.find(function(element) {
-            return Lang.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
+            return _.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
         });
-        if (!Lang.isUndefined(found)) {
+        if (!_.isUndefined(found)) {
             var index = this.entries.indexOf(found);
             this.entries[index] = updatedEntry;
         }
@@ -142,7 +141,7 @@ class PatientRecord {
             if (!(element instanceof FluxResearchSubject)) return false;
             return element.title === entry.title;
         });
-        if (!Lang.isUndefined(found)) {
+        if (!_.isUndefined(found)) {
             found.status = 'Completed';
             return found;
         } else {
@@ -210,23 +209,23 @@ class PatientRecord {
     }
 
     getName() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         return this.person.name;
     }
 
     getDateOfBirth() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         return this.person.dateOfBirth;
     }
 
     getAge() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         var today = new Date();
         return this.getAgeAsOf(today);
     }
 
     getAgeAsOf(date) {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         var birthDate = new Date(this.getDateOfBirth());
         var age = date.getFullYear() - birthDate.getFullYear();
         var m = date.getMonth() - birthDate.getMonth();
@@ -237,7 +236,7 @@ class PatientRecord {
     }
 
     getGender() {
-        if (Lang.isNull(this.patient)) return null;
+        if (_.isNull(this.patient)) return null;
         return this.patient.gender;
     }
 
@@ -246,7 +245,7 @@ class PatientRecord {
     }
 
     getPerson() {
-        if (Lang.isUndefined(this.patient.person)) return null;
+        if (_.isUndefined(this.patient.person)) return null;
         return this.patient.person;
     }
 
@@ -255,7 +254,7 @@ class PatientRecord {
             return item instanceof FluxPatientIdentifier && item.identifierType === "MRN";
         });
         let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
-        if (Lang.isNull(identifierEntry)) return null;
+        if (_.isNull(identifierEntry)) return null;
         return identifierEntry.value;
     }
 
@@ -264,7 +263,7 @@ class PatientRecord {
     }
 
     getCurrentHomeAddress() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         return this.person.address;
     }
 
@@ -315,7 +314,7 @@ class PatientRecord {
 
     getNextEncounterReasonAsText() {
         const nextEncounter = this.getNextEncounter();
-        if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
+        if (_.isUndefined(nextEncounter)) return "No upcoming appointments";
         // Tried replacing breast cancer condition text to establish condition context
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
         return nextEncounter.reasonReference;
@@ -325,7 +324,7 @@ class PatientRecord {
         const encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening before the specified moment argument
-        const sinceMoment = Lang.isEmpty(sinceDate) ? new moment() : new moment(sinceDate);
+        const sinceMoment = _.isEmpty(sinceDate) ? new moment() : new moment(sinceDate);
         return encounters.filter((encounter) => {
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
             return encounterStartTime.isBefore(sinceMoment, "second");
@@ -344,7 +343,7 @@ class PatientRecord {
 
     getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
-        if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
+        if (_.isUndefined(previousEncounter)) return "No recent appointments";
         return previousEncounter.reasonReference;
     }
 
@@ -373,7 +372,7 @@ class PatientRecord {
         let result;
 
         const ros = this.getReviewOfSystems();
-        if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
+        if (_.isUndefined(ros) || _.isNull(ros)) {
             return "No review of systems found in record.";
         }
 
@@ -398,7 +397,7 @@ class PatientRecord {
 
     getReviewOfSystemsMembers() {
         const ros = this.getReviewOfSystems();
-        if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
+        if (_.isUndefined(ros) || _.isNull(ros)) {
             return "No review of systems found in record.";
         }
 
@@ -487,7 +486,7 @@ class PatientRecord {
         // if an allergy does not have a category
         if (category === "other") {
             return allergies.filter((a) => {
-                return Lang.isNull(a.category);
+                return _.isNull(a.category);
             });
         }
 
@@ -589,7 +588,7 @@ class PatientRecord {
     }
 
     getMedications() {
-        return this.getEntriesOfType(FluxMedicationRequest);
+        return this.getEntriesOfType(FluxMedicationRequest).concat(this.getMedicationChanges().filter(ms => !_.isNull(ms.medication)));
     }
 
     getMedicationsAsText() {
@@ -606,7 +605,7 @@ class PatientRecord {
         meds.forEach((item, itemIndex) => {
             attributeList.forEach((itemKey, attrIndex) => {
                 let nextSubstring = this._getValueUsingPath(item, itemKey);
-                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                if (!_.isUndefined(nextSubstring) && !_.isNull(nextSubstring)) strResult += nextSubstring;
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
             });
@@ -633,7 +632,7 @@ class PatientRecord {
         let medications = this.getMedicationsReverseChronologicalOrder();
         const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -643,9 +642,9 @@ class PatientRecord {
     getActiveMedications() {
         const allmeds = this.getMedicationsReverseChronologicalOrder();
         const today = new moment();
+        const medChanges = this.getMedicationChanges();
 
         return allmeds.filter((med) => {
-            const medChanges = this.getMedicationChanges();
             const stopMedicationFound = medChanges.some((medChange) => {
                 return (medChange.relatedRequest && med.entryId === medChange.relatedRequest.entryId && medChange.type === "stop");
             });
@@ -663,7 +662,7 @@ class PatientRecord {
             return listItem.split(".");
         });
         // Start date to trail the text
-        let startDatePath = "expectedPerformanceTime.timePeriodStart";
+        let startDatePath = "startDate";
         startDatePath = startDatePath.split('.');
 
         const lastMedicationIndex = activeMeds.length - 1;
@@ -672,7 +671,7 @@ class PatientRecord {
         activeMeds.forEach((item, itemIndex) => {
             attributeList.forEach((itemKey, attrIndex) => {
                 let nextSubstring = this._getValueUsingPath(item, itemKey);
-                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                if (!_.isUndefined(nextSubstring) && !_.isNull(nextSubstring)) strResult += nextSubstring;
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
             });
@@ -702,7 +701,7 @@ class PatientRecord {
         let medications = this.getActiveMedications();
         const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });
@@ -729,7 +728,7 @@ class PatientRecord {
         let medications = this.getActiveMedicationsReverseChronologicalOrder();
         const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequest && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -737,7 +736,7 @@ class PatientRecord {
     }
 
     getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
-        const medications = this.getActiveAndRecentlyStoppedMedications().concat(this.getEntriesOfType(FluxMedicationStatement)).sort(this._reverseMedsTimeSorter);
+        const medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
         const conditionEntryId = this._getConditionEntryId(condition);
         return medications.filter((med) => {
             return med.reasons.some((r) => {
@@ -747,7 +746,7 @@ class PatientRecord {
     }
 
     getMedicationChanges() {
-        return this.getEntriesOfType(FluxMedicationStatement);
+        return this.getEntriesOfType(FluxMedicationStatement).filter(ms => !_.isNull(ms.type));
     }
 
     getMedicationChangesChronologicalOrder() {
@@ -953,7 +952,7 @@ class PatientRecord {
         const sortedProgressionList = progressionList.sort(this._progressionTimeSorter);
         const length = sortedProgressionList.length;
         let p = (sortedProgressionList[length - 1]);
-        if (Lang.isNull(sinceDate)) return p;
+        if (_.isNull(sinceDate)) return p;
         const startTime = new moment(p.asOfDate, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
@@ -1218,7 +1217,7 @@ class PatientRecord {
         let result = list.filter((item) => {
             return new Date(item.metadata.lastUpdated.dateTime).getTime() === new Date(maxDate).getTime();
         });
-        if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
+        if (_.isUndefined(result) || _.isNull(result) || result.length === 0) {
             return null;
         }
         return result[0];
@@ -1242,19 +1241,19 @@ class PatientRecord {
             const relevantTime = new moment(heartRate.relevantTime, "D MMM YYYY").format("D MMM YYYY");
             return relevantTime === today;
         });
-        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)) {
+        if (_.isUndefined(bloodPressure) && _.isUndefined(bodyTemperature) && _.isUndefined(bodyWeight) && _.isUndefined(heartRate)) {
             return "no vital signs taken today";
         }
-        const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
-                        (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
-                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") +
-                        (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");
+        const results = (_.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
+                        (_.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
+                        (_.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") +
+                        (_.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");
         return results;
     }
 
     getReferredBy() {
         let referredBy = this.getPreviousEncounter().referredBy;
-        if (Lang.isUndefined(referredBy)) return "No referral for this appointment";
+        if (_.isUndefined(referredBy)) return "No referral for this appointment";
         return referredBy;
     }
 }

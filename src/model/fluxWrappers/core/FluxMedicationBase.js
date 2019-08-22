@@ -2,6 +2,7 @@ import MedicationCodeOrReference from '../../shr/core/MedicationCodeOrReference'
 import RecurrencePattern from '../../shr/core/RecurrencePattern';
 import Type from '../../shr/core/Type';
 import FluxEntry from '../base/FluxEntry';
+import moment from 'moment';
 import * as lookup from '../../../lib/MedicationInformationService.jsx';
 
 class FluxMedicationBase extends FluxEntry {
@@ -200,6 +201,27 @@ class FluxMedicationBase extends FluxEntry {
             return null;
         }
         return this._entry.dosage.dosageInstructionsText.value;
+    }
+
+    isActiveAsOf(date) {
+        const start = new moment(this.startDate, "D MMM YYYY");
+        const end = new moment(this.endDate, "D MMM YYYY");
+        if (start && start > date) return false;
+        if (end && end < date) return false;
+        return true;
+    }
+
+    isActiveBetween(lowerDate, upperDate) {
+        const start = new moment(this.startDate, "D MMM YYYY");
+        const end = new moment(this.endDate, "D MMM YYYY");
+
+        // If the start date is in the future
+        if (start && start > upperDate) return false;
+
+        // If the medication ended before the lowerDate
+        if (end && end < lowerDate) return false;
+
+        return true;
     }
 
     /**

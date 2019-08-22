@@ -3,7 +3,6 @@ import BeginDateTime from '../../shr/core/BeginDateTime';
 import EndDateTime from '../../shr/core/EndDateTime';
 import MedicationRequest from '../../shr/core/MedicationRequest';
 import ExpectedPerformanceTime from '../../shr/core/ExpectedPerformanceTime';
-import moment from 'moment';
 import FluxMedicationBase from './FluxMedicationBase';
 
 class FluxMedicationRequest extends FluxMedicationBase {
@@ -85,27 +84,6 @@ class FluxMedicationRequest extends FluxMedicationBase {
         const endDateTime = new EndDateTime();
         endDateTime.value = date;
         this._medicationRequest.expectedPerformanceTime.value.endDateTime = endDateTime;
-    }
-
-    isActiveAsOf(date) {
-        const start = new moment(this.startDate, "D MMM YYYY");
-        const end = new moment(this.endDate, "D MMM YYYY");
-        if (start && start > date) return false;
-        if (end && end < date) return false;
-        return true;
-    }
-
-    isActiveBetween(lowerDate, upperDate) {
-        const start = new moment(this.startDate, "D MMM YYYY");
-        const end = new moment(this.endDate, "D MMM YYYY");
-
-        // If the start date is in the future
-        if (start && start > upperDate) return false;
-
-        // If the medication ended before the lowerDate
-        if (end && end < lowerDate) return false;
-
-        return true;
     }
 }
 
