@@ -155,8 +155,9 @@ class PatientRecord {
 
     addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.patientShrId;
-        entry.entryInfo.entryId = this.nextEntryId;
-        this.nextEntryId = this.nextEntryId + 1;
+        entry.entryInfo.entryId = new EntryId();
+        entry.entryInfo.entryId.value = this.nextEntryId++;
+
         if (clinicalNote) {
             entry.entryInfo.sourceClinicalNote = this.createEntryReferenceTo(clinicalNote.entryInfo);
         }
