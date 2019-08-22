@@ -15,7 +15,7 @@ export default class TemplateSelectionView extends Component {
             {
                 name: 'Physical exam',
                 author: 'Dr. Mona341 Brown483',
-                content: 'Vitals: @vitals\nSkin:\nLymph:'
+                content: 'VITALS:\n @vitals\n\nSKIN:\n\nLYMPH:'
             },
             {
                 name: 'Follow-up',
@@ -30,7 +30,7 @@ export default class TemplateSelectionView extends Component {
             {
                 name: 'Testing template',
                 author: 'Dr. Mona341 Brown483',
-                content: 'FOLLOW UP:\nPatient is showing signs of @condition @ONCOHIST @condition @ONCOHIST\n\nMEDICATIONS:\n@medication\n\nProcedures:\n@procedure'
+                content: 'FOLLOW UP:\nPatient is showing signs of @condition @ONCOHIST @condition @ONCOHIST\n\nMEDICATIONS:\n@medication\n\nPROCEDURES:\n@procedure'
             }
         ];
         // TODO: Make the generation of this fuse dynamic once templates are moved into app/user preferences

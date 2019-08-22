@@ -181,6 +181,7 @@ class SearchableListForPlaceholder extends Component {
                             <div key={adverseEvent.name} className="tooltip-toxicity-form">
                                 <span id={adverseEvent.name} className={tooltipClass}>{adverseEvent.description}</span>
                                 <SingleChoiceButton
+                                    className='placeholder-button'
                                     buttonKey={i}
                                     buttonText={adverseEvent.name}
                                     onClick={(e) => this.handleAdverseEventSelection(adverseEvent.name, i)}

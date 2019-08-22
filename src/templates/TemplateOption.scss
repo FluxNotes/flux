@@ -1,4 +1,4 @@
-@import '../styles/variables';
+@import "../styles/variables";
 
 .template-option {
     position: relative;
@@ -41,5 +41,46 @@
         padding-bottom: 1px;
         color: $state;
         text-overflow: ellipsis;
+    }
+}
+
+.popover-style {
+    background-color: $background !important;
+    border-radius: 5px;
+    width: 50% !important;
+    height: 35% !important;
+    left: 41% !important;
+    top: 50% !important;
+    padding: 20px 20px 25px 20px;
+    margin: 5px;
+    overflow-y: auto !important;
+    font-size: $size-s;
+    .popover-container {
+        position: relative !important;
+        height: 100%;
+        overflow-y: auto;
+        .bolded {
+            font-weight: bold;
+        }
+        .close {
+            color: $interface-blue;
+            position: fixed;
+            top: 2%;
+            right: 2%;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .choose-template {
+            color: $interface-blue;
+            position: fixed;
+            bottom: 2%;
+            right: 2%;
+        }
+    }
+    >   ::-webkit-scrollbar-track {
+        background-color: $background;
     }
 }
