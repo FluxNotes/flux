@@ -172,6 +172,14 @@ class FluxMedicationBase extends FluxEntry {
         return reasons;
     }
 
+    get reasonReference() {
+        return this._entry.reasonReference;
+    }
+
+    set reasonReference(reasonReference) {
+        this._entry.reasonReference = reasonReference;
+    }
+
     get code() {
         // TODO: handle reference case
         return this._entry.medicationCodeOrReference.value.coding[0].codeValue.value;

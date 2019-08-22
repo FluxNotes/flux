@@ -128,6 +128,7 @@ class FluxMedicationStatement extends FluxMedicationBase {
         this.startDate = today;
         this.endDate = clonedMedBefore.endDate;
         this.medicationCodeOrReference = clonedMedBefore.medicationCodeOrReference;
+        this.reasonReference = clonedMedBefore.reasonReference;
         this.dosage = clonedMedBefore.dosage;
         this.dose = null;
     }
