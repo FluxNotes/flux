@@ -3,11 +3,10 @@ import {
 } from 'chai';
 import _ from 'lodash'
 import CLQOutcomesService from '../../../../mcode-pilot/services/outcomes/CLQOutcomesService'
-import BreastMainTreatmentDiabetesHypertensionJaneV05 from '../../../../dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json';
+import BreastMainTreatmentDiabetesHypertensionJaneV09 from '../../../../dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV09.json';
 import PatientRecord from '../../../../patient/PatientRecord.jsx';
 import getProps from '../../../../mcode-pilot/utils/recordToProps';
 import FilterOptions from '../../../../mcode-pilot/utils/FilterOptions';
-import * as McodeV05EntryMapper from '../../../../dataaccess/McodeV05EntryMapper';
 import '../../../../model/init.js';
 import expectedFilter from './filter.json';
 import response from './response.json';
@@ -15,7 +14,7 @@ import rows from './rows.js';
 import processed from './processed.js';
 import {generateOutcomeData, formatResults} from '../../../../mcode-pilot/utils/serviceResultsProcessing';
 const nock = require('nock');
-const patientMcode = McodeV05EntryMapper.mapEntries(BreastMainTreatmentDiabetesHypertensionJaneV05);
+const patientMcode = BreastMainTreatmentDiabetesHypertensionJaneV09;
 
 describe("CLQOutcomesService", () => {
     // this removes the unquie row identifiers for a set of results to allow for testing

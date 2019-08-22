@@ -1,12 +1,11 @@
 import '../../../model/init';
 import PatientRecord from '../../../patient/PatientRecord';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebraV05.json';
+import BreastMainTreatmentDebraV09 from '../../../dataaccess/BreastMainTreatmentDebraV09.json';
 import FakeDataElement from './FakeDataElement';
 import Patient from '../../../model/shr/core/Patient';
 import Moment from 'moment';
 import {expect} from 'chai';
 import FluxPatient from '../../../model/fluxWrappers/core/FluxPatient';
-import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
 
 // The empty PatientRecord.jsx obj
 const emptyPatientObj = new PatientRecord(null);
@@ -14,7 +13,7 @@ const emptyPatientObj = new PatientRecord(null);
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+const mcodePatientJson = BreastMainTreatmentDebraV09;
 // The hardcoded PatientRecord.jsx obj
 const hardCodedPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries

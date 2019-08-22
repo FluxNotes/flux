@@ -1,15 +1,14 @@
 import DataAccess from '../../../dataaccess/DataAccess';
-import BreastMainTreatmentDebraV05 from '../../../dataaccess/BreastMainTreatmentDebraV05.json';
+import BreastMainTreatmentDebraV09 from '../../../dataaccess/BreastMainTreatmentDebraV09.json';
 import hardCodedFHIRPatient from '../../../dataaccess/HardCodedFHIRPatient.json';
 import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatientV09.json';
 import PatientRecord from '../../../patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../dataaccess/HardCodedPatient.json';
 import moment from 'moment';
 import {expect} from 'chai';
-import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
 import util from 'util';
 
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebraV05);
+const mcodePatientJson = BreastMainTreatmentDebraV09;
 // reference hard coded Patient
 const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 // reference person of record
