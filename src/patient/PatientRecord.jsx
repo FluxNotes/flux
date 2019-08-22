@@ -647,7 +647,7 @@ class PatientRecord {
         return allmeds.filter((med) => {
             const medChanges = this.getMedicationChanges();
             const stopMedicationFound = medChanges.some((medChange) => {
-                return (medChange.stopDate && medChange.type === "stop");
+                return (medChange.relatedRequest && med.entryId === medChange.relatedRequest.entryId && medChange.type === "stop");
             });
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
