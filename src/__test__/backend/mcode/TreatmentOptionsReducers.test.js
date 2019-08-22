@@ -7,8 +7,7 @@ import * as types from '../../../actions/types';
 import reducer from '../../../reducers/mcode';
 import { defaultState } from '../../../reducers/mcode';
 import PatientRecord from '../../../patient/PatientRecord';
-import TestPatient2V05 from '../../TestPatient2V05.json';
-import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
+import TestPatient2V09 from '../../TestPatient2V09.json';
 import FluxCancerCondition from '../../../model/fluxWrappers/onco/core/FluxCancerCondition';
 import stateObjects from './mock-data/testoptions.json';
 import { similarPatientTreatmentsData } from './mock-data';
@@ -22,7 +21,7 @@ describe('Reducer function', () => {
 
     describe('initialization of patient props', () => {
         const type = types.INITIALIZE_SIMILAR_PATIENT_PROPS;
-        const mcodePatientJson = EntryMapper.mapEntries(TestPatient2V05);
+        const mcodePatientJson = TestPatient2V09;
         const testPatientObj = new PatientRecord(mcodePatientJson);
         const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerCondition)[0];
         const testPatientRecord = testPatientObj.getPatient();

@@ -5,13 +5,11 @@ import { expect } from 'chai'
 import '../../../model/init';
 
 import PatientRecord from '../../../patient/PatientRecord';
-import TestPatientV05 from '../../TestPatientV05.json';
+import TestPatientV09 from '../../TestPatientV09.json';
 
 import PatientSearch from '../../../patientControl/PatientSearch'
 import SearchIndex from '../../../patientControl/SearchIndex';
 import NotesIndexer from '../../../patientControl/NotesIndexer';
-import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
-
 
 const testPatientShrId = '123456'
 
@@ -24,7 +22,7 @@ const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
 
-const mcodePatientJson = EntryMapper.mapEntries(TestPatientV05);
+const mcodePatientJson = TestPatientV09;
 // The hardcoded PatientRecord.jsx obj
 const testPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries
