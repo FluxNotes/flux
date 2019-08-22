@@ -955,3 +955,36 @@ export function mapEntries(v05Json) {
 
     return v09Json;
 };
+
+
+if (require.main === module) {
+    // USAGE:
+    // $ npx babel-node --presets es2015 --plugins transform-object-rest-spread ./src/dataaccess/McodeV05EntryMapper.js <file-to-convert>
+    console.log('called directly');
+    const fs = require('fs');
+    const program = require('commander');
+
+    let inFile;
+    program
+        .usage('<path-to-patient-json>')
+        .arguments('<path-to-patient-json>')
+        .action((pathToPatientJson) => {
+            inFile = pathToPatientJson;
+        })
+        .parse(process.argv);
+
+    // Check that input file is specified
+    if (typeof inFile === 'undefined') {
+        // print error in red text (\x1b[31m) then reset color back to normal (\x1b[0m)
+        console.error('\x1b[31m', 'Missing path to patient JSON', '\x1b[0m');
+        program.help();
+    }
+
+    console.log(`Reading ${inFile}`);
+    const patientEntries = JSON.parse(fs.readFileSync(inFile, 'utf8'));
+    const mappedEntries = mapEntries(patientEntries);
+    const outFile = inFile.replace('V05', 'V09');
+    console.log(`Writing to ${outFile}`);
+    fs.writeFileSync(outFile, JSON.stringify(mappedEntries, null, 2), 'utf8');
+    console.log('Done.');
+}
