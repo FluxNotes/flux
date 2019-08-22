@@ -10,6 +10,7 @@ import MedicationStatementRelatedRequest from '../../shr/core/MedicationStatemen
 import OccurrenceTimeOrPeriod from '../../shr/core/OccurrenceTimeOrPeriod';
 import BeginDateTime from '../../shr/core/BeginDateTime';
 import TimePeriod from '../../shr/core/TimePeriod';
+import EndDateTime from '../../shr/core/EndDateTime';
 
 class FluxMedicationStatement extends FluxMedicationBase {
     constructor(json, patientRecord) {
@@ -101,13 +102,13 @@ class FluxMedicationStatement extends FluxMedicationBase {
             this._medicationStatement.relatedRequest = relatedRequest;
 
             if (this.medAfterDoseAmount && !this.medication) {
-                const medAfter = this.createMedicationAfterFromRelatedRequest();
-                medAfter.dose = this.medAfterDoseAmount;
+                this.createMedicationAfterFromRelatedRequest();
+                this.dose = this.medAfterDoseAmount;
             }
         } else {
-            // if (this.medicationAfterChange) {
-            //     this.removeMedicationAfterAndMedicationBefore();
-            // }
+            if (this.medication) {
+                this.removeMedicationAfterAndRelatedRequest();
+            }
             this._medicationStatement.relatedRequest = null;
         }
     }
@@ -119,24 +120,24 @@ class FluxMedicationStatement extends FluxMedicationBase {
     createMedicationAfterFromRelatedRequest() {
         const medBefore = this._patientRecord.getEntryFromReference(this.relatedRequest);
         const today = new moment().format('D MMM YYYY');
+        const clonedMedBefore = _.cloneDeep(medBefore);
 
         // set endDate to today
         medBefore.endDate = today;
 
         this.startDate = today;
-        this.medicationCodeOrReference = medBefore.medicationCodeOrReference;
-        this.dosage = medBefore.dosage;
+        this.endDate = clonedMedBefore.endDate;
+        this.medicationCodeOrReference = clonedMedBefore.medicationCodeOrReference;
+        this.dosage = clonedMedBefore.dosage;
         this.dose = null;
     }
 
-    // Removes medicationAfter from patient record and resets end date 
+    // Remove all medication information from MedicationStatement and reset endDate
     removeMedicationAfterAndRelatedRequest() {
-        // Delete medicationAfterChange entry if no amount and reset end date
-        const medAfter = this._patientRecord.getEntryFromReference(this.medicationStatementAfterChange.value);
-        this._patientRecord.removeEntryFromPatient(medAfter);
-        this._medicationStatement.medicationStatementAfterChange = null;
-        if (this.stopDate) {
-            this.stopDate = medAfter.stopDate;
+        this.medication = null;
+        if (this.relatedRequest) {
+            const medBefore = this._patientRecord.getEntryFromReference(this.relatedRequest);
+            medBefore.endDate = this.endDate;
         }
     }
 
@@ -155,6 +156,23 @@ class FluxMedicationStatement extends FluxMedicationBase {
         const beginDateTime = new BeginDateTime();
         beginDateTime.value = date;
         this._medicationStatement.occurrenceTimeOrPeriod.value.beginDateTime = beginDateTime;
+    }
+
+    get endDate() {
+        if (!this._medicationStatement.occurrenceTimeOrPeriod
+            || !this._medicationStatement.occurrenceTimeOrPeriod.value
+            || !this._medicationStatement.occurrenceTimeOrPeriod.value.endDateTime) return null;
+
+        return this._medicationStatement.occurrenceTimeOrPeriod.value.endDateTime.dateTime;
+    }
+
+    set endDate(date) {
+        if (!this._medicationStatement.occurrenceTimeOrPeriod) this._medicationStatement.occurrenceTimeOrPeriod = new OccurrenceTimeOrPeriod();
+        if (!this._medicationStatement.occurrenceTimeOrPeriod.value) this._medicationStatement.occurrenceTimeOrPeriod.value = new TimePeriod();
+
+        const endDateTime = new EndDateTime();
+        endDateTime.value = date;
+        this._medicationStatement.occurrenceTimeOrPeriod.value.endDateTime = endDateTime;
     }
 
     get whenChanged() {
