@@ -44,12 +44,11 @@ class HardCodedMcodeV09DataSource extends IDataSource {
             patientJSON = GistAdjuvantIhanos;
         } else if (BreastMainTreatmentDiabetesHypertensionJaneV09_01[0].ShrId.Value === id) {
             patientJSON = BreastMainTreatmentDiabetesHypertensionJaneV09_01;
-        } else  if (BreastMainTreatmentDiabetesHypertensionJaneV09_02[0].ShrId.Value === id) {
+        } else if (BreastMainTreatmentDiabetesHypertensionJaneV09_02[0].ShrId.Value === id) {
             patientJSON = BreastMainTreatmentDiabetesHypertensionJaneV09_02;
-        }  else  if (BreastMainTreatmentDiabetesHypertensionJaneV09_03[0].ShrId.Value === id) {
+        } else if (BreastMainTreatmentDiabetesHypertensionJaneV09_03[0].ShrId.Value === id) {
             patientJSON = BreastMainTreatmentDiabetesHypertensionJaneV09_03;
-        } 
-        else {
+        } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
         }
         return new PatientRecord(patientJSON);

@@ -1193,7 +1193,7 @@ class PatientRecord {
 
     getEntryById(entryId) {
         return this.entries.find((entry) => {
-            return entry.entryInfo.entryId === entryId;
+            return this._entryIdsMatch(entry.entryInfo.entryId, entryId);
         });
     }
 
