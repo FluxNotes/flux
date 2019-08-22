@@ -737,7 +737,7 @@ class PatientRecord {
     }
 
     getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
-        const medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder().concat(this.getEntriesOfType(FluxMedicationStatement));
+        const medications = this.getActiveAndRecentlyStoppedMedications().concat(this.getEntriesOfType(FluxMedicationStatement)).sort(this._reverseMedsTimeSorter);
         const conditionEntryId = this._getConditionEntryId(condition);
         return medications.filter((med) => {
             return med.reasons.some((r) => {
