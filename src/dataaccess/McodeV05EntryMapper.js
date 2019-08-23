@@ -301,7 +301,7 @@ export function mapEntries(v05Json) {
                 mapFindingStatus(resultJson, entry.FindingStatus);
                 mapRelevantTime(resultJson, entry.RelevantTime);
 
-                if (entry.PanelMembers) {
+                if (entry.PanelMembers && entry.PanelMembers.Observation) {
                     resultJson.Components = entry.PanelMembers.Observation.map(ref => {
                         const bloodPressureReading = v05Json.find(e => e.EntryId === ref._EntryId);
                         const bloodPressureType = getNamespaceAndName(bloodPressureReading).elementName;
@@ -493,23 +493,27 @@ export function mapEntries(v05Json) {
                 resultJson.Status = { ...entry.Status };
                 mapCodingArray(resultJson.Status.Value.Coding);
 
-                resultJson.RelatedRequest = {
-                    EntryType: {
-                        Value: 'http://standardhealthrecord.org/spec/shr/core/MedicationStatementRelatedRequest'
-                    },
-                    Value: { ...entry.MedicationBeforeChange[0].Value }
-                };
-                resultJson.RelatedRequest.Value._EntryType = 'http://standardhealthrecord.org/spec/shr/core/MedicationRequest';
+                if (entry.MedicationBeforeChange) {
+                    resultJson.RelatedRequest = {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/MedicationStatementRelatedRequest'
+                        },
+                        Value: { ...entry.MedicationBeforeChange[0].Value }
+                    };
+                    resultJson.RelatedRequest.Value._EntryType = 'http://standardhealthrecord.org/spec/shr/core/MedicationRequest';
+                }
 
-                // Find and copy over all properties from MedicationRequested referenced in MedicationAfterChange
-                const medicationAfterChange = v05Json.find(e => e.EntryId === entry.MedicationAfterChange[0].Value._EntryId);
-                mapReasons(resultJson, medicationAfterChange.Reason);
+                if (entry.MedicationAfterChange) {
+                    // Find and copy over all properties from MedicationRequested referenced in MedicationAfterChange
+                    const medicationAfterChange = v05Json.find(e => e.EntryId === entry.MedicationAfterChange[0].Value._EntryId);
+                    mapReasons(resultJson, medicationAfterChange.Reason);
 
-                resultJson.OccurrenceTimeOrPeriod = { ...medicationAfterChange.ExpectedPerformanceTime };
-                changeEntryType(resultJson.OccurrenceTimeOrPeriod, 'http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod');
+                    resultJson.OccurrenceTimeOrPeriod = { ...medicationAfterChange.ExpectedPerformanceTime };
+                    changeEntryType(resultJson.OccurrenceTimeOrPeriod, 'http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod');
 
-                mapMedication(resultJson, medicationAfterChange.Medication);
-                mapDosage(resultJson, medicationAfterChange.Dosage);
+                    mapMedication(resultJson, medicationAfterChange.Medication);
+                    mapDosage(resultJson, medicationAfterChange.Dosage);
+                }
 
                 v09Json.push(resultJson);
                 break;
@@ -855,24 +859,28 @@ export function mapEntries(v05Json) {
                 // Mapping PanelMembers
                 // Need to change namespace for t, n, and m references
                 // Removing all other observations
-                mapPanelMembers(resultJson, entry.PanelMembers);
-                resultJson.PanelMembers.Observation.forEach((p, i, arr) => {
-                    if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification') {
-                        p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory';
-                    } else if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification') {
-                        p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalRegionalNodesCategory';
-                    } else if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification') {
-                        p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalDistantMetastasesCategory';
-                    } else {
-                        arr.splice(i, 1);
-                    }
-                });
+                if (entry.PanelMembers) {
+                    mapPanelMembers(resultJson, entry.PanelMembers);
+                    resultJson.PanelMembers.Observation.forEach((p, i, arr) => {
+                        if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalPrimaryTumorClassification') {
+                            p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalPrimaryTumorCategory';
+                        } else if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalRegionalNodesClassification') {
+                            p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalRegionalNodesCategory';
+                        } else if (p._EntryType.Value === 'http://standardhealthrecord.org/spec/mcode/TNMClinicalDistantMetastasesClassification') {
+                            p._EntryType = 'http://standardhealthrecord.org/spec/onco/core/TNMClinicalDistantMetastasesCategory';
+                        } else {
+                            arr.splice(i, 1);
+                        }
+                    });
+                }
 
                 resultJson.Method = { ...entry.FindingMethod };
                 changeEntryType(resultJson.Method, 'http://standardhealthrecord.org/spec/shr/core/Method');
 
                 mapFindingResult(resultJson, entry.FindingResult);
-                mapSffToPcc(resultJson, entry.SpecificFocusOfFinding);
+                if (entry.SpecificFocusOfFinding) {
+                    mapSffToPcc(resultJson, entry.SpecificFocusOfFinding);
+                }
 
                 v09Json.push(resultJson);
                 break;
