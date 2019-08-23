@@ -52,7 +52,7 @@ export default class MetadataSection {
     determineSource = (patient, entry) => {
         if (entry.sourceClinicalNoteReference) {
             return {
-                entryId: entry.entryInfo.entryId,
+                entryId: entry.entryInfo.entryId.id,
                 note: entry.sourceClinicalNoteReference,
             };
         }
