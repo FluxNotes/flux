@@ -182,6 +182,11 @@ class FluxMedicationBase extends FluxEntry {
 
     get code() {
         // TODO: handle reference case
+        if (!this._entry.medicationCodeOrReference
+            || !this._entry.medicationCodeOrReference.value
+            || !this._entry.medicationCodeOrReference.value.coding[0]
+            || !this._entry.medicationCodeOrReference.value.coding[0].codeValue) return null;
+
         return this._entry.medicationCodeOrReference.value.coding[0].codeValue.value;
     }
 
