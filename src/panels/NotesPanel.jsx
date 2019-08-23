@@ -137,7 +137,7 @@ export default class NotesPanel extends Component {
                     selectedNote: note,
                     updatedEditorNote: note,
                     noteAssistantMode: mode,
-                    currentlyEditingEntryId: parseInt(note.entryInfo.entryId, 10),
+                    currentlyEditingEntryId: parseInt(note.entryInfo.entryId.id, 10),
                     localDocumentText: note.content
                 });
                 this.props.setOpenClinicalNote(note);
@@ -150,11 +150,12 @@ export default class NotesPanel extends Component {
     }
 
     updateNote = (entryId, noteContent) => {
+        console.log(entryId, noteContent);
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
             var noteToUpdate = this.props.patient.getNotes().find(function (element) {
-                return Lang.isEqual(element.entryInfo.entryId, entryId);
+                return Lang.isEqual(element.entryInfo.entryId.id, entryId);
             });
             if (!Lang.isNull(noteToUpdate) && !Lang.isUndefined(noteToUpdate) && !noteToUpdate.signed) {
                 noteToUpdate.content = noteContent;
@@ -256,11 +257,11 @@ export default class NotesPanel extends Component {
         });
 
         this.props.searchIndex.removeDataBySection('Open Note');
-        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_created_by_${tempNote.entryInfo.entryId}`);
-        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_created_on_${tempNote.entryInfo.entryId}`);
-        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_title_${tempNote.entryInfo.entryId}`);
-        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_content_${tempNote.entryInfo.entryId}`);
-        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_source_${tempNote.entryInfo.entryId}`);
+        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_created_by_${tempNote.entryInfo.entryId.id}`);
+        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_created_on_${tempNote.entryInfo.entryId.id}`);
+        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_title_${tempNote.entryInfo.entryId.id}`);
+        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_content_${tempNote.entryInfo.entryId.id}`);
+        this.props.searchIndex.removeDataByRef(`clinical_notes_in_progress_notes_source_${tempNote.entryInfo.entryId.id}`);
 
         // Close the current note
         this.closeNote();

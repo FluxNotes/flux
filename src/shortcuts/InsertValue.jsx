@@ -218,7 +218,7 @@ export default class InsertValue extends Shortcut {
         if (this.valueObject) {
             const shortcutDataObj = {
                 text,
-                entryId: this.valueObject.entryInfo.entryId,
+                entryId: this.valueObject.entryInfo.entryId.id,
                 wasRemovedFromContext: this.wasRemovedFromContext,
                 originalText: this.originalText,
             };
