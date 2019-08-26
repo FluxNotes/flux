@@ -5,14 +5,11 @@ import FluxCancerDiseaseStatus from '../../../model/fluxWrappers/onco/core/FluxC
 import FluxTNMClinicalStageGroup from '../../../model/fluxWrappers/onco/core/FluxTNMClinicalStageGroup';
 import FluxAdverseDrugReaction from '../../../model/fluxWrappers/core/FluxAdverseDrugReaction';
 // import FluxDeathInformation from '../../../model/entity/FluxDeathInformation';
-// import FluxResearchSubject from '../../../model/research/FluxResearchSubject';
-// import FluxMedicationChange from '../../../model/medication/FluxMedicationChange';
+import FluxResearchSubject from '../../../model/fluxWrappers/core/FluxResearchSubject';
+import FluxMedicationStatement from '../../../model/fluxWrappers/core/FluxMedicationStatement';
 import moment from 'moment';
 import {expect} from 'chai';
 import util from 'util';
-// import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
-
-const EntryMapper = { mapEntries: (x) => x };
 
 const today = new moment().format("D MMM YYYY");
 
@@ -36,16 +33,16 @@ const sampleShortcutAndPlaceholder = "test #disease status and also a <toxicity>
 const expectedOutputEmpty = [[], []];
 const expectedOutputPlain = [[], []];
 const expectedOutputNonsense = [[], [ sampleTextNonsense] ];
-const expectedOutputStaging = [[ new FluxTNMClinicalStageGroup(EntryMapper.mapEntries([stagingJSON])[0]) ], []];
-const expectedOutputDiseaseStatus = [[ new FluxCancerDiseaseStatus(EntryMapper.mapEntries([diseaseStatusJSON])[0]) ], []];
+const expectedOutputStaging = [[ new FluxTNMClinicalStageGroup(stagingJSON) ], []];
+const expectedOutputDiseaseStatus = [[ new FluxCancerDiseaseStatus(diseaseStatusJSON) ], []];
 const expectedOutputDiseaseStatus2 = [[ new FluxCancerDiseaseStatus(EntryMapper.mapEntries([diseaseStatus2JSON])[0]) ], []];
-const expectedOutputToxicity = [[ new FluxAdverseDrugReaction(EntryMapper.mapEntries([toxicityJSON])[0]) ], []];
+const expectedOutputToxicity = [[ new FluxAdverseDrugReaction(toxicityJSON) ], []];
 // const expectedOutputDeceased = [[ new FluxDeathInformation(deceasedJSON) ], []];
-// const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialEnrollmentJSON])[0]) ], []];
-// const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialEnrollmentMinimalJSON])[0]) ], []];
-// const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(EntryMapper.mapEntries([clinicalTrialUnenrolledJSON])[0]) ], []];
-// const expectedOutputStopMedication = [[ new FluxMedicationChange(EntryMapper.mapEntries([stopMedicationJSON])[0]) ], []];
-// const expectedOutputReduceMedication = [[ new FluxMedicationChange(EntryMapper.mapEntries([reduceMedicationJSON])[0]) ], []];
+const expectedOutputClinicalTrialEnrollment = [[ new FluxResearchSubject(clinicalTrialEnrollmentJSON) ], []];
+const expectedOutputClinicalTrialEnrollmentMinimal = [[ new FluxResearchSubject(clinicalTrialEnrollmentMinimalJSON) ], []];
+const expectedOutputClinicalTrialUnenrolled = [[ new FluxResearchSubject(clinicalTrialUnenrolledJSON) ], []];
+const expectedOutputStopMedication = [[ new FluxMedicationStatement(stopMedicationJSON) ], []];
+const expectedOutputReduceMedication = [[ new FluxMedicationStatement(reduceMedicationJSON) ], []];
 const expectedPlaceholderOutput = [[{ placeholder: '<disease status>', selectedValue: null }], []];
 const expectedShortcutAndPlaceholderOutput = [[{ trigger: '#disease status', selectedValue: null, isPickList: null }, { placeholder: '<toxicity>', selectedValue: null } ], []];
 let noteParser;
@@ -261,11 +258,11 @@ describe('parse', function() {
 
         expect(record)
             .to.be.an('array');
-        expect(record[0][0]._medicationChange._entryInfo.entryType)
-            .eql(expectedOutputStopMedication[0][0]._medicationChange._entryInfo.entryType);
-        expect(record[0][0]._medicationChange._category)
-            .eql(expectedOutputStopMedication[0][0]._medicationChange._category);
-        expect(record[0][0]._medicationChange._medicationBeforeChange)
+        expect(record[0][0]._medicationStatement._entryInfo.entryType)
+            .eql(expectedOutputStopMedication[0][0]._medicationStatement._entryInfo.entryType);
+        expect(record[0][0]._medicationStatement._category)
+            .eql(expectedOutputStopMedication[0][0]._medicationStatement._category);
+        expect(record[0][0]._medicationStatement._relatedRequest)
             .to.exist;
     });
     it('should return a patient record with medication change with type set to reduced and a medication when parsing a note with #reduce medication and a medication ', function () {
@@ -274,11 +271,11 @@ describe('parse', function() {
 
         expect(record)
             .to.be.an('array');
-        expect(record[0][0]._medicationChange._entryInfo.entryType)
-            .eql(expectedOutputReduceMedication[0][0]._medicationChange._entryInfo.entryType);
-        expect(record[0][0]._medicationChange._category)
-            .eql(expectedOutputReduceMedication[0][0]._medicationChange._category);
-        expect(record[0][0]._medicationChange._medicationBeforeChange)
+        expect(record[0][0]._medicationStatement._entryInfo.entryType)
+            .eql(expectedOutputReduceMedication[0][0]._medicationStatement._entryInfo.entryType);
+        expect(record[0][0]._medicationStatement._category)
+            .eql(expectedOutputReduceMedication[0][0]._medicationStatement._category);
+        expect(record[0][0]._medicationStatement._relatedRequest)
             .to.exist;
     });
 });
