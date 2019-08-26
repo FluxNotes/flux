@@ -26,7 +26,7 @@ describe('Reducer function', () => {
         const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerCondition)[0];
         const testPatientRecord = testPatientObj.getPatient();
 
-        it.only('should return populated new state when given normal values', () => {
+        it('should return populated new state when given normal values', () => {
             const action = {
                 type:type,
                 patient:testPatientObj,
