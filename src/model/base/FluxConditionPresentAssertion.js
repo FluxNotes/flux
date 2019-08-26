@@ -42,13 +42,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get code() {
-        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value) return null;
-        return this._condition.findingTopicCode.value.coding[0].code.value;
+        if (!this._getTopicCodeCoding()){ return null;}
+        return this._getTopicCodeCoding().code.value;
     }
 
     get codeSystem() {
-        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value) return null;
-        return this._condition.findingTopicCode.value.coding[0].codeSystem.value;
+        if (!this._getTopicCodeCoding()) return null;
+        return this._getTopicCodeCoding().codeSystem.value;
     }
 
     get codeURL() {
@@ -56,8 +56,8 @@ class FluxConditionPresentAssertion extends FluxEntry {
     }
 
     get type() {
-        if (!this._condition.findingTopicCode || !this._condition.findingTopicCode.value) return null;
-        return this._displayTextOrCode(this._condition.findingTopicCode.value.coding[0]);
+        if (!this._getTopicCodeCoding()) return null;
+        return this._displayTextOrCode(this._getTopicCodeCoding());
     }
 
     get observation() {
@@ -599,6 +599,13 @@ class FluxConditionPresentAssertion extends FluxEntry {
         return 0;
     }
 
+    _getTopicCodeCoding(){
+        if (this._condition.findingTopicCode &&
+            this._condition.findingTopicCode.value && 
+            this._condition.findingTopicCode.value.coding && 
+            this._condition.findingTopicCode.value.coding.length > 0 ) return this._condition.findingTopicCode.value.coding[0];
+        return null;
+    }
     /**
      * Extract a human-readable string from a code.
      *

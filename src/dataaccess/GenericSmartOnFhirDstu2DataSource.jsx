@@ -1,11 +1,15 @@
 import McodeV05SmartOnFhirDataSource from "./McodeV05SmartOnFhirDataSource";
 import processFHIRResources from './utils/fhir-entry-processor';
-import mappers from 'fhir-mapper';
+import mappers from './mappers';
 
 class GenericSmartOnFhirDstu2DataSource extends McodeV05SmartOnFhirDataSource {
     constructor(props) {
         super(props);
-        this.mapper = props && props.mapper ? mappers[props.mapper] : null;
+        if (props && typeof props.mapper === 'string') {
+            this.mapper = mappers[props.mapper];
+        } else {
+            this.mapper = props && props.mapper ? props.mapper: null;
+        }
     }
 
     getPatient(id, callback) {
