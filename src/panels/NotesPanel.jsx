@@ -150,7 +150,6 @@ export default class NotesPanel extends Component {
     }
 
     updateNote = (entryId, noteContent) => {
-        console.log(entryId, noteContent);
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
