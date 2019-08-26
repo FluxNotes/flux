@@ -152,7 +152,7 @@ export default class EntryShortcut extends Shortcut {
     }
 
     getEntryId() {
-        return this.object.entryInfo.entryId.id;
+        return this.object.entryInfo.entryId ? this.object.entryInfo.entryId.id : null;
     }
 
     getAsStringWithStyling(isSigned) {
