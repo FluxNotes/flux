@@ -188,7 +188,7 @@ class FluxNotesEditor extends React.Component {
 
         allNonKeywordShortcuts.forEach((def) => {
             const triggers = this.props.shortcutManager.getTriggersForShortcut(def.id);
-            let shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
+            const shortcutNamesList = triggers.map(trigger => `${trigger.name}$`);
 
             autoReplaceAfters = autoReplaceAfters.concat(shortcutNamesList);
         });
@@ -302,7 +302,7 @@ class FluxNotesEditor extends React.Component {
             return this.insertPlainText(transform, shortcutTrigger);
         }
 
-        let shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
+        const shortcut = this.props.newCurrentShortcut(shortcutC, shortcutTrigger, text, updatePatient, source);
         shortcut.initialContextPosition = initialContextPosition;
         if (!Lang.isNull(shortcut) && shortcut.needToSelectValueFromMultipleOptions() && (Lang.isNull(text) || text.length === 0)) {
             return this.openPortalToSelectValueForShortcut(shortcut, false, transform);
@@ -374,7 +374,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     openPortalToSelectValueForShortcut(shortcut, needToDelete, transform) {
-        let portalOptions = shortcut.getValueSelectionOptions();
+        const portalOptions = shortcut.getValueSelectionOptions();
 
         this.setState({
             openedPortal: "ContextPortal",
@@ -388,7 +388,7 @@ class FluxNotesEditor extends React.Component {
     // called from portal when an item is selected (selection is not null) or if portal is closed without
     // selection (selection is null)
     onPortalSelection = (state, selection) => {
-        let shortcut = this.selectingForShortcut;
+        const shortcut = this.selectingForShortcut;
 
         this.selectingForShortcut = null;
         this.setState({
@@ -423,8 +423,9 @@ class FluxNotesEditor extends React.Component {
         if (Lang.isNull(transform)) {
             transform = state.transform();
         }
-        let {anchorText, anchorOffset} = state;
-        let anchorKey = state.anchorBlock.key;
+        let { anchorOffset } = state;
+        const { anchorText } = state;
+        const anchorKey = state.anchorBlock.key;
         // All the text in this block
         let text = anchorText.text;
         if (text.length === 0) {
@@ -462,7 +463,7 @@ class FluxNotesEditor extends React.Component {
     }
 
     onChange = (state) => {
-        let documentText = this.getNoteText(state);
+        const documentText = this.getNoteText(state);
         this.props.updateLocalDocumentText(documentText);
 
         // Fix error where the anchor/focus do not update properly after deleting an expanded selection in a structured field
@@ -695,8 +696,8 @@ class FluxNotesEditor extends React.Component {
 
     updateTemplateWithPickListOptions = (nextProps) => {
         if (nextProps.shouldUpdateShortcutType) {
-            let transform = this.state.state.transform();
-            let state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
+            const transform = this.state.state.transform();
+            const state = transform.setNodeByKey(nextProps.shortcutKey, nextProps.shortcutType).apply();
             this.scrollToData(state.document, nextProps.shortcutKey);
             this.setState({ state });
         }
@@ -729,7 +730,7 @@ class FluxNotesEditor extends React.Component {
 
                         // Force shortcut to re-render with updated data
                         transform = this.resetShortcutData(shortcut, transform);
-                        let state = transform.apply();
+                        const state = transform.apply();
                         this.setState({ state }, () => {
                             this.scrollToData(state.document, shortcut.getKey());
                         });
@@ -859,7 +860,7 @@ class FluxNotesEditor extends React.Component {
             const nextSection = nextProps.highlightedSearchSuggestion ? nextProps.highlightedSearchSuggestion.section : null;
             if (currentSection === 'Open Note' || nextSection === 'Open Note') {
                 // Get a transform with any previously highlighted results removed
-                let transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions);
+                const transform = this.updateHighlightingOfPreviouslyHighlightedSearchSuggestion(this.props.highlightedSearchSuggestion, nextProps.searchSuggestions);
                 this.highlightCurrentHighlightedSearchSuggestion(nextProps.highlightedSearchSuggestion, transform);
             }
         }
@@ -1074,7 +1075,7 @@ class FluxNotesEditor extends React.Component {
     onOpenNoteSearchResultHighlight = (suggestion) => {
         if (!suggestion.indices) return;
         const {document} = this.state.state;
-        let startIndex = suggestion.indices[0];
+        const startIndex = suggestion.indices[0];
         const foundNode = this.findNodeContainingIndex(startIndex, document);
         if (foundNode) this.scrollToData(document, foundNode.key);
     }
@@ -1123,18 +1124,18 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertTextWithStyles = (transform, text) => {
-        let boldStartIndex = text.indexOf('<strong>');
-        let boldEndIndex = text.indexOf('</strong>');
-        let italicStartIndex = text.indexOf('<em>');
-        let italicEndIndex = text.indexOf('</em>');
-        let underlinedStartIndex = text.indexOf('<u>');
-        let underlinedEndIndex = text.indexOf('</u>');
-        let unorderedListStartIndex = text.indexOf('<ul>');
-        let unorderedListEndIndex = text.indexOf('</ul>');
-        let orderedListStartIndex = text.indexOf('<ol>');
-        let orderedListEndIndex = text.indexOf('</ol>');
-        let listItemStartIndex = text.indexOf('<li>');
-        let listItemEndIndex = text.indexOf('</li>');
+        const boldStartIndex = text.indexOf('<strong>');
+        const boldEndIndex = text.indexOf('</strong>');
+        const italicStartIndex = text.indexOf('<em>');
+        const italicEndIndex = text.indexOf('</em>');
+        const underlinedStartIndex = text.indexOf('<u>');
+        const underlinedEndIndex = text.indexOf('</u>');
+        const unorderedListStartIndex = text.indexOf('<ul>');
+        const unorderedListEndIndex = text.indexOf('</ul>');
+        const orderedListStartIndex = text.indexOf('<ol>');
+        const orderedListEndIndex = text.indexOf('</ol>');
+        const listItemStartIndex = text.indexOf('<li>');
+        const listItemEndIndex = text.indexOf('</li>');
 
         // No styles to be added.
         if (boldStartIndex === -1 && boldEndIndex === -1
@@ -1147,7 +1148,7 @@ class FluxNotesEditor extends React.Component {
         }
 
         // Order the styles to know which to apply next
-        let styleMarkings = [
+        const styleMarkings = [
             { name: 'boldStartIndex', value: boldStartIndex },
             { name: 'boldEndIndex', value: boldEndIndex },
             { name: 'italicStartIndex', value: italicStartIndex },
@@ -1162,7 +1163,7 @@ class FluxNotesEditor extends React.Component {
             { name: 'listItemEndIndex', value: listItemEndIndex },
         ];
         styleMarkings.sort((a, b) => a.value - b.value);
-        let firstStyle = styleMarkings[styleMarkings.findIndex(a => a.value > -1)];
+        const firstStyle = styleMarkings[styleMarkings.findIndex(a => a.value > -1)];
 
         if (firstStyle.name === 'boldStartIndex' || firstStyle.name === 'boldEndIndex') {
             this.insertBoldText(transform, text, boldStartIndex, boldEndIndex);
@@ -1217,10 +1218,10 @@ class FluxNotesEditor extends React.Component {
             return transform.insertText(text);
         }
 
-        let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, startIndex, -1, 4);
-        let beforeListText = text.substring(0, calculatedStartIndex);
-        let listText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
-        let afterListText = text.substring(calculatedEndIndex + endOffset);
+        const { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, startIndex, -1, 4);
+        const beforeListText = text.substring(0, calculatedStartIndex);
+        const listText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+        const afterListText = text.substring(calculatedEndIndex + endOffset);
         text = beforeListText + listText + afterListText;
 
         if (beforeListText !== '') {
@@ -1236,10 +1237,10 @@ class FluxNotesEditor extends React.Component {
             return transform.insertText(text);
         }
 
-        let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, -1, endIndex, 4);
-        let beforeListText = text.substring(0, calculatedStartIndex);
-        let listText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
-        let afterListText = text.substring(calculatedEndIndex + endOffset);
+        const { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, -1, endIndex, 4);
+        const beforeListText = text.substring(0, calculatedStartIndex);
+        const listText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+        const afterListText = text.substring(calculatedEndIndex + endOffset);
         text = beforeListText + listText + afterListText;
 
         transform
@@ -1250,11 +1251,11 @@ class FluxNotesEditor extends React.Component {
     }
 
     insertListItem = (transform, listText, type) => {
-        let bullets = [];
+        const bullets = [];
         let liStartIndex = listText.indexOf('<li>');
         let liEndIndex = listText.indexOf('</li>');
-        let tag = type === 'numbered-list' ? '<ol>' : '<ul>';
-        let nextListStart = listText.indexOf(tag);
+        const tag = type === 'numbered-list' ? '<ol>' : '<ul>';
+        const nextListStart = listText.indexOf(tag);
         let nextListString = '';
         if (nextListStart > -1) {
             nextListString = listText.substring(nextListStart);
@@ -1263,9 +1264,9 @@ class FluxNotesEditor extends React.Component {
         let after = '';
         let structuredFieldToFollow = false;
         while (liStartIndex !== -1 || liEndIndex !== -1) {
-            let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(listText, liStartIndex, liEndIndex, 4);
-            let before = listText.substring(0, calculatedStartIndex);
-            let during = listText.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+            const { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(listText, liStartIndex, liEndIndex, 4);
+            const before = listText.substring(0, calculatedStartIndex);
+            const during = listText.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
             after = listText.substring(calculatedEndIndex + endOffset);
             listText = before + after;
             bullets.push(during);
@@ -1320,11 +1321,11 @@ class FluxNotesEditor extends React.Component {
     }
 
     addStyle = (transform, text, startIndex, endIndex, wordOffset, type) => {
-        let { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, startIndex, endIndex, wordOffset);
+        const { calculatedStartIndex, calculatedEndIndex, startOffset, endOffset } = this.getOffsets(text, startIndex, endIndex, wordOffset);
 
-        let beforeBoldText = text.substring(0, calculatedStartIndex);
-        let boldText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
-        let afterBoldText = text.substring(calculatedEndIndex + endOffset);
+        const beforeBoldText = text.substring(0, calculatedStartIndex);
+        const boldText = text.substring(calculatedStartIndex + startOffset, calculatedEndIndex);
+        const afterBoldText = text.substring(calculatedEndIndex + endOffset);
         text = beforeBoldText + boldText + afterBoldText; // Update text to remove <someStyle> </someStyle>
         transform.insertText(beforeBoldText).toggleMark(type);
         this.insertTextWithStyles(transform, boldText);
@@ -1426,7 +1427,7 @@ class FluxNotesEditor extends React.Component {
     insertContextTrayItem = (contextTrayItem) => {
         let remainder = contextTrayItem;
         let start, end;
-        let localArrayOfPickLists = [];
+        const localArrayOfPickLists = [];
         const triggers = this.noteParser.getListOfTriggersFromText(contextTrayItem)[0];
 
         // Loop through shortcut triggers to determine if any of them require users to choose from pick list
@@ -1451,12 +1452,12 @@ class FluxNotesEditor extends React.Component {
 
         // Build array of pick lists and store options for each pick list
         if (localArrayOfPickLists.length > 0) {
-            let localArrayOfPickListsWithOptions = [];
+            const localArrayOfPickListsWithOptions = [];
             let shortcutOptions = [];
 
             localArrayOfPickLists.forEach((pickList) => {
                 // Create shortcut from trigger to be inserted before selection chosen. Also uses to get shortcutOptions.
-                let shortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
+                const shortcut = this.props.shortcutManager.createShortcut(pickList.definition, pickList.trigger, this.props.patient, '', false);
                 shortcut.setSource("pick list/template");
                 shortcut.initialize(this.props.contextManager, pickList.trigger, false);
                 shortcutOptions = shortcut.getValueSelectionOptions();

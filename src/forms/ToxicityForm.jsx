@@ -128,7 +128,7 @@ class ToxicityForm extends Component {
      * Render the adverse event  item for the adverse event suggestion
      */
     getSuggestions = (searchText) => {
-        let inputValue = searchText.trim().toLowerCase().replace(/\s/g,'');
+        const inputValue = searchText.trim().toLowerCase().replace(/\s/g,'');
         const inputLength = inputValue.length;
 
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
@@ -269,7 +269,7 @@ class ToxicityForm extends Component {
         };
 
         if (!Lang.isUndefined(this.props.topAdverseEvents) && this.props.topAdverseEvents.length > 0) {
-            let topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
+            const topAdverseEventObjects = this.props.topAdverseEvents.map((adverseEvent, i) => {
                 return toxicityLookup.findAdverseEvent(adverseEvent);
             });
             topAdverseEventSection = (

@@ -105,15 +105,15 @@ class ContextManager {
     }
 
     isContextOfTypeWithValueOfTypeActive(contextType, valueType) {
-        let shortcut = this.getActiveContextOfType(contextType);
+        const shortcut = this.getActiveContextOfType(contextType);
         if (Lang.isUndefined(shortcut)) return false;
-        let object = shortcut.getValueObject();
+        const object = shortcut.getValueObject();
         return (object.entryInfo.entryType[0] === valueType);
     }
 
     // returns undefined if not found
     getActiveContextOfType = (contextType) => {
-        let context = Collection.find(this.activeContexts, (item) => {
+        const context = Collection.find(this.activeContexts, (item) => {
             return (item.getShortcutType() === contextType);
         });
 
@@ -140,7 +140,7 @@ class ContextManager {
 
     getContextsBeforeShortcut(shortcut, contextType = undefined) {
         if (!shortcut.getKey()) return; // if the key hasn't been set for a shortcut yet then it shouldn't be added
-        let contextsBeforeShortcut = [];
+        const contextsBeforeShortcut = [];
         this.contexts.forEach((context) => {
             // check if provided shortcut is after the context. If yes, we have a valid context for the shortcut
             if (!this.isBlock1BeforeBlock2(shortcut.getKey(), 0, context.getKey(), 0)) {

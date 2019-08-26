@@ -86,7 +86,7 @@ export default class NoteAssistant extends Component {
         let el = elem;
         var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;
         el = el.parentNode;
-        let bottom = top + height;
+        const bottom = top + height;
         do {
             rect = el.getBoundingClientRect();
             if ((top > rect.bottom || top < rect.top)) return false;
@@ -307,7 +307,7 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         let selected = Lang.isEqual(this.props.selectedNote, note);
-        let searchedFor = note.entryInfo.entryId === this.state.searchResultNoteId;
+        const searchedFor = note.entryInfo.entryId === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
@@ -414,11 +414,11 @@ export default class NoteAssistant extends Component {
 
         // Split hospital name into 2 lines for svg (svg doesn't handle text wrap. Do this manually using tspan tag)
         // Only split the name if it is more than three words long
-        let hospitalWordsArray = item.hospital.split(" ");
+        const hospitalWordsArray = item.hospital.split(" ");
 
         // Arrays hold the words in the hospital name
-        let hospitalFirstArray = [];
-        let hospitalSecondArray = [];
+        const hospitalFirstArray = [];
+        const hospitalSecondArray = [];
 
         // Strings hold the string to be displayed in the note
         let hospitalFirstString = "";
@@ -426,7 +426,7 @@ export default class NoteAssistant extends Component {
 
         // If the hospital name contains more than 3 words, split it into 2 lines to be displayed in the note
         if (hospitalWordsArray.length > 3) {
-            let numberInFirstHalf = Math.ceil(hospitalWordsArray.length / 2);
+            const numberInFirstHalf = Math.ceil(hospitalWordsArray.length / 2);
 
             for (let i = 0; i < Math.ceil(hospitalWordsArray.length / 2); i++) {
                 hospitalFirstArray.push(hospitalWordsArray[i]);

@@ -32,7 +32,7 @@ class SearchIndex {
     }
 
     removeDataBySection(section) {
-        for (let id in this._index.documentStore.docs) {
+        for (const id in this._index.documentStore.docs) {
             if (this._index.documentStore.getDoc(id).section === section) {
                 this.removeDataByRef(id);
             }
@@ -48,8 +48,8 @@ class SearchIndex {
     }
 
     search(query) {
-        let suggestions = [];
-        let openNoteSuggestions = [];
+        const suggestions = [];
+        const openNoteSuggestions = [];
         this._index.search(query, {
             fields: {
                 valueTitle: {
@@ -61,7 +61,7 @@ class SearchIndex {
             },
             bool: 'AND'
         }).forEach(result => {
-            let {doc} = result;
+            const {doc} = result;
             const {score, field} = result;
             doc.score = score;
             doc.field = field;
@@ -75,7 +75,7 @@ class SearchIndex {
                 // seen that matches the current search text
                 let indexOfMatch = 0;
                 while (contentMatches) {
-                    let tempDoc = Lang.cloneDeep(doc);
+                    const tempDoc = Lang.cloneDeep(doc);
                     tempDoc.indexOfMatch = indexOfMatch;
                     tempDoc.indices = [contentMatches.index, contentMatches.index + query.length - 1];
                     openNoteSuggestions.push(tempDoc);

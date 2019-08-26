@@ -29,7 +29,7 @@ export default class VisualizerManager {
     }
 
     transformValuesOverTimeToColumns = (patient, condition, subsection, getFilterValue) => {
-        let newsection = {};
+        const newsection = {};
 
         const itemList = subsection.itemsFunction(patient, condition, subsection, getFilterValue);
 
@@ -191,7 +191,7 @@ export default class VisualizerManager {
     }
 
     transformNameValuePairToColumns = (patient, condition, subsection, getFilterValue) => {
-        let newsection = {};
+        const newsection = {};
 
         const { itemsFunction } = subsection;
         let { items } = subsection;
@@ -243,7 +243,7 @@ export default class VisualizerManager {
 
     getVisualizer(dataType, visualizerType) {
         // TODO: Use a `find` or `pluck` here to get the element by reference, instead of getting an array and chosing the first thing
-        let result = this.visualizers.filter((viz) => {
+        const result = this.visualizers.filter((viz) => {
             return (viz.dataType === dataType && viz.visualizerType === visualizerType);
         });
         if (Lang.isNull(result) || result.length !== 1) return null;

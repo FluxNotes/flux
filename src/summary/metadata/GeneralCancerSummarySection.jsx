@@ -117,7 +117,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Histological Type",
                             value: (patient, currentConditionEntry) => {
-                                let histologicalType = currentConditionEntry.getMostRecentHistologicType();
+                                const histologicalType = currentConditionEntry.getMostRecentHistologicType();
                                 if (!histologicalType) return null;
                                 return  {   value: histologicalType.type,
                                     isUnsigned: patient.isUnsigned(histologicalType),
@@ -128,7 +128,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Histological Grade",
                             value: (patient, currentConditionEntry) => {
-                                let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
+                                const histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
                                 if (!histologicalGrade) return null;
                                 return  {   value: histologicalGrade.grade,
                                     isUnsigned: patient.isUnsigned(histologicalGrade),
@@ -148,7 +148,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Status",
                             value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
@@ -162,7 +162,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "As Of Date",
                             value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
@@ -176,7 +176,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Rationale",
                             value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
@@ -197,7 +197,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Clinical Stage",
                             value: (patient, currentConditionEntry) => {
-                                let s = currentConditionEntry.getMostRecentClinicalStaging();
+                                const s = currentConditionEntry.getMostRecentClinicalStaging();
                                 if (s && s.stage && s.stage.length > 0) {
                                     return {
                                         value: `${s.stage} ${s.stageComponents}`,
@@ -212,7 +212,7 @@ export default class GeneralCancerSummarySection extends MetadataSection {
                         {
                             name: "Pathologic Stage",
                             value: (patient, currentConditionEntry) => {
-                                let s = currentConditionEntry.getMostRecentPathologicStaging();
+                                const s = currentConditionEntry.getMostRecentPathologicStaging();
                                 if (s && s.stage && s.stage.length > 0) {
                                     return  {
                                         value: `${s.stage} ${s.stageComponents}`,

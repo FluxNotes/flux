@@ -121,7 +121,7 @@ function SingleHashtagKeywordStructuredFieldPlugin(opts) {
 
     // Given block-node's text & keywordObjects asso. w/ a SingleHashtagKeywordShortcut , return first keyword found in that text (if any)
     function scanTextForKeywordObject(curNode, keywordObjects) {
-        let curNodeText = [];
+        const curNodeText = [];
         if (curNode.nodes) {
             for (const childNode of curNode.nodes) {
                 if (childNode.type !== 'structured_field')

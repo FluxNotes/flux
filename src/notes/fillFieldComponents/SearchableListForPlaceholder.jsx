@@ -82,7 +82,7 @@ class SearchableListForPlaceholder extends Component {
      * Render the adverse event  item for the adverse event suggestion
      */
     getSuggestions = (searchText) => {
-        let inputValue = searchText.trim().toLowerCase().replace(/\s/g, '');
+        const inputValue = searchText.trim().toLowerCase().replace(/\s/g, '');
         const inputLength = inputValue.length;
 
         return inputLength === 0 ? [] : this.state.adverseEventOptions.filter((event) => {
@@ -157,7 +157,7 @@ class SearchableListForPlaceholder extends Component {
     render() {
         let topAdverseEventSection = null;
         const marginSize = "2px";
-        let inputPlaceholder = (this.props.value ? this.props.value : "Enter symptom");
+        const inputPlaceholder = (this.props.value ? this.props.value : "Enter symptom");
         const inputProps = {
             placeholder: inputPlaceholder,
             value: this.state.searchText,
@@ -166,7 +166,7 @@ class SearchableListForPlaceholder extends Component {
 
 
         if (!Lang.isUndefined(this.topAdverseEvents) && this.topAdverseEvents.length > 0) {
-            let topAdverseEventObjects = this.topAdverseEvents.map((adverseEvent) => {
+            const topAdverseEventObjects = this.topAdverseEvents.map((adverseEvent) => {
                 return toxicityLookup.findAdverseEvent(adverseEvent);
             });
 

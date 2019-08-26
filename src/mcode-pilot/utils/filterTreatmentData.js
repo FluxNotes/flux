@@ -52,7 +52,7 @@ function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
 }
 
 function generateSimilarPatientTreatments(similarPatients) {
-    let similarPatientTreatments = {};
+    const similarPatientTreatments = {};
 
     similarPatients.forEach(({ treatments }) => {
         treatments.forEach(treatment => {

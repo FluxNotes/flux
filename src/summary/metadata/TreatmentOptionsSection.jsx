@@ -135,9 +135,9 @@ export default class TreatmentOptionsSection extends MetadataSection {
             }
         }); */
 
-        let promise = new Promise(function (resolve, reject) {
-            let deceasedSeries = [];
-            let aliveSeries = [];
+        const promise = new Promise(function (resolve, reject) {
+            const deceasedSeries = [];
+            const aliveSeries = [];
 
             treatmentData.forEach((v) => {
                 if (v.Disease === condition.codeURL && v['Is-Alive'] === 'Dead') {

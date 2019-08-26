@@ -94,7 +94,7 @@ class PatientRecord {
         if (_.isNull(entry)) return false;
 
         if (entry.entryInfo.sourceClinicalNote) {
-            let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
+            const clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
             if (!clinicalNote) return true;
             return !clinicalNote.signed;
         }
@@ -251,10 +251,10 @@ class PatientRecord {
     }
 
     getMRN() {
-        let list = this.entries.filter((item) => {
+        const list = this.entries.filter((item) => {
             return item instanceof FluxPatientIdentifier && item.identifierType === "MRN";
         });
-        let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
+        const identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
         if (_.isNull(identifierEntry)) return null;
         return identifierEntry.value;
     }
@@ -270,7 +270,7 @@ class PatientRecord {
 
     // return the soonest upcoming encounter. Includes encounters happening later today.
     getNextEncounter() {
-        let encounters = this.getEncountersChronologicalOrder();
+        const encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening after the specified moment argument
         return encounters.filter((encounter) => {
@@ -287,7 +287,7 @@ class PatientRecord {
 
         // Find the shortest absolute difference in time between today and encounter dates
         const today = moment().startOf('day');
-        let encounterDate = moment(encounters[0].expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
+        const encounterDate = moment(encounters[0].expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
         let minDelta = Math.abs(today.diff(encounterDate));
         let closestEncounter = encounters[0];
 
@@ -295,7 +295,7 @@ class PatientRecord {
         for (let i = 1; i < encounters.length; i++) {
             const encounter = encounters[i];
 
-            let encounterDate = moment(encounter.expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
+            const encounterDate = moment(encounter.expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
             const delta = Math.abs(today.diff(encounterDate));
             if (delta < minDelta) {
                 minDelta = delta;
@@ -357,7 +357,7 @@ class PatientRecord {
     }
 
     hasEncounterToday() {
-        let encounters = this.getEntriesOfType(FluxReferralRequest);
+        const encounters = this.getEntriesOfType(FluxReferralRequest);
         const today = new moment().format("D MMM YYYY");
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => {
@@ -419,12 +419,12 @@ class PatientRecord {
     }
 
     getEnrolledClinicalTrials() {
-        let clinicalTrialList = new ClinicalTrialsList();
-        let result = this.getEntriesOfType(FluxResearchSubject);
+        const clinicalTrialList = new ClinicalTrialsList();
+        const result = this.getEntriesOfType(FluxResearchSubject);
 
         result.forEach((study) => {
             if (study.title) {
-                let trial = clinicalTrialList.getClinicalTrialByName(study.title);
+                const trial = clinicalTrialList.getClinicalTrialByName(study.title);
                 if (trial) {
                     study.details = trial.description;
                 }
@@ -453,13 +453,13 @@ class PatientRecord {
     }
 
     getConditionsChronologicalOrder() {
-        let conditions = this.getConditions();
+        const conditions = this.getConditions();
         conditions.sort(this._conditionsTimeSorter);
         return conditions;
     }
 
     getConditionsAlphabeticalOrder() {
-        let conditions = this.getConditions();
+        const conditions = this.getConditions();
         conditions.sort(this._conditionsAlphaSorter);
         return conditions;
     }
@@ -554,15 +554,15 @@ class PatientRecord {
     }
 
     getInProgressNotes() {
-        let notes = this.getNotes();
+        const notes = this.getNotes();
         return notes.filter((inprog) => {
             return inprog.signed === false;
         });
     }
 
     getKeyEventsChronologicalOrder() {
-        let conditions = this.getConditions();
-        let result = [];
+        const conditions = this.getConditions();
+        const result = [];
         conditions.forEach((c, i) => {
             result.push({
                 name: "diagnosis date - " + c.type,
@@ -574,8 +574,8 @@ class PatientRecord {
     }
 
     getKeyEventsForConditionChronologicalOrder(condition) {
-        let conditions = this.getConditions();
-        let result = [];
+        const conditions = this.getConditions();
+        const result = [];
         conditions.forEach((c) => {
             if (c.entryInfo.entryId.id === condition.entryInfo.entryId.id) {
                 result.push({
@@ -605,7 +605,7 @@ class PatientRecord {
         let strResult = "";
         meds.forEach((item, itemIndex) => {
             attributeList.forEach((itemKey, attrIndex) => {
-                let nextSubstring = this._getValueUsingPath(item, itemKey);
+                const nextSubstring = this._getValueUsingPath(item, itemKey);
                 if (!_.isUndefined(nextSubstring) && !_.isNull(nextSubstring)) strResult += nextSubstring;
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
@@ -624,7 +624,7 @@ class PatientRecord {
     }
 
     getMedicationsReverseChronologicalOrder() {
-        let list = this.getMedications();
+        const list = this.getMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
@@ -671,7 +671,7 @@ class PatientRecord {
         let strResult = "";
         activeMeds.forEach((item, itemIndex) => {
             attributeList.forEach((itemKey, attrIndex) => {
-                let nextSubstring = this._getValueUsingPath(item, itemKey);
+                const nextSubstring = this._getValueUsingPath(item, itemKey);
                 if (!_.isUndefined(nextSubstring) && !_.isNull(nextSubstring)) strResult += nextSubstring;
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
@@ -714,13 +714,13 @@ class PatientRecord {
     }
 
     getActiveMedicationsReverseChronologicalOrder() {
-        let list = this.getActiveMedications();
+        const list = this.getActiveMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
     getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder() {
-        let list = this.getActiveAndRecentlyStoppedMedications();
+        const list = this.getActiveAndRecentlyStoppedMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
@@ -820,7 +820,7 @@ class PatientRecord {
     }
 
     getProceduresChronologicalOrder() {
-        let list = this.getProcedures();
+        const list = this.getProcedures();
         list.sort(this._proceduresTimeSorter);
         return list;
     }
@@ -839,7 +839,7 @@ class PatientRecord {
     }
 
     getProceduresForConditionChronologicalOrder(condition) {
-        let procedures = this.getProceduresForCondition(condition);
+        const procedures = this.getProceduresForCondition(condition);
         procedures.sort(this._proceduresTimeSorter);
         return procedures;
     }
@@ -885,7 +885,7 @@ class PatientRecord {
     }
 
     getGenomicsReportChronologicalOrder() {
-        let panels = this.getEntriesOfType(FluxGenomicsReport);
+        const panels = this.getEntriesOfType(FluxGenomicsReport);
         panels.sort(this._relevantTimeTimeSorter);
         return panels;
     }
@@ -897,7 +897,7 @@ class PatientRecord {
     }
 
     getPathologyReportsChronologicalOrder() {
-        let reports = this.getPathologyReports();
+        const reports = this.getPathologyReports();
 
         return reports;
     }
@@ -911,7 +911,7 @@ class PatientRecord {
     }
 
     getProgressionsChronologicalOrder() {
-        let progressions = this.getProgressions();
+        const progressions = this.getProgressions();
         progressions.sort(this._progressionTimeSorter);
         return progressions;
     }
@@ -936,7 +936,7 @@ class PatientRecord {
     }
 
     getFocalConditionForProgression(progression) {
-        let result = this.entries.filter((item) => {
+        const result = this.entries.filter((item) => {
             if (item instanceof FluxCondition) {
                 const conditionEntryId = this._getConditionEntryId(item);
                 return progression.relatedCancerCondition.entryId === conditionEntryId;
@@ -948,11 +948,11 @@ class PatientRecord {
     }
 
     getMostRecentProgressionForCondition(condition, sinceDate = null) {
-        let progressionList = this.getProgressionsForCondition(condition);
+        const progressionList = this.getProgressionsForCondition(condition);
         if (progressionList.length === 0) return null;
         const sortedProgressionList = progressionList.sort(this._progressionTimeSorter);
         const length = sortedProgressionList.length;
-        let p = (sortedProgressionList[length - 1]);
+        const p = (sortedProgressionList[length - 1]);
         if (_.isNull(sinceDate)) return p;
         const startTime = new moment(p.asOfDate, "D MMM YYYY");
         if (startTime < sinceDate) {
@@ -1180,7 +1180,7 @@ class PatientRecord {
     }
 
     getMostRecentEntryOfType(type) {
-        let list = this.getEntriesOfType(type);
+        const list = this.getEntriesOfType(type);
         return PatientRecord.getMostRecentEntryFromList(list);
     }
 
@@ -1212,10 +1212,10 @@ class PatientRecord {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
         list = list.filter(e => e.metadata);
-        let maxDate = Math.max.apply(null, list.map(function (o) {
+        const maxDate = Math.max.apply(null, list.map(function (o) {
             return new Date(o.metadata.lastUpdated.dateTime);
         }));
-        let result = list.filter((item) => {
+        const result = list.filter((item) => {
             return new Date(item.metadata.lastUpdated.dateTime).getTime() === new Date(maxDate).getTime();
         });
         if (_.isUndefined(result) || _.isNull(result) || result.length === 0) {
@@ -1225,7 +1225,7 @@ class PatientRecord {
     }
 
     getTodaysVitalsAsString() {
-        let today = new moment().format("D MMM YYYY");
+        const today = new moment().format("D MMM YYYY");
         const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {
             const relevantTime = new moment(bloodPressure.relevantTime, "D MMM YYYY").format("D MMM YYYY");
             return relevantTime === today;
@@ -1253,7 +1253,7 @@ class PatientRecord {
     }
 
     getReferredBy() {
-        let referredBy = this.getPreviousEncounter().referredBy;
+        const referredBy = this.getPreviousEncounter().referredBy;
         if (_.isUndefined(referredBy)) return "No referral for this appointment";
         return referredBy;
     }

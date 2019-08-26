@@ -132,7 +132,7 @@ class Shortcut extends Context {
         } else {
             let foundParentContext = null;
             if (parentAttribute) {
-                let contexts = contextManager.getActiveContexts();
+                const contexts = contextManager.getActiveContexts();
                 let index = 0;
                 while (index < contexts.length && !contexts[index].isAttributeSupported(parentAttribute)) {
                     index++;

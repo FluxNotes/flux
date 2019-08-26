@@ -6,7 +6,7 @@ export default class BloodPressureSubsection extends VitalsSubsection {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         return patient.getVitalByCode("55284-4")
             .map(v => {
-                let processedVital = {};
+                const processedVital = {};
                 const [systolic, diastolic] = v.value.split('/');
                 processedVital["start_time"] = v.relevantTime;
                 processedVital.unit = 'mmHg';

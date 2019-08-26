@@ -188,7 +188,7 @@ function _mapProp(propDict, filters) {
             // drops option boxes that don't have
             // a value from the patient record
             if (checkFilter(filters, option)) {
-                let propEntry = {
+                const propEntry = {
                     selected: false,
                     displayText: option.display
                 };

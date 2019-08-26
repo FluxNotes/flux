@@ -86,7 +86,7 @@ export default class ContextOptions extends Component {
             context = this.props.contextManager.getPatientContext();
         }
 
-        let validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
+        const validShortcuts = this.props.shortcutManager.getValidChildShortcutsInContext(context);
 
         // count how many triggers we have
         // let count = 0;
@@ -95,14 +95,14 @@ export default class ContextOptions extends Component {
         // });
 
         // build our list of filtered triggers (only filter if we will be showing search bar)
-        let triggers = [];
+        const triggers = [];
         // count = 0;
         validShortcuts.forEach((shortcut, i) => {
-            let groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
+            const groupName = this.props.shortcutManager.getShortcutGroupName(shortcut);
             this.props.shortcutManager.getTriggersForShortcut(shortcut, context).forEach((trigger, j) => {
                 // If there's a search string to filter on, filter
                 if (this.props.searchString.length === 0 || trigger.name.toLowerCase().indexOf(this.props.searchString.toLowerCase()) !== -1) {
-                    let triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
+                    const triggerDescription = !Lang.isNull(trigger.description) ? trigger.description : '';
                     triggers.push({"name": trigger.name, "description": triggerDescription, "group": i, "groupName": groupName });
                     // count++;
                 }
@@ -110,7 +110,7 @@ export default class ContextOptions extends Component {
         });
 
         // lets create a list of groups with associated shortcut triggers for each
-        let groupList = [];
+        const groupList = [];
         let currentGroup = { group: "", triggers: [] };
         let countToShow = 0;
         let totalShown = 0;

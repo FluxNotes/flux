@@ -28,7 +28,7 @@ const primaryCancerConditionCodes = [
 
 
 
-let mapper = {
+const mapper = {
     filter: () => true,
     default: (resource, context) => mappers['syntheaToV05'].execute(resource, context),
     mappers: [

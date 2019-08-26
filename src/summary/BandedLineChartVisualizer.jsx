@@ -35,7 +35,7 @@ class BandedLineChartVisualizer extends Visualizer {
     // toggles the line on the chart from being hidden and shown
     toggleLine = (chartIndex, toggle) => {
         if (toggle) {
-            let shownLineCharts = [...this.state.shownLineCharts];
+            const shownLineCharts = [...this.state.shownLineCharts];
             shownLineCharts[chartIndex] = !shownLineCharts[chartIndex];
             this.setState({ shownLineCharts });
         }
@@ -149,7 +149,7 @@ class BandedLineChartVisualizer extends Visualizer {
 
         // Check if the subsection contains "bands" attribute. If it does, draw them, if not don't draw them
         if (subsection.bands) {
-            let bands = [];
+            const bands = [];
 
             // Grab the values from the summary metadata and set the bands low and high values
             subsection.bands.forEach((band) => {

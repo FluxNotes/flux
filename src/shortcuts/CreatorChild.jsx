@@ -15,7 +15,7 @@ export default class CreatorChild extends Shortcut {
 
     initialize(contextManager, trigger, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
-        let text = this.determineText(contextManager);
+        const text = this.determineText(contextManager);
         if (!Lang.isUndefined(text)) {
             if (Lang.isArray(text) || text === 'date-id') {
                 this.flagForTextSelection(text);
@@ -49,13 +49,13 @@ export default class CreatorChild extends Shortcut {
     }
 
     onBeforeDeleted() {
-        let result = super.onBeforeDeleted();
+        const result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext)) {
             if (this.metadata["subtype"] && this.metadata["subtype"] === "list") {
                 const parentAttributeName = this.metadata.parentAttribute;
-                let currentList = this.parentContext.getAttributeValue(parentAttributeName);
-                let oneToDelete = this.text;
-                let newList = currentList.filter((item) => {
+                const currentList = this.parentContext.getAttributeValue(parentAttributeName);
+                const oneToDelete = this.text;
+                const newList = currentList.filter((item) => {
                     return item !== oneToDelete;
                 });
                 this.parentContext.setAttributeValue(parentAttributeName, newList, false);
@@ -82,9 +82,9 @@ export default class CreatorChild extends Shortcut {
     }
 
     getValueSet(spec) {
-        let args = spec["args"];
-        let category = spec["category"];
-        let valueSet = spec["valueSet"];
+        const args = spec["args"];
+        const category = spec["category"];
+        const valueSet = spec["valueSet"];
         if (args) {
             return ValueSetManager.getValueList(category, valueSet, ...args);
         } else {

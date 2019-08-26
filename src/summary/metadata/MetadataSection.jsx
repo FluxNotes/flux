@@ -20,7 +20,7 @@ export default class MetadataSection {
 
     buildMetadataSection(preferencesManager, patient, condition, roleType, role, specialty, section) {
         if (!Lang.isFunction(section)) return section;
-        let obj = new section(this.setForceRefresh);
+        const obj = new section(this.setForceRefresh);
         return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
     }
 

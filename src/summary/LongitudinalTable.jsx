@@ -161,7 +161,7 @@ export default class LongitudinalTable extends Component {
     }
     renderData(tableValues) {
         return tableValues.map(n => { //n is a row in the table
-            let background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
+            const background = tableValues.indexOf(n) % 2 === 0 ? 'gray-background' : 'white-background';
             return (
                 <Row key={n.id}>
                     {/* Names and Units Cells */}

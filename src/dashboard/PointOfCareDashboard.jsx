@@ -107,7 +107,7 @@ export default class PointOfCareDashboard extends Component {
             if (node.type === 'shortcut') {
                 this.createShortcut(node.trigger, i);
             } else if (node.type === 'placeholder') {
-                let newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
+                const newPlaceholder = this.newPlaceholder(node.placeholder.placeholder, node.placeholder.selectedValue, i);
                 placeholder.push(newPlaceholder);
             }
         });

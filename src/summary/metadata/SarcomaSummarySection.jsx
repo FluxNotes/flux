@@ -104,7 +104,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Status",
                             value: (patient, currentConditionEntry) => {
-                                let status = currentConditionEntry.clinicalStatus;
+                                const status = currentConditionEntry.clinicalStatus;
                                 if (status) {
                                     return  {   value: this.toFirstLetterCapital(status),
                                         isUnsigned: patient.isUnsigned(currentConditionEntry),
@@ -119,7 +119,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Stage",
                             value: (patient, currentConditionEntry) => {
-                                let s = currentConditionEntry.getMostRecentStaging();
+                                const s = currentConditionEntry.getMostRecentStaging();
                                 if (s && s.stage && s.stage.length > 0) {
                                     return  {   value: s.stage,
                                         isUnsigned: patient.isUnsigned(s),
@@ -133,7 +133,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Disease Status",
                             value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
@@ -147,7 +147,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "As Of Date",
                             value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {
@@ -161,7 +161,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Rationale",
                             value: (patient, currentConditionEntry) => {
-                                let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                 if (Lang.isNull(p) || !p.status) {
                                     return null;
                                 } else {

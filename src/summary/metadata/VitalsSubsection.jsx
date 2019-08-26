@@ -6,7 +6,7 @@ export default class VitalsSubsection extends MetadataSection {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
         return patient.getVitalByCode(subsection.code)
             .map(v => {
-                let processedVital = {};
+                const processedVital = {};
 
                 processedVital["start_time"] = v.relevantTime;
                 processedVital[subsection.name] = v.value;

@@ -28,12 +28,10 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
 
     // Returns the value for the toxicity which includes grade, unsigned, source, and date
     getValue = (tox, patient) => {
-        let val, unsigned, source, when;
-
-        val = tox.seriousness;
-        unsigned = patient.isUnsigned(tox);
-        source = this.determineSource(patient, tox);
-        when = tox.metadata.lastUpdated.value;
+        const val = tox.seriousness;
+        const unsigned = patient.isUnsigned(tox);
+        const source = this.determineSource(patient, tox);
+        const when = tox.metadata.lastUpdated.value;
         return {
             source,
             when,

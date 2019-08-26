@@ -8,13 +8,13 @@ export default class IconsChart extends Component {
         const { numSurvive, numMoreSurvive, numLessSurvive, treatment, yearsSurvival } = this.props;
         const numDie = 100 - numSurvive;
 
-        let circlesSurvive = [];
+        const circlesSurvive = [];
         for (let i = 0; i < numSurvive; i++) {
             const klass = i >= numMoreSurvive ? 'survive' : 'additional';
             circlesSurvive.push(<div className={`icons-chart__circle ${klass}`} key={i}></div>);
         }
 
-        let circlesDie = [];
+        const circlesDie = [];
         for (let i = 0; i < numDie; i++) {
             const klass = i >= numLessSurvive ? 'die' : 'less';
             circlesDie.push(<div className={`icons-chart__circle ${klass}`} key={i}></div>);

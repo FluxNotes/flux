@@ -90,7 +90,7 @@ function addKeywordsForCurrentShortcut(keywordObject, currentShortcut) {
 
 class ShortcutManager {
     constructor(shortcutList) {
-        let shortcuts = shortcutList || [];
+        const shortcuts = shortcutList || [];
         this.shortcutDefinitions = [];
         this.shortcutMap = {};
         this.shortcutsToSupportList = shortcuts;
@@ -141,7 +141,6 @@ class ShortcutManager {
     }
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {
-        let className;
         let metadata;
         if (!Lang.isNull(definition)) {
             metadata = definition;
@@ -151,7 +150,7 @@ class ShortcutManager {
         if (Lang.isUndefined(metadata)) {
             throw new Error("Unknown triggerOrKeyword '" + triggerOrKeyword + "'. No structured phrase found.");
         }
-        className = metadata["type"];
+        const className = metadata["type"];
         let newShortcut;
         if (className === "CreatorBase") {
             newShortcut = new CreatorBase(onUpdate, metadata, patient, shortcutData);
@@ -221,7 +220,7 @@ class ShortcutManager {
                         childList = [];
                         this.childShortcuts[item.id] = childList;
                     }
-                    let voas = item["valueObjectAttributes"];
+                    const voas = item["valueObjectAttributes"];
                     let childShortcutId;
                     voas.forEach((voa) => {
                         childShortcutId = voa["childShortcut"];
@@ -247,7 +246,7 @@ class ShortcutManager {
                         childList = [];
                         this.childShortcuts[item.id] = childList;
                     }
-                    let voas = item["idAttributes"];
+                    const voas = item["idAttributes"];
                     let childShortcutId;
                     voas.forEach((voa) => {
                         childShortcutId = voa["childShortcut"];

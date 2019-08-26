@@ -60,8 +60,8 @@ class PatientSearch extends React.Component {
 
     // Used by AutoSuggest to get a list of suggestions based on the current search's InputValue
     getSuggestions = (inputValue) => {
-        let suggestions = [];
-        let results = this.props.searchIndex.search(inputValue);
+        const suggestions = [];
+        const results = this.props.searchIndex.search(inputValue);
         results.forEach(result => {
             let suggestion;
             if (result.note) {

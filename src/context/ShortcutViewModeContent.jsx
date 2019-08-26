@@ -27,7 +27,7 @@ export default class ShortcutViewModeContent extends Component {
 
     // Update context state and scroll to newest ContextOption section
     updateContextAndScroll = () => {
-        let activeContexts = this.getActiveContexts();
+        const activeContexts = this.getActiveContexts();
 
         if (this.state.lastActiveContextCount !== activeContexts.length) {
             this.setState({
@@ -55,7 +55,7 @@ export default class ShortcutViewModeContent extends Component {
 
     // Get all contexts being used in the editor
     getActiveContexts() {
-        let activeContexts = [];
+        const activeContexts = [];
 
         this.props.contextManager.getActiveContexts().forEach((context, i) => {
             if (!Lang.isNull(context.getLabel())) {

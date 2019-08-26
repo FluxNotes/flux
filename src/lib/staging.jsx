@@ -29,7 +29,7 @@ export function breastCancerPrognosticStage(t, n, m) {
 // values based on the specified staging edition. If none specified, defaults
 // to the 7th edition.
 export function breastCancerPossibleTNM(prognosticStage, edition = 7) {
-    let values = [];
+    const values = [];
 
     // Lookup the needed values for the specified edition
     const ed = parseInt(edition, 10);

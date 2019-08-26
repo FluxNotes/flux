@@ -267,7 +267,7 @@ export default class TimelineSection extends MetadataSection {
     }
 
     filterItemsByGroup = (items, group) => {
-        let subset = [];
+        const subset = [];
 
         items.forEach((item) => {
             if (item.group === group) {

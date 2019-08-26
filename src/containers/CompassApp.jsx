@@ -104,7 +104,7 @@ export class CompassApp extends Component {
         } else if (DAGestalt.read.sync) {
             // Else, assume sync
             try {
-                let patient = this.dataAccess.getPatient(patientId);
+                const patient = this.dataAccess.getPatient(patientId);
                 this.setState({
                     patient,
                     loading: false

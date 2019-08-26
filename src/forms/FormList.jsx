@@ -35,7 +35,7 @@ class FormList extends Component {
                 <List style={{padding: "0px"}}>
                     {this.props.shortcuts.map((shortcutName, i) => {
                         let classValue = "list-element";
-                        let primaryText = shortcutName;
+                        const primaryText = shortcutName;
 
                         if (shortcutName === "About Flux Notes™ Lite") {
                             classValue += " overview";

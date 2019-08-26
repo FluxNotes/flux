@@ -56,7 +56,7 @@ class RestApiDataSource extends IDataSource {
 
     savePatient(patient) {
         if (patient) {
-            let entriesJSON = patient.entries.map(entry => {
+            const entriesJSON = patient.entries.map(entry => {
                 return entry.toJSON();
             });
 

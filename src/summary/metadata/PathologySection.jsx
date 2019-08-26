@@ -114,7 +114,7 @@ export default class PathologySection extends MetadataSection {
                 {
                     name: "Receptor Status ER",
                     value: (patient, currentConditionEntry) => {
-                        let er = currentConditionEntry.getMostRecentERReceptorStatus();
+                        const er = currentConditionEntry.getMostRecentERReceptorStatus();
                         if (_.isNull(er)) {
                             return null;
                         } else {
@@ -128,7 +128,7 @@ export default class PathologySection extends MetadataSection {
                 {
                     name: "Receptor Status PR",
                     value: (patient, currentConditionEntry) => {
-                        let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                        const pr = currentConditionEntry.getMostRecentPRReceptorStatus();
                         if (_.isNull(pr)) {
                             return null;
                         } else {
@@ -142,7 +142,7 @@ export default class PathologySection extends MetadataSection {
                 {
                     name: "Receptor Status HER2",
                     value: (patient, currentConditionEntry) => {
-                        let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+                        const her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
                         if (_.isNull(her2)) {
                             return null;
                         } else {

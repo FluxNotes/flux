@@ -118,7 +118,7 @@ export default class UpdaterBase extends EntryShortcut {
                 //this.values[name] = value;
             } else {
                 if (voa["type"] === "list" && !Lang.isArray(value)) {
-                    let list = this.getAttributeValue(name);
+                    const list = this.getAttributeValue(name);
                     list.push(value);
                     Lang.set(this.object, setMethod, list);
                 } else {
@@ -127,7 +127,7 @@ export default class UpdaterBase extends EntryShortcut {
             }
         } else {
             if (voa["type"] === "list" && !Lang.isArray(value)) {
-                let list = this.getAttributeValue(name);
+                const list = this.getAttributeValue(name);
                 list.push(value);
                 PatientRecord[patientSetMethod](this.object, list);
             } else {
@@ -174,9 +174,9 @@ export default class UpdaterBase extends EntryShortcut {
         }
         this.idComplete = true;
         const entryType = this.metadata["valueObject"];
-        let entries = patient.getEntriesOfEntryType(entryType);
+        const entries = patient.getEntriesOfEntryType(entryType);
         let match, val;
-        let filteredEntries = entries.filter((entry) => {
+        const filteredEntries = entries.filter((entry) => {
             match = true;
             this.idAttributes.forEach((idAttrib) => {
                 val = this._getAttributeValue(entry, idAttrib);

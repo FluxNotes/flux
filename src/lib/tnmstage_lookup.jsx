@@ -298,7 +298,7 @@ export function getTsForEdition(ed) {
 // Returns just the names of the T values(without the tool tip text)
 export function getTsNamesForEdition(ed) {
     const ts = getTsForEdition(ed);
-    let names = [];
+    const names = [];
     ts.forEach((t) => {
         names.push(t.name);
     });
@@ -321,7 +321,7 @@ export function getNsForEdition(ed) {
 // Returns just the names of the N values(without the tool tip text)
 export function getNsNamesForEdition(ed) {
     const ns = getNsForEdition(ed);
-    let names = [];
+    const names = [];
     ns.forEach((n) => {
         names.push(n.name);
     });
@@ -341,7 +341,7 @@ export function getMsForEdition(ed) {
 
 export function getMsNamesForEdition(ed) {
     const ms = getMsForEdition(ed);
-    let names = [];
+    const names = [];
     ms.forEach((m) => {
         names.push(m.name);
     });

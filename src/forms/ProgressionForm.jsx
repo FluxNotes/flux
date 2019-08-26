@@ -43,7 +43,7 @@ class ProgressionForm extends Component {
      */
     handleReasonSelection = (reason, i) => {
         // set active button state array
-        let newArray = this.state.reasonButtonsActiveState;
+        const newArray = this.state.reasonButtonsActiveState;
         newArray[i] = !this.state.reasonButtonsActiveState[i];
 
         this.setState({

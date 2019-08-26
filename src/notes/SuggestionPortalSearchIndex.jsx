@@ -47,7 +47,7 @@ class SuggestionPortalSearchIndex {
 
         const maxLength = 25;
         const searchTextLowercase = searchText.toLowerCase();
-        let results = this.shortcutsFuse.search(searchTextLowercase);
+        const results = this.shortcutsFuse.search(searchTextLowercase);
 
         // If there are no results, if the searchText is empty, and if the list being searched on is nonempty
         // return a list of shortcutsFuseOptions formatted with this extra data field

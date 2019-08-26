@@ -247,7 +247,7 @@ export default class NotesPanel extends Component {
         tempNote.signed = true;
         tempNote.signedBy = this.props.loginUsername;
         this.setState({selectedNote: tempNote});
-        let inProg = this.props.patient.getInProgressNotes();
+        const inProg = this.props.patient.getInProgressNotes();
         inProg.forEach((a) => {
             this.props.patient.removeClinicalNote(a);
         });

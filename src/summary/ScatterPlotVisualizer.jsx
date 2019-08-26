@@ -30,7 +30,7 @@ class ScatterPlotVisualizer extends Visualizer {
     }
 
     randomizeXPoints = (categoryList, data) => {
-        let alive = [], dead = [];
+        const alive = [], dead = [];
         data.alive.forEach(function (item) {
             alive.push([categoryList.indexOf(item[0]) + (Math.random() * 50 + 30) / 100 - .5, item[1]]);
         });
@@ -58,7 +58,7 @@ class ScatterPlotVisualizer extends Visualizer {
                 chartHeight: "600px",
             });
             // Else, we have an array of data to parse into a table
-            let categoryMap = {};
+            const categoryMap = {};
             Object.keys(parsedData.data).forEach((series) => {
                 parsedData.data[series].forEach((data) => {
                     categoryMap[data[0]] = true;

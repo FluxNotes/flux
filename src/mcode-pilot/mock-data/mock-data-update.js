@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 const dataModel = require('./transformedDataModel.json');
-let replace = false;
+const replace = false;
 function recursiveFill(obj, patient) {
     // TODO: Patient generation functionality?  Ability to update already present fields?
     Object.keys(obj).forEach((e) => {
         const property = obj[e];
         if (property.type) {
             // top level property
-            let patientProperty = patient[e];
+            const patientProperty = patient[e];
             if (patientProperty === undefined || patientProperty === null) {
                 // the section doesn't exist, create it
                 patient[e] = modelParse(property);

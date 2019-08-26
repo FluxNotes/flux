@@ -150,8 +150,8 @@ function log(key, value) {
 function flattenOrderedOutput(entries) {
     let returnEntries = [];
     Object.keys(entries).forEach((entryListIndex) => {
-        let total = [];
-        let metadata = [];
+        const total = [];
+        const metadata = [];
         entries[entryListIndex].forEach((entry) => {
             if (entry.key.toLowerCase().split(".").indexOf("metadata") > -1) {
                 metadata.push(entry);

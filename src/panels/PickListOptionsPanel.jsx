@@ -21,7 +21,7 @@ export default class PickListOptionsPanel extends Component {
         });
         // triggerSelections are the selections made by the user for each pick List
         // pushing the trigger value first so that order of shortcuts remain the same
-        let triggerSelections = this.arrayOfPickLists.map((pickList) => {
+        const triggerSelections = this.arrayOfPickLists.map((pickList) => {
             return {
                 trigger: pickList.trigger,
                 shortcut: pickList.shortcut
@@ -75,9 +75,9 @@ export default class PickListOptionsPanel extends Component {
 
         this.setState({ isAllSelected });
 
-        let triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
-            let underScoreIndex = triggerSelection.trigger.indexOf("_");
-            let selectedOption = triggerSelection.selectedOption
+        const triggerSelections = this.state.triggerSelections.map((triggerSelection, i) => {
+            const underScoreIndex = triggerSelection.trigger.indexOf("_");
+            const selectedOption = triggerSelection.selectedOption
                 ? triggerSelection.selectedOption.context
                 : triggerSelection.selectedOption;
             return {
@@ -116,7 +116,7 @@ export default class PickListOptionsPanel extends Component {
 
         // Find index of trigger in triggerSelections and set the selectedOption
         if (index >= 0) {
-            let triggerSelections = [...this.state.triggerSelections];
+            const triggerSelections = [...this.state.triggerSelections];
             triggerSelections[index].selectedOption = selectedOption;
             this.setState({ triggerSelections });
             this.handleInsertChosenOption();
@@ -137,7 +137,7 @@ export default class PickListOptionsPanel extends Component {
         // Loop through each shortcut in the array and render the options
         return (
             pickLists.map((shortcut, i) => {
-                let underScoreIndex = shortcut.trigger.indexOf("_");
+                const underScoreIndex = shortcut.trigger.indexOf("_");
                 let shortcutName = shortcut.trigger.slice(1, underScoreIndex);
                 shortcutName = shortcutName.charAt(0).toUpperCase() + shortcutName.slice(1);
                 return (
@@ -154,7 +154,7 @@ export default class PickListOptionsPanel extends Component {
 
     // Render the options for each pick list (shortcut)
     renderShortcutOptions(shortcut, i) {
-        let options = shortcut.options;
+        const options = shortcut.options;
         const trigger = shortcut.trigger;
 
         // If the number of options is small, generate buttons for each button

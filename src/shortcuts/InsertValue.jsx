@@ -22,7 +22,7 @@ export default class InsertValue extends Shortcut {
             this.parentContext.addChild(this);
         }
 
-        let text = this.determineText(contextManager);
+        const text = this.determineText(contextManager);
         if (Lang.isArray(text)) {
             this.flagForTextSelection(text);
         } else {
@@ -182,7 +182,7 @@ export default class InsertValue extends Shortcut {
     }
 
     getLabel() {
-        let display = this.getText() ? this.getText() : this.getDisplayText();
+        const display = this.getText() ? this.getText() : this.getDisplayText();
         return this.getOriginalText() ? this.getOriginalText() : display;
     }
 
@@ -260,7 +260,7 @@ export default class InsertValue extends Shortcut {
     }
 
     onBeforeDeleted() {
-        let result = super.onBeforeDeleted();
+        const result = super.onBeforeDeleted();
         if (result && !Lang.isUndefined(this.parentContext) && this.metadata.parentAttribute) {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, null, false);
             this.parentContext.removeChild(this);

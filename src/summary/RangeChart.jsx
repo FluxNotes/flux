@@ -29,7 +29,7 @@ class RangeChart extends Component {
         const middle = lineLengthPixels / 2 + lineStartXPixels;
 
         // calculate the upper and lower bounds of the chart
-        let valueArray = [];
+        const valueArray = [];
         if (!Lang.isNull(this.props.lowerValue)) valueArray.push(this.props.lowerValue);
         if (!Lang.isNull(this.props.upperValue)) valueArray.push(this.props.upperValue);
         if (!Lang.isNull(this.props.typicalValue)) valueArray.push(this.props.typicalValue);
@@ -151,15 +151,15 @@ class RangeChart extends Component {
 
         // adjust typical value label text location
         if (!Lang.isNull(this.props.typicalValue)) {
-            let typicalValueCharLength = this.props.typicalValue.toString().length;
+            const typicalValueCharLength = this.props.typicalValue.toString().length;
             typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
         }
 
         // adjust upper & lower value label text location
         if (!Lang.isNull(this.props.lowerValue) && !Lang.isNull(this.props.upperValue)) {
 
-            let lowerValueCharLength = this.props.lowerValue.toString().length;
-            let upperValueCharLength = this.props.upperValue.toString().length;
+            const lowerValueCharLength = this.props.lowerValue.toString().length;
+            const upperValueCharLength = this.props.upperValue.toString().length;
 
             // range is singular
             if (this.props.lowerValue === this.props.upperValue) {
@@ -175,7 +175,7 @@ class RangeChart extends Component {
 
                 // if there is a typical value, check if they overlap
                 if (!Lang.isNull(this.props.typicalValue)) {
-                    let typicalValueCharLength = this.props.typicalValue.toString().length;
+                    const typicalValueCharLength = this.props.typicalValue.toString().length;
                     typicalValueTextXPixels = typicalValueXPixels - typicalValueCharLength * 3;
 
                     // if the lower value and typical value overlap, omit the typical value
@@ -234,7 +234,7 @@ class RangeChart extends Component {
         }
 
         // set svg viewbox dimensions
-        let viewBoxDimensions = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
+        const viewBoxDimensions = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
 
         return (
             <div>
