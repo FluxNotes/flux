@@ -29,7 +29,7 @@ class FluxResearchStudy extends FluxEntry {
         if (this._researchStudy.title) {
             return this._researchStudy.title.value;
         } else {
-            return "";
+            return null;
         }
     }
 

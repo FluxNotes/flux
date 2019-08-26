@@ -11,6 +11,7 @@ import BeginDateTime from '../../shr/core/BeginDateTime';
 import EndDateTime from '../../shr/core/EndDateTime';
 import Lang from 'lodash';
 import * as lookup from '../../../lib/clinicaltrial_lookup.jsx';
+import FluxResearchStudy from './FluxResearchStudy';
 
 class FluxResearchSubject extends FluxEntry {
     constructor(json) {
@@ -33,14 +34,13 @@ class FluxResearchSubject extends FluxEntry {
         if (this._researchSubject.researchStudy && this._researchSubject.researchStudy.title) {
             return this._researchSubject.researchStudy.title.value;
         } else {
-            return "";
+            return null;
         }
     }
 
     _createResearchStudyIfNeeded() {
         if (!this._researchSubject.researchStudy) {
-            this._researchSubject.researchStudy = new ResearchStudy();
-            this._researchSubject.researchStudy.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/ResearchStudy');
+            this._researchSubject.researchStudy = new FluxResearchStudy({});
         }
     }
 
@@ -51,14 +51,9 @@ class FluxResearchSubject extends FluxEntry {
      */
     set title(title) {
         this._createResearchStudyIfNeeded();
-/*        if (Lang.isNull(title)) {
-            this._researchSubject.study.title = null;
-            return;
-        }*/
         if (!this._researchSubject.researchStudy.title) {
-            this._researchSubject.researchStudy.title = new Title();
+            this._researchSubject.researchStudy.title = title;
         }
-        this._researchSubject.researchStudy.title.value = title;
     }
     /**
      *  Getter for detail

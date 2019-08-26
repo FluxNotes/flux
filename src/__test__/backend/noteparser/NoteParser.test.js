@@ -197,8 +197,8 @@ describe('parse', function() {
         expect(record[0][0]).to.be.an('object');
 
         // Study should match
-        expect(record[0][0]._researchSubject._study)
-            .to.eql(expectedOutputClinicalTrialEnrollment[0][0]._researchSubject._study);
+        expect(record[0][0]._researchSubject._researchStudy)
+            .to.eql(expectedOutputClinicalTrialEnrollment[0][0]._researchSubject._researchStudy);
 
         // Status of entrollment should match
         expect(record[0][0]._researchSubject._status)
@@ -216,7 +216,7 @@ describe('parse', function() {
         expect(record[0][0]).to.be.an('object');
 
         // There should not be a study
-        expect(record[0][0]._researchSubject._study._title._string).to.be.null;
+        expect(record[0][0]._researchSubject._researchStudy.title).to.be.null;
 
         // Status of entrollment should match
         expect(record[0][0]._researchSubject._status)
@@ -234,10 +234,10 @@ describe('parse', function() {
         expect(record[0][0]).to.be.an('object');
 
         // Study should match
-        expect(record[0][0]._researchSubject._study)
-            .to.eql(expectedOutputClinicalTrialUnenrolled[0][0]._researchSubject._study);
+        expect(record[0][0]._researchSubject._researchStudy)
+            .to.eql(expectedOutputClinicalTrialUnenrolled[0][0]._researchSubject._researchStudy);
 
-        // Status of entrollment should match
+        // Status of enrollment should match
         expect(record[0][0]._researchSubject._status)
             .to.eql(expectedOutputClinicalTrialUnenrolled[0][0]._researchSubject._status);
 
