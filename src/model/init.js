@@ -1,5 +1,5 @@
 import {setObjectFactory} from './json-helper';
-import ObjectFactory from './ObjectFactory';
+import FluxObjectFactory from './FluxObjectFactory';
 import ClassRegistry from './ClassRegistry';
 
 import EntryFix from './fluxExtensions/EntryFix';
@@ -25,7 +25,7 @@ import TNMPathologicStageGroupFix from './fluxExtensions/TNMPathologicStageGroup
  * any of the classes.
  */
 function init() {
-  setObjectFactory(ObjectFactory);
+  setObjectFactory(FluxObjectFactory);
 
   ClassRegistry.initialize();
 

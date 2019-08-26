@@ -102,11 +102,6 @@ export const diseaseStatusJSON = {
     "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/onco/core/CancerDiseaseStatus"
     },
-    "Metadata": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/Metadata"
-        }
-    },
     "DataValue": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/DataValue"
@@ -146,26 +141,6 @@ export const diseaseStatusJSON = {
                 },
                 "Value": "Stable"
             }
-        }
-    },
-    "Code": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-        }
-    },
-    "Status": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-        }
-    },
-    "RelatedCancerCondition": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/onco/core/RelatedCancerCondition"
-        }
-    },
-    "StatementDateTime": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/StatementDateTime"
         }
     },
     "EvidenceType": [
@@ -268,11 +243,6 @@ export const diseaseStatus2JSON = {
     "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/onco/core/CancerDiseaseStatus"
     },
-    "Metadata": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/Metadata"
-        }
-    },
     "DataValue": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/DataValue"
@@ -314,26 +284,17 @@ export const diseaseStatus2JSON = {
             }
         }
     },
-    "Code": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
-        }
-    },
-    "Status": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/shr/core/Status"
-        }
-    },
-    "RelatedCancerCondition": {
-        "EntryType": {
-            "Value": "http://standardhealthrecord.org/spec/onco/core/RelatedCancerCondition"
-        }
-    },
     "StatementDateTime": {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/core/StatementDateTime"
         },
         "Value": "5 Oct 2017"
+    },
+    "RelevantTime": {
+        "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/RelevantTime"
+        },
+        "Value": "7 Jun 2017"
     },
     "EvidenceType": [
         {
@@ -1333,5 +1294,3 @@ export const reduceMedicationJSON = {
         }
     }
 }
-
-debugger;

@@ -7,6 +7,7 @@ import Seriousness from '../../shr/core/Seriousness';
 import AdverseEventCondition from '../../shr/core/AdverseEventCondition';
 import CausalAttribution from '../../shr/core/CausalAttribution';
 import CauseCategory from '../../shr/core/CauseCategory';
+import PossibleCause from '../../shr/core/PossibleCause';
 
 class FluxAdverseDrugReaction extends FluxEntry {
     constructor(json, patientRecord) {

@@ -772,7 +772,7 @@ class PatientRecord {
     }
 
     createActiveMedication(selectedValue) {
-        let medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested", this);
+        const medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/core/MedicationRequest", this);
         medication.medication = selectedValue;
         medication.startDate = new Date();
 
