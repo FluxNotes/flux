@@ -32,7 +32,7 @@ class FluxResearchSubject extends FluxEntry {
      */
     get title() {
         if (this._researchSubject.researchStudy && this._researchSubject.researchStudy.title) {
-            return this._researchSubject.researchStudy.title.value;
+            return this._researchSubject.researchStudy.title;
         } else {
             return null;
         }
