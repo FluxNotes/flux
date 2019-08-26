@@ -1,10 +1,6 @@
 import moment from 'moment';
 
-import * as EntryMapper from '../../../dataaccess/McodeV05EntryMapper';
-
 const today = new moment().format("D MMM YYYY");
-
-const map = EntryMapper.mapEntries;
 
 export const stagingJSON = {
     "EntryId": {
