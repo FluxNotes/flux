@@ -2,10 +2,9 @@ import '../model/init';
 import NewPatientOnlyDataSource from './NewPatientOnlyDataSource';
 import RestApiDataSource from './RestApiDataSource';
 import FHIRApiDataSource from './FHIRApiDataSource';
-import HardCodedMcodeV05DataSource from './HardCodedMcodeV05DataSource';
 import McodeV09SmartOnFhirDataSource from './McodeV09SmartOnFhirDataSource';
 import GenericSmartOnFhirDstu2DataSource from './GenericSmartOnFhirDstu2DataSource';
-import HardcodedTabletMcodeV05DataSource from './HardcodedTabletMcodeV05DataSource';
+import HardcodedTabletMcodeV09DataSource from './HardcodedTabletMcodeV09DataSource';
 import HardCodedMcodeV09DataSource from './HardCodedMcodeV09DataSource';
 
 export default class DataAccess {
@@ -18,18 +17,14 @@ export default class DataAccess {
             this.dataSource = new RestApiDataSource();
         } else if (dataSourceName === 'FHIRApiDataSource') {
             this.dataSource = new FHIRApiDataSource();
-        } else if (dataSourceName === 'HardCodedMcodeV01DataSource') {
-            // this.dataSource = new HardCodedMcodeV01DataSource();
-        } else if (dataSourceName === 'HardCodedMcodeV05DataSource') {
-            this.dataSource = new HardCodedMcodeV05DataSource();
         } else if (dataSourceName === 'HardCodedMcodeV09DataSource') {
             this.dataSource = new HardCodedMcodeV09DataSource();
         } else if (dataSourceName === 'McodeV09SmartOnFhirDataSource') {
             this.dataSource = new McodeV09SmartOnFhirDataSource(dataSourceProps);
         } else if (dataSourceName === 'GenericSmartOnFhirDstu2DataSource') {
             this.dataSource = new GenericSmartOnFhirDstu2DataSource(dataSourceProps);
-        } else if (dataSourceName === 'HardcodedTabletMcodeV05DataSource') {
-            this.dataSource = new HardcodedTabletMcodeV05DataSource();
+        } else if (dataSourceName === 'HardcodedTabletMcodeV09DataSource') {
+            this.dataSource = new HardcodedTabletMcodeV09DataSource();
         } else {
             throw new Error("Unrecognized data source class name: " + dataSourceName);
         }

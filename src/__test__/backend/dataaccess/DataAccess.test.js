@@ -203,9 +203,9 @@ describe('use smart on fhir as data source with simple mock', function() {
 });
 
 describe('test multiple hardcoded read only data source', function() {
-    const hardcodedTabletV01DataSource = new DataAccess("HardcodedTabletMcodeV05DataSource");
-    const ihanosPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7f");
-    const ellaPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7e");
+    const hardcodedTabletV09DataSource = new DataAccess("HardcodedTabletMcodeV09DataSource");
+    const ihanosPatientRecord = hardcodedTabletV09DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7f");
+    const ellaPatientRecord = hardcodedTabletV09DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7e");
     const ellaNewNoteContent = '@condition[[{"text":"Invasive ductal carcinoma of breast","entryId":"8"}]] <disease status>';
     const ihanosNewNoteContent = '@condition[[{"text":"Gastrointestinal stromal tumor","entryId":"8"}]] <disease status> <toxicity>';
 
@@ -230,7 +230,7 @@ describe('test multiple hardcoded read only data source', function() {
     });
 
     it('get list of patients should return the hardcoded patients', function () {
-        const patientList = hardcodedTabletV01DataSource.getListOfPatients();
+        const patientList = hardcodedTabletV09DataSource.getListOfPatients();
         expect(patientList)
             .to.be.an('array');
         expect(patientList)
@@ -240,12 +240,12 @@ describe('test multiple hardcoded read only data source', function() {
     });
 
     it('new patient should return undefined', function () {
-        expect(hardcodedTabletV01DataSource.newPatient())
+        expect(hardcodedTabletV09DataSource.newPatient())
             .to.be.undefined;
     });
 
     it('savePatient should return undefined', function () {
-        expect(hardcodedTabletV01DataSource.savePatient({}))
+        expect(hardcodedTabletV09DataSource.savePatient({}))
             .to.be.undefined;
     });
 });

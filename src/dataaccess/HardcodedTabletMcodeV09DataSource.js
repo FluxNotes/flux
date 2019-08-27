@@ -1,12 +1,11 @@
 import IDataSource from './IDataSource';
-import BreastMainTreatmentTry3Ella from './BreastMainTreatmentTry3EllaV05.json';
-import GistAdjuvantIhanos from './GistAdjuvantIhanosV05.json';
+import BreastMainTreatmentTry3Ella from './BreastMainTreatmentTry3EllaV09.json';
+import GistAdjuvantIhanos from './GistAdjuvantIhanosV09.json';
 import PatientRecord from '../patient/PatientRecord';
-import  * as McodeV05EntryMapper from './McodeV05EntryMapper';
 import moment from 'moment';
 
 
-class HardcodedTabletMcodeV05DataSource extends IDataSource {
+class HardcodedTabletMcodeV09DataSource extends IDataSource {
     constructor() {
         super();
         this._gestalt = {
@@ -31,8 +30,8 @@ class HardcodedTabletMcodeV05DataSource extends IDataSource {
         const ellaNewNoteContent = '@condition[[{"text":"Invasive ductal carcinoma of breast","entryId":"8"}]] <disease status>';
         const ihanosNewNoteContent = '@condition[[{"text":"Gastrointestinal stromal tumor","entryId":"8"}]] <disease status> <toxicity>';
         const today = new moment().format('MM/DD/YYYY');
-        this._ellaPatient = new PatientRecord(McodeV05EntryMapper.mapEntries(BreastMainTreatmentTry3Ella));
-        this._ihanosPatient = new PatientRecord(McodeV05EntryMapper.mapEntries(GistAdjuvantIhanos));
+        this._ellaPatient = new PatientRecord(BreastMainTreatmentTry3Ella);
+        this._ihanosPatient = new PatientRecord(GistAdjuvantIhanos);
 
         this._ellaPatient.addClinicalNote(today, 'Point of Care Note', 'MCI', 'Dr. Mona341 Brown483', '', ellaNewNoteContent, false);
         this._ihanosPatient.addClinicalNote(today, 'Point of Care Note', 'MCI', 'Dr. Mona341 Brown483', '', ihanosNewNoteContent, false);
@@ -44,9 +43,9 @@ class HardcodedTabletMcodeV05DataSource extends IDataSource {
 
     getPatient(id) {
         let patient = null;
-        if (BreastMainTreatmentTry3Ella[0]["ShrId"] === id) {
+        if (BreastMainTreatmentTry3Ella[0].ShrId.Value === id) {
             patient = this._ellaPatient;
-        } else if (GistAdjuvantIhanos[0]['ShrId'] === id) {
+        } else if (GistAdjuvantIhanos[0].ShrId.Value === id) {
             patient = this._ihanosPatient;
         } else {
             console.error("loading of patients other than the hard-coded demo patient is not implemented in hard-coded read only data source.");
@@ -67,4 +66,4 @@ class HardcodedTabletMcodeV05DataSource extends IDataSource {
     }
 }
 
-export default HardcodedTabletMcodeV05DataSource;
+export default HardcodedTabletMcodeV09DataSource;

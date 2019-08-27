@@ -220,7 +220,7 @@ CONFIG = {
         display: 'Compass™',
         app: "CompassApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV05DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         logoObject: {
             path: './compass-logo.png',
@@ -281,7 +281,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "PointOfCareApp",
         isExact: true,
-        dataSource: 'HardcodedTabletMcodeV05DataSource',
+        dataSource: 'HardcodedTabletMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567890',
         shortcuts: []

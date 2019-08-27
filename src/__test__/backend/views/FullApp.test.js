@@ -226,7 +226,7 @@ describe('5 FullApp', function() {
     it('5.1 Selecting a condition changes the active condition', () => {
         const wrapper = mount(<FullApp
                 display='Flux Notes'
-                dataSource='HardCodedMcodeV05DataSource'
+                dataSource='HardCodedMcodeV09DataSource'
                 patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const conditionSelector = wrapper.find('SelectInput');
         expect(conditionSelector.exists()).to.equal(true);
@@ -243,7 +243,7 @@ describe('5 FullApp', function() {
     it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the template selection screen', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV05DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -260,7 +260,7 @@ describe('5 FullApp', function() {
     it('5.3 Clicking "New Note" button in pre-encounter mode changes layout, and selecting a blank note should display the editor', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV05DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -282,7 +282,7 @@ describe('5 FullApp', function() {
     it('5.4 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV05DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
 
         // Click on new note button to open the editor
@@ -312,7 +312,7 @@ describe('5 FullApp', function() {
     it('5.5 Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV05DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
             { attachTo: document.body });
 
