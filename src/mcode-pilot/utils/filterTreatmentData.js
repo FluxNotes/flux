@@ -93,23 +93,23 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
         const { race, gender, birthDate } = demographics;
         if (filter.mcodeElement === 'shr.core.DateOfBirth') {
             // age
-            const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
+            const birthYear = birthDate.split('-')[0];
             const age = (new Date()).getFullYear() - birthYear;
-
             if (age < minValue || age > maxValue) {
                 return false;
             }
         } else if (filter.mcodeElement === 'shr.core.DateOfDiagnosis') {
             // age at diagnosis
-            const birthYear = new Date(birthDate).getTime();
-            const dxYear = new Date(diseaseStatus.diagnosisDate).getTime();
-            const dxAge = (dxYear - birthYear)/31557600000; // 1000*60*60*24*365.25
+            const birthYear = birthDate.split('-')[0];
+            const dxYear = diseaseStatus.diagnosisDate.split('-')[0];
+            console.log(dxYear);
+            const dxAge = dxYear - birthYear;
             if (dxAge < minValue || dxAge > maxValue) {
                 return false;
             }
         } else if (filter.mcodeElement === 'shr.core.Race' && value !== race.toLowerCase()) {
             return false;
-        } else if (filter.mcodeElement === 'shr.core.BirthSex' && value !== _.lowerCase(gender)) {
+        } else if (filter.mcodeElement === 'shr.core.BirthSex' && value !== gender.toLowerCase()) {
             return false;
         // pathology
         } else if (filter.mcodeElement === 'onco.core.TumorMarkerTest') {
@@ -119,17 +119,17 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
                 return false;
             }
         } else if (filter.mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage
-            || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+            || diseaseStatus.stage.toLowerCase() !== value.toLowerCase())) {
             return false;
         } else if (filter.mcodeElement === 'onco.core.TNMPathologicStageGroup' && (!diseaseStatus.stage
-            || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+            || diseaseStatus.stage.toLowerCase() !== value.toLowerCase())) {
             return false;
         } else if ((filter.mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory'
             || filter.mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory'
             || filter.mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
             && (diseaseStatus.tnm.filter(status => {
-                return (status.codeSystem.toLowerCase() === reference.codeSystem.value.toLowerCase()
-                    && status.code.toLowerCase() === reference.code.value.toLowerCase());
+                return (_.lowerCase(status.codeSystem) === _.lowerCase(reference.codeSystem.value)
+                && _.lowerCase(status.code) === _.lowerCase(reference.code.value));
             }).length===0)) { // no data available
             return false;
         } else if (filter.mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade
