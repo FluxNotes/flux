@@ -528,7 +528,7 @@ class FluxNotesEditor extends React.Component {
             };
         }
         // Create an updated state with the text replaced.
-        var nextState = this.state.state.transform().select({
+        const nextState = this.state.state.transform().select({
             anchorKey: data.anchorKey,
             anchorOffset: data.anchorOffset,
             focusKey: data.focusKey,

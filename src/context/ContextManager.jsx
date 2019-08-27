@@ -172,7 +172,7 @@ class ContextManager {
     }
 
     removeShortcutFromContext(shortcut) {
-        var index = -1;
+        let index = -1;
         this.contexts.forEach((item, i) => {
             if (item === shortcut) index = i;
         });
@@ -184,7 +184,7 @@ class ContextManager {
     }
 
     removeShortcutFromActiveContexts(shortcut) {
-        var index = -1;
+        let index = -1;
         this.activeContexts.forEach((item, i) => {
             if (item === shortcut) index = i;
         });

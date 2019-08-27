@@ -25,7 +25,7 @@ class DatePicker extends Component {
     }
 
     render() {
-        var formattedDateToSet = null;
+        let formattedDateToSet = null;
         const {selectedDate} = this.state;
         const formattedDate = selectedDate ? moment(selectedDate).format(DATE_FORMAT) : '';
 

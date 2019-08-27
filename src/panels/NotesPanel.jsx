@@ -153,7 +153,7 @@ export default class NotesPanel extends Component {
         // Only update if there is a note in progress
         if (!Lang.isEqual(entryId, -1)) {
             // List the notes to verify that they are being updated each invocation of this function:
-            var noteToUpdate = this.props.patient.getNotes().find(function (element) {
+            const noteToUpdate = this.props.patient.getNotes().find(function (element) {
                 return Lang.isEqual(element.entryInfo.entryId.id, entryId);
             });
             if (!Lang.isNull(noteToUpdate) && !Lang.isUndefined(noteToUpdate) && !noteToUpdate.signed) {

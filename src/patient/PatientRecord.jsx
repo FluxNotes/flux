@@ -126,18 +126,18 @@ class PatientRecord {
 
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
     updateExistingEntry(updatedEntry) {
-        var found = this.entries.find(function(element) {
+        const found = this.entries.find(function(element) {
             return _.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
         });
         if (!_.isUndefined(found)) {
-            var index = this.entries.indexOf(found);
+            const index = this.entries.indexOf(found);
             this.entries[index] = updatedEntry;
         }
     }
 
     addUnenrolled(entry, clinicalNote) {
         if (!(entry.title) || entry.title.length === 0) return null;
-        var found = this.entries.find(function(element) {
+        const found = this.entries.find(function(element) {
             if (!(element instanceof FluxResearchSubject)) return false;
             return element.title === entry.title;
         });
@@ -221,15 +221,15 @@ class PatientRecord {
 
     getAge() {
         if (_.isNull(this.person)) return null;
-        var today = new Date();
+        const today = new Date();
         return this.getAgeAsOf(today);
     }
 
     getAgeAsOf(date) {
         if (_.isNull(this.person)) return null;
-        var birthDate = new Date(this.getDateOfBirth());
-        var age = date.getFullYear() - birthDate.getFullYear();
-        var m = date.getMonth() - birthDate.getMonth();
+        const birthDate = new Date(this.getDateOfBirth());
+        let age = date.getFullYear() - birthDate.getFullYear();
+        const m = date.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && date.getDate() < birthDate.getDate())) {
             age--;
         }

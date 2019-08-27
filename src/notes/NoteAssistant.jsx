@@ -84,7 +84,8 @@ export default class NoteAssistant extends Component {
 
     isScrolledIntoView(elem) {
         let el = elem;
-        var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;
+        let rect = el.getBoundingClientRect();
+        const top = rect.top, height = rect.height;
         el = el.parentNode;
         const bottom = top + height;
         do {

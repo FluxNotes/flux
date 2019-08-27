@@ -24,7 +24,7 @@ export default class Context {
     }
 
     removeChild(shortcut) {
-        var indexToDelete = -1;
+        let indexToDelete = -1;
         this.children.forEach((item, i) => {
             if (item === shortcut) {
                 indexToDelete = i;

@@ -189,14 +189,14 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onChange(state, editor) {
-        var deletedKeys = [];
+        const deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
         const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
         const nodes = getAllStructuredFields(state.document.toJSON().nodes);
 
         if (nodes.length !== keyToShortcutMap.size) {
-            var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
+            const currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
             keyToShortcutMap.forEach((value, key) => {
                 if (!currentNodesMap.has(key)) {
                     deletedKeys.push(key);
@@ -205,7 +205,7 @@ function StructuredFieldPlugin(opts) {
         }
         // Sort the keys in reverse order of creation -- new keys are always > old keys
         deletedKeys.sort((a, b) => b - a);
-        var shortcut;
+        let shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);

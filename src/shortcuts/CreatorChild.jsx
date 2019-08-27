@@ -29,10 +29,10 @@ export default class CreatorChild extends Shortcut {
         if (!Lang.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
-        var found = false;
-        var picker = false;
+        let found = false;
+        let picker = false;
         if (this.metadata.stringTriggers) {
-            for (var i = 0; i < this.metadata.stringTriggers.length; i++) {
+            for (let i = 0; i < this.metadata.stringTriggers.length; i++) {
                 if (this.metadata.stringTriggers[i].name === trigger) {
                     found = true;
                     if (this.metadata.stringTriggers[i].picker) {
