@@ -252,11 +252,9 @@ class FluxCancerCondition extends FluxCondition {
     }
 
     getReceptorsOfType(receptorType) {
-        if (!this._condition.entryInfo) return [];
-        const conditionEntryId = this._condition.entryInfo.entryId;
-        return this._patientRecord.getEntriesOfType(FluxTumorMarkerTest).filter(item => {
+        return this._patientRecord.getEntriesOfType(FluxTumorMarkerTest).filter((item) => {
             // Filter our TumorMarkers to those with the specified type
-            return item.receptorType === receptorType && item.specificFocusOfFinding && item.specificFocusOfFinding._entryId === conditionEntryId;
+            return item.receptorType === receptorType;
         });
     }
 
