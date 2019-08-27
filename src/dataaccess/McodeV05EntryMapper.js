@@ -100,13 +100,48 @@ const mapCondition = (resultJson , entryJson) => {
     mapAnatomicalLocation(resultJson, entryJson.AnatomicalLocation);
 };
 
-const mapMedication = (resultJson, medication) => {
-    resultJson.MedicationCodeOrReference = { ...medication.Type };
-    changeEntryType(resultJson.MedicationCodeOrReference, 'http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference');
-    // debugger;
-    // mapCodingArray(resultJson.MedicationCodeOrReference.Value.Coding);
+const mapMedication = (resultJson, medication, shrId, nextEntryId, v09Json) => {
+    const medCode = medication.Type.Value.Coding[0].Code.Value;
 
-    // NOTE: OverTheCounter is a field on v05 shr.entity.Medication, but not available in v09 if we translate to a code vs a ref(Medication)
+    const existingMedEntry = v09Json.find(e => e.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/core/Medication' && e.Type && e.Type.Value && e.Type.Value.Coding && e.Type.Value.Coding[0] && e.Type.Value.Coding[0].CodeValue && e.Type.Value.Coding[0].CodeValue.Value === medCode);
+
+    if (existingMedEntry) {
+        nextEntryId = existingMedEntry.EntryId.Value;
+    } else {
+
+        const newMedication = {
+            ...medication,
+            EntryId: {
+                EntryType: {
+                    Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId',
+                },
+                Value: nextEntryId
+            },
+
+            ShrId: {
+                EntryType: {
+                    Value: 'http://standardhealthrecord.org/spec/shr/base/ShrId',
+                },
+                Value: shrId
+            }
+        };
+
+        changeEntryType(newMedication, 'http://standardhealthrecord.org/spec/shr/core/Medication');
+        changeEntryType(newMedication.OverTheCounter, 'http://standardhealthrecord.org/spec/shr/core/OverTheCounter');
+        mapCodingArray(newMedication.Type.Value.Coding);
+
+        v09Json.push(newMedication);
+    }
+
+    resultJson.MedicationCodeOrReference = {
+        Value: {
+            _ShrId: shrId,
+            _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Medication',
+            _EntryId: nextEntryId
+        }
+    };
+
+    changeEntryType(resultJson.MedicationCodeOrReference, 'http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference');
 };
 
 const mapDosage = (resultJson, dosage) => {
@@ -511,7 +546,7 @@ export function mapEntries(v05Json) {
                     resultJson.OccurrenceTimeOrPeriod = { ...medicationAfterChange.ExpectedPerformanceTime };
                     changeEntryType(resultJson.OccurrenceTimeOrPeriod, 'http://standardhealthrecord.org/spec/shr/core/OccurrenceTimeOrPeriod');
 
-                    mapMedication(resultJson, medicationAfterChange.Medication);
+                    mapMedication(resultJson, medicationAfterChange.Medication, entry.ShrId, nextEntryId++, v09Json);
                     mapDosage(resultJson, medicationAfterChange.Dosage);
                 }
 
@@ -551,7 +586,7 @@ export function mapEntries(v05Json) {
                 resultJson.ExpectedPerformanceTime = { ...entry.ExpectedPerformanceTime };
                 changeEntryType(resultJson.ExpectedPerformanceTime, 'http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime');
 
-                mapMedication(resultJson, entry.Medication);
+                mapMedication(resultJson, entry.Medication, entry.ShrId, nextEntryId++, v09Json);
                 mapDosage(resultJson, entry.Dosage);
 
                 resultJson.NumberOfRefillsAllowed = { ...entry.NumberOfRefillsAllowed };

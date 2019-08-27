@@ -607,6 +607,52 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "imatinib 400mg tablet"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "C3215040"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6090
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7f"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -726,32 +772,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6090
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "imatinib 400mg tablet"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "C3215040"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -900,7 +927,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6090"
+      "Value": "6091"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -1053,7 +1080,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6090"
+        "_EntryId": "6091"
       }
     }
   },
@@ -1186,7 +1213,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6090"
+        "_EntryId": "6091"
       }
     }
   },
@@ -1319,7 +1346,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6090"
+        "_EntryId": "6091"
       }
     }
   },
@@ -1993,7 +2020,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6094"
+      "Value": "6095"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -2139,7 +2166,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6094"
+        "_EntryId": "6095"
       }
     }
   },
@@ -6084,7 +6111,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6094"
+        "_EntryId": "6095"
       }
     },
     "ResultingClinicalNote": {
@@ -7342,6 +7369,58 @@
     "EvidenceType": []
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "ibuprofen 600mg tablet"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "316077"
+            }
+          }
+        ]
+      }
+    },
+    "OverTheCounter": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/OverTheCounter"
+      },
+      "Value": true
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6102
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7f"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -7455,32 +7534,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6102
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "ibuprofen 600mg tablet"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "316077"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -8269,6 +8329,58 @@
     "EvidenceType": []
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "hydrocortisone 2.5% ointment"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "310891"
+            }
+          }
+        ]
+      }
+    },
+    "OverTheCounter": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/OverTheCounter"
+      },
+      "Value": true
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6105
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7f"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -8382,32 +8494,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6105
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "hydrocortisone 2.5% ointment"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "310891"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -19573,7 +19666,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6108"
+      "Value": "6111"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -19611,7 +19704,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6109"
+      "Value": "6112"
     },
     "Attachment": {
       "EntryType": {
@@ -19669,13 +19762,13 @@
         "Value": {
           "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
           "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-          "_EntryId": "6108"
+          "_EntryId": "6111"
         }
       }
     },
     "Media": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-      "_EntryId": "6109",
+      "_EntryId": "6112",
       "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Media"
     }
   },
@@ -20950,6 +21043,58 @@
     ]
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "loperamide hydrochloride 2mg tablet"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "C0715002"
+            }
+          }
+        ]
+      }
+    },
+    "OverTheCounter": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/OverTheCounter"
+      },
+      "Value": true
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6114
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7f"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -21056,32 +21201,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6114
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "loperamide hydrochloride 2mg tablet"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "C0715002"
-            }
-          }
-        ]
       }
     },
     "Dosage": {

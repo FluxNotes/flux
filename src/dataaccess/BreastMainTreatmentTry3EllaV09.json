@@ -817,6 +817,52 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Cyclophosphamide"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "3002"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6009
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -929,32 +975,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6009
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Cyclophosphamide"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "3002"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1060,6 +1087,52 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRefillsAllowed"
       }
+    }
+  },
+  {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "PACLitaxel"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "56946"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6011
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
     }
   },
   {
@@ -1175,32 +1248,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6011
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "PACLitaxel"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "56946"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1448,7 +1502,7 @@
     },
     "RelatedRequest": {
       "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/RelatedRequest"
+        "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationStatementRelatedRequest"
       },
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
@@ -1485,32 +1539,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6011
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "PACLitaxel"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "56946"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1611,6 +1646,52 @@
           ]
         }
       }
+    }
+  },
+  {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Tamoxifen"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "10324"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6015
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
     }
   },
   {
@@ -1726,32 +1807,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6015
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Tamoxifen"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "10324"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1857,6 +1919,52 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRefillsAllowed"
       }
+    }
+  },
+  {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Trastuzumab"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "224905"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6017
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
     }
   },
   {
@@ -1972,32 +2080,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6017
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Trastuzumab"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "224905"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -2218,32 +2307,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6011
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "PACLitaxel"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "56946"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -2349,6 +2419,52 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRefillsAllowed"
       }
+    }
+  },
+  {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Lisinopril 20mg tablet"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "29046"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6021
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
     }
   },
   {
@@ -2458,32 +2574,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6021
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Lisinopril 20mg tablet"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "29046"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -2616,6 +2713,58 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "ibuprofen 600mg tablet"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "316077"
+            }
+          }
+        ]
+      }
+    },
+    "OverTheCounter": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/OverTheCounter"
+      },
+      "Value": true
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6023
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -2722,32 +2871,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6023
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "ibuprofen 600mg tablet"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "316077"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -2880,6 +3010,58 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "hydrocortisone 2.5% ointment"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "310891"
+            }
+          }
+        ]
+      }
+    },
+    "OverTheCounter": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/OverTheCounter"
+      },
+      "Value": true
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 6025
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7e"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -2986,32 +3168,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 6025
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "hydrocortisone 2.5% ointment"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "310891"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -3662,7 +3825,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6018"
+      "Value": "6028"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -3808,7 +3971,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6018"
+        "_EntryId": "6028"
       }
     }
   },
@@ -3823,7 +3986,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6019"
+      "Value": "6029"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -3969,7 +4132,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6019"
+        "_EntryId": "6029"
       }
     }
   },

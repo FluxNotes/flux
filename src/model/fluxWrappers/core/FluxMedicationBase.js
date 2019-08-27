@@ -20,11 +20,21 @@ class FluxMedicationBase extends FluxEntry {
      *  Returns displayText string for medication
      */
     get medication() {
-        // TODO: handle reference case
-        if (!this._entry.medicationCodeOrReference
-            || !this._entry.medicationCodeOrReference.value) return null;
+        let med = this.medicationByCode;
+        if (med) {
+            if (med.coding && med.coding[0]) {
+                return this._displayTextOrCode(med.coding[0]);
+            }
+            return null;
+        }
 
-        return this._displayTextOrCode(this._entry.medicationCodeOrReference.value.coding[0]);
+        med = this.medicationByReference;
+        if (med) {
+            if (med.type && med.type.value && med.type.value.coding && med.type.value.coding[0]) {
+                return this._displayTextOrCode(med.type.value.coding[0]);
+            }
+        }
+        return null;
     }
 
     /**
@@ -46,13 +56,38 @@ class FluxMedicationBase extends FluxEntry {
         this._entry.medicationCodeOrReference = medicationCodeOrReference;
     }
 
+    get medicationByCode() {
+        if (!this._entry.medicationCodeOrReference || !this._entry.medicationCodeOrReference.value) return undefined;
+        const mcrv = this._entry.medicationCodeOrReference.value;
+        if (mcrv.entryId && mcrv.entryType) {
+            // it's a Reference
+            return undefined;
+        }
+        return mcrv; // should be a CodeableConcept
+    }
+
+    get medicationByReference() {
+        if (!this._entry.medicationCodeOrReference || !this._entry.medicationCodeOrReference.value) return undefined;
+        const mcrv = this._entry.medicationCodeOrReference.value;
+        if (mcrv.entryId && mcrv.entryType) {
+            // it's a Reference
+            return this._patientRecord.getEntryFromReference(mcrv);
+        }
+        return undefined;
+    }
+
     /*
      *  Getter for medication over the counter flag
      *  Returns boolean value for medicationsOrCode of medication type. Returns undefined for codeable concepts.
      */
     get overTheCounter() {
-        if (!this._entry.medicationCodeOrReference.overTheCounter) return undefined;
-        return this._entry.medicationCodeOrReference.overTheCounter.value;
+        const med = this.medicationByReference;
+        if (!med || !med.overTheCounter) {
+            // it's either missing or a CodeableConcept. someday maybe we want a lookup?
+            // but for now nothing we can do
+            return undefined;
+        }
+        return med.overTheCounter.value;
     }
 
     /*
@@ -181,13 +216,21 @@ class FluxMedicationBase extends FluxEntry {
     }
 
     get code() {
-        // TODO: handle reference case
-        if (!this._entry.medicationCodeOrReference
-            || !this._entry.medicationCodeOrReference.value
-            || !this._entry.medicationCodeOrReference.value.coding[0]
-            || !this._entry.medicationCodeOrReference.value.coding[0].codeValue) return null;
+        let med = this.medicationByCode;
+        if (med) {
+            if (med.coding && med.coding[0] && med.coding[0].codeValue) {
+                return med.coding[0].codeValue.value;
+            }
+            return null;
+        }
 
-        return this._entry.medicationCodeOrReference.value.coding[0].codeValue.value;
+        med = this.medicationByReference;
+        if (med) {
+            if (med.type && med.type.value && med.type.value.coding && med.type.value.coding[0] && med.type.value.coding[0].codeValue) {
+                return med.type.value.coding[0].codeValue.value;
+            }
+        }
+        return null;
     }
 
     get routeIntoBody() {

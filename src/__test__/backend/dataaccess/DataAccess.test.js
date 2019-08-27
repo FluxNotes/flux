@@ -15,7 +15,7 @@ const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 const referencePatient = referenceHardCodedPatient.getPatient();
 
 // Data Access with hard coded read only data source
-const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV05DataSource");
+const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV09DataSource");
 // The patient shr object
 const hardCodedPatientObj = hardCodedReadOnlyDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
 // The patient record entry -- should be an shr object
