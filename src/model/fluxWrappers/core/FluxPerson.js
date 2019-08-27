@@ -71,6 +71,14 @@ class FluxPerson {
         return null;
     }
 
+    get deceased() {
+        return this._person.deceased;
+    }
+
+    set deceased(deceased) {
+        this._person.deceased = deceased;
+    }
+
     toJSON() {
         return this._person.toJSON();
     }

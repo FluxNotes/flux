@@ -28,13 +28,13 @@ class FluxPatient {
     }
 
     get deceased() {
-        return this._patient.deceased;
+        if (!this.person || !this.person.deceased) return null;
+        return this.person.deceased.value;
     }
 
     set deceased(val) {
-        let deceased = new Deceased();
-        deceased.value = val;
-        this._patient.deceased = deceased;
+        if (!val) this.person.deceased = null;
+        this.person.deceased = val;
     }
 
     toJSON() {
