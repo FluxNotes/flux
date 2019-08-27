@@ -3973,7 +3973,20 @@
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
         "_EntryId": "6028"
       }
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "showed unremarkable views of the right lower outer quadrant; however only an indeterminate lymph node in the right axilla, 13 mm, was apparent"
+        }
+      }
+    ]
   },
   {
     "ShrId": {
@@ -4134,7 +4147,20 @@
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
         "_EntryId": "6029"
       }
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "revealed a mass at 7 o’clock measuring 1.6 cm, indeterminate right axillary lymph nodes, measuring 1.4 cm with the cortex of 3 mm - indeterminate, and another measuring 12 mm with cortex of 4 mm - indeterminate"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -4250,7 +4276,20 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime"
       },
       "Value": "01 Apr 2017"
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "revealed infiltrating poorly differentiated ductal carcinoma, grade 3, estrogen receptor 0, progesterone receptor weakly positive 1% to 4%, HER2 was negative 0%, and Ki-67 ranged 85% to 95%"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -4366,7 +4405,20 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime"
       },
       "Value": "01 Apr 2017"
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "showed right axillary lymph node was negative for malignancy"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -4598,7 +4650,20 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime"
       },
       "Value": "19 May 2017"
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "showed normal systolic function, with ejection fraction 60-65% and trace mitral regurgitation"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -5094,7 +5159,20 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime"
       },
       "Value": "19 Apr 2018"
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "showed benign findings"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -5314,7 +5392,20 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime"
       },
       "Value": "12 Jan 2019"
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "revealed stable post-treatment changes of the right breast, no abnormality of the left breast, and enhancement of of two internal mammary lymph nodes of the right breast, measuring 1.5 cm by 1.0 cm and 1.8 cm by 1.0 cm"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -5430,7 +5521,20 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/ExpectedPerformanceTime"
       },
       "Value": "30 Jan 2019"
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "was negative for skeletal metastases"
+        }
+      }
+    ]
   },
   {
     "EntryId": {

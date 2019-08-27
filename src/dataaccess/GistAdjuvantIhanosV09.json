@@ -1082,7 +1082,20 @@
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
         "_EntryId": "6091"
       }
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "was non-diagnostic"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -1215,7 +1228,20 @@
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
         "_EntryId": "6091"
       }
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "confirmed GIST with 15 mitoses/50 HPF"
+        }
+      }
+    ]
   },
   {
     "EntryId": {
@@ -1348,7 +1374,20 @@
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
         "_EntryId": "6091"
       }
-    }
+    },
+    "Annotation": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Annotation"
+        },
+        "Text": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Text"
+          },
+          "Value": "confirmed GIST. 20 mitoses/50 HPF. Surgical margins negative. Final tumor size 8cm"
+        }
+      }
+    ]
   },
   {
     "EntryId": {

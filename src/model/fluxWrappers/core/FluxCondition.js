@@ -8,6 +8,7 @@ import hpiConfig from '../../hpi-configuration.json';
 import Lang from 'lodash';
 import moment from 'moment';
 import FluxEntry from '../base/FluxEntry';
+import FluxMedicationStatement from './FluxMedicationStatement';
 
 class FluxCondition extends FluxEntry {
     constructor(json, type, patientRecord) {
@@ -457,26 +458,27 @@ class FluxCondition extends FluxEntry {
                     hpiText += '\r\n';
                     break;
                 }
+                case FluxMedicationStatement:
                 case FluxMedicationRequest: {
                     const active = event.isActiveAsOf(today);
                     if (!active) {
                         let medicationText = medicationTemplates['range'];
                         medicationText = medicationText.replace('{0}', event.medication);
-                        medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
-                        medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
+                        medicationText = medicationText.replace('{1}', event.startDate);
+                        medicationText = medicationText.replace('{2}', event.endDate);
                         hpiText += medicationText;
                         hpiText += '\r\n';
                     } else {
                         let medicationText;
-                        if (event.expectedPerformanceTime.timePeriodEnd) {
+                        if (event.endDate) {
                             medicationText = medicationTemplates['single_plan_stop'];
                         } else {
                             medicationText = medicationTemplates['single'];
                         }
                         medicationText = medicationText.replace('{0}', event.medication);
-                        medicationText = medicationText.replace('{1}', event.expectedPerformanceTime.timePeriodStart);
-                        if (event.expectedPerformanceTime.timePeriodEnd) {
-                            medicationText = medicationText.replace('{2}', event.expectedPerformanceTime.timePeriodEnd);
+                        medicationText = medicationText.replace('{1}', event.startDate);
+                        if (event.endDate) {
+                            medicationText = medicationText.replace('{2}', event.endDate);
                         }
                         hpiText += medicationText;
                         hpiText += '\r\n';
@@ -523,6 +525,10 @@ class FluxCondition extends FluxEntry {
                 if (!a_startTime.isValid()) a_startTime = new moment(a.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
                 break;
             }
+            case FluxMedicationStatement: {
+                a_startTime = new moment(a.startDate, "D MM YYYY");
+                break;
+            }
             case FluxCancerDiseaseStatus: {
                 a_startTime = new moment(a.asOfDate, "D MMM YYYY");
                 break;
@@ -546,6 +552,10 @@ class FluxCondition extends FluxEntry {
             case FluxMedicationRequest: {
                 b_startTime = new moment(b.expectedPerformanceTime, "D MMM YYYY");
                 if (!b_startTime.isValid()) b_startTime = new moment(b.expectedPerformanceTime.timePeriodStart, "D MMM YYYY");
+                break;
+            }
+            case FluxMedicationStatement: {
+                b_startTime = new moment(b.startDate, "D MM YYYY");
                 break;
             }
             case FluxCancerDiseaseStatus: {

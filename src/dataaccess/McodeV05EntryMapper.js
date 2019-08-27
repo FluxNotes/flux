@@ -777,6 +777,10 @@ export function mapEntries(v05Json) {
                     };
                 }
 
+                if (entry.Annotation) {
+                    resultJson.Annotation = [ ...entry.Annotation ];
+                }
+
                 v09Json.push(resultJson);
                 break;
             }
