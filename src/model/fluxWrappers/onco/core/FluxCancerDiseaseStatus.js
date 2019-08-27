@@ -162,7 +162,7 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
         if (!obj) {
             this.relatedCancerCondition = null;
         } else {
-            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
+            let ref = new Reference(obj.entryInfo.shrId.value, obj.entryInfo.entryId.value, obj.entryInfo.entryType.value);
             let rcc = new RelatedCancerCondition();
             rcc.value = ref;
             this.relatedCancerCondition = rcc;
