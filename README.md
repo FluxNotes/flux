@@ -2,7 +2,7 @@
 
 ## Features
 
-This prototype is designed to demonstrate the concept of a clinician entering or dictating a clinical note that includes structured data embedded within it. A patient summary is shown for reference during the authoring of new clinical notes and provide incentive to identifying structured data during note authoring and review. The clinican can leverage templates for note creation. When authoring a note and within a structured field, Flux Notes&trade; displays a simple "point-of-sale" inspired "form" for choosing values that are part of the current structured field.
+This prototype is designed to demonstrate the concept of a clinician entering or dictating a clinical note that includes structured data embedded within it. A patient summary is shown for reference during the authoring of new clinical notes and provide incentive to identifying structured data during note authoring and review. The clinician can leverage templates for note creation. When authoring a note and within a structured field, Flux Notes&trade; displays a simple "point-of-sale" inspired "form" for choosing values that are part of the current structured field.
 
 In addition, a no-patient version of the above concept has been created for situations where EHR integration is not possible and to facilitate use at hospitals without requiring installation. In no-patient mode, the clinician choosing the type of data being authored and then uses the point-of-sale form from above to author the content which produces the equivalent structured field text that can be pasted into their EHR's note entry area as part of authoring a clinical note.
 
@@ -33,7 +33,7 @@ In addition, a no-patient version of the above concept has been created for situ
 
 * Enter `yarn start` to launch the development web server and open a browser to view the application
 
-* To view patient mode, append patient to the end of the default url (result url would be <http://localhost:3000/demo1>)
+* To view patient mode, append patient to the end of the default url (result url would be <http://localhost:3000/pilot1>)
 
 ## Technical Details
 
@@ -78,15 +78,15 @@ Where the the available options are:
 For example:
 
 ```bash
-yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33
+yarn patient-date-update ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV09.json 33
 ```
 
-will search the patient entries for an `EncounterRequested` with an `entryid` of 33.  It will then use the `ActionContext.ExpectedPerformanceTime.Value` to calculate the difference to add to the dates.
+will search the patient entries for an `ReferralRequest` with an `entryId` value of 33.  It will then use the `ExpectedPerformanceTime.Value.BeginDateTime.Value` to calculate the difference to add to the dates.
 
 The dates in the file can be easily listed out using the `patient-date-list` script.  To run the script:
 
 ```bash
-yarn patient-date-list ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json
+yarn patient-date-list ./src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV09.json
 ```
 
 This command will only output a list of dates found in the record, it will not update the patient record.  It will list the dates in chronological order.  
