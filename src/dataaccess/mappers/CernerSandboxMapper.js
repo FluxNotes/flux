@@ -30,12 +30,12 @@ const primaryCancerConditionCodes = [
 
 const mapper = {
     filter: () => true,
-    default: (resource, context) => mappers['syntheaToV05'].execute(resource, context),
+    default: (resource, context) => mappers['syntheaToV09'].execute(resource, context),
     mappers: [
         {
             filter: "Condition.code.coding.where($this.code in %primaryCancerConditionCodes.first())",
             exec: (resource, context) =>
-                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-CancerDisorderPresent')
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/shr/StructureDefinition/onco-core-PrimaryCancerCondition')
         },
         {filter: "Observation.code.text = 'AJCCV7 Breast Distant Metastasis (M) Pat'",
             exec: (resource, context) => {
@@ -50,7 +50,7 @@ const mapper = {
             exec: (resource, context) => {
                 resource.code = {coding: [{code: '21907-1'  , system: 'http://loinc.org'}]};
                 resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
-                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-TNMClinicalDistantMetastasesClassification');
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/shr/StructureDefinition/onco-core-TNMClinicalDistantMetastasesCategory');
                 return resource;
             }
         },
@@ -66,7 +66,7 @@ const mapper = {
             exec: (resource, context) => {
                 resource.code = {coding: [{code: '21906-3'  , system: 'http://loinc.org'}]};
                 resource.valueCodeableConcept.coding = [{code: resource.valueCodeableConcept.text }];
-                utils.applyProfile(resource, 'http://hl7.org/fhir/us/fhirURL/StructureDefinition/oncocore-TNMClinicalRegionalNodesClassification');
+                utils.applyProfile(resource, 'http://hl7.org/fhir/us/shr/StructureDefinition/onco-core-TNMClinicalRegionalNodesCategory');
                 return resource;
             }
         }],
