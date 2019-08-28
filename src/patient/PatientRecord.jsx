@@ -7,7 +7,6 @@ import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest'
 import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
 import FluxMedicationStatement from '../model/fluxWrappers/core/FluxMedicationStatement';
 import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
-import FluxPatientIdentifier from '../model/fluxWrappers/base/FluxPatientIdentifier';
 import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
 import FluxResearchSubject from '../model/fluxWrappers/core/FluxResearchSubject';
 import FluxBloodPressure from '../model/fluxWrappers/core/FluxBloodPressure';
@@ -251,12 +250,7 @@ class PatientRecord {
     }
 
     getMRN() {
-        const list = this.entries.filter((item) => {
-            return item instanceof FluxPatientIdentifier && item.identifierType === "MRN";
-        });
-        const identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
-        if (_.isNull(identifierEntry)) return null;
-        return identifierEntry.value;
+        return this.patient.mrn;
     }
 
     getMostRecentPhoto() {

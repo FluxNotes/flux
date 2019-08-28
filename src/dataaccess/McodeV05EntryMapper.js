@@ -802,12 +802,60 @@ export function mapEntries(v05Json) {
                     resultJson.Person = personEntry;
                 }
 
+                const identifierEntry = { ...v05Json.find((e) => {
+                    const { elementName } = getNamespaceAndName(e);
+                    return elementName === 'PatientIdentifier';
+                })};
+
+                resultJson.Identifier = [
+                    {
+                        EntryType: {
+                            Value: 'http://standardhealthrecord.org/spec/shr/core/Identifier'
+                        },
+                        IdentifierString: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/IdentifierString'
+                            },
+                            value: identifierEntry.value,
+                        },
+                        Type: {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/Type'
+                            },
+                            Value: {
+                                EntryType: {
+                                    Value: 'http://standardhealthrecord.org/spec/shr/core/CodeableConcept'
+                                },
+                                Coding: [
+                                    {
+                                        EntryType: {
+                                            Value: 'http://standardhealthrecord.org/spec/shr/core/Coding'
+                                        },
+                                        CodeValue: {
+                                            EntryType: {
+                                                Value: 'http://standardhealthrecord.org/spec/shr/core/CodeValue'
+                                            },
+                                            Value: 'MR'
+                                        },
+                                        CodeSystem: {
+                                            EntryType: {
+                                                Value: 'http://standardhealthrecord.org/spec/shr/core/CodeSystem'
+                                            },
+                                            Value: 'http://hl7.org/fhir/v2/0203'
+                                        }
+                                    }
+                                ],
+                            }
+                        }
+                    }
+                ];
+
                 v09Json.push(resultJson);
                 break;
             }
-            // TODO
             case 'PatientIdentifier': {
-                break;
+                // PatientIdentifier is now a property on Patient entry
+                return;
             }
             case 'Person': {
                 // Person is now a property on Patient entry

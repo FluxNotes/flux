@@ -396,7 +396,49 @@
           }
         }
       ]
-    }
+    },
+    "Identifier": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/Identifier"
+        },
+        "IdentifierString": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/IdentifierString"
+          },
+          "value": "026-DH-678944"
+        },
+        "Type": {
+          "EntryType": {
+            "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+          },
+          "Value": {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+            },
+            "Coding": [
+              {
+                "EntryType": {
+                  "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+                },
+                "CodeValue": {
+                  "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+                  },
+                  "Value": "MR"
+                },
+                "CodeSystem": {
+                  "EntryType": {
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+                  },
+                  "Value": "http://hl7.org/fhir/v2/0203"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
   },
   {
     "EntryId": {
