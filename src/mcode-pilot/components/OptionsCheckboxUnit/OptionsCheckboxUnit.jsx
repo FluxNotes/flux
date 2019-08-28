@@ -55,7 +55,8 @@ export default class OptionsCheckboxUnit extends Component {
                                     checked={selected}
                                     onChange={this.toggleOption}
                                     value={displayText}
-                                    className="checkbox" />
+                                    className="checkbox"
+                                    disableRipple={true}/>
                             }
                             label={
                                 <span className="selection-options__title">

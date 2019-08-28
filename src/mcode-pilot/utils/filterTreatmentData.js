@@ -102,7 +102,6 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
             // age at diagnosis
             const birthYear = birthDate.split('-')[0];
             const dxYear = diseaseStatus.diagnosisDate.split('-')[0];
-            console.log(dxYear);
             const dxAge = dxYear - birthYear;
             if (dxAge < minValue || dxAge > maxValue) {
                 return false;
