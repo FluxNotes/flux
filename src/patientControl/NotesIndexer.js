@@ -29,7 +29,7 @@ class NotesIndexer extends NoteContentIndexer {
 
         data.forEach(note => {
             const subsectionId = note.signed ? 'signed_notes' : 'in_progress_notes';
-            if (searchIndex.hasDocument(`open_note_${subsectionId}_content_${note.entryInfo.entryId}`)) return;
+            if (searchIndex.hasDocument(`open_note_${subsectionId}_content_${note.entryInfo.entryId.id}`)) return;
             super.indexData(section, subsection, note, searchIndex, onHighlight, onClick);
         });
     }

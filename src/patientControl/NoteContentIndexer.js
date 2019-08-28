@@ -7,7 +7,7 @@ class NoteContentIndexer extends BaseIndexer {
         const notesSubsectionId = super.getStringForId(notesSubsection);
         const {entryId} = note.entryInfo;
         searchIndex.addSearchableData({
-            id: `${notesSectionId}_${notesSubsectionId}_title_${entryId}`,
+            id: `${notesSectionId}_${notesSubsectionId}_title_${entryId.id}`,
             note,
             section,
             subsection: notesSubsection,
@@ -18,7 +18,7 @@ class NoteContentIndexer extends BaseIndexer {
         });
 
         searchIndex.addSearchableData({
-            id: `${notesSectionId}_${notesSubsectionId}_content_${entryId}`,
+            id: `${notesSectionId}_${notesSubsectionId}_content_${entryId.id}`,
             note,
             section,
             subsection: notesSubsection,
@@ -29,7 +29,7 @@ class NoteContentIndexer extends BaseIndexer {
         });
 
         searchIndex.addSearchableData({
-            id: `${notesSectionId}_${notesSubsectionId}_source_${entryId}`,
+            id: `${notesSectionId}_${notesSubsectionId}_source_${entryId.id}`,
             note,
             section,
             subsection: notesSubsection,
@@ -41,7 +41,7 @@ class NoteContentIndexer extends BaseIndexer {
 
         if (note.signed) {
             searchIndex.addSearchableData({
-                id: `${notesSectionId}_${notesSubsectionId}_signed_on_${entryId}`,
+                id: `${notesSectionId}_${notesSubsectionId}_signed_on_${entryId.id}`,
                 note,
                 section,
                 subsection: notesSubsection,
@@ -52,7 +52,7 @@ class NoteContentIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
-                id: `${notesSectionId}_${notesSubsectionId}_signed_by_${entryId}`,
+                id: `${notesSectionId}_${notesSubsectionId}_signed_by_${entryId.id}`,
                 note,
                 section,
                 subsection: notesSubsection,
@@ -63,7 +63,7 @@ class NoteContentIndexer extends BaseIndexer {
             });
         } else {
             searchIndex.addSearchableData({
-                id: `${notesSectionId}_${notesSubsectionId}_created_on_${entryId}`,
+                id: `${notesSectionId}_${notesSubsectionId}_created_on_${entryId.id}`,
                 note,
                 section,
                 subsection: notesSubsection,
@@ -74,7 +74,7 @@ class NoteContentIndexer extends BaseIndexer {
             });
 
             searchIndex.addSearchableData({
-                id: `${notesSectionId}_${notesSubsectionId}_created_by_${entryId}`,
+                id: `${notesSectionId}_${notesSubsectionId}_created_by_${entryId.id}`,
                 note,
                 section,
                 subsection: notesSubsection,
