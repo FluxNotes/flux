@@ -265,6 +265,36 @@ const getOrCreatePractitionerByName = (v09Json, name, nextEntryId, shrId) => {
     }
 };
 
+const getOrCreateOrganizationByName = (v09Json, name, nextEntryId, shrId) => {
+    const organizationEntry = v09Json.find(e => e.OrganizationName && e.OrganizationName.Value === name);
+
+    if (organizationEntry) {
+        return organizationEntry.EntryId.Value;
+    } else {
+        const organizationEntryToAdd = {
+            ShrId: shrId,
+            EntryId: {
+                EntryType: {
+                    Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId'
+                },
+                Value: `${nextEntryId}`
+            },
+            EntryType: {
+                Value: 'http://standardhealthrecord.org/spec/shr/core/Organization'
+            },
+            OrganizationName: {
+                EntryType: {
+                    Value: 'http://standardhealthrecord.org/spec/shr/core/OrganizationName'
+                },
+                Value: name
+            }
+        };
+
+        v09Json.push(organizationEntryToAdd);
+        return nextEntryId;
+    }
+};
+
 export function mapEntries(v05Json) {
     const v09Json = [];
 
@@ -488,16 +518,39 @@ export function mapEntries(v05Json) {
                     const expectedPerformerName = entry.ExpectedPerformer.Value.Person.HumanName[0].NameAsText.Value;
                     const practitionerEntryID = getOrCreatePractitionerByName(v09Json, expectedPerformerName, nextEntryId++, { ...resultJson.ShrId });
 
-                    resultJson.ReferralRecipient = {
-                        EntryType: {
-                            Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
-                        },
-                        Value: {
-                            _ShrId: entry.ShrId,
-                            _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
-                            _EntryId: practitionerEntryID
+                    resultJson.ReferralRecipient = [
+                        {
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
+                            },
+                            Value: {
+                                _ShrId: entry.ShrId,
+                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Practitioner',
+                                _EntryId: practitionerEntryID
+                            }
                         }
-                    };
+                    ];
+
+                    const expectedOrganizationName = 
+                        entry.ExpectedPerformer.Value.Person.PartOf
+                        && entry.ExpectedPerformer.Value.Person.PartOf.Value
+                        && entry.ExpectedPerformer.Value.Person.PartOf.Value.OrganizationName
+                        && entry.ExpectedPerformer.Value.Person.PartOf.Value.OrganizationName.Value;
+
+                    if (expectedOrganizationName) {
+                        const organizationEntryID = getOrCreateOrganizationByName(v09Json, expectedOrganizationName, nextEntryId++, { ...resultJson.ShrId });
+
+                        resultJson.ReferralRecipient.push({
+                            EntryType: {
+                                Value: 'http://standardhealthrecord.org/spec/shr/core/ReferralRecipient'
+                            },
+                            Value: {
+                                _ShrId: entry.ShrId,
+                                _EntryType: 'http://standardhealthrecord.org/spec/shr/core/Organization',
+                                _EntryId: organizationEntryID
+                            }
+                        });
+                    }
                 }
 
                 if (entry.ResultingClinicalNote) resultJson.ResultingClinicalNote = { ...entry.ResultingClinicalNote };

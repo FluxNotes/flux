@@ -36,8 +36,20 @@ class FluxReferralRequest {
     }
 
     get practitioner() {
-        if (this._referralRequest.referralRecipient)
-            return this._patientRecord.getEntryFromReference(this._referralRequest.referralRecipient.value).person.humanName[0].nameAsText.value;
+        if (this._referralRequest.referralRecipient) {
+            for (const ref of this._referralRequest.referralRecipient) {
+                if (ref.value._entryType === 'http://standardhealthrecord.org/spec/shr/core/Practitioner') {
+                    const pracEntry = this._patientRecord.getEntryFromReference(ref.value);
+                    if (pracEntry
+                        && pracEntry.person
+                        && pracEntry.person.humanName
+                        && pracEntry.person.humanName[0]
+                        && pracEntry.person.humanName[0].nameAsText) {
+                        return pracEntry.person.humanName[0].nameAsText.value;
+                    }
+                }
+            }
+        }
         return null;
     }
 
@@ -55,19 +67,19 @@ class FluxReferralRequest {
     //     return null;
     // }
 
-    // get provider() {
-    //     if (this._referralRequest.expectedPerformer) {
-    //         let org = this._referralRequest.expectedPerformer.value.person.partOf;
-    //         while (org && org.type.value.coding[0].codeValue !== 'prov') {
-    //             org = org.partOf;
-    //         }
-    //         if (org) {
-    //             return org.organizationName.value;
-    //         }
-    //         return null;
-    //     }
-    //     return null;
-    // }
+    get provider() {
+        if (this._referralRequest.referralRecipient) {
+            for (const ref of this._referralRequest.referralRecipient) {
+                if (ref.value._entryType === 'http://standardhealthrecord.org/spec/shr/core/Organization') {
+                    const orgEntry = this._patientRecord.getEntryFromReference(ref.value);
+                    if (orgEntry && orgEntry.organizationName) {
+                        return orgEntry.organizationName.value;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
     // get author() {
     //     if (this._referralRequest.author) {

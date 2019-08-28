@@ -1442,6 +1442,29 @@
     }
   },
   {
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7f"
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": "6095"
+    },
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Organization"
+    },
+    "OrganizationName": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/OrganizationName"
+      },
+      "Value": "MCI"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -1554,16 +1577,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": 6095
+        }
       }
-    }
+    ]
   },
   {
     "EntryId": {
@@ -2111,7 +2146,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6095"
+      "Value": "6096"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -2257,7 +2292,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6095"
+        "_EntryId": "6096"
       }
     }
   },
@@ -6195,16 +6230,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6096"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6095"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5000",
@@ -6326,16 +6373,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5250",
@@ -6664,16 +6723,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5110",
@@ -6837,16 +6908,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5160",
@@ -7087,16 +7170,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5310",
@@ -7514,7 +7609,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": 6102
+      "Value": 6108
     },
     "ShrId": {
       "EntryType": {
@@ -7640,7 +7735,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
-        "_EntryId": 6102
+        "_EntryId": 6108
       },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
@@ -7894,16 +7989,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5410",
@@ -8486,7 +8593,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": 6105
+      "Value": 6112
     },
     "ShrId": {
       "EntryType": {
@@ -8612,7 +8719,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
-        "_EntryId": 6105
+        "_EntryId": 6112
       },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
@@ -8860,16 +8967,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5510",
@@ -9522,16 +9641,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5610",
@@ -10184,16 +10315,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5710",
@@ -10846,16 +10989,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5810",
@@ -11508,16 +11663,28 @@
         }
       }
     },
-    "ReferralRecipient": {
-      "EntryType": {
-        "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+    "ReferralRecipient": [
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
+          "_EntryId": "6089"
+        }
       },
-      "Value": {
-        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-        "_EntryId": "6089"
+      {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/ReferralRecipient"
+        },
+        "Value": {
+          "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
+          "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Organization",
+          "_EntryId": "6095"
+        }
       }
-    },
+    ],
     "ResultingClinicalNote": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
       "_EntryId": "5910",
@@ -19841,7 +20008,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6111"
+      "Value": "6123"
     },
     "EntryType": {
       "Value": "http://standardhealthrecord.org/spec/shr/core/Practitioner"
@@ -19879,7 +20046,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": "6112"
+      "Value": "6124"
     },
     "Attachment": {
       "EntryType": {
@@ -19937,13 +20104,13 @@
         "Value": {
           "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
           "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Practitioner",
-          "_EntryId": "6111"
+          "_EntryId": "6123"
         }
       }
     },
     "Media": {
       "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
-      "_EntryId": "6112",
+      "_EntryId": "6124",
       "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Media"
     }
   },
@@ -21272,7 +21439,7 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
-      "Value": 6114
+      "Value": 6126
     },
     "ShrId": {
       "EntryType": {
@@ -21391,7 +21558,7 @@
       "Value": {
         "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7f",
         "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
-        "_EntryId": 6114
+        "_EntryId": 6126
       },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
