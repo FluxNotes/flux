@@ -13,7 +13,7 @@ class FluxPatientIdentifier extends FluxEntry {
         this._entryInfo.creationTime = new CreationDateTime();
         this._entryInfo.creationTime.dateTime = today;
         this._entryInfo.lastUpdated = new LastUpdated();
-        this._entryInfo.lastUpdated.instant = today;
+        this._entryInfo.lastUpdated.dateTime = today;
         if (json.organization) this._organization = json.organization;
         if (json.identifierType) this._identifierType = json.identifierType;
         if (json.value) this._value = json.value;

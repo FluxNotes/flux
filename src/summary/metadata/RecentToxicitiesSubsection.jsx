@@ -31,7 +31,7 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
         const val = tox.seriousness;
         const unsigned = patient.isUnsigned(tox);
         const source = this.determineSource(patient, tox);
-        const when = tox.metadata.lastUpdated.value;
+        const when = tox.statementDateTime;
         return {
             source,
             when,

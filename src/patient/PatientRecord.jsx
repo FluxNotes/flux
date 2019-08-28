@@ -164,7 +164,7 @@ class PatientRecord {
         const today = new moment().format("D MMM YYYY");
         const metadata = new Metadata();
         metadata.lastUpdated = new LastUpdated();
-        metadata.lastUpdated.instant = today;
+        metadata.lastUpdated.dateTime = today;
         entry.metadata = metadata;
 
         this.entries.push(entry);

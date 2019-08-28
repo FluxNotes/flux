@@ -35,7 +35,7 @@ export default class MetadataSection {
             val = tox[0].seriousness;
             unsigned = patient.isUnsigned(tox[0]);
             source = this.determineSource(patient, tox[0]);
-            when = tox[0].metadata.lastUpdated.value;
+            when = tox[0].statementDateTime;
         } else {
             val = 'None';
             unsigned = false;

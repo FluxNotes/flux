@@ -136,8 +136,8 @@ class FluxCondition extends FluxEntry {
 
     // Returns sorted array of toxicities. Most recent toxicity is at index 0
     _toxicitiesTimeSorter(a, b) {
-        const a_time = new moment(a.metadata.lastUpdated.value, "D MMM YYYY");
-        const b_time = new moment(b.metadata.lastUpdated.value, "D MMM YYYY");
+        const a_time = new moment(a.statementDateTime, "D MMM YYYY");
+        const b_time = new moment(b.statementDateTime, "D MMM YYYY");
         if (a_time < b_time) {
             return 1;
         }
@@ -170,24 +170,24 @@ class FluxCondition extends FluxEntry {
             if (!mostRecentTox[id]) {
                 // If the toxicity doesn't already exist and if the date is within the specified number of months,
                 // add it to the table
-                const tox_date = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
+                const tox_date = new moment(t.statementDateTime, "D MMM YYYY");
                 if (tox_date > sinceDateMoment) {
                     mostRecentTox[id] = {
                         toxicity: t,
-                        lastUpdated: t.metadata.lastUpdated.value
+                        lastUpdated: t.statementDateTime
                     };
                 }
             } else {
                 // Check if the current toxicity is the most recent compared to what is in the lookup table
                 const time1 = new moment(mostRecentTox[id].lastUpdated, "D MMM YYYY");
-                const time2 = new moment(t.metadata.lastUpdated.value, "D MMM YYYY");
+                const time2 = new moment(t.statementDateTime, "D MMM YYYY");
 
                 // If the current toxicity is more recent than what is stored in the lookup table, update the data
                 // Lookup will only contain the most recent toxicity for that type
                 if (time2 > time1) {
                     mostRecentTox[id] = {
                         toxicity: t,
-                        lastUpdated: t.metadata.lastUpdated.value
+                        lastUpdated: t.statementDateTime
                     };
                 }
             }
