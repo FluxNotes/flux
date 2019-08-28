@@ -853,16 +853,20 @@ export function mapEntries(v05Json) {
                     });
                 }
 
-                // TODO (?) Map source clinical note
-
                 if (entry.CausalAttribution) {
                     resultJson.CausalAttribution = [ ...entry.CausalAttribution ];
                     resultJson.CausalAttribution.forEach(attr => {
                         changeEntryType(attr, 'http://standardhealthrecord.org/spec/shr/core/CausalAttribution');
                         changeEntryType(attr.CauseCategory, 'http://standardhealthrecord.org/spec/shr/core/CauseCategory');
                     });
-
                 }
+
+                resultJson.StatementDateTime = {
+                    EntryType: {
+                        Value: 'http://standardhealthrecord.org/spec/shr/core/StatementDateTime'
+                    },
+                    Value: entry.Metadata.LastUpdated.Value
+                };
 
                 v09Json.push(resultJson);
                 break;

@@ -8,6 +8,8 @@ import AdverseEventCondition from '../../shr/core/AdverseEventCondition';
 import CausalAttribution from '../../shr/core/CausalAttribution';
 import CauseCategory from '../../shr/core/CauseCategory';
 import PossibleCause from '../../shr/core/PossibleCause';
+import StatementDateTime from '../../shr/core/StatementDateTime';
+import moment from 'moment';
 
 class FluxAdverseDrugReaction extends FluxEntry {
     constructor(json, patientRecord) {
@@ -16,11 +18,10 @@ class FluxAdverseDrugReaction extends FluxEntry {
         if (!this._adverseDrugReaction.entryInfo) {
             this._adverseDrugReaction.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/shr/core/AdverseDrugReaction');
         }
-        this._patientRecord = patientRecord;
-    }
 
-    get entryInfo() {
-        return this._adverseDrugReaction.entryInfo;
+        if (!this.statementDateTime) this.statementDateTime = new moment().format('D MMM YYYY');
+
+        this._patientRecord = patientRecord;
     }
 
     get metadata() {
@@ -103,8 +104,18 @@ class FluxAdverseDrugReaction extends FluxEntry {
         }
     }
 
-    toJSON() {
-        return this._adverseDrugReaction.toJSON();
+    get statementDateTime() {
+        if (!this._adverseDrugReaction
+            ||!this._adverseDrugReaction.statementDateTime
+            || !this._adverseDrugReaction.statementDateTime.value) return null;
+
+        return this._adverseDrugReaction.statementDateTime.value;
+    }
+
+    set statementDateTime(statementDateTime) {
+        let s = new StatementDateTime();
+        s.value = statementDateTime;
+        this._adverseDrugReaction.statementDateTime = s;
     }
 }
 

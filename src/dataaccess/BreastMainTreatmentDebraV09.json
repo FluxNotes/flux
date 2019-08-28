@@ -782,6 +782,52 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Adriamycin"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "42512"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 1162
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7d"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -894,32 +940,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 1162
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Adriamycin"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "42512"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1026,6 +1053,52 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRefillsAllowed"
       },
       "Value": 5
+    }
+  },
+  {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Cyclophosphamide"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "3002"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 1164
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7d"
     }
   },
   {
@@ -1141,32 +1214,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 1164
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Cyclophosphamide"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "3002"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1273,6 +1327,52 @@
         "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRefillsAllowed"
       },
       "Value": 2
+    }
+  },
+  {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Tamoxifen"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "10324"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 1166
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7d"
     }
   },
   {
@@ -1388,32 +1488,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 1166
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Tamoxifen"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "10324"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1549,6 +1630,52 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Letrozole"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "72965"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 1168
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7d"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -1661,32 +1788,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 1168
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Letrozole"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "72965"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -1822,6 +1930,52 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Coumadin"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "202421"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 1170
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7d"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -1934,32 +2088,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 1170
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Coumadin"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "202421"
-            }
-          }
-        ]
       }
     },
     "Dosage": {
@@ -2095,6 +2230,52 @@
     }
   },
   {
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/Medication"
+    },
+    "Type": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Type"
+      },
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "Aromasin"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "262105"
+            }
+          }
+        ]
+      }
+    },
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
+      "Value": 1172
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7d"
+    }
+  },
+  {
     "EntryId": {
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
@@ -2207,32 +2388,13 @@
       }
     },
     "MedicationCodeOrReference": {
+      "Value": {
+        "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7d",
+        "_EntryType": "http://standardhealthrecord.org/spec/shr/core/Medication",
+        "_EntryId": 1172
+      },
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/core/MedicationCodeOrReference"
-      },
-      "Value": {
-        "EntryType": {
-          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
-        },
-        "Coding": [
-          {
-            "EntryType": {
-              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
-            },
-            "DisplayText": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
-              },
-              "Value": "Aromasin"
-            },
-            "CodeValue": {
-              "EntryType": {
-                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
-              },
-              "Value": "262105"
-            }
-          }
-        ]
       }
     },
     "Dosage": {

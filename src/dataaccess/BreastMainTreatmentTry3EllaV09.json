@@ -3707,7 +3707,13 @@
           }
         }
       }
-    ]
+    ],
+    "StatementDateTime": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/StatementDateTime"
+      },
+      "Value": "27 Jun 2017"
+    }
   },
   {
     "EntryId": {
@@ -6034,7 +6040,13 @@
           }
         }
       }
-    ]
+    ],
+    "StatementDateTime": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/StatementDateTime"
+      },
+      "Value": "04 Jun 2018"
+    }
   },
   {
     "EntryId": {
@@ -6186,7 +6198,13 @@
           }
         }
       }
-    ]
+    ],
+    "StatementDateTime": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/StatementDateTime"
+      },
+      "Value": "04 Jun 2018"
+    }
   },
   {
     "EntryId": {

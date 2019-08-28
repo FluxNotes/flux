@@ -2895,6 +2895,229 @@
         }
     },
     {
+        "EntryType": {	
+            "Value": "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested"	
+        },	
+        "ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",	
+        "EntryId": "19",	
+        "Metadata": {	
+            "EntryType": {	
+                "Value": "http://standardhealthrecord.org/spec/shr/base/Metadata"	
+            },	
+            "LastUpdated": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/LastUpdated"	
+                },	
+                "Value": "04 Jun 2019"	
+            },	
+            "InformationRecorder": "Dr. Mona341 Brown483",	
+            "AuthoredDateTime": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/AuthoredDateTime"	
+                },	
+                "Value": "04 Jun 2019"	
+            }	
+        },	
+        "Reason": [	
+            {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/base/Reason"	
+                },	
+                "Value": {	
+                    "_ShrId": "788dcbc3-ed18-470c-89ef-35ff91854c7e",	
+                    "_EntryId": "8",	
+                    "_EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/condition/Condition"	
+                    }	
+                }	
+            }	
+        ],	
+        "Status": {	
+            "EntryType": {	
+                "Value": "http://standardhealthrecord.org/spec/shr/core/Status"	
+            },	
+            "Value": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"	
+                },	
+                "Coding": [	
+                    {	
+                        "EntryType": {	
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"	
+                        },	
+                        "Code": {	
+                            "EntryType": {	
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Code"	
+                            },	
+                            "Value": "completed"	
+                        },	
+                        "CodeSystem": {	
+                            "EntryType": {	
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"	
+                            },	
+                            "Value": "http://hl7.org/fhir/STU3/valueset-request-status.html"	
+                        }	
+                    }	
+                ],	
+                "DisplayText": {	
+                    "EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"	
+                    },	
+                    "Value": "completed"	
+                }	
+            }	
+        },	
+        "ExpectedPerformanceTime": {	
+            "EntryType": {	
+                "Value": "http://standardhealthrecord.org/spec/shr/base/ExpectedPerformanceTime"	
+            },	
+            "Value": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/TimePeriod"	
+                },	
+                "BeginDateTime": {	
+                    "EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/BeginDateTime"	
+                    },	
+                    "Value": "04 Jun 2019"	
+                }	
+            }	
+        },	
+        "Medication": {	
+            "EntryType": {	
+                "Value": "http://standardhealthrecord.org/spec/shr/entity/Medication"	
+            },	
+            "Type": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/Type"	
+                },	
+                "Value": {	
+                    "EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"	
+                    },	
+                    "Coding": [	
+                        {	
+                            "EntryType": {	
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"	
+                            },	
+                            "Code": {	
+                                "EntryType": {	
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"	
+                                },	
+                                "Value": "56946"	
+                            },	
+                            "DisplayText": {	
+                                "EntryType": {	
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"	
+                                },	
+                                "Value": "PACLitaxel"	
+                            }	
+                        }	
+                    ]	
+                }	
+            }	
+        },	
+        "Dosage": {	
+            "EntryType": {	
+                "Value": "http://standardhealthrecord.org/spec/shr/medication/Dosage"	
+            },	
+            "DoseAmount": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/DoseAmount"	
+                },	
+                "Value": {	
+                    "EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/SimpleQuantity"	
+                    },	
+                    "Number": {	
+                        "EntryType": {	
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Number"	
+                        },	
+                        "Value": 180	
+                    },	
+                    "Units": {	
+                        "EntryType": {	
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/Units"	
+                        },	
+                        "Value": {	
+                            "EntryType": {	
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"	
+                            },	
+                            "Code": {	
+                                "EntryType": {	
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"	
+                                },	
+                                "Value": "mg/m2"	
+                            }	
+                        }	
+                    }	
+                }	
+            },	
+            "TimingOfDoses": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/TimingOfDoses"	
+                },	
+                "Value": {	
+                    "EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/Timing"	
+                    },	
+                    "RecurrenceRange": {	
+                        "EntryType": {	
+                            "Value": "http://standardhealthrecord.org/spec/shr/core/RecurrenceRange"	
+                        },	
+                        "Value": {	
+                            "EntryType": {	
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/NumberOfRepeats"	
+                            },	
+                            "Value": 5	
+                        }	
+                    }	
+                }	
+            },	
+            "AsNeededIndicator": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/medication/AsNeededIndicator"	
+                },	
+                "Value": false	
+            },	
+            "RouteIntoBody": {	
+                "EntryType": {	
+                    "Value": "http://standardhealthrecord.org/spec/shr/core/RouteIntoBody"	
+                },	
+                "Value": {	
+                    "EntryType": {	
+                        "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"	
+                    },	
+                    "Coding": [	
+                        {	
+                            "EntryType": {	
+                                "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"	
+                            },	
+                            "Code": {	
+                                "EntryType": {	
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/Code"	
+                                },	
+                                "Value": "26643006"	
+                            },	
+                            "CodeSystem": {	
+                                "EntryType": {	
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"	
+                                },	
+                                "Value": "http://snomed.info/sct"	
+                            },	
+                            "DisplayText": {	
+                                "EntryType": {	
+                                    "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"	
+                                },	
+                                "Value": "Oral route"	
+                            }	
+                        }	
+                    ]	
+                }	
+            }	
+        }	
+    },
+    {
         "EntryType": {
             "Value": "http://standardhealthrecord.org/spec/shr/oncology/BRCA1Variant"
         },
