@@ -4,13 +4,9 @@ import FluxEntry from '../../base/FluxEntry';
 import FluxEvidenceType from './FluxEvidenceType';
 import RelevantTime from '../../../shr/core/RelevantTime';
 import Reference from '../../../Reference';
-import RelatedCancerCondition from '../../../onco/core/RelatedCancerCondition.js';
-import EntryType from '../../../shr/base/EntryType';
-import Metadata from '../../../shr/core/Metadata';
-// import AuthoredDateTime from '../shr/base/AuthoredDateTime.js';
-import DataValue from '../../../shr/core/DataValue.js';
-
-import ClassRegistry from '../../../ClassRegistry';
+import RelatedCancerCondition from '../../../onco/core/RelatedCancerCondition';
+import DataValue from '../../../shr/core/DataValue';
+import StatementDateTime from '../../../shr/core/StatementDateTime';
 
 export default class FluxCancerDiseaseStatus extends FluxEntry {
     constructor(json) {
@@ -18,16 +14,8 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
 
         this._entry = this._cancerDiseaseStatus = CancerDiseaseStatus.fromJSON(json);
         if (!this._cancerDiseaseStatus.entryInfo) {
-            const Entry = ClassRegistry.get('shr.base', 'Entry');
-            let entry = new Entry();
-            entry.entryType = new EntryType();
-            entry.entryType.uri = 'http://standardhealthrecord.org/spec/onco/core/CancerDiseaseStatus';
-            this._cancerDiseaseStatus.entryInfo = entry;
+            this._cancerDiseaseStatus.entryInfo = this._constructEntry('http://standardhealthrecord.org/spec/onco/core/CancerDiseaseStatus');
         }
-    }
-
-    get entryInfo() {
-        return this._cancerDiseaseStatus.entryInfo;
     }
 
     get metadata() {
@@ -119,31 +107,21 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
         }
     }
 
-    // Flux added
     get asOfDate() {
-        if (this._cancerDiseaseStatus.statementDateTime
-            && this._cancerDiseaseStatus.statementDateTime.value) {
-            return this._cancerDiseaseStatus.statementDateTime.value;
-        }
+        if (!this._cancerDiseaseStatus.statementDateTime
+            || !this._cancerDiseaseStatus.statementDateTime.value) return null;
 
-        if (this._cancerDiseaseStatus.metadata 
-            && this._cancerDiseaseStatus.metadata.authoredDateTime
-            && this._cancerDiseaseStatus.metadata.authoredDateTime.value) {
-            return this._cancerDiseaseStatus.metadata.authoredDateTime.value;
-        }
-
-        return null;
+        return this._cancerDiseaseStatus.statementDateTime.value;
     }
 
-    set asOfDate(val) {
-        if (!this._cancerDiseaseStatus.metadata) this._cancerDiseaseStatus.metadata = new Metadata();
-        if (!this._cancerDiseaseStatus.metadata.authoredDateTime) {
-            // const authoredDateTime = new AuthoredDateTime();
-            const authoredDateTime = {};
-            authoredDateTime.value = val;
-            this._cancerDiseaseStatus.metadata.authoredDateTime = authoredDateTime;
+    set asOfDate(date) {
+        if (!date) return;
+        if (!this._cancerDiseaseStatus.statementDateTime) {
+            let statementDateTime = new StatementDateTime();
+            statementDateTime.value = date;
+            this._cancerDiseaseStatus.statementDateTime = statementDateTime;
         } else {
-            this._cancerDiseaseStatus.metadata.authoredDateTime.value = val;
+            this._cancerDiseaseStatus.statementDateTime.value = date;
         }
     }
 
@@ -167,9 +145,5 @@ export default class FluxCancerDiseaseStatus extends FluxEntry {
             rcc.value = ref;
             this.relatedCancerCondition = rcc;
         }
-    }
-
-    toJSON() {
-        return this._cancerDiseaseStatus.toJSON();
     }
 }
