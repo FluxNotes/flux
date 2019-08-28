@@ -87,7 +87,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                                     source: this.determineSource(patient, currentConditionEntry),
                                     shortcutData: {
                                         shortcut: '@condition',
-                                        entryId: currentConditionEntry.entryInfo.entryId,
+                                        entryId: currentConditionEntry.entryInfo.entryId.id,
                                     }
                                 };
                             },

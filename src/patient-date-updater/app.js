@@ -110,10 +110,10 @@ patientEntries.forEach((entry, i) => {
             entry.value = value;
             entry.specificFocusOfFinding = specificFocusOfFinding;
             entry.findingTopicCode = findingTopicCode;
-            if (entries[entry.entryId]) {
-                entries[entry.entryId].push(entry);
+            if (entries[entry.entryId.id]) {
+                entries[entry.entryId.id].push(entry);
             } else {
-                entries[entry.entryId] = [entry];
+                entries[entry.entryId.id] = [entry];
             }
         } else if (output && isDate) {
             log(key, value);
@@ -130,7 +130,7 @@ if (orderedOutput) {
     newEntries.sort(sortByDate);
     logInOrder("Id", undefined, "Entry Type", "Date", "Ref", "Topic");
     newEntries.forEach((e) => {
-        logInOrder(e.entryId, e.entryType, e.key, e.value, e.specificFocusOfFinding ? e.specificFocusOfFinding : "", e.findingTopicCode ? e.findingTopicCode : "");
+        logInOrder(e.entryId.id, e.entryType, e.key, e.value, e.specificFocusOfFinding ? e.specificFocusOfFinding : "", e.findingTopicCode ? e.findingTopicCode : "");
     });
 }
 

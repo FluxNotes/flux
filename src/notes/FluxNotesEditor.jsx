@@ -819,7 +819,7 @@ class FluxNotesEditor extends React.Component {
                 onClick: null
             });
             this.noteContentIndexer.indexData("Open Note", '', nextProps.updatedEditorNote, this.props.searchIndex, this.onOpenNoteSearchResultHighlight, null);
-            this.props.searchIndex.removeDataByRef(`clinical_notes_${sectionId}_content_${nextProps.updatedEditorNote.entryInfo.entryId}`);
+            this.props.searchIndex.removeDataByRef(`clinical_notes_${sectionId}_content_${nextProps.updatedEditorNote.entryInfo.entryId.id}`);
         }
 
         // Check if the current view mode changes

@@ -339,7 +339,7 @@ export class FullApp extends Component {
 
             this.setState({
                 openClinicalNote: sourceNote,
-                openSourceNoteEntryId: item.source.entryId,
+                openSourceNoteEntryId: item.source.entryId.id,
             });
         } else {
             const labelForItem = itemLabel; // (_.isArray(itemLabel) ? itemLabel[0] : itemLabel );
@@ -367,7 +367,7 @@ export class FullApp extends Component {
                 }
             } else if (item.shortcutData) {
                 if (item.shortcutData.entryId) {
-                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[{"text":"${item.value}", "entryId":"${item.shortcutData.entryId}"}]]` };
+                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[{"text":"${item.value}", "entryId":"${item.shortcutData.entryId.id}"}]]` };
                 } else {
                     newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[${item.value}]]` };
                 }

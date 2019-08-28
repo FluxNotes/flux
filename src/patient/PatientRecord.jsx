@@ -202,7 +202,7 @@ class PatientRecord {
         if (entry.entryInfo) {
             return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId.id, entry.entryInfo.entryType.value);
         }
-        return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
+        return new Reference(entry.shrId, entry.entryId.id, entry.entryType.value);
     }
 
     get shrId() {

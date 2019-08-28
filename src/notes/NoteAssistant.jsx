@@ -62,10 +62,10 @@ export default class NoteAssistant extends Component {
             this.openNote(newNote);
             this.props.setSearchSelectedItem(null);
         }
-        if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId]) {
-            const isVisible = this.isScrolledIntoView(this.refs[nextProps.updatedEditorNote.entryInfo.entryId]);
+        if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId.id]) {
+            const isVisible = this.isScrolledIntoView(this.refs[nextProps.updatedEditorNote.entryInfo.entryId.id]);
             if (!isVisible) {
-                this.refs[nextProps.updatedEditorNote.entryInfo.entryId].scrollIntoView();
+                this.refs[nextProps.updatedEditorNote.entryInfo.entryId.id].scrollIntoView();
             }
         }
 
@@ -73,7 +73,7 @@ export default class NoteAssistant extends Component {
         const nextNoteAssistantSuggestions = nextProps.searchSuggestions.filter(s => s.section === 'Clinical Notes' && s.valueTitle !== 'Subsection' && s.valueTitle !== 'Section');
 
         if (!Lang.isEqual(previousNoteAssistantSuggestions, nextNoteAssistantSuggestions)) {
-            const highlightedNoteIds = nextNoteAssistantSuggestions.map(s => s.note.entryInfo.entryId);
+            const highlightedNoteIds = nextNoteAssistantSuggestions.map(s => s.note.entryInfo.entryId.id);
             this.setState({ highlightedNoteIds });
         }
     }
@@ -199,9 +199,9 @@ export default class NoteAssistant extends Component {
             });
         } else {
             this.setState({
-                searchResultNoteId: suggestion.note.entryInfo.entryId
+                searchResultNoteId: suggestion.note.entryInfo.entryId.id
             }, () => {
-                const domNodeRef = this.refs[suggestion.note.entryInfo.entryId];
+                const domNodeRef = this.refs[suggestion.note.entryInfo.entryId.id];
                 if (domNodeRef && domNodeRef.scrollIntoView) {
                     domNodeRef.scrollIntoView();
                 }
@@ -308,14 +308,14 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         let selected = Lang.isEqual(this.props.selectedNote, note);
-        const searchedFor = note.entryInfo.entryId === this.state.searchResultNoteId;
+        const searchedFor = note.entryInfo.entryId.id === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
         return (
-            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
+            <div ref={note.entryInfo.entryId.id} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
                 this.openNote(note);
             }}>
                 <div className="in-progress-text">In progress note</div>
@@ -381,19 +381,19 @@ export default class NoteAssistant extends Component {
         // If the note is selected and open, we want to use the selected className
         const selectedClassName = (Lang.isEqual(this.props.selectedNote, item) && Lang.isEqual(this.props.noteClosed, false)) ? "selected" : "";
         // If the note is in our array of search suggestions, we want to use the search-result className
-        const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId) ? "search-result" : "";
+        const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId.id) ? "search-result" : "";
         // If the note is currently highlighted in our searchSuggestions, we want to use the highlighted-result className
         const highlighedSearchSuggestionClassName = (!Lang.isEmpty(this.props.highlightedSearchSuggestion)
             && this.props.highlightedSearchSuggestion.section === "Clinical Notes"
             && this.props.highlightedSearchSuggestion.valueTitle !== "Section"
             && this.props.highlightedSearchSuggestion.valueTitle !== "Subsection"
-            && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
-            && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
+            && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId.id, item.entryInfo.entryId.id)
+            && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId.id)) ? "highlighted-result" : "";
 
         return (
 
             <div
-                ref={item.entryInfo.entryId}
+                ref={item.entryInfo.entryId.id}
                 className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`}
                 key={i}
                 onClick={() => {

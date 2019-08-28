@@ -46,7 +46,7 @@ export default class MedicationsSection extends MetadataSection {
             if (change.medicationCodeOrReference && change.relatedRequest) {
                 // Determine if the medAfterChange corresponds to a med
                 // Get that med if it exists, undefined otherwise
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === change.entryId);
+                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId.id === change.entryId.id);
 
                 if (medToViz) {
                     // Add the medBeforeChange to the med, for use in visualization
@@ -65,14 +65,14 @@ export default class MedicationsSection extends MetadataSection {
 
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
-                        return medToVizObject.medication.entryId !== medBeforeChangeRef.entryId;
+                        return medToVizObject.medication.entryId.id !== medBeforeChangeRef.entryId.id;
                     });
                 }
             }
             // If medication change only has relatedRequest (does not have medicationCodeOrReference)
             else if (change.relatedRequest && !change.medicationCodeOrReference) {
                 const medBeforeChangeRef = change.relatedRequest;
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === medBeforeChangeRef.entryId);
+                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId.id === medBeforeChangeRef.entryId.id);
 
                 if (medToViz) {
                     medToViz.medicationChange = {

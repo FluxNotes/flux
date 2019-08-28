@@ -27,7 +27,7 @@ export default class ProceduresSection extends MetadataSection {
                     source: this.determineSource(patient, p),
                     shortcutData: {
                         shortcut: '@procedure',
-                        entryId: p.entryInfo.entryId,
+                        entryId: p.entryInfo.entryId.id,
                     }
                 }];
             if (typeof p.occurrenceTime !== 'string') {

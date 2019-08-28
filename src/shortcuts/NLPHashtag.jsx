@@ -238,7 +238,7 @@ export default class NLPHashtag extends Shortcut {
 
     serialize() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
-        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
+        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId.id}}]]`;
     }
 
     callMethod(patient, spec, clinicalNote) {

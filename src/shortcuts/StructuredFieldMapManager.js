@@ -65,7 +65,7 @@ class StructuredFieldMapManager {
 
         this._keyToShortcutMap.forEach((shortcut, k) => {
             if (shortcut.valueObject) {
-                if (shortcut.valueObject.entryInfo.entryId === entryId) resultKey = k;
+                if (shortcut.valueObject.entryInfo.entryId.id === entryId.id) resultKey = k;
             }
         });
 
