@@ -5244,6 +5244,75 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
+      "Value": "31"
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "123456"
+    },
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/AllergyIntolerance"
+    },
+    "Metadata": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Metadata"
+      },
+      "Arth0redDateTime": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/base/ArthoredDateTime"
+        },
+        "Value": "13 JAN 2015"
+      },
+      "LastUpdated": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/LastUpdated"
+        },
+        "Value": "13 JUN 2015"
+      }
+    },
+    "Code": {
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "CodeSystem": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+              },
+              "Value": "http://snomed.info/sct"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "No known drug allergy"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "409137002"
+            }
+          }
+        ]
+      },
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+      }
+    }
+  },
+  {
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
       "Value": "32"
     },
     "ShrId": {

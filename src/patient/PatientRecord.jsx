@@ -498,19 +498,10 @@ class PatientRecord {
 
     getAllergiesAsText() {
         const allergies = this.getAllAllergies();
-        let result = "";
-        let first = true;
-        allergies.forEach((allergy, index) => {
-            if (!first) {
-                result += "\r\n";
-            }
-            if (allergy instanceof FluxAllergyIntolerance) {
-                result += allergy.name;
-            } else {
-                result += allergy.value.coding[0].displayText.value;
-            }
-            first = false;
-        });
+        const result = allergies
+            .map(a => a.name)
+            .filter(a => a) // filter out nulls just in case
+            .join("\r\n");
         return result;
     }
 

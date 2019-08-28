@@ -2101,6 +2101,69 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
+      "Value": "31"
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7g"
+    },
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/AllergyIntolerance"
+    },
+    "Metadata": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Metadata"
+      },
+      "LastUpdated": {
+        "Value": "31 Oct 2018",
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/LastUpdated"
+        }
+      }
+    },
+    "Code": {
+      "Value": {
+        "Coding": [
+          {
+            "DisplayText": {
+              "Value": "No known drug allergy",
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              }
+            },
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "CodeSystem": {
+              "Value": "http://snomed.info/sct",
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+              }
+            },
+            "CodeValue": {
+              "Value": "409137002",
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              }
+            }
+          }
+        ],
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        }
+      },
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+      }
+    }
+  },
+  {
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
       "Value": "32"
     },
     "ShrId": {

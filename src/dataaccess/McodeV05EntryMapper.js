@@ -330,6 +330,20 @@ export function mapEntries(v05Json) {
                 v09Json.push(resultJson);
                 break;
             }
+            case 'NoKnownAllergy': {
+                changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/AllergyIntolerance');
+
+                // US core says use "No known allergy" code, which it turns out we already do
+
+                if (entry.Value) {
+                    resultJson.Code = { Value: { ...entry.Value } };
+                    changeEntryType(resultJson.Code, 'http://standardhealthrecord.org/spec/shr/core/Code');
+                    mapCodingArray(resultJson.Code.Value.Coding);
+                }
+
+                v09Json.push(resultJson);
+                break;
+            }
             case 'BloodPressure': {
                 changeEntryType(resultJson, 'http://standardhealthrecord.org/spec/shr/core/BloodPressure');
                 mapFindingTopicCode(resultJson, entry.FindingTopicCode);

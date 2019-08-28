@@ -1,13 +1,11 @@
 import AllergyIntolerance from '../../shr/core/AllergyIntolerance';
+import FluxEntry from '../base/FluxEntry';
 import moment from 'moment';
 
-class FluxAllergyIntolerance {
+class FluxAllergyIntolerance extends FluxEntry {
     constructor(json) {
-        this._allergyIntolerance = AllergyIntolerance.fromJSON(json);
-    }
-
-    get entryInfo() {
-        return this._allergyIntolerance.entryInfo;
+        super(json);
+        this._allergyIntolerance = this._entry = AllergyIntolerance.fromJSON(json);
     }
 
     /*
@@ -15,7 +13,11 @@ class FluxAllergyIntolerance {
      *  Returns displayText string for allergy
      */
     get name() {
-        return this._allergyIntolerance.code.value.coding[0].displayText.value;
+        if (!this._allergyIntolerance.code
+            || !this._allergyIntolerance.code.value
+            || !this._allergyIntolerance.code.value.coding
+            || !this._allergyIntolerance.code.value.coding[0]) return null;
+        return this._displayTextOrCode(this._allergyIntolerance.code.value.coding[0]);
     }
 
     /*
@@ -97,10 +99,6 @@ class FluxAllergyIntolerance {
         if (a_time > b_time) return -1;
         else if (a_time < b_time) return 1;
         return 0;
-    }
-
-    toJSON() {
-        return this._allergyIntolerance.toJSON();
     }
 }
 

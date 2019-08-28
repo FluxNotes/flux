@@ -1394,6 +1394,58 @@
       "EntryType": {
         "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
       },
+      "Value": "99"
+    },
+    "ShrId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/ShrId"
+      },
+      "Value": "788dcbc3-ed18-470c-89ef-35ff91854c7f"
+    },
+    "EntryType": {
+      "Value": "http://standardhealthrecord.org/spec/shr/core/AllergyIntolerance"
+    },
+    "Code": {
+      "Value": {
+        "EntryType": {
+          "Value": "http://standardhealthrecord.org/spec/shr/core/CodeableConcept"
+        },
+        "Coding": [
+          {
+            "EntryType": {
+              "Value": "http://standardhealthrecord.org/spec/shr/core/Coding"
+            },
+            "CodeSystem": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeSystem"
+              },
+              "Value": "http://snomed.info/sct"
+            },
+            "DisplayText": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/DisplayText"
+              },
+              "Value": "No known drug allergy"
+            },
+            "CodeValue": {
+              "EntryType": {
+                "Value": "http://standardhealthrecord.org/spec/shr/core/CodeValue"
+              },
+              "Value": "409137002"
+            }
+          }
+        ]
+      },
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/core/Code"
+      }
+    }
+  },
+  {
+    "EntryId": {
+      "EntryType": {
+        "Value": "http://standardhealthrecord.org/spec/shr/base/EntryId"
+      },
       "Value": "100"
     },
     "ShrId": {
