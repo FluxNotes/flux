@@ -366,8 +366,9 @@ export class FullApp extends Component {
                     newStateValues = { summaryItemToInsert: item[arrayIndex] };
                 }
             } else if (item.shortcutData) {
+                console.log('item.shortcutData: ', item.shortcutData);
                 if (item.shortcutData.entryId) {
-                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[{"text":"${item.value}", "entryId":"${item.shortcutData.entryId.id}"}]]` };
+                    newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[{"text":"${item.value}", "entryId":"${item.shortcutData.entryId}"}]]` };
                 } else {
                     newStateValues = { summaryItemToInsert: `${item.shortcutData.shortcut}[[${item.value}]]` };
                 }
