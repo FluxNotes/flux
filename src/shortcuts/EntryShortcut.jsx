@@ -17,7 +17,7 @@ export default class EntryShortcut extends Shortcut {
             this.isObjectNew = true;
         } else {
             const dataObj = JSON.parse(shortcutData);
-            this.object = patient.getEntryById(dataObj.entryId.id);
+            this.object = patient.getEntryById(dataObj.entryId);
             // We want to try and get this object -- if there is none, make a new one
             this.isObjectNew = !this.object;
             if (!this.object) {
