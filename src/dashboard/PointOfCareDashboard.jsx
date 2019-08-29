@@ -92,7 +92,7 @@ export default class PointOfCareDashboard extends Component {
         );
     }
 
-    getFirstInProgressNote(patient) { 
+    getFirstInProgressNote(patient) {
         const notes = patient.getInProgressNotes();
         return notes[0];
     }
