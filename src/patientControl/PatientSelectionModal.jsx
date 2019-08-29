@@ -23,7 +23,7 @@ class PatientSelectionModal extends Component {
         this.pastAppTimes = [];
         this.futureAppTimes = [];
         const patientList = this.props.dataAccess.dataSource.getListOfPatients();
-        this.currentPatientViewed = patientList[patientList.length - 1].shrId;
+        this.currentPatientViewed = patientList[patientList.length - 1].shrId.id;
     }
 
     fillModal = () => {
@@ -34,7 +34,7 @@ class PatientSelectionModal extends Component {
         patientList.forEach((patient) => {
             const name = patient.getName();
             const pic = patient.getMostRecentPhoto();
-            const shrId = patient.shrId;
+            const shrId = patient.shrId.id;
             const allEncounters = patient.getEncountersChronologicalOrder();
             allEncounters.forEach((encounter) => {
                 const appTime = new moment(encounter.expectedPerformanceTime, "DD MMM YYYY HH:mm");
@@ -70,6 +70,7 @@ class PatientSelectionModal extends Component {
         return relTimeAppTimes.map((listItem, key) => {
             let hovered = '';
             let viewing = '';
+
             if (this.state.hovered === key + listItem.shrId + relTime) hovered = 'hovered-list-item';
             if (listItem.shrId === this.currentPatientViewed) viewing = 'patient-being-viewed';
             return (<ListItem

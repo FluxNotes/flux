@@ -92,7 +92,7 @@ export default class PointOfCareDashboard extends Component {
         );
     }
 
-    getFirstInProgressNote(patient) {
+    getFirstInProgressNote(patient) { 
         const notes = patient.getInProgressNotes();
         return notes[0];
     }
@@ -160,7 +160,7 @@ export default class PointOfCareDashboard extends Component {
     renderNextPatient = () => {
         const dataAccess = this.props.dataAccess;
         const patients = dataAccess.getListOfPatients();
-        const nextPatient = this.getNextAppointment(patients).shrId;
+        const nextPatient = this.getNextAppointment(patients).shrId.id;
         this.props.loadPatient(nextPatient);
     }
 
