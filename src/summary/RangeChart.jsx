@@ -9,11 +9,22 @@ class RangeChart extends Component {
 
     render() {
         // Calculate typical value tick mark placement
-        const lineLengthPixels = 240;
+        const lineLengthPixels = 225;
         // x position in pixels for where the line begins
         const lineStartXPixels = 10;
         // padding value for the two ends of the line
         const mainLinePaddingPixels = 10;
+        // y position in pixels for where the line is drawn
+        const mainLineYPosition = 15;
+        // height of the tick
+        const tickHeight = 20;
+        // padding between text and line
+        const textPadding = 25;
+        // width of the viewBox
+        const viewBoxWidth = 250;
+        // height of the viewBox
+        const viewBoxHeight = 60;
+
         // x position in pixels for the center of the svg
         const middle = lineLengthPixels / 2 + lineStartXPixels;
 
@@ -190,9 +201,9 @@ class RangeChart extends Component {
         let svgForTypicalTick = null;
         let svgForTypicalText = null;
         if (!Lang.isNull(typicalValueXPixels)) {
-            svgForTypicalTick = <line x1={typicalValueXPixels} y1="43" x2={typicalValueXPixels} y2="57" stroke="#979797" strokeWidth="1" />;
+            svgForTypicalTick = <line x1={typicalValueXPixels} y1={mainLineYPosition - Math.floor(tickHeight/2)} x2={typicalValueXPixels} y2={mainLineYPosition + Math.floor(tickHeight/2)} stroke="#979797" strokeWidth="1" />;
             if (!Lang.isNull(typicalValueTextXPixels)) {
-                svgForTypicalText = <text x={typicalValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.typicalValue}</text>;
+                svgForTypicalText = <text x={typicalValueTextXPixels} y={mainLineYPosition + textPadding} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">{this.props.typicalValue}</text>;
             }
         }
 
@@ -201,14 +212,14 @@ class RangeChart extends Component {
         let svgForRangeLowerText = null;
         let svgForRangeUpperText = null;
         if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels)) {
-            svgForRangeBar = <text x={lineStartXPixels} y="38" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">dosage range unknown</text>;
+            svgForRangeBar = <text x={lineStartXPixels} y={mainLineYPosition - 10} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">dosage range unknown</text>;
         } else {
-            svgForRangeBar = <line x1={lowerValueXPixels} y1="50" x2={upperValueXPixels} y2="50" stroke="#DDD" strokeWidth="5" />;
+            svgForRangeBar = <line x1={lowerValueXPixels} y1={mainLineYPosition} x2={upperValueXPixels} y2={mainLineYPosition} stroke="#DDD" strokeWidth="5" />;
             if (!Lang.isNull(lowerValueTextXPixels)) {
-                svgForRangeLowerText = <text x={lowerValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.lowerValue}</text>;
+                svgForRangeLowerText = <text x={lowerValueTextXPixels} y={mainLineYPosition + textPadding} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">{this.props.lowerValue}</text>;
             }
             if (!Lang.isNull(upperValueTextXPixels)) {
-                svgForRangeUpperText = <text x={upperValueTextXPixels} y="70" fontFamily="sans-serif" fontSize="10px" fill="#3F3F3F">{this.props.upperValue}</text>;
+                svgForRangeUpperText = <text x={upperValueTextXPixels} y={mainLineYPosition + textPadding} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">{this.props.upperValue}</text>;
             }
         }
 
@@ -217,17 +228,17 @@ class RangeChart extends Component {
         let svgForDataPointBorder = null;
         if (!Lang.isNull(valueXPixels)) {
             if (!Lang.isNull(radius) && !Lang.isNull(strokeWidth)) {
-                svgForDataPointBorder = <circle cx={valueXPixels} cy="50" r={radius} strokeWidth={strokeWidth} stroke={dotColor} fill="#FFF" />;
+                svgForDataPointBorder = <circle cx={valueXPixels} cy={mainLineYPosition} r={radius} strokeWidth={strokeWidth} stroke={dotColor} fill="#FFF" />;
             }
-            svgForDataPoint = <circle cx={valueXPixels} cy="50" r="4" strokeWidth="3" fill={dotColor} />;
+            svgForDataPoint = <circle cx={valueXPixels} cy={mainLineYPosition} r="4" strokeWidth="3" fill={dotColor} />;
         }
 
         // set svg viewbox dimensions
-        let viewBoxDimensions = '10 30 260 110';
+        let viewBoxDimensions = `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
 
         return (
             <div>
-                <svg width="250px" height="6em" viewBox={viewBoxDimensions}>
+                <svg width={viewBoxWidth + "px"} height={viewBoxHeight + "px"} viewBox={viewBoxDimensions}>
                     {/*Typical value tick*/}
                     {svgForTypicalTick}
                     {svgForTypicalText}
@@ -238,7 +249,7 @@ class RangeChart extends Component {
                     {svgForRangeUpperText}
 
                     {/*Main line*/}
-                    <line x1={lineStartXPixels - mainLinePaddingPixels} y1="50" x2={lineStartXPixels + lineLengthPixels + mainLinePaddingPixels} y2="50" stroke="#C2C2C2" strokeWidth="0.5" />
+                    <line x1={lineStartXPixels - mainLinePaddingPixels} y1={mainLineYPosition} x2={lineStartXPixels + lineLengthPixels + mainLinePaddingPixels} y2={mainLineYPosition} stroke="#C2C2C2" strokeWidth="0.5" />
 
                     {/* Data point for the value */}
                     {svgForDataPointBorder}
