@@ -9,24 +9,32 @@ class FluxGeneticMutationTestResult extends FluxEntry {
     }
 
     get abbreviatedName() {
+        if (!this._geneticMutationTestResult.mutationTested
+            || !this._geneticMutationTestResult.mutationTested.variantIdentifier
+            || !this._geneticMutationTestResult.mutationTested.variantIdentifier.value
+            || !this._geneticMutationTestResult.mutationTested.variantIdentifier.value.coding[0].displayText) {
         // TODO: Create lookup table for genetic mutation codes?
-        switch (this.mutationCode) {
-            case '405827002': {
-                return 'BRCA1';
-            }
-            case '405828007': {
-                return 'BRCA2';
-            }
-            case 'C104668': {
-                return 'KIT';
-            }
-            case 'C1335201': {
-                return 'PDGFRA';
-            }
-            default: {
-                return this._displayTextOrCode(this._geneticMutationTestResult.mutationTested.variantIdentifier.value.coding[0]);
+            switch (this.mutationCode) {
+                case '405827002': {
+                    return 'BRCA1';
+                }
+                case '405828007': {
+                    return 'BRCA2';
+                }
+                case 'C104668': {
+                    return 'KIT';
+                }
+                case 'C1335201': {
+                    return 'PDGFRA';
+                }
+                default: {
+                    console.error('Abreviated name not found');
+                    return '';
+                }
             }
         }
+
+        return this._geneticMutationTestResult.mutationTested.variantIdentifier.value.coding[0].displayText.value;
     }
 
     get value() {
