@@ -531,7 +531,7 @@ export function mapEntries(v05Json) {
                         }
                     ];
 
-                    const expectedOrganizationName = 
+                    const expectedOrganizationName =
                         entry.ExpectedPerformer.Value.Person.PartOf
                         && entry.ExpectedPerformer.Value.Person.PartOf.Value
                         && entry.ExpectedPerformer.Value.Person.PartOf.Value.OrganizationName

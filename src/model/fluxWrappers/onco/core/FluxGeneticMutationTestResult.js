@@ -8,10 +8,6 @@ class FluxGeneticMutationTestResult extends FluxEntry {
         this._geneticMutationTestResult = this._entry = GeneticMutationTestResult.fromJSON(json);
     }
 
-    get entryInfo() {
-        return this._geneticMutationTestResult.entryInfo;
-    }
-
     get abbreviatedName() {
         // TODO: Create lookup table for genetic mutation codes?
         switch (this.mutationCode) {
@@ -43,10 +39,6 @@ class FluxGeneticMutationTestResult extends FluxEntry {
 
     get mutationCode() {
         return this._geneticMutationTestResult.mutationTested.variantIdentifier.value.coding[0].codeValue.code;
-    }
-
-    toJSON() {
-        return this._geneticMutationTestResult.toJSON();
     }
 }
 

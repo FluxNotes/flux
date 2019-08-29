@@ -61,7 +61,7 @@ class PatientRecord {
     }
 
     _calculateNextEntryId() {
-        this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
+        this.nextEntryId = Math.max.apply(Math, this.entries.map((o) => {
             return (o.entryInfo.entryId.id || o.entryInfo.entryId.Value);
         })) + 1;
     }

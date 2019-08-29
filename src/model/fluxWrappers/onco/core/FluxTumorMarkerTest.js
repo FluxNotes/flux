@@ -12,14 +12,6 @@ class FluxTumorMarkerTest extends FluxEntry {
         }
     }
 
-    get entryInfo() {
-        return this._tumorMarkerTest.entryInfo;
-    }
-
-    set entryInfo(entryInfo) {
-        this._tumorMarkerTest.entryInfo = entryInfo;
-    }
-
     get metadata() {
         return this._tumorMarkerTest.metadata;
     }
@@ -97,19 +89,6 @@ class FluxTumorMarkerTest extends FluxEntry {
             || !this._tumorMarkerTest.dataValue.value.coding
             || !this._tumorMarkerTest.dataValue.value.coding[0]) return null;
         return this._displayTextOrCode(this._tumorMarkerTest.dataValue.value.coding[0]);
-    }
-
-    get specificFocusOfFinding() {
-        if (!this._tumorMarkerTest.specificFocusOfFinding) return null;
-        return this._tumorMarkerTest.specificFocusOfFinding.value;
-    }
-
-    set specificFocusOfFinding(val) {
-        this._tumorMarkerTest.specificFocusOfFinding = val;
-    }
-
-    toJSON() {
-        return this._tumorMarkerTest.toJSON();
     }
 }
 

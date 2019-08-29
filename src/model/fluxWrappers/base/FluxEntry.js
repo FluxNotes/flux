@@ -9,6 +9,10 @@ class FluxEntry {
         return this._entry.entryInfo;
     }
 
+    set entryInfo(entryInfo) {
+        this._entry.entryInfo = entryInfo;
+    }
+
     toJSON() {
         return this._entry.toJSON();
     }
