@@ -43,7 +43,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
      *  This will return the displayText string from CodeableConcept value
      */
     get stage() {
-        if (!this._tnmStageGroup.dataValue || !this._tnmStageGroup.dataValue.value) { 
+        if (!this._tnmStageGroup.dataValue
+            || !this._tnmStageGroup.dataValue.value
+            || !this._tnmStageGroup.dataValue.value.coding
+            || !this._tnmStageGroup.dataValue.value.coding[0]
+            || !this._tnmStageGroup.dataValue.value.coding[0].displayText) {
             return null;
         } else { 
             return this._tnmStageGroup.dataValue.value.coding[0].displayText.value;
