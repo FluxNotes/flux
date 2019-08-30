@@ -65,7 +65,7 @@ export default class MedicationsSection extends MetadataSection {
 
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
-                        return medToVizObject.medication.entryId.id !== medBeforeChangeRef.entryId.id;
+                        return !this._entryIdsMatch(medToVizObject.medication.entryId, medBeforeChangeRef.entryId);
                     });
                 }
             }
