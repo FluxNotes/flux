@@ -145,4 +145,4 @@ The structure of the model is directly reflected in the mock patients.  The pati
 
 [![BrowserStack](public/logos/Browserstack-logo.png)](https://www.browserstack.com/)
 
-[BrowserStack](https://www.browserstack.com/) is supporting FluxNotes through use of their service to test the code in this repository across browsers.
+[BrowserStack](https://www.browserstack.com/) is supporting Flux Notes™ through use of their service to test the code in this repository across browsers.
