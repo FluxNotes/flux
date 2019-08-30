@@ -140,3 +140,9 @@ Running the script will alter the mock patients so they match the `transformedDa
 `date` and `range` assume a uniform distribution, but `choice` and `multi-choice` can be given a list of weights that correspond to each choice to provide a weighted selection.   All types are given a `values` property which defines either the numerical range that they can choose from, represented as an array with two members and used for `date` and `range`, or an array of values to select from, used for `choice` and `multi-choice`.  For `choice` and `multi-choice`, the weight array is matched with the value array by index, so the value at `values[0]` will have weight `weight[0]`.  Since `choice` only selects a single value, the probabilities in `choice` need to add up to 1.  The `multi-choice` type weights do not have this restriction.  Probabilities should be represented as a decimal number between 0 and 1.
 
 The structure of the model is directly reflected in the mock patients.  The patients will copy any nesting and key values present in the model.
+
+## Support Tools
+
+[![BrowserStack](public/logos/Browserstack-logo.png)](https://www.browserstack.com/)
+
+[BrowserStack](https://www.browserstack.com/) is supporting Flux Notes™ through use of their service to test the code in this repository across browsers.
