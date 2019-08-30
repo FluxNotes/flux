@@ -111,8 +111,8 @@ class ProgressionLineChartVisualizer extends Visualizer {
             const buffer = ((max - min)/15);
             return [min - buffer, max];
         } else { // case where there is only a diagnosis date
-            let date = processedPotentialDiagnosisDates[0].date;
-            let buffer = 2600000000; // equivalent of about a month
+            const date = processedPotentialDiagnosisDates[0].date;
+            const buffer = 2600000000; // equivalent of about a month
             return [date - buffer, date + buffer];
         }
     }
@@ -137,7 +137,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
     // Assumes processed data
     getXAxisTicks = (xAxisDomain, processedPotentialDiagnosisDates, isWide) => {
         // Ticks are going to contain the min and max values
-        let ticks = [...xAxisDomain];
+        const ticks = [...xAxisDomain];
         const totalNumberOfTicks = isWide ? 6 : 3;
         // Minus the ticks at the beginning and the end
         const totalNumberOfIntermediateTicks = totalNumberOfTicks - xAxisDomain.length;
@@ -194,7 +194,7 @@ class ProgressionLineChartVisualizer extends Visualizer {
     renderProgressionChart = (patient, condition, conditionSection) => {
         const { progressions, potentialDiagnosisDates } = conditionSection.data[0].data_cache;
         // process dates into numbers for graphing
-        let processedData = this.processForGraphing(progressions);
+        const processedData = this.processForGraphing(progressions);
         const processedPotentialDiagnosisDates = this.processPotentialDiagnosisDates(potentialDiagnosisDates);
         processedPotentialDiagnosisDates.forEach((diagnosisDate, i) => {
             processedData.push({

@@ -26,7 +26,7 @@ export default class ActiveConditionsSection extends MetadataSection {
                     source: this.determineSource(patient, c),
                     shortcutData: {
                         shortcut: '@condition',
-                        entryId: c.entryInfo.entryId,
+                        entryId: c.entryInfo.entryId.id,
                     }
                 },
                 {   value: c.diagnosisDate

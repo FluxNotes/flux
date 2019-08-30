@@ -1,36 +1,32 @@
 import FluxObjectFactory from '../model/FluxObjectFactory';
-import FluxAllergyIntolerance from '../model/allergy/FluxAllergyIntolerance';
-import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
-import FluxBreastCancerGeneticAnalysisPanel from '../model/oncology/FluxBreastCancerGeneticAnalysisPanel';
-import FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel from '../model/oncology/FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel';
-import FluxClinicalNote from '../model/core/FluxClinicalNote';
-import FluxConditionPresentAssertion from '../model/base/FluxConditionPresentAssertion';
-import FluxCancerProgression from '../model/oncocore/FluxCancerProgression';
-import FluxConsultRequested from '../model/encounter/FluxConsultRequested';
-import FluxMedicationRequested from '../model/medication/FluxMedicationRequested';
-import FluxMedicationChange from '../model/medication/FluxMedicationChange';
-import FluxNoKnownAllergy from '../model/allergy/FluxNoKnownAllergy';
-import FluxPatient from '../model/entity/FluxPatient';
-import FluxPatientIdentifier from '../model/base/FluxPatientIdentifier';
-import FluxProcedureRequested from '../model/procedure/FluxProcedureRequested';
-import FluxQuestionAnswer from '../model/base/FluxQuestionAnswer';
-import FluxResearchSubject from '../model/research/FluxResearchSubject';
-import FluxBloodPressure from '../model/vital/FluxBloodPressure';
-import FluxBodyTemperature from '../model/vital/FluxBodyTemperature';
-import FluxBodyWeight from '../model/vital/FluxBodyWeight';
-import FluxHeartRate from '../model/vital/FluxHeartRate';
-import FluxImagingProcedurePerformed from '../model/procedure/FluxImagingProcedurePerformed';
-import FluxPathologyReport from '../model/finding/FluxPathologyReport';
+import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
+import FluxClinicalNote from '../model/fluxWrappers/core/FluxClinicalNote';
+import FluxCondition from '../model/fluxWrappers/core/FluxCondition';
+import FluxCancerDiseaseStatus from '../model/fluxWrappers/onco/core/FluxCancerDiseaseStatus';
+import FluxReferralRequest from '../model/fluxWrappers/core/FluxReferralRequest';
+import FluxMedicationRequest from '../model/fluxWrappers/core/FluxMedicationRequest';
+import FluxMedicationStatement from '../model/fluxWrappers/core/FluxMedicationStatement';
+import FluxPatient from '../model/fluxWrappers/core/FluxPatient';
+import FluxProcedureRequest from '../model/fluxWrappers/core/FluxProcedureRequest';
+import FluxResearchSubject from '../model/fluxWrappers/core/FluxResearchSubject';
+import FluxBloodPressure from '../model/fluxWrappers/core/FluxBloodPressure';
+import FluxBodyTemperature from '../model/fluxWrappers/core/FluxBodyTemperature';
+import FluxBodyWeight from '../model/fluxWrappers/core/FluxBodyWeight';
+import FluxHeartRate from '../model/fluxWrappers/core/FluxHeartRate';
+import FluxImagingProcedure from '../model/fluxWrappers/core/FluxImagingProcedure';
 import ClinicalTrialsList from '../clinicalTrials/ClinicalTrialsList.jsx'; // put jsx because yarn test-ui errors on this import otherwise
-import AuthoredDateTime from '../model/shr/base/AuthoredDateTime';
-import LastUpdated from '../model/shr/base/LastUpdated';
+import LastUpdated from '../model/shr/core/LastUpdated';
+import EntryId from '../model/shr/base/EntryId';
 import Reference from '../model/Reference';
 import * as mapper from '../lib/FHIRMapper';
-import Lang from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import _ from 'lodash';
-import Metadata from '../model/shr/base/Metadata';
+import Metadata from '../model/shr/core/Metadata';
+import FluxAllergyIntolerance from '../model/fluxWrappers/core/FluxAllergyIntolerance';
+import FluxQuestionnaireResponse from '../model/fluxWrappers/core/FluxQuestionnaireResponse';
+import FluxGenomicsReport from '../model/fluxWrappers/onco/core/FluxGenomicsReport';
+import FluxDiagnosticReport from '../model/fluxWrappers/core/FluxDiagnosticReport';
 
 class PatientRecord {
     constructor(shrJson = null) {
@@ -38,7 +34,7 @@ class PatientRecord {
         this.missingEligibleTrialData = [];
         this.eligibleTrials = [];
         this.refreshClinicalTrials = true;
-        if (!Lang.isNull(shrJson)) { // load existing from JSON
+        if (!_.isNull(shrJson)) { // load existing from JSON
             this.entries = this._loadJSON(shrJson);
             this.patient = this.getPatient();
             this.person = this.getPerson();
@@ -65,8 +61,8 @@ class PatientRecord {
     }
 
     _calculateNextEntryId() {
-        this.nextEntryId = Math.max.apply(Math, this.entries.map(function (o) {
-            return o.entryInfo.entryId;
+        this.nextEntryId = Math.max.apply(Math, this.entries.map((o) => {
+            return (o.entryInfo.entryId.id || o.entryInfo.entryId.Value);
         })) + 1;
     }
 
@@ -76,12 +72,28 @@ class PatientRecord {
         });
     }
 
+    // Helper: Get the entry id associated with the condtion
+    _getConditionEntryId(condition) {
+        return condition.entryInfo.entryId.id || condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+    }
+
+    // Helper: Create a new EntryId object given the numeric representation of the id
+    _createNewEntryId(newId) {
+        const EntryIdJSON = {
+            EntryType: {
+                Value: 'http://standardhealthrecord.org/spec/shr/base/EntryId',
+            },
+            Value: newId
+        };
+        return EntryId.fromJSON(EntryIdJSON);
+    }
+
     // Returns true if the entry is unsigned, false otherwise
     isUnsigned(entry) {
-        if (Lang.isNull(entry)) return false;
+        if (_.isNull(entry)) return false;
 
         if (entry.entryInfo.sourceClinicalNote) {
-            let clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
+            const clinicalNote = this.getEntryFromReference(entry.entryInfo.sourceClinicalNote);
             if (!clinicalNote) return true;
             return !clinicalNote.signed;
         }
@@ -97,10 +109,10 @@ class PatientRecord {
         fhirJson.entry.forEach((entry) => {
             const entryTypes =  mapper.mapToEntryTypes(entry);
             entryTypes.forEach((entryType) => {
-                if (!Lang.isNull(entryType)) {
+                if (!_.isNull(entryType)) {
                     const shrObj = FluxObjectFactory.createInstance({}, entryType);
                     shrObj.fromFHIR(entry);
-                    shrObj.entryInfo.entryId = nextEntryId;
+                    shrObj.entryInfo.entryId = this._createNewEntryId(nextEntryId);
                     nextEntryId += 1;
                     this.entries.push(shrObj);
                 }
@@ -113,22 +125,22 @@ class PatientRecord {
 
     // Finds an existing entry with the same entryId and replaces it with updatedEntry
     updateExistingEntry(updatedEntry) {
-        var found = this.entries.find(function(element) {
-            return Lang.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
+        const found = this.entries.find(function(element) {
+            return _.isEqual(element.entryInfo.entryId, updatedEntry.entryInfo.entryId);
         });
-        if (!Lang.isUndefined(found)) {
-            var index = this.entries.indexOf(found);
+        if (!_.isUndefined(found)) {
+            const index = this.entries.indexOf(found);
             this.entries[index] = updatedEntry;
         }
     }
 
     addUnenrolled(entry, clinicalNote) {
         if (!(entry.title) || entry.title.length === 0) return null;
-        var found = this.entries.find(function(element) {
+        const found = this.entries.find(function(element) {
             if (!(element instanceof FluxResearchSubject)) return false;
             return element.title === entry.title;
         });
-        if (!Lang.isUndefined(found)) {
+        if (!_.isUndefined(found)) {
             found.status = 'Completed';
             return found;
         } else {
@@ -142,17 +154,16 @@ class PatientRecord {
 
     addEntryToPatient(entry, clinicalNote) {
         entry.entryInfo.shrId = this.patientShrId;
-        entry.entryInfo.entryId = this.nextEntryId;
-        this.nextEntryId = this.nextEntryId + 1;
+        entry.entryInfo.entryId = new EntryId();
+        entry.entryInfo.entryId.value = this.nextEntryId++;
+
         if (clinicalNote) {
             entry.entryInfo.sourceClinicalNote = this.createEntryReferenceTo(clinicalNote.entryInfo);
         }
         const today = new moment().format("D MMM YYYY");
         const metadata = new Metadata();
         metadata.lastUpdated = new LastUpdated();
-        metadata.lastUpdated.instant = today;
-        metadata.authoredDateTime = new AuthoredDateTime();
-        metadata.authoredDateTime.dateTime = today;
+        metadata.lastUpdated.dateTime = today;
         entry.metadata = metadata;
 
         this.entries.push(entry);
@@ -170,7 +181,7 @@ class PatientRecord {
             this.entries.splice(index, 1);
             this._calculateNextEntryId();
         } else {
-            console.error("Attempted to delete an entry that does not exist: " + entry.entryInfo.entryId);
+            console.error("Attempted to delete an entry that does not exist: " + entry.entryInfo.entryId.id);
         }
     }
 
@@ -188,9 +199,9 @@ class PatientRecord {
 
     createEntryReferenceTo(entry) {
         if (entry.entryInfo) {
-            return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId, entry.entryInfo.entryType.value);
+            return new Reference(entry.entryInfo.shrId, entry.entryInfo.entryId.id, entry.entryInfo.entryType.value);
         }
-        return new Reference(entry.shrId, entry.entryId, entry.entryType.value);
+        return new Reference(entry.shrId, entry.entryId.id, entry.entryType.value);
     }
 
     get shrId() {
@@ -198,26 +209,26 @@ class PatientRecord {
     }
 
     getName() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         return this.person.name;
     }
 
     getDateOfBirth() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         return this.person.dateOfBirth;
     }
 
     getAge() {
-        if (Lang.isNull(this.person)) return null;
-        var today = new Date();
+        if (_.isNull(this.person)) return null;
+        const today = new Date();
         return this.getAgeAsOf(today);
     }
 
     getAgeAsOf(date) {
-        if (Lang.isNull(this.person)) return null;
-        var birthDate = new Date(this.getDateOfBirth());
-        var age = date.getFullYear() - birthDate.getFullYear();
-        var m = date.getMonth() - birthDate.getMonth();
+        if (_.isNull(this.person)) return null;
+        const birthDate = new Date(this.getDateOfBirth());
+        let age = date.getFullYear() - birthDate.getFullYear();
+        const m = date.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && date.getDate() < birthDate.getDate())) {
             age--;
         }
@@ -225,7 +236,7 @@ class PatientRecord {
     }
 
     getGender() {
-        if (Lang.isNull(this.patient)) return null;
+        if (_.isNull(this.patient)) return null;
         return this.patient.gender;
     }
 
@@ -234,17 +245,12 @@ class PatientRecord {
     }
 
     getPerson() {
-        if (Lang.isUndefined(this.patient.person)) return null;
+        if (_.isUndefined(this.patient.person)) return null;
         return this.patient.person;
     }
 
     getMRN() {
-        let list = this.entries.filter((item) => {
-            return item instanceof FluxPatientIdentifier && item.identifierType === "MRN";
-        });
-        let identifierEntry = PatientRecord.getMostRecentEntryFromList(list);
-        if (Lang.isNull(identifierEntry)) return null;
-        return identifierEntry.value;
+        return this.patient.mrn;
     }
 
     getMostRecentPhoto() {
@@ -252,13 +258,13 @@ class PatientRecord {
     }
 
     getCurrentHomeAddress() {
-        if (Lang.isNull(this.person)) return null;
+        if (_.isNull(this.person)) return null;
         return this.person.address;
     }
 
     // return the soonest upcoming encounter. Includes encounters happening later today.
     getNextEncounter() {
-        let encounters = this.getEncountersChronologicalOrder();
+        const encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening after the specified moment argument
         return encounters.filter((encounter) => {
@@ -270,12 +276,12 @@ class PatientRecord {
 
     // return the closest encounter by absolute time(past or future)
     getClosestEncounter() {
-        const encounters = this.getEntriesOfType(FluxConsultRequested).filter(e => !e.resultingClinicalNote);
+        const encounters = this.getEntriesOfType(FluxReferralRequest).filter(e => !e.resultingClinicalNote);
         if (encounters.length === 0) return null;
 
         // Find the shortest absolute difference in time between today and encounter dates
         const today = moment().startOf('day');
-        let encounterDate = moment(encounters[0].expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
+        const encounterDate = moment(encounters[0].expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
         let minDelta = Math.abs(today.diff(encounterDate));
         let closestEncounter = encounters[0];
 
@@ -283,7 +289,7 @@ class PatientRecord {
         for (let i = 1; i < encounters.length; i++) {
             const encounter = encounters[i];
 
-            let encounterDate = moment(encounter.expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
+            const encounterDate = moment(encounter.expectedPerformanceTime, 'D MMM YYYY HH:mm ZZ').startOf('day');
             const delta = Math.abs(today.diff(encounterDate));
             if (delta < minDelta) {
                 minDelta = delta;
@@ -296,24 +302,24 @@ class PatientRecord {
 
     // returns sorted list of encounters
     getEncountersChronologicalOrder() {
-        const encounters = this.getEntriesOfType(FluxConsultRequested);
+        const encounters = this.getEntriesOfType(FluxReferralRequest);
         encounters.sort(this._encounterTimeSorter);
         return encounters;
     }
 
     getNextEncounterReasonAsText() {
         const nextEncounter = this.getNextEncounter();
-        if (Lang.isUndefined(nextEncounter)) return "No upcoming appointments";
+        if (_.isUndefined(nextEncounter)) return "No upcoming appointments";
         // Tried replacing breast cancer condition text to establish condition context
         // return nextEncounter.reason.replace('Invasive ductal carcinoma of the breast', '@condition[[Invasive ductal carcinoma of the breast]]');
-        return nextEncounter.reasons.map((r) => { return r.value; }).join(',');
+        return nextEncounter.reasonReference;
     }
 
     getPreviousEncountersChronologicalOrder(sinceDate = '') {
         const encounters = this.getEncountersChronologicalOrder();
 
         // filter out any encounters happening before the specified moment argument
-        const sinceMoment = Lang.isEmpty(sinceDate) ? new moment() : new moment(sinceDate);
+        const sinceMoment = _.isEmpty(sinceDate) ? new moment() : new moment(sinceDate);
         return encounters.filter((encounter) => {
             const encounterStartTime = new moment(encounter.expectedPerformanceTime, "D MMM YYYY HH:mm Z");
             return encounterStartTime.isBefore(sinceMoment, "second");
@@ -332,8 +338,8 @@ class PatientRecord {
 
     getPreviousEncounterReasonAsText() {
         const previousEncounter = this.getPreviousEncounter();
-        if (Lang.isUndefined(previousEncounter)) return "No recent appointments";
-        return previousEncounter.reasons.map((r) => { return r.value; }).join(',');
+        if (_.isUndefined(previousEncounter)) return "No recent appointments";
+        return previousEncounter.reasonReference;
     }
 
     getTodayOrMostRecentEncounterDate() {
@@ -345,7 +351,7 @@ class PatientRecord {
     }
 
     hasEncounterToday() {
-        let encounters = this.getEntriesOfType(FluxConsultRequested);
+        const encounters = this.getEntriesOfType(FluxReferralRequest);
         const today = new moment().format("D MMM YYYY");
         // Try to find an encounter with a performance time of today
         return _.find(encounters, (encounter) => {
@@ -354,32 +360,25 @@ class PatientRecord {
     }
 
     getReviewOfSystems() {
-        return this.entries.find((e) => {
-            // C95618 is code for ROS
-            return e instanceof FluxQuestionAnswer && e.isROS();
-        });
+        return this.entries.find(e => e instanceof FluxQuestionnaireResponse);
     }
 
     getReviewOfSystemsAsText() {
         let result;
 
         const ros = this.getReviewOfSystems();
-        if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
+        if (_.isUndefined(ros) || _.isNull(ros)) {
             return "No review of systems found in record.";
         }
 
-        // get FluxQuestionAnswer instances from references
-        const members = ros.members.map((m) => {
-            return this.getEntryFromReference(m);
-        });
         // get all the questionAnswers that have a value of true
-        const trueAnswers = members.filter((m) => {
+        const trueAnswers = ros.members.filter((m) => {
             return m.value === true;
         }).map((m) => {
             return m.questionText;
         });
 
-        result = `A complete ${members.length} point ROS was done and was unremarkable`;
+        result = `A complete ${ros.members.length} point ROS was done and was unremarkable`;
         if (trueAnswers.length >= 3) {
             result += ` except for ${trueAnswers.slice(0, -1).join(", ")}, and ${trueAnswers.slice(-1)[0]}`;
         } else if (trueAnswers.length === 2) {
@@ -393,15 +392,11 @@ class PatientRecord {
 
     getReviewOfSystemsMembers() {
         const ros = this.getReviewOfSystems();
-        if (Lang.isUndefined(ros) || Lang.isNull(ros)) {
+        if (_.isUndefined(ros) || _.isNull(ros)) {
             return "No review of systems found in record.";
         }
 
-        // get FluxQuestionAnswer instances from references
-        const members = ros.members.map((m) => {
-            return this.getEntryFromReference(m);
-        });
-        return members;
+        return ros.members;
     }
 
     getEligibleClinicalTrials(currentConditionEntry, currentlyEnrolledTrials) {
@@ -418,12 +413,12 @@ class PatientRecord {
     }
 
     getEnrolledClinicalTrials() {
-        let clinicalTrialList = new ClinicalTrialsList();
-        let result = this.getEntriesOfType(FluxResearchSubject);
+        const clinicalTrialList = new ClinicalTrialsList();
+        const result = this.getEntriesOfType(FluxResearchSubject);
 
         result.forEach((study) => {
             if (study.title) {
-                let trial = clinicalTrialList.getClinicalTrialByName(study.title);
+                const trial = clinicalTrialList.getClinicalTrialByName(study.title);
                 if (trial) {
                     study.details = trial.description;
                 }
@@ -434,7 +429,7 @@ class PatientRecord {
     }
 
     getConditions() {
-        return this.getEntriesIncludingType(FluxConditionPresentAssertion);
+        return this.getEntriesIncludingType(FluxCondition);
     }
 
     getActiveConditions() {
@@ -452,23 +447,20 @@ class PatientRecord {
     }
 
     getConditionsChronologicalOrder() {
-        let conditions = this.getConditions();
+        const conditions = this.getConditions();
         conditions.sort(this._conditionsTimeSorter);
         return conditions;
     }
 
     getConditionsAlphabeticalOrder() {
-        let conditions = this.getConditions();
+        const conditions = this.getConditions();
         conditions.sort(this._conditionsAlphaSorter);
         return conditions;
     }
 
     // gets all allergy entries from patient
     getAllAllergies() {
-        let allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
-        const noKnownAllergies = this.getEntriesIncludingType(FluxNoKnownAllergy);
-        const allAllergies = allergies.concat(noKnownAllergies);
-        return allAllergies;
+        return this.getEntriesIncludingType(FluxAllergyIntolerance);
     }
 
     getAllergyIntolerancesSortedBySeverity() {
@@ -482,13 +474,6 @@ class PatientRecord {
         });
     }
 
-    // gets all no known allergies
-    getNoKnownAllergies() {
-        return this.getAllAllergies().filter((a) => {
-            return a instanceof FluxNoKnownAllergy;
-        });
-    }
-
     // returns all instances of FluxAllergyIntolerance with specificed category
     getAllergiesByCategory(category) {
         const allergies = this.getEntriesIncludingType(FluxAllergyIntolerance);
@@ -496,7 +481,7 @@ class PatientRecord {
         // if an allergy does not have a category
         if (category === "other") {
             return allergies.filter((a) => {
-                return Lang.isNull(a.category);
+                return _.isNull(a.category);
             });
         }
 
@@ -507,21 +492,10 @@ class PatientRecord {
 
     getAllergiesAsText() {
         const allergies = this.getAllAllergies();
-        let result = "";
-        let first = true;
-        allergies.forEach((allergy, index) => {
-            if (!first) {
-                result += "\r\n";
-            }
-            if (allergy instanceof FluxNoKnownAllergy) {
-                result += allergy.noKnownAllergy;
-            } else if (allergy instanceof FluxAllergyIntolerance) {
-                result += allergy.name;
-            } else {
-                result += allergy.value.coding[0].displayText.value;
-            }
-            first = false;
-        });
+        const result = allergies
+            .map(a => a.name)
+            .filter(a => a) // filter out nulls just in case
+            .join("\r\n");
         return result;
     }
 
@@ -547,7 +521,7 @@ class PatientRecord {
             closestEncounter.resultingClinicalNote = this.createEntryReferenceTo(clinicalNote);
         }
 
-        return clinicalNote.entryInfo.entryId;
+        return clinicalNote.entryInfo.entryId.id;
     }
 
     // Remove a given clinical note from a patient record
@@ -565,15 +539,15 @@ class PatientRecord {
     }
 
     getInProgressNotes() {
-        let notes = this.getNotes();
+        const notes = this.getNotes();
         return notes.filter((inprog) => {
             return inprog.signed === false;
         });
     }
 
     getKeyEventsChronologicalOrder() {
-        let conditions = this.getConditions();
-        let result = [];
+        const conditions = this.getConditions();
+        const result = [];
         conditions.forEach((c, i) => {
             result.push({
                 name: "diagnosis date - " + c.type,
@@ -585,10 +559,10 @@ class PatientRecord {
     }
 
     getKeyEventsForConditionChronologicalOrder(condition) {
-        let conditions = this.getConditions();
-        let result = [];
+        const conditions = this.getConditions();
+        const result = [];
         conditions.forEach((c) => {
-            if (c.entryInfo.entryId === condition.entryInfo.entryId) {
+            if (c.entryInfo.entryId.id === condition.entryInfo.entryId.id) {
                 result.push({
                     name: "diagnosis date - " + c.type,
                     start_time: c.diagnosisDate
@@ -600,7 +574,7 @@ class PatientRecord {
     }
 
     getMedications() {
-        return this.getEntriesOfType(FluxMedicationRequested);
+        return this.getEntriesOfType(FluxMedicationRequest).concat(this.getMedicationChanges().filter(ms => !_.isNull(ms.medication)));
     }
 
     getMedicationsAsText() {
@@ -616,8 +590,8 @@ class PatientRecord {
         let strResult = "";
         meds.forEach((item, itemIndex) => {
             attributeList.forEach((itemKey, attrIndex) => {
-                let nextSubstring = this._getValueUsingPath(item, itemKey);
-                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                const nextSubstring = this._getValueUsingPath(item, itemKey);
+                if (!_.isUndefined(nextSubstring) && !_.isNull(nextSubstring)) strResult += nextSubstring;
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
             });
@@ -635,16 +609,16 @@ class PatientRecord {
     }
 
     getMedicationsReverseChronologicalOrder() {
-        let list = this.getMedications();
+        const list = this.getMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
     getMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getMedicationsReverseChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -654,11 +628,11 @@ class PatientRecord {
     getActiveMedications() {
         const allmeds = this.getMedicationsReverseChronologicalOrder();
         const today = new moment();
+        const medChanges = this.getMedicationChanges();
 
         return allmeds.filter((med) => {
-            let medChanges = this.getMedicationChanges();
-            let stopMedicationFound = medChanges.some((medChange) => {
-                return ((medChange.medicationBeforeChange) && (med === this.getEntryFromReference(medChange.medicationBeforeChange.value)) && (medChange.type === "stop"));
+            const stopMedicationFound = medChanges.some((medChange) => {
+                return (medChange.relatedRequest && med.entryId === medChange.relatedRequest.entryId && medChange.type === "stop");
             });
 
             return med.isActiveAsOf(today) && !stopMedicationFound;
@@ -674,7 +648,7 @@ class PatientRecord {
             return listItem.split(".");
         });
         // Start date to trail the text
-        let startDatePath = "expectedPerformanceTime.timePeriodStart";
+        let startDatePath = "startDate";
         startDatePath = startDatePath.split('.');
 
         const lastMedicationIndex = activeMeds.length - 1;
@@ -682,8 +656,8 @@ class PatientRecord {
         let strResult = "";
         activeMeds.forEach((item, itemIndex) => {
             attributeList.forEach((itemKey, attrIndex) => {
-                let nextSubstring = this._getValueUsingPath(item, itemKey);
-                if (!Lang.isUndefined(nextSubstring) && !Lang.isNull(nextSubstring)) strResult += nextSubstring;
+                const nextSubstring = this._getValueUsingPath(item, itemKey);
+                if (!_.isUndefined(nextSubstring) && !_.isNull(nextSubstring)) strResult += nextSubstring;
                 // If there are more attributes, separate them with a space
                 if (attrIndex < lastAttributeIndex) strResult += " ";
             });
@@ -711,9 +685,9 @@ class PatientRecord {
 
     getActiveMedicationsForCondition(condition) {
         let medications = this.getActiveMedications();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });
@@ -725,22 +699,22 @@ class PatientRecord {
     }
 
     getActiveMedicationsReverseChronologicalOrder() {
-        let list = this.getActiveMedications();
+        const list = this.getActiveMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
     getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder() {
-        let list = this.getActiveAndRecentlyStoppedMedications();
+        const list = this.getActiveAndRecentlyStoppedMedications();
         list.sort(this._reverseMedsTimeSorter);
         return list;
     }
 
     getActiveMedicationsForConditionReverseChronologicalOrder(condition) {
         let medications = this.getActiveMedicationsReverseChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         medications = medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
@@ -748,54 +722,42 @@ class PatientRecord {
     }
 
     getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition) {
-        let medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const medications = this.getActiveAndRecentlyStoppedMedicationsReverseChronologicalOrder();
+        const conditionEntryId = this._getConditionEntryId(condition);
         return medications.filter((med) => {
-            return med instanceof FluxMedicationRequested && med.reasons.some((r) => {
+            return med.reasons.some((r) => {
                 return r.value.entryId && this._entryIdsMatch(r.value.entryId, conditionEntryId);
             });
         });
     }
 
     getMedicationChanges() {
-        return this.getEntriesOfType(FluxMedicationChange);
+        return this.getEntriesOfType(FluxMedicationStatement).filter(ms => !_.isNull(ms.type));
     }
 
     getMedicationChangesChronologicalOrder() {
-        let list = this.getMedicationChanges();
-        list.sort(this._medChangesTimeSorter);
-        return list;
+        return this.getMedicationChanges().sort(this._medChangesTimeSorter);
     }
 
     getMedicationChangesForConditionChronologicalOrder(condition) {
-        let medicationsChanges = this.getMedicationChangesChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
-        medicationsChanges = medicationsChanges.filter((change) => {
-            const medBeforeChange = change.medicationBeforeChange ? this.getEntryFromReference(change.medicationBeforeChange.value) : null;
-            const medAfterChange = change.medicationAfterChange ? this.getEntryFromReference(change.medicationAfterChange.value) : null;
+        const medicationsChanges = this.getMedicationChangesChronologicalOrder();
+        const conditionEntryId = this._getConditionEntryId(condition);
+        return medicationsChanges.filter((change) => {
+            const medBeforeChange = change.relatedRequest ? this.getEntryFromReference(change.relatedRequest) : null;
 
-            let eitherChangeIsRelated;
+            if (medBeforeChange) {
+                return medBeforeChange.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
 
-            if (medAfterChange && medBeforeChange) {
-                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                }) || medAfterChange.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                });
-            } else if (medBeforeChange) {
-                eitherChangeIsRelated = medBeforeChange.reasons.some((r) => {
-                    return r.value.entryId && r.value.entryId === conditionEntryId;
-                });
-            } else {
-                return false;
+            } else if (change.medicationCodeOrReference) {
+                return change.reasons.some(r => r.value.entryId && r.value.entryId === conditionEntryId);
             }
-            return change instanceof FluxMedicationChange && eitherChangeIsRelated;
+
+            return false;
         });
-        return medicationsChanges;
     }
 
     createActiveMedication(selectedValue) {
-        let medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/medication/MedicationRequested", this);
+        const medication = FluxObjectFactory.createInstance({}, "http://standardhealthrecord.org/spec/shr/core/MedicationRequest", this);
         medication.medication = selectedValue;
         medication.startDate = new Date();
 
@@ -803,7 +765,7 @@ class PatientRecord {
     }
 
     getRecentImagingChronologicalOrder() {
-        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
+        let imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
         const numberOfMonths = 6;
         const sinceDate = new moment(moment().subtract(numberOfMonths, 'months'), 'D MMM YYYY');
 
@@ -839,19 +801,19 @@ class PatientRecord {
     }
 
     getProcedures() {
-        return this.getEntriesOfType(FluxProcedureRequested);
+        return this.getEntriesOfType(FluxProcedureRequest);
     }
 
     getProceduresChronologicalOrder() {
-        let list = this.getProcedures();
+        const list = this.getProcedures();
         list.sort(this._proceduresTimeSorter);
         return list;
     }
 
     getProceduresForCondition(condition) {
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         return this.entries.filter((item) => {
-            return item instanceof FluxProcedureRequested && item.reasons && item.reasons.some((r) => {
+            return item instanceof FluxProcedureRequest && item.reasons && item.reasons.some((r) => {
                 return r.value.entryId && r.value.entryId === conditionEntryId;
             });
         });
@@ -862,14 +824,14 @@ class PatientRecord {
     }
 
     getProceduresForConditionChronologicalOrder(condition) {
-        let procedures = this.getProceduresForCondition(condition);
+        const procedures = this.getProceduresForCondition(condition);
         procedures.sort(this._proceduresTimeSorter);
         return procedures;
     }
 
     getImagingProceduresForConditionChronologicalOrder(condition) {
-        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedurePerformed);
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const imagingProcedures = this.getEntriesOfType(FluxImagingProcedure);
+        const conditionEntryId = this._getConditionEntryId(condition);
 
         imagingProcedures.sort(this._proceduresTimeSorter);
 
@@ -907,90 +869,62 @@ class PatientRecord {
         });
     }
 
-    getBreastCancerGeneticAnalysisPanelsChronologicalOrder() {
-        let panels = this.getEntriesOfType(FluxBreastCancerGeneticAnalysisPanel);
-        panels.sort(this._relevantTimeTimeSorter);
-        return panels;
-    }
-
-    getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder() {
-        let panels = this.getEntriesOfType(FluxGastrointestinalStromalTumorCancerGeneticAnalysisPanel);
+    getGenomicsReportChronologicalOrder() {
+        const panels = this.getEntriesOfType(FluxGenomicsReport);
         panels.sort(this._relevantTimeTimeSorter);
         return panels;
     }
 
     getMostRecentTumorMarkers(condition) {
-        if (!(condition instanceof FluxCancerDisorderPresent)) return null;
+        if (!(condition instanceof FluxCancerCondition)) return null;
 
-        if (condition.isCancerType('Invasive ductal carcinoma of breast')) {
-            // Display ER, PR, HER2 if Breast Cancer Condition
-            const receptorStatuses = [];
-            const er = condition.getMostRecentERReceptorStatus();
-            const pr = condition.getMostRecentPRReceptorStatus();
-            const her2 = condition.getMostRecentHER2ReceptorStatus();
-
-            if (!Lang.isNull(er)) receptorStatuses.push(er);
-            if (!Lang.isNull(pr)) receptorStatuses.push(pr);
-            if (!Lang.isNull(her2)) receptorStatuses.push(her2);
-
-            if (receptorStatuses.length === 0) return null;
-            // TODO: We might want to look at how we check for the isUnsigned property since these are 3 different entries(same for determining source)
-            // for now using first receptor status in array
-            return receptorStatuses;
-        } else if (condition.isCancerType('Gastrointestinal stromal tumor')) {
-            // for GIST, KIT and PDGFRA are mutually excusive. only show positive ones
-            const panels = this.getGastrointestinalStromalTumorCancerGeneticAnalysisPanelsChronologicalOrder();
-            if (!panels || panels.length === 0) return null;
-            const panel = panels.pop();
-            return  panel.members.filter(item => item.value === 'Positive');
-        }
-
-        return null;
+        return condition.getMostRecentTumorMarkers();
     }
 
     getPathologyReportsChronologicalOrder() {
-        let reports = this.getPathologyReports();
+        const reports = this.getPathologyReports();
 
         return reports;
     }
 
     getPathologyReports() {
-        var result = this.getEntriesOfType(FluxPathologyReport);
-
-        return result;
+        return this.getEntriesOfType(FluxDiagnosticReport);
     }
 
     getProgressions() {
-        return this.getEntriesOfType(FluxCancerProgression);
+        return this.getEntriesOfType(FluxCancerDiseaseStatus);
     }
 
     getProgressionsChronologicalOrder() {
-        let progressions = this.getProgressions();
+        const progressions = this.getProgressions();
         progressions.sort(this._progressionTimeSorter);
         return progressions;
     }
 
     getProgressionsForCondition(condition) {
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         return this.entries.filter((item) => {
-            return item instanceof FluxCancerProgression && item.specificFocusOfFinding.entryId === conditionEntryId;
+            return item instanceof FluxCancerDiseaseStatus
+                && item.relatedCancerCondition
+                && this._entryIdsMatch(item.relatedCancerCondition.entryId, conditionEntryId);
         });
     }
 
     getProgressionsForConditionChronologicalOrder(condition) {
         let progressions = this.getProgressionsChronologicalOrder();
-        const conditionEntryId = condition.entryInfo.entryId.value || condition.entryInfo.entryId;
+        const conditionEntryId = this._getConditionEntryId(condition);
         progressions = progressions.filter((progression) => {
-            return progression.specificFocusOfFinding.entryId === conditionEntryId;
+            return progression.relatedCancerCondition
+                && progression.relatedCancerCondition.entryId === conditionEntryId;
         });
         return progressions;
     }
 
     getFocalConditionForProgression(progression) {
-        let result = this.entries.filter((item) => {
-            if (item instanceof FluxConditionPresentAssertion) {
-                const conditionEntryId = item.entryInfo.entryId.value || item.entryInfo.entryId;
-                return progression.specificFocusOfFinding.entryId === conditionEntryId;
+        const result = this.entries.filter((item) => {
+            if (item instanceof FluxCondition) {
+                const conditionEntryId = this._getConditionEntryId(item);
+                return progression.relatedCancerCondition.entryId === conditionEntryId;
             } else {
                 return false;
             }
@@ -999,12 +933,12 @@ class PatientRecord {
     }
 
     getMostRecentProgressionForCondition(condition, sinceDate = null) {
-        let progressionList = this.getProgressionsForCondition(condition);
+        const progressionList = this.getProgressionsForCondition(condition);
         if (progressionList.length === 0) return null;
         const sortedProgressionList = progressionList.sort(this._progressionTimeSorter);
         const length = sortedProgressionList.length;
-        let p = (sortedProgressionList[length - 1]);
-        if (Lang.isNull(sinceDate)) return p;
+        const p = (sortedProgressionList[length - 1]);
+        if (_.isNull(sinceDate)) return p;
         const startTime = new moment(p.asOfDate, "D MMM YYYY");
         if (startTime < sinceDate) {
             return null;
@@ -1024,8 +958,8 @@ class PatientRecord {
     }
 
     _medChangesTimeSorter(a, b) {
-        const a_time = a.metadata.authoredDateTime.dateTime;
-        const b_time = b.metadata.authoredDateTime.dateTime;
+        const a_time = a.whenChanged;
+        const b_time = b.whenChanged;
         const a_startTime = new moment(a_time.timePeriodStart, "D MMM YYYY");
         const b_startTime = new moment(b_time.timePeriodStart, "D MMM YYYY");
         if (a_startTime < b_startTime) {
@@ -1163,31 +1097,31 @@ class PatientRecord {
         let a_severity, b_severity;
 
         switch (a.severity) {
-        case "Severe": {
-            a_severity = 1;
-            break;
-        }
-        case "Moderate": {
-            a_severity = 0;
-            break;
-        }
-        default: {
-            a_severity = -1;
-        }
+            case "Severe": {
+                a_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                a_severity = 0;
+                break;
+            }
+            default: {
+                a_severity = -1;
+            }
         }
 
         switch (b.severity) {
-        case "Severe": {
-            b_severity = 1;
-            break;
-        }
-        case "Moderate": {
-            b_severity = 0;
-            break;
-        }
-        default: {
-            b_severity = -1;
-        }
+            case "Severe": {
+                b_severity = 1;
+                break;
+            }
+            case "Moderate": {
+                b_severity = 0;
+                break;
+            }
+            default: {
+                b_severity = -1;
+            }
         }
 
         if (a_severity > b_severity) return -1;
@@ -1223,7 +1157,7 @@ class PatientRecord {
     getEntriesWithSourceClinicalNote(note) {
         return this.entries.filter((entry) => {
             if (entry.sourceClinicalNoteReference) {
-                return entry.sourceClinicalNoteReference.entryId === note.entryInfo.entryId;
+                return entry.sourceClinicalNoteReference.entryId.id === note.entryInfo.entryId.id;
             } else {
                 return false;
             }
@@ -1231,7 +1165,7 @@ class PatientRecord {
     }
 
     getMostRecentEntryOfType(type) {
-        let list = this.getEntriesOfType(type);
+        const list = this.getEntriesOfType(type);
         return PatientRecord.getMostRecentEntryFromList(list);
     }
 
@@ -1245,7 +1179,7 @@ class PatientRecord {
 
     getEntryById(entryId) {
         return this.entries.find((entry) => {
-            return entry.entryInfo.entryId === entryId;
+            return this._entryIdsMatch(entry.entryInfo.entryId, entryId);
         });
     }
 
@@ -1255,7 +1189,7 @@ class PatientRecord {
 
     getVitalByCode(code) {
         return this.entries
-            .filter(e => e.codeableConceptCode === code) // Find vital of matching code
+            .filter(e => e.code === code) // Find vital of matching code
             .sort(this._relevantTimeTimeSorter);
     }
 
@@ -1263,20 +1197,20 @@ class PatientRecord {
         if (list.length === 0) return null;
         if (list.length === 1) return list[0];
         list = list.filter(e => e.metadata);
-        let maxDate = Math.max.apply(null, list.map(function (o) {
-            return new Date(o.metadata.lastUpdated.instant);
+        const maxDate = Math.max.apply(null, list.map(function (o) {
+            return new Date(o.metadata.lastUpdated.dateTime);
         }));
-        let result = list.filter((item) => {
-            return new Date(item.metadata.lastUpdated.instant).getTime() === new Date(maxDate).getTime();
+        const result = list.filter((item) => {
+            return new Date(item.metadata.lastUpdated.dateTime).getTime() === new Date(maxDate).getTime();
         });
-        if (Lang.isUndefined(result) || Lang.isNull(result) || result.length === 0) {
+        if (_.isUndefined(result) || _.isNull(result) || result.length === 0) {
             return null;
         }
         return result[0];
     }
 
     getTodaysVitalsAsString() {
-        let today = new moment().format("D MMM YYYY");
+        const today = new moment().format("D MMM YYYY");
         const bloodPressure = this.getEntriesOfType(FluxBloodPressure).find((bloodPressure) => {
             const relevantTime = new moment(bloodPressure.relevantTime, "D MMM YYYY").format("D MMM YYYY");
             return relevantTime === today;
@@ -1293,19 +1227,19 @@ class PatientRecord {
             const relevantTime = new moment(heartRate.relevantTime, "D MMM YYYY").format("D MMM YYYY");
             return relevantTime === today;
         });
-        if (Lang.isUndefined(bloodPressure) && Lang.isUndefined(bodyTemperature) && Lang.isUndefined(bodyWeight) && Lang.isUndefined(heartRate)) {
+        if (_.isUndefined(bloodPressure) && _.isUndefined(bodyTemperature) && _.isUndefined(bodyWeight) && _.isUndefined(heartRate)) {
             return "no vital signs taken today";
         }
-        const results = (Lang.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
-                        (Lang.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
-                        (Lang.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") +
-                        (Lang.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");
+        const results = (_.isUndefined(bloodPressure) ? "" : "Blood pressure is " + bloodPressure.value + ". ") +
+                        (_.isUndefined(bodyTemperature) ? "" : "Temperature is " + bodyTemperature.value + " "+ bodyTemperature.units + ". ") +
+                        (_.isUndefined(bodyWeight) ? "" : "Weight is " + bodyWeight.value + " " + bodyWeight.units + ". ") +
+                        (_.isUndefined(heartRate) ? "" : "Heart rate is " + heartRate.value + heartRate.units + ".");
         return results;
     }
 
     getReferredBy() {
-        let referredBy = this.getPreviousEncounter().referredBy;
-        if (Lang.isUndefined(referredBy)) return "No referral for this appointment";
+        const referredBy = this.getPreviousEncounter().referredBy;
+        if (_.isUndefined(referredBy)) return "No referral for this appointment";
         return referredBy;
     }
 }

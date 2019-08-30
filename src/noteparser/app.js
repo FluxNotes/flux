@@ -28,9 +28,9 @@ if (typeof input === 'undefined') {
 // Create the output folder if necessary
 mkdirp.sync(program.out);
 
-let noteParser = new NoteParser();
+const noteParser = new NoteParser();
 
-let perFileFunc = (file) => {
+const perFileFunc = (file) => {
     let content;
     let result;
     fs.readFile(file, 'utf8', function (err,data) {
@@ -48,7 +48,7 @@ let perFileFunc = (file) => {
     });
 };
 
-let iterateAllFilesDeep = (start, perFileFunc) => {
+const iterateAllFilesDeep = (start, perFileFunc) => {
     fs.stat(start, function(error,  stat) {
         if (error) {
             return console.error(error);

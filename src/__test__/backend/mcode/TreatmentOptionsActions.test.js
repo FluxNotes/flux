@@ -8,18 +8,17 @@ import * as actions from '../../../actions/mcode';
 import * as types from '../../../actions/types';
 import { defaultState } from '../../../reducers/mcode';
 import PatientRecord from '../../../patient/PatientRecord';
-import TestPatient2 from '../../TestPatient2.json';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
-import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
+import TestPatient2V09 from '../../TestPatient2V09.json';
+import FluxCancerCondition from '../../../model/fluxWrappers/onco/core/FluxCancerCondition';
 
 require('../../testHelper');
 
 const mockStore = configureMockStore([ thunk ]);
 
 describe ('actions', () => {
-    const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
+    const mcodePatientJson = TestPatient2V09;
     const testPatientObj = new PatientRecord(mcodePatientJson);
-    const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerDisorderPresent)[0];
+    const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerCondition)[0];
 
     it ('should create an action to initialize options', () => {
         const patient=testPatientObj;

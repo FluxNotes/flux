@@ -30,18 +30,18 @@ CONFIG = {
         display: 'Compass™',
         app: "SmartCompassApp",
         isExact: true,
-        dataSource: 'GenericSmartOnFhirDstu2DataSource',
-        dataSourceProps: {
-            mapper: 'cernerSandbox',
-            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
-        },
         logoObject: {
             path: './compass-logo.png',
             altText: 'Compass logo',
             width: '45px',
             height: '45px'
         },
-        shortcuts: []
+        dataSource: 'GenericSmartOnFhirDstu2DataSource',
+        shortcuts: [],
+        dataSourceProps: {
+            mapper: 'cernerSandbox',
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
+        },
     },
     {
         path: '/launch',
@@ -67,7 +67,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "SmartFullApp",
         isExact: true,
-        dataSource: 'McodeV05SmartOnFhirDataSource',
+        dataSource: 'McodeV09SmartOnFhirDataSource',
         shortcuts: []
     },
     {
@@ -178,7 +178,7 @@ CONFIG = {
         display: 'Compass™',
         app: "CompassApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV05DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7g',
         logoObject: {
             path: './compass-logo.png',
@@ -192,7 +192,35 @@ CONFIG = {
         display: 'Compass™',
         app: "CompassApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
+        patientId: '888dcbc3-ed18-470c-89ef-35ff91854c7g',
+        logoObject: {
+            path: './compass-logo.png',
+            altText: 'Compass logo',
+            width: '45px',
+            height: '45px'
+        }
+    },
+    {
+        path: '/ccp3',
+        display: 'Compass™',
+        app: "CompassApp",
+        isExact: true,
+        dataSource: 'HardCodedMcodeV09DataSource',
+        patientId: '988dcbc3-ed18-470c-89ef-35ff91854c7g',
+        logoObject: {
+            path: './compass-logo.png',
+            altText: 'Compass logo',
+            width: '45px',
+            height: '45px'
+        }
+    },
+    {
+        path: '/ccp4',
+        display: 'Compass™',
+        app: "CompassApp",
+        isExact: true,
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         logoObject: {
             path: './compass-logo.png',
@@ -206,7 +234,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7d',
         shortcuts: []
     },
@@ -215,7 +243,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7e',
         shortcuts: []
     },
@@ -224,7 +252,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: 'urn:x-person:123456',
         shortcuts: []
     },
@@ -233,7 +261,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567890',
         shortcuts: []
@@ -243,7 +271,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "FullApp",
         isExact: true,
-        dataSource: 'HardCodedMcodeV01DataSource',
+        dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567891',
         shortcuts: []
@@ -253,7 +281,7 @@ CONFIG = {
         display: 'Flux Notes™',
         app: "PointOfCareApp",
         isExact: true,
-        dataSource: 'HardcodedTabletMcodeV01DataSource',
+        dataSource: 'HardcodedTabletMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
         clinicianId: '1234567890',
         shortcuts: []

@@ -7,9 +7,8 @@ import * as types from '../../../actions/types';
 import reducer from '../../../reducers/mcode';
 import { defaultState } from '../../../reducers/mcode';
 import PatientRecord from '../../../patient/PatientRecord';
-import TestPatient2 from '../../TestPatient2.json';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
-import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
+import TestPatient2V09 from '../../TestPatient2V09.json';
+import FluxCancerCondition from '../../../model/fluxWrappers/onco/core/FluxCancerCondition';
 import stateObjects from './mock-data/testoptions.json';
 import { similarPatientTreatmentsData } from './mock-data';
 import allData from './mock-data/patients.json'
@@ -22,9 +21,9 @@ describe('Reducer function', () => {
 
     describe('initialization of patient props', () => {
         const type = types.INITIALIZE_SIMILAR_PATIENT_PROPS;
-        const mcodePatientJson = EntryMapper.mapEntries(TestPatient2);
+        const mcodePatientJson = TestPatient2V09;
         const testPatientObj = new PatientRecord(mcodePatientJson);
-        const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerDisorderPresent)[0];
+        const fluxCondition = testPatientObj.getEntriesOfType(FluxCancerCondition)[0];
         const testPatientRecord = testPatientObj.getPatient();
 
         it('should return populated new state when given normal values', () => {
@@ -37,7 +36,6 @@ describe('Reducer function', () => {
             const newState = reducer(undefined, action).similarPatientProps;
             const demographics = newState.demographic.options;
             const pathology = newState.pathology.options;
-
             expect(demographics.race.value).to.eql(testPatientRecord.race);
             expect(demographics.gender.value).to.eql(_.lowerCase(testPatientRecord.gender));
             expect(demographics.age.minValue).to.eql(testPatientObj.getAge() - 10);

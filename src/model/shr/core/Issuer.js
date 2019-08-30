@@ -12,7 +12,7 @@ class Issuer {
 
   /**
    * Get the value (aliases organization).
-   * @returns {Reference} The shr.entity.Organization reference
+   * @returns {Reference} The shr.core.Organization reference
    */
   get value() {
     return this._organization;
@@ -21,7 +21,7 @@ class Issuer {
   /**
    * Set the value (aliases organization).
    * This field/value is required.
-   * @param {Reference} value - The shr.entity.Organization reference
+   * @param {Reference} value - The shr.core.Organization reference
    */
   set value(value) {
     this._organization = value;
@@ -30,7 +30,7 @@ class Issuer {
   /**
    * Set the value (aliases organization) and return 'this' for chaining.
    * This field/value is required.
-   * @param {Reference} value - The shr.entity.Organization reference
+   * @param {Reference} value - The shr.core.Organization reference
    * @returns {Issuer} this.
    */
   withValue(value) {
@@ -38,26 +38,26 @@ class Issuer {
   }
 
   /**
-   * Get the shr.entity.Organization reference.
-   * @returns {Reference} The shr.entity.Organization reference
+   * Get the shr.core.Organization reference.
+   * @returns {Reference} The shr.core.Organization reference
    */
   get organization() {
     return this._organization;
   }
 
   /**
-   * Set the shr.entity.Organization reference.
+   * Set the shr.core.Organization reference.
    * This field/value is required.
-   * @param {Reference} organization - The shr.entity.Organization reference
+   * @param {Reference} organization - The shr.core.Organization reference
    */
   set organization(organization) {
     this._organization = organization;
   }
 
   /**
-   * Set the shr.entity.Organization reference and return 'this' for chaining.
+   * Set the shr.core.Organization reference and return 'this' for chaining.
    * This field/value is required.
-   * @param {Reference} organization - The shr.entity.Organization reference
+   * @param {Reference} organization - The shr.core.Organization reference
    * @returns {Issuer} this.
    */
   withOrganization(organization) {
@@ -106,7 +106,7 @@ class Issuer {
     const klass = ClassRegistry.get('shr.core', 'Issuer');
     const inst = new klass();
     if (!asExtension && fhir != null) {
-      inst.value = FHIRHelper.createInstanceFromFHIR('shr.entity.Organization', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
+      inst.value = FHIRHelper.createInstanceFromFHIR('shr.core.Organization', fhir, fhirType, shrId, allEntries, mappedResources, referencesOut);
     }
     return inst;
   }

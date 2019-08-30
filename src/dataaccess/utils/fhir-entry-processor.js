@@ -7,14 +7,16 @@ export default function(responses, patientId, resourceMapper = null) {
         // response is a Bundle of type searchset
         // TODO: error handling?
         if (response && response.entry) {
-            let bundle = response;
-            // If we need to use a mapper to add profiles to the fhir, update the resources accordingly
-            if (resourceMapper) {
-                bundle = resourceMapper.execute(response);
-            }
-            entries.push(...bundle.entry);
+            entries.push(...response.entry);
         }
     });
+
+    let bundle = { resourceType: 'Bundle', entry: entries }; // pseudo-bundle to make everything a little cleaner
+
+    // If we need to use a mapper to add profiles to the fhir, update the resources accordingly
+    if (resourceMapper) {
+        bundle = resourceMapper.execute(bundle, bundle); // map the entries, with the set of all entries as context
+    }
 
     // rather than update PatientRecord and all the Flux wrapper classes to take in FHIR,
     // the approach here is:
@@ -25,14 +27,14 @@ export default function(responses, patientId, resourceMapper = null) {
 
     const mappedResources = {};
     const referencesOut = [];
-    const allObjects = entries.map(entry => {
+    const allObjects = bundle.entry.map(entry => {
         const resource = entry.resource;
         // if there's no profile on this resource we can't determine what class to convert it into
         // so rather than error out just ignore it
         if (!resource || !resource.meta || !resource.meta.profile || !resource.meta.profile[0]) return null;
 
         try {
-            const result = ObjectFactory.createInstanceFromFHIR(null, resource, resource.resourceType, patientId, entries, mappedResources, referencesOut);
+            const result = ObjectFactory.createInstanceFromFHIR(null, resource, resource.resourceType, patientId, bundle.entry, mappedResources, referencesOut);
 
             // shortId here is the standard "resourceType/resourceID" ID format
             const shortId = `${resource.resourceType}/${resource.id}`;

@@ -1,4 +1,4 @@
-const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils');
 
 // Breast Cancer Staging lookups
 
@@ -267,38 +267,38 @@ export function getMStageCodeableConcept(possibleMStage) {
 export function getDescription(dataElement) {
     if (typeof(dataElement) !== 'string') { return null; }
     switch (dataElement.toLowerCase()) {
-    case "tnmstage":
-        return "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
-    case "tumorsize":
-        return "Describes the original (primary) tumor.";
-    case "nodesize":
-        return "Describes the degree to which the cancer has reached nearby lymph nodes.";
-    case "metastasis":
-        return "Whether or not the cancer has spread to other parts of the body.";
-    case "prognosticstage":
-        return "Describes the severity of the cancer based on the magnitude of the original (primary) tumor, as well as the extent to which cancer has spread in the body.";
-    default:
-        return null;
+        case "tnmstage":
+            return "The stage of a cancer. TNM Stage Grouping categorizes the progression of cancer using the Roman Numeral system.";
+        case "tumorsize":
+            return "Describes the original (primary) tumor.";
+        case "nodesize":
+            return "Describes the degree to which the cancer has reached nearby lymph nodes.";
+        case "metastasis":
+            return "Whether or not the cancer has spread to other parts of the body.";
+        case "prognosticstage":
+            return "Describes the severity of the cancer based on the magnitude of the original (primary) tumor, as well as the extent to which cancer has spread in the body.";
+        default:
+            return null;
     }
 }
 
 export function getTsForEdition(ed) {
     switch (Number(ed)) {
-    case 5:
-        return ts5thEdition;
-    case 6:
-        return ts6thEdition;
-    case 7:
-        return ts7thEdition;
-    default:
-        return [];
+        case 5:
+            return ts5thEdition;
+        case 6:
+            return ts6thEdition;
+        case 7:
+            return ts7thEdition;
+        default:
+            return [];
     }
 }
 
 // Returns just the names of the T values(without the tool tip text)
 export function getTsNamesForEdition(ed) {
     const ts = getTsForEdition(ed);
-    let names = [];
+    const names = [];
     ts.forEach((t) => {
         names.push(t.name);
     });
@@ -307,21 +307,21 @@ export function getTsNamesForEdition(ed) {
 
 export function getNsForEdition(ed) {
     switch (Number(ed)) {
-    case 5:
-        return ns5thEdition;
-    case 6:
-        return ns6thEdition;
-    case 7:
-        return ns7thEdition;
-    default:
-        return [];
+        case 5:
+            return ns5thEdition;
+        case 6:
+            return ns6thEdition;
+        case 7:
+            return ns7thEdition;
+        default:
+            return [];
     }
 }
 
 // Returns just the names of the N values(without the tool tip text)
 export function getNsNamesForEdition(ed) {
     const ns = getNsForEdition(ed);
-    let names = [];
+    const names = [];
     ns.forEach((n) => {
         names.push(n.name);
     });
@@ -330,18 +330,18 @@ export function getNsNamesForEdition(ed) {
 
 export function getMsForEdition(ed) {
     switch (Number(ed)) {
-    case 5:
-    case 6:
-    case 7:
-        return ms;
-    default:
-        return [];
+        case 5:
+        case 6:
+        case 7:
+            return ms;
+        default:
+            return [];
     }
 }
 
 export function getMsNamesForEdition(ed) {
     const ms = getMsForEdition(ed);
-    let names = [];
+    const names = [];
     ms.forEach((m) => {
         names.push(m.name);
     });
@@ -350,14 +350,14 @@ export function getMsNamesForEdition(ed) {
 
 export function getTableForEdition(ed) {
     switch (ed) {
-    case 5:
-        return table5thEdition;
-    case 6:
-        return table6thEdition;
-    case 7:
-        return table7thEdition;
-    default:
-        return [];
+        case 5:
+            return table5thEdition;
+        case 6:
+            return table6thEdition;
+        case 7:
+            return table7thEdition;
+        default:
+            return [];
     }
 }
 

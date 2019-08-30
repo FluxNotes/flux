@@ -113,7 +113,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                             source: this.determineSource(patient, currentConditionEntry),
                                             shortcutData: {
                                                 shortcut: '@condition',
-                                                entryId: currentConditionEntry.entryInfo.entryId,
+                                                entryId: currentConditionEntry.entryInfo.entryId.id,
                                             }
                                         };
                                     },
@@ -130,7 +130,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "Stage",
                                     value: (patient, currentConditionEntry) => {
-                                        let s = currentConditionEntry.getMostRecentStaging();
+                                        const s = currentConditionEntry.getMostRecentStaging();
                                         if (s && s.stage && s.stage.length > 0) {
                                             return  {   value: s.stage,
                                                 isUnsigned: patient.isUnsigned(s),
@@ -145,7 +145,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "Disease Status",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                         if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
@@ -159,7 +159,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "As Of Date",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                         if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
@@ -173,7 +173,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "Rationale",
                                     value: (patient, currentConditionEntry) => {
-                                        let p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
+                                        const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
                                         if (Lang.isNull(p) || !p.status) {
                                             return null;
                                         } else {
@@ -226,7 +226,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "ER",
                                     value: (patient, currentConditionEntry) => {
-                                        let er = currentConditionEntry.getMostRecentERReceptorStatus();
+                                        const er = currentConditionEntry.getMostRecentERReceptorStatus();
                                         if (Lang.isNull(er)) {
                                             return null;
                                         } else {
@@ -240,7 +240,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "PR",
                                     value: (patient, currentConditionEntry) => {
-                                        let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                                        const pr = currentConditionEntry.getMostRecentPRReceptorStatus();
                                         if (Lang.isNull(pr)) {
                                             return null;
                                         } else {
@@ -254,7 +254,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "HER2",
                                     value: (patient, currentConditionEntry) => {
-                                        let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+                                        const her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
                                         if (Lang.isNull(her2)) {
                                             return null;
                                         } else {
@@ -313,7 +313,7 @@ export default class BreastCancerMetadata extends MetadataSection {
                                 {
                                     name: "Genetic Testing",
                                     value: (patient, currentConditionEntry) => {
-                                        const panels = patient.getBreastCancerGeneticAnalysisPanelsChronologicalOrder();
+                                        const panels = patient.getGenomicsReportChronologicalOrder();
                                         if (!panels || panels.length === 0) return null;
                                         const panel = panels.pop();
                                         return  {   value: panel.members.map((item) => {

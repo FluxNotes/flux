@@ -125,7 +125,7 @@ export default class NLPHashtag extends Shortcut {
     }
 
     onBeforeDeleted() {
-        let result = super.onBeforeDeleted();
+        const result = super.onBeforeDeleted();
         if (result && this.parentContext) {
             this.parentContext.removeChild(this);
         }
@@ -142,7 +142,7 @@ export default class NLPHashtag extends Shortcut {
         const len = attributePath.length;
         let result = object;
 
-        let perItemFollowPath = (item) => {
+        const perItemFollowPath = (item) => {
             return this._followPath(item, attributePath, i + 1);
         };
         for (i = startIndex; i < len; i++) {
@@ -201,7 +201,7 @@ export default class NLPHashtag extends Shortcut {
                 this.values[name] = value;
             } else {
                 if (voa["type"] === "list" && !Lang.isArray(value)) {
-                    let list = this.getAttributeValue(name);
+                    const list = this.getAttributeValue(name);
                     list.push(value);
                     Lang.set(this.object, setMethod, list);
                 } else {
@@ -210,7 +210,7 @@ export default class NLPHashtag extends Shortcut {
             }
         } else {
             if (voa["type"] === "list" && !Lang.isArray(value)) {
-                let list = this.getAttributeValue(name);
+                const list = this.getAttributeValue(name);
                 list.push(value);
                 PatientRecord[patientSetMethod](this.object, list);
             } else {
@@ -238,7 +238,7 @@ export default class NLPHashtag extends Shortcut {
 
     serialize() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
-        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId}}]]`;
+        return `${this.initiatingTrigger}[[{"entryId":${this.object.entryInfo.entryId.id}}]]`;
     }
 
     callMethod(patient, spec, clinicalNote) {
@@ -248,7 +248,7 @@ export default class NLPHashtag extends Shortcut {
         const listAttribute = spec["listAttribute"];
         const attribute = spec["attribute"];
         const argSpecs = spec["args"];
-        let args = argSpecs.map((argSpec) => {
+        const args = argSpecs.map((argSpec) => {
             if (argSpec === "$valueObject") return this.object;
             if (argSpec === "$parentValueObject") return this.parentContext.getValueObject();
             if (argSpec === "$clinicalNote") return clinicalNote;
@@ -284,18 +284,18 @@ export default class NLPHashtag extends Shortcut {
             }
         } else {
             if (obj === "patient") {
-                let list = Lang.get(patient, listAttribute);
+                const list = Lang.get(patient, listAttribute);
                 args.forEach((a) => list.push(a));
                 Lang.set(patient, listAttribute, list);
                 return this.object;
             } else if (obj === "$valueObject") {
-                let list = Lang.get(this.object, listAttribute);
+                const list = Lang.get(this.object, listAttribute);
                 args.forEach((a) => list.push(a));
                 Lang.set(this.object, listAttribute, list);
                 return this.object;
             } else if (obj === "$parentValueObject") {
                 if (!Lang.isUndefined(this.parentContext)) {
-                    let list = Lang.get(this.parentContext.getValueObject(), listAttribute);
+                    const list = Lang.get(this.parentContext.getValueObject(), listAttribute);
                     args.forEach((a) => list.push(a));
                     Lang.set(this.parentContext.getValueObject(), listAttribute, list);
                     return this.object;

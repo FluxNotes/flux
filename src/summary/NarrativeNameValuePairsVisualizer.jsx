@@ -66,7 +66,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             return [];
         }
 
-        let subsections = {};
+        const subsections = {};
         conditionSection.data.forEach((subsection) => {
             subsections[subsection.name] = subsection;
         });
@@ -85,7 +85,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
         type: plain, missing, or structured-data
     */
     buildNarrativeSnippetList(template, subsections) {
-        let result = [];
+        const result = [];
         if (template === undefined) {
             return result;
         }
@@ -93,13 +93,13 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
         let index, start = 0;
         let pos = template.indexOf("${"), endpos;
         let list, item, value, type, valueSpec, subsectionName, valueName, fieldName, itemValue, first;
-        let _filterItemsByName = (item) => {
+        const _filterItemsByName = (item) => {
             return item.name === valueName;
         };
-        let _addNameValueToNarrative = (item) => {
+        const _addNameValueToNarrative = (item) => {
             return item.name + ": " + (Lang.isObject(item.value) ? item.value.value : item.value);
         };
-        let _addListItemToResult = (listItem) => {
+        const _addListItemToResult = (listItem) => {
             if (!first) result.push({ text: ', ', type: 'plain' });
             value = _addNameValueToNarrative(listItem);
             type = "narrative-structured-data";
@@ -181,7 +181,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
     */
     buildNarrative() {
         const {conditionSection} = this.props;
-        let subsections = this.getSubsections();
+        const subsections = this.getSubsections();
         if (Object.keys(subsections).length === 0) {
             return [];
         }
@@ -270,7 +270,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
         let className;
 
         // now go through each snippet and build up HTML to render
-        let content = [];
+        const content = [];
         narrative.forEach((snippet, index) => {
             const highlightedData = this.props.tdpSearchSuggestions.find(s => {
                 const matchesSnippet = `${s.valueTitle}: ${s.contentSnapshot}` === snippet.text || s.contentSnapshot === snippet.text;

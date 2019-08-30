@@ -105,6 +105,9 @@ class CodeSystem {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.core', 'CodeSystem');
     const inst = new klass();
+    if (asExtension) {
+      inst.value = fhir['valueUri'];
+    }
     if (!asExtension && fhir != null) {
       inst.value = fhir;
     }

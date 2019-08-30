@@ -1,21 +1,20 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash';
+import _ from 'lodash';
 
 export default class LabTestSubsection extends MetadataSection {
     getTestsForSubSection = (patient, currentConditionEntry, subsection) => {
-        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        if (_.isNull(patient) || _.isNull(currentConditionEntry)) return [];
         const labResults = currentConditionEntry.getLabResultsChronologicalOrder();
-        const labs = labResults.filter((lab, i) => {
-            return lab.codeableConceptCode === subsection.code;
-        }).map((lab, i) => {
-            const processedLab = {};
-            processedLab["start_time"] = lab.relevantTime;
+
+        return labResults.filter(lab => lab.codeableConceptCode === subsection.code).map((lab) => {
+            const processedLab = {
+                start_time: lab.relevantTime,
+                unit: lab.quantity.unit
+            };
+
             processedLab[subsection.name] = lab.quantity.number;
-            processedLab["unit"] = lab.quantity.unit;
 
             return processedLab;
         });
-
-        return labs;
     }
 }

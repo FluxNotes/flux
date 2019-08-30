@@ -45,7 +45,7 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     onBeforeDeleted() {
-        let result = super.onBeforeDeleted();
+        const result = super.onBeforeDeleted();
         this.parentContext.setAttributeValue(this.metadata["parentAttribute"], false, false);
         this.parentContext.removeChild(this);
         return result;
@@ -53,7 +53,7 @@ export default class CreatorIntermediary extends Shortcut {
 
     getAttributeIsSet(name) {
         const voaList = this.metadata["valueObjectAttributes"];
-        let result = voaList.filter(function (item) {
+        const result = voaList.filter(function (item) {
             return item.name === name;
         });
         if (result && result[0]) {
@@ -65,7 +65,7 @@ export default class CreatorIntermediary extends Shortcut {
 
     getAttributeValue(name) {
         const voaList = this.metadata["valueObjectAttributes"];
-        let result = voaList.filter(function (item) {
+        const result = voaList.filter(function (item) {
             return item.name === name;
         });
         if (result && result[0]) {
@@ -77,7 +77,7 @@ export default class CreatorIntermediary extends Shortcut {
 
     isAttributeSupported(name) {
         const voaList = this.metadata["valueObjectAttributes"];
-        let result = voaList.filter(function (item) {
+        const result = voaList.filter(function (item) {
             return item.name === name;
         });
         return (result && result[0]);
@@ -85,7 +85,7 @@ export default class CreatorIntermediary extends Shortcut {
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voaList = this.metadata["valueObjectAttributes"];
-        let result = voaList.filter(function (item) {
+        const result = voaList.filter(function (item) {
             return item.name === name;
         });
         if (result && result[0]) {

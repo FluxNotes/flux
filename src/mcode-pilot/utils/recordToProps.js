@@ -1,14 +1,18 @@
 import _ from 'lodash';
-import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
-import FluxTNMClinicalPrimaryTumorClassification from '../../model/oncocore/FluxTNMClinicalPrimaryTumorClassification';
-import FluxTNMClinicalRegionalNodesClassification from '../../model/oncocore/FluxTNMClinicalRegionalNodesClassification';
-import FluxTNMClinicalDistantMetastasesClassification from '../../model/oncocore/FluxTNMClinicalDistantMetastasesClassification';
+import FluxTumorDimensions from '../../model/fluxWrappers/tumor/FluxTumorDimensions';
+import FluxTNMClinicalPrimaryTumorCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalPrimaryTumorCategory';
+import FluxTNMClinicalRegionalNodesCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalRegionalNodesCategory';
+import FluxTNMClinicalDistantMetastasesCategory from '../../model/fluxWrappers/onco/core/FluxTNMClinicalDistantMetastasesCategory';
 
 export default function getProps(patient, condition, filters) {
     const tumorMarkers = patient.getMostRecentTumorMarkers(condition);
     let tnminfo;
-    if (condition.getMostRecentClinicalStaging()) {
-        tnminfo = processPanel(condition.getMostRecentClinicalStaging()._tnmStageGroup._panelMembers.observation, patient);
+    const clinStage = condition.getMostRecentClinicalStaging();
+    if (clinStage
+        && clinStage._tnmStageGroup
+        && clinStage._tnmStageGroup._panelMembers
+        && clinStage._tnmStageGroup._panelMembers.observation) {
+        tnminfo = processPanel(clinStage._tnmStageGroup._panelMembers.observation, patient);
     }
     const propDict = {
         // demographics
@@ -147,12 +151,12 @@ function processPanel(panelMembers, patient) {
     const returnJson = {};
     panelMembers.forEach((e) => {
         const entry = patient.getEntryById(e._entryId);
-        if (entry instanceof FluxTNMClinicalPrimaryTumorClassification) {
-            returnJson.t = entry._tnmStagePanelMember.findingResult.value.coding[0];
-        } else if (entry instanceof FluxTNMClinicalRegionalNodesClassification) {
-            returnJson.n = entry._tnmStagePanelMember.findingResult.value.coding[0];
-        } else if (entry instanceof FluxTNMClinicalDistantMetastasesClassification) {
-            returnJson.m = entry._tnmStagePanelMember.findingResult.value.coding[0];
+        if (entry instanceof FluxTNMClinicalPrimaryTumorCategory) {
+            returnJson.t = entry._cancerStageCategory.dataValue.value.coding[0];
+        } else if (entry instanceof FluxTNMClinicalRegionalNodesCategory) {
+            returnJson.n = entry._cancerStageCategory.dataValue.value.coding[0];
+        } else if (entry instanceof FluxTNMClinicalDistantMetastasesCategory) {
+            returnJson.m = entry._cancerStageCategory.dataValue.value.coding[0];
         }
     });
     return returnJson;
@@ -184,7 +188,7 @@ function _mapProp(propDict, filters) {
             // drops option boxes that don't have
             // a value from the patient record
             if (checkFilter(filters, option)) {
-                let propEntry = {
+                const propEntry = {
                     selected: false,
                     displayText: option.display
                 };

@@ -27,7 +27,8 @@ const orderedOutput = program.orderedOutput;
 const patientEntries = JSON.parse(fs.readFileSync(input, 'utf8'));
 let encounter;
 if (entryid) {
-    encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/encounter/ConsultRequested' && entry.EntryId === entryid);
+
+    encounter = patientEntries.find(entry => entry.EntryType.Value === 'http://standardhealthrecord.org/spec/shr/core/ReferralRequest' && entry.EntryId.Value === entryid);
     // Encounter not found in patient entries so exit the program
     if (encounter === undefined) {
         console.error(`Encounter with entryid ${entryid} not found.`);
@@ -43,7 +44,7 @@ if (encounter) {
     console.log(`Saved backup JSON file to ${input}.backup`);
 
     // encounterDateValue grabs the correct date value based on whether the patient JSON is in mCODE v0.1 or v0.5
-    const encounterDateValue = encounter.Encounter.TimePeriod.TimePeriodStart ? encounter.Encounter.TimePeriod.TimePeriodStart.Value : encounter.Encounter.TimePeriod.BeginDateTime.Value;
+    const encounterDateValue = encounter.ExpectedPerformanceTime.Value.BeginDateTime.Value;
     const encounterDate = moment(encounterDateValue, 'D MMM YYYY HH:mm ZZ').startOf('day');
     today = moment().startOf('day');
     deltaDuration = moment.duration(today.diff(encounterDate));
@@ -55,7 +56,8 @@ patientEntries.forEach((entry, i) => {
     const flattenedEntry = flatten(entry);
     let change = false;
     let isDate;
-    const entryId = flattenedEntry.EntryId;
+
+    const entryId = flattenedEntry['EntryId.Value'];
     const entryType = flattenedEntry["EntryType.Value"].split('/').slice(-1)[0];
     let specificFocusOfFinding = flattenedEntry["SpecificFocusOfFinding.Value._EntryId"];
     if (!specificFocusOfFinding) specificFocusOfFinding = flattenedEntry["Reason.0.Value._EntryId"];
@@ -108,10 +110,10 @@ patientEntries.forEach((entry, i) => {
             entry.value = value;
             entry.specificFocusOfFinding = specificFocusOfFinding;
             entry.findingTopicCode = findingTopicCode;
-            if (entries[entry.entryId]) {
-                entries[entry.entryId].push(entry);
+            if (entries[entry.entryId.id]) {
+                entries[entry.entryId.id].push(entry);
             } else {
-                entries[entry.entryId] = [entry];
+                entries[entry.entryId.id] = [entry];
             }
         } else if (output && isDate) {
             log(key, value);
@@ -128,7 +130,7 @@ if (orderedOutput) {
     newEntries.sort(sortByDate);
     logInOrder("Id", undefined, "Entry Type", "Date", "Ref", "Topic");
     newEntries.forEach((e) => {
-        logInOrder(e.entryId, e.entryType, e.key, e.value, e.specificFocusOfFinding ? e.specificFocusOfFinding : "", e.findingTopicCode ? e.findingTopicCode : "");
+        logInOrder(e.entryId.id, e.entryType, e.key, e.value, e.specificFocusOfFinding ? e.specificFocusOfFinding : "", e.findingTopicCode ? e.findingTopicCode : "");
     });
 }
 
@@ -148,8 +150,8 @@ function log(key, value) {
 function flattenOrderedOutput(entries) {
     let returnEntries = [];
     Object.keys(entries).forEach((entryListIndex) => {
-        let total = [];
-        let metadata = [];
+        const total = [];
+        const metadata = [];
         entries[entryListIndex].forEach((entry) => {
             if (entry.key.toLowerCase().split(".").indexOf("metadata") > -1) {
                 metadata.push(entry);

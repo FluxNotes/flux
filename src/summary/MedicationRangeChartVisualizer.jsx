@@ -54,7 +54,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
             return [];
         }
 
-        let subsections = [];
+        const subsections = [];
         conditionSection.data.forEach((subsection) => {
             subsections.push(subsection);
         });
@@ -221,7 +221,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
             return this.renderMedicationNarrowView(med, i);
         }
         // Grab range values based on medication
-        let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
+        const rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
         // Set the values needed to render the range chart
         const lowerValue = rangeValues ? rangeValues.lowerValue : null;
@@ -282,7 +282,7 @@ class MedicationRangeChartVisualizer extends Visualizer {
 
 renderMedicationNarrowView = (med, i) => {
     // Grab range values based on medication
-    let rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
+    const rangeValues = MedicationInformationService.getRangeValues(med.medication.code, (med.medication.amountPerDose ? med.medication.amountPerDose.units : null));
 
     // Set the values needed to render the range chart
     const lowerValue = rangeValues ? rangeValues.lowerValue : null;

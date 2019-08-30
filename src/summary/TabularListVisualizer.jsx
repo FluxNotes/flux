@@ -47,7 +47,7 @@ export default class TabularListVisualizer extends Visualizer {
     renderedSubsections(subsections) {
         if (subsections.length === 0) return null;
 
-        let isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
+        const isSingleColumn = this.props.conditionSection.isWide !== undefined ? !this.props.conditionSection.isWide : !this.props.isWide;
 
         const numColumns = (subsections[0].data_cache.length === 0) ? 1 : subsections[0].data_cache[0].length;
 
@@ -68,11 +68,11 @@ export default class TabularListVisualizer extends Visualizer {
             numRows += subsection.data_cache.length + 1;
         });
 
-        let halfRows = numRows / 2;
+        const halfRows = numRows / 2;
 
         let firstColumnRows = 0;
-        let firstHalfSections = [];
-        let secondHalfSections = [];
+        const firstHalfSections = [];
+        const secondHalfSections = [];
         subsections.forEach((subsection) => {
             if (firstColumnRows === 0 || ((firstColumnRows + subsection.data_cache.length) <= halfRows)) {
                 firstColumnRows += subsection.data_cache.length;
@@ -151,7 +151,7 @@ export default class TabularListVisualizer extends Visualizer {
 
         let headings = null;
         if (transformedSubsection.headings) {
-            let renderedColumnHeadings = [];
+            const renderedColumnHeadings = [];
             transformedSubsection.headings.forEach((heading, headingIndex) => {
                 renderedColumnHeadings.push(<th key={subsectionindex + "-heading-" + headingIndex} className="list-column-heading">{heading}</th>);
             });
@@ -265,7 +265,7 @@ export default class TabularListVisualizer extends Visualizer {
         let colText = _.isObject(col.value) ? col.value.value : col.value;
         const longElementText = colText;
 
-        if (!_.isNull(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
+        if (!_.isEmpty(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
 
         let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
         if (subsectionActions.length > 0 || this.props.actions.length > 0) {

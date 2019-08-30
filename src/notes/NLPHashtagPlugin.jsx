@@ -144,7 +144,7 @@ function NLPHashtagPlugin(opts) {
         if (Lang.isUndefined(arrayOfPhrases)) {
             return editorTransform;
         } else {
-            let editorState = editorTransform.state;
+            const editorState = editorTransform.state;
             const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
             let originalTextRange;
             for (const phraseValue of arrayOfPhrases) {

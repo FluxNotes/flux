@@ -6,7 +6,7 @@ import './BarChart.css';
 
 export default class BarChart extends Component {
     _getStyles = (survivedPercent, compareToPercent, percentChange, roundedPercent) => {
-        let mainStyle, changeStyle, changeType;
+        let mainStyle, changeStyle;
         if (percentChange < 0) {
             // style for when survival decreases (red)
             mainStyle = { "width": `${survivedPercent}%` };
@@ -17,7 +17,7 @@ export default class BarChart extends Component {
             changeStyle = { "width": `${percentChange}%` };
         }
 
-        changeType = percentChange > 0;
+        const changeType = percentChange > 0;
         return { mainStyle, changeStyle, changeType };
     }
 

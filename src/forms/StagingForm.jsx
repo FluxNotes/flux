@@ -29,19 +29,19 @@ class StagingForm extends Component {
 
     _handleTumorSizeClick(e, i) {
         e.preventDefault();
-        let newValue = this.state.tumorValues[i].name;
+        const newValue = this.state.tumorValues[i].name;
         this.props.updateValue("T", newValue);
     }
 
     _handleNodeClick(e, i) {
         e.preventDefault();
-        let newValue = this.state.nodeValues[i].name;
+        const newValue = this.state.nodeValues[i].name;
         this.props.updateValue("N", newValue);
     }
 
     _handleMetastasisClick(e, i) {
         e.preventDefault();
-        let newValue = this.state.metastasisValues[i].name;
+        const newValue = this.state.metastasisValues[i].name;
         this.props.updateValue("M", newValue);
     }
 

@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import * as  codeableConceptUtils from '../../../model/CodeableConceptUtils.jsx';
+import * as  codeableConceptUtils from '../../../model/CodeableConceptUtils';
 
 describe('getCodeableConceptFromTuple', function() {
     const tuple = {
@@ -18,7 +18,7 @@ describe('getCodeableConceptFromTuple', function() {
         expect(concept.coding)
             .to.be.an('array')
             .that.is.not.empty;
-        expect(concept.coding[0].code.value)
+        expect(concept.coding[0].codeValue.code)
             .to.be.a('string')
             .eql(tuple.value);
         expect(concept.coding[0].codeSystem.value)

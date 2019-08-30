@@ -17,7 +17,7 @@ export default class CodingFix extends Coding {
     if (typeof fhir === 'string') {
       const inst = new CodingFix();
 
-      inst.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir, 'code', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.codeValue = FHIRHelper.createInstanceFromFHIR('shr.core.CodeValue', fhir, 'code', shrId, allEntries, mappedResources, referencesOut, false);
       inst.displayText = FHIRHelper.createInstanceFromFHIR('shr.core.DisplayText', fhir, 'string', shrId, allEntries, mappedResources, referencesOut, false);
 
       return inst;

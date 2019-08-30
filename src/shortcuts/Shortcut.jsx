@@ -83,7 +83,7 @@ class Shortcut extends Context {
         return this.optionsToSelectFrom;
     }
 
-    //options is array of {key: item.entryId, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
+    //options is array of {key: item.entryId.id, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
     flagForTextSelection(options) {
         // Sort the options by time if options is an array
         if (Lang.isArray(options)) {
@@ -132,7 +132,7 @@ class Shortcut extends Context {
         } else {
             let foundParentContext = null;
             if (parentAttribute) {
-                let contexts = contextManager.getActiveContexts();
+                const contexts = contextManager.getActiveContexts();
                 let index = 0;
                 while (index < contexts.length && !contexts[index].isAttributeSupported(parentAttribute)) {
                     index++;

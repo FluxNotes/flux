@@ -90,7 +90,8 @@ export default class TreatmentOptionsOutcomes extends Component {
     }
 
     renderToggleButtons = () => {
-        let { outcomesToggle, timescaleToggle } = this.state;
+        let { timescaleToggle } = this.state;
+        const { outcomesToggle } = this.state;
         const { timescale } = this.props;
 
         if (timescaleToggle==='') {

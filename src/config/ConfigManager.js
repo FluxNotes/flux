@@ -15,18 +15,18 @@ export default class ConfigManager {
     }
 
     async loadConfiguration(url) {
-        let response = await axios.get(url);
+        const response = await axios.get(url);
         if (response) {
             this.addConfiguration(response.data);
         }
     }
 
     get(name, defaultValue) {
-        let parts = name.split('.');
+        const parts = name.split('.');
         let context = this.config;
         let value = null;
-        for (let i in parts) {
-            let part = parts[i];
+        for (const i in parts) {
+            const part = parts[i];
             value = context[part];
             context = value;
         }

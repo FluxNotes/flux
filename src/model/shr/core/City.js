@@ -5,13 +5,10 @@ import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import ClassRegistry from '../../ClassRegistry';
 
-import GeopoliticalLocation from './GeopoliticalLocation';
-
 /**
  * Generated class for shr.core.City.
- * @extends GeopoliticalLocation
  */
-class City extends GeopoliticalLocation {
+class City {
 
   /**
    * Get the value (aliases string).

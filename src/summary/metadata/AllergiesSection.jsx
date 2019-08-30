@@ -15,7 +15,7 @@ export default class AllergiesSection extends MetadataSection {
                     headings: ["Allergy", "Severity", "Effects"],
                     itemsFunction: this.getItemListForAllergies,
                     preTableCount: "allergies",
-                    postTableList: this.getItemListForNoKnownAllergies,
+                    postTableList: this.getItemListForNoKnownAllergies
                 }
             ]
         };
@@ -23,7 +23,7 @@ export default class AllergiesSection extends MetadataSection {
 
     getItemListForAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        const allergies = patient.getAllergyIntolerancesSortedBySeverity();
+        const allergies = patient.getAllergyIntolerancesSortedBySeverity().filter(a => !a.name.startsWith('No known'));
         return allergies.map((a) => {
             return [    { value: a.name },
                 { value: a.severity },
@@ -33,9 +33,9 @@ export default class AllergiesSection extends MetadataSection {
 
     getItemListForNoKnownAllergies = (patient, currentConditionEntry) => {
         if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
-        let noKnownAllergies = patient.getNoKnownAllergies();
+        const noKnownAllergies = patient.getAllergyIntolerancesSortedBySeverity().filter(a => a.name.startsWith('No known'));
         return noKnownAllergies.map((a) => {
-            return {value: a.noKnownAllergy};
+            return {value: a.name};
         });
     }
 }

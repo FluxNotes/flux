@@ -43,9 +43,9 @@ function updateMaps(shortcut, opts) {
 
 function StructuredFieldPlugin(opts) {
     opts = createOpts(opts);
-    let contextManager = opts.contextManager;
-    let updateErrors = opts.updateErrors;
-    let insertText = opts.insertText;
+    const contextManager = opts.contextManager;
+    const updateErrors = opts.updateErrors;
+    const insertText = opts.insertText;
     const clearStructuredFieldMap = opts.structuredFieldMapManager.clearStructuredFieldMap;
     const createShortcut = opts.createShortcut;
 
@@ -72,14 +72,14 @@ function StructuredFieldPlugin(opts) {
                 && state.selection.isCollapsed) {
                 let transform = state.transform();
                 transform = transform.removeNodeByKey(previousNode.key);
-                let newState = transform.apply();
+                const newState = transform.apply();
                 return newState;
             }
         } else if (e.keyCode === 37 && previousNode) {
             if (previousNode.type === 'structured_field') {
                 let transform = state.transform();
                 transform = transform.collapseToStart(previousNode);
-                let newState = transform.apply();
+                const newState = transform.apply();
                 return newState;
             }
         } else if (e.keyCode === 39 && parentNode) {
@@ -87,7 +87,7 @@ function StructuredFieldPlugin(opts) {
                 && !(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
                 let transform = state.transform();
                 transform = transform.collapseToStartOfNextText();
-                let newState = transform.apply();
+                const newState = transform.apply();
                 return newState;
             }
         }
@@ -151,7 +151,7 @@ function StructuredFieldPlugin(opts) {
             const newShortcutNode = transform.state.document.getNextSibling(newTextNode.key);
             let shortcutText = newShortcutNode.text;
             if (shortcut.valueObject) {
-                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
+                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId.id}"}`;
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
@@ -189,14 +189,14 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onChange(state, editor) {
-        var deletedKeys = [];
+        const deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
         const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
         const nodes = getAllStructuredFields(state.document.toJSON().nodes);
 
         if (nodes.length !== keyToShortcutMap.size) {
-            var currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
+            const currentNodesMap = new Map(nodes.map((i) => [i.key, i]));
             keyToShortcutMap.forEach((value, key) => {
                 if (!currentNodesMap.has(key)) {
                     deletedKeys.push(key);
@@ -205,7 +205,7 @@ function StructuredFieldPlugin(opts) {
         }
         // Sort the keys in reverse order of creation -- new keys are always > old keys
         deletedKeys.sort((a, b) => b - a);
-        var shortcut;
+        let shortcut;
         let result = state;
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
@@ -306,7 +306,7 @@ function StructuredFieldPlugin(opts) {
     function convertSlateNodesToText(nodes) {
         let result = '';
         let localStyle = [];
-        let markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
+        const markToHTMLTag = { bold: 'strong', italic: 'em', underlined: 'u' };
         nodes.forEach((node, index) => {
             if (node.type === 'line') {
                 // This checks whether the current line is the last one to be processed. If it is, then we don't want to add a div set; this will cause newlines to be perpetually added to the end of the note every time it is closed.
@@ -569,7 +569,7 @@ function StructuredFieldPlugin(opts) {
             let shortcutText = newShortcutNode.text;
 
             if (shortcut.valueObject) {
-                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId}"}`;
+                shortcutText = `{"text": "${newShortcutNode.text}", "entryId": "${shortcut.valueObject.entryInfo.entryId.id}"}`;
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
@@ -689,7 +689,7 @@ function createStructuredField(opts, shortcut) {
     if (isInserter) {
         const lines = String(shortcut.getDisplayText()).split(/\n\r|\r\n|\r|\n/g);
         let textNodes = [];
-        let inlines = [];
+        const inlines = [];
         lines.forEach((line, i) => {
             textNodes = [Slate.Text.create({
                 characters: Slate.Character.createListFromText(line)
@@ -725,7 +725,7 @@ function createStructuredField(opts, shortcut) {
         return inlines;
     }
 
-    let nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
+    const nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
     const properties = {
         type: opts.typeStructuredField,
         nodes: nodes,
@@ -733,7 +733,7 @@ function createStructuredField(opts, shortcut) {
             shortcut: shortcut
         }
     };
-    let sf = Slate.Inline.create(properties);
+    const sf = Slate.Inline.create(properties);
     opts.structuredFieldMapManager.keyToShortcutMap.set(sf.key, shortcut);
     opts.structuredFieldMapManager.idToShortcutMap.set(shortcut.uniqueId, shortcut);
     const shortcutKeys = opts.structuredFieldMapManager.idToKeysMap.get(shortcut.uniqueId) || [];

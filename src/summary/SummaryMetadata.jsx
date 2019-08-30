@@ -114,12 +114,12 @@ export default class SummaryMetadata {
             return metadataDefinition;
         }
 
-        let obj = new metadataDefinition(this.setForceRefresh);
-        let metadata = obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
+        const obj = new metadataDefinition(this.setForceRefresh);
+        const metadata = obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
         metadata.sections.forEach((section) => {
             section.data = section.data.map((subsection) => {
                 if (!Lang.isFunction(subsection)) return subsection;
-                let obj = new subsection();
+                const obj = new subsection();
                 return obj.getMetadata(preferencesManager, patient, condition, roleType, role, specialty);
             });
         });

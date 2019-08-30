@@ -20,17 +20,16 @@ import FluxNotesEditor from '../../../notes/FluxNotesEditor';
 
 import NotesPanel from '../../../panels/NotesPanel';
 import NoteAssistant from '../../../notes/NoteAssistant';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDebraV09 from '../../../dataaccess/BreastMainTreatmentDebraV09.json';
 import PatientRecord from '../../../patient/PatientRecord.jsx';
-import FluxConditionPresentAssertion from '../../../model/base/FluxConditionPresentAssertion';
+import FluxCondition from '../../../model/fluxWrappers/core/FluxCondition';
 
 import SearchIndex from '../../../patientControl/SearchIndex';
-import FluxClinicalNote from '../../../model/core/FluxClinicalNote';
+import FluxClinicalNote from '../../../model/fluxWrappers/core/FluxClinicalNote';
 import PreferenceManager from '../../../preferences/PreferenceManager';
-import FluxCancerDisorderPresent from '../../../model/oncocore/FluxCancerDisorderPresent';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import FluxCancerCondition from '../../../model/fluxWrappers/onco/core/FluxCancerCondition';
 
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+const mcodePatientJson = BreastMainTreatmentDebraV09;
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -80,7 +79,7 @@ describe('3 TargetedDataControl', function() {
     it('3.1 noteDisplayMode buttons update state', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata();
-        const condition = new FluxCancerDisorderPresent({
+        const condition = new FluxCancerCondition({
             "FindingResult": {
                 "Value": {
                     "Coding": [
@@ -155,7 +154,7 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
     it('4.1 correct default visualizer', function() {
         let patient = new PatientRecord(mcodePatientJson);
         const summaryMetadata = new SummaryMetadata(null);
-        const condition = new FluxCancerDisorderPresent({
+        const condition = new FluxCancerCondition({
             "FindingTopicCode": {
                 "Value": {
                     "EntryType": {
@@ -197,13 +196,11 @@ describe('4 TargetedDataControl - correct default visualizer Medications', funct
         const section = metadata.sections.find((section) => {
             return (section.type === "Medications");
         });
-        const expectedDefault = 'chart';
-
+        const expectedDefault = 'tabular';
         const preferenceManager = new PreferenceManager(null);
         const visualizerManager = new VisualizerManager();
         const searchIndex = new SearchIndex();
         const wrapper = shallow(<TargetedDataSection searchSuggestions={[]} patient={null} condition={null} section={section} type={section.type} visualizerManager={visualizerManager} defaultVisualizer={section.defaultVisualizer} preferenceManager={preferenceManager} isWide={false} clinicalEvent='pre-encounter' searchIndex={searchIndex} />);
-
         // Initial state
         expect(wrapper.state('defaultVisualizer'))
             .to.eq(expectedDefault);
@@ -229,7 +226,7 @@ describe('5 FullApp', function() {
     it('5.1 Selecting a condition changes the active condition', () => {
         const wrapper = mount(<FullApp
                 display='Flux Notes'
-                dataSource='HardCodedMcodeV01DataSource'
+                dataSource='HardCodedMcodeV09DataSource'
                 patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const conditionSelector = wrapper.find('SelectInput');
         expect(conditionSelector.exists()).to.equal(true);
@@ -238,7 +235,7 @@ describe('5 FullApp', function() {
         conditionSelector.at(0).props().onChange({target: { value: 1}});
         expect(conditionSelector.text()).to.equal('Fracture');
 
-        expect(wrapper.state('condition') instanceof FluxConditionPresentAssertion);
+        expect(wrapper.state('condition') instanceof FluxCondition);
         //const conditionName = wrapper.find('[data-test-summary-section="Summary"] [data-test-summary-item="Name"]');
        //expect(conditionName.exists()).to.equal(true);
        //expect(conditionName.text()).to.equal('Fracture');
@@ -246,7 +243,7 @@ describe('5 FullApp', function() {
     it('5.2 Clicking "New Note" button in pre-encounter mode changes layout and displays the template selection screen', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -263,7 +260,7 @@ describe('5 FullApp', function() {
     it('5.3 Clicking "New Note" button in pre-encounter mode changes layout, and selecting a blank note should display the editor', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
         const e1 = wrapper.find('div.editor-content');
         expect(e1.exists()).to.equal(false);
@@ -285,7 +282,7 @@ describe('5 FullApp', function() {
     it('5.4 Clicking clinical notes toggle button in Note Assistant switches view to clinical notes', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />);
 
         // Click on new note button to open the editor
@@ -315,7 +312,7 @@ describe('5 FullApp', function() {
     it('5.5 Clicking context toggle button in Note Assistant switches view to context tray', () => {
         const wrapper = mount(<FullApp
             display='Flux Notes'
-            dataSource='HardCodedMcodeV01DataSource'
+            dataSource='HardCodedMcodeV09DataSource'
             patientId='788dcbc3-ed18-470c-89ef-35ff91854c7e' />,
             { attachTo: document.body });
 

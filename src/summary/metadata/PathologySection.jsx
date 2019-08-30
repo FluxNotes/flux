@@ -1,8 +1,8 @@
 import MetadataSection from "./MetadataSection";
-import FluxTumorDimensions from '../../model/tumor/FluxTumorDimensions';
-import FluxTumorMargins from '../../model/tumor/FluxTumorMargins';
-import Lang from 'lodash';
-import FluxCancerDisorderPresent from "../../model/oncocore/FluxCancerDisorderPresent";
+import FluxTumorDimensions from '../../model/fluxWrappers/tumor/FluxTumorDimensions';
+import FluxTumorMargins from '../../model/fluxWrappers/tumor/FluxTumorMargins';
+import _ from 'lodash';
+import FluxCancerCondition from "../../model/fluxWrappers/onco/core/FluxCancerCondition";
 
 export default class PathologySection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -90,8 +90,11 @@ export default class PathologySection extends MetadataSection {
                         {
                             name: "Histological Grade",
                             value: (patient, currentConditionEntry) => {
-                                let histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
-                                return  {   value: histologicalGrade.grade,
+                                const histologicalGrade = currentConditionEntry.getMostRecentHistologicalGrade();
+                                if (_.isNull(histologicalGrade)) return null;
+
+                                return  {
+                                    value: histologicalGrade.grade,
                                     isUnsigned: patient.isUnsigned(histologicalGrade),
                                     source: this.determineSource(patient, histologicalGrade)
                                 };
@@ -103,7 +106,7 @@ export default class PathologySection extends MetadataSection {
         };
 
         // Include receptor statuses for Breast Cancer metadata
-        if (condition instanceof FluxCancerDisorderPresent && condition.isCancerType('Invasive ductal carcinoma of breast')) {
+        if (condition instanceof FluxCancerCondition && condition.isCancerType('Invasive ductal carcinoma of breast')) {
             metadata.narrative.push({
                 defaultTemplate: "ER-${.Receptor Status ER} PR-${.Receptor Status PR} HER2-${.Receptor Status HER2}."
             });
@@ -111,8 +114,8 @@ export default class PathologySection extends MetadataSection {
                 {
                     name: "Receptor Status ER",
                     value: (patient, currentConditionEntry) => {
-                        let er = currentConditionEntry.getMostRecentERReceptorStatus();
-                        if (Lang.isNull(er)) {
+                        const er = currentConditionEntry.getMostRecentERReceptorStatus();
+                        if (_.isNull(er)) {
                             return null;
                         } else {
                             return  {   value: er.status,
@@ -125,8 +128,8 @@ export default class PathologySection extends MetadataSection {
                 {
                     name: "Receptor Status PR",
                     value: (patient, currentConditionEntry) => {
-                        let pr = currentConditionEntry.getMostRecentPRReceptorStatus();
-                        if (Lang.isNull(pr)) {
+                        const pr = currentConditionEntry.getMostRecentPRReceptorStatus();
+                        if (_.isNull(pr)) {
                             return null;
                         } else {
                             return  {   value: pr.status,
@@ -139,8 +142,8 @@ export default class PathologySection extends MetadataSection {
                 {
                     name: "Receptor Status HER2",
                     value: (patient, currentConditionEntry) => {
-                        let her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
-                        if (Lang.isNull(her2)) {
+                        const her2 = currentConditionEntry.getMostRecentHER2ReceptorStatus();
+                        if (_.isNull(her2)) {
                             return null;
                         } else {
                             return  {   value: her2.status,

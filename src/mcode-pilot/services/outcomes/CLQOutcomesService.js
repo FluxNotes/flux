@@ -14,11 +14,11 @@ export default class CLQOutcomesService extends IOutcomesService {
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
     buildDemographicsFilter(activeFilterValues) {
-        let filter = {};
-        let gender = activeFilterValues["shr.core.BirthSex"];
-        let race = activeFilterValues["shr.core.Race"];
-        let age = activeFilterValues["shr.core.DateOfBirth"];
-        let age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
+        const filter = {};
+        const gender = activeFilterValues["shr.core.BirthSex"];
+        const race = activeFilterValues["shr.core.Race"];
+        const age = activeFilterValues["shr.core.DateOfBirth"];
+        const age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
             filter.gender = {
                 codeSystemName: "AdministrativeGender",
@@ -51,12 +51,12 @@ export default class CLQOutcomesService extends IOutcomesService {
     /* Build the CLQ diagnosis filter based off of the Comapss Filter options
      */
     buildDiagnosisFilter(activeFilterValues) {
-        let filter = {};
-        let stage = activeFilterValues["onco.core.TNMClinicalStageGroup"];
-        let t = activeFilterValues["onco.core.TNMClinicalPrimaryTumorCategory"];
-        let n = activeFilterValues["onco.core.TNMClinicalRegionalNodesCategory"];
-        let m = activeFilterValues["onco.core.TNMClinicalDistantMetastasesCategory"];
-        let grade = activeFilterValues["onco.core.CancerHistologicGrade"];
+        const filter = {};
+        const stage = activeFilterValues["onco.core.TNMClinicalStageGroup"];
+        const t = activeFilterValues["onco.core.TNMClinicalPrimaryTumorCategory"];
+        const n = activeFilterValues["onco.core.TNMClinicalRegionalNodesCategory"];
+        const m = activeFilterValues["onco.core.TNMClinicalDistantMetastasesCategory"];
+        const grade = activeFilterValues["onco.core.CancerHistologicGrade"];
         if (stage) {
             filter.stage = stage.reference.stage;
         }
@@ -80,18 +80,18 @@ export default class CLQOutcomesService extends IOutcomesService {
     patient properties
     */
     buildTumorMarkersFilter(activeFilterValues) {
-        let filter = [];
+        const filter = [];
         // loop over options look for tumor markers and add to filter
         let markers = activeFilterValues["onco.core.TumorMarkerTest"];
         if (!_.isEmpty(markers) && !Array.isArray(markers)) {
             markers = [markers];
         }
-        for (let x in markers) {
-            let option = markers[x];
-            let code = option.reference.receptorTypeCodeableConcept;
-            let value = option.value;
+        for (const x in markers) {
+            const option = markers[x];
+            const code = option.reference.receptorTypeCodeableConcept;
+            const value = option.value;
             filter.push({
-                code: code.code.code,
+                code: code.codeValue.code,
                 codeSystem: code.codeSystem.uri,
                 displayName: code.displayText.string,
                 value: _.startCase(_.toLower(value))
@@ -104,7 +104,7 @@ export default class CLQOutcomesService extends IOutcomesService {
     into a filter that is expected by the CLQ service and then call the service and process the
     response into a format that is used by the Compass UI */
     processSimilarPatientOutcomes(fOptions) {
-        let filter = {};
+        const filter = {};
         const activeFilterValues = fOptions.getAllActiveValuesByMcodeElement();
         filter.demographics = this.buildDemographicsFilter(activeFilterValues);
         filter.diagnosis = this.buildDiagnosisFilter(activeFilterValues);

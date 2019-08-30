@@ -62,10 +62,10 @@ export default class NoteAssistant extends Component {
             this.openNote(newNote);
             this.props.setSearchSelectedItem(null);
         }
-        if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId]) {
-            const isVisible = this.isScrolledIntoView(this.refs[nextProps.updatedEditorNote.entryInfo.entryId]);
+        if (nextProps.updatedEditorNote && this.refs[nextProps.updatedEditorNote.entryInfo.entryId.id]) {
+            const isVisible = this.isScrolledIntoView(this.refs[nextProps.updatedEditorNote.entryInfo.entryId.id]);
             if (!isVisible) {
-                this.refs[nextProps.updatedEditorNote.entryInfo.entryId].scrollIntoView();
+                this.refs[nextProps.updatedEditorNote.entryInfo.entryId.id].scrollIntoView();
             }
         }
 
@@ -73,7 +73,7 @@ export default class NoteAssistant extends Component {
         const nextNoteAssistantSuggestions = nextProps.searchSuggestions.filter(s => s.section === 'Clinical Notes' && s.valueTitle !== 'Subsection' && s.valueTitle !== 'Section');
 
         if (!Lang.isEqual(previousNoteAssistantSuggestions, nextNoteAssistantSuggestions)) {
-            const highlightedNoteIds = nextNoteAssistantSuggestions.map(s => s.note.entryInfo.entryId);
+            const highlightedNoteIds = nextNoteAssistantSuggestions.map(s => s.note.entryInfo.entryId.id);
             this.setState({ highlightedNoteIds });
         }
     }
@@ -84,9 +84,10 @@ export default class NoteAssistant extends Component {
 
     isScrolledIntoView(elem) {
         let el = elem;
-        var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height;
+        let rect = el.getBoundingClientRect();
+        const top = rect.top, height = rect.height;
         el = el.parentNode;
-        let bottom = top + height;
+        const bottom = top + height;
         do {
             rect = el.getBoundingClientRect();
             if ((top > rect.bottom || top < rect.top)) return false;
@@ -198,9 +199,9 @@ export default class NoteAssistant extends Component {
             });
         } else {
             this.setState({
-                searchResultNoteId: suggestion.note.entryInfo.entryId
+                searchResultNoteId: suggestion.note.entryInfo.entryId.id
             }, () => {
-                const domNodeRef = this.refs[suggestion.note.entryInfo.entryId];
+                const domNodeRef = this.refs[suggestion.note.entryInfo.entryId.id];
                 if (domNodeRef && domNodeRef.scrollIntoView) {
                     domNodeRef.scrollIntoView();
                 }
@@ -220,55 +221,55 @@ export default class NoteAssistant extends Component {
         // Temporarily disabling opening source note on click
         notesIndexer.indexData('Clinical Notes', '', allNotes, this.props.searchIndex, this.onSearchSuggestionHighlighted, null); //this.onSearchSuggestionClicked
         switch (noteAssistantMode) {
-        case "poc":
-            return (
-                <div>
-                </div>
-            );
+            case "poc":
+                return (
+                    <div>
+                    </div>
+                );
             // Render the context tray
-        case "context-tray":
-            return (
-                <div>
-                    <ContextTray
-                        contextManager={this.props.contextManager}
-                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                        patient={this.props.patient}
-                        setInsertingTemplate={this.props.setInsertingTemplate}
-                        shortcutManager={this.props.shortcutManager}
-                        showTemplateView={this.props.showTemplateView}
-                        updateShowTemplateView={this.props.updateShowTemplateView}
-                    />
-                    {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
-                </div>
-            );
+            case "context-tray":
+                return (
+                    <div>
+                        <ContextTray
+                            contextManager={this.props.contextManager}
+                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                            patient={this.props.patient}
+                            setInsertingTemplate={this.props.setInsertingTemplate}
+                            shortcutManager={this.props.shortcutManager}
+                            showTemplateView={this.props.showTemplateView}
+                            updateShowTemplateView={this.props.updateShowTemplateView}
+                        />
+                        {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
+                    </div>
+                );
 
             // Render the clinical notes view which includes new note button, resume note button,
             // number of previous notes label, sort selection, and preview of previous notes
-        case "clinical-notes":
-            return (
-                <div className="clinical-notes-panel">
-                    {this.renderNewNote()}
-                    <div id="in-progress-note-list">
-                        {this.renderInProgressNotes()}
-                    </div>
+            case "clinical-notes":
+                return (
+                    <div className="clinical-notes-panel">
+                        {this.renderNewNote()}
+                        <div id="in-progress-note-list">
+                            {this.renderInProgressNotes()}
+                        </div>
 
-                    <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
-                    <div id="signed-note-list">
-                        {/*TODO: Complete and enable sort selection/more-notes button*/}
-                        {/*this.renderSortSelection()*/}
-                        {this.renderNotes()}
-                        {/*this.renderMoreNotesButton()*/}
+                        <div className="previous-notes-label">{numberOfPreviousSignedNotes} previous notes</div>
+                        <div id="signed-note-list">
+                            {/*TODO: Complete and enable sort selection/more-notes button*/}
+                            {/*this.renderSortSelection()*/}
+                            {this.renderNotes()}
+                            {/*this.renderMoreNotesButton()*/}
+                        </div>
                     </div>
-                </div>
-            );
+                );
 
             // Render the pick list options panel which allows users to select options for the pick lists
-        case "pick-list-options-panel": {
-            return this.renderPickListOptions();
-        }
-        default:
-            console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
-            return "";
+            case "pick-list-options-panel": {
+                return this.renderPickListOptions();
+            }
+            default:
+                console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
+                return "";
         }
     }
 
@@ -307,14 +308,14 @@ export default class NoteAssistant extends Component {
 
     renderInProgressNote(note, i) {
         let selected = Lang.isEqual(this.props.selectedNote, note);
-        let searchedFor = note.entryInfo.entryId === this.state.searchResultNoteId;
+        const searchedFor = note.entryInfo.entryId.id === this.state.searchResultNoteId;
         // if we have closed the note, selected = false
         if (Lang.isEqual(this.props.noteClosed, true)) {
             selected = false;
         }
 
         return (
-            <div ref={note.entryInfo.entryId} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
+            <div ref={note.entryInfo.entryId.id} className={`note in-progress-note${selected ? " selected" : ""}${searchedFor ? " search-result" : ""}`} key={i} onClick={() => {
                 this.openNote(note);
             }}>
                 <div className="in-progress-text">In progress note</div>
@@ -380,19 +381,19 @@ export default class NoteAssistant extends Component {
         // If the note is selected and open, we want to use the selected className
         const selectedClassName = (Lang.isEqual(this.props.selectedNote, item) && Lang.isEqual(this.props.noteClosed, false)) ? "selected" : "";
         // If the note is in our array of search suggestions, we want to use the search-result className
-        const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId) ? "search-result" : "";
+        const searchedForClassName = Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId.id) ? "search-result" : "";
         // If the note is currently highlighted in our searchSuggestions, we want to use the highlighted-result className
         const highlighedSearchSuggestionClassName = (!Lang.isEmpty(this.props.highlightedSearchSuggestion)
             && this.props.highlightedSearchSuggestion.section === "Clinical Notes"
             && this.props.highlightedSearchSuggestion.valueTitle !== "Section"
             && this.props.highlightedSearchSuggestion.valueTitle !== "Subsection"
-            && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId, item.entryInfo.entryId)
-            && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId)) ? "highlighted-result" : "";
+            && Lang.isEqual(this.props.highlightedSearchSuggestion.note.entryInfo.entryId.id, item.entryInfo.entryId.id)
+            && Lang.includes(this.state.highlightedNoteIds, item.entryInfo.entryId.id)) ? "highlighted-result" : "";
 
         return (
 
             <div
-                ref={item.entryInfo.entryId}
+                ref={item.entryInfo.entryId.id}
                 className={`note existing-note ${selectedClassName} ${searchedForClassName} ${highlighedSearchSuggestionClassName}`}
                 key={i}
                 onClick={() => {
@@ -414,11 +415,11 @@ export default class NoteAssistant extends Component {
 
         // Split hospital name into 2 lines for svg (svg doesn't handle text wrap. Do this manually using tspan tag)
         // Only split the name if it is more than three words long
-        let hospitalWordsArray = item.hospital.split(" ");
+        const hospitalWordsArray = item.hospital.split(" ");
 
         // Arrays hold the words in the hospital name
-        let hospitalFirstArray = [];
-        let hospitalSecondArray = [];
+        const hospitalFirstArray = [];
+        const hospitalSecondArray = [];
 
         // Strings hold the string to be displayed in the note
         let hospitalFirstString = "";
@@ -426,7 +427,7 @@ export default class NoteAssistant extends Component {
 
         // If the hospital name contains more than 3 words, split it into 2 lines to be displayed in the note
         if (hospitalWordsArray.length > 3) {
-            let numberInFirstHalf = Math.ceil(hospitalWordsArray.length / 2);
+            const numberInFirstHalf = Math.ceil(hospitalWordsArray.length / 2);
 
             for (let i = 0; i < Math.ceil(hospitalWordsArray.length / 2); i++) {
                 hospitalFirstArray.push(hospitalWordsArray[i]);

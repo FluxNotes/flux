@@ -1,12 +1,11 @@
 import '../../../model/init';
 import PatientRecord from '../../../patient/PatientRecord';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDebraV09 from '../../../dataaccess/BreastMainTreatmentDebraV09.json';
 import FakeDataElement from './FakeDataElement';
-import Patient from '../../../model/shr/entity/Patient';
+import Patient from '../../../model/shr/core/Patient';
 import Moment from 'moment';
 import {expect} from 'chai';
-import FluxPatient from '../../../model/entity/FluxPatient';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
+import FluxPatient from '../../../model/fluxWrappers/core/FluxPatient';
 
 // The empty PatientRecord.jsx obj
 const emptyPatientObj = new PatientRecord(null);
@@ -14,7 +13,7 @@ const emptyPatientObj = new PatientRecord(null);
 const emptyPatient = emptyPatientObj.entries;
 // The empty patient record entry -- should be null
 const emptyPatientRecord = emptyPatientObj.getPatient();
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+const mcodePatientJson = BreastMainTreatmentDebraV09;
 // The hardcoded PatientRecord.jsx obj
 const hardCodedPatientObj = new PatientRecord(mcodePatientJson);
 // The patient shr object -- an array of entries
@@ -44,8 +43,8 @@ describe('getMostRecentEntryFromList', function () {
     it('should return an element (could be multiple) with the most recent last updated date from non-empty, sorted list of entries that have the attribute lastUpdateDate', function () {
         //slice to clone obj
         const sortedList = hardCodedPatientEntries.filter(e => e.metadata).slice().sort(function (a,b) {
-            const a_lastUpdateDate = new Moment(a.metadata.lastUpdated.instant, "D MMM YYYY");
-            const b_lastUpdateDate = new Moment(b.metadata.lastUpdated.instant, "D MMM YYYY");
+            const a_lastUpdateDate = new Moment(a.metadata.lastUpdated.dateTime, "D MMM YYYY");
+            const b_lastUpdateDate = new Moment(b.metadata.lastUpdated.dateTime, "D MMM YYYY");
             if (a_lastUpdateDate < b_lastUpdateDate) { return 1; }
             if (a_lastUpdateDate > b_lastUpdateDate) { return -1; }
             return 0;

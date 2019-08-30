@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash';
+import _ from 'lodash';
 
 export default class MedicationsSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -20,13 +20,13 @@ export default class MedicationsSection extends MetadataSection {
 
     // TODO: fix bug. not displaying medication change in targeted data panel. make sure we are getting medication
     getItemListForMedications = (patient, condition) => {
-        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        if (_.isNull(patient) || _.isNull(condition)) return [];
 
         // Only showing active medications
-        let meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
+        const meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
         const medicationChanges = patient.getMedicationChangesForConditionChronologicalOrder(condition).filter(change => {
             // Filter reduced medication changes that don't have medBefore and medAfter
-            if (change.type === 'reduced') return change.medicationBeforeChange && change.medicationAfterChange;
+            if (change.type === 'reduced') return change.relatedRequest && change.medicationCodeOrReference;
             return true;
         });
 
@@ -42,20 +42,18 @@ export default class MedicationsSection extends MetadataSection {
             const isUnsigned = patient.isUnsigned(change);
             const source = this.determineSource(patient, change);
 
-            // If medicationChange has both medicationAfterChange and medicationBeforeChange
-            if (change.medicationAfterChange && change.medicationBeforeChange) {
-                const medAfterChangeRef = change.medicationAfterChange.reference;
-
+            // If medicationChange has both medicationCodeOrReference and relatedRequest
+            if (change.medicationCodeOrReference && change.relatedRequest) {
                 // Determine if the medAfterChange corresponds to a med
                 // Get that med if it exists, undefined otherwise
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === medAfterChangeRef.entryId);
+                const medToViz = medsToVisualize.find(medToVizObject => this._entryIdsMatch(medToVizObject.medication.entryId, change.entryId));
 
                 if (medToViz) {
                     // Add the medBeforeChange to the med, for use in visualization
-                    const medBeforeChangeRef = change.medicationBeforeChange.reference;
+                    const medBeforeChangeRef = change.relatedRequest;
                     const medBeforeChange = patient.getEntryFromReference(medBeforeChangeRef);
 
-                    // medAfterChange.medicationBeforeChange = medBeforeChange;
+                    // medAfterChange.relatedRequest = medBeforeChange;
                     medToViz.medicationChange = {
                         isUnsigned,
                         source,
@@ -67,14 +65,14 @@ export default class MedicationsSection extends MetadataSection {
 
                     // Remove the before-medication from vis
                     medsToVisualize = medsToVisualize.filter((medToVizObject) => {
-                        return medToVizObject.medication.entryId !== medBeforeChangeRef.entryId;
+                        return medToVizObject.medication.entryId.id !== medBeforeChangeRef.entryId.id;
                     });
                 }
             }
-            // If medication change only has medicationBeforeChange (does not have medicationAfterChange)
-            else if (change.medicationBeforeChange && !change.medicationAfterChange) {
-                const medBeforeChangeRef = change.medicationBeforeChange.reference;
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId === medBeforeChangeRef.entryId);
+            // If medication change only has relatedRequest (does not have medicationCodeOrReference)
+            else if (change.relatedRequest && !change.medicationCodeOrReference) {
+                const medBeforeChangeRef = change.relatedRequest;
+                const medToViz = medsToVisualize.find(medToVizObject => this._entryIdsMatch(medToVizObject.medication.entryId, medBeforeChangeRef.entryId));
 
                 if (medToViz) {
                     medToViz.medicationChange = {
@@ -90,5 +88,16 @@ export default class MedicationsSection extends MetadataSection {
 
         // instead of returning meds, return list of medsToVisualize
         return medsToVisualize;
+    }
+
+    // TODO: We should avoid pasting this function everywhere that needs to use it. infra task to come
+    _entryIdsMatch(entryId1, entryId2) {
+        if (!entryId1 || !entryId2) return false;
+
+        // entryId could either be just a string or wrapped in an object.
+        // the spec says it should be a shr.base.EntryId but we'll be a little lax here to minimize changes
+        const lhs = entryId1.id || entryId1;
+        const rhs = entryId2.id || entryId2;
+        return lhs === rhs;
     }
 }

@@ -1,4 +1,4 @@
-import * as codeableConceptUtils from '../model/CodeableConceptUtils.jsx';
+import * as codeableConceptUtils from '../model/CodeableConceptUtils';
 
 const statusOptions = [
     {
@@ -74,16 +74,16 @@ const reasonOptions = [
 
 export function getDescription(dataElement) {
     switch (dataElement) {
-    case "progression":
-        return "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
-    case "status":
-        return "Based on on the patient data available to the clinician at the time of evaluation.";
-    case "reason":
-        return "Rationale for the choice of status.";
-    case "referenceDate":
-        return "The date of the event that disease status is being assessed relative to.";
-    default:
-        return null;
+        case "progression":
+            return "Determination of disease status is based on a number of complex variables which include objective measures like tumor growth, symptomatic criteria, patient reports information, and subjective evaluations.";
+        case "status":
+            return "Based on on the patient data available to the clinician at the time of evaluation.";
+        case "reason":
+            return "Rationale for the choice of status.";
+        case "referenceDate":
+            return "The date of the event that disease status is being assessed relative to.";
+        default:
+            return null;
     }
 }
 

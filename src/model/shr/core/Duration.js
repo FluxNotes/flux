@@ -86,10 +86,10 @@ class Duration extends SimpleQuantity {
     const klass = ClassRegistry.get('shr.core', 'Duration');
     const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Number-extension') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-Number-extension') {
         inst.number = FHIRHelper.createInstanceFromFHIR('shr.core.Number', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Units-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-Units-extension') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-Units-extension' && fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-Units-extension') {
         inst.units = FHIRHelper.createInstanceFromFHIR('shr.core.Units', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
         if (fhir_extension['valueCoding'] != null) {
           inst.units.value = FHIRHelper.createInstanceFromFHIR('shr.core.Coding', fhir_extension['valueCoding'], 'Coding', shrId, allEntries, mappedResources, referencesOut, false);

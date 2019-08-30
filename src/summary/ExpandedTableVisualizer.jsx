@@ -31,12 +31,12 @@ export default class ExpandedTableVisualizer extends Visualizer {
     }
 
     getPositiveQuestions = (questions) => {
-        let positiveQuestions = questions.filter(q => q.value === 'positive');
+        const positiveQuestions = questions.filter(q => q.value === 'positive');
         return positiveQuestions;
     }
 
     getNegativeQuestions = (questions) => {
-        let negativeQuestions = questions.filter(q => q.value === 'negative');
+        const negativeQuestions = questions.filter(q => q.value === 'negative');
         return negativeQuestions;
     }
 
@@ -160,8 +160,8 @@ export default class ExpandedTableVisualizer extends Visualizer {
 
     renderedNegativeQuestions(negativeQuestions, date) {
         const halfRows = negativeQuestions.length / 2;
-        let firstHalfQuestions = [];
-        let secondHalfQuestions = [];
+        const firstHalfQuestions = [];
+        const secondHalfQuestions = [];
         negativeQuestions.forEach((question, index) => {
             if (index < halfRows) {
                 firstHalfQuestions.push(question);

@@ -52,7 +52,7 @@ function parsePatientData(treatmentDataPatient, filtered, indices, timescale) {
 }
 
 function generateSimilarPatientTreatments(similarPatients) {
-    let similarPatientTreatments = {};
+    const similarPatientTreatments = {};
 
     similarPatients.forEach(({ treatments }) => {
         treatments.forEach(treatment => {
@@ -113,9 +113,9 @@ function isSimilarPatient(treatmentDataPatient, fOptions) {
             return false;
         // pathology
         } else if (filter.mcodeElement === 'onco.core.TumorMarkerTest') {
-            const receptorType = reference._tumorMarker._findingTopicCode.codeableConcept.coding[0].code.value;
+            const receptorType = reference._tumorMarkerTest.code.value.coding[0].codeValue.value;
             if (receptorType && (!tumorMarkersLabeled[receptorType]
-                || tumorMarkersLabeled[receptorType].value.code !== reference.findingResult._value._coding[0]._code.code)) {
+                || tumorMarkersLabeled[receptorType].value.code !== reference.dataValue.value.coding[0].codeValue.code)) {
                 return false;
             }
         } else if (filter.mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage
@@ -129,7 +129,7 @@ function isSimilarPatient(treatmentDataPatient, fOptions) {
             || filter.mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
             && (diseaseStatus.tnm.filter(status => {
                 return (_.lowerCase(status.codeSystem) === _.lowerCase(reference.codeSystem.value)
-                    && _.lowerCase(status.code) === _.lowerCase(reference.code.value));
+                    && _.lowerCase(status.code) === _.lowerCase(reference.codeValue.value));
             }).length===0)) { // no data available
             return false;
         } else if (filter.mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade

@@ -53,7 +53,7 @@ export default class ClinicalTrialsSection extends MetadataSection {
     }
 
     getItemListToDisplayMissingCriteria = () => {
-        let trialsList = new ClinicalTrialsList();
+        const trialsList = new ClinicalTrialsList();
         if (this.trialDisplayMissingCriteria !== "") {
             this.missingEligibleTrialData = trialsList.getMissingCriteriaListTrialEligibility(this.trialDisplayMissingCriteria);
             return this.missingEligibleTrialData.map((data) => {
@@ -102,8 +102,8 @@ export default class ClinicalTrialsSection extends MetadataSection {
     }
 
     getItemListForClinicalTrialEligibility = (patient, currentConditionEntry) => {
-        let clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
-        let eligibleTrials = [];
+        const clinicalTrialsAndCriteriaList = patient.getEligibleClinicalTrials(currentConditionEntry, this.getItemListForEnrolledClinicalTrials(patient, currentConditionEntry));
+        const eligibleTrials = [];
         clinicalTrialsAndCriteriaList.forEach((trial) => {
             eligibleTrials.push([   { value: trial.info.name },
                 { value: (trial.numSatisfiedCriteria + " of " + trial.numTotalCriteria) },

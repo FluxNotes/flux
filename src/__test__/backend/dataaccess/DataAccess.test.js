@@ -1,22 +1,21 @@
 import DataAccess from '../../../dataaccess/DataAccess';
-import BreastMainTreatmentDebra from '../../../dataaccess/BreastMainTreatmentDebra.json';
+import BreastMainTreatmentDebraV09 from '../../../dataaccess/BreastMainTreatmentDebraV09.json';
 import hardCodedFHIRPatient from '../../../dataaccess/HardCodedFHIRPatient.json';
-import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatient.json';
+import hardCodedConvertedFHIRPatient from '../../../dataaccess/HardCodedConvertedFHIRPatientV09.json';
 import PatientRecord from '../../../patient/PatientRecord';
 //import referenceHardCodedPatient from '../../../dataaccess/HardCodedPatient.json';
 import moment from 'moment';
 import {expect} from 'chai';
-import * as EntryMapper from '../../../dataaccess/mcodev0.1-datasource/EntryMapper';
 import util from 'util';
 
-const mcodePatientJson = EntryMapper.mapEntries(BreastMainTreatmentDebra);
+const mcodePatientJson = BreastMainTreatmentDebraV09;
 // reference hard coded Patient
 const referenceHardCodedPatient = new PatientRecord(mcodePatientJson);
 // reference person of record
 const referencePatient = referenceHardCodedPatient.getPatient();
 
 // Data Access with hard coded read only data source
-const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV01DataSource");
+const hardCodedReadOnlyDataAccess = new DataAccess("HardCodedMcodeV09DataSource");
 // The patient shr object
 const hardCodedPatientObj = hardCodedReadOnlyDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID);
 // The patient record entry -- should be an shr object
@@ -175,19 +174,13 @@ describe('use smart on fhir as data source with simple mock', function() {
         window.FHIR = mockWindowFhir;
     });
 
-    const smartOnFhirDataAccess = new DataAccess("McodeV05SmartOnFhirDataSource");
+    const smartOnFhirDataAccess = new DataAccess("McodeV09SmartOnFhirDataSource");
 
     it('getPatient should return the hard coded fhir patient', function(done) {
         let i = 1;
         smartOnFhirDataAccess.getPatient(DataAccess.DEMO_PATIENT_ID, (smartPatientResult, _error) => {
             const smartPatientResultJSON = smartPatientResult.entries.map(entry => entry.toJSON());
-            // at this point smartPatientResultJSON and hardCodedConvertedFHIRPatient should be equal, except for the Person.entryID which is randomized at creation time
-
-            // hack to get this working, find the Person.entryID, stringify eveything and replace the entryID with the expected one 2835f59d-cf36-4598-9982-0c539ba052e9
-            const personEntryID = smartPatientResultJSON[0].Person._EntryId.value;
-            const regex = new RegExp(personEntryID, 'g');
-            const tweakedJSON = JSON.parse(JSON.stringify(smartPatientResultJSON).replace(regex, '2835f59d-cf36-4598-9982-0c539ba052e9'));
-            expect(tweakedJSON).to.deep.equal(hardCodedConvertedFHIRPatient);
+            expect(smartPatientResultJSON).to.deep.equal(hardCodedConvertedFHIRPatient);
             done();
         });
     });
@@ -210,9 +203,9 @@ describe('use smart on fhir as data source with simple mock', function() {
 });
 
 describe('test multiple hardcoded read only data source', function() {
-    const hardcodedTabletV01DataSource = new DataAccess("HardcodedTabletMcodeV01DataSource");
-    const ihanosPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7f");
-    const ellaPatientRecord = hardcodedTabletV01DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7e");
+    const hardcodedTabletV09DataSource = new DataAccess("HardcodedTabletMcodeV09DataSource");
+    const ihanosPatientRecord = hardcodedTabletV09DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7f");
+    const ellaPatientRecord = hardcodedTabletV09DataSource.getPatient("788dcbc3-ed18-470c-89ef-35ff91854c7e");
     const ellaNewNoteContent = '@condition[[{"text":"Invasive ductal carcinoma of breast","entryId":"8"}]] <disease status>';
     const ihanosNewNoteContent = '@condition[[{"text":"Gastrointestinal stromal tumor","entryId":"8"}]] <disease status> <toxicity>';
 
@@ -237,7 +230,7 @@ describe('test multiple hardcoded read only data source', function() {
     });
 
     it('get list of patients should return the hardcoded patients', function () {
-        const patientList = hardcodedTabletV01DataSource.getListOfPatients();
+        const patientList = hardcodedTabletV09DataSource.getListOfPatients();
         expect(patientList)
             .to.be.an('array');
         expect(patientList)
@@ -247,12 +240,12 @@ describe('test multiple hardcoded read only data source', function() {
     });
 
     it('new patient should return undefined', function () {
-        expect(hardcodedTabletV01DataSource.newPatient())
+        expect(hardcodedTabletV09DataSource.newPatient())
             .to.be.undefined;
     });
 
     it('savePatient should return undefined', function () {
-        expect(hardcodedTabletV01DataSource.savePatient({}))
+        expect(hardcodedTabletV09DataSource.savePatient({}))
             .to.be.undefined;
     });
 });

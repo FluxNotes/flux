@@ -20,7 +20,7 @@ export default class TargetedDataSection extends Component {
         const optionsForSection = this.getOptions(props.section);
         const defaultVisualizer = this.determineDefaultVisualizer(props.section, props.clinicalEvent, optionsForSection);
 
-        let filters = {};
+        const filters = {};
         this.props.section.data.forEach(subsection => {
             filters[`${this.props.section.name}-${subsection.name}`] = Lang.cloneDeep(subsection.filters) || [];
         });
@@ -74,7 +74,7 @@ export default class TargetedDataSection extends Component {
         this.getNameSuffix(nextProps.section);
 
         if (!Lang.isEqual(nextProps.section, this.props.section)) {
-            let filters = {};
+            const filters = {};
             nextProps.section.data.forEach(subsection => {
                 filters[`${nextProps.section.name}-${subsection.name}`] = Lang.cloneDeep(subsection.filters) || [];
             });
@@ -150,7 +150,7 @@ export default class TargetedDataSection extends Component {
     renderIcon = (type, i) => {
         const visualizerName = this.determineVisualizerName();
         const isSelected = visualizerName === type;
-        let icon = this.props.visualizerManager.renderIcon(type, isSelected);
+        const icon = this.props.visualizerManager.renderIcon(type, isSelected);
 
         if (icon !== null) {
             return (
@@ -167,7 +167,7 @@ export default class TargetedDataSection extends Component {
     }
 
     getVisualizationsIcons = (options) => {
-        let visualizationButtons = options.map((type, i) => this.renderIcon(type, i));
+        const visualizationButtons = options.map((type, i) => this.renderIcon(type, i));
         return visualizationButtons;
     }
 
@@ -287,9 +287,9 @@ export default class TargetedDataSection extends Component {
                 </div>
             );
         } else {
-            let criteriaGroups = {};
+            const criteriaGroups = {};
             let criteriaCheckboxes, categoryName;
-            let criteriaSummaryItems = [];
+            const criteriaSummaryItems = [];
             this.props.section.data.forEach((subsection) => {
                 this.state.filters[`${this.props.section.name}-${subsection.name}`].forEach((filter) => {
                     const propertyValue = filter.propertyValueFunction ? filter.propertyValueFunction(patient, condition) : null;
@@ -327,7 +327,7 @@ export default class TargetedDataSection extends Component {
                 });
             });
             const { expanded } = this.state;
-            let expansionInstructions = <span className='expansion-instructions'>{expanded ? 'Click here to collapse criteria...' : 'Click here to edit criteria...'}</span>;
+            const expansionInstructions = <span className='expansion-instructions'>{expanded ? 'Click here to collapse criteria...' : 'Click here to edit criteria...'}</span>;
             return (
                 <div>
                     <ExpansionPanel expanded={expanded} onChange={(e, newExpanded) => this.setState({expanded: newExpanded})}>
@@ -394,8 +394,8 @@ export default class TargetedDataSection extends Component {
 
         const subsections = patient === null || condition === null || section === null ? [] : section.data;
         subsections.forEach(subsection => {
-            let items = subsection.items;
-            let itemsFunction = subsection.itemsFunction;
+            const items = subsection.items;
+            const itemsFunction = subsection.itemsFunction;
             // TODO: List is not always a list, it is sometimes a promise which leads to errors in our program, specifically when rendering the next patient
             let list, newSubsection;
 
@@ -412,7 +412,7 @@ export default class TargetedDataSection extends Component {
                         if (Lang.isNull(item.value)) {
                             return {name: item.name, value: null};
                         } else {
-                            let val = item.value(patient, condition, loginUser);
+                            const val = item.value(patient, condition, loginUser);
                             if (val) {
                                 return {name: item.name, value: val.value, shortcutData: val.shortcutData, unsigned: val.isUnsigned, source: val.source, when: val.when};
                             } else {

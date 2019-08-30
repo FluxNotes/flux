@@ -26,8 +26,8 @@ import LoadingError from '../loading/LoadingError';
 import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
-import FluxCancerDisorderPresent from '../model/oncocore/FluxCancerDisorderPresent';
 import FluxNotesEditor from '../notes/FluxNotesEditor';
+import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
 import '../styles/PointOfCareApp.css';
 
 const theme = createMuiTheme({
@@ -133,14 +133,14 @@ export class PointOfCareApp extends Component {
         } else if (DAGestalt.read.sync) {
             // Else, assume sync
             try {
-                let patient = this.dataAccess.getPatient(patientId);
+                const patient = this.dataAccess.getPatient(patientId);
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 this.setState({
                     patient,
                     loading: false
                 });
                 const cancer = patient.getActiveConditions().find((condition) => {
-                    return condition instanceof FluxCancerDisorderPresent;
+                    return condition instanceof FluxCancerCondition;
                 });
                 this.setCondition(cancer);
             } catch (error) {
@@ -314,8 +314,8 @@ export class PointOfCareApp extends Component {
 
     // Update shortcuts and update patients accordingly
     handleShortcutUpdate = (s) => {
-        let p = this.state.patient;
-        let note = this.state.openClinicalNote;
+        const p = this.state.patient;
+        const note = this.state.openClinicalNote;
         s.updatePatient(p, this.contextManager, note);
     }
 

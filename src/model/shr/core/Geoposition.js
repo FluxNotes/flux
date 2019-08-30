@@ -1,7 +1,7 @@
 // GENERATED CODE
 // Manual modification is NOT RECOMMENDED as changes will be overwritten the next time the class is generated.
 
-import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
+import { setPropertiesFromJSON, uuid } from '../../json-helper';
 
 import ClassRegistry from '../../ClassRegistry';
 
@@ -136,17 +136,6 @@ class Geoposition {
   static fromFHIR(fhir, fhirType, shrId=uuid(), allEntries=[], mappedResources={}, referencesOut=[], asExtension=false) {
     const klass = ClassRegistry.get('shr.core', 'Geoposition');
     const inst = new klass();
-    if (fhir['position'] != null) {
-      if (fhir['position']['longitude'] != null) {
-        inst.longitude = FHIRHelper.createInstanceFromFHIR('shr.core.Longitude', fhir['position']['longitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['position']['latitude'] != null) {
-        inst.latitude = FHIRHelper.createInstanceFromFHIR('shr.core.Latitude', fhir['position']['latitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-      if (fhir['position']['altitude'] != null) {
-        inst.altitude = FHIRHelper.createInstanceFromFHIR('shr.core.Altitude', fhir['position']['altitude'], 'decimal', shrId, allEntries, mappedResources, referencesOut, false);
-      }
-    }
     return inst;
   }
 

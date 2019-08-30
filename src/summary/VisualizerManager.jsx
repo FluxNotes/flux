@@ -29,7 +29,7 @@ export default class VisualizerManager {
     }
 
     transformValuesOverTimeToColumns = (patient, condition, subsection, getFilterValue) => {
-        let newsection = {};
+        const newsection = {};
 
         const itemList = subsection.itemsFunction(patient, condition, subsection, getFilterValue);
 
@@ -191,7 +191,7 @@ export default class VisualizerManager {
     }
 
     transformNameValuePairToColumns = (patient, condition, subsection, getFilterValue) => {
-        let newsection = {};
+        const newsection = {};
 
         const { itemsFunction } = subsection;
         let { items } = subsection;
@@ -243,7 +243,7 @@ export default class VisualizerManager {
 
     getVisualizer(dataType, visualizerType) {
         // TODO: Use a `find` or `pluck` here to get the element by reference, instead of getting an array and chosing the first thing
-        let result = this.visualizers.filter((viz) => {
+        const result = this.visualizers.filter((viz) => {
             return (viz.dataType === dataType && viz.visualizerType === visualizerType);
         });
         if (Lang.isNull(result) || result.length !== 1) return null;
@@ -252,28 +252,28 @@ export default class VisualizerManager {
 
     getIndexer(dataType) {
         switch (dataType) {
-        case "NameValuePairs":
-        case "NarrativeOnly":
-            return new NameValuePairsIndexer();
-        case "Columns":
-            return new ColumnsIndexer();
-        case "Events":
-            return new EventsIndexer();
-        case "Medications":
-            return new MedicationsIndexer();
-        case "ValueOverTime":
-            return new ValueOverTimeIndexer();
-        case "DiseaseStatusValues":
-            return new DiseaseStatusValuesIndexer();
-        case "ReviewOfSystemsValues":
-            return new ReviewOfSystemsValuesIndexer();
-        case "ClusterPoints":
-            return new ClusterPointsIndexer();
-        case "TreatmentOptions":
-            return new BaseIndexer();
-        default:
-            console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
-            return null;
+            case "NameValuePairs":
+            case "NarrativeOnly":
+                return new NameValuePairsIndexer();
+            case "Columns":
+                return new ColumnsIndexer();
+            case "Events":
+                return new EventsIndexer();
+            case "Medications":
+                return new MedicationsIndexer();
+            case "ValueOverTime":
+                return new ValueOverTimeIndexer();
+            case "DiseaseStatusValues":
+                return new DiseaseStatusValuesIndexer();
+            case "ReviewOfSystemsValues":
+                return new ReviewOfSystemsValuesIndexer();
+            case "ClusterPoints":
+                return new ClusterPointsIndexer();
+            case "TreatmentOptions":
+                return new BaseIndexer();
+            default:
+                console.warn(`Targeted Data Panel data type '${dataType}' has no registered indexer.`);
+                return null;
         }
     }
 

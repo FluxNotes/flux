@@ -91,7 +91,7 @@ class Statistic extends Quantity {
     const klass = ClassRegistry.get('shr.core', 'Statistic');
     const inst = new klass();
     for (const fhir_extension of fhir['extension'] || []) {
-      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://example.com/fhir/StructureDefinition/shr-core-StatisticType-extension') {
+      if (fhir_extension['url'] != null && fhir_extension['url'] === 'http://hl7.org/fhir/us/shr/DSTU2/StructureDefinition/shr-core-StatisticType-extension') {
         inst.statisticType = FHIRHelper.createInstanceFromFHIR('shr.core.StatisticType', fhir_extension, 'Extension', shrId, allEntries, mappedResources, referencesOut, true);
       }
     }
@@ -114,7 +114,7 @@ class Statistic extends Quantity {
     if (fhir['code'] != null) {
       inst.units = inst.units || FHIRHelper.createInstanceFromFHIR('shr.core.Units', {}, null, shrId);
       inst.units.value = inst.units.value || FHIRHelper.createInstanceFromFHIR('shr.core.Coding', {}, null, shrId);
-      inst.units.value.code = FHIRHelper.createInstanceFromFHIR('shr.core.Code', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.units.value.codeValue = FHIRHelper.createInstanceFromFHIR('shr.core.CodeValue', fhir['code'], 'code', shrId, allEntries, mappedResources, referencesOut, false);
     }
     return inst;
   }

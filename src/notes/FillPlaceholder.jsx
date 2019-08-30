@@ -55,7 +55,7 @@ export default class FillPlaceholder extends Component {
         if (placeholder.multiplicity === 'many') {
             // original implementation to determine if we should add a new entry or not for a multiple-entry placeholder
             // if first field of the last entry has a value, we add a new one else we use it
-            let lastEntryIndex = placeholder.entryShortcuts.length - 1;
+            const lastEntryIndex = placeholder.entryShortcuts.length - 1;
             /*            const valFirstField = placeholder.getAttributeValue(data.fields[0].name, lastEntryIndex);
             if (Lang.isUndefined(valFirstField) || Lang.isNull(valFirstField) || valFirstField.length === 0) {
                 entryIndex = lastEntryIndex;

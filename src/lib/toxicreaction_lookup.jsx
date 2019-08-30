@@ -1,6 +1,6 @@
 const Lang = require('lodash/lang');
 const Collection = require('lodash/collection');
-const codeableConceptUtils = require('../model/CodeableConceptUtils.jsx');
+const codeableConceptUtils = require('../model/CodeableConceptUtils');
 
 // These options came from the values of CauseCategory, which is a CodeableConcept from AttributionCategoryVS
 const attributionOptions = [
@@ -8768,16 +8768,16 @@ const adverseEventOptions = [
  */
 export function getDescription(dataElement) {
     switch (dataElement) {
-    case "toxicity":
-        return "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).";
-    case "adverseEvent":
-        return "Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.";
-    case "grade":
-        return "The severity of the adverse event. The CTCAE defines Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.";
-    case "attribution":
-        return "The relationship of the event or cause to the adverse event.";
-    default:
-        return null;
+        case "toxicity":
+            return "Side effects to treatment, important for effective evaluation of disease and treatment, based on Common Terminology Criteria for Adverse Events (CTCAE) version 4.03 (June 14, 2010).";
+        case "adverseEvent":
+            return "Any unfavorable and unintended sign, symptom, or disease temporally associated with the use of a medical treatment or procedure that may or may not be considered related to the medical treatment or procedure.";
+        case "grade":
+            return "The severity of the adverse event. The CTCAE defines Grades 1 through 5 with unique clinical descriptions of severity for each adverse event.";
+        case "attribution":
+            return "The relationship of the event or cause to the adverse event.";
+        default:
+            return null;
     }
 }
 

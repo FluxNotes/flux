@@ -24,7 +24,7 @@ export default class Context {
     }
 
     removeChild(shortcut) {
-        var indexToDelete = -1;
+        let indexToDelete = -1;
         this.children.forEach((item, i) => {
             if (item === shortcut) {
                 indexToDelete = i;
@@ -79,7 +79,7 @@ export default class Context {
     }
 
     notifyValueChangeHandlers(name) {
-        let l = this.valueChangeHandlers[name];
+        const l = this.valueChangeHandlers[name];
         if (Lang.isUndefined(l)) return;
         l.forEach((h) => {
             h(this.getAttributeValue(name));

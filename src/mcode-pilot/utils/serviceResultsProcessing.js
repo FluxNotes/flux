@@ -32,7 +32,7 @@ function generateOutcomeData(data) {
         if (item.total === 0 || !item.sufficiency) {
             return null;
         }
-        let row = initializeTreatmentData(generateTreatmentDisplayName(item.treatments), item.treatments);
+        const row = initializeTreatmentData(generateTreatmentDisplayName(item.treatments), item.treatments);
         row.totalPatients = item.total;
 
         if (!_.isEmpty(item.sideEffects)) {
@@ -41,7 +41,7 @@ function generateOutcomeData(data) {
         }
 
         item.outcomes.forEach((outcome) => {
-            let survivalRate = parseInt(outcome.survivalRate)/12;
+            const survivalRate = parseInt(outcome.survivalRate)/12;
             row.survivorsPerYear[survivalRate] = Math.floor(item.total * outcome.proportion_surviving);
         });
 
@@ -52,8 +52,8 @@ function generateOutcomeData(data) {
 
 /* Process the entire service response. */
 function formatResults(data) {
-    let similarPatientTreatmentsData = generateOutcomeData(data.outcomes.survival.data);
-    let similarPatientTreatments = [];
+    const similarPatientTreatmentsData = generateOutcomeData(data.outcomes.survival.data);
+    const similarPatientTreatments = [];
     similarPatientTreatmentsData.forEach((row) => {
         row.treatments.forEach((treatment) => {
             // dealing with coded values so need to do an inspection

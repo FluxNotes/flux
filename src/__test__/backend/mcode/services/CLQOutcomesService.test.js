@@ -3,7 +3,7 @@ import {
 } from 'chai';
 import _ from 'lodash'
 import CLQOutcomesService from '../../../../mcode-pilot/services/outcomes/CLQOutcomesService'
-import BreastMainTreatmentDiabetesHypertensionJaneV05 from '../../../../dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json';
+import BreastMainTreatmentDiabetesHypertensionJaneV09 from '../../../../dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV09.json';
 import PatientRecord from '../../../../patient/PatientRecord.jsx';
 import getProps from '../../../../mcode-pilot/utils/recordToProps';
 import FilterOptions from '../../../../mcode-pilot/utils/FilterOptions';
@@ -14,7 +14,7 @@ import rows from './rows.js';
 import processed from './processed.js';
 import {generateOutcomeData, formatResults} from '../../../../mcode-pilot/utils/serviceResultsProcessing';
 const nock = require('nock');
-
+const patientMcode = BreastMainTreatmentDiabetesHypertensionJaneV09;
 
 describe("CLQOutcomesService", () => {
     // this removes the unquie row identifiers for a set of results to allow for testing
@@ -29,7 +29,7 @@ describe("CLQOutcomesService", () => {
         "timescale": ["1","3","5"]
     });
 
-    let patient = new PatientRecord(BreastMainTreatmentDiabetesHypertensionJaneV05);
+    let patient = new PatientRecord(patientMcode);
     
     
     let similarPatientProps = getProps(patient, patient.getActiveConditions()[0])

@@ -5,13 +5,13 @@ import { setPropertiesFromJSON, uuid, FHIRHelper } from '../../json-helper';
 
 import ClassRegistry from '../../ClassRegistry';
 
-import Media from './Media';
+import Attachment from './Attachment';
 
 /**
  * Generated class for shr.core.PhotographicImage.
- * @extends Media
+ * @extends Attachment
  */
-class PhotographicImage extends Media {
+class PhotographicImage extends Attachment {
 
   /**
    * Deserializes JSON data to an instance of the PhotographicImage class.
@@ -54,8 +54,8 @@ class PhotographicImage extends Media {
     if (this.title != null) {
       inst['Title'] = typeof this.title.toJSON === 'function' ? this.title.toJSON() : this.title;
     }
-    if (this.creationTime != null) {
-      inst['CreationTime'] = typeof this.creationTime.toJSON === 'function' ? this.creationTime.toJSON() : this.creationTime;
+    if (this.creationDateTime != null) {
+      inst['CreationDateTime'] = typeof this.creationDateTime.toJSON === 'function' ? this.creationDateTime.toJSON() : this.creationDateTime;
     }
     return inst;
   }
@@ -97,7 +97,7 @@ class PhotographicImage extends Media {
       inst.title = FHIRHelper.createInstanceFromFHIR('shr.core.Title', fhir['title'], 'string', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (fhir['creation'] != null) {
-      inst.creationTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationTime', fhir['creation'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
+      inst.creationDateTime = FHIRHelper.createInstanceFromFHIR('shr.core.CreationDateTime', fhir['creation'], 'dateTime', shrId, allEntries, mappedResources, referencesOut, false);
     }
     if (asExtension) {
       inst.value = fhir['valueAttachment'];

@@ -10,10 +10,10 @@ class Placeholder {
         this._clinicalNote = clinicalNote;
         this._setForceRefresh = setForceRefresh;
         this.uniqueId = v4();
-        let shortcuts = [];
+        const shortcuts = [];
         let newShortcut;
         if (data) {
-            let parsedData = JSON.parse(data);
+            const parsedData = JSON.parse(data);
             parsedData.entryIds.forEach((id, index) => {
                 newShortcut = shortcutManager.createShortcut(null, shortcutName, patient, `{"entryId":${id}}`, this.onUpdate.bind(this));
                 newShortcut.setKey("" + index);
@@ -82,7 +82,7 @@ class Placeholder {
 
     getResultText() {
         if (!this._entryShortcuts[0].getEntryId()) return this._placeholderText;
-        let ids = [];
+        const ids = [];
         this._entryShortcuts.forEach((shortcut) => {
             ids.push(shortcut.getEntryId());
         });
@@ -114,7 +114,7 @@ class Placeholder {
     }
 
     getTextWithStylingToDisplayInNote(index = 0) {
-        let isSigned = this._clinicalNote.signed;
+        const isSigned = this._clinicalNote.signed;
 
         if (this._numUpdates > 0 && this._entryShortcuts[index].hasData()) {
             let displayText = "";
