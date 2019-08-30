@@ -141,4 +141,4 @@ Running the script will alter the mock patients so they match the `transformedDa
 
 The structure of the model is directly reflected in the mock patients.  The patients will copy any nesting and key values present in the model.
 
-[![BrowserStack](public/logos/Browserstack-logo@2x.png)](https://www.browserstack.com/)
+[![BrowserStack](public/logos/Browserstack-logo.png)](https://www.browserstack.com/)
