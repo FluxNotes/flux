@@ -730,7 +730,7 @@ class FluxNotesEditor extends React.Component {
 
         // Force shortcut to re-render with updated data
         transform = this.resetShortcutData(shortcut, transform);
-        let state = transform.apply();
+        const state = transform.apply();
         this.setState({ state }, () => {
             this.scrollToData(state.document, shortcut.getKey());
         });
