@@ -118,7 +118,7 @@ class ContextGetHelp extends React.Component {
                     // the parent 'get help' option is not included in the getHelpOptions array
                     // but it is included as a selectedIndex, so there is an off by one that needs
                     // to be calculated, hence the updatedIndex + 1 from the index of the getHelpOptions
-                    let updatedIndex = index + 1;
+                    const updatedIndex = index + 1;
                     return (
                         <li key={updatedIndex}
                             data-active={this.state.selectedIndex === updatedIndex}
