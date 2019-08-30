@@ -224,18 +224,18 @@ export default class NoteAssistant extends Component {
                     </div>
                 );
             // Render the context tray
-        case "context-tray":
-            return (
-                <div>
-                    <ContextTray
-                        contextManager={this.props.contextManager}
-                        updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
-                        patient={this.props.patient}
-                        shortcutManager={this.props.shortcutManager}
-                    />
-                    {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
-                </div>
-            );
+            case "context-tray":
+                return (
+                    <div>
+                        <ContextTray
+                            contextManager={this.props.contextManager}
+                            updateContextTrayItemToInsert={this.props.updateContextTrayItemToInsert}
+                            patient={this.props.patient}
+                            shortcutManager={this.props.shortcutManager}
+                        />
+                        {this.props.isNoteViewerEditable ? this.renderDeleteNoteButton() : null}
+                    </div>
+                );
 
             // Render the clinical notes view which includes new note button, resume note button,
             // number of previous notes label, sort selection, and preview of previous notes
@@ -257,9 +257,9 @@ export default class NoteAssistant extends Component {
                     </div>
                 );
 
-        default:
-            console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
-            return "";
+            default:
+                console.error(`note assistant mode ${noteAssistantMode} is not a valid mode`);
+                return "";
         }
     }
 
