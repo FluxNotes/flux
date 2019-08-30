@@ -207,7 +207,7 @@ class RangeChart extends Component {
         let svgForRangeBar = null;
         let svgForRangeLowerText = null;
         let svgForRangeUpperText = null;
-        if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels) {
+        if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels)) {
             // There's no range; we need to display text to communicate that
             // But that text will squish up against our mainLine;
             // Let's add some padding to avoid that
