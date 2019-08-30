@@ -15,7 +15,8 @@ class RangeChart extends Component {
         // padding value for the two ends of the line
         const mainLinePaddingPixels = 10;
         // y position in pixels for where the line is drawn
-        const mainLineYPosition = 15;
+        // This might have to change if we have text, so we use `let`
+        let mainLineYPosition = 15;
         // height of the tick
         const tickHeight = 20;
         // padding between text and line
@@ -24,6 +25,9 @@ class RangeChart extends Component {
         const viewBoxWidth = 250;
         // height of the viewBox
         const viewBoxHeight = 60;
+        // Conditional padding of the mainLine if there's text to be displayed above it
+        // While the value here is static, it will be conditionally added to the mainLineY
+        const conditionalYPaddingIfNoRange = 10;
 
         // x position in pixels for the center of the svg
         const middle = lineLengthPixels / 2 + lineStartXPixels;
@@ -197,22 +201,18 @@ class RangeChart extends Component {
             }
         }
 
-        // create svg for the typical tick & text labels
-        let svgForTypicalTick = null;
-        let svgForTypicalText = null;
-        if (!Lang.isNull(typicalValueXPixels)) {
-            svgForTypicalTick = <line x1={typicalValueXPixels} y1={mainLineYPosition - Math.floor(tickHeight/2)} x2={typicalValueXPixels} y2={mainLineYPosition + Math.floor(tickHeight/2)} stroke="#979797" strokeWidth="1" />;
-            if (!Lang.isNull(typicalValueTextXPixels)) {
-                svgForTypicalText = <text x={typicalValueTextXPixels} y={mainLineYPosition + textPadding} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">{this.props.typicalValue}</text>;
-            }
-        }
-
         // create svg for the upper & lower value range bar & text labels
+        // NOTE: This needs to happen first incase there's no range data,
+        // since this will result in a shift down of the mainLine
         let svgForRangeBar = null;
         let svgForRangeLowerText = null;
         let svgForRangeUpperText = null;
-        if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels)) {
-            svgForRangeBar = <text x={lineStartXPixels} y={mainLineYPosition - 10} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">dosage range unknown</text>;
+        if (Lang.isNull(lowerValueXPixels) || Lang.isNull(upperValueXPixels) {
+            // There's no range; we need to display text to communicate that
+            // But that text will squish up against our mainLine;
+            // Let's add some padding to avoid that
+            mainLineYPosition += conditionalYPaddingIfNoRange;
+            svgForRangeBar = <text x={lineStartXPixels} y={mainLineYPosition - conditionalYPaddingIfNoRange} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">dosage range unknown</text>;
         } else {
             svgForRangeBar = <line x1={lowerValueXPixels} y1={mainLineYPosition} x2={upperValueXPixels} y2={mainLineYPosition} stroke="#DDD" strokeWidth="5" />;
             if (!Lang.isNull(lowerValueTextXPixels)) {
@@ -220,6 +220,16 @@ class RangeChart extends Component {
             }
             if (!Lang.isNull(upperValueTextXPixels)) {
                 svgForRangeUpperText = <text x={upperValueTextXPixels} y={mainLineYPosition + textPadding} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">{this.props.upperValue}</text>;
+            }
+        }
+
+        // create svg for the typical tick & text labels
+        let svgForTypicalTick = null;
+        let svgForTypicalText = null;
+        if (!Lang.isNull(typicalValueXPixels)) {
+            svgForTypicalTick = <line x1={typicalValueXPixels} y1={mainLineYPosition - Math.floor(tickHeight/2)} x2={typicalValueXPixels} y2={mainLineYPosition + Math.floor(tickHeight/2)} stroke="#979797" strokeWidth="1" />;
+            if (!Lang.isNull(typicalValueTextXPixels)) {
+                svgForTypicalText = <text x={typicalValueTextXPixels} y={mainLineYPosition + textPadding} fontFamily="sans-serif" fontSize="14px" fill="#3F3F3F">{this.props.typicalValue}</text>;
             }
         }
 
