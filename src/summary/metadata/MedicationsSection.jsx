@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash';
+import _ from 'lodash';
 
 export default class MedicationsSection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -20,7 +20,7 @@ export default class MedicationsSection extends MetadataSection {
 
     // TODO: fix bug. not displaying medication change in targeted data panel. make sure we are getting medication
     getItemListForMedications = (patient, condition) => {
-        if (Lang.isNull(patient) || Lang.isNull(condition)) return [];
+        if (_.isNull(patient) || _.isNull(condition)) return [];
 
         // Only showing active medications
         const meds = patient.getActiveAndRecentlyStoppedMedicationsForConditionReverseChronologicalOrder(condition);
@@ -46,7 +46,7 @@ export default class MedicationsSection extends MetadataSection {
             if (change.medicationCodeOrReference && change.relatedRequest) {
                 // Determine if the medAfterChange corresponds to a med
                 // Get that med if it exists, undefined otherwise
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId.id === change.entryId.id);
+                const medToViz = medsToVisualize.find(medToVizObject => this._entryIdsMatch(medToVizObject.medication.entryId, change.entryId));
 
                 if (medToViz) {
                     // Add the medBeforeChange to the med, for use in visualization
@@ -72,7 +72,7 @@ export default class MedicationsSection extends MetadataSection {
             // If medication change only has relatedRequest (does not have medicationCodeOrReference)
             else if (change.relatedRequest && !change.medicationCodeOrReference) {
                 const medBeforeChangeRef = change.relatedRequest;
-                const medToViz = medsToVisualize.find(medToVizObject => medToVizObject.medication.entryId.id === medBeforeChangeRef.entryId.id);
+                const medToViz = medsToVisualize.find(medToVizObject => this._entryIdsMatch(medToVizObject.medication.entryId, medBeforeChangeRef.entryId));
 
                 if (medToViz) {
                     medToViz.medicationChange = {
@@ -88,5 +88,16 @@ export default class MedicationsSection extends MetadataSection {
 
         // instead of returning meds, return list of medsToVisualize
         return medsToVisualize;
+    }
+
+    // TODO: We should avoid pasting this function everywhere that needs to use it. infra task to come
+    _entryIdsMatch(entryId1, entryId2) {
+        if (!entryId1 || !entryId2) return false;
+
+        // entryId could either be just a string or wrapped in an object.
+        // the spec says it should be a shr.base.EntryId but we'll be a little lax here to minimize changes
+        const lhs = entryId1.id || entryId1;
+        const rhs = entryId2.id || entryId2;
+        return lhs === rhs;
     }
 }
