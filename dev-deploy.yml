@@ -6,6 +6,7 @@
     app_dir: "/home/{{ username }}/flux"
     datetime: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
     backup_path: "{{ build_path }}/backup-{{ datetime }}"
+    should_keep_config: "{{ keep_config | default(false) }}"
   tasks:
   - name: Clone the desired version of flux
     git:
@@ -63,6 +64,11 @@
 
   - name: Update copied build files to be the new public_html
     shell: mv {{ build_path }}/build {{ build_path }}/public_html
+    become: yes
+
+  - name: Copy old config.js
+    shell: cp {{ backup_path }}/config.js {{ build_path }}/public_html
+    when: public_html_stat.stat.exists and (should_keep_config | bool)
     become: yes
 
   - name: Restart Apache
