@@ -133,11 +133,28 @@ class ContextGetHelp extends React.Component {
         );
     }
 
+    renderIsCompleteMessage() {
+        const initiatingTrigger = this.props.shortcut.getDisplayText();
+        return (
+            <ul className="context-get-help" ref="contextGetHelp">
+                <li
+                    className="context-get-help-li"
+                >
+                    <span className="context-get-help-text">
+                        <i>{initiatingTrigger} is already complete</i>
+                    </span>
+                </li>
+            </ul>
+        );
+    }
+
     render() {
+        // If the shortcut we're resposible for is complete, display a message to the user to avoid confusion
+        if (this.props.shortcut.isComplete) return this.renderIsCompleteMessage();
+        // Else we should display all our getHelp message
         const initiatingTrigger = this.props.shortcut.getDisplayText();
         let iconClass = 'fa fa-angle-';
         this.state.selectedIndex === -1 ? iconClass += 'down' : iconClass += 'up';
-
         return (
             <ul className="context-get-help" ref="contextGetHelp">
                 <li
