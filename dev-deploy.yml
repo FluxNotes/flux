@@ -21,22 +21,22 @@
     when: git_finished.changed
 
   - name: Update Debra encounter dates
-    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentDebra.json 32
+    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentDebraV09.json 32
     args:
       chdir: "{{ app_dir }}"
 
   - name: Update Ella encounter dates
-    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentTry3Ella.json 100
+    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentTry3EllaV09.json 100
     args:
       chdir: "{{ app_dir }}"
  
   - name: Update Ihanos encounter dates
-    shell: yarn patient-date-update src/dataaccess/GistAdjuvantIhanos.json 100
+    shell: yarn patient-date-update src/dataaccess/GistAdjuvantIhanosV09.json 100
     args:
       chdir: "{{ app_dir }}"
 
   - name: Update Jane encounter dates
-    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV05.json 33
+    shell: yarn patient-date-update src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV09.json 33
     args:
       chdir: "{{ app_dir }}"
 
