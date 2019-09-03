@@ -20,13 +20,12 @@ class TimelineEventsVisualizer extends Visualizer {
         const { conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion, isWide } = this.props;
         const items = this.createItems(conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
-
+        this.stickySupport = true;
         // Define the bounds of the timeline
         const defaultTimeStart = isWide ? moment().clone().add(-3, 'years').add(3, 'months') : moment().clone().add(-1, 'years').add(3, 'months'); // wide view - 3 years ago
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
         const visibleTimeStart = defaultTimeStart.valueOf();
         const visibleTimeEnd = defaultTimeEnd.valueOf();
-
         this.state = {
             items,
             groups,
@@ -60,6 +59,23 @@ class TimelineEventsVisualizer extends Visualizer {
         };
     };
 
+    componentDidMount() {
+        window.addEventListener('load', this.handleLoad);
+    }
+
+    componentDidUpdate() {
+        if (!this.stickySupport) {
+            this.updateMedicationItems();
+        }
+    }
+
+    handleLoad = () => {
+        this.getMedicationItemContainersFromParent(document.querySelector(`[class="rct-items"]`).children);
+        if (!this.stickySupport) {
+            this.updateMedicationItems();
+        }
+    }
+
     componentWillReceiveProps = (nextProps) => {
         const { conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion } = nextProps;
         const items = this.createItems(conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion);
@@ -77,6 +93,28 @@ class TimelineEventsVisualizer extends Visualizer {
                 visibleTimeEnd,
             });
         }
+    }
+
+    getMedicationItemContainersFromParent = (children) => {
+        const returnList = [];
+        for (let item of children) {
+            if (item.className.split(" ")[1]==="medication-item") {
+                const returnMap = {};
+                returnMap.element = item.children[0];
+                returnMap.parentElement = item;
+                returnMap.leftBound = document.querySelector(`[class="react-calendar-timeline"]`).parentElement.getBoundingClientRect().left;
+                returnMap.parentWidth = returnMap.parentElement.getBoundingClientRect().width;
+                returnMap.elementWidth = returnMap.element.getBoundingClientRect().width;
+                const position = getComputedStyle(returnMap.element).position;
+                if (position === "static") {
+                    // position defaults to static if sticky isn't supported
+                    this.stickySupport = false;
+                    returnMap.element.style.position = "relative";
+                }
+                returnList.push(returnMap);
+            }
+        }
+        return returnList;
     }
 
     createItems = (section, tdpSearchSuggestions, highlightedSearchSuggestion) => {
@@ -274,6 +312,23 @@ class TimelineEventsVisualizer extends Visualizer {
         });
     }
 
+    updateMedicationItems() {
+        const items = this.getMedicationItemContainersFromParent(document.querySelector(`[class="rct-items"]`).children);
+        for (let item of items) {
+            if (item.element) {
+                const left = item.parentElement.getBoundingClientRect().left;
+                if (left < item.leftBound) {
+                    if ((item.elementWidth + item.leftBound - left) < item.parentWidth) {
+                        item.element.style.left = item.leftBound - left + 'px';
+                    } else {
+                        item.element.style.left = item.parentWidth - item.elementWidth + "px";
+                    }
+                } else if (left >= item.leftBound) {
+                    item.element.style.left = 0 + "px";
+                }
+            }
+        }
+    }
     onTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
         this.setState({ visibleTimeStart, visibleTimeEnd });
         updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
