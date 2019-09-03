@@ -46,19 +46,23 @@
       chdir: "{{ app_dir }}"
     register: build_finished
 
-  - name: Create backup directory for current build files
-    file:
-      path: "{{ backup_path }}"
-      state: directory
+  - name: Copy build folder into deployment directory
+    shell: cp -r {{ app_dir }}/build {{ build_path }}
     become: yes
 
-  - name: Copy existing build files into backup directory
-    shell: cp -r {{ build_path }}/public_html/* {{ backup_path }}
+  - name: Scan for public_html folder
+    stat:
+      path: "{{ build_path }}/public_html"
+    register: public_html_stat
     become: yes
 
-  - name: Replace contents in build folder with newly built files
-    shell: cp -r {{ app_dir }}/build/* {{ build_path }}/public_html/
-    when: build_finished.changed
+  - name: Change current deployment to a backup
+    shell: mv {{ build_path }}/public_html {{ backup_path }}
+    when: public_html_stat.stat.exists
+    become: yes
+
+  - name: Update copied build files to be the new public_html
+    shell: mv {{ build_path }}/build {{ build_path }}/public_html
     become: yes
 
   - name: Restart Apache
