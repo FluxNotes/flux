@@ -67,6 +67,12 @@ class FluxMedicationStatement extends FluxMedicationBase {
         return this._medicationStatement.metadata.lastUpdated.dateTime;
     }
 
+    get afterDosage() {
+        if (!this.medicationStatementAfterChange) return this.medAfterDoseAmount || null;
+        const medAfter = this._patientRecord.getEntryFromReference(this.medicationStatementAfterChange.value);
+        return medAfter.dose;
+    }
+
     // Set dosage of medicationStatementAfterChange
     set afterDosage(amount) {
         if (!amount) {
