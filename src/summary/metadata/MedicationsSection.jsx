@@ -46,7 +46,7 @@ export default class MedicationsSection extends MetadataSection {
             if (change.medicationCodeOrReference && change.relatedRequest) {
                 // Determine if the medAfterChange corresponds to a med
                 // Get that med if it exists, undefined otherwise
-                const medToViz = medsToVisualize.find(medToVizObject => this._entryIdsMatch(medToVizObject.medication.entryId.id, change.entryId.id));
+                const medToViz = medsToVisualize.find(medToVizObject => this._entryIdsMatch(medToVizObject.medication.entryId, change.entryId));
 
                 if (medToViz) {
                     // Add the medBeforeChange to the med, for use in visualization
