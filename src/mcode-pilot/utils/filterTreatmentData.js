@@ -1,4 +1,3 @@
-import _ from 'lodash';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
@@ -127,8 +126,8 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
             || filter.mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory'
             || filter.mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
             && (diseaseStatus.tnm.filter(status => {
-                return (_.lowerCase(status.codeSystem) === _.lowerCase(reference.codeSystem.value)
-                && _.lowerCase(status.code) === _.lowerCase(reference.code.value));
+                return (status.codeSystem.toLowerCase() === reference.codeSystem.value.toLowerCase()
+                && status.code.toLowerCase() === reference.code.value.toLowerCase());
             }).length===0)) { // no data available
             return false;
         } else if (filter.mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade
