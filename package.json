@@ -124,7 +124,7 @@
     "test-backend:darwin:linux": "CI=true NO_PROXY=localhost react-app-rewired test --env=jsdom --colors",
     "test-fullapp": "run-script-os",
     "test-fullapp:win32": "set CI=true&&react-app-rewired test --env=jsdom test\\backend\\views\\FullApp.test.js",
-    "test-fullapp:darwin:linux": "CI=true react-app-rewired test --env=jsdom test/backend/views/FullApp.test.js",
+    "test-fullapp:darwin:linux": "CI=true react-app-rewired test --env=jsdom --colors __test__/backend/views/FullApp.test.js",
     "test-mcode": "run-script-os",
     "test-mcode:win32": "set CI=true&&react-app-rewired test --env=jsdom \\\\test\\\\backend\\\\mcode\\\\.*\\.test\\.js",
     "test-mcode:darwin:linux": "CI=true react-app-rewired test --env=jsdom test/backend/mcode/*.test.js",
