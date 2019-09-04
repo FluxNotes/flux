@@ -1,5 +1,5 @@
 import SummaryMetadata from './SummaryMetadata';
-import DefaultMetadata from './metadata/DefaultMetadata';
+import DefaultPilot2MvpAppMetadata from './metadata/DefaultPilot2MvpAppMetadata';
 import Pilot2MvpMetadata from './metadata/Pilot2MvpMetadata';
 import FluxCancerCondition from '../model/fluxWrappers/onco/core/FluxCancerCondition';
 import FunctionMatcher from './matchers/FunctionMatcher';
@@ -12,7 +12,7 @@ export default class Pilot2MvpAppSummaryMetadata extends SummaryMetadata {
 
         this.hardCodedMetadata = [
             { "enabled": true, "type": FunctionMatcher, "matchFunction": (condition) => condition instanceof FluxCancerCondition, "metadata": Pilot2MvpMetadata },
-            { "enabled": true, "type": AlwaysMatcher, "metadata": DefaultMetadata },
+            { "enabled": true, "type": AlwaysMatcher, "metadata": DefaultPilot2MvpAppMetadata },
         ];
     }
 }

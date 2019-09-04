@@ -1,4 +1,4 @@
-import MetadataSection from "./MetadataSection";
+import MetadataSection from './MetadataSection';
 import SarcomaSummarySection from './SarcomaSummarySection';
 import TimelineSection from './TimelineSection';
 
