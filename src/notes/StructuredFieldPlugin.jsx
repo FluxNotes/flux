@@ -598,6 +598,48 @@ function StructuredFieldPlugin(opts) {
         editor.onChange(transform);
     }
 
+    function onSelect(event, data, state, editor) {
+        // Anytime the selection changes, we want to correctly handle any selections inside a shortcut node
+        const allNodeKeys = [];
+        opts.structuredFieldMapManager.idToKeysMap.forEach((keyForShortcut, id) => {
+            // Need to handle two cases - where keys are arrays and where keys are just strings
+            if (_.isArray(keyForShortcut)) { 
+                for (const key of keyForShortcut) {
+                    const shortcutNode = state.document.getDescendant(key)
+                    for (const node of shortcutNode.nodes) { 
+                        const nodeKey = node.key;
+                        allNodeKeys.push(nodeKey);
+                    }
+                }
+            } else { 
+                const shortcutNode = state.document.getDescendant(keyForShortcut)
+                for (const node of shortcutNode.nodes) { 
+                    const nodeKey = node.key;
+                    allNodeKeys.push(nodeKey);
+                }
+            }
+        });
+
+        const curStartKey = data.selection.startKey;
+        const curEndKey = data.selection.endKey;
+        // When start and end key are in a shortcut, we should move the focuse and end key to the end 
+        if (allNodeKeys.indexOf(curEndKey) !== -1 && allNodeKeys.indexOf(curStartKey) !== -1) {
+            // Make a new selection object; start by copying the 
+            let newSelection = {};
+            for (const [key, value] of data.selection) {
+                newSelection[key] = value;
+            }
+            // Get the next parent at the end of this node
+            const nodeParent = state.document.getParent(curEndKey);
+            const nextSiblingAfterEnd = state.document.getNextSibling(nodeParent.key)
+            newSelection.focusKey = nextSiblingAfterEnd.key;
+            newSelection.focusOffset = 0;
+            newSelection.anchorKey = nextSiblingAfterEnd.key;
+            newSelection.anchorOffset = 0;
+            return state.transform().select(newSelection).apply();
+        }
+    }
+
     /*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
@@ -608,6 +650,7 @@ function StructuredFieldPlugin(opts) {
         onCut,
         onCopy,
         onPaste,
+        onSelect,
         schema,
         convertToText,
 
