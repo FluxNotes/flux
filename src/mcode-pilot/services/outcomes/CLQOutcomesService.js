@@ -14,7 +14,7 @@ export default class CLQOutcomesService extends IOutcomesService {
     }
 
     _genderMapping(gender) {
-        let lowered = gender ? _.toLower(gender) : null;
+        const lowered = gender ? _.toLower(gender) : null;
         let code = 'UNK';
         let display = 'UNKNOWN';
         if (lowered === "female" || lowered === 'f') {
@@ -85,7 +85,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         }
 
         if (ethnicity) {
-            let ethCode = ethnicity.value;
+            const ethCode = ethnicity.value;
             filter.ethnicity = {
                 "codeSystemName": "HL7 v3 Code System Ethnicity",
                 "codeSystem": "2.16.840.1.113883.5.50",

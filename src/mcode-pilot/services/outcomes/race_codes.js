@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-let codes = [{"level": "1","code": "1002-5","text": "American Indian or Alaska Native"},
+const codes = [{"level": "1","code": "1002-5","text": "American Indian or Alaska Native"},
     {"level": "2","code": "1004-1","text": "American Indian"},
     {"level": "3","code": "1006-6","text": "Abenaki"},
     {"level": "3","code": "1008-2","text": "Algonquian"},
@@ -922,7 +922,7 @@ let codes = [{"level": "1","code": "1002-5","text": "American Indian or Alaska N
     {"level": "2","code": "2129-5","text": "Arab"},
     {"level": "1", "code": "2131-1","text": "Other Race"}];
 
-let codes_to_top = {};
+const codes_to_top = {};
 
 let current_top = null;
 
@@ -934,7 +934,7 @@ codes.forEach(function(x) {
     codes_to_top[_.toLower(x.text)] = current_top;
 });
 
-let find_race_code = function(code_or_value) {
+const find_race_code = function(code_or_value) {
     if (code_or_value === null) { return null; }
     return codes_to_top[code_or_value] || codes_to_top[_.toLower(code_or_value)];
 };
