@@ -1,5 +1,5 @@
 ---
-- hosts: dev
+- hosts: pilot
   remote_user: "{{ username }}"
   become_method: sudo
   vars:
