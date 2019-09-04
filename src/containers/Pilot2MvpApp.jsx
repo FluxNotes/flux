@@ -18,14 +18,14 @@ import ShortcutManager from '../shortcuts/ShortcutManager';
 import StructuredFieldMapManager from '../shortcuts/StructuredFieldMapManager';
 import ContextManager from '../context/ContextManager';
 import DataAccess from '../dataaccess/DataAccess';
-import SummaryMetadata from '../summary/SummaryMetadata';
+import Pilot2MvpAppSummaryMetadata from '../summary/Pilot2MvpAppSummaryMetadata';
 import PatientControlPanel from '../panels/PatientControlPanel';
 import PreferenceManager from '../preferences/PreferenceManager';
 import SearchIndex from '../patientControl/SearchIndex';
 import LoadingAnimation from '../loading/LoadingAnimation';
 import LoadingError from '../loading/LoadingError';
 
-import '../styles/Pilot2MvpApp.css'; // CHANGE ME
+import '../styles/Pilot2MvpApp.css';
 
 const theme = createMuiTheme({
     palette: {
@@ -64,12 +64,12 @@ export class Pilot2MvpApp extends Component {
         this.timeoutDuration = 1000;
 
         if (_.isUndefined(this.props.dataSource)) {
-            this.dataAccess = new DataAccess("HardCodedMcodeV01DataSource");
+            this.dataAccess = new DataAccess("HardCodedMcodeV09DataSource");
         } else {
             this.dataAccess = new DataAccess(this.props.dataSource);
         }
 
-        this.summaryMetadata = new SummaryMetadata(this.setForceRefresh);
+        this.summaryMetadata = new Pilot2MvpAppSummaryMetadata(this.setForceRefresh);
         this.dashboardManager = new DashboardManager();
         this.shortcutManager = new ShortcutManager(this.props.shortcuts);
         this.securityManager = new SecurityManager();
