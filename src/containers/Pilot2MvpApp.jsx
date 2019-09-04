@@ -168,7 +168,7 @@ export class Pilot2MvpApp extends Component {
         } else if (DAGestalt.read.sync) {
             // Else, assume sync
             try {
-                let patient = this.dataAccess.getPatient(patientId);
+                const patient = this.dataAccess.getPatient(patientId);
                 this.contextManager = new ContextManager(patient, this.onContextUpdate);
                 this.setState({
                     patient,
@@ -303,8 +303,8 @@ export class Pilot2MvpApp extends Component {
 
     // Update shortcuts and update patients accordingly
     handleShortcutUpdate = (s) => {
-        let p = this.state.patient;
-        let note = this.state.openClinicalNote;
+        const p = this.state.patient;
+        const note = this.state.openClinicalNote;
         s.updatePatient(p, this.contextManager, note);
     }
 
