@@ -62,6 +62,7 @@ export default class CLQOutcomesService extends IOutcomesService {
         const filter = {};
         const gender = activeFilterValues["shr.core.BirthSex"];
         const race = activeFilterValues["shr.core.Race"];
+        const ethnicity = activeFilterValues["shr.core.Ethnicity"];
         const age = activeFilterValues["shr.core.DateOfBirth"];
         const age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
@@ -137,7 +138,7 @@ export default class CLQOutcomesService extends IOutcomesService {
             const code = option.reference.receptorTypeCodeableConcept;
             const value = option.value;
             filter.push({
-                code: code.code.value,
+                code: code.codeValue.value,
                 codeSystem: code.codeSystem.value,
                 displayName: code.displayText.value,
                 value: _.startCase(_.toLower(value))
