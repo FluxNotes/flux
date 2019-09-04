@@ -898,7 +898,7 @@ const codes = [{"level": "1","code": "1002-5","text": "American Indian or Alaska
     {"level": "3","code": "2102-2","text": "Papua New Guinean"},
     {"level": "3","code": "2103-0","text": "Solomon Islander"},
     {"level": "3","code": "2104-8","text": "New Hebrides"},
-    {"level": "2","code": "2500-7","text": "Other Pacific Islander Note that this term remains in the table for completeness, even though within HL7, the notion of Other code is deprecated."},
+    {"level": "2","code": "2500-7","text": "Other Pacific Islander"},
     {"level": "1","code": "2106-3","text": "White"},
     {"level": "2","code": "2108-9","text": "European"},
     {"level": "3","code": "2109-7","text": "Armenian"},
