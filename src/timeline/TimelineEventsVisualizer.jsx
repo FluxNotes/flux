@@ -70,9 +70,13 @@ class TimelineEventsVisualizer extends Visualizer {
     }
 
     handleLoad = () => {
-        this.getMedicationItemContainersFromParent(document.querySelector(`[class="rct-items"]`).children);
-        if (!this.stickySupport) {
-            this.updateMedicationItems();
+        const rctItems = document.querySelector(`[class="rct-items"]`);
+        if (rctItems) {
+            // sets the stickySupport variable
+            this.getMedicationItemContainersFromParent(rctItems.children);
+            if (!this.stickySupport) {
+                this.updateMedicationItems();
+            }
         }
     }
 
@@ -97,7 +101,7 @@ class TimelineEventsVisualizer extends Visualizer {
 
     getMedicationItemContainersFromParent = (children) => {
         const returnList = [];
-        for (let item of children) {
+        for (const item of children) {
             if (item.className.split(" ")[1]==="medication-item") {
                 const returnMap = {};
                 returnMap.element = item.children[0];
@@ -314,7 +318,7 @@ class TimelineEventsVisualizer extends Visualizer {
 
     updateMedicationItems() {
         const items = this.getMedicationItemContainersFromParent(document.querySelector(`[class="rct-items"]`).children);
-        for (let item of items) {
+        for (const item of items) {
             if (item.element) {
                 const left = item.parentElement.getBoundingClientRect().left;
                 if (left < item.leftBound) {

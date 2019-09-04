@@ -110,7 +110,7 @@ $weekend: rgba(250, 246, 225, 0.5);
     }
 
     .rct-item-content {
-      position: static;
+      position: sticky;
       position: -webkit-sticky;
 
       overflow: hidden;
