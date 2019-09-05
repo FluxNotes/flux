@@ -18,7 +18,6 @@ export default class TreatmentOptionsSelector extends PureComponent {
     };
 
     shouldComponentUpdate(nextProps, nextState) {
-        // return this.props.subTitle.props.children[0].props.children !== nextProps.subTitle.props.children[0].props.children || nextState.expanded !== this.state.expanded;
         return true;
     }
 

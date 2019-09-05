@@ -127,7 +127,7 @@ function isSimilarPatient(treatmentDataPatient, activeValues) {
             || filter.mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
             && (diseaseStatus.tnm.filter(status => {
                 return (status.codeSystem.toLowerCase() === reference.codeSystem.value.toLowerCase()
-                && status.code.toLowerCase() === reference.code.value.toLowerCase());
+                && status.code.toLowerCase() === reference.codeValue.value.toLowerCase());
             }).length===0)) { // no data available
             return false;
         } else if (filter.mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade

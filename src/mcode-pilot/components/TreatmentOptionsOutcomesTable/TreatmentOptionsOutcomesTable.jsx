@@ -69,6 +69,11 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
+    setSelectedTreatment = (event, treatment) => {
+        // eat the event
+        return this.props.setSelectedTreatment(treatment);
+    }
+
     renderTreatmentRow(row, isSelectedTreatment = false) {
         const { selectedTreatment, setSelectedTreatment, timescale, showSideEffects } = this.props;
         const { sideEffectSelection } = this.state;
@@ -86,7 +91,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                         <div className="select-icon">
                             {isSelectedTreatment
                                 ? <CompareSelectedIcon onClick={() => setSelectedTreatment(null)} />
-                                : <CompareUnselectedIcon row={row} onClick={setSelectedTreatment} />
+                                : <CompareUnselectedIcon row={row} onClick={this.setSelectedTreatment} />
                             }
                         </div>
 

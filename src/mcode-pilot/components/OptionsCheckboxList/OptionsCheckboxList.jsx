@@ -15,6 +15,7 @@ export default class OptionsCheckboxList extends Component {
         this.fOptions = new FilterOptions({});
         this.name = this.props.category;
         this.selectListLen = 0;
+        this.valueSum = 0;
         this.state = {
             expanded: true
         };
@@ -25,11 +26,31 @@ export default class OptionsCheckboxList extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.selectListLen !== this.fOptions.recursiveFilterSearch(nextProps.options).filter((option) => { return option.selected; }).length || this.state.expanded !== nextState.expanded;
+        const filters = this.fOptions.recursiveFilterSearch(nextProps.options);
+        const valueSum = filters.reduce((total, option) => {
+            if (option.maxValue) {
+                total+=option.maxValue;
+            }
+            if (option.minValue) {
+                total+=option.minValue;
+            }
+            return total;
+        },0);
+        return this.selectListLen !== filters.filter((option) => { return option.selected; }).length || this.state.expanded !== nextState.expanded || valueSum!==this.valueSum;
     }
 
     componentDidUpdate(prevProps) {
-        this.selectListLen = this.fOptions.recursiveFilterSearch(prevProps.options).filter((option) => { return option.selected; }).length;
+        const filters = this.fOptions.recursiveFilterSearch(prevProps.options);
+        this.selectListLen = filters.filter((option) => { return option.selected; }).length;
+        this.valueSum = filters.reduce((total, option) => {
+            if (option.maxValue) {
+                total+=option.maxValue;
+            }
+            if (option.minValue) {
+                total+=option.minValue;
+            }
+            return total;
+        },0);
     }
     handleExpand = () => {
         this.setState({ expanded: !this.state.expanded });
