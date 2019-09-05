@@ -624,7 +624,7 @@ function StructuredFieldPlugin(opts) {
             }
         });
 
-        // Inspect the incoming selection to see if it 
+        // Inspect the incoming selection to see if it
         const curStartKey = data.selection.startKey;
         const curEndKey = data.selection.endKey;
         // When start and end key are in a shortcut, we should move the focus and end key to the beginning of the next node
