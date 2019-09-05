@@ -13,6 +13,7 @@ import FontAwesome from 'react-fontawesome';
 import Lang from 'lodash';
 import VisualizerMenu from '../summary/VisualizerMenu';
 import Visualizer from '../summary/Visualizer';
+import _ from 'lodash';
 
 class TimelineEventsVisualizer extends Visualizer {
     constructor(props) {
@@ -61,11 +62,13 @@ class TimelineEventsVisualizer extends Visualizer {
 
     componentDidMount() {
         window.addEventListener('load', this.handleLoad);
+        this.throttled = _.throttle(this.getMedicationItemContainersFromParent, 1000);
     }
 
     componentDidUpdate() {
         if (!this.stickySupport) {
-            this.updateMedicationItems();
+            const items = this.throttled(document.querySelector(`[class="rct-items"]`).children);
+            this.updateMedicationItems(items);
         }
     }
 
@@ -73,9 +76,9 @@ class TimelineEventsVisualizer extends Visualizer {
         const rctItems = document.querySelector(`[class="rct-items"]`);
         if (rctItems) {
             // sets the stickySupport variable
-            this.getMedicationItemContainersFromParent(rctItems.children);
+            const items = this.getMedicationItemContainersFromParent(rctItems.children);
             if (!this.stickySupport) {
-                this.updateMedicationItems();
+                this.updateMedicationItems(items);
             }
         }
     }
@@ -316,8 +319,7 @@ class TimelineEventsVisualizer extends Visualizer {
         });
     }
 
-    updateMedicationItems() {
-        const items = this.getMedicationItemContainersFromParent(document.querySelector(`[class="rct-items"]`).children);
+    updateMedicationItems = (items) => {
         for (const item of items) {
             if (item.element) {
                 const left = item.parentElement.getBoundingClientRect().left;
@@ -333,6 +335,7 @@ class TimelineEventsVisualizer extends Visualizer {
             }
         }
     }
+
     onTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
         this.setState({ visibleTimeStart, visibleTimeEnd });
         updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
