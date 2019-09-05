@@ -603,17 +603,17 @@ function StructuredFieldPlugin(opts) {
         const allNodeKeys = [];
         opts.structuredFieldMapManager.idToKeysMap.forEach((keyForShortcut, id) => {
             // Need to handle two cases - where keys are arrays and where keys are just strings
-            if (_.isArray(keyForShortcut)) { 
+            if (_.isArray(keyForShortcut)) {
                 for (const key of keyForShortcut) {
-                    const shortcutNode = state.document.getDescendant(key)
-                    for (const node of shortcutNode.nodes) { 
+                    const shortcutNode = state.document.getDescendant(key);
+                    for (const node of shortcutNode.nodes) {
                         const nodeKey = node.key;
                         allNodeKeys.push(nodeKey);
                     }
                 }
-            } else { 
-                const shortcutNode = state.document.getDescendant(keyForShortcut)
-                for (const node of shortcutNode.nodes) { 
+            } else {
+                const shortcutNode = state.document.getDescendant(keyForShortcut);
+                for (const node of shortcutNode.nodes) {
                     const nodeKey = node.key;
                     allNodeKeys.push(nodeKey);
                 }
@@ -622,16 +622,16 @@ function StructuredFieldPlugin(opts) {
 
         const curStartKey = data.selection.startKey;
         const curEndKey = data.selection.endKey;
-        // When start and end key are in a shortcut, we should move the focuse and end key to the end 
+        // When start and end key are in a shortcut, we should move the focuse and end key to the end
         if (allNodeKeys.indexOf(curEndKey) !== -1 && allNodeKeys.indexOf(curStartKey) !== -1) {
-            // Make a new selection object; start by copying the 
-            let newSelection = {};
+            // Make a new selection object; start by copying the
+            const newSelection = {};
             for (const [key, value] of data.selection) {
                 newSelection[key] = value;
             }
             // Get the next parent at the end of this node
             const nodeParent = state.document.getParent(curEndKey);
-            const nextSiblingAfterEnd = state.document.getNextSibling(nodeParent.key)
+            const nextSiblingAfterEnd = state.document.getNextSibling(nodeParent.key);
             newSelection.focusKey = nextSiblingAfterEnd.key;
             newSelection.focusOffset = 0;
             newSelection.anchorKey = nextSiblingAfterEnd.key;
