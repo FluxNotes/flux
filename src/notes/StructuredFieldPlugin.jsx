@@ -620,7 +620,7 @@ function StructuredFieldPlugin(opts) {
                     const childKey = childNode.key;
                     allNodeKeys.push(childKey);
                 }
-                allNodeKeys.push(key);
+                allNodeKeys.push(keyForShortcut);
             }
         });
 
