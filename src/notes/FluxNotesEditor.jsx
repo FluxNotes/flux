@@ -763,11 +763,12 @@ class FluxNotesEditor extends React.Component {
         if (this.props.contextTrayItemToInsert !== nextProps.contextTrayItemToInsert && !Lang.isNull(nextProps.contextTrayItemToInsert) && nextProps.contextTrayItemToInsert.length > 0) {
             this.insertContextTrayItem(nextProps.contextTrayItemToInsert);
         }
+
         // Check if the updatedEditorNote property has been updated
         if (this.props.updatedEditorNote !== nextProps.updatedEditorNote && !Lang.isNull(nextProps.updatedEditorNote)) {
             // If the updated editor note is an empty string, then add a new blank note. Call method to
             // re initialize editor state and reset updatedEditorNote state in parent to be null
-            if (nextProps.updatedEditorNote === "") {
+            if (nextProps.updatedEditorNote.content === '') {
                 this.resetEditorAndContext();
             }
 
@@ -1353,7 +1354,7 @@ class FluxNotesEditor extends React.Component {
             });
         }
 
-        const state = transform.apply();
+        const state = transform.focus().apply();
 
         // When a note is being loaded, scroll to structured data if user opened note using `Open Source Note` action
         if (source === 'loaded note' && this.props.openSourceNoteEntryId) {
@@ -1375,10 +1376,8 @@ class FluxNotesEditor extends React.Component {
     }
 
     /**
-     *  Checks if any of the shortcuts in the contextTrayItem require the user to choose from pick list
-     *  If not, function will call insertTextWithStructuredPhrases to insert completed contextTrayItem into editor
+     *  function will call insertTextWithStructuredPhrases to insert contextTrayItem into editor
      */
-
     insertContextTrayItem = (contextTrayItem) => {
         this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Shortcuts in Context");
         this.props.updateContextTrayItemToInsert(null);
