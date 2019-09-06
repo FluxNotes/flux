@@ -44,6 +44,7 @@ yarn-error.log*
 /src/styles/FullApp.css
 /src/styles/LandingPage.css
 /src/styles/PointOfCareApp.css
+/src/styles/Pilot2MvpApp.css
 /src/summary/ConditionSelection.css
 /src/summary/LongitudinalTable.css
 /src/summary/NarrativeNameValuePairsVisualizer.css

@@ -287,6 +287,16 @@ CONFIG = {
         shortcuts: []
     },
     {
+        path: '/mvp',
+        display: 'Flux Notes™',
+        app: "Pilot2MvpApp",
+        isExact: true,
+        dataSource: 'HardCodedMcodeV09DataSource',
+        patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
+        clinicianId: '1234567890',
+        shortcuts: []
+    },
+    {
         path: '/p2',
         display: 'Flux Notes™',
         app: "FullApp",
