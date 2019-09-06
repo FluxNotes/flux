@@ -14,6 +14,7 @@ import Lang from 'lodash';
 import VisualizerMenu from '../summary/VisualizerMenu';
 import Visualizer from '../summary/Visualizer';
 import _ from 'lodash';
+import supportsSticky from './util';
 
 class TimelineEventsVisualizer extends Visualizer {
     constructor(props) {
@@ -21,7 +22,6 @@ class TimelineEventsVisualizer extends Visualizer {
         const { conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion, isWide } = this.props;
         const items = this.createItems(conditionSection, tdpSearchSuggestions, highlightedSearchSuggestion);
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
-        this.stickySupport = true;
         // Define the bounds of the timeline
         const defaultTimeStart = isWide ? moment().clone().add(-3, 'years').add(3, 'months') : moment().clone().add(-1, 'years').add(3, 'months'); // wide view - 3 years ago
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
@@ -62,13 +62,13 @@ class TimelineEventsVisualizer extends Visualizer {
 
     componentDidMount() {
         window.addEventListener('load', this.handleLoad);
-        this.throttled = _.throttle(this.getMedicationItemContainersFromParent, 1000);
+        this.throttledGetMedicationItemContainers = _.throttle(this.getMedicationItemContainers, 1000);
     }
 
     componentDidUpdate() {
-        if (!this.stickySupport) {
-            const items = this.throttled(document.querySelector(`[class="rct-items"]`).children);
-            this.updateMedicationItems(items);
+        if (!supportsSticky) {
+            const items = this.throttledGetMedicationItemContainers(document.querySelector(`[class="rct-items"]`).children);
+            this.updateMedicationItemsPosition(items);
         }
     }
 
@@ -76,9 +76,9 @@ class TimelineEventsVisualizer extends Visualizer {
         const rctItems = document.querySelector(`[class="rct-items"]`);
         if (rctItems) {
             // sets the stickySupport variable
-            const items = this.getMedicationItemContainersFromParent(rctItems.children);
-            if (!this.stickySupport) {
-                this.updateMedicationItems(items);
+            const items = this.getMedicationItemContainers(rctItems.children);
+            if (!supportsSticky) {
+                this.updateMedicationItemsPosition(items);
             }
         }
     }
@@ -102,7 +102,7 @@ class TimelineEventsVisualizer extends Visualizer {
         }
     }
 
-    getMedicationItemContainersFromParent = (children) => {
+    getMedicationItemContainers = (children) => {
         const returnList = [];
         for (const item of children) {
             if (item.className.split(" ")[1]==="medication-item") {
@@ -115,7 +115,6 @@ class TimelineEventsVisualizer extends Visualizer {
                 const position = getComputedStyle(returnMap.element).position;
                 if (position === "static") {
                     // position defaults to static if sticky isn't supported
-                    this.stickySupport = false;
                     returnMap.element.style.position = "relative";
                 }
                 returnList.push(returnMap);
@@ -319,7 +318,7 @@ class TimelineEventsVisualizer extends Visualizer {
         });
     }
 
-    updateMedicationItems = (items) => {
+    updateMedicationItemsPosition = (items) => {
         for (const item of items) {
             if (item.element) {
                 const left = item.parentElement.getBoundingClientRect().left;
