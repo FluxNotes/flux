@@ -1,7 +1,7 @@
 import Shortcut from './Shortcut';
 import ValueSetManager from '../lib/ValueSetManager';
 import moment from 'moment';
-import Lang from 'lodash';
+import _ from 'lodash';
 
 export default class CreatorChild extends Shortcut {
     constructor(onUpdate, metadata) {
@@ -17,18 +17,19 @@ export default class CreatorChild extends Shortcut {
         super.initialize(contextManager, trigger, updatePatient);
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
         const text = this.determineText(contextManager);
-        if (!Lang.isUndefined(text)) {
-            if (Lang.isArray(text)) {
+        if (!_.isUndefined(text)) {
+            if (_.isArray(text)) {
                 this.flagForTextSelection(text);
             } else {
                 this.setText(text);
             }
         }
 
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!_.isUndefined(this.parentContext)) {
             this.parentContext.addChild(this);
         }
-        if (trigger === this.metadata.label) {
+
+        if (trigger === this.metadata.label && !_.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
         } else {
             this.setText(trigger, updatePatient);
@@ -46,7 +47,7 @@ export default class CreatorChild extends Shortcut {
 
     onBeforeDeleted() {
         const result = super.onBeforeDeleted();
-        if (result && !Lang.isUndefined(this.parentContext)) {
+        if (result && !_.isUndefined(this.parentContext)) {
             const parentAttributeName = this.metadata.parentAttribute;
             if (this.metadata["subtype"] && this.metadata["subtype"] === "multi-choice") {
                 const currentList = this.parentContext.getAttributeValue(parentAttributeName);
@@ -73,17 +74,17 @@ export default class CreatorChild extends Shortcut {
         // Check the attribute value of the parent to filter the options based on which ones exist in the editor already
         const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || [] : [];
         // If an attributeValue is set and there are no stringTriggers, we can return the value
-        if (!Lang.isEmpty(attributeValue) && Lang.isEmpty(this.metadata.stringTriggers)) return attributeValue;
+        if (!_.isEmpty(attributeValue) && _.isEmpty(this.metadata.stringTriggers)) return attributeValue;
         return this.getValueSet(this.metadata.stringTriggers).filter(item => {
             // If the current attribute value contains this item in the ValueSet, don't include it in the options to select from
-            return !Lang.includes(attributeValue, item.name);
+            return !_.includes(attributeValue, item.name);
         }).map((item) => {
             return {"key": item.id || item.code || item["MedDRA v12.0 Code"], "context": item.name, "object": item};
         });
     }
 
     getValueSet(spec) {
-        if (Lang.isEmpty(spec)) return [];
+        if (_.isEmpty(spec)) return [];
         const args = spec["args"];
         const category = spec["category"];
         const valueSet = spec["valueSet"];
@@ -108,7 +109,7 @@ export default class CreatorChild extends Shortcut {
             value = date.format('D MMM YYYY'); // value updates the entry and requires this format
             this.text = date.format('MM/DD/YYYY'); // this.text is used for displaying values of shortcut in editor
         }
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!_.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeValue(this.metadata.parentAttribute, value, false, updatePatient, previousText);
         }
     }
@@ -136,7 +137,7 @@ export default class CreatorChild extends Shortcut {
             const parentAttributeValue = this.parentContext.getAttributeValue(this.metadata.parentAttribute);
 
             // If we have a multi-choice shortcut, it is incomplete only if the label inserted with no value selected
-            if (Lang.isArray(parentAttributeValue)) {
+            if (_.isArray(parentAttributeValue)) {
                 // If text matches the label, no value selected yet. Render as incomplete
                 return this.getDisplayText() !== this.metadata.label.substring(1);
             }
