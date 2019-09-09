@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import './TableLegend.css';
 
-export default class TableLegend extends Component {
+export default class TableLegend extends PureComponent {
     render() {
         const { compareRow } = this.props;
 

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 const transformedTreatmentData = require('../mock-data/mock-data.json').transformedData;
 
 // This function will eventually be replaced with an API that returns the same data in the same format
@@ -6,8 +5,9 @@ function filterTreatmentData(fOptions, timescale) {
     const totalPatients = transformedTreatmentData.length;
     const indices = {};
     let totalSimilar = 0;
+    const activeValues = fOptions.getAllActiveFilters();
     const similarPatients = transformedTreatmentData.reduce((filtered, treatmentDataPatient, i) => {
-        if (isSimilarPatient(treatmentDataPatient, fOptions)) {
+        if (isSimilarPatient(treatmentDataPatient, activeValues)) {
             totalSimilar++;
             parsePatientData(treatmentDataPatient, filtered, indices, timescale);
         }
@@ -72,13 +72,13 @@ function generateSimilarPatientTreatments(similarPatients) {
     return Object.values(similarPatientTreatments).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-function isSimilarPatient(treatmentDataPatient, fOptions) {
+function isSimilarPatient(treatmentDataPatient, activeValues) {
 
-    const activeValues = fOptions.getAllActiveFilters();
+
     for (let i = 0; i < activeValues.length; i++) {
         const filter = activeValues[i];
         const { minValue, maxValue, reference } = filter;
-        const value = _.lowerCase(filter.value);
+        const value = typeof filter.value === 'string'?filter.value.toLowerCase():filter.value;
 
         // demographics
         const { demographics, diseaseStatus, tumorMarkers } = treatmentDataPatient;
@@ -92,24 +92,22 @@ function isSimilarPatient(treatmentDataPatient, fOptions) {
         const { race, gender, birthDate } = demographics;
         if (filter.mcodeElement === 'shr.core.DateOfBirth') {
             // age
-            const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
+            const birthYear = birthDate.split('-')[0];
             const age = (new Date()).getFullYear() - birthYear;
-
             if (age < minValue || age > maxValue) {
                 return false;
             }
         } else if (filter.mcodeElement === 'shr.core.DateOfDiagnosis') {
             // age at diagnosis
-            const [birthYear] = birthDate.split('-').map((value) => parseInt(value, 10));
-            const [dxYear] = diseaseStatus.diagnosisDate.split('-').map((value) => parseInt(value, 10));
+            const birthYear = birthDate.split('-')[0];
+            const dxYear = diseaseStatus.diagnosisDate.split('-')[0];
             const dxAge = dxYear - birthYear;
-
             if (dxAge < minValue || dxAge > maxValue) {
                 return false;
             }
-        } else if (filter.mcodeElement === 'shr.core.Race' && value !== _.lowerCase(race)) {
+        } else if (filter.mcodeElement === 'shr.core.Race' && value !== race.toLowerCase()) {
             return false;
-        } else if (filter.mcodeElement === 'shr.core.BirthSex' && value !== _.lowerCase(gender)) {
+        } else if (filter.mcodeElement === 'shr.core.BirthSex' && value !== gender.toLowerCase()) {
             return false;
         // pathology
         } else if (filter.mcodeElement === 'onco.core.TumorMarkerTest') {
@@ -119,17 +117,17 @@ function isSimilarPatient(treatmentDataPatient, fOptions) {
                 return false;
             }
         } else if (filter.mcodeElement === 'onco.core.TNMClinicalStageGroup' && (!diseaseStatus.stage
-            || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+            || diseaseStatus.stage.toLowerCase() !== value.toLowerCase())) {
             return false;
         } else if (filter.mcodeElement === 'onco.core.TNMPathologicStageGroup' && (!diseaseStatus.stage
-            || _.lowerCase(diseaseStatus.stage) !== _.lowerCase(value))) {
+            || diseaseStatus.stage.toLowerCase() !== value.toLowerCase())) {
             return false;
         } else if ((filter.mcodeElement === 'onco.core.TNMClinicalPrimaryTumorCategory'
             || filter.mcodeElement === 'onco.core.TNMClinicalRegionalNodesCategory'
             || filter.mcodeElement === 'onco.core.TNMClinicalDistantMetastasesCategory')
             && (diseaseStatus.tnm.filter(status => {
-                return (_.lowerCase(status.codeSystem) === _.lowerCase(reference.codeSystem.value)
-                    && _.lowerCase(status.code) === _.lowerCase(reference.codeValue.value));
+                return (status.codeSystem.toLowerCase() === reference.codeSystem.value.toLowerCase()
+                && status.code.toLowerCase() === reference.codeValue.value.toLowerCase());
             }).length===0)) { // no data available
             return false;
         } else if (filter.mcodeElement === 'onco.core.CancerHistologicGrade' && (!diseaseStatus.grade

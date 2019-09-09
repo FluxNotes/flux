@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 
 import BarChart from '../../visualizations/BarChart/BarChart';
-import MenuItem from '../../../elements/MenuItem';
-import Select from '../../../elements/Select';
 import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import CompareUnselectedIcon from './CompareUnselectedIcon';
 import CompareSelectedIcon from './CompareSelectedIcon';
-import PersonIcon from './PersonIcon';
-
+import TreatmentOptionsOutcomesHeaders from './TreatmentOptionsOutcomesHeaders';
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesTable extends Component {
@@ -73,6 +69,11 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         );
     }
 
+    setSelectedTreatment = (event, treatment) => {
+        // eat the event
+        return this.props.setSelectedTreatment(treatment);
+    }
+
     renderTreatmentRow(row, isSelectedTreatment = false) {
         const { selectedTreatment, setSelectedTreatment, timescale, showSideEffects } = this.props;
         const { sideEffectSelection } = this.state;
@@ -90,7 +91,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                         <div className="select-icon">
                             {isSelectedTreatment
                                 ? <CompareSelectedIcon onClick={() => setSelectedTreatment(null)} />
-                                : <CompareUnselectedIcon onClick={() => setSelectedTreatment(row)} />
+                                : <CompareUnselectedIcon row={row} onClick={this.setSelectedTreatment} />
                             }
                         </div>
 
@@ -132,73 +133,25 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderHeader = () => {
-        const {
-            changeSort,
-            selectedTreatment,
-            showSideEffects,
-            similarPatientTreatmentsData,
-            sortColumn,
-            sortDirection
-        } = this.props;
+        const { similarPatientTreatmentsData, changeSort, selectedTreatment, sortColumn, sortDirection, timescale } = this.props;
         const { sideEffectSelection } = this.state;
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
         const sortP = sortColumn === 'totalPatients';
         const sideEffects = this.gatherSideEffects(similarPatientTreatmentsData);
-
+        const selectedTreatmentBool = selectedTreatment!==undefined && selectedTreatment!==null;
         return (
-            <thead className="treatment-options-outcomes-table__header">
-                <tr>
-                    <td colSpan="2" />
-                    <td colSpan={this.props.timescale.length} className="header-title">Overall survival rates</td>
-                    {showSideEffects && <td>Side Effects</td>}
-                </tr>
-                <tr>
-                    <td className="compare-header">
-                        {selectedTreatment ? 'comparing against' : 'compare'}
-                    </td>
-
-                    <td className="user-icon">
-                        <span onClick={() => changeSort('totalPatients')} className="header-space">
-                            <PersonIcon />
-                            <FontAwesome className={this.getSortClass(sortP)} name={sortP ? sortName : 'sort'} />
-                        </span>
-                    </td>
-
-                    {this.props.timescale.map(timescaleYear => {
-                        return (
-                            <td key={timescaleYear}>
-                                <span onClick={() => changeSort(timescaleYear)} className="header-space">
-                                    {timescaleYear} yr
-                                    <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear ? sortName: "sort"} />
-                                </span>
-                            </td>
-                        );
-                    })}
-
-                    {showSideEffects &&
-                        <td id="ccp-table-select">
-                            <Select
-                                value={sideEffectSelection}
-                                onChange={this.handleChangeEffect}
-                                name="sideEffect"
-                                className="custom-select"
-                            >
-                                <MenuItem value="Most Common" className="side-effect-option">
-                                    <em>Most Common</em>
-                                </MenuItem>
-
-                                {sideEffects.map(effect => {
-                                    return (
-                                        <MenuItem value={effect} key={effect} className="side-effect-option">
-                                            {effect.toLowerCase()}
-                                        </MenuItem>
-                                    );
-                                })}
-                            </Select>
-                        </td>
-                    }
-                </tr>
-            </thead>
+            <TreatmentOptionsOutcomesHeaders
+                changeSort = {changeSort}
+                selectedTreatment = {selectedTreatmentBool}
+                sideEffectSelection = {sideEffectSelection}
+                sortName = {sortName}
+                sortP = {sortP}
+                sideEffects = {sideEffects}
+                sortColumn = {sortColumn}
+                timescale = {timescale}
+                sortDirection = {sortDirection}
+                handleChangeEffect = {this.handleChangeEffect}
+            />
         );
     }
 

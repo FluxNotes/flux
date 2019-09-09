@@ -63,7 +63,6 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
         event.stopPropagation();
         const { setSelectedTreatment } = this.props;
         const { displayedTreatment } = this.state;
-
         if (treatment && (!displayedTreatment || displayedTreatment.displayName !== treatment.displayName)) {
             this.handleDisplayTreatment(treatment);
         }
@@ -120,7 +119,7 @@ export default class TreatmentOptionsOutcomesIcons extends Component {
                         <div className="select-icon">
                             {isSelectedTreatment
                                 ? <CompareSelectedIcon onClick={event => this.handleSelectTreatment(event, null)} />
-                                : <CompareUnselectedIcon onClick={event => this.handleSelectTreatment(event, treatment)} />
+                                : <CompareUnselectedIcon row={treatment} onClick={this.handleSelectTreatment} />
                             }
                         </div>
 
