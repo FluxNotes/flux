@@ -1,6 +1,5 @@
 import Context from '../context/Context';
-//import React from 'react';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
 
@@ -91,14 +90,14 @@ class Shortcut extends Context {
     //options is array of {key: item.entryId.id, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
     flagForTextSelection(options) {
         // Sort the options by time if options is an array
-        if (Lang.isArray(options)) {
+        if (_.isArray(options)) {
             options.sort(this._optionsTimeSorter);
         }
         this.optionsToSelectFrom = options;
     }
 
     needToSelectValueFromMultipleOptions() {
-        return !Lang.isNull(this.optionsToSelectFrom);
+        return !_.isNull(this.optionsToSelectFrom);
     }
 
     /**
@@ -130,29 +129,19 @@ class Shortcut extends Context {
         return 0;
     }
 
+    /**
+     * figure out parent context for this shortcut. Use following:
+     * (1) use known parent context if attribute exists
+     * (2) use parent with correct parent attribute
+     * (3) leave parentContext undefined
+     */
     determineParentContext(contextManager, knownParent, parentAttribute) {
-        // figure out parent context for this shortcut. Use following:
-        //   (1) use known parent context if attribute exists
-        //   (2) use parent with correct parent attribute
-        //   (3) use current context (maybe this should just be an error?)
         if (knownParent) {
             this.parentContext = contextManager.getActiveContextOfType(knownParent);
         } else {
-            let foundParentContext = null;
+            // Find parent with correct parent attribute
             if (parentAttribute) {
-                const contexts = contextManager.getActiveContexts();
-                let index = 0;
-                while (index < contexts.length && !contexts[index].isAttributeSupported(parentAttribute)) {
-                    index++;
-                }
-                if (index < contexts.length) {
-                    foundParentContext = contexts[index];
-                }
-            }
-            if (Lang.isNull(foundParentContext)) {
-                this.parentContext = contextManager.getCurrentContext();
-            } else {
-                this.parentContext = foundParentContext;
+                this.parentContext = contextManager.getActiveContexts().find(c => c.isAttributeSupported(parentAttribute));
             }
         }
     }
@@ -162,11 +151,11 @@ class Shortcut extends Context {
     }
 
     hasParentContext() {
-        return !Lang.isEmpty(this.parentContext);
+        return !_.isEmpty(this.parentContext);
     }
 
     hasValueObjectAttributes() {
-        return !Lang.isEmpty(this.valueObjectAttributes);
+        return !_.isEmpty(this.valueObjectAttributes);
     }
 
     setAttributeIsSetByLabel(name, val) {
