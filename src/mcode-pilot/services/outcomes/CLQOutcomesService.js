@@ -2,6 +2,8 @@ import request from "request";
 import IOutcomesService from './IOutcomesService';
 import _ from 'lodash';
 
+import find_race_code from './race_codes';
+
 export default class CLQOutcomesService extends IOutcomesService {
     constructor(params) {
         super();
@@ -11,20 +13,60 @@ export default class CLQOutcomesService extends IOutcomesService {
         this.filters = params.filters;
     }
 
+    _genderMapping(gender) {
+        const lowered = gender ? _.toLower(gender) : null;
+        let code = 'UNK';
+        let display = 'UNKNOWN';
+        if (lowered === "female" || lowered === 'f') {
+            code = '703118005';
+            display = 'Female';
+        } else if (lowered === 'male' || lowered === 'm') {
+            code = '703117000';
+            display = 'Male';
+        }
+        return {
+            code: code,
+            displayName: display,
+            codeSystem: 'SNOMEDCT'
+        };
+    }
+
+    __raceCodeMapping(race) {
+        let code = find_race_code(race);
+        if (code) {
+            // if the value is one of the codes from the code system make sure it is one that clq supports
+            if (!['2028-9', '2106-3', '2054-5', '2131-1'].includes(code.code)) {
+                code = {
+                    code: '2131-1',
+                    text: 'Other Race'
+                };
+            }
+            return {
+                "codeSystemName": "HL7 v3 Code System Race",
+                "codeSystem": "2.16.840.1.113883.5.104",
+                "code": code.code,
+                "displayName": code.text
+            };
+        }
+
+        return {
+            "codeSystemName": "HL7 v3 Code System Race",
+            "codeSystem": "2.16.840.1.113883.5.104",
+            "code": 'UNK'
+        };
+
+    }
     /* Build the CLQ demograpchics filter section based off of the Compass filter criteria
      */
     buildDemographicsFilter(activeFilterValues) {
         const filter = {};
         const gender = activeFilterValues["shr.core.BirthSex"];
         const race = activeFilterValues["shr.core.Race"];
+        const ethnicity = activeFilterValues["shr.core.Ethnicity"];
         const age = activeFilterValues["shr.core.DateOfBirth"];
         const age_at_diagnosis = activeFilterValues["shr.core.DateOfDiagnosis"];
         if (gender) {
-            filter.gender = {
-                codeSystemName: "AdministrativeGender",
-                codeSystem: "2.16.840.1.113883.4.642.2.1",
-                code: gender.value
-            };
+            filter.gender = this._genderMapping(gender.value);
         }
         if (age) {
             filter.age = {
@@ -39,10 +81,15 @@ export default class CLQOutcomesService extends IOutcomesService {
             };
         }
         if (race) {
-            filter.race = {
-                "codeSystemName": "HL7 v3 Code System Race",
-                "codeSystem": "2.16.840.1.113883.5.104",
-                "code": race.value
+            filter.race = this.__raceCodeMapping(race.value);
+        }
+
+        if (ethnicity) {
+            const ethCode = ethnicity.value;
+            filter.ethnicity = {
+                "codeSystemName": "HL7 v3 Code System Ethnicity",
+                "codeSystem": "2.16.840.1.113883.5.50",
+                "code": ethCode
             };
         }
         return filter;
@@ -91,9 +138,9 @@ export default class CLQOutcomesService extends IOutcomesService {
             const code = option.reference.receptorTypeCodeableConcept;
             const value = option.value;
             filter.push({
-                code: code.codeValue.code,
-                codeSystem: code.codeSystem.uri,
-                displayName: code.displayText.string,
+                code: code.codeValue.value,
+                codeSystem: code.codeSystem.value,
+                displayName: code.displayText.value,
                 value: _.startCase(_.toLower(value))
             });
         }
@@ -116,7 +163,9 @@ export default class CLQOutcomesService extends IOutcomesService {
             request({
                 url: this.serviceUrl,
                 method: "POST",
-                headers: {'Authorization': this.apiKey},
+                headers: {
+                    'Authorization': this.apiKey
+                },
                 json: filter
             }, (err, _response, data) => {
                 if (err) {
