@@ -132,11 +132,17 @@ class SuggestionPortal extends React.Component {
     // Determines if we've hit a trigger-char
     matchTrigger = () => {
         const { state, trigger, startOfParagraph } = this.props
+        const typesToIgnore = this.props.typesToIgnore
         // Only match if the state is focuses and not expanded
         const stateCondition = state.isFocused && !state.isExpanded
-
+        
         // Selection has no anchor, we have no text: ergo no match
         if (!state.selection.anchorKey) return false
+        const anchorKey = state.selection.anchorKey;
+        if(state.document.getParent(anchorKey)) {
+            const anchorNode = state.document.getParent(anchorKey);
+            if (typesToIgnore.indexOf(anchorNode.type) !== -1) return false
+        }
 
         const { anchorText, anchorOffset } = state
         if (startOfParagraph) {
