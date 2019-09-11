@@ -13,7 +13,6 @@ import FontAwesome from 'react-fontawesome';
 import Lang from 'lodash';
 import VisualizerMenu from '../summary/VisualizerMenu';
 import Visualizer from '../summary/Visualizer';
-import _ from 'lodash';
 import supportsSticky from './util';
 
 class TimelineEventsVisualizer extends Visualizer {
@@ -24,6 +23,7 @@ class TimelineEventsVisualizer extends Visualizer {
         const groups = this.createGroupsForItems(this.getMaxGroup(items));
         // Define the bounds of the timeline
         const defaultTimeStart = isWide ? moment().clone().add(-3, 'years').add(3, 'months') : moment().clone().add(-1, 'years').add(3, 'months'); // wide view - 3 years ago
+        const interval = isWide ? moment(0).add(3,"years").valueOf() : moment(0).add(1, "years").valueOf();
         const defaultTimeEnd = moment().clone().add(3, 'months'); // end - 3 months from now
         const visibleTimeStart = defaultTimeStart.valueOf();
         const visibleTimeEnd = defaultTimeEnd.valueOf();
@@ -34,6 +34,7 @@ class TimelineEventsVisualizer extends Visualizer {
             defaultTimeEnd,
             visibleTimeStart,
             visibleTimeEnd,
+            interval,
             timeSteps: {
                 day: 1,
                 month: 1,
@@ -62,24 +63,44 @@ class TimelineEventsVisualizer extends Visualizer {
 
     componentDidMount() {
         window.addEventListener('load', this.handleLoad);
-        this.throttledGetMedicationItemContainers = _.throttle(this.getMedicationItemContainers, 1000);
     }
 
-    componentDidUpdate() {
-        if (!supportsSticky) {
-            const items = this.throttledGetMedicationItemContainers(document.querySelector(`[class="rct-items"]`).children);
-            this.updateMedicationItemsPosition(items);
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.interval !== this.state.interval) {
+            this.updateMedicationItemsPosition(this.state.visibleTimeStart);
         }
+
     }
 
     handleLoad = () => {
-        const rctItems = document.querySelector(`[class="rct-items"]`);
-        if (rctItems) {
-            // sets the stickySupport variable
-            const items = this.getMedicationItemContainers(rctItems.children);
-            if (!supportsSticky) {
-                this.updateMedicationItemsPosition(items);
-            }
+        this.calWidth = document.querySelector('[class="react-calendar-timeline"]').getBoundingClientRect().width;
+
+        if (!supportsSticky) {
+
+            document.querySelector(`[class="minimap-container fitted-panel"]`).onscroll = () => {
+                // when the page scrolls, the fixed elements will not scroll with it
+                const ratio = this.state.interval/this.calWidth;
+                const itemIds = [];
+                const fixed = {};
+                const width = {};
+                this.state.items.forEach((item) => {
+                    if (item.className==="medication-item" && item.fixed) {
+                        const element = document.querySelector(`[id="timeline-item-${item.id}"]`);
+                        element.parentNode.style.position = "relative";
+                        // this is how far left we need to set the div so it doesn't appear to move
+                        // the "ratio" converts time on the calendar into pixels
+                        const leftPx = ((this.state.visibleTimeStart - item.start_time.valueOf())/ratio) + "px";
+                        element.parentNode.style.left =leftPx;
+                        element.parentNode.style.top = "0px";
+                        itemIds.push(item.id);
+                        fixed[item.id] = false;
+                        width[item.id] = element.parentNode.getBoundingClientRect().width;
+                    }
+                });
+                this.handleItemEdit(itemIds, fixed, width);
+            };
+
+            this.updateMedicationItemsPosition(this.state.visibleTimeStart);
         }
     }
 
@@ -102,27 +123,6 @@ class TimelineEventsVisualizer extends Visualizer {
         }
     }
 
-    getMedicationItemContainers = (children) => {
-        const returnList = [];
-        for (const item of children) {
-            if (item.className.split(" ")[1]==="medication-item") {
-                const returnMap = {};
-                returnMap.element = item.children[0];
-                returnMap.parentElement = item;
-                returnMap.leftBound = document.querySelector(`[class="react-calendar-timeline"]`).parentElement.getBoundingClientRect().left;
-                returnMap.parentWidth = returnMap.parentElement.getBoundingClientRect().width;
-                returnMap.elementWidth = returnMap.element.getBoundingClientRect().width;
-                const position = getComputedStyle(returnMap.element).position;
-                if (position === "static") {
-                    // position defaults to static if sticky isn't supported
-                    returnMap.element.style.position = "relative";
-                }
-                returnList.push(returnMap);
-            }
-        }
-        return returnList;
-    }
-
     createItems = (section, tdpSearchSuggestions, highlightedSearchSuggestion) => {
         // Create groups and items to display on the timeline
         let items = [];
@@ -135,6 +135,8 @@ class TimelineEventsVisualizer extends Visualizer {
         items.forEach((item, i) => {
             const id = i + 1;
             item.id = id;
+            item.fixed = false;
+            item.width = 0;
             item.itemProps = {
                 onMouseEnter: (e) => this.enterItemHover(e, id),
                 onMouseLeave: (e) => this.leaveItemHover(e),
@@ -301,9 +303,12 @@ class TimelineEventsVisualizer extends Visualizer {
         const currentTimeStart = this.state.visibleTimeStart;
         const currentTimeEnd = this.state.visibleTimeEnd;
         const centerPoint = currentTimeStart + (currentTimeEnd - currentTimeStart) / 2;
+        const visibleTimeStart =moment(centerPoint).subtract(timeAmount / 2, timeUnit).valueOf();
+        const visibleTimeEnd = moment(centerPoint).add(timeAmount / 2, timeUnit).valueOf();
         this.setState({
-            visibleTimeStart: moment(centerPoint).subtract(timeAmount / 2, timeUnit).valueOf(),
-            visibleTimeEnd: moment(centerPoint).add(timeAmount / 2, timeUnit).valueOf()
+            visibleTimeStart,
+            visibleTimeEnd,
+            interval: visibleTimeEnd - visibleTimeStart,
         });
     }
 
@@ -312,32 +317,94 @@ class TimelineEventsVisualizer extends Visualizer {
         const currentTimeLengthVisible = this.state.visibleTimeEnd - this.state.visibleTimeStart;
         const multiple = jumpForward ? 1 : -1;
         const amountToPutEndDateInView = currentTimeLengthVisible * (1 / 12) * multiple;
+        const visibleTimeStart = moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf();
+        if (!supportsSticky) {
+            this.updateMedicationItemsPosition(visibleTimeStart);
+        }
         this.setState({
-            visibleTimeStart: moment(newEndDateValue).subtract(currentTimeLengthVisible - amountToPutEndDateInView, 'ms').valueOf(),
+            visibleTimeStart,
             visibleTimeEnd: moment(newEndDateValue).add(amountToPutEndDateInView).valueOf()
         });
     }
 
-    updateMedicationItemsPosition = (items) => {
-        for (const item of items) {
-            if (item.element) {
-                const left = item.parentElement.getBoundingClientRect().left;
-                if (left < item.leftBound) {
-                    if ((item.elementWidth + item.leftBound - left) < item.parentWidth) {
-                        item.element.style.left = item.leftBound - left + 'px';
-                    } else {
-                        item.element.style.left = item.parentWidth - item.elementWidth + "px";
+    handleItemEdit = (ids, obj, widthObj) => {
+        // takes an array of ids, and an array of left positions and updates the state
+        this.setState({
+            items: this.state.items.map((el) => {
+                const fixed = obj[el.id];
+                const width = widthObj[el.id];
+                return ids.indexOf(el.id) !== -1 ? Object.assign({}, el, { fixed, width }) : el;
+            })
+        });
+    }
+
+    updateMedicationItemsPosition = (visibleTimeStart) => {
+        const ids = [];
+        const fixed = {};
+        const width = {};
+        this.state.items.forEach((item) => {
+            if (item.className==="medication-item") {
+                const ratio = this.state.interval/this.calWidth;
+                const left = visibleTimeStart;
+                const withinBounds = item.end_time.valueOf() - visibleTimeStart - (item.width * ratio) > 0;
+                const visible = item.end_time.valueOf() > visibleTimeStart;
+                if (left > item.start_time.valueOf() && !item.fixed && withinBounds) {
+                    // This is the magic sticking part.  The item gets position set to "fixed" and is placed into the right spot.
+                    const element = document.querySelector(`[id="timeline-item-${item.id}"]`);
+                    if (element) {
+                        const clientRect = element.parentNode.getBoundingClientRect();
+                        // some items will overflow because the fixed position will mess with the width of the parent div, so we set maxWidth appropriately
+                        // note: 6 is the padding
+                        element.parentNode.style.maxWidth = (element.parentNode.parentNode.getBoundingClientRect().width - 6) + "px";
+                        element.parentNode.style.position = "fixed";
+                        element.parentNode.style.top = clientRect.top + "px";
+                        element.parentNode.style.left = document.querySelector(`[class="react-calendar-timeline"]`).getBoundingClientRect().left + "px";
+
+                        ids.push(item.id);
+                        fixed[item.id] = true;
+                        width[item.id] = clientRect.width;
                     }
-                } else if (left >= item.leftBound) {
-                    item.element.style.left = 0 + "px";
+                } else if (left <= item.start_time.valueOf()) {
+                    // item start time is past the visible start time, no need to stick anymore
+                    ids.push(item.id);
+                    fixed[item.id] = false;
+                    width[item.id] = item.width;
+                    const element = document.querySelector(`[id="timeline-item-${item.id}"]`);
+                    if (element) {
+                        // setting position to static takes care of everything because it will just left align itself
+                        element.parentNode.style.position = "static";
+                    }
+
+                } else if (!withinBounds && visible) {
+                    // the item needs to stop sticking and float right
+                    const element = document.querySelector(`[id="timeline-item-${item.id}"]`);
+                    if (element) {
+                        element.parentNode.style.position = "relative";
+                        const clientRect = element.parentNode.getBoundingClientRect();
+                        fixed[item.id] = false;
+                        width[item.id] = clientRect.width;
+                        ids.push(item.id);
+                        element.parentNode.style.left = (item.end_time.valueOf() - item.start_time.valueOf() - item.width*ratio)/ratio + "px";
+                        element.parentNode.style.top = "0px";
+                    }
+
+                } else if (!withinBounds && !visible) {
+
                 }
+
+
+
             }
-        }
+        });
+        this.handleItemEdit(ids, fixed, width);
     }
 
     onTimeChange = (visibleTimeStart, visibleTimeEnd, updateScrollCanvas) => {
-        this.setState({ visibleTimeStart, visibleTimeEnd });
         updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+        if (!supportsSticky) {
+            this.updateMedicationItemsPosition(visibleTimeStart);
+        }
+        this.setState({ visibleTimeStart, visibleTimeEnd });
     }
 
     renderZoomButtons = () => {
