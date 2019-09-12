@@ -66,7 +66,7 @@ class TimelineEventsVisualizer extends Visualizer {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.interval !== this.state.interval) {
+        if (prevState.interval !== this.state.interval && !supportsSticky) {
             this.updateMedicationItemsPosition(this.state.visibleTimeStart);
         }
 
