@@ -24,7 +24,9 @@ export default class BarChart extends PureComponent {
     render() {
         const { numerator, denominator, compareToNumerator, compareToDenominator } = this.props;
         const hasCompare = compareToNumerator !== null && compareToNumerator !== null;
-        const survivedPercent = numerator / denominator * 100;
+
+        let survivedPercent = 0;
+        if (denominator > 0 && numerator > 0) survivedPercent = numerator / denominator * 100;
 
         let mainStyle = { "width": `${survivedPercent}%` };
         let changeStyle, changeType, compareToPercent, roundedPercent, percentChange;
@@ -52,8 +54,13 @@ export default class BarChart extends PureComponent {
                 <div className="bar-chart__bottom">
                     <div className="progress-bar">
                         <div className="prog-fill" style={mainStyle}></div>
-                        {hasCompare && <div className={"prog-fill " + (changeType ? "increase" : "decrease")} style={changeStyle}></div>}
-                        <div className="prog-fill-empty"></div>
+                        {hasCompare &&
+                            <div
+                                className={"prog-fill " + (changeType ? "increase" : "decrease")}
+                                style={changeStyle}>
+                            </div>
+                        }
+                        <div className={`prog-fill-empty ${survivedPercent === 0 ? 'zero' : ''}`}></div>
                     </div>
                 </div>
             </div>

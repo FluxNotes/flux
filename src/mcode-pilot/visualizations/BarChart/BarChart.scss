@@ -36,8 +36,12 @@
     .prog-fill-empty {
         border-style: solid;
         border-color: $line-gray;
-        border-width:1px 1px 1px 0;
-        flex-grow:100;
+        border-width: 1px 1px 1px 0;
+        flex-grow: 100;
+
+        &.zero {
+            border-width: 1px;
+        }
     }
 
     .tiny-arrow {

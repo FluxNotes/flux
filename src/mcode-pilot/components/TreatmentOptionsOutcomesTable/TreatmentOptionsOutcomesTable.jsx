@@ -59,6 +59,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const { totalPatients, survivorsPerYear } = row;
         const numerator = survivorsPerYear[survivalRate];
         const compareNumerator = compareRow ? compareRow.survivorsPerYear[survivalRate]: null;
+
         return (
             <BarChart
                 numerator={numerator}
@@ -70,7 +71,6 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     setSelectedTreatment = (event, treatment) => {
-        // eat the event
         return this.props.setSelectedTreatment(treatment);
     }
 
@@ -138,19 +138,20 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
         const sortP = sortColumn === 'totalPatients';
         const sideEffects = this.gatherSideEffects(similarPatientTreatmentsData);
-        const selectedTreatmentBool = selectedTreatment!==undefined && selectedTreatment!==null;
+        const selectedTreatmentBool = selectedTreatment !== undefined && selectedTreatment !== null;
+
         return (
             <TreatmentOptionsOutcomesHeaders
-                changeSort = {changeSort}
-                selectedTreatment = {selectedTreatmentBool}
-                sideEffectSelection = {sideEffectSelection}
-                sortName = {sortName}
-                sortP = {sortP}
-                sideEffects = {sideEffects}
-                sortColumn = {sortColumn}
-                timescale = {timescale}
-                sortDirection = {sortDirection}
-                handleChangeEffect = {this.handleChangeEffect}
+                changeSort={changeSort}
+                selectedTreatment={selectedTreatmentBool}
+                sideEffectSelection={sideEffectSelection}
+                sortName={sortName}
+                sortP={sortP}
+                sideEffects={sideEffects}
+                sortColumn={sortColumn}
+                timescale={timescale}
+                sortDirection={sortDirection}
+                handleChangeEffect={this.handleChangeEffect}
             />
         );
     }
