@@ -307,13 +307,16 @@ class SuggestionPortal extends React.Component {
                     menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
                 }
             }
+        } else if (this.openedPortal !== null) {
+            menu.removeAttribute('style');
+            menu.style.display = 'none';
         }
     }
 
     // Assigns a value to menu when the portal opens
     openPortal = (portal) => {
         this.setState({
-            menu: portal.firstChild 
+            menu: portal.firstChild
         });
     }
 
@@ -336,9 +339,9 @@ class SuggestionPortal extends React.Component {
 
     render = () => {
         const filteredSuggestions = this.getFilteredSuggestions();
-        
-        this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
 
+        this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
+      
         return (
             <Portal isOpened closeOnEsc closeOnOutsideClick onOpen={this.openPortal}>
                 <div className="suggestion-portal" ref="suggestionPortal">
