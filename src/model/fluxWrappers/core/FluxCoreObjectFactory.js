@@ -19,7 +19,6 @@ import FluxPatient from './FluxPatient';
 import FluxEncounter from './FluxEncounter';
 import FluxReferralRequest from './FluxReferralRequest';
 import FluxMedicationStatement from './FluxMedicationStatement';
-import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
 import FluxQuestionnaireResponse from './FluxQuestionnaireResponse';
 import FluxAdverseDrugReaction from './FluxAdverseDrugReaction';
 import FluxDiagnosticReport from './FluxDiagnosticReport';
@@ -46,7 +45,6 @@ export default class FluxCoreObjectFactory {
             case 'KarnofskyPerformanceStatus': return new FluxKarnofskyPerformanceStatus(json, type, patientRecord);
             case 'MedicationRequest': return new FluxMedicationRequest(json, patientRecord);
             case 'MedicationStatement': return new FluxMedicationStatement(json, patientRecord);
-            case 'MedicationStatementAfterChange': return new FluxMedicationStatementAfterChange(json);
             case 'Observation': return new FluxObservation(json, type, patientRecord);
             case 'Patient': return new FluxPatient(json, patientRecord);
             case 'Procedure': return new FluxProcedure(json);
