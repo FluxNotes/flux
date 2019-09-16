@@ -1,5 +1,4 @@
 import MedicationStatement from '../../shr/core/MedicationStatement';
-import FluxMedicationStatementAfterChange from './FluxMedicationStatementAfterChange';
 import * as codeableConceptUtils from '../../CodeableConceptUtils';
 import _ from 'lodash';
 import moment from 'moment';
@@ -35,15 +34,6 @@ class FluxMedicationStatement extends FluxMedicationBase {
     }
 
     /**
-     * Get the MedicationStatementAfterChange object.
-     * Returns medicationRequested object
-     */
-    get medicationStatementAfterChange() {
-        if (!this._medicationStatement.medicationStatementAfterChange) return null;
-        return this._medicationStatement.medicationStatementAfterChange;
-    }
-
-    /**
      * Get the type of medication change
      * Returns type as a string
      */
@@ -68,15 +58,13 @@ class FluxMedicationStatement extends FluxMedicationBase {
     }
 
     get afterDosage() {
-        if (!this.medicationStatementAfterChange) return this.medAfterDoseAmount || null;
-        const medAfter = this._patientRecord.getEntryFromReference(this.medicationStatementAfterChange.value);
-        return medAfter.dose;
+        return this.amountPerDose ? this.amountPerDose.value : this.medAfterDoseAmount;
     }
 
-    // Set dosage of medicationStatementAfterChange
+    // Set dosage
     set afterDosage(amount) {
         if (!amount) {
-            if (this.medicationStatementAfterChange) {
+            if (this.medication) {
                 this.removeMedicationAfterAndRelatedRequest();
             } else {
                 // Set Stored value to null
@@ -84,8 +72,7 @@ class FluxMedicationStatement extends FluxMedicationBase {
             }
         } else {
             if (this.medication) {
-                const medAfter = this._patientRecord.getEntryFromReference(this.medicationStatementAfterChange.value);
-                medAfter.dose = amount;
+                this.dose = amount;
             } else if (this.relatedRequest) {
                 this.createMedicationAfterFromRelatedRequest();
                 this.dose = amount;
