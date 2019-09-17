@@ -61,7 +61,7 @@ function StructuredFieldPlugin(opts) {
         // If the previous node is not an inserter,
         // delete the full node when hitting backspace right before it, as it is not editable.
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
-
+        
         if (e.key === 'Backspace' && previousNode) {
             const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === 'structured_field'
@@ -81,12 +81,17 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } else if (e.keyCode === 39 && parentNode) {
-            if ((parentNode.type === 'structured_field')
-                && !(shortcut instanceof InsertValue && shortcut.metadata.isEditable && shortcut.isComplete)) {
-                let transform = state.transform();
-                transform = transform.collapseToStartOfNextText();
-                const newState = transform.apply();
-                return newState;
+            const sibling = state.document.getNextSibling(selectionKey);
+            const node = state.document.getNode(selectionKey);
+            if (sibling && sibling.type === 'structured_field' && node.length === 0) {
+                const childShortcut = sibling.data.get('shortcut');
+                if (!(childShortcut instanceof InsertValue && childShortcut.metadata.isEditable && childShortcut.isComplete)) {
+                    let transform = state.transform();
+                    transform = transform.collapseToStartOf(sibling);
+                    transform = transform.collapseToStartOfNextText();
+                    const newState = transform.apply();
+                    return newState;
+                }
             }
         }
 
