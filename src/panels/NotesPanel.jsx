@@ -334,14 +334,16 @@ export default class NotesPanel extends Component {
 
         // containsIncompleteShortcuts searches the list of shortcuts in the note for an incomplete shortcut
         const containsIncompleteShortcuts = [...structuredFieldMapManager.keyToShortcutMap.values()].some(shortcut => !shortcut.isComplete);
-        const signNoteDisabledClass = containsIncompleteShortcuts || isAppBlurred ? 'content-disabled' : '';
+        // Disable the sign note button if there are incompletes in the note, or if the app is blurred.
+        const signNoteDisabled = containsIncompleteShortcuts || isAppBlurred;
 
         return (
             <div id="finish-sign-component">
                 <Button
                     variant="flat"
+                    disabled={signNoteDisabled}
                     classes={{
-                        root: `btn-finish ${signNoteDisabledClass}`
+                        root: `btn-finish`
                     }}
                     onClick={() => {
                         this.handleSignButtonClick();
