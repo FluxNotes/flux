@@ -33,6 +33,7 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
             changeSort,
             handleChangeEffect,
             selectedTreatment,
+            showSideEffects,
             sideEffects,
             sideEffectSelection,
             sortColumn,
@@ -43,13 +44,10 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
             <thead className="treatment-options-outcomes-table__header">
                 <tr>
                     <td colSpan="2" />
-                    <td colSpan={this.props.timescale.length} className="header-title">
-                        Overall survival rates
-                    </td>
-                    <td>
-                        Side Effects
-                    </td>
+                    <td colSpan={this.props.timescale.length} className="header-title">Overall survival rates</td>
+                    {showSideEffects && <td>Side Effects</td>}
                 </tr>
+
                 <tr>
                     <td className="compare-header">
                         {selectedTreatment ? 'comparing against' : 'compare'}
@@ -76,26 +74,28 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
                         );
                     })}
 
-                    <td id="ccp-table-select">
-                        <Select
-                            value={sideEffectSelection}
-                            onChange={handleChangeEffect}
-                            name="sideEffect"
-                            className="custom-select"
-                        >
-                            <MenuItem value="Most Common" className="side-effect-option">
-                                <em>Most Common</em>
-                            </MenuItem>
+                    {showSideEffects &&
+                        <td id="ccp-table-select">
+                            <Select
+                                value={sideEffectSelection}
+                                onChange={handleChangeEffect}
+                                name="sideEffect"
+                                className="custom-select"
+                            >
+                                <MenuItem value="Most Common" className="side-effect-option">
+                                    <em>Most Common</em>
+                                </MenuItem>
 
-                            {sideEffects.map(effect => {
-                                return (
-                                    <MenuItem value={effect} key={effect} className="side-effect-option">
-                                        {effect.toLowerCase()}
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </td>
+                                {sideEffects.map(effect => {
+                                    return (
+                                        <MenuItem value={effect} key={effect} className="side-effect-option">
+                                            {effect.toLowerCase()}
+                                        </MenuItem>
+                                    );
+                                })}
+                            </Select>
+                        </td>
+                    }
                 </tr>
             </thead>
         );
@@ -105,6 +105,7 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
 TreatmentOptionsOutcomesHeaders.propTypes = {
     changeSort: PropTypes.func.isRequired,
     selectedTreatment: PropTypes.bool,
+    showSideEffects: PropTypes.bool.isRequired,
     sortColumn: PropTypes.string.isRequired,
     sortDirection: PropTypes.number.isRequired,
     timescale: PropTypes.array.isRequired

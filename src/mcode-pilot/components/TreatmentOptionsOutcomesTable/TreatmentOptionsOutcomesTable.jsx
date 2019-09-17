@@ -133,7 +133,15 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderHeader = () => {
-        const { similarPatientTreatmentsData, changeSort, selectedTreatment, sortColumn, sortDirection, timescale } = this.props;
+        const {
+            changeSort,
+            selectedTreatment,
+            showSideEffects,
+            similarPatientTreatmentsData,
+            sortColumn,
+            sortDirection,
+            timescale
+        } = this.props;
         const { sideEffectSelection } = this.state;
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
         const sortP = sortColumn === 'totalPatients';
@@ -143,15 +151,16 @@ export default class TreatmentOptionsOutcomesTable extends Component {
         return (
             <TreatmentOptionsOutcomesHeaders
                 changeSort={changeSort}
+                handleChangeEffect={this.handleChangeEffect}
                 selectedTreatment={selectedTreatmentBool}
+                showSideEffects={showSideEffects}
+                sideEffects={sideEffects}
                 sideEffectSelection={sideEffectSelection}
+                sortColumn={sortColumn}
+                sortDirection={sortDirection}
                 sortName={sortName}
                 sortP={sortP}
-                sideEffects={sideEffects}
-                sortColumn={sortColumn}
                 timescale={timescale}
-                sortDirection={sortDirection}
-                handleChangeEffect={this.handleChangeEffect}
             />
         );
     }
