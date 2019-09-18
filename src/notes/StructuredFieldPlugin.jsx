@@ -61,7 +61,7 @@ function StructuredFieldPlugin(opts) {
         // If the previous node is not an inserter,
         // delete the full node when hitting backspace right before it, as it is not editable.
         const previousNode = state.document.getPreviousSibling(state.selection.anchorKey);
-        
+
         if (e.key === 'Backspace' && previousNode) {
             const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === 'structured_field'
