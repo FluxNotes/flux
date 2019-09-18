@@ -71,28 +71,38 @@ const initialEditorState = {
 
 class FluxNotesEditor extends React.Component {
     openCompletionPortal = (completionComponentShortcut, completionComponent) => {
-        // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
-        const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
-        this.setState({
-            completionComponentShortcut: completionComponentShortcut,
-            portalOptions: portalOptions,
-            completionComponent: completionComponent,
-            openedPortal: "CompletionPortal",
-        });
+        // Timeout is needed to possibly allow another completion portal to close first
+        // This is probably not the best approach but the alternative solution was to implement complicated logic to determine if a portal should close
+        setTimeout(() => {
+            // Always make sure we use an array here; doesn't always return an array from getValueSelectionOptions
+            const portalOptions = !Lang.isEmpty(completionComponentShortcut.getValueSelectionOptions()) ? completionComponentShortcut.getValueSelectionOptions() : [];
+            this.setState({
+                completionComponentShortcut,
+                portalOptions,
+                completionComponent,
+                openedPortal: "CompletionPortal",
+            });
+        }, 0);
     }
 
     closeCompletionPortal = () => {
-        // Clean up some variables stored at the Editor level
-        this.setState({
-            completionComponentShortcut: null,
-            portalOptions: [],
-            completionComponent: null,
-            openedPortal: null,
-        });
+        if (this.state.completionComponentShortcut) {
+            // Clean up some variables stored at the Editor level
+            this.setState({
+                completionComponentShortcut: null,
+                portalOptions: [],
+                completionComponent: null,
+                openedPortal: null,
+            });
+        }
     }
 
     getCompletionComponent = () => {
         return this.refs.completionComponent;
+    }
+
+    getCompletionComponentShortcut = () => {
+        return this.state.completionComponentShortcut;
     }
 
     constructor(props) {
@@ -121,7 +131,8 @@ class FluxNotesEditor extends React.Component {
         const completionPortalPluginOptions = {
             openPortal: this.openCompletionPortal,
             closePortal: this.closeCompletionPortal,
-            getCompletionComponent: this.getCompletionComponent
+            getCompletionComponent: this.getCompletionComponent,
+            getCompletionComponentShortcut: this.getCompletionComponentShortcut
         };
         this.completionPortalPlugin = CompletionPortalPlugin(completionPortalPluginOptions);
         this.plugins.push(this.completionPortalPlugin);
