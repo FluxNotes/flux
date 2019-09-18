@@ -132,11 +132,17 @@ class SuggestionPortal extends React.Component {
     // Determines if we've hit a trigger-char
     matchTrigger = () => {
         const { state, trigger, startOfParagraph } = this.props
+        const typesToIgnore = this.props.typesToIgnore
         // Only match if the state is focuses and not expanded
         const stateCondition = state.isFocused && !state.isExpanded
-
+        
         // Selection has no anchor, we have no text: ergo no match
         if (!state.selection.anchorKey) return false
+        const anchorKey = state.selection.anchorKey;
+        if(state.document.getParent(anchorKey)) {
+            const anchorNode = state.document.getParent(anchorKey);
+            if (typesToIgnore.indexOf(anchorNode.type) !== -1) return false
+        }
 
         const { anchorText, anchorOffset } = state
         if (startOfParagraph) {
@@ -301,13 +307,16 @@ class SuggestionPortal extends React.Component {
                     menu.style.left = `${rect.left + window.pageXOffset}px` // eslint-disable-line no-mixed-operators
                 }
             }
+        } else if (this.openedPortal !== null) {
+            menu.removeAttribute('style');
+            menu.style.display = 'none';
         }
     }
 
     // Assigns a value to menu when the portal opens
     openPortal = (portal) => {
         this.setState({
-            menu: portal.firstChild 
+            menu: portal.firstChild
         });
     }
 
@@ -330,9 +339,9 @@ class SuggestionPortal extends React.Component {
 
     render = () => {
         const filteredSuggestions = this.getFilteredSuggestions();
-        
-        this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
 
+        this.setCallbackSuggestion(filteredSuggestions, this.state.selectedIndex);
+      
         return (
             <Portal isOpened closeOnEsc closeOnOutsideClick onOpen={this.openPortal}>
                 <div className="suggestion-portal" ref="suggestionPortal">
