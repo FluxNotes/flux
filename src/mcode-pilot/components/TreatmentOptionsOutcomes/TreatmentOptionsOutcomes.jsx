@@ -53,7 +53,9 @@ export default class TreatmentOptionsOutcomes extends Component {
             };
         } else {
             return function(a,b) {
-                return b.survivorsPerYear[propName] / b['totalPatients'] - a.survivorsPerYear[propName] / a['totalPatients'];
+                const aRatio = a.survivorsPerYear[propName] ? a.survivorsPerYear[propName] / a['totalPatients'] : 0;
+                const bRatio = b.survivorsPerYear[propName] ? b.survivorsPerYear[propName] / b['totalPatients'] : 0;
+                return bRatio - aRatio;
             };
         }
     }

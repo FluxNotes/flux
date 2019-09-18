@@ -5,21 +5,18 @@ import FontAwesome from 'react-fontawesome';
 import MenuItem from '../../../elements/MenuItem';
 import Select from '../../../elements/Select';
 import PersonIcon from './PersonIcon';
-import {isSame} from '../../utils/arrayOperations';
+import { isSame } from '../../utils/arrayOperations';
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesHeaders extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
     shouldComponentUpdate(nextProps) {
         const { selectedTreatment, sideEffectSelection, sortP, sortName, sortColumn, sideEffects } = this.props;
-        if (nextProps.selectedTreatment === selectedTreatment && nextProps.sortP === sortP && nextProps.sortName === sortName
-            && nextProps.sortColumn === sortColumn && isSame(nextProps.sideEffects, sideEffects) && nextProps.sideEffectSelection === sideEffectSelection) {
+        if (nextProps.selectedTreatment === selectedTreatment
+            && nextProps.sortP === sortP
+            && nextProps.sortName === sortName
+            && nextProps.sortColumn === sortColumn
+            && isSame(nextProps.sideEffects, sideEffects)
+            && nextProps.sideEffectSelection === sideEffectSelection) {
             return false;
         } else {
             return true;
@@ -32,7 +29,16 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
     }
 
     render() {
-        const { selectedTreatment, changeSort, sideEffectSelection, sortP, sortName, sortColumn, sideEffects, handleChangeEffect } = this.props;
+        const {
+            changeSort,
+            handleChangeEffect,
+            selectedTreatment,
+            sideEffects,
+            sideEffectSelection,
+            sortColumn,
+            sortName,
+            sortP
+        } = this.props;
         return (
             <thead className="treatment-options-outcomes-table__header">
                 <tr>
@@ -61,7 +67,10 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
                             <td key={timescaleYear}>
                                 <span onClick={() => changeSort(timescaleYear)} className="header-space">
                                     {timescaleYear} yr
-                                    <FontAwesome className={this.getSortClass(sortColumn === timescaleYear)} name={sortColumn === timescaleYear ? sortName: "sort"} />
+                                    <FontAwesome
+                                        className={this.getSortClass(sortColumn === timescaleYear)}
+                                        name={sortColumn === timescaleYear ? sortName: "sort"}
+                                    />
                                 </span>
                             </td>
                         );
