@@ -67,24 +67,29 @@ class TimelineEventsVisualizer extends Visualizer {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.interval !== this.state.interval && !supportsSticky) {
-            this.initMedicationItemsPosition(this.state.visibleTimeStart);
+        if (!supportsSticky) {
+            if (prevState.interval !== this.state.interval) {
+                this.initMedicationItemsPosition(this.state.visibleTimeStart);
+            }
+            if (prevState.visibleTimeStart !== this.state.visibleTimeStart) {
+                this.updateMedicationItemsPosition(this.state.visibleTimeStart);
+            }
+            if (prevState.items.length !== this.state.items.length) {
+                this.initMedicationItemsPosition(this.state.visibleTimeStart);
+            }
         }
-        if (prevState.visibleTimeStart !== this.state.visibleTimeStart && !supportsSticky) {
-            this.updateMedicationItemsPosition(this.state.visibleTimeStart);
-        }
-        if (prevState.items.length !== this.state.items.length) {
-            this.initMedicationItemsPosition(this.state.visibleTimeStart);
-        }
+
 
     }
 
     handleLoad = () => {
-        this.calWidth = document.querySelector('[class="react-calendar-timeline"]').getBoundingClientRect().width;
-
         if (!supportsSticky) {
-            document.querySelector(`[class="minimap-container fitted-panel"]`).onscroll = this.scrollCheck;
-            this.initMedicationItemsPosition(this.state.visibleTimeStart);
+            const calendar = document.querySelector('[class="react-calendar-timeline"]');
+            if (calendar !== null && calendar !== undefined) {
+                this.calWidth = calendar.getBoundingClientRect().width;
+                document.querySelector(`[class="minimap-container fitted-panel"]`).onscroll = this.scrollCheck;
+                this.initMedicationItemsPosition(this.state.visibleTimeStart);
+            }
         }
     }
 
