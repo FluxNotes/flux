@@ -86,6 +86,8 @@ export default class LandingPage extends Component {
                     </div>
                 </div>
 
+
+
                 <div className="divider divider-short"></div>
 
                 <div className="landing-products">
@@ -97,7 +99,7 @@ export default class LandingPage extends Component {
                                 </div>
 
                                 <div className="landing-products-link">
-                                    <span>Flux Notes™</span>
+                                    <span>Flux Notes™ for sarcoma</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
                             </a>
@@ -105,13 +107,14 @@ export default class LandingPage extends Component {
 
                         <div className="landing-products-description">
                             <div className="landing-products-title-mobile">
-                                Flux Notes™
+                                Flux Notes™ for sarcoma
                                 <span>Viewable on desktop</span>
                             </div>
 
                             <div className="landing-products-summary">
                                 Flux Notes™ is a concept demonstration that allows information capture via extensible
-                                structured phrases driven by the Standard Health Record (SHR).
+                                structured phrases driven by the Standard Health Record (SHR),
+                                and used to drive several MITRE initiatives.
 
                                 <div className="landing-products-summary-divider"></div>
                             </div>
@@ -131,17 +134,101 @@ export default class LandingPage extends Component {
                                     (EHR) adoption using structure-phrases either directly, through Flux Notes™, or
                                     through an optional or standard extensional application.
                                 </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="landing-products">
+                    <div className="landing-products-full">
+                        <Paper className="landing-products-interaction">
+                            <a href="/ccp" id="link-to-compass">
+                                <div className="landing-products-image">
+                                    <img src="./landing/fluxnotes_gif_fullSize.gif" alt="Flux Notes Compass" />
+                                </div>
+
+                                <div className="landing-products-link">
+                                    <span>Flux Notes™ for Compass™</span>
+                                    <FontAwesome name="arrow-right" />
+                                </div>
+                            </a>
+                        </Paper>
+
+                        <div className="landing-products-description">
+                            <div className="landing-products-title-mobile">
+                                Flux Notes™ for Compass™
+                                <span>Viewable on desktop</span>
+                            </div>
+
+                            <div className="landing-products-summary">
+                                Flux Notes™ for Compass™ focuses on comparing treatment outcomes with the goal of collaborative
+                                decision making between clinicians and patients.
+
+                                <div className="landing-products-summary-divider"></div>
+                            </div>
+
+                            <div className="landing-products-text">
+                                <p>
+                                    Compares survival rates across best treatment sets.
+                                </p>
 
                                 <p>
-                                    A Flux Notes™ Lite version helps clinicians capture data to drive clinical endpoints, such as
-                                    disease status and toxicity. This information is stored in a structured data format
-                                    that can be easily analyzed and shared across multiple clinical care sites.
+                                    Suppresses low popularity treatments while exposing sample sizes and quality of statistics.
+                                </p>
+
+                                <p>
+                                    Patient and clinician collaboratively explores survival visualizations across different time scales.
                                 </p>
                             </div>
                         </div>
 
                     </div>
                 </div>
+
+                <div className="landing-products">
+                    <div className="landing-products-full">
+                        <Paper className="landing-products-interaction">
+                            <a href="/poc" id="link-to-tablet">
+                                <div className="landing-products-image">
+                                    <img src="./landing/fluxnotes_gif_fullSize.gif" alt="Flux Notes Tablet" />
+                                </div>
+
+                                <div className="landing-products-link">
+                                    <span>Flux Notes™ for tablet</span>
+                                    <FontAwesome name="arrow-right" />
+                                </div>
+                            </a>
+                        </Paper>
+
+                        <div className="landing-products-description">
+                            <div className="landing-products-title-mobile">
+                                Flux Notes™ for tablet
+                                <span>Viewable on desktop</span>
+                            </div>
+
+                            <div className="landing-products-summary">
+                                Flux Notes™ for tablet focuses on point of sale interactions that allow the clinician to capture
+                                structured health data from anywhere.
+                                <div className="landing-products-summary-divider"></div>
+                            </div>
+
+                            <div className="landing-products-text">
+                                <p>
+                                    Give clinicians the freedom to capture data outside of a patient room visit.
+                                </p>
+
+                                <p>
+                                    A focus on point of sale interactions to quickly and efficently capture structured data without the need to
+                                    type of dictate.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
                 <div className="divider divider-long"></div>
 
                 <div className="landing-get-involved">
@@ -157,15 +244,15 @@ export default class LandingPage extends Component {
                     </div>
 
                     <div className="landing-get-involved-contact">
-                        <div className="name">Andre Quina</div>
-                        <div className="title">Principal Investigator</div>
-                        <div className="email">aquina@mitre.org</div>
+                        <div className="name">Zeshan Rajput</div>
+                        <div className="title">Co-Task Lead</div>
+                        <div className="email">zrajput@mitre.org</div>
                     </div>
 
                     <div className="landing-get-involved-contact">
-                        <div className="name">Mark Fairweather</div>
-                        <div className="title">Surgical oncology fellow</div>
-                        <div className="email">mfairweather@partners.org</div>
+                        <div className="name">Maura A Huff</div>
+                        <div className="title">Co-Task Lead</div>
+                        <div className="email">mhuff@mitre.org</div>
                     </div>
                 </div>
 
