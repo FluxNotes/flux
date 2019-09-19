@@ -61,7 +61,7 @@ CONFIG = {
             // (aka, the server listed here can be used as a 'shim')
             // server: "http://localhost:3001/1_0_2"
         }
-    }, 
+    },
     {
         path: '/smart',
         display: 'Flux Notes™',
