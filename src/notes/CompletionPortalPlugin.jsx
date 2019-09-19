@@ -15,11 +15,11 @@ export default function CompletionPortalPlugin(opts) {
         const previousNodeShortcut = previousNode ? previousNode.data.get('shortcut') : null;
 
         // IF we're right next to a shortcut, that shortcut has a completion component, then let's open that completionComponent
-        if (previousNodeShortcut && previousNodeShortcut.completionComponentName && previousNodeShortcut !== opts.getCompletionComponentShortcut()) {
+        if (previousNodeShortcut && previousNodeShortcut.completionComponentName) {
             // But only if the portal isn't already open
             const completionComponent = CompletionComponentFactory.createInstance(previousNodeShortcut.completionComponentName);
 
-            if (state.selection.isCollapsed) {
+            if (previousNodeShortcut !== opts.getCompletionComponentShortcut() && state.selection.isCollapsed) {
                 opts.openPortal(previousNodeShortcut, completionComponent);
             }
         } else if (opts.getCompletionComponent()) {
