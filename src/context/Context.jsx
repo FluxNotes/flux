@@ -111,7 +111,7 @@ export default class Context {
      */
     setKey(key) {
         this.key = key;
-        if (this.isContext() && this.contextManager) {
+        if (this.isContext() && this.contextManager && !this.needToSelectValueFromMultipleOptions()) {
             this.contextManager.addShortcutToContext(this);
             this.isInContext = true;
         }
