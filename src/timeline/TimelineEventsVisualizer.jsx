@@ -132,7 +132,7 @@ class TimelineEventsVisualizer extends Visualizer {
                 }
 
             } else {
-                if(element) {
+                if (element) {
                     element.parentNode.style.left = "";
                     element.parentNode.style.position = "";
                     element.parentNode.style.top = "0px";
