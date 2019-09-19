@@ -75,6 +75,8 @@ export default class CreatorChild extends Shortcut {
         const attributeValue = this.parentContext ? this.parentContext.getAttributeValue(this.metadata.parentAttribute) || [] : [];
         // If an attributeValue is set and there are no stringTriggers, we can return the value
         if (!_.isEmpty(attributeValue) && _.isEmpty(this.metadata.stringTriggers)) return attributeValue;
+        // If text is already set, return the text
+        if (this.getText()) return this.getText();
         return this.getValueSet(this.metadata.stringTriggers).filter(item => {
             // If the current attribute value contains this item in the ValueSet, don't include it in the options to select from
             return !_.includes(attributeValue, item.name);

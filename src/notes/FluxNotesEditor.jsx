@@ -616,9 +616,6 @@ class FluxNotesEditor extends React.Component {
         if (key1 === key2) {
             return offset1 < offset2;
         } else {
-            const parentNode = state.document.getParent(state.selection.anchorKey);
-            const shortcut = this.props.structuredFieldMapManager.keyToShortcutMap.get(parentNode.key);
-            if (shortcut && shortcut.getKey() === key1) return false;
             return state.document.areDescendantsSorted(key1.toString(), key2.toString());
         }
     }
@@ -680,6 +677,45 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
+    updateSubsequentShortcut = (transform, currentShortcut, shortcut) => {
+        const currentCompleteness = shortcut.isComplete;
+        if (Lang.isUndefined(shortcut.parentContext)) {
+            shortcut.determineParentContext(this.props.contextManager, shortcut.metadata["knownParentContexts"], shortcut.metadata["parentAttribute"]);
+        }
+        if (!Lang.isUndefined(shortcut.parentContext)
+            && Lang.isEqual(shortcut.parentContext, currentShortcut)
+            && shortcut.parentContext.children.indexOf(shortcut) === -1) {
+            shortcut.parentContext.addChild(shortcut);
+            try {
+                shortcut.parentContext.setAttributeValue(shortcut.metadata.parentAttribute, shortcut.getText());
+            } catch (e) {} // If setAttributeValue is not implemented, do nothing
+        }
+        try {
+            shortcut.updatePatient(this.props.patient, this.props.contextManager, this.props.updatedEditorNote, true);
+        } catch (e) {}
+        const updatedCompleteness = shortcut.isComplete;
+        const hasCompleteStatusChanged = currentCompleteness !== updatedCompleteness;
+        let currentText;
+        try {
+            currentText = shortcut.getText();
+        } catch (e) {
+            currentText = undefined;
+        }
+        const updatedText = shortcut.determineText ? shortcut.determineText(this.props.contextManager) : undefined;
+        const hasTextChanged = currentText !== updatedText;
+        const shouldTextUpdate = !Lang.isUndefined(updatedText) && !Lang.isArray(updatedText) && hasTextChanged;
+        if (shouldTextUpdate) {
+            try {
+                shortcut.setText(updatedText);
+            } catch (e) {} // If setText is not implemented, do nothing
+        }
+        if (shouldTextUpdate || hasCompleteStatusChanged) {
+            this.resetShortcutData(shortcut, transform);
+        }
+
+        return transform;
+    }
+
     /**
      * TODO Issues:
      * - Where should we re-establish parent context?
@@ -688,37 +724,25 @@ class FluxNotesEditor extends React.Component {
      * - Need to update children of shortcuts (not just contexts)
      * - Need to only update shortcuts that come after the one just added. Potentially use isBlock1BeforeBlock2 to calculate "Following"?
      */
-    resetSubsequentShortcuts = (shortcut, transform) => {
-        if (shortcut.metadata.isGlobalContext) {
+    resetSubsequentShortcuts = (currentShortcut, transform) => {
+        if (currentShortcut.metadata.isGlobalContext) {
             // Global - Re-render all shortcuts following
-            const allContexts = this.props.contextManager.contexts; // TODO Should be a getter
-            allContexts.forEach(context => {
-                context.determineParentContext(this.props.contextManager, context.metadata["knownParentContexts"], context.metadata["parentAttribute"]);
-                if (!Lang.isUndefined(context.parentContext) && context.parentContext.children.indexOf(context) === -1) {
-                    context.parentContext.addChild(context);
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
+                const shortcut = inline.data.get('shortcut');
+                const isCurrentShortcutBefore = this.isBlock1BeforeBlock2(currentShortcut.getKey(), 0, shortcut.getKey(), 0, transform.state);
+                if (isCurrentShortcutBefore) {
+                    transform = this.updateSubsequentShortcut(transform, currentShortcut, shortcut);
                 }
-                const key = context.getKey();
-                transform = transform.setNodeByKey(key, {
-                    data: {
-                        shortcut: context
-                    }
-                });
             });
-        } else {
+        } else if (currentShortcut.metadata.isContext) {
             // Local context - re-render all shortcuts in the block (context)
-            const activeContexts = this.props.contextManager.getActiveContexts();
-            activeContexts.forEach(context => {
-                // TODO Still need to add children that are not contexts to parent shortcut. Ex: add #stable to children of #disease status.
-                context.determineParentContext(this.props.contextManager, context.metadata["knownParentContexts"], context.metadata["parentAttribute"]);
-                if (!Lang.isUndefined(context.parentContext) && context.parentContext.children.indexOf(context) === -1) {
-                    context.parentContext.addChild(context);
+            this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
+                const shortcut = inline.data.get('shortcut');
+                const isCurrentShortcutBefore = this.isBlock1BeforeBlock2(currentShortcut.getKey(), 0, shortcut.getKey(), 0, transform.state);
+                const isInLocalContext = !this.isNodeTypeBetween(currentShortcut.getKey(), shortcut.getKey(), 'line', transform.state);
+                if (isCurrentShortcutBefore && isInLocalContext) {
+                    transform = this.updateSubsequentShortcut(transform, currentShortcut, shortcut);
                 }
-                const key = context.getKey();
-                transform = transform.setNodeByKey(key, {
-                    data: {
-                        shortcut: context
-                    }
-                });
             });
         }
         return transform;
