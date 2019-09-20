@@ -95,7 +95,7 @@ export default class LandingPage extends Component {
                         <Paper className="landing-products-interaction">
                             <a href="/pilot1" id="link-to-full">
                                 <div className="landing-products-image">
-                                    <img src="./landing/fluxnotes_gif_fullSize.gif" alt="Flux Notes Full" />
+                                    <img src="./landing/fluxnotes_full.gif" alt="Flux Notes Full" />
                                 </div>
 
                                 <div className="landing-products-link">
@@ -145,7 +145,7 @@ export default class LandingPage extends Component {
                         <Paper className="landing-products-interaction">
                             <a href="/ccp" id="link-to-compass">
                                 <div className="landing-products-image">
-                                    <img src="./landing/fluxnotes_gif_fullSize.gif" alt="Flux Notes Compass" />
+                                    <img src="./landing/fluxnotes_compass.gif" alt="Flux Notes Compass" />
                                 </div>
 
                                 <div className="landing-products-link">
@@ -191,7 +191,7 @@ export default class LandingPage extends Component {
                         <Paper className="landing-products-interaction">
                             <a href="/poc" id="link-to-tablet">
                                 <div className="landing-products-image">
-                                    <img src="./landing/fluxnotes_gif_fullSize.gif" alt="Flux Notes Tablet" />
+                                    <img src="./landing/fluxnotes_poc.gif" alt="Flux Notes Tablet" />
                                 </div>
 
                                 <div className="landing-products-link">
@@ -294,6 +294,47 @@ export default class LandingPage extends Component {
                         </div>
                     </div>
                 </div>
+
+                <div className="landing-initiatives">
+                    <div className="landing-initiatives-item mcode">
+                        <a href="http://mcodeinitiative.org/" alt="mCODE Site" className="landing-initiatives-logo">
+                            <img src="./logos/mCODE-Logo.png" alt="mCODE Logo" className="mcode-logo"/>
+                        </a>
+
+                        <div className="landing-initiatives-description">
+                            <p>
+                                Flux Notes™ leverages mCODE™ (minimal Common Oncology Data Elements) for capturing data.
+                            </p>
+
+                            <p>
+                                MITRE is collaborating with the American Society of Clinical Oncology, CancerLinQ, and other
+                                clinical experts to develop mCODE™. mCODE™ models a standard set of interoperable data that can
+                                be collected via low burden methods for every cancer patient, with the objective of enabling
+                                substantially improved cancer care and research to benefit all future patients.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="landing-initiatives-item codex">
+                        <a href="http://www.hl7.org/codex/" alt="CodeX Site" className="landing-initiatives-logo">
+                            <img src="./logos/codex-Logo.png" alt="codex Logo" className="codex-logo"/>
+                        </a>
+
+                        <div className="landing-initiatives-description">
+                            <p>
+                                Flux Notes™ supports CodeX™ (the Common Oncology Data Elements eXtensions project), a
+                                community within the HL7 Fast Healthcare Interoperable Resources (FHIR) Accelerator program,
+                                formed to address the need to obtain high-quality, computable data for cancer care and research.
+                            </p>
+
+                            <p>
+                                The objective of CodeX™ is to create a national platform for interoperable cancer data modeling.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div className="landing-partners-banner">Partner Organizations</div>
 

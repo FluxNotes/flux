@@ -496,6 +496,16 @@ $landing-panel-shadow: rgba(0, 0, 0, 0.3) 0 6px 6px;
             padding-right: 10px;
         }
 
+        .mcode-logo {
+            height: calc(25px + 1vw);
+            padding-right: 10px;
+        }
+
+        .codex-logo {
+            height: calc(25px + 1vw);
+            padding-right: 10px;
+        }
+
         span {
             font-size: calc(26px + 0.4vw);
             color: $landing-blue;
