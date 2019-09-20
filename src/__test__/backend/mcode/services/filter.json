@@ -6,8 +6,8 @@
             "code": "703118005"
         },
         "age": {
-            "min": 42,
-            "max": 62
+            "min": 43,
+            "max": 63
         },
         "age_at_diagnosis": {
             "min": 42,
