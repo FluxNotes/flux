@@ -1343,7 +1343,6 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, source) => {
-        console.log(textToBeInserted)
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
