@@ -117,7 +117,7 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
-    initialize(contextManager, trigger = undefined, updatePatient = true) {
+    initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData =  '', shouldUpdate = false) {
         super.initialize(contextManager, trigger, updatePatient);
         if (contextManager) {
             this.establishParentContext(contextManager);
@@ -128,7 +128,7 @@ export default class EntryShortcut extends Shortcut {
             metadataVOA.forEach((attrib) => {
                 const curVal = this.getAttributeValue(attrib.name);
                 if (Lang.isEmpty(curVal) && attrib.isSettable && attrib.type !== "list") {
-                    this.setAttributeValue(attrib.name, null, true, updatePatient);
+                    this.setAttributeValue(attrib.name, null, true, updatePatient, '', shouldUpdate);
                 }
             });
         }
@@ -186,7 +186,7 @@ export default class EntryShortcut extends Shortcut {
         return this._getAttributeValue(this.object, name);
     }
 
-    setAttributeValue(name, value, publishChanges = true, updatePatient = true, currentChildText = '') {
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true, currentChildText = '', shouldUpdate) {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplayText() + "'"); //this.text
         this.isSet[name] = (value !== null);
@@ -232,7 +232,7 @@ export default class EntryShortcut extends Shortcut {
             }
         }
         if (this.isContext()) this.updateContextStatus();
-        if (this.onUpdate && updatePatient) this.onUpdate(this);
+        if (this.onUpdate && updatePatient) this.onUpdate(this, shouldUpdate);
         if (publishChanges) {
             this.notifyValueChangeHandlers(name);
         }

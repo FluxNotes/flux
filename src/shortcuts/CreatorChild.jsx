@@ -15,7 +15,9 @@ export default class CreatorChild extends Shortcut {
 
     initialize(contextManager, trigger, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
-        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        if (_.isUndefined(this.parentContext)) {
+            super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        }
         const text = this.determineText(contextManager);
         if (!_.isUndefined(text)) {
             if (_.isArray(text)) {
@@ -25,7 +27,7 @@ export default class CreatorChild extends Shortcut {
             }
         }
 
-        if (!_.isUndefined(this.parentContext)) {
+        if (!_.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.addChild(this);
         }
 

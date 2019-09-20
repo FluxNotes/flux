@@ -8,7 +8,7 @@ export default class Context {
 
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         this.contextManager = contextManager;
-        this.isInContext = false;
+        this.isInContext = this.isInContext || false;
     }
 
     getId() {
