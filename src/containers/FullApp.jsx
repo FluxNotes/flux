@@ -298,10 +298,10 @@ export class FullApp extends Component {
     }
 
     // Update shortcuts and update patients accordingly
-    handleShortcutUpdate = (s) => {
+    handleShortcutUpdate = (s, shouldUpdate) => {
         const p = this.state.patient;
         const note = this.state.openClinicalNote;
-        s.updatePatient(p, this.contextManager, note);
+        s.updatePatient(p, this.contextManager, note, shouldUpdate);
     }
 
     setOpenClinicalNote = (openClinicalNote) => {

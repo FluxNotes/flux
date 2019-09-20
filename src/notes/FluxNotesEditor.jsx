@@ -678,37 +678,33 @@ class FluxNotesEditor extends React.Component {
     }
 
     updateSubsequentShortcut = (transform, currentShortcut, shortcut) => {
-        const currentCompleteness = shortcut.isComplete;
-        if (Lang.isUndefined(shortcut.parentContext)) {
-            shortcut.determineParentContext(this.props.contextManager, shortcut.metadata["knownParentContexts"], shortcut.metadata["parentAttribute"]);
-        }
-        if (!Lang.isUndefined(shortcut.parentContext)
-            && Lang.isEqual(shortcut.parentContext, currentShortcut)
-            && shortcut.parentContext.children.indexOf(shortcut) === -1) {
-            shortcut.parentContext.addChild(shortcut);
-            try {
-                shortcut.parentContext.setAttributeValue(shortcut.metadata.parentAttribute, shortcut.getText());
-            } catch (e) {} // If setAttributeValue is not implemented, do nothing
-        }
-        try {
-            shortcut.updatePatient(this.props.patient, this.props.contextManager, this.props.updatedEditorNote, true);
-        } catch (e) {}
-        const updatedCompleteness = shortcut.isComplete;
-        const hasCompleteStatusChanged = currentCompleteness !== updatedCompleteness;
+        // Gather starting completeness and starting text of shortcut in order to check if either has changed
+        const previousIsComplete = shortcut.isComplete;
         let currentText;
         try {
             currentText = shortcut.getText();
         } catch (e) {
             currentText = undefined;
         }
-        const updatedText = shortcut.determineText ? shortcut.determineText(this.props.contextManager) : undefined;
+
+        // Reinitialize the shortcut to recalculate parent, children, text, etc
+        shortcut.initialize(this.props.contextManager, shortcut.initiatingTrigger, true, '', true);
+
+        // Gather updated completeness
+        const newIsComplete = shortcut.isComplete;
+        const hasCompleteStatusChanged = previousIsComplete !== newIsComplete;
+
+        // Gather updated text
+        let updatedText;
+        try {
+            updatedText = shortcut.getText();
+        } catch (e) {
+            updatedText = undefined;
+        }
         const hasTextChanged = currentText !== updatedText;
         const shouldTextUpdate = !Lang.isUndefined(updatedText) && !Lang.isArray(updatedText) && hasTextChanged;
-        if (shouldTextUpdate) {
-            try {
-                shortcut.setText(updatedText);
-            } catch (e) {} // If setText is not implemented, do nothing
-        }
+
+        // If the text of the shortcut had changed or the completeness of the shortcut has changed, we need to update it
         if (shouldTextUpdate || hasCompleteStatusChanged) {
             this.resetShortcutData(shortcut, transform);
         }
