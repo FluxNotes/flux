@@ -612,11 +612,13 @@ function StructuredFieldPlugin(opts) {
                 for (const key of keyForShortcut) {
                     // Add two keys: The key of the node (an Inline) and its children (Text nodes)
                     const shortcutNode = state.document.getDescendant(key);
-                    for (const childNode of shortcutNode.nodes) {
-                        const childKey = childNode.key;
-                        allNodeKeys.push(childKey);
+                    if (shortcutNode) {
+                        for (const childNode of shortcutNode.nodes) {
+                            const childKey = childNode.key;
+                            allNodeKeys.push(childKey);
+                        }
+                        allNodeKeys.push(key);
                     }
-                    allNodeKeys.push(key);
                 }
             } else {
                 // Add two keys: The key of the node (an Inline) and its children (Text nodes)

@@ -526,6 +526,9 @@ class FluxNotesEditor extends React.Component {
     }
 
     closeNote = () => {
+        // clear map because shortcuts get reconstructed each time with new uuids
+        // see insertShortcut method for creation of new shortcuts
+        this.structuredFieldMapManager.idToKeysMap.clear();
         this.props.searchIndex.removeDataBySection('Open Note');
         const documentText = this.getNoteText(this.state.state);
         this.props.saveNote(documentText);
@@ -1340,6 +1343,7 @@ class FluxNotesEditor extends React.Component {
      * Handle updates when we have a new insert text with structured phrase
      */
     insertTextWithStructuredPhrases = (textToBeInserted, currentTransform = undefined, updatePatient = true, source) => {
+        console.log(textToBeInserted)
         const currentState = this.state.state;
 
         let transform = (currentTransform) ? currentTransform : currentState.transform();
