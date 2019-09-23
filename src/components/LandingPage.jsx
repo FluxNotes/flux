@@ -250,7 +250,7 @@ export default class LandingPage extends Component {
                     </div>
 
                     <div className="landing-get-involved-contact">
-                        <div className="name">Maura A Huff</div>
+                        <div className="name">Maura Huff</div>
                         <div className="title">Co-Task Lead</div>
                         <div className="email">mhuff@mitre.org</div>
                     </div>
