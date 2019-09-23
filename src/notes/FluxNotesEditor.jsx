@@ -526,6 +526,9 @@ class FluxNotesEditor extends React.Component {
     }
 
     closeNote = () => {
+        // clear map because shortcuts get reconstructed each time with new uuids
+        // see insertShortcut method for creation of new shortcuts
+        this.structuredFieldMapManager.idToKeysMap.clear();
         this.props.searchIndex.removeDataBySection('Open Note');
         const documentText = this.getNoteText(this.state.state);
         this.props.saveNote(documentText);
