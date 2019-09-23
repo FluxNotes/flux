@@ -111,7 +111,10 @@ export default class Context {
      */
     setKey(key) {
         this.key = key;
-        if (this.isContext() && this.contextManager && !this.needToSelectValueFromMultipleOptions()) {
+        // Shortcuts that require selection from options and are not completed are not in context.
+        // Shortcuts that don't require selection from options and are not completed are still added.
+        const shouldAddToContext = (this.needToSelectValueFromMultipleOptions() && this.isComplete) || !this.needToSelectValueFromMultipleOptions();
+        if (this.isContext() && this.contextManager && shouldAddToContext) {
             this.contextManager.addShortcutToContext(this);
             this.isInContext = true;
         }
