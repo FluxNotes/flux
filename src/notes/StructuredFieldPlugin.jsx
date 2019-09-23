@@ -229,7 +229,7 @@ function StructuredFieldPlugin(opts) {
                 contextManager.contextUpdated();
             } else {
                 transform = editor.getState().transform(); // don't allow state change
-                updateErrors([ "Unable to delete " + shortcut.getDisplayText() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
+                updateErrors([ `Unable to delete ${shortcut.getDisplayText()} because ${shortcut.getChildren().map(child => child.getDisplayText()).join()} ${(shortcut.getChildren().length > 1) ? 'depend' : 'depends'} on it.` ]);
             }
         });
         return transform.apply();
