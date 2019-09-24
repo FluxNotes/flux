@@ -243,6 +243,10 @@ export default class EntryShortcut extends Shortcut {
         return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
     }
 
+    getText() {
+        return this.text;
+    }
+
     getDisplayText() {
         return this.initiatingTrigger.replace('#', '');
     }

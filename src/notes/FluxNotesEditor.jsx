@@ -441,7 +441,7 @@ class FluxNotesEditor extends React.Component {
             }
         }
 
-        transform = this.resetShortcutData(shortcut, transform);
+        transform = this.updateStructuredFieldResetSelection(shortcut, transform);
         transform = this.resetSubsequentShortcuts(shortcut, transform);
 
         const newState = transform.apply();
@@ -667,25 +667,26 @@ class FluxNotesEditor extends React.Component {
     }
 
     updateStructuredFieldResetSelection = (shortcut, transform) => {
-        // Save anchor block to reset selection after updating shortcut text
-        const { anchorBlock } = transform.state;
+        // Save the current selection in order to reset selection back when finished updating shortcut
+        const { anchorKey } = transform.state.selection;
+        const anchorNode = transform.state.document.getNode(anchorKey);
 
         transform = this.structuredFieldPlugin.transforms.updateStructuredField(transform, shortcut);
 
         // Move to previous anchor block to not lose the valid selection
-        transform = transform.moveToRangeOf(anchorBlock).collapseToEnd().focus();
+        transform = transform
+            .collapseToStartOf(anchorNode)
+            .insertText(' ')    // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
+            .deleteBackward(1)  // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
+            .collapseToEnd()
+            .focus();
         return transform;
     }
 
     updateSubsequentShortcut = (transform, currentShortcut, shortcut) => {
         // Gather starting completeness and starting text of shortcut in order to check if either has changed
         const previousIsComplete = shortcut.isComplete;
-        let currentText;
-        try {
-            currentText = shortcut.getText();
-        } catch (e) {
-            currentText = undefined;
-        }
+        const previousText = shortcut.getDisplayText();
 
         // Reinitialize the shortcut to recalculate parent, children, text, etc
         shortcut.initialize(this.props.contextManager, shortcut.initiatingTrigger, true, '', true);
@@ -695,18 +696,13 @@ class FluxNotesEditor extends React.Component {
         const hasCompleteStatusChanged = previousIsComplete !== newIsComplete;
 
         // Gather updated text
-        let updatedText;
-        try {
-            updatedText = shortcut.getText();
-        } catch (e) {
-            updatedText = undefined;
-        }
-        const hasTextChanged = currentText !== updatedText;
-        const shouldTextUpdate = !Lang.isUndefined(updatedText) && !Lang.isArray(updatedText) && hasTextChanged;
+        const newText = shortcut.getDisplayText();
+        const hasTextChanged = previousText !== newText;
+        const shouldTextUpdate = !Lang.isUndefined(newText) && !Lang.isArray(newText) && hasTextChanged;
 
         // If the text of the shortcut had changed or the completeness of the shortcut has changed, we need to update it
         if (shouldTextUpdate || hasCompleteStatusChanged) {
-            this.resetShortcutData(shortcut, transform);
+            transform = this.updateStructuredFieldResetSelection(shortcut, transform);
         }
 
         return transform;
@@ -741,31 +737,6 @@ class FluxNotesEditor extends React.Component {
                 }
             });
         }
-        return transform;
-    }
-
-    resetShortcutData = (shortcut, transform) => {
-        const key = shortcut.getKey();
-        transform = transform.setNodeByKey(key, {
-            data: {
-                shortcut
-            }
-        });
-
-        // Save the current selection in order to reset selection back when finished updating shortcut
-        const { anchorKey } = transform.state.selection;
-        const anchorNode = transform.state.document.getNode(anchorKey);
-
-        // Update text on the node
-        const shortcutNode = transform.state.document.getNode(shortcut.getKey());
-        transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
-
-        // Move to previous anchor block to not lose the valid selection
-        transform = transform
-            .collapseToStartOf(anchorNode)
-            .insertText(' ')    // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
-            .deleteBackward(1)  // FIXME: Hacky fix for issues with enter-key selection in the calendar component not focusing back in the editor post-insertion
-            .focus();
         return transform;
     }
 

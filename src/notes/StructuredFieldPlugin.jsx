@@ -774,7 +774,22 @@ function deleteNode(node, transform, isLastBlock) {
     return transform;
 }
 
-function updateStructuredField(opts, transform, shortcut) {
+function updateTextOfShortcut(transform, shortcut) {
+    const key = shortcut.getKey();
+    transform = transform.setNodeByKey(key, {
+        data: {
+            shortcut
+        }
+    });
+
+    // Update text on the node
+    const shortcutNode = transform.state.document.getNode(shortcut.getKey());
+    transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
+
+    return transform;
+}
+
+function updateMultilineShortcut(opts, transform, shortcut) {
     const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
     const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
     const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
@@ -803,6 +818,18 @@ function updateStructuredField(opts, transform, shortcut) {
 
     const newShortcuts = insertStructuredField(opts, transform, newShortcut);
     transform = newShortcuts[0].moveToEnd();
+    return transform;
+}
+
+function updateStructuredField(opts, transform, shortcut) {
+    // Check if a shortcut will be inserted as multiple nodes and if it has no children.
+    // If so, we can safely remove it in order to add in the multiple lines of updated text correctly
+    const shouldUpdateMultiline = shortcut.getDisplayText().split(/\n\r|\r\n|\r|\n/g).length > 1 && shortcut.children.length === 0;
+    if (shouldUpdateMultiline) {
+        transform = updateMultilineShortcut(opts, transform, shortcut);
+    } else {
+        transform = updateTextOfShortcut(transform, shortcut);
+    }
     return transform;
 }
 
