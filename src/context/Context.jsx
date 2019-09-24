@@ -41,6 +41,10 @@ export default class Context {
         return this.children;
     }
 
+    removeParent() {
+        this.parentContext = undefined;
+    }
+
     getValueObject() {
         return this.valueObject;
     }
