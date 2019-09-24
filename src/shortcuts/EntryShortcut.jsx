@@ -278,7 +278,8 @@ export default class EntryShortcut extends Shortcut {
                     this.isObjectNew = false;
                     return;
                 }
-            } else {
+            }
+            if (this.isObjectNew) {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
             this.isObjectNew = false;
