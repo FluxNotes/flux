@@ -217,11 +217,17 @@ function StructuredFieldPlugin(opts) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
                 }
+
                 // If there is a parent context and the parent will reamin after deletion, update its key as well.
                 // Need to check for actual shortcut.parentContext because hasParentContext returns true if "patient" is a parent context
                 if (shortcut.hasParentContext() && !_.isEmpty(shortcut.parentContext) && !_.includes(deletedKeys, shortcut.parentContext.getKey())) {
                     transform = updateParentContextShortcut(transform, shortcut);
                 }
+
+                if (shortcut.hasChildren()) {
+                    shortcut.getChildren().forEach(c => transform = updateChildrenContextShortcut(transform, c));
+                }
+
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.uniqueId);
                 const updatedShortcutKeys = idToKeysMap.get(shortcut.uniqueId).filter(k => k !== key);
@@ -652,6 +658,14 @@ function updateParentContextShortcut(transform, shortcut) {
         });
     }
     return transform;
+}
+
+function updateChildrenContextShortcut(transform, shortcut) {
+    return transform.setNodeByKey(shortcut.getKey(), {
+        data: {
+            shortcut
+        }
+    });
 }
 
 /**

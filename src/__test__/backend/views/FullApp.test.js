@@ -1109,7 +1109,7 @@ describe('6 FluxNotesEditor', function() {
         }
     });
 
-    it("6.7 Clicking '#deceased' in the context tray results in a structured data insertion and the context panel updates", () => {
+    it.skip("6.7 Clicking '#deceased' in the context tray results in a structured data insertion and the context panel updates", () => {
         let patient = new PatientRecord(mcodePatientJson);
         const contextManager = new ContextManager(patient, () => {});
         const structuredFieldMapManager = new StructuredFieldMapManager();

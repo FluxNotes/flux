@@ -21,7 +21,7 @@ class Shortcut extends Context {
 
     onBeforeDeleted() {
         if (this.isContext() && this.hasChildren()) {
-            return false;
+            this.children.forEach(c => c.removeParent());
         }
         if (this.isContext() && this.contextManager) {
             this.contextManager.removeShortcutFromContext(this);

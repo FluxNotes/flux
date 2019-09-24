@@ -57,6 +57,15 @@ export default class EntryShortcut extends Shortcut {
         return !Lang.isUndefined(this.parentContext) && !Lang.isNull(this.parentContext);
     }
 
+    removeParent() {
+        super.removeParent();
+        const undoUpdatePatientSpecList = this.metadata.undoUpdatePatient;
+
+        if (undoUpdatePatientSpecList) {
+            undoUpdatePatientSpecList.forEach(undoUpdatePatientSpec => this.callMethod(this.patient, undoUpdatePatientSpec));
+        }
+    }
+
     isContext() {
         return this.metadata.isContext;
     }
