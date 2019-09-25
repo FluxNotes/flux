@@ -225,7 +225,8 @@ function StructuredFieldPlugin(opts) {
                 }
 
                 if (shortcut.hasChildren()) {
-                    shortcut.getChildren().forEach(c => transform = updateChildrenContextShortcut(transform, c));
+                    // Update children keys if it is not going to be deleted
+                    shortcut.getChildren().filter(c => !_.includes(deletedKeys, c.getKey())).forEach(c => transform = updateChildrenContextShortcut(transform, c));
                 }
 
                 keyToShortcutMap.delete(key);
