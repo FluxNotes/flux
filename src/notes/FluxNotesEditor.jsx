@@ -434,15 +434,11 @@ class FluxNotesEditor extends React.Component {
                 shortcut.setValueObject(selection.object);
                 if (!Lang.includes(this.contextManager.contexts, shortcut)) this.contextManager.addShortcutToContext(shortcut);
                 this.contextManager.contextUpdated();
-
-                // TODO: Use this function to update child shortcuts when parent value is selected (ex: update @ONCOHIST after @condition selected)
-                // Current issue is that child isn't added to parent because incomplete shortcuts are removed from context so child can't determine parentContext to add to
-                // transform = this.updateChildShortcuts(transform, shortcut);
             }
         }
 
         transform = this.updateStructuredFieldResetSelection(shortcut, transform);
-        transform = this.resetSubsequentShortcuts(shortcut, transform);
+        transform = this.resetRelevantSubsequentShortcuts(shortcut, transform);
 
         const newState = transform.apply();
         this.setState({
@@ -491,7 +487,7 @@ class FluxNotesEditor extends React.Component {
         const result = this.structuredFieldPlugin.transforms.insertStructuredField(transform, shortcut);
         let resultTransform = result[0];
         this.scrollToAnchorElement();
-        resultTransform = this.resetSubsequentShortcuts(shortcut, resultTransform);
+        resultTransform = this.resetRelevantSubsequentShortcuts(shortcut, resultTransform);
         return resultTransform;
     }
 
@@ -683,7 +679,7 @@ class FluxNotesEditor extends React.Component {
         return transform;
     }
 
-    updateSubsequentShortcut = (transform, currentShortcut, shortcut) => {
+    hasShortcutChangedTextOrComplete = (shortcut) => {
         // Gather starting completeness and starting text of shortcut in order to check if either has changed
         const previousIsComplete = shortcut.isComplete;
         const previousText = shortcut.getDisplayText();
@@ -700,40 +696,37 @@ class FluxNotesEditor extends React.Component {
         const hasTextChanged = previousText !== newText;
         const shouldTextUpdate = !Lang.isUndefined(newText) && !Lang.isArray(newText) && hasTextChanged;
 
-        // If the text of the shortcut had changed or the completeness of the shortcut has changed, we need to update it
-        if (shouldTextUpdate || hasCompleteStatusChanged) {
-            transform = this.updateStructuredFieldResetSelection(shortcut, transform);
-        }
-
-        return transform;
+        // Return whether the text of the shortcut had changed or the completeness of the shortcut has changed
+        const hasShortcutChanged = shouldTextUpdate || hasCompleteStatusChanged;
+        return hasShortcutChanged;
     }
 
-    /**
-     * TODO Issues:
-     * - Where should we re-establish parent context?
-     * - As soon as you insert @condition, #toxicity is completed because there is a parent context.
-     *      - Maybe wait to establish parent context only if valid
-     * - Need to update children of shortcuts (not just contexts)
-     * - Need to only update shortcuts that come after the one just added. Potentially use isBlock1BeforeBlock2 to calculate "Following"?
-     */
-    resetSubsequentShortcuts = (currentShortcut, transform) => {
+    resetRelevantSubsequentShortcuts = (currentShortcut, transform) => {
         if (currentShortcut.metadata.isGlobalContext) {
-            // Global - Re-render all shortcuts following
+            // Global context was added/changed- update all shortcuts following it
             this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
                 const shortcut = inline.data.get('shortcut');
                 const isCurrentShortcutBefore = this.isBlock1BeforeBlock2(currentShortcut.getKey(), 0, shortcut.getKey(), 0, transform.state);
                 if (isCurrentShortcutBefore) {
-                    transform = this.updateSubsequentShortcut(transform, currentShortcut, shortcut);
+                    // If the text or the completeness of the shortcut has changed, we will need to update it
+                    const shouldShortcutUpdate = this.hasShortcutChangedTextOrComplete(shortcut);
+                    if (shouldShortcutUpdate) {
+                        transform = this.updateStructuredFieldResetSelection(shortcut, transform);
+                    }
                 }
             });
         } else if (currentShortcut.metadata.isContext) {
-            // Local context - re-render all shortcuts in the block (context)
+            // Local context was added/changed - update all shortcuts following it that are within the current block (local context)
             this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
                 const shortcut = inline.data.get('shortcut');
                 const isCurrentShortcutBefore = this.isBlock1BeforeBlock2(currentShortcut.getKey(), 0, shortcut.getKey(), 0, transform.state);
                 const isInLocalContext = !this.isNodeTypeBetween(currentShortcut.getKey(), shortcut.getKey(), 'line', transform.state);
                 if (isCurrentShortcutBefore && isInLocalContext) {
-                    transform = this.updateSubsequentShortcut(transform, currentShortcut, shortcut);
+                    // If the text or the completeness of the shortcut has changed, we will need to update it
+                    const shouldShortcutUpdate = this.hasShortcutChangedTextOrComplete(shortcut);
+                    if (shouldShortcutUpdate) {
+                        transform = this.updateStructuredFieldResetSelection(shortcut, transform);
+                    }
                 }
             });
         }
@@ -767,30 +760,6 @@ class FluxNotesEditor extends React.Component {
         if (anchorElement && anchorElement.scrollIntoView && !anchorElementInView) {
             anchorElement.scrollIntoView({block: 'end'});
         }
-    }
-
-    updateChildShortcuts = (transform, shortcut) => {
-        // Update the children of the shortcut whose values just got selected.
-        const childShortcuts = shortcut.getChildren();
-        childShortcuts.forEach(childShortcut => {
-            if (this.shortcutTriggerCheck(childShortcut, childShortcut.initiatingTrigger)) {
-                // Set the text, then change the data of the shortcut to trigger a re-render.
-                const text = childShortcut.determineText(this.contextManager);
-                childShortcut.setText(text);
-                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
-            } else {
-                childShortcut.setText(null);
-                transform = this.updateStructuredFieldResetSelection(childShortcut, transform);
-            }
-        });
-
-        // Force shortcut to re-render with updated data
-        transform = this.resetShortcutData(shortcut, transform);
-        const state = transform.apply();
-        this.setState({ state }, () => {
-            this.scrollToData(state.document, shortcut.getKey());
-        });
-        return transform;
     }
 
     componentDidMount = () => {
@@ -1438,30 +1407,6 @@ class FluxNotesEditor extends React.Component {
         this.insertTextWithStructuredPhrases(contextTrayItem, undefined, true, "Shortcuts in Context");
         this.props.updateContextTrayItemToInsert(null);
         this.props.updateNoteAssistantMode('context-tray');
-    }
-
-    /**
-     * Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
-     * or if the shortcutTrigger matches the shortcut's regexpTrigger
-     */
-    shortcutTriggerCheck = (shortcutC, shortcutTrigger) => {
-        // Check regexpTrigger before checking currently valid shortcuts
-        if (!Lang.isNull(shortcutC) && !Lang.isUndefined(shortcutC.regexpTrigger) && !Lang.isNull(shortcutC.regexpTrigger)) {
-            const regexpTrigger = new RegExp(shortcutC.regexpTrigger);
-            if (regexpTrigger.test(shortcutTrigger))
-                return true;
-        }
-
-        const shortcuts = this.contextManager.getCurrentlyValidShortcuts(this.props.shortcutManager);
-
-        // Check if shortcutTrigger is a shortcut trigger in the list of currently valid shortcuts
-        return shortcuts.some((shortcutObj) => {
-            const shortcutId = shortcutObj.id;
-            const triggers = this.props.shortcutManager.getTriggersForShortcut(shortcutId);
-            return triggers.some((trigger) => {
-                return trigger.name.toLowerCase() === shortcutTrigger.toLowerCase();
-            });
-        });
     }
 
     /**
