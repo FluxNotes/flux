@@ -3,6 +3,7 @@ import Lang from 'lodash';
 export default class Context {
     constructor() {
         this.children = [];
+        this.isObjectComplete = false;
         this._initialContextPosition = -1; // Where to insert the context relative to the others on creation
     }
 
@@ -43,6 +44,7 @@ export default class Context {
 
     removeParent() {
         this.parentContext = undefined;
+        this.isObjectComplete = false;
     }
 
     getValueObject() {

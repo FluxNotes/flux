@@ -689,7 +689,7 @@ class FluxNotesEditor extends React.Component {
         const previousText = shortcut.getDisplayText();
 
         // Reinitialize the shortcut to recalculate parent, children, text, etc
-        shortcut.initialize(this.props.contextManager, shortcut.initiatingTrigger, true, '', true);
+        shortcut.initialize(this.props.contextManager, shortcut.initiatingTrigger, true, '');
 
         // Gather updated completeness
         const newIsComplete = shortcut.isComplete;

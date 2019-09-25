@@ -126,7 +126,7 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
-    initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData =  '', shouldUpdate = false) {
+    initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
         if (contextManager) {
             this.establishParentContext(contextManager);
@@ -137,7 +137,7 @@ export default class EntryShortcut extends Shortcut {
             metadataVOA.forEach((attrib) => {
                 const curVal = this.getAttributeValue(attrib.name);
                 if (Lang.isEmpty(curVal) && attrib.isSettable && attrib.type !== "list") {
-                    this.setAttributeValue(attrib.name, null, true, updatePatient, '', shouldUpdate);
+                    this.setAttributeValue(attrib.name, null, true, updatePatient);
                 }
             });
         }
@@ -195,7 +195,7 @@ export default class EntryShortcut extends Shortcut {
         return this._getAttributeValue(this.object, name);
     }
 
-    setAttributeValue(name, value, publishChanges = true, updatePatient = true, currentChildText = '', shouldUpdate) {
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true, currentChildText = '') {
         const voa = this.valueObjectAttributes[name];
         if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplayText() + "'"); //this.text
         this.isSet[name] = (value !== null);
@@ -241,7 +241,7 @@ export default class EntryShortcut extends Shortcut {
             }
         }
         if (this.isContext()) this.updateContextStatus();
-        if (this.onUpdate && updatePatient) this.onUpdate(this, shouldUpdate);
+        if (this.onUpdate && updatePatient) this.onUpdate(this);
         if (publishChanges) {
             this.notifyValueChangeHandlers(name);
         }
@@ -272,8 +272,8 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
-    updatePatient(patient, contextManager, clinicalNote, shouldUpdate = false) {
-        if (this.isObjectNew || shouldUpdate) {
+    updatePatient(patient, contextManager, clinicalNote) {
+        if (this.isObjectNew || !this.isObjectComplete) {
             const updatePatientSpecList = this.metadata["updatePatient"];
             let result;
             if (updatePatientSpecList) {
@@ -296,6 +296,9 @@ export default class EntryShortcut extends Shortcut {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
             this.isObjectNew = false;
+            // If there is a parent context and all methods have been called, the object is complete.
+            // If there is no parent context, other fields will need to be updated once a parent is established is it is not complete.
+            this.isObjectComplete = !Lang.isUndefined(this.parentContext);
         }
     }
 
