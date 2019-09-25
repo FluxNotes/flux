@@ -45,6 +45,9 @@ export default class InsertValue extends Shortcut {
             if (shortcutDataObj.wasRemovedFromContext) {
                 this._shouldRemoveFromContext = true;
             }
+        } else if (this.valueObject && this.parentContext) {
+            // If shortcut is being re-initialized and valueObject is already set, we might need to set it on the parent now
+            this.setValueObject(this.valueObject);
         }
     }
 
