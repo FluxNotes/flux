@@ -604,56 +604,13 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onSelect(event, data, state, editor) {
-        // Anytime the selection changes, we want to correctly handle any selections inside a shortcut node
-        const allNodeKeys = [];
-        opts.structuredFieldMapManager.idToKeysMap.forEach((keyForShortcut, id) => {
-            // Need to handle two cases - where keys are arrays and where keys are just strings
-            if (_.isArray(keyForShortcut)) {
-                for (const key of keyForShortcut) {
-                    // Add two keys: The key of the node (an Inline) and its children (Text nodes)
-                    const shortcutNode = state.document.getDescendant(key);
-                    if (shortcutNode) {
-                        for (const childNode of shortcutNode.nodes) {
-                            const childKey = childNode.key;
-                            allNodeKeys.push(childKey);
-                        }
-                        allNodeKeys.push(key);
-                    }
-                }
-            } else {
-                // Add two keys: The key of the node (an Inline) and its children (Text nodes)
-                const shortcutNode = state.document.getDescendant(keyForShortcut);
-                if (shortcutNode) {
-                    for (const childNode of shortcutNode.nodes) {
-                        const childKey = childNode.key;
-                        allNodeKeys.push(childKey);
-                    }
-                    allNodeKeys.push(keyForShortcut);
-                }
-            }
-        });
-
-        // Inspect the incoming selection to see if it
-        const curStartKey = data.selection.startKey;
-        const curEndKey = data.selection.endKey;
-        // When start and end key are in a shortcut, we should move the focus and end key to the beginning of the next node
-        if (curEndKey === curStartKey && allNodeKeys.indexOf(curEndKey) !== -1) {
-            // Make a new selection object; start by copying the incoming selection object
-            const newSelection = {};
-            for (const [key, value] of data.selection) {
-                newSelection[key] = value;
-            }
-            // Get the parent of this node - should be the InlineStructuredPhrase node
-            const nodeParent = state.document.getParent(curEndKey);
-            // Get the next sibling
-            const nextSiblingAfterEnd = state.document.getNextSibling(nodeParent.key);
-            // Collapse the selection and place it at the front of the next node
-            newSelection.focusKey = nextSiblingAfterEnd.key;
-            newSelection.focusOffset = 0;
-            newSelection.anchorKey = nextSiblingAfterEnd.key;
-            newSelection.anchorOffset = 0;
-            return state.transform().select(newSelection).apply();
+        // Short circuit if we are inside an editable shortcut - should be handled by others in the plugin
+        const parentNode = state.document.getParent(data.selection.anchorKey);
+        if (parentNode.type === 'structured_field') {
+            if (parentNode.data.get('shortcut').metadata.isEditable) return;
+            return state.transform().moveToRangeOf(parentNode).collapseToStartOfNextText().apply();
         }
+        return;
     }
 
     /*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
