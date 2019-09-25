@@ -134,11 +134,23 @@
                         display: inline;
                         border-bottom: 1.5px dashed $missing-data-red;
                     }
+
+                    &, &-incomplete {
+                        &[contenteditable="false"]:hover {
+                            cursor: pointer;
+                        }
+                    }
                 }
                 &-creator {
                     border-bottom: 1px solid $shr-context-line;
                     &-incomplete {
                         border-bottom: 1.5px dashed $missing-data-red;
+                    }
+
+                    &, &-incomplete {
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
 
