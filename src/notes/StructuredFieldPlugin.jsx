@@ -836,9 +836,9 @@ function updateMultilineShortcut(opts, transform, shortcut) {
 }
 
 function updateStructuredField(opts, transform, shortcut) {
-    // Check if a shortcut will be inserted as multiple nodes and if it has no children.
-    // If so, we can safely remove it in order to add in the multiple lines of updated text correctly
-    const shouldUpdateMultiline = shortcut.getDisplayText().split(/\n\r|\r\n|\r|\n/g).length > 1 && shortcut.children.length === 0;
+    // Check if a shortcut will be inserted as multiple nodes
+    // If so, we need to remove it in order to add in the multiple lines of updated text correctly
+    const shouldUpdateMultiline = shortcut.getDisplayText().split(/\n\r|\r\n|\r|\n/g).length > 1;
     if (shouldUpdateMultiline) {
         transform = updateMultilineShortcut(opts, transform, shortcut);
     } else {
