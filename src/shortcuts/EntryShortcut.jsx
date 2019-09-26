@@ -267,9 +267,9 @@ export default class EntryShortcut extends Shortcut {
             undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
                 this.callMethod(this.patient, undoUpdatePatientSpec);
             });
-        } else {
-            this.patient.removeEntryFromPatient(this.object);
         }
+
+        this.patient.removeEntryFromPatient(this.object);
     }
 
     updatePatient(patient, contextManager, clinicalNote) {
