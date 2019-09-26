@@ -31,7 +31,7 @@ export default class CreatorChild extends Shortcut {
             this.parentContext.addChild(this);
         }
 
-        if (trigger === this.metadata.label && !_.isUndefined(this.parentContext)) {
+        if (_.toLower(trigger) === _.toLower(this.metadata.label) && !_.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
         } else {
             this.setText(trigger, updatePatient);
@@ -143,7 +143,7 @@ export default class CreatorChild extends Shortcut {
             // If we have a multi-choice shortcut, it is incomplete only if the label inserted with no value selected
             if (_.isArray(parentAttributeValue)) {
                 // If text matches the label, no value selected yet. Render as incomplete
-                return this.getDisplayText() !== this.metadata.label.substring(1);
+                return _.toLower(this.getDisplayText()) !== _.toLower(this.metadata.label.substring(1));
             }
 
             return !!parentAttributeValue; // If parent attribute is defined, shortcut is complete, else it is incomplete
