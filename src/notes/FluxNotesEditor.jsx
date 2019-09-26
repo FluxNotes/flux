@@ -701,6 +701,18 @@ class FluxNotesEditor extends React.Component {
         return hasShortcutChanged;
     }
 
+    // Check if the class displayed in the editor does not match the isComplete of the shortcut
+    isCompletenessNotRendered = (className, shortcutIsComplete) => {
+        const isIncompleteClass = className === 'structured-field-inserter-incomplete' || className === 'structured-field-creator-incomplete';
+        const isCompleteClass = className === 'structured-field-inserter' || className === 'structured-field-creator';
+        if (isCompleteClass && !shortcutIsComplete) {
+            return true;
+        } else if (isIncompleteClass && shortcutIsComplete) {
+            return true;
+        }
+        return false;
+    }
+
     resetRelevantSubsequentShortcuts = (currentShortcut, transform) => {
         if (currentShortcut.metadata.isGlobalContext) {
             // Global context was added/changed- update all shortcuts following it
@@ -708,9 +720,12 @@ class FluxNotesEditor extends React.Component {
                 const shortcut = inline.data.get('shortcut');
                 const isCurrentShortcutBefore = this.isBlock1BeforeBlock2(currentShortcut.getKey(), 0, shortcut.getKey(), 0, transform.state);
                 if (isCurrentShortcutBefore) {
+                    const shortcutDOMNode = Slate.findDOMNode(inline);
                     // If the text or the completeness of the shortcut has changed, we will need to update it
                     const shouldShortcutUpdate = this.hasShortcutChangedTextOrComplete(shortcut);
-                    if (shouldShortcutUpdate) {
+                    // If the completeness does not match what is rendered in the editor currently, we will need to update it
+                    const isCompletenessNotRendered = this.isCompletenessNotRendered(shortcutDOMNode.className, shortcut.isComplete);
+                    if (shouldShortcutUpdate || isCompletenessNotRendered) {
                         transform = this.updateStructuredFieldResetSelection(shortcut, transform);
                     }
                 }
@@ -722,11 +737,15 @@ class FluxNotesEditor extends React.Component {
                 const isCurrentShortcutBefore = this.isBlock1BeforeBlock2(currentShortcut.getKey(), 0, shortcut.getKey(), 0, transform.state);
                 const isInLocalContext = !this.isNodeTypeBetween(currentShortcut.getKey(), shortcut.getKey(), 'line', transform.state);
                 if (isCurrentShortcutBefore && isInLocalContext) {
+                    const shortcutDOMNode = Slate.findDOMNode(inline);
                     // If the text or the completeness of the shortcut has changed, we will need to update it
                     const shouldShortcutUpdate = this.hasShortcutChangedTextOrComplete(shortcut);
-                    if (shouldShortcutUpdate) {
+                    // If the completeness does not match what is rendered in the editor currently, we will need to update it
+                    const isCompletenessNotRendered = this.isCompletenessNotRendered(shortcutDOMNode.className, shortcut.isComplete);
+                    if (shouldShortcutUpdate || isCompletenessNotRendered) {
                         transform = this.updateStructuredFieldResetSelection(shortcut, transform);
                     }
+
                 }
             });
         }
