@@ -121,7 +121,7 @@ export default class EntryShortcut extends Shortcut {
             }
         }
 
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.addChild(this);
         }
     }

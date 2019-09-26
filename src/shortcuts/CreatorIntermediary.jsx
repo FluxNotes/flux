@@ -17,7 +17,7 @@ export default class CreatorIntermediary extends Shortcut {
 
         super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
 
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false, updatePatient);
             this.parentContext.addChild(this);
         }

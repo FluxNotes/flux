@@ -19,7 +19,7 @@ export default class InsertValue extends Shortcut {
         if (Lang.isNull(shortcutData)) {
             shortcutData = "";
         }
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.addChild(this);
         }
 

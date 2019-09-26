@@ -63,7 +63,7 @@ export default class NLPHashtag extends Shortcut {
             this.parentContext = contextManager.getCurrentContext();
         }
 
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.addChild(this);
         }
 
