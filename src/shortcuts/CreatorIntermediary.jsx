@@ -15,7 +15,9 @@ export default class CreatorIntermediary extends Shortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        if (Lang.isUndefined(this.parentContext)) {
+            super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        }
 
         if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false, updatePatient);
