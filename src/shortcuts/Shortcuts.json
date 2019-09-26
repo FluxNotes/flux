@@ -269,7 +269,6 @@
         {"name":"date", "attribute":"enrollmentDate", "isSettable":"true", "setMethod": "enrollmentDate", "default": "$today", "childShortcut": "DateCreator"}
     ],
     "updatePatient": [ {"object":"$valueObject", "attribute": "status", "args": [ "enrolled"]} ],
-    "undoUpdatePatient": [ {"object":"$valueObject", "attribute": "status", "args": [ "completed"]} ],
     "isContext": true,
     "stringTriggers": [{ "name": "#enrollment", "description": "Support specifying the enrollment of the patient in a clinical trial."}],
     "regexpTrigger": null,
