@@ -44,7 +44,7 @@ class FluxResearchStudy extends FluxEntry {
             return;
         }
         let titleObj = new Title();
-        titleObj.value = title;
+        titleObj.value = title.toUpperCase();
         this._researchStudy.title = titleObj;
     }
 
