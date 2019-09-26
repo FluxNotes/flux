@@ -6,18 +6,10 @@ import TableLegend from '../../visualizations/TableLegend/TableLegend';
 import CompareUnselectedIcon from './CompareUnselectedIcon';
 import CompareSelectedIcon from './CompareSelectedIcon';
 import TreatmentOptionsOutcomesHeaders from './TreatmentOptionsOutcomesHeaders';
+
 import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesTable extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            sideEffectSelection: 'Most Common',
-            sideEffects: []
-        };
-    }
-
     componentWillReceiveProps(nextProps) {
         if (nextProps.similarPatientTreatmentsData !== this.props.similarPatientTreatmentsData) {
             const selected = nextProps.selectedTreatment;
@@ -38,16 +30,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     handleChangeEffect = effect => {
-        this.setState({ sideEffectSelection: effect.target.value });
-    }
-
-    gatherSideEffects = similarPatientTreatmentsData => {
-        const allTreatmentData = [...similarPatientTreatmentsData];
-        const allEffects = allTreatmentData.map(effect => Object.keys(effect.sideEffects.effects));
-        return allEffects.reduce((p, c) => {
-            // concat the arrays, filter out duplicate entries
-            return p.concat(c.filter(cx => p.indexOf(cx) < 0));
-        }, []);
+        const { setSelectedSideEffects } = this.props;
+        setSelectedSideEffects(effect.target.value);
     }
 
     getSortClass = sortType => {
@@ -75,8 +59,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     }
 
     renderTreatmentRow(row, isSelectedTreatment = false) {
-        const { selectedTreatment, setSelectedTreatment, timescale, showSideEffects } = this.props;
-        const { sideEffectSelection } = this.state;
+        const { selectedTreatment, setSelectedTreatment, timescale, showSideEffects, selectedSideEffects } = this.props;
         if (row == null || row.length === 0) return null;
 
         const { displayName, totalPatients, sideEffects } = row;
@@ -111,7 +94,7 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
                 {showSideEffects &&
                     <td className="top-side-effects">
-                        {sideEffectSelection === "Most Common"
+                        {selectedSideEffects === "Most Common"
                             ? topSideEffects.map(({ sideEffect, occurrences }, i) =>
                                 <div key={i} className="side-effect">
                                     {`${sideEffect.toLowerCase()} `}
@@ -120,8 +103,8 @@ export default class TreatmentOptionsOutcomesTable extends Component {
                             )
                             :
                             <div className="side-effect-percent">
-                                {sideEffects.effects[sideEffectSelection]
-                                    ? Math.floor(sideEffects.effects[sideEffectSelection] / totalPatients * 100)
+                                {sideEffects.effects[selectedSideEffects]
+                                    ? Math.floor(sideEffects.effects[selectedSideEffects] / totalPatients * 100)
                                     : 0
                                 }%
                             </div>
@@ -135,27 +118,26 @@ export default class TreatmentOptionsOutcomesTable extends Component {
     renderHeader = () => {
         const {
             changeSort,
+            selectedSideEffects,
             selectedTreatment,
             showSideEffects,
-            similarPatientTreatmentsData,
+            sideEffects,
             sortColumn,
             sortDirection,
             timescale
         } = this.props;
-        const { sideEffectSelection } = this.state;
         const sortName = sortDirection === 2 ? 'sort-up' : sortDirection === 1 ? 'sort-down' : 'sort';
         const sortP = sortColumn === 'totalPatients';
-        const sideEffects = this.gatherSideEffects(similarPatientTreatmentsData);
         const selectedTreatmentBool = selectedTreatment !== undefined && selectedTreatment !== null;
 
         return (
             <TreatmentOptionsOutcomesHeaders
                 changeSort={changeSort}
                 handleChangeEffect={this.handleChangeEffect}
+                selectedSideEffects={selectedSideEffects}
                 selectedTreatment={selectedTreatmentBool}
                 showSideEffects={showSideEffects}
                 sideEffects={sideEffects}
-                sideEffectSelection={sideEffectSelection}
                 sortColumn={sortColumn}
                 sortDirection={sortDirection}
                 sortName={sortName}
@@ -204,9 +186,12 @@ export default class TreatmentOptionsOutcomesTable extends Component {
 
 TreatmentOptionsOutcomesTable.propTypes = {
     changeSort: PropTypes.func.isRequired,
+    selectedSideEffects: PropTypes.string.isRequired,
     selectedTreatment: PropTypes.object,
+    setSelectedSideEffects: PropTypes.func.isRequired,
     setSelectedTreatment: PropTypes.func.isRequired,
     showSideEffects: PropTypes.bool.isRequired,
+    sideEffects: PropTypes.array.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
     sortColumn: PropTypes.string.isRequired,

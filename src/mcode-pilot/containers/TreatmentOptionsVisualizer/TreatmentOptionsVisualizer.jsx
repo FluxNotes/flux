@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import numberWithCommas from '../../utils/numberWithCommas';
 import ServiceManager from '../../../config/ServiceManager';
 
@@ -16,6 +17,7 @@ import {
     selectAllSimilarPatientOptions,
     selectSimilarPatientOption,
     selectSimilarPatientOptionRange,
+    setSelectedSideEffects,
     setSelectedTreatment
 } from '../../../actions/mcode';
 
@@ -23,7 +25,6 @@ import './TreatmentOptionsVisualizer.css';
 
 export class TreatmentOptionsVisualizer extends Component {
     componentDidMount() {
-
         const { patient, condition, initializeSimilarPatientProps, processSimilarPatientOutcomes } = this.props;
         const service = new ServiceManager().getService('outcomes');
         initializeSimilarPatientProps(patient, condition, service.filters);
@@ -50,11 +51,14 @@ export class TreatmentOptionsVisualizer extends Component {
             patient,
             selectAllCategorySimilarPatientOptions,
             selectAllSimilarPatientOptions,
+            selectedSideEffects,
             selectedTreatment,
             selectSimilarPatientOption,
             selectSimilarPatientOptionRange,
+            setSelectedSideEffects,
             setSelectedTreatment,
             showSideEffects,
+            sideEffects,
             similarPatientProps,
             similarPatientTreatments,
             similarPatientTreatmentsData,
@@ -84,9 +88,12 @@ export class TreatmentOptionsVisualizer extends Component {
                 </TreatmentOptionsSelector>
 
                 <TreatmentOptionsOutcomes
+                    selectedSideEffects={selectedSideEffects}
                     selectedTreatment={selectedTreatment}
+                    setSelectedSideEffects={setSelectedSideEffects}
                     setSelectedTreatment={setSelectedTreatment}
                     showSideEffects={showSideEffects}
+                    sideEffects={sideEffects}
                     similarPatientTreatments={similarPatientTreatments}
                     similarPatientTreatmentsData={similarPatientTreatmentsData}
                     timescale={timescale}
@@ -103,11 +110,14 @@ TreatmentOptionsVisualizer.propTypes = {
     processSimilarPatientOutcomes: PropTypes.func.isRequired,
     selectAllCategorySimilarPatientOptions: PropTypes.func.isRequired,
     selectAllSimilarPatientOptions: PropTypes.func.isRequired,
+    selectedSideEffects: PropTypes.string.isRequired,
     selectedTreatment: PropTypes.object,
     selectSimilarPatientOption: PropTypes.func.isRequired,
     selectSimilarPatientOptionRange: PropTypes.func.isRequired,
+    setSelectedSideEffects: PropTypes.func.isRequired,
     setSelectedTreatment: PropTypes.func.isRequired,
     showSideEffects: PropTypes.bool.isRequired,
+    sideEffects: PropTypes.array.isRequired,
     similarPatientProps: PropTypes.object.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
@@ -124,14 +134,17 @@ function mapDispatchToProps(dispatch) {
         selectAllSimilarPatientOptions,
         selectSimilarPatientOption,
         selectSimilarPatientOptionRange,
+        setSelectedSideEffects,
         setSelectedTreatment
     }, dispatch);
 }
 
 function mapStateToProps(state) {
     return {
+        selectedSideEffects: state.mcode.selectedSideEffects,
         selectedTreatment: state.mcode.selectedTreatment,
         showSideEffects: state.mcode.showSideEffects,
+        sideEffects: state.mcode.sideEffects,
         similarPatientProps: state.mcode.similarPatientProps,
         similarPatientTreatments: state.mcode.similarPatientTreatments,
         similarPatientTreatmentsData: state.mcode.similarPatientTreatmentsData,

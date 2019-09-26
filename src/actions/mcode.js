@@ -1,7 +1,8 @@
 import * as types from './types';
 import ServiceManager from '../config/ServiceManager';
-import {formatResults} from '../mcode-pilot/utils/serviceResultsProcessing';
+import { formatResults } from '../mcode-pilot/utils/serviceResultsProcessing';
 import FilterOptions from '../mcode-pilot/utils/FilterOptions';
+
 // ------------------------- SIMILAR PATIENT OPTIONS ----------------------- //
 
 function initializeSimilarPatientProps(patient, condition, filters) {
@@ -82,6 +83,13 @@ function setSelectedTreatment(treatment) {
     };
 }
 
+function setSelectedSideEffects(sideEffects) {
+    return {
+        type: types.SET_SELECTED_SIDE_EFFECTS,
+        sideEffects
+    };
+}
+
 export {
     initializeSimilarPatientProps,
     processSimilarPatientOutcomes,
@@ -89,5 +97,6 @@ export {
     selectAllSimilarPatientOptions,
     selectSimilarPatientOption,
     selectSimilarPatientOptionRange,
-    setSelectedTreatment,
+    setSelectedSideEffects,
+    setSelectedTreatment
 };
