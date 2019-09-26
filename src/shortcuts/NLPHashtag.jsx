@@ -316,7 +316,7 @@ export default class NLPHashtag extends Shortcut {
     }
 
     updatePatient(patient, contextManager, clinicalNote) {
-        if (this.isObjectNew) {
+        if (this.isObjectNew || !this.isObjectComplete) {
             const updatePatientSpecList = this.metadata["updatePatient"];
             let result;
             if (updatePatientSpecList) {
@@ -330,7 +330,8 @@ export default class NLPHashtag extends Shortcut {
                     }
                 });
                 if (Lang.isNull(result)) return;
-            } else {
+            }
+            if (this.isObjectNew) {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
             this.isObjectNew = false;
