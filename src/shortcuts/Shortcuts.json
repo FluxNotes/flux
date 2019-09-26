@@ -569,7 +569,18 @@
       {"name":"toDosageAmount", "attribute": "afterDosage", "isSettable": "true", "setMethod": "afterDosage"}
     ],
     "updatePatient": [ {"object":"$valueObject", "attribute": "type", "args": [ "reduced"]} ],
-    "undoUpdatePatient": [ {"object":"$valueObject", "attribute": "type", "args": [ null ]} ],
+    "undoUpdatePatient": [ 
+      {
+        "object":"$valueObject", 
+        "attribute": "type", 
+        "args": [ null ]
+      },
+      {
+        "object":"$valueObject", 
+        "method": "removeMedicationAfterAndRelatedRequest",
+        "args": [ null ]
+      }
+    ],
     "isContext": true,
     "stringTriggers": [{ "name": "#reduce medication", "description": "Support specifying medication change to reduce the dosage of a medication."}],
     "regexpTrigger": null,
