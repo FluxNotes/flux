@@ -224,10 +224,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
         if (!obj) {
             this.primaryCancerCondition = null;
         } else {
-            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let pcc = new PrimaryCancerCondition();
-            pcc.value = ref;
-            this.primaryCancerCondition = pcc;
+            this.primaryCancerCondition = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId.id, obj.entryInfo.entryType);
         }
     }
 
