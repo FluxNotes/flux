@@ -11,7 +11,7 @@ export default class OptionsCheckboxUnit extends Component {
     constructor(props) {
         super(props);
 
-        this.currentSelect = false;
+        this.currentSelect = this.props.selected;
         this.currentTime = 0;
         this.state = {
             openRangeSelector: false
