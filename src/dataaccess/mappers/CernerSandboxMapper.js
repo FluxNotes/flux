@@ -58,8 +58,6 @@ const allRelevantProfiles = [
     'http://hl7.org/fhir/us/shr/StructureDefinition/onco-core-TumorMarkerTest'
 ];
 
-
-
 const defaultBaseMapper = new SyntheaToV09();
 
 const mapper = {
