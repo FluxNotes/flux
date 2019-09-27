@@ -4727,10 +4727,10 @@ fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.6, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fhir-mapper@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/fhir-mapper/-/fhir-mapper-2.0.1.tgz#412d7888065ba4225187d369e6e4e6e4fd81f5a0"
-  integrity sha512-BPuK6OZT/EkbliucYHRLAfbpWOLesDvs5QHCvDZpQ/qYhSpCNi8euP8GnxlM8Zjwh+MdUFoDsTn10RzOY2Meww==
+fhir-mapper@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fhir-mapper/-/fhir-mapper-3.0.0.tgz#c158576ca1ab9baf9b2c76d7fa2f115a21dfa007"
+  integrity sha512-TAHzOma359mG2/5os1Kg3dI72poQbL/GiJs1A0mW+GPozO3ejXAALqEa7xrhojGpBzDgsHhoIBE9Ehvzjl7Jww==
   dependencies:
     fhirpath "^0.10.3"
     lodash "^4.17.13"
