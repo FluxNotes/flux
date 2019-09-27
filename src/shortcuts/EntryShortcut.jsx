@@ -368,7 +368,7 @@ export default class EntryShortcut extends Shortcut {
             if (argSpec === "$parentValueObject") {
 
                 if (!this.parentContext) {
-                    console.error("no parent context for " + this.getId());
+                    console.warn("no parent context for " + this.getId());
                     return null;
                 }
                 return this.parentContext.getValueObject();
@@ -387,7 +387,7 @@ export default class EntryShortcut extends Shortcut {
                 if (!Lang.isUndefined(this.parentContext)) {
                     return this.parentContext.getValueObject()[method](...args);
                 } else {
-                    console.error("no parent context for " + this.getId());
+                    console.warn("no parent context for " + this.getId());
                 }
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");
