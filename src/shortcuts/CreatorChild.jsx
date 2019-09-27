@@ -33,7 +33,7 @@ export default class CreatorChild extends Shortcut {
 
         if (_.toLower(trigger) === _.toLower(this.metadata.label) && !_.isUndefined(this.parentContext)) {
             this.parentContext.setAttributeIsSetByLabel(this.metadata.parentAttribute, true);
-        } else {
+        } else if (_.toLower(trigger) !== _.toLower(this.metadata.label)) {
             this.setText(trigger, updatePatient);
             this.clearValueSelectionOptions();
         }
