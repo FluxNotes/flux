@@ -61,21 +61,24 @@ function NLPHashtagPlugin(opts) {
 
     // Get a text representation of the sentence following the NLPHashtag
     function getSentenceContainingNLPHashtag(editorState, NLPShortcut) {
-        // Get the block immediately following the NLPShortcut
-        const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
-        // Relevant selection is from the end of the shortcut to the end of my selection
-        const relevantSelection = {
-            anchorKey: nodeAfterNLPShortcut.key,
-            anchorOffset: 0,
-            focusKey: editorState.endKey,
-            focusOffset: editorState.endOffset,
-            isFocused: false,
-            isBackward: false,
-        };
-        const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection));
-        // Need this list of nodes in a JSON representation.
-        const textRepresentationOfNodes = convertToTextForNLPEngine(relevantFragment.nodes.map(node => node.toJSON()));
-        return textRepresentationOfNodes;
+        if (editorState.document.getNode(NLPShortcut.key)) {
+            // Get the block immediately following the NLPShortcut
+            const nodeAfterNLPShortcut = editorState.document.getNextSibling(NLPShortcut.key);
+            // Relevant selection is from the end of the shortcut to the end of my selection
+            const relevantSelection = {
+                anchorKey: nodeAfterNLPShortcut.key,
+                anchorOffset: 0,
+                focusKey: editorState.endKey,
+                focusOffset: editorState.endOffset,
+                isFocused: false,
+                isBackward: false,
+            };
+            const relevantFragment = editorState.document.getFragmentAtRange(new Selection(relevantSelection));
+            // Need this list of nodes in a JSON representation.
+            const textRepresentationOfNodes = convertToTextForNLPEngine(relevantFragment.nodes.map(node => node.toJSON()));
+            return textRepresentationOfNodes;
+        }
+        return '';
     }
 
     // Given a list of Slate nodes, convert them to text
