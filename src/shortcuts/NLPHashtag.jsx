@@ -229,7 +229,7 @@ export default class NLPHashtag extends Shortcut {
     }
 
     getDisplayText() {
-        return this.initiatingTrigger;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     serialize() {
