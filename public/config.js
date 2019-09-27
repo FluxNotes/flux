@@ -39,10 +39,7 @@ CONFIG = {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-            mapper: 'SyntheaToV09',
-            mapperVariables: {
-                primaryCancerConditionCodes: ['444814009'] // you know what it is
-            },
+            mapper: 'CernerSandboxMapper',
             resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
         },
     },
