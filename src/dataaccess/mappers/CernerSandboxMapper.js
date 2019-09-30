@@ -113,7 +113,7 @@ const mapper = {
 };
 
 export default class Cerner extends AggregateMapper {
-    constructor(variables = {}) {
-        super(mapper, { primaryCancerConditionCodes, ...variables });
+    constructor(mapperVariables = {}) {
+        super(mapper, { primaryCancerConditionCodes, ...mapperVariables });
     }
 };
