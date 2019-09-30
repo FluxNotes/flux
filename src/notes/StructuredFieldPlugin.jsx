@@ -714,6 +714,7 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
         }
     });
 
+    transform = updateParentContextShortcut(transform, shortcut);
     return [transform, ""];
 }
 
