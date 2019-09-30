@@ -11,9 +11,9 @@ const attributionOptions = [
         codeSystem: 'https://www.meddra.org/'
     },
     {
-        name: 'Disease',
-        description: "Adverse event is attributed to the course of the disease",
-        code: '#Disease',
+        name: 'Illness',
+        description: "Adverse event is attributed to the course of the illness",
+        code: '#Illness',
         codeSystem: 'https://www.meddra.org/'
     },
     {
