@@ -148,8 +148,27 @@ class ContextGetHelp extends React.Component {
         );
     }
 
+    renderIsMissingParent() {
+        const initiatingTrigger = this.props.shortcut.getDisplayText();
+        return (
+            <ul className="context-get-help" ref="contextGetHelp">
+                <li
+                    className="context-get-help-li"
+                >
+                    <span className="context-get-help-text">
+                        <i>{initiatingTrigger} is missing a parent</i>
+                    </span>
+                </li>
+            </ul>
+        );
+    }
+
+
+
     render() {
-        // If the shortcut we're resposible for is complete, display a message to the user to avoid confusion
+        // If the shortcut we're responsible for is missing a parent, display a message to the user to avoid confusion
+        if (!this.props.shortcut.hasParentContext() && this.props.shortcut.hasChildren()) return this.renderIsMissingParent();
+        // If the shortcut we're responsible for is complete, display a message to the user to avoid confusion
         if (this.props.shortcut.isComplete) return this.renderIsCompleteMessage();
         // Else we should display all our getHelp message
         const initiatingTrigger = this.props.shortcut.getDisplayText();
