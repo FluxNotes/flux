@@ -730,7 +730,7 @@ class FluxNotesEditor extends React.Component {
                     }
                 }
             });
-        } else if (currentShortcut.metadata.isContext) {
+        } else if (currentShortcut.metadata.isContext || currentShortcut.metadata.isSiblingContext) {
             // Local context was added/changed - update all shortcuts following it that are within the current block (local context)
             this.state.state.document.getInlinesByTypeAsArray('structured_field').forEach(inline => {
                 const shortcut = inline.data.get('shortcut');
