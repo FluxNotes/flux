@@ -151,7 +151,10 @@ export default class InsertValue extends Shortcut {
         } else if (callObject === "parent") {
             //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
-            return this.parentContext.getAttributeValue(attribute);
+            if (this.parentContext) {
+                const attributeValue = this.parentContext.getAttributeValue(attribute);
+                if (attributeValue) return attributeValue;
+            }
         } else if (callObject === "$parentValueObject") {
             const patient = contextManager.getPatient();
             if (!this.parentContext || !this.parentContext.getValueObject()) {
