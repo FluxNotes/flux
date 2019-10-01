@@ -216,6 +216,7 @@ function StructuredFieldPlugin(opts) {
             if (shortcut.onBeforeDeleted()) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
+                    return;
                 }
 
                 // If there is a parent context and the parent will reamin after deletion, update its key as well.
