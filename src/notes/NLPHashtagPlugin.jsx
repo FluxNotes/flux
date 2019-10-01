@@ -117,6 +117,9 @@ function NLPHashtagPlugin(opts) {
 
     // Parse canonicalization to retrieve keyword
     function parseKeywordFromCanonicalizationBasedOnPhrase(canonicalization, NLPShortcutMetadata) {
+        if (typeof canonicalization === 'string' && canonicalization.toLowerCase() === 'disease') {
+            canonicalization = 'illness';
+        }
         const pathToCanonicalization = NLPShortcutMetadata["pathToCanonicalization"];
         const prefixToPrepend = NLPShortcutMetadata["prefixForCanonicalization"];
         if (Lang.isUndefined(pathToCanonicalization)) {
