@@ -99,7 +99,7 @@ describe('SMART on FHIR data source', function() {
         });
     });
 
-    it('should correctly map non-profiled FHIR resources to MCODE V05', function(done) {
+    it('should correctly map non-profiled FHIR resources to MCODE V09', function(done) {
         const patientSearchBundle = {
             resourceType: 'Bundle',
             type: 'searchset',
