@@ -78,8 +78,8 @@
     }
 
     .MyEditor-root {
-        font-family: 'Georgia', serif;
-
+        // font-family: 'Georgia', serif;
+        font:  $weight-regular $size-editor "Open Sans", Arial, sans-serif;
         .toolbar-menu > * {
             display: inline-block;
         }
@@ -107,62 +107,67 @@
         span {
             display: inline;
         }
-
-        // ******** StructuredFieldPlugin.jsx uses this
-        .structured-field {
-            // Bolded during template hovering
-            &-bolded {
-                font-weight: bold;
+        .editor-content {
+            /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
+            content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar
+            plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
+            height: calc(100vh - 96px - 20px - 130px - 76px - 20px) !important;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: left;
+            .placeholder {
+                background-color: #dddddd;
             }
+            // ******** StructuredFieldPlugin.jsx uses this
+            .structured-field {
+                // Bolded during template hovering
+                &-bolded {
+                    font-weight: $weight-semibold;
+                }
 
-            // Inserter values are grayed out
-            &-inserter {
-                color: $state;
-                display: inline;
+                // Inserter values are grayed out
+                &-inserter {
+                    color: $state;
+                    display: inline;
+                    &-incomplete {
+                        color: $state;
+                        display: inline;
+                        border-bottom: 1.5px dashed $missing-data-red;
+                    }
+                }
+                &-creator {
+                    border-bottom: 1px solid $shr-context-line;
+                    &-incomplete {
+                        border-bottom: 1.5px dashed $missing-data-red;
+                    }
+                }
+
+                &-search-result {
+                    background-color: $highlight-yellow;
+                }
+                &-selected-search-result {
+                    background-color: $highlight-selected-yellow;
+                }
             }
-
-            &-creator {
-                border-bottom: 1px solid $shr-context-line;
-            }
-
-            &-search-result {
+            // ******** Special editor marks use this
+            .search-result-regular-highlight {
                 background-color: $highlight-yellow;
             }
-            &-selected-search-result {
+            .search-result-selected-highlight {
                 background-color: $highlight-selected-yellow;
             }
+            .in-progress-note {
+                div:last-child {
+                    padding-bottom: 2px;
+                }
+                .structured-field {
+                    &-creator {
+                        border-bottom-style: dashed;
+                        border-bottom-width: 1.5px;
+                    }
+                }
+            }
         }
-        // ******** Special editor marks use this
-        .search-result-regular-highlight {
-            background-color: $highlight-yellow;
-        }
-        .search-result-selected-highlight {
-            background-color: $highlight-selected-yellow;
-        }
-    }
-
-    .editor-content {
-        /* 96px is the height of the Patient Control Panel, 20px is the height of the top margin of post encounter view
-        content and a little extra for potential scroll bars, 130px accounts for the editor header and editor toolbar
-        plus margins, 76px is the height of the sign button, 20px is the margin on the sign button */
-        height: calc(100vh - 96px - 20px - 130px - 76px - 20px) !important;
-        overflow-y: auto;
-        overflow-x: hidden;
-        text-align: left;
-    }
-
-    .in-progress-note {
-        .structured-field-creator {
-            background-color: rgba(0, 0, 0, 0);
-            border-bottom: 1.5px dashed $shr-context-line;
-        }
-
-        div:last-child {
-            padding-bottom: 2px;
-        }
-    }
-    .placeholder {
-        background-color: #dddddd;
     }
 
     @media only screen and (max-width: 1024px) {

@@ -88,9 +88,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
         const tReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalPrimaryTumorCategory);
         const tEntry = tReference ? this._patientRecord.getEntryFromReference(tReference) : null;
         if (!tStage) {
-            if (tReference) this._patientRecord.removeEntryFromPatient(tEntry);
-            const tIndex = this._tnmStageGroup.panelMembers.observation.findIndex(o => o === tReference);
-            this._tnmStageGroup.panelMembers.observation.splice(tIndex, 1);
+            if (tReference) {
+                this._patientRecord.removeEntryFromPatient(tEntry);
+                const tIndex = this._tnmStageGroup.panelMembers.observation.findIndex(o => o === tReference);
+                this._tnmStageGroup.panelMembers.observation.splice(tIndex, 1);
+            }
         } else {
             if (tEntry) {
                 tEntry.value = lookup.getTStageCodeableConcept(tStage);
@@ -170,9 +172,11 @@ export default class FluxTNMStageGroup extends FluxEntry {
         const mReference = this._tnmStageGroup.panelMembers.observation.find(o => this._patientRecord.getEntryFromReference(o) instanceof FluxTNMClinicalDistantMetastasesCategory);
         const mEntry = mReference ? this._patientRecord.getEntryFromReference(mReference) : null;
         if (!mStage) {
-            if (mEntry) this._patientRecord.removeEntryFromPatient(mEntry);
-            const mIndex = this._tnmStageGroup.panelMembers.observation.findIndex(o => o === mReference);
-            this._tnmStageGroup.panelMembers.observation.splice(mIndex, 1);
+            if (mEntry)  {
+                this._patientRecord.removeEntryFromPatient(mEntry);
+                const mIndex = this._tnmStageGroup.panelMembers.observation.findIndex(o => o === mReference);
+                this._tnmStageGroup.panelMembers.observation.splice(mIndex, 1);
+            }
         } else {
             if (mEntry) {
                 mEntry.value = lookup.getMStageCodeableConcept(mStage);
@@ -224,10 +228,7 @@ export default class FluxTNMStageGroup extends FluxEntry {
         if (!obj) {
             this.primaryCancerCondition = null;
         } else {
-            let ref = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId, obj.entryInfo.entryType);
-            let pcc = new PrimaryCancerCondition();
-            pcc.value = ref;
-            this.primaryCancerCondition = pcc;
+            this.primaryCancerCondition = new Reference(obj.entryInfo.shrId, obj.entryInfo.entryId.id, obj.entryInfo.entryType);
         }
     }
 

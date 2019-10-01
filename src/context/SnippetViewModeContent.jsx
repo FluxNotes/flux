@@ -13,8 +13,6 @@ export default class SnippetViewModeContent extends Component {
     insertSnippet = (snippet) => {
         // Insert this snippets content
         this.props.onClick(snippet.content);
-        // Set inserting template to be true - enables picklist to be open
-        this.props.setInsertingTemplate(true);
     }
 
     // Just render the form for the snippets; if additional information was to rendered, we would do it here.
@@ -39,5 +37,4 @@ export default class SnippetViewModeContent extends Component {
 
 SnippetViewModeContent.propTypes = {
     onClick: PropTypes.func.isRequired,
-    setInsertingTemplate: PropTypes.func.isRequired,
 };

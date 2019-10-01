@@ -2,7 +2,7 @@ import Placeholder from '../shortcuts/Placeholder';
 import InsertValue from '../shortcuts/InsertValue';
 import React from 'react';
 import Slate from '../lib/slate';
-import Lang from 'lodash';
+import _ from 'lodash';
 import getWindow from 'get-window';
 
 function createOpts(opts) {
@@ -50,8 +50,6 @@ function StructuredFieldPlugin(opts) {
     const createShortcut = opts.createShortcut;
 
     function onKeyDown(e, key, state, editor) {
-        if (opts.suppressKeysIntoEditor()) return;
-
         const { selection } = state;
 
         // We want to consider where the cursor is focused if an expanded selection
@@ -67,7 +65,7 @@ function StructuredFieldPlugin(opts) {
         if (e.key === 'Backspace' && previousNode) {
             const previousNodeShortcut = previousNode.data.get('shortcut');
             if (previousNode.type === 'structured_field'
-                && !(previousNodeShortcut instanceof InsertValue && previousNodeShortcut.metadata.isEditable)
+                && !(previousNodeShortcut instanceof InsertValue && previousNodeShortcut.metadata.isEditable && previousNodeShortcut.isComplete)
                 && state.selection.anchorOffset === 0
                 && state.selection.isCollapsed) {
                 let transform = state.transform();
@@ -83,12 +81,17 @@ function StructuredFieldPlugin(opts) {
                 return newState;
             }
         } else if (e.keyCode === 39 && parentNode) {
-            if ((parentNode.type === 'structured_field')
-                && !(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
-                let transform = state.transform();
-                transform = transform.collapseToStartOfNextText();
-                const newState = transform.apply();
-                return newState;
+            const sibling = state.document.getNextSibling(selectionKey);
+            const node = state.document.getNode(selectionKey);
+            if (sibling && sibling.type === 'structured_field' && node.length === 0) {
+                const childShortcut = sibling.data.get('shortcut');
+                if (!(childShortcut instanceof InsertValue && childShortcut.metadata.isEditable && childShortcut.isComplete)) {
+                    let transform = state.transform();
+                    transform = transform.collapseToStartOf(sibling);
+                    transform = transform.collapseToStartOfNextText();
+                    const newState = transform.apply();
+                    return newState;
+                }
             }
         }
 
@@ -118,7 +121,7 @@ function StructuredFieldPlugin(opts) {
         } else {
             // 2. If there is a shortcut that is not an editable inserter shortcut (e.g. a non-editable inserter, a creator, etc),
             // return state to cause zero changes to editor when typing inside.
-            if (!(shortcut instanceof InsertValue && shortcut.metadata.isEditable)) {
+            if (!(shortcut instanceof InsertValue && shortcut.metadata.isEditable && shortcut.isComplete)) {
                 return state;
             }
         }
@@ -132,7 +135,7 @@ function StructuredFieldPlugin(opts) {
         const isModifier = isAlt || isCmd || isCtrl || isLine || isMeta || isMod || isModAlt || isWord;
 
         // Override native typing when typing inside a structured field
-        if (shortcut && !Lang.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
+        if (shortcut && !_.includes(ignoredKeys, e.keyCode) && !isModifier && e.key !== 'Enter') {
             splitInserterAndInsertText(e, state, editor, useFocusKey, selection, shortcut, e.key);
         } else if (shortcut && e.key === 'Enter') {
             stopEventPropagation(e);
@@ -155,14 +158,14 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getDisplayText(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
                 newShortcut.setWasRemovedFromContext(true);
             }
 
             // Update the existing shortcut to reflect the leading text after split
-            transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getLabel(), oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, parentNode.key, shortcut.getDisplayText(), oldShortcutNode.text);
             contextManager.removeShortcutFromContext(shortcut);
             shortcut.setWasRemovedFromContext(true);
 
@@ -189,6 +192,7 @@ function StructuredFieldPlugin(opts) {
     }
 
     function onChange(state, editor) {
+        // Track deletedKeys to remove things appropritately and accurately update parentContexts when appropriate
         const deletedKeys = [];
         const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
         const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
@@ -206,24 +210,37 @@ function StructuredFieldPlugin(opts) {
         // Sort the keys in reverse order of creation -- new keys are always > old keys
         deletedKeys.sort((a, b) => b - a);
         let shortcut;
-        let result = state;
+        let transform = state.transform();
         deletedKeys.forEach((key) => {
             shortcut = keyToShortcutMap.get(key);
             if (shortcut.onBeforeDeleted()) {
                 if (shortcut instanceof Placeholder) {
                     opts.structuredFieldMapManager.removePlaceholder(shortcut);
+                    return;
                 }
+
+                // If there is a parent context and the parent will reamin after deletion, update its key as well.
+                // Need to check for actual shortcut.parentContext because hasParentContext returns true if "patient" is a parent context
+                if (shortcut.hasParentContext() && !_.isEmpty(shortcut.parentContext) && !_.includes(deletedKeys, shortcut.parentContext.getKey())) {
+                    transform = updateParentContextShortcut(transform, shortcut);
+                }
+
+                if (shortcut.hasChildren()) {
+                    // Update children keys if it is not going to be deleted
+                    shortcut.getChildren().filter(c => !_.includes(deletedKeys, c.getKey())).forEach(c => transform = updateChildrenContextShortcut(transform, c));
+                }
+
                 keyToShortcutMap.delete(key);
                 idToShortcutMap.delete(shortcut.uniqueId);
                 const updatedShortcutKeys = idToKeysMap.get(shortcut.uniqueId).filter(k => k !== key);
                 idToKeysMap.set(shortcut.uniqueId, updatedShortcutKeys);
                 contextManager.contextUpdated();
             } else {
-                result = editor.getState(); // don't allow state change
-                updateErrors([ "Unable to delete " + shortcut.getLabel() + " because " + shortcut.getChildren().map((child) => { return child.getText(); }).join() + " " + ((shortcut.getChildren().length > 1) ? "depend" : "depends") + " on it." ]);
+                transform = editor.getState().transform(); // don't allow state change
+                updateErrors([ `Unable to delete ${shortcut.getDisplayText()} because ${shortcut.getChildren().map(child => child.getDisplayText()).join()} ${(shortcut.getChildren().length > 1) ? 'depend' : 'depends'} on it.` ]);
             }
         });
-        return result;
+        return transform.apply();
     }
 
     // Added a zero-width-space at the end of the structured field so Safari doesn't think we are still typing in a
@@ -235,23 +252,17 @@ function StructuredFieldPlugin(opts) {
             structured_field: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter' {...props.attributes}>{props.children}</span>;
+                    const sfClass = `structured-field-inserter${shortcut.isComplete ? "" : "-incomplete"}`;
+                    return <span contentEditable={shortcut.metadata.isEditable && shortcut.isComplete ? '' : false} className={sfClass} {...props.attributes}>{props.children}</span>;
                 } else {
-                    return <span contentEditable={false} className='structured-field-creator' {...props.attributes}>{props.children}{safariSpacing}</span>;
-                }
-            },
-            bolded_structured_field: props => {
-                const shortcut = props.node.get('data').get('shortcut');
-                if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-bolded' {...props.attributes}>{props.children}{safariSpacing}</span>;
-                } else {
-                    return <span contentEditable={false} className='structured-field-creator structured-field-bolded' {...props.attributes}>{props.children}</span>;
+                    const sfClass = `structured-field-creator${shortcut.isComplete ? "" : "-incomplete"}`;
+                    return <span contentEditable={false} className={sfClass} {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
             },
             structured_field_selected_search_result: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    return <span contentEditable={shortcut.metadata.isEditable && shortcut.isComplete ? '' : false} className='structured-field-inserter structured-field-selected-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-selected-search-result' {...props.attributes}>{props.children}</span>;
                 }
@@ -259,7 +270,7 @@ function StructuredFieldPlugin(opts) {
             structured_field_search_result: props => {
                 const shortcut = props.node.get('data').get('shortcut');
                 if (shortcut instanceof InsertValue) {
-                    return <span contentEditable={shortcut.metadata.isEditable ? '' : false} className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
+                    return <span contentEditable={shortcut.metadata.isEditable && shortcut.isComplete ? '' : false} className='structured-field-inserter structured-field-search-result' {...props.attributes}>{props.children}{safariSpacing}</span>;
                 } else {
                     return <span contentEditable={false} className='structured-field-creator structured-field-search-result' {...props.attributes}>{props.children}</span>;
                 }
@@ -317,15 +328,15 @@ function StructuredFieldPlugin(opts) {
                 }
             } else if (node.characters && node.characters.length > 0) {
                 node.characters.forEach(char => {
-                    const inMarksNotLocal = Lang.differenceBy(char.marks, localStyle, 'type');
-                    const inLocalNotMarks = Lang.differenceBy(localStyle, char.marks, 'type');
+                    const inMarksNotLocal = _.differenceBy(char.marks, localStyle, 'type');
+                    const inLocalNotMarks = _.differenceBy(localStyle, char.marks, 'type');
                     if (inMarksNotLocal.length > 0) {
                         inMarksNotLocal.forEach(mark => {
                             result += `<${markToHTMLTag[mark.type]}>`;
                         });
                     }
                     if (inLocalNotMarks.length > 0) {
-                        Lang.reverse(inLocalNotMarks).forEach(mark => {
+                        _.reverse(inLocalNotMarks).forEach(mark => {
                             result += `</${markToHTMLTag[mark.type]}>`;
                         });
                     }
@@ -333,7 +344,7 @@ function StructuredFieldPlugin(opts) {
                     result += char.text;
                 });
                 if (localStyle.length > 0) {
-                    Lang.reverse(localStyle).forEach(mark => {
+                    _.reverse(localStyle).forEach(mark => {
                         result += `</${markToHTMLTag[mark.type]}>`;
                     });
                 }
@@ -573,7 +584,7 @@ function StructuredFieldPlugin(opts) {
             }
             const newShortcut = createShortcut(shortcut.metadata, shortcut.initiatingTrigger, shortcutText, true, shortcut.getSource());
             newShortcut.setKey(newShortcutNode.key);
-            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getLabel(), newShortcutNode.text);
+            transform = updateShortcut(newShortcut, transform, newShortcutNode.key, shortcut.getDisplayText(), newShortcutNode.text);
             if (shortcut.wasRemovedFromContext) {
                 contextManager.removeShortcutFromContext(newShortcut);
                 newShortcut.setWasRemovedFromContext(true);
@@ -587,7 +598,7 @@ function StructuredFieldPlugin(opts) {
         // In the case where there is no prior shortcut node in this block
         // nothing needs to be updated
         if (oldShortcutNode) {
-            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getLabel(), oldShortcutNode.text);
+            transform = updateShortcut(shortcut, transform, oldShortcutNode.key, shortcut.getDisplayText(), oldShortcutNode.text);
             if (newShortcutNode) {
                 contextManager.removeShortcutFromContext(shortcut);
                 shortcut.setWasRemovedFromContext(true);
@@ -600,6 +611,16 @@ function StructuredFieldPlugin(opts) {
         editor.onChange(transform);
     }
 
+    function onSelect(event, data, state, editor) {
+        // Short circuit if we are inside an editable shortcut - should be handled by others in the plugin
+        const parentNode = state.document.getParent(data.selection.anchorKey);
+        if (parentNode.type === 'structured_field') {
+            if (parentNode.data.get('shortcut').metadata.isEditable) return;
+            return state.transform().moveToRangeOf(parentNode).collapseToStartOfNextText().apply();
+        }
+        return;
+    }
+
     /*  style for placeholder assumes an 18pt font due to the rendering of a <BR> for an empty text node. Placeholder
 		positioning needs to go up 1 line to overlap with that BR so user can click on placeholder message and get
 		a cursor. see style top value of -18px  */
@@ -610,6 +631,7 @@ function StructuredFieldPlugin(opts) {
         onCut,
         onCopy,
         onPaste,
+        onSelect,
         schema,
         convertToText,
 
@@ -626,6 +648,26 @@ function StructuredFieldPlugin(opts) {
             insertStructuredFieldAtRange: insertStructuredFieldAtRange.bind(null, opts)
         }
     };
+}
+
+function updateParentContextShortcut(transform, shortcut) {
+    const shortcutParent = shortcut.parentContext;
+    if (shortcutParent && shortcutParent.hasValueObjectAttributes()) {
+        transform = transform.setNodeByKey(shortcutParent.getKey(), {
+            data: {
+                shortcut: shortcutParent
+            }
+        });
+    }
+    return transform;
+}
+
+function updateChildrenContextShortcut(transform, shortcut) {
+    return transform.setNodeByKey(shortcut.getKey(), {
+        data: {
+            shortcut
+        }
+    });
 }
 
 /**
@@ -655,7 +697,7 @@ function insertStructuredField(opts, transform, shortcut) {
             transform = transform.insertInline(sf);
         }
     });
-
+    transform = updateParentContextShortcut(transform, shortcut);
     return [transform, ""];
 }
 
@@ -673,6 +715,7 @@ function insertStructuredFieldAtRange(opts, transform, shortcut, range) {
         }
     });
 
+    transform = updateParentContextShortcut(transform, shortcut);
     return [transform, ""];
 }
 
@@ -725,12 +768,12 @@ function createStructuredField(opts, shortcut) {
         return inlines;
     }
 
-    const nodes = [Slate.Text.createFromString(String(shortcut.getText()))];
+    const nodes = [Slate.Text.createFromString(String(shortcut.getDisplayText()))];
     const properties = {
+        nodes,
         type: opts.typeStructuredField,
-        nodes: nodes,
         data: {
-            shortcut: shortcut
+            shortcut
         }
     };
     const sf = Slate.Inline.create(properties);
@@ -748,7 +791,22 @@ function deleteNode(node, transform, isLastBlock) {
     return transform;
 }
 
-function updateStructuredField(opts, transform, shortcut) {
+function updateTextOfShortcut(transform, shortcut) {
+    const key = shortcut.getKey();
+    transform = transform.setNodeByKey(key, {
+        data: {
+            shortcut
+        }
+    });
+
+    // Update text on the node
+    const shortcutNode = transform.state.document.getNode(shortcut.getKey());
+    transform = transform.moveToRangeOf(shortcutNode).insertText(shortcut.getDisplayText());
+
+    return transform;
+}
+
+function updateMultilineShortcut(opts, transform, shortcut) {
     const keyToShortcutMap = opts.structuredFieldMapManager.keyToShortcutMap;
     const idToShortcutMap = opts.structuredFieldMapManager.idToShortcutMap;
     const idToKeysMap = opts.structuredFieldMapManager.idToKeysMap;
@@ -777,6 +835,18 @@ function updateStructuredField(opts, transform, shortcut) {
 
     const newShortcuts = insertStructuredField(opts, transform, newShortcut);
     transform = newShortcuts[0].moveToEnd();
+    return transform;
+}
+
+function updateStructuredField(opts, transform, shortcut) {
+    // Check if a shortcut will be inserted as multiple nodes
+    // If so, we need to remove it in order to add in the multiple lines of updated text correctly
+    const shouldUpdateMultiline = shortcut.getDisplayText().split(/\n\r|\r\n|\r|\n/g).length > 1;
+    if (shouldUpdateMultiline) {
+        transform = updateMultilineShortcut(opts, transform, shortcut);
+    } else {
+        transform = updateTextOfShortcut(transform, shortcut);
+    }
     return transform;
 }
 

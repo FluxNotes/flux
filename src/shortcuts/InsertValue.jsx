@@ -1,7 +1,6 @@
 import Shortcut from './Shortcut';
 import Lang from 'lodash';
 import CreatorBase from './CreatorBase';
-import SingleHashtagKeyword from './SingleHashtagKeyword';
 
 export default class InsertValue extends Shortcut {
     constructor(onUpdate, metadata, patient, shortcutData) {
@@ -16,9 +15,13 @@ export default class InsertValue extends Shortcut {
 
     initialize(contextManager, trigger = undefined, updatePatient = true, shortcutData = "") {
         super.initialize(contextManager, trigger, updatePatient);
-        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
-
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (Lang.isUndefined(this.parentContext)) {
+            super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        }
+        if (Lang.isNull(shortcutData)) {
+            shortcutData = "";
+        }
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.addChild(this);
         }
 
@@ -44,6 +47,9 @@ export default class InsertValue extends Shortcut {
             if (shortcutDataObj.wasRemovedFromContext) {
                 this._shouldRemoveFromContext = true;
             }
+        } else if (this.valueObject && this.parentContext) {
+            // If shortcut is being re-initialized and valueObject is already set, we might need to set it on the parent now
+            this.setValueObject(this.valueObject);
         }
     }
 
@@ -145,7 +151,10 @@ export default class InsertValue extends Shortcut {
         } else if (callObject === "parent") {
             //   "getData": {"object": "parent", "attribute": "stage"},
             const attribute = callSpec["attribute"];
-            return this.parentContext.getAttributeValue(attribute);
+            if (this.parentContext) {
+                const attributeValue = this.parentContext.getAttributeValue(attribute);
+                if (attributeValue) return attributeValue;
+            }
         } else if (callObject === "$parentValueObject") {
             const patient = contextManager.getPatient();
             if (!this.parentContext || !this.parentContext.getValueObject()) {
@@ -181,11 +190,6 @@ export default class InsertValue extends Shortcut {
         return this.metadata.isContext && !this._shouldRemoveFromContext;
     }
 
-    getLabel() {
-        const display = this.getText() ? this.getText() : this.getDisplayText();
-        return this.getOriginalText() ? this.getOriginalText() : display;
-    }
-
     getText() {
         return this.text;
     }
@@ -207,12 +211,12 @@ export default class InsertValue extends Shortcut {
         let text = displayText || this.text; // Use provided text to override shortcut text
         if (Lang.isNull(text)) {
             text = this.initiatingTrigger;
-        }
-        else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+        } else if (typeof text === "string" && text.startsWith(this.getPrefixCharacter())) {
+            // NOTE: This should only happen when the inserter shortcut is incomplete; we want that serialization to reflect the incompleteness
+            if (text === this.initiatingTrigger) {
+                return text;
+            }
             text = text.substring(1);
-        }
-        if (text === this.initiatingTrigger) {
-            return `${text}`;
         }
         // If this.valueObject exists, put the entryId of the valueObject in the result text
         if (this.valueObject) {
@@ -249,7 +253,7 @@ export default class InsertValue extends Shortcut {
         const parentAttribute = this.metadata["parentAttribute"];
 
         // Check parent of shortcut and setAttributeValue
-        if (parentAttribute && (this.parentContext instanceof CreatorBase || this.parentContext instanceof SingleHashtagKeyword) && this.parentContext.isAttributeSupported(parentAttribute)) {
+        if (parentAttribute && this.parentContext instanceof CreatorBase && this.parentContext.isAttributeSupported(parentAttribute)) {
             this.parentContext.setAttributeValue(parentAttribute, this.valueObject);
         }
     }
@@ -268,5 +272,9 @@ export default class InsertValue extends Shortcut {
             this.parentContext.removeChild(this);
         }
         return result;
+    }
+
+    get isComplete() {
+        return Lang.toLower(this.getDisplayText()) !== Lang.toLower(this.metadata.stringTriggers[0].name);
     }
 }

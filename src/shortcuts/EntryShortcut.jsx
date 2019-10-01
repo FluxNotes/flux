@@ -57,6 +57,15 @@ export default class EntryShortcut extends Shortcut {
         return !Lang.isUndefined(this.parentContext) && !Lang.isNull(this.parentContext);
     }
 
+    removeParent() {
+        super.removeParent();
+        const undoUpdatePatientSpecList = this.metadata.undoUpdatePatient;
+
+        if (undoUpdatePatientSpecList) {
+            undoUpdatePatientSpecList.forEach(undoUpdatePatientSpec => this.callMethod(this.patient, undoUpdatePatientSpec));
+        }
+    }
+
     isContext() {
         return this.metadata.isContext;
     }
@@ -112,7 +121,7 @@ export default class EntryShortcut extends Shortcut {
             }
         }
 
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.addChild(this);
         }
     }
@@ -156,11 +165,11 @@ export default class EntryShortcut extends Shortcut {
     }
 
     getAsStringWithStyling(isSigned) {
-        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), true, isSigned);
+        return createSentenceFromStructuredData(this.metadata.structuredPhrase, this.getAttributeValue.bind(this), this.getDisplayText(), true, isSigned);
     }
 
     getAsString() {
-        return createSentenceFromStructuredData(this.metadata["structuredPhrase"], this.getAttributeValue.bind(this), this.getText(), false);
+        return createSentenceFromStructuredData(this.metadata.structuredPhrase, this.getAttributeValue.bind(this), this.getDisplayText(), false);
     }
 
     getAttributeIsSet(name) {
@@ -186,10 +195,10 @@ export default class EntryShortcut extends Shortcut {
         return this._getAttributeValue(this.object, name);
     }
 
-    setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
+    setAttributeValue(name, value, publishChanges = true, updatePatient = true, currentChildText = '') {
         const voa = this.valueObjectAttributes[name];
-        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getText() + "'"); //this.text
-        this.isSet[name] = (value != null);
+        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplayText() + "'"); //this.text
+        this.isSet[name] = (value !== null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
         if (value === null && voa.default) {
@@ -204,6 +213,12 @@ export default class EntryShortcut extends Shortcut {
             } else {
                 if (voa["type"] === "list" && !Lang.isArray(value)) {
                     const list = this.getAttributeValue(name);
+
+                    // If we are changing an existing child's value instead of adding a new one
+                    // remove that child before adding the new value
+                    if (Lang.includes(list, currentChildText)) {
+                        list.splice(list.indexOf(currentChildText), 1);
+                    }
                     list.push(value);
                     Lang.set(this.object, setMethod, list);
                 } else {
@@ -213,6 +228,12 @@ export default class EntryShortcut extends Shortcut {
         } else {
             if (voa["type"] === "list" && !Lang.isArray(value)) {
                 const list = this.getAttributeValue(name);
+
+                // If we are changing an existing child's value instead of adding a new one
+                // remove that child before adding the new value
+                if (Lang.includes(list, currentChildText)) {
+                    list.splice(list.indexOf(currentChildText), 1);
+                }
                 list.push(value);
                 PatientRecord[patientSetMethod](this.object, list);
             } else {
@@ -226,21 +247,17 @@ export default class EntryShortcut extends Shortcut {
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
-    getText() {
-        return this.metadata["name"];
-    }
-
     serialize() {
-        if (Lang.isUndefined(this.object.entryInfo)) return this.getText();
+        if (Lang.isUndefined(this.object.entryInfo)) return this.initiatingTrigger;
         return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
     }
 
+    getText() {
+        return this.text;
+    }
+
     getDisplayText() {
-        return this.initiatingTrigger;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     removeFromPatient() {
@@ -250,13 +267,13 @@ export default class EntryShortcut extends Shortcut {
             undoUpdatePatientSpecList.forEach((undoUpdatePatientSpec) => {
                 this.callMethod(this.patient, undoUpdatePatientSpec);
             });
-        } else {
-            this.patient.removeEntryFromPatient(this.object);
         }
+
+        this.patient.removeEntryFromPatient(this.object);
     }
 
     updatePatient(patient, contextManager, clinicalNote) {
-        if (this.isObjectNew) {
+        if (this.isObjectNew || !this.isObjectComplete) {
             const updatePatientSpecList = this.metadata["updatePatient"];
             let result;
             if (updatePatientSpecList) {
@@ -274,10 +291,14 @@ export default class EntryShortcut extends Shortcut {
                     this.isObjectNew = false;
                     return;
                 }
-            } else {
+            }
+            if (this.isObjectNew) {
                 this.object = patient.addEntryToPatientWithPatientFocalSubject(this.object, clinicalNote);
             }
             this.isObjectNew = false;
+            // If there is a parent context and all methods have been called, the object is complete.
+            // If there is no parent context, other fields will need to be updated once a parent is established is it is not complete.
+            this.isObjectComplete = !Lang.isUndefined(this.parentContext);
         }
     }
 
@@ -347,7 +368,7 @@ export default class EntryShortcut extends Shortcut {
             if (argSpec === "$parentValueObject") {
 
                 if (!this.parentContext) {
-                    console.error("no parent context for " + this.getId());
+                    console.warn("no parent context for " + this.getId());
                     return null;
                 }
                 return this.parentContext.getValueObject();
@@ -366,7 +387,7 @@ export default class EntryShortcut extends Shortcut {
                 if (!Lang.isUndefined(this.parentContext)) {
                     return this.parentContext.getValueObject()[method](...args);
                 } else {
-                    console.error("no parent context for " + this.getId());
+                    console.warn("no parent context for " + this.getId());
                 }
             } else {
                 console.error("unsupported object type: " + obj + " for updatePatient");

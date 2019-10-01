@@ -4,13 +4,12 @@ import './ContextItem.css';
 
 class ContextItem extends React.Component {
     /*
-     * When an item is clicked, close the portal and update contextPortal accordingly
+     * When an item is clicked, close the portal and update current portal accordingly
      */
     onClick = (e) => {
         this.props.closePortal();
-        const { onChange, context, onSelected } = this.props;
-        const state = onSelected(this.props.state, context);
-        onChange(state);
+        const { context, onSelected } = this.props;
+        onSelected(this.props.state, context);
     }
     /*
      * When an item is hovered, update the selectedIndex
@@ -40,13 +39,12 @@ class ContextItem extends React.Component {
     }
 }
 
-ContextItem.propstype = {
+ContextItem.propTypes = {
     index: PropTypes.number.isRequired,
     context: PropTypes.object,
     selectedIndex: PropTypes.number.isRequired,
     setSelectedIndex: PropTypes.func.isRequired,
     onSelected: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
     closePortal: PropTypes.func.isRequired,
     state: PropTypes.object.isRequired,
 };

@@ -14,7 +14,7 @@ export default class UpdaterBase extends EntryShortcut {
         }
         this.isObjectNew = false;
         this.setValueObject(this.object);
-
+        this.isSetByLabel = {};
         // get attribute descriptions
         const metadataVOA = this.metadata["valueObjectAttributes"];
         this.valueObjectAttributes = {};
@@ -84,7 +84,7 @@ export default class UpdaterBase extends EntryShortcut {
 
     setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voa = this.valueObjectAttributes[name];
-        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getText() + "'"); //this.text
+        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplaylText() + "'"); //this.text
         this.isSet[name] = (value != null);
         if (value===null && voa.default) {
             value = voa.default;
@@ -103,7 +103,7 @@ export default class UpdaterBase extends EntryShortcut {
 
     _setAttributeValue(name, value, publishChanges = true, updatePatient = true) {
         const voa = this.valueObjectAttributes[name];
-        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getText() + "'"); //this.text
+        if (Lang.isUndefined(voa)) throw new Error("Unknown attribute '" + name + "' for structured phrase '" + this.getDisplayText() + "'"); //this.text
         this.isSet[name] = (value != null);
         const patientSetMethod = voa["patientSetMethod"];
         const setMethod = voa["setMethod"];
@@ -219,4 +219,13 @@ export default class UpdaterBase extends EntryShortcut {
 
         this.patient = patient;
     }
+
+    getAttributeIsSetByLabel(name) {
+        return this.isSetByLabel[name];
+    }
+
+    setAttributeIsSetByLabel(name, val) {
+        this.isSetByLabel[name] = val;
+    }
+
 }

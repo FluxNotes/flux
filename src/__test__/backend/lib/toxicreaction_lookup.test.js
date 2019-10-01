@@ -35,7 +35,7 @@ describe('getAttributionCodeableConcept', function() {
 
 
     it('should return CodeableConcept object with correct coding/codesystem when passed a value in the list.', function() {
-        const goodValue = 'Disease';
+        const goodValue = 'Illness';
         const codeableConcept = lookup.getAttributionCodeableConcept(goodValue);
 
         expect(codeableConcept)

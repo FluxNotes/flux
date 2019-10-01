@@ -1,0 +1,46 @@
+@import '../styles/variables';
+
+ul.context-get-help {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color: $background;
+
+    li {
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;
+        & > * {
+            display: block;
+        }
+    }
+
+    li[data-active="true"] {
+        background-color: $interface-blue;
+        color: $background;
+    }
+
+    .context-get-help-li { 
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        .context-get-help-text {
+            span {
+                padding-left: 15px;
+            }
+        }
+    }
+
+    .context-get-help-options {
+        li:first-child {
+            border-top: 1px solid $line-gray;
+        }
+
+        li:last-child {
+            margin-bottom: 5px;
+        }
+    }
+}

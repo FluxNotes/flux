@@ -15,9 +15,11 @@ export default class CreatorIntermediary extends Shortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        if (Lang.isUndefined(this.parentContext)) {
+            super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
+        }
 
-        if (!Lang.isUndefined(this.parentContext)) {
+        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false, updatePatient);
             this.parentContext.addChild(this);
         }
@@ -46,8 +48,12 @@ export default class CreatorIntermediary extends Shortcut {
 
     onBeforeDeleted() {
         const result = super.onBeforeDeleted();
-        this.parentContext.setAttributeValue(this.metadata["parentAttribute"], false, false);
-        this.parentContext.removeChild(this);
+
+        if (this.parentContext) {
+            this.parentContext.setAttributeValue(this.metadata["parentAttribute"], false, false);
+            this.parentContext.removeChild(this);
+        }
+
         return result;
     }
 
@@ -57,7 +63,7 @@ export default class CreatorIntermediary extends Shortcut {
             return item.name === name;
         });
         if (result && result[0]) {
-            return this.parentContext.getAttributeIsSet(result[0].toParentAttribute);
+            if (this.parentContext) return this.parentContext.getAttributeIsSet(result[0].toParentAttribute);
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }
@@ -69,7 +75,7 @@ export default class CreatorIntermediary extends Shortcut {
             return item.name === name;
         });
         if (result && result[0]) {
-            return this.parentContext.getAttributeValue(result[0].toParentAttribute);
+            if (this.parentContext) return this.parentContext.getAttributeValue(result[0].toParentAttribute);
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }
@@ -89,30 +95,30 @@ export default class CreatorIntermediary extends Shortcut {
             return item.name === name;
         });
         if (result && result[0]) {
-            this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges, updatePatient);
+            if (this.parentContext) this.parentContext.setAttributeValue(result[0].toParentAttribute, value, publishChanges, updatePatient);
             if (this.isContext()) this.updateContextStatus();
         } else {
             throw new Error("Unknown attribute " + name + " on " + this.metadata["id"]);
         }
     }
 
-    getLabel() {
-        return this.metadata["name"];
-    }
-
-    getText() {
-        return this.metadata["name"];
-    }
-
     serialize() {
-        return `${this.getPrefixCharacter()}${this.getText()}`;
+        return this.initiatingTrigger;
     }
 
     getDisplayText() {
-        return `${this.getPrefixCharacter()}${this.getText()}`;
+        return this.initiatingTrigger.replace('#', '');
     }
 
     getPrefixCharacter() {
         return "#";
+    }
+
+    hasValueObjectAttributes() {
+        return !Lang.isEmpty(this.metadata["valueObjectAttributes"]);
+    }
+
+    get isComplete() {
+        return this.hasParentContext() && this.hasChildren();
     }
 }

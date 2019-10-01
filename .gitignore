@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+package-lock.json
 
 # testing
 /coverage
@@ -17,8 +18,11 @@ yarn-error.log*
 
 # sass outputs
 # *.css // Add once project has completely converted to SASS
+/src/context/EditorPortal.css
 /src/context/ContextOptions.css
 /src/context/ContextItem.css
+/src/context/ContextListOptions.css
+/src/context/ContextGetHelp.css
 /src/context/ContextTray.css
 /src/context/ShortcutViewModeContent.css
 /src/context/SnippetViewModeContent.css

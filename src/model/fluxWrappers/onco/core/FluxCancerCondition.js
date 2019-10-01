@@ -285,7 +285,7 @@ class FluxCancerCondition extends FluxCondition {
     }
 
     getMostRecentClinicalStaging(sinceDate = null) {
-        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMClinicalStageGroup);
+        const stagingList = this._getStagingList(FluxTNMClinicalStageGroup);
         if (stagingList.length === 0) return null;
         // Sort to get the most recent
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
@@ -301,7 +301,7 @@ class FluxCancerCondition extends FluxCondition {
     }
 
     getMostRecentPathologicStaging(sinceDate = null) {
-        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMPathologicStageGroup);
+        const stagingList = this._getStagingList(FluxTNMPathologicStageGroup);
         if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
@@ -316,7 +316,7 @@ class FluxCancerCondition extends FluxCondition {
     }
 
     getMostRecentStaging(sinceDate = null) {
-        let stagingList = this._patientRecord.getEntriesOfType(FluxTNMStageGroup);
+        const stagingList = this._getStagingList(FluxTNMStageGroup);
         if (stagingList.length === 0) return null;
         const sortedStagingList = stagingList.sort(this._stageTimeSorter);
         const length = sortedStagingList.length;
@@ -328,6 +328,15 @@ class FluxCancerCondition extends FluxCondition {
         } else {
             return s;
         }
+    }
+
+    _getStagingList(entryType) {
+       return this._patientRecord.getEntriesOfType(entryType).filter(this._stageHasCancerCondition.bind(this)); 
+    }
+
+    _stageHasCancerCondition(stageEntry) {
+        // Only consider staging entries that have a primaryCancerCondition matching the current condition
+        return !Lang.isNull(stageEntry.primaryCancerCondition) && stageEntry.primaryCancerCondition.entryId === this._condition.entryInfo.entryId.id;
     }
 
     getMostRecentTumorMarkers(sinceDate = null) {

@@ -3,11 +3,10 @@ import CreatorIntermediary from './CreatorIntermediary';
 import CreatorChild from './CreatorChild';
 import InsertValue from './InsertValue';
 import UpdaterBase from './UpdaterBase';
-import SingleHashtagKeyword from './SingleHashtagKeyword';
 import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
-import Lang from 'lodash';
+import _ from 'lodash';
 import NLPHashtag from './NLPHashtag';
 
 // Given a trigger object, add it and any subsidiary trigger objects to our triggersPerShortcut map
@@ -36,7 +35,7 @@ function addTriggerForCurrentShortcut(triggerObject, currentShortcut) {
             const voa = parentShortcutMD["valueObjectAttributes"].find((item) => {
                 return (item.childShortcut === currentShortcut.id);
             });
-            if (!Lang.isUndefined(voa)) {
+            if (!_.isUndefined(voa)) {
                 voa["numberOfItems"] = list.length;
             }
         }
@@ -75,7 +74,7 @@ function addKeywordsForCurrentShortcut(keywordObject, currentShortcut) {
             const voa = parentShortcutMD["valueObjectAttributes"].find((item) => {
                 return (item.childShortcut === currentShortcut.id);
             });
-            if (!Lang.isUndefined(voa)) {
+            if (!_.isUndefined(voa)) {
                 voa["numberOfItems"] = list.length;
             }
         }
@@ -111,8 +110,8 @@ class ShortcutManager {
 
     getAllPlaceholderShortcuts() {
         return this.shortcutDefinitions.filter((s) => {
-            if (s.type === "CreatorBase" || s.type === "SingleHashtagKeyword" || s.type === "UpdaterBase") {
-                return !Lang.isUndefined(s.formSpec);
+            if (s.type === "CreatorBase" || s.type === "UpdaterBase") {
+                return !_.isUndefined(s.formSpec);
             } else {
                 return false;
             }
@@ -142,12 +141,12 @@ class ShortcutManager {
 
     createShortcut(definition, triggerOrKeyword, patient, shortcutData, onUpdate) {
         let metadata;
-        if (!Lang.isNull(definition)) {
+        if (!_.isNull(definition)) {
             metadata = definition;
         } else {
             metadata = this.shortcutMap[triggerOrKeyword.toLowerCase()];
         }
-        if (Lang.isUndefined(metadata)) {
+        if (_.isUndefined(metadata)) {
             throw new Error("Unknown triggerOrKeyword '" + triggerOrKeyword + "'. No structured phrase found.");
         }
         const className = metadata["type"];
@@ -162,8 +161,6 @@ class ShortcutManager {
             newShortcut = new CreatorIntermediary(onUpdate, metadata, patient, shortcutData);
         } else if (className === "InsertValue") {
             newShortcut = new InsertValue(onUpdate, metadata, patient, shortcutData);
-        } else if (className === "SingleHashtagKeyword") {
-            newShortcut = new SingleHashtagKeyword(onUpdate, metadata, patient, shortcutData);
         } else if (className === "NLPHashtag") {
             newShortcut = new NLPHashtag(onUpdate, metadata, patient, shortcutData);
         } else {
@@ -195,7 +192,7 @@ class ShortcutManager {
                     const parent = item["knownParentContexts"];
 
                     let parentList = this.parentShortcuts[item.id];
-                    if (Lang.isUndefined(parentList)) {
+                    if (_.isUndefined(parentList)) {
                         parentList = [];
                         this.parentShortcuts[item.id] = parentList;
                     }
@@ -204,7 +201,7 @@ class ShortcutManager {
                     }
 
                     let childList = this.childShortcuts[parent];
-                    if (Lang.isUndefined(childList)) {
+                    if (_.isUndefined(childList)) {
                         childList = [];
                         this.childShortcuts[parent] = childList;
                     }
@@ -216,7 +213,7 @@ class ShortcutManager {
                 // add known children to it
                 if (item["valueObjectAttributes"]) {
                     let childList = this.childShortcuts[item.id];
-                    if (Lang.isUndefined(childList)) {
+                    if (_.isUndefined(childList)) {
                         childList = [];
                         this.childShortcuts[item.id] = childList;
                     }
@@ -224,13 +221,13 @@ class ShortcutManager {
                     let childShortcutId;
                     voas.forEach((voa) => {
                         childShortcutId = voa["childShortcut"];
-                        if (!Lang.isUndefined(childShortcutId)) {
+                        if (!_.isUndefined(childShortcutId)) {
                             if (childShortcutId && !childList.includes(childShortcutId)) {
                                 childList.push(childShortcutId);
                             }
                             if (childShortcutId) {
                                 let parentList = this.parentShortcuts[childShortcutId];
-                                if (Lang.isUndefined(parentList)) {
+                                if (_.isUndefined(parentList)) {
                                     parentList = [];
                                 }
                                 if (!parentList.includes(item.id)) {
@@ -242,7 +239,7 @@ class ShortcutManager {
                 }
                 if (item["idAttributes"]) {
                     let childList = this.childShortcuts[item.id];
-                    if (Lang.isUndefined(childList)) {
+                    if (_.isUndefined(childList)) {
                         childList = [];
                         this.childShortcuts[item.id] = childList;
                     }
@@ -250,7 +247,7 @@ class ShortcutManager {
                     let childShortcutId;
                     voas.forEach((voa) => {
                         childShortcutId = voa["childShortcut"];
-                        if (!Lang.isUndefined(childShortcutId)) {
+                        if (!_.isUndefined(childShortcutId)) {
                             if (childShortcutId && !childList.includes(childShortcutId)) {
                                 childList.push(childShortcutId);
                             }
@@ -264,17 +261,24 @@ class ShortcutManager {
                 const keywords = item["keywords"];
                 if (triggers) {
                     this.triggersPerShortcut[item.id] = [];
-                    if (Lang.isArray(triggers)) {
+                    if (_.isArray(triggers)) {
                         triggers.forEach((trigger) => {
                             addTriggerForCurrentShortcut.bind(this)(trigger, item);
                         });
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
+                    if (item.label) {
+                        // Add a string trigger for incomplete placeholder
+                        addTriggerForCurrentShortcut.bind(this)({
+                            name: item.label,
+                            description: item.description ? item.description : 'Incomplete placeholder for ' + item.label,
+                        }, item);
+                    }
                 }
                 if (keywords) {
                     this.keywordsPerShortcut[item.id] = [];
-                    if (Lang.isArray(keywords)) {
+                    if (_.isArray(keywords)) {
                         keywords.forEach((keyword) => {
                             addKeywordsForCurrentShortcut.bind(this)(keyword, item);
                         });
@@ -300,6 +304,7 @@ class ShortcutManager {
     getValidChildShortcutsInContext(context, recurse = false) {
         const currentContextId = context.getId();
 
+
         // Let's get all child shortcuts registered in shortcuts metadata via the current context
         // They can be registered in 2 ways:
         //      as a childShortcut on valueObjectAttributes
@@ -307,34 +312,49 @@ class ShortcutManager {
         let contextValueObjectEntryTypes;
         let result = this.childShortcuts[currentContextId], parentAttribute;
         let value, parentVOAs, voa, isSettable, isSet, parentIdVOAs;
-        if (Lang.isUndefined(result)) return [];
+        if (_.isUndefined(result)) return [];
 
         result = result.filter((shortcutId) => {
+
+            const shortcut = this.shortcuts[shortcutId];
             // to determine if a shortcut should be valid right now, we need to get its value
             // from its parent. If it's settable and not set, it's valid. If it's not settable, then it's
             // valid if it is set!
-            contextValueObjectEntryTypes = this.shortcuts[shortcutId]["contextValueObjectEntryTypes"];
+            contextValueObjectEntryTypes = shortcut["contextValueObjectEntryTypes"];
 
-            if (Lang.isUndefined(contextValueObjectEntryTypes) || (!Lang.isUndefined(context.getValueObject()) && contextValueObjectEntryTypes.includes(context.getValueObject().entryInfo.entryType.value))) {
-                parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
-                if (Lang.isUndefined(parentAttribute)) return true;
+            if (_.isUndefined(contextValueObjectEntryTypes) || (!_.isUndefined(context.getValueObject()) && contextValueObjectEntryTypes.includes(context.getValueObject().entryInfo.entryType.value))) {
+                parentAttribute = shortcut["parentAttribute"];
+                if (_.isUndefined(parentAttribute)) return true;
                 parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];
                 parentIdVOAs = this.shortcuts[currentContextId]["idAttributes"];
                 voa = parentVOAs.filter((item) => item.name === parentAttribute)[0];
                 if (!voa) voa = parentIdVOAs.filter((item) => item.name === parentAttribute)[0];
                 value = context.getAttributeValue(parentAttribute);
                 isSet = context.getAttributeIsSet(parentAttribute);
-                isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+                isSettable = _.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+                const isMultiChoice = this.shortcuts[shortcutId].subtype === 'multi-choice';
                 if (isSettable) { // if is settable and not set, then we want to include the shortcut
-                    if (Lang.isArray(value)) return value.length < this.triggersPerShortcut[shortcutId].length;
+
+                    // We do not care if the attribute is set by the label for multi-choice shortcuts
+                    if (typeof context.getAttributeIsSetByLabel === 'function' && !isMultiChoice) {
+                        if (context.getAttributeIsSetByLabel(parentAttribute)) return false; // If attribute was set by label then we should not include the shortcut
+                    }
+                    let numberOfValidTriggers;
+                    if (this.triggersPerShortcut[shortcutId]) {
+                    // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
+                        numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
+                    } else {
+                        numberOfValidTriggers = shortcut.label ? 1 : 0;
+                    }
+                    if (_.isArray(value)) return value.length < numberOfValidTriggers;
                     return (!isSet);
                 } else {
-                    if (Lang.isUndefined(value) || value === null) return false;
-                    if (Lang.isBoolean(value)) return !value;
+                    if (_.isUndefined(value) || value === null) return false;
+                    if (_.isBoolean(value)) return !value;
                     return value.length > 0;
                 }
             } else {
-                if (!Lang.isUndefined(contextValueObjectEntryTypes) && Lang.isUndefined(context.getValueObject())) return true; // initial template insertion needs to allow this for now
+                if (!_.isUndefined(contextValueObjectEntryTypes) && _.isUndefined(context.getValueObject())) return true; // initial template insertion needs to allow this for now
                 return false;
             }
         });
@@ -343,26 +363,28 @@ class ShortcutManager {
                 result = result.concat(this.getValidChildShortcutsInContext(subcontext, true));
             });
         }
+
         return result;
     }
 
     // context is optional
     getTriggersForShortcut(shortcutId, context) {
-        if (Lang.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) {
+        if (_.isUndefined(this.shortcuts[shortcutId]["stringTriggers"])) {
             return [];
-        } else if (!Lang.isUndefined(context)) {
+        } else if (!_.isUndefined(context)) {
             const currentContextId = context.getId();
             const parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
-            if (Lang.isUndefined(parentAttribute)) return this.triggersPerShortcut[shortcutId];
+            if (_.isUndefined(parentAttribute)) return this.triggersPerShortcut[shortcutId];
             const parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];
             const parentIdVOAs = this.shortcuts[currentContextId]["idAttributes"];
             let voa = parentVOAs.filter((item) => item.name === parentAttribute)[0];
             if (!voa) voa = parentIdVOAs.filter((item) => item.name === parentAttribute)[0];
             const value = context.getAttributeValue(parentAttribute);
-            const isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+            const isSettable = _.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
             if (isSettable) { // if is settable and not set, then we want to include the shortcut
-                if (value !== null && Lang.isArray(value)) {
+                if (value !== null && _.isArray(value)) {
                     let list = this.triggersPerShortcut[shortcutId];
+
                     list = list.filter((item) => {
                         return !value.includes(item.name.substring(1));
                     });
@@ -374,21 +396,33 @@ class ShortcutManager {
         return this.triggersPerShortcut[shortcutId];
     }
 
+    // Returns all triggers for a shortcut but filters out the label if one is defined
+    getTriggersWithoutLabelForShortcut(shortcutId, context) {
+        const label = this.shortcuts[shortcutId].label;
+        // stringTriggers is directly from shortcut metadata
+        const stringTriggers = this.shortcuts[shortcutId].stringTriggers;
+        // triggers is the computed options based on the valueset defined in metadata
+        const triggers = this.getTriggersForShortcut(shortcutId, context);
+
+        // Filter out the label from triggers if there are defined stringTriggers that can be added
+        return triggers.filter(t =>  stringTriggers.length === 0 || t.name !== label);
+    }
+
     getKeywordsForShortcut(shortcutId, context) {
-        if (Lang.isUndefined(this.shortcuts[shortcutId]["keywords"])) {
+        if (_.isUndefined(this.shortcuts[shortcutId]["keywords"])) {
             return [];
-        } else if (!Lang.isUndefined(context)) {
+        } else if (!_.isUndefined(context)) {
             const currentContextId = context.getId();
             const parentAttribute = this.shortcuts[shortcutId]["parentAttribute"];
-            if (Lang.isUndefined(parentAttribute)) return this.keywordsPerShortcut[shortcutId];
+            if (_.isUndefined(parentAttribute)) return this.keywordsPerShortcut[shortcutId];
             const parentVOAs = this.shortcuts[currentContextId]["valueObjectAttributes"];
             const parentIdVOAs = this.shortcuts[currentContextId]["idAttributes"];
             let voa = parentVOAs.filter((item) => item.name === parentAttribute)[0];
             if (!voa) voa = parentIdVOAs.filter((item) => item.name === parentAttribute)[0];
             const value = context.getAttributeValue(parentAttribute);
-            const isSettable = Lang.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
+            const isSettable = _.isUndefined(voa.isSettable) ? false : (voa.isSettable === "true");
             if (isSettable) { // if is settable and not set, then we want to include the shortcut
-                if (value !== null && Lang.isArray(value)) {
+                if (value !== null && _.isArray(value)) {
                     let list = this.keywordsPerShortcut[shortcutId];
                     list = list.filter((item) => {
                         return !value.includes(item.name.substring(1));
@@ -413,15 +447,15 @@ class ShortcutManager {
         const shortcutMetadata = this.shortcuts[shortcutId];
         const stringTriggers = shortcutMetadata.stringTriggers;
 
-        if (Lang.isArray(stringTriggers) && stringTriggers.length > 0) {
+        if (_.isArray(stringTriggers) && stringTriggers.length > 0) {
             return stringTriggers[0].prefix || '';
         }
 
         return stringTriggers.prefix || '';
     }
 
-    isShortcutInstanceOfSingleHashtagKeyword(shortcut) {
-        return shortcut instanceof SingleHashtagKeyword;
+    isShortcutInstanceOfKeywordShortcut(shortcut) {
+        return shortcut instanceof CreatorBase;
     }
 
     isShortcutInstanceOfNLPHashtag(shortcut) {

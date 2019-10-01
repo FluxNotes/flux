@@ -149,6 +149,10 @@ class Placeholder {
             this._setForceRefresh();
         }
     }
+
+    get isComplete() {
+        return true;
+    }
 }
 
 export default Placeholder;

@@ -1,8 +1,8 @@
 import Context from '../context/Context';
-//import React from 'react';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
 import { v4 } from 'uuid';
+
 
 class Shortcut extends Context {
     constructor() {
@@ -21,7 +21,7 @@ class Shortcut extends Context {
 
     onBeforeDeleted() {
         if (this.isContext() && this.hasChildren()) {
-            return false;
+            this.children.forEach(c => c.removeParent());
         }
         if (this.isContext() && this.contextManager) {
             this.contextManager.removeShortcutFromContext(this);
@@ -38,16 +38,24 @@ class Shortcut extends Context {
         return false;
     }
 
+    /**
+     * By default will throw an error, should be implemented by classes that inherits Shortcut
+     * @returns The text to be displayed by other components in the app
+     */
     getDisplayText() {
-        return this.getText();
+        throw new Error(`getDisplayText not implemented for ${this.constructor.name}`);
+    }
+
+    /**
+     * By default will throw an error, should be implemented by classes that inherits Shortcut
+     * @returns The selected value for the shortcut
+     */
+    getText() {
+        throw new Error(`getText not implemented for ${this.constructor.name}`);
     }
 
     getId() {
         return this.metadata["id"];
-    }
-
-    getLabel() {
-        throw new Error("Invalid context. " + this.constructor.name);
     }
 
     getPrefixCharacter() {
@@ -71,10 +79,6 @@ class Shortcut extends Context {
         return "#null";
     }
 
-    getText() {
-        return this.getShortcutType();
-    }
-
     clearValueSelectionOptions() {
         this.optionsToSelectFrom = null;
     }
@@ -86,16 +90,19 @@ class Shortcut extends Context {
     //options is array of {key: item.entryId.id, context: item.specificType.coding[0].displayText, object: item, date: item.<name of the object that holds the date. Varies for each shortcut>}
     flagForTextSelection(options) {
         // Sort the options by time if options is an array
-        if (Lang.isArray(options)) {
+        if (_.isArray(options)) {
             options.sort(this._optionsTimeSorter);
         }
         this.optionsToSelectFrom = options;
     }
 
     needToSelectValueFromMultipleOptions() {
-        return !Lang.isNull(this.optionsToSelectFrom);
+        return !_.isNull(this.optionsToSelectFrom);
     }
 
+    /**
+     * @returns text string to be saved in note
+     */
     serialize() {
         return this.getText();
     }
@@ -122,31 +129,45 @@ class Shortcut extends Context {
         return 0;
     }
 
+    /**
+     * figure out parent context for this shortcut. Use following:
+     * (1) use known parent context if attribute exists
+     * (2) use parent with correct parent attribute
+     * (3) leave parentContext undefined
+     */
     determineParentContext(contextManager, knownParent, parentAttribute) {
-        // figure out parent context for this shortcut. Use following:
-        //   (1) use known parent context if attribute exists
-        //   (2) use parent with correct parent attribute
-        //   (3) use current context (maybe this should just be an error?)
         if (knownParent) {
             this.parentContext = contextManager.getActiveContextOfType(knownParent);
         } else {
-            let foundParentContext = null;
+            // Find parent with correct parent attribute
             if (parentAttribute) {
-                const contexts = contextManager.getActiveContexts();
-                let index = 0;
-                while (index < contexts.length && !contexts[index].isAttributeSupported(parentAttribute)) {
-                    index++;
-                }
-                if (index < contexts.length) {
-                    foundParentContext = contexts[index];
-                }
-            }
-            if (Lang.isNull(foundParentContext)) {
-                this.parentContext = contextManager.getCurrentContext();
-            } else {
-                this.parentContext = foundParentContext;
+                this.parentContext = contextManager.getActiveContexts().find(c => c.isAttributeSupported(parentAttribute));
             }
         }
+    }
+
+    hasChildren() {
+        return this.children.length > 0;
+    }
+
+    hasParentContext() {
+        return !_.isEmpty(this.parentContext);
+    }
+
+    hasValueObjectAttributes() {
+        return !_.isEmpty(this.valueObjectAttributes);
+    }
+
+    setAttributeIsSetByLabel(name, val) {
+        if (this.hasParentContext()) this.parentContext.setAttributeIsSetByLabel(name, val);
+    }
+
+    get isComplete() {
+        return true;
+    }
+
+    get completionComponentName() {
+        return this.metadata.subtype;
     }
 }
 
