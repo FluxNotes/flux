@@ -5,10 +5,9 @@ import mappers from './mappers';
 class GenericSmartOnFhirDstu2DataSource extends McodeV09SmartOnFhirDataSource {
     constructor(props) {
         super(props);
-        if (props && typeof props.mapper === 'string') {
-            this.mapper = mappers[props.mapper];
-        } else {
-            this.mapper = props && props.mapper ? props.mapper: null;
+        if (props && props.mapper) {
+            const mapperClass = typeof props.mapper === 'string' ? mappers[props.mapper] : props.mapper;
+            this.mapper = new mapperClass(props.mapperVariables);
         }
     }
 

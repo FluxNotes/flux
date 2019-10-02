@@ -1,8 +1,9 @@
 import {
-    buildMappers,
+    AggregateMapper,
     mappers,
     utils
 } from 'fhir-mapper';
+const SyntheaToV09 = mappers['SyntheaToV09'];
 
 const primaryCancerConditionCodes = [
     '254837009', // Malignant neoplasm of breast (disorder) (B)
@@ -57,6 +58,8 @@ const allRelevantProfiles = [
     'http://hl7.org/fhir/us/shr/StructureDefinition/onco-core-TumorMarkerTest'
 ];
 
+const defaultBaseMapper = new SyntheaToV09();
+
 const mapper = {
     filter: () => true,
     ignore: (resource) => {
@@ -67,7 +70,7 @@ const mapper = {
         // check if any of the profiles are mcode. returns null (falsy) if none found or the profile itself (truthy)
         return resource.meta.profile.find(p => allRelevantProfiles.includes(p));
     },
-    default: (resource, context) => mappers['syntheaToV09'].execute(resource, context),
+    default: (resource, context) => defaultBaseMapper.execute(resource, context),
     mappers: [
         {
             filter: "Condition.code.coding.where($this.code in %primaryCancerConditionCodes.first())",
@@ -108,6 +111,9 @@ const mapper = {
             }
         }],
 };
-export default buildMappers(mapper, {
-    primaryCancerConditionCodes
-});
+
+export default class Cerner extends AggregateMapper {
+    constructor(mapperVariables = {}) {
+        super(mapper, { primaryCancerConditionCodes, ...mapperVariables });
+    }
+};

@@ -39,7 +39,7 @@ CONFIG = {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-            mapper: 'cernerSandbox',
+            mapper: 'CernerSandboxMapper',
             resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
         },
     },
@@ -97,7 +97,7 @@ CONFIG = {
         dataSource: 'GenericSmartOnFhirDstu2DataSource',
         shortcuts: [],
         dataSourceProps: {
-            mapper: 'cernerSandbox'
+            mapper: 'CernerSandboxMapper'
         }
     },
     {

@@ -99,7 +99,7 @@ describe('SMART on FHIR data source', function() {
         });
     });
 
-    it('should correctly map non-profiled FHIR resources to MCODE V05', function(done) {
+    it('should correctly map non-profiled FHIR resources to MCODE V09', function(done) {
         const patientSearchBundle = {
             resourceType: 'Bundle',
             type: 'searchset',
@@ -114,7 +114,7 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, patientSearchBundle);
 
-        const dataSource = new GenericSmartOnFhirDstu2DataSource({ mapper: "syntheaToV09" });
+        const dataSource = new GenericSmartOnFhirDstu2DataSource({ mapper: "SyntheaToV09" });
         dataSource.getPatient('1078857', (record, error) => {
             if (record) {
                 scope.done();
