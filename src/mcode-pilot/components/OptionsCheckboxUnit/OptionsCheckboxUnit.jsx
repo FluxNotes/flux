@@ -6,49 +6,49 @@ import { FormControl, FormLabel, FormControlLabel } from 'material-ui';
 
 import OptionsRangeSelector from '../OptionsRangeSelector/OptionsRangeSelector';
 
-
 export default class OptionsCheckboxUnit extends Component {
     constructor(props) {
         super(props);
 
-        this.currentSelect = this.props.selected;
-        this.currentTime = 0;
         this.state = {
             openRangeSelector: false
         };
-
-        this.toggleOption = this.toggleOption.bind(this);
-        this.handleCloseRangeSelector = this.handleCloseRangeSelector.bind(this);
-        this.handleOpenRangeSelector = this.handleOpenRangeSelector.bind(this);
     }
 
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.selected!==this.currentSelect || this.state.openRangeSelector !== nextState.openRangeSelector;
-    }
-    componentDidUpdate(prevProps) {
-        this.currentSelect = this.props.selected;
-    }
-    handleOpenRangeSelector() {
+    handleOpenRangeSelector = () => {
         this.setState({ openRangeSelector: true });
     }
 
-    handleCloseRangeSelector() {
+    handleCloseRangeSelector = () => {
         this.setState({ openRangeSelector: false });
     }
 
-    toggleOption() {
+    toggleOption = () => {
         this.props.toggleOption(this.props.name);
     }
 
     render() {
-        const { openRangeSelector} = this.state;
-        const { selected, name,displayText,hasRange,optionText, minValue, maxValue, unit, value, defaultMinValue, defaultMaxValue, category, selectSimilarPatientOptionRange} = this.props;
+        const { openRangeSelector } = this.state;
+        const {
+            category,
+            defaultMaxValue,
+            defaultMinValue,
+            displayText,
+            hasRange,
+            maxValue,
+            minValue,
+            name,
+            optionText,
+            selected,
+            selectSimilarPatientOptionRange,
+            unit,
+            value
+        } = this.props;
+
         return (
             <div className="options-checkbox-unit">
                 <FormControl key={name} className="selection-options__selection">
                     <FormLabel>
-
                         <FormControlLabel
                             control={
                                 <Checkbox
@@ -72,6 +72,7 @@ export default class OptionsCheckboxUnit extends Component {
                             <span className="range" onClick={this.handleOpenRangeSelector}>
                                 {minValue}-{maxValue}
                             </span>
+
                             {openRangeSelector &&
                                 <ClickAwayListener onClickAway={this.handleCloseRangeSelector}>
                                     <OptionsRangeSelector
@@ -98,11 +99,11 @@ export default class OptionsCheckboxUnit extends Component {
 }
 
 OptionsCheckboxUnit.propTypes = {
-    selected: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
     displayText: PropTypes.string.isRequired,
     hasRange: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
     optionText: PropTypes.object.isRequired,
-    category: PropTypes.string.isRequired,
-    selectSimilarPatientOptionRange: PropTypes.func.isRequired,
+    selected: PropTypes.bool.isRequired,
+    selectSimilarPatientOptionRange: PropTypes.func.isRequired
 };
