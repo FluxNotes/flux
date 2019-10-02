@@ -7,6 +7,7 @@ import CodingFix from './fluxExtensions/CodingFix';
 import CodeableConceptFix from './fluxExtensions/CodeableConceptFix';
 import BloodPressureFix from './fluxExtensions/BloodPressureFix';
 import DataValueFix from './fluxExtensions/DataValueFix';
+import ExpectedPerformanceTimeFix from './fluxExtensions/ExpectedPerformanceTimeFix';
 import MedicationCodeOrReferenceFix from './fluxExtensions/MedicationCodeOrReferenceFix';
 import MedicationRequestFix from './fluxExtensions/MedicationRequestFix';
 import ReasonReferenceFix from './fluxExtensions/ReasonReferenceFix';
@@ -35,6 +36,7 @@ function init() {
   ClassRegistry.set('shr.core', 'CodeableConcept', CodeableConceptFix);
   ClassRegistry.set('shr.core', 'BloodPressure', BloodPressureFix);
   ClassRegistry.set('shr.core', 'DataValue', DataValueFix);
+  ClassRegistry.set('shr.core', 'ExpectedPerformanceTime', ExpectedPerformanceTimeFix);
   ClassRegistry.set('shr.core', 'MedicationCodeOrReference', MedicationCodeOrReferenceFix);
   ClassRegistry.set('shr.core', 'MedicationRequest', MedicationRequestFix);
   ClassRegistry.set('shr.core', 'ReasonReference', ReasonReferenceFix);
