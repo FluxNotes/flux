@@ -3,34 +3,31 @@ import { expect } from 'chai';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 
-import TreatmentOptionsOutcome from '../../../mcode-pilot/components/TreatmentOptionsOutcomes/TreatmentOptionsOutcomes.jsx';
+import TreatmentOptionsOutcomes from '../../../mcode-pilot/components/TreatmentOptionsOutcomes/TreatmentOptionsOutcomes';
 import { similarPatientTreatmentsData, similarPatientTreatments } from './mock-data';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe('TreatmentOptionsOutcome', () => {
-    let props, optionsOutcome;
-
-    beforeEach(() => {
-        props = {
-            selectedTreatment: null,
-            setSelectedTreatment: () => {},
-            showSideEffects: true,
-            similarPatientTreatments,
-            similarPatientTreatmentsData,
-            timescale: ['1','3','5']
-        };
-        optionsOutcome = null;
-    });
-
-    const outcome = () => {
-        if (!optionsOutcome) optionsOutcome = mount(<TreatmentOptionsOutcome {...props} />);
-        return optionsOutcome;
-    };
+describe('TreatmentOptionsOutcomes', () => {
+    const renderComponent = (props = {}) =>
+        mount(
+            <TreatmentOptionsOutcomes
+                selectedSideEffects="Most Common"
+                selectedTreatment={null}
+                setSelectedSideEffects={jest.fn()}
+                setSelectedTreatment={jest.fn()}
+                showSideEffects={true}
+                sideEffects={[]}
+                similarPatientTreatments={similarPatientTreatments}
+                similarPatientTreatmentsData={[...similarPatientTreatmentsData]} // duplicated to avoid sort modifying the array
+                timescale={['1','3','5']}
+                {...props}
+            />
+        );
 
     describe('outcomes table: initial treatments', () => {
         it('renders the chemotherapy, hormonal therapy, and test therapy treatment rows', () => {
-            const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            const tableRows = renderComponent().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
             expect(tableRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
             expect(tableRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
@@ -38,7 +35,7 @@ describe('TreatmentOptionsOutcome', () => {
         });
 
         it('renders the total number of patients', () => {
-            const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            const tableRows = renderComponent().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
             expect(tableRows.at(0).find('.total-patients').text()).to.eql('(100)');
             expect(tableRows.at(1).find('.total-patients').text()).to.eql('(82)');
@@ -46,7 +43,7 @@ describe('TreatmentOptionsOutcome', () => {
         });
 
         it('calculates the correct one, three, and five survival rates', () => {
-            const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            const tableRows = renderComponent().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
 
             // chemotherapy
@@ -72,7 +69,7 @@ describe('TreatmentOptionsOutcome', () => {
         });
 
         it('displays the top two side effects', () => {
-            const tableRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            const tableRows = renderComponent().find('.treatment-options-outcomes-table__table .table-row');
             expect(tableRows).to.have.lengthOf(3);
 
             const sideEffectText1 = tableRows.at(1).find('.top-side-effects .side-effect');
@@ -92,8 +89,9 @@ describe('TreatmentOptionsOutcome', () => {
         });
 
         it('sorts rows based on survival', () => {
-            const header = outcome().find('.header-space');
-            let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            const component = renderComponent();
+            const header = component.find('.header-space');
+            let treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
 
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
@@ -102,7 +100,7 @@ describe('TreatmentOptionsOutcome', () => {
             // sort by 1 yr survival
             header.at(1).simulate('click');
 
-            treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('test therapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
@@ -110,7 +108,7 @@ describe('TreatmentOptionsOutcome', () => {
             // sort by 5 yr survival
             header.at(3).simulate('click');
 
-            treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('hormonal therapy');
@@ -119,7 +117,7 @@ describe('TreatmentOptionsOutcome', () => {
             header.at(2).simulate('click');
             header.at(2).simulate('click');
 
-            treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('hormonal therapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('test therapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('chemotherapy');
@@ -127,7 +125,7 @@ describe('TreatmentOptionsOutcome', () => {
             // return to alphabetical
             header.at(2).simulate('click');
 
-            treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('chemotherapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('hormonal therapy');
             expect(treatmentRows.at(2).find('.treatment-name').text()).to.eql('test therapy');
@@ -135,14 +133,12 @@ describe('TreatmentOptionsOutcome', () => {
     });
 
     describe('outcomes table: comparing treatments', () => {
-        it('selects a treament when compared icon is clicked', () => {
-            props = {
-                ...props,
-                setSelectedTreatment: jest.fn()
-            };
+        it('selects a treatment when compared icon is clicked', () => {
+            const setSelectedTreatment = jest.fn();
+            const component = renderComponent({ setSelectedTreatment });
 
-            const compareIcons = outcome().find('.treatment-options-outcomes-table__table .compare-icon');
-            let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
+            const compareIcons = component.find('.treatment-options-outcomes-table__table .compare-icon');
+            let treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
 
             expect(treatmentRows.at(0).find('.treatment-name').text()).to.eql('test therapy');
             expect(treatmentRows.at(1).find('.treatment-name').text()).to.eql('chemotherapy');
@@ -151,38 +147,33 @@ describe('TreatmentOptionsOutcome', () => {
             // select chemotherapy
             compareIcons.at(1).simulate('click');
 
-            const [callArgs] = props.setSelectedTreatment.mock.calls;
+            const [callArgs] = setSelectedTreatment.mock.calls;
             const [treatment] = callArgs;
-
             expect(treatment.displayName).to.eql('chemotherapy');
         });
 
         it('hormonal therapy: calculates the correct one, three, and five survival rates with comparisons', () => {
-            props = {
-                ...props,
-                selectedTreatment: similarPatientTreatmentsData[0]
-            };
+            const component = renderComponent({ selectedTreatment: similarPatientTreatmentsData[0] });
 
-            let treatmentRows = outcome().find('.treatment-options-outcomes-table__table .table-row');
-
+            const treatmentRows = component.find('.treatment-options-outcomes-table__table .table-row');
             const barChartTexts = treatmentRows.at(1).find('.bar-chart-text');
 
             expect(barChartTexts).to.have.lengthOf(6);
 
-            // 1 year and 1 year difference (98% / +2%)
-            expect(barChartTexts.at(0).text()).to.eql('98%');
-            expect(barChartTexts.at(1).text()).to.eql('2%');
+            // 1 year and 1 year difference (96% / +12%)
+            expect(barChartTexts.at(0).text()).to.eql('96%');
+            expect(barChartTexts.at(1).text()).to.eql('12%');
             expect(barChartTexts.at(1).find('span').hasClass('fa-caret-up')).to.eql(true);
 
-            // 3 year and 3 year difference (92% / +1%)
-            expect(barChartTexts.at(2).text()).to.eql('92%');
-            expect(barChartTexts.at(3).text()).to.eql('1%');
+            // 3 year and 3 year difference (91% / +24%)
+            expect(barChartTexts.at(2).text()).to.eql('91%');
+            expect(barChartTexts.at(3).text()).to.eql('24%');
             expect(barChartTexts.at(3).find('span').hasClass('fa-caret-up')).to.eql(true);
 
-            // 5 year and 5 year difference (87% / -4%)
-            expect(barChartTexts.at(4).text()).to.eql('87%');
-            expect(barChartTexts.at(5).text()).to.eql('4%');
-            expect(barChartTexts.at(5).find('span').hasClass('fa-caret-down')).to.eql(true);
+            // 5 year and 5 year difference (91% / +74%)
+            expect(barChartTexts.at(4).text()).to.eql('91%');
+            expect(barChartTexts.at(5).text()).to.eql('74%');
+            expect(barChartTexts.at(5).find('span').hasClass('fa-caret-up')).to.eql(true);
         });
     });
 });

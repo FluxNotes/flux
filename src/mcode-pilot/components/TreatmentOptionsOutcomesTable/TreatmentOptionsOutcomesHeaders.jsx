@@ -10,13 +10,13 @@ import './TreatmentOptionsOutcomesTable.css';
 
 export default class TreatmentOptionsOutcomesHeaders extends Component {
     shouldComponentUpdate(nextProps) {
-        const { selectedTreatment, sideEffectSelection, sortP, sortName, sortColumn, sideEffects } = this.props;
+        const { selectedTreatment, selectedSideEffects, sortP, sortName, sortColumn, sideEffects } = this.props;
         if (nextProps.selectedTreatment === selectedTreatment
             && nextProps.sortP === sortP
             && nextProps.sortName === sortName
             && nextProps.sortColumn === sortColumn
             && isSame(nextProps.sideEffects, sideEffects)
-            && nextProps.sideEffectSelection === sideEffectSelection) {
+            && nextProps.selectedSideEffects === selectedSideEffects) {
             return false;
         } else {
             return true;
@@ -32,10 +32,10 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
         const {
             changeSort,
             handleChangeEffect,
+            selectedSideEffects,
             selectedTreatment,
             showSideEffects,
             sideEffects,
-            sideEffectSelection,
             sortColumn,
             sortName,
             sortP
@@ -77,7 +77,7 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
                     {showSideEffects &&
                         <td id="ccp-table-select">
                             <Select
-                                value={sideEffectSelection}
+                                value={selectedSideEffects}
                                 onChange={handleChangeEffect}
                                 name="sideEffect"
                                 className="custom-select"
@@ -104,6 +104,7 @@ export default class TreatmentOptionsOutcomesHeaders extends Component {
 
 TreatmentOptionsOutcomesHeaders.propTypes = {
     changeSort: PropTypes.func.isRequired,
+    selectedSideEffects: PropTypes.string.isRequired,
     selectedTreatment: PropTypes.bool,
     showSideEffects: PropTypes.bool.isRequired,
     sortColumn: PropTypes.string.isRequired,

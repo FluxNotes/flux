@@ -132,9 +132,12 @@ export default class TreatmentOptionsOutcomes extends Component {
 
     render() {
         const {
+            selectedSideEffects,
             selectedTreatment,
+            setSelectedSideEffects,
             setSelectedTreatment,
             showSideEffects,
+            sideEffects,
             similarPatientTreatments,
             similarPatientTreatmentsData,
             timescale
@@ -157,9 +160,12 @@ export default class TreatmentOptionsOutcomes extends Component {
                 {outcomesToggle === "table" ?
                     <TreatmentOptionsOutcomesTable
                         changeSort={this.handleChangeSort}
+                        selectedSideEffects={selectedSideEffects}
                         selectedTreatment={selectedTreatment}
+                        setSelectedSideEffects={setSelectedSideEffects}
                         setSelectedTreatment={setSelectedTreatment}
                         showSideEffects={showSideEffects}
+                        sideEffects={sideEffects}
                         similarPatientTreatments={similarPatientTreatments}
                         similarPatientTreatmentsData={similarPatientTreatmentsData}
                         sortColumn={sortColumn}
@@ -181,9 +187,12 @@ export default class TreatmentOptionsOutcomes extends Component {
 }
 
 TreatmentOptionsOutcomes.propTypes = {
+    selectedSideEffects: PropTypes.string.isRequired,
     selectedTreatment: PropTypes.object,
+    setSelectedSideEffects: PropTypes.func.isRequired,
     setSelectedTreatment: PropTypes.func.isRequired,
     showSideEffects: PropTypes.bool.isRequired,
+    sideEffects: PropTypes.array.isRequired,
     similarPatientTreatments: PropTypes.array.isRequired,
     similarPatientTreatmentsData: PropTypes.array.isRequired,
     timescale: PropTypes.array.isRequired
