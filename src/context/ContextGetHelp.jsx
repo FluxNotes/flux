@@ -108,85 +108,107 @@ class ContextGetHelp extends React.Component {
         }
     }
 
-    renderOptions() {
-        // if getHelp is not selected, don't show the additional options
-        if (this.state.selectedIndex === -1) return null;
+    renderOptionsWithGetHelp = () => {
+        // Get name of the shortcut for the getHelp text
+        const initiatingTrigger = this.props.shortcut.getDisplayText();
+
+        // Determine if we should display anything other than the getHelp option
+        const isGetHelpClosed = this.state.selectedIndex === -1;
+        // For any informational flags, define them here and chain them together into a single variable
+        // This variable will determine if we display a horizontal bar, separating information from actions
+        const isMissingParent = this.props.shortcut.isMissingParent;
+        const isInformationAvailable = isMissingParent || false;
+
+        // Create our icon class to signal the expanding/collapsing getHelp option, based on open/closedness
+        let iconClass = 'fa fa-angle-';
+        isGetHelpClosed ? iconClass += 'down' : iconClass += 'up';
 
         return (
-            <span className="context-get-help-options">
-                {this.state.getHelpOptions.map((option, index) => {
-                    // the parent 'get help' option is not included in the getHelpOptions array
-                    // but it is included as a selectedIndex, so there is an off by one that needs
-                    // to be calculated, hence the updatedIndex + 1 from the index of the getHelpOptions
-                    const updatedIndex = index + 1;
-                    return (
-                        <li key={updatedIndex}
-                            data-active={this.state.selectedIndex === updatedIndex}
-                            onClick={option.onSelect}
-                            onMouseEnter={() => { this.setSelectedIndex(updatedIndex); }}
-                        >
-                            {option.text}
-                        </li>
-                    );
-                })}
+            <span>
+                <li
+                    className="context-get-help-li"
+                    data-active={this.state.selectedIndex === 0}
+                    onMouseEnter={() => { this.setSelectedIndex(0); }}
+                    onClick={() => { this.setSelectedIndex(-1); }}
+                >
+                    <span className="context-get-help-text">
+                        get help with {initiatingTrigger}
+                        <span className={iconClass}></span>
+                    </span>
+                </li>
+
+                <span className="context-get-help-options">
+                    {!isGetHelpClosed && this.state.getHelpOptions.map((option, index) => {
+                        // the parent 'get help' option is not included in the getHelpOptions array
+                        // but it is included as a selectedIndex, so there is an off by one that needs
+                        // to be calculated, hence the updatedIndex + 1 from the index of the getHelpOptions
+                        const updatedIndex = index + 1;
+                        return (
+                            <li key={updatedIndex}
+                                data-active={this.state.selectedIndex === updatedIndex}
+                                onClick={option.onSelect}
+                                onMouseEnter={() => { this.setSelectedIndex(updatedIndex); }}
+                            >
+                                {option.text}
+                            </li>
+                        );
+                    })}
+                </span>
+                {(!isGetHelpClosed && isInformationAvailable) && this.renderHorizontalLine()}
+                {(!isGetHelpClosed && isMissingParent) && this.renderIsMissingParent()}
             </span>
         );
     }
 
     renderIsCompleteMessage() {
         const initiatingTrigger = this.props.shortcut.getDisplayText();
+        const infoIconiconClass = "fa fa-info-circle";
         return (
-            <ul className="context-get-help" ref="contextGetHelp">
-                <li
-                    className="context-get-help-li"
-                >
-                    <span className="context-get-help-text">
-                        <i>{initiatingTrigger} is already complete</i>
-                    </span>
-                </li>
-            </ul>
+            <li className="context-get-help-li" >
+                <span className="context-information-text">
+                    <span className={infoIconiconClass}></span>
+                    <i>{initiatingTrigger} is already complete</i>
+                </span>
+            </li>
         );
     }
 
     renderIsMissingParent() {
         const initiatingTrigger = this.props.shortcut.getDisplayText();
+        const infoIconiconClass = "fa fa-info-circle";
         return (
-            <ul className="context-get-help" ref="contextGetHelp">
-                <li
-                    className="context-get-help-li"
-                >
-                    <span className="context-get-help-text">
-                        <i>{initiatingTrigger} is missing a parent</i>
-                    </span>
-                </li>
-            </ul>
+            <li className="context-get-help-li">
+                <span className="context-information-text">
+                    <span className={infoIconiconClass}></span>
+                    <i>{initiatingTrigger} is missing a parent</i>
+                </span>
+            </li>
         );
     }
 
-
+    renderHorizontalLine() {
+        return (
+            <hr/>
+        );
+    }
 
     render() {
-        // If the shortcut we're responsible for is missing a parent, display a message to the user to avoid confusion
-        if (!this.props.shortcut.hasParentContext() && this.props.shortcut.hasChildren()) return this.renderIsMissingParent();
-        // If the shortcut we're responsible for is complete, display a message to the user to avoid confusion
-        if (this.props.shortcut.isComplete) return this.renderIsCompleteMessage();
-        // Else we should display all our getHelp message
-        const initiatingTrigger = this.props.shortcut.getDisplayText();
-        let iconClass = 'fa fa-angle-';
-        this.state.selectedIndex === -1 ? iconClass += 'down' : iconClass += 'up';
+        // Decide the list content and render whatever it is in the UL element
+        let listContent = null;
+        if (this.props.shortcut.isMissingParent && this.props.shortcut.hasChildren()) {
+            // If the shortcut we're responsible for is missing a parent but is already expanded, display a message to the user to avoid confusion
+            listContent = this.renderIsMissingParent();
+        } else if (this.props.shortcut.isComplete) {
+            // Else, if the shortcut we're responsible for is complete, display a message to the user to avoid confusion
+            listContent = this.renderIsCompleteMessage();
+        } else {
+            // Else we should display all our getHelp message
+            listContent = this.renderOptionsWithGetHelp();
+        }
+
         return (
             <ul className="context-get-help" ref="contextGetHelp">
-                <li
-                    className="context-get-help-li"
-                    data-active={this.state.selectedIndex === 0}
-                    onMouseEnter={() => { this.setSelectedIndex(0); }}
-                >
-                    <span className="context-get-help-text">
-                        <i>get help with {initiatingTrigger}</i>
-                        <span className={iconClass}></span>
-                    </span>
-                </li>
-                {this.renderOptions()}
+                {listContent}
             </ul>
         );
     }

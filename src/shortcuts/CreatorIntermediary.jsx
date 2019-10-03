@@ -121,4 +121,8 @@ export default class CreatorIntermediary extends Shortcut {
     get isComplete() {
         return this.hasParentContext() && this.hasChildren();
     }
+
+    get isMissingParent() {
+        return !this.hasParentContext();
+    }
 }
