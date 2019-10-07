@@ -174,13 +174,15 @@ class ContextGetHelp extends React.Component {
     }
 
     renderIsMissingParent() {
-        const initiatingTrigger = this.props.shortcut.getDisplayText();
+        const shortcut = this.props.shortcut;
+        const initiatingTrigger = shortcut.getDisplayText();
+        const potentialParentText = shortcut.potentialParents.map(parentID => this.props.shortcutManager.getShortcutLabel(parentID)).join(", or");
         const infoIconiconClass = "fa fa-info-circle";
         return (
             <li className="context-get-help-li">
                 <span className="context-information-text">
                     <span className={infoIconiconClass}></span>
-                    <i>{initiatingTrigger} is missing a parent</i>
+                    <i>{initiatingTrigger} needs more context, try mentioning {potentialParentText} beforehand</i>
                 </span>
             </li>
         );

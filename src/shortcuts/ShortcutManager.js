@@ -6,7 +6,7 @@ import UpdaterBase from './UpdaterBase';
 import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
-import _ from 'lodash';
+import _ from 'lodash'; 
 import NLPHashtag from './NLPHashtag';
 
 // Given a trigger object, add it and any subsidiary trigger objects to our triggersPerShortcut map
@@ -268,6 +268,7 @@ class ShortcutManager {
                     } else {
                         addTriggerForCurrentShortcut.bind(this)(triggers, item);
                     }
+                    // If this shortcut has a label, then add the label as a shortcut.
                     if (item.label) {
                         // Add a string trigger for incomplete placeholder
                         addTriggerForCurrentShortcut.bind(this)({
@@ -341,7 +342,6 @@ class ShortcutManager {
                     }
                     let numberOfValidTriggers;
                     if (this.triggersPerShortcut[shortcutId]) {
-                    // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
                         numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
                     } else {
                         numberOfValidTriggers = shortcut.label ? 1 : 0;
@@ -402,10 +402,20 @@ class ShortcutManager {
         // stringTriggers is directly from shortcut metadata
         const stringTriggers = this.shortcuts[shortcutId].stringTriggers;
         // triggers is the computed options based on the valueset defined in metadata
-        const triggers = this.getTriggersForShortcut(shortcutId, context);
+        // Clone this information so we aren't changing anything by reference
+        const triggers = [...this.getTriggersForShortcut(shortcutId, context)];
 
-        // Filter out the label from triggers if there are defined stringTriggers that can be added
-        return triggers.filter(t =>  stringTriggers.length === 0 || t.name !== label);
+        // Get the index of the label in the triggers list
+        const indexOfLabel = _.findIndex(triggers, t => t.name === label)
+        // If there is an instance of the label, and the stringTriggers isn't empty then we want to remove this instance of the label 
+        // When stringTriggers doesn't have a length, we might be using the label as a shorthand for writing down the string trigger as well
+        if (indexOfLabel !== -1 && stringTriggers.length !== 0) {
+            // We only splice out this one instance of it in case the string trigger itself happens to match the label
+            // In this case there will be two instances of the label in our list and we want to remove one of them
+            // In the case where there is just one instance, then we can remove it safely
+            triggers.splice(indexOfLabel, 1)
+        } 
+        return triggers;
     }
 
     getKeywordsForShortcut(shortcutId, context) {
@@ -437,6 +447,10 @@ class ShortcutManager {
 
     getShortcutGroupName(shortcutId) {
         return this.shortcuts[shortcutId]["shortcutGroupName"];
+    }
+
+    getShortcutLabel(shortcutId) {
+        return this.shortcuts[shortcutId].label;
     }
 
     getShortcutMetadata(shortcutId) {

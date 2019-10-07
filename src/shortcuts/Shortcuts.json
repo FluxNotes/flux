@@ -354,6 +354,7 @@
   { "type": "InsertValue",
     "subtype": "choice",
     "id": "ConditionInserter",
+    "label": "@condition",
     "getData": {"object": "patient", "method": "getConditions", "itemKey": "entryInfo.entryId.id", "itemContext":"type", "dateLabel": "diagnosisDate"},
     "isContext": true,
     "isGlobalContext": true,
