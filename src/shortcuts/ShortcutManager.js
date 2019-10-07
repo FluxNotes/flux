@@ -6,7 +6,7 @@ import UpdaterBase from './UpdaterBase';
 import Placeholder from './Placeholder';
 import ValueSetManager from '../lib/ValueSetManager';
 import shortcutMetadata from './Shortcuts.json';
-import _ from 'lodash'; 
+import _ from 'lodash';
 import NLPHashtag from './NLPHashtag';
 
 // Given a trigger object, add it and any subsidiary trigger objects to our triggersPerShortcut map
@@ -406,15 +406,15 @@ class ShortcutManager {
         const triggers = [...this.getTriggersForShortcut(shortcutId, context)];
 
         // Get the index of the label in the triggers list
-        const indexOfLabel = _.findIndex(triggers, t => t.name === label)
-        // If there is an instance of the label, and the stringTriggers isn't empty then we want to remove this instance of the label 
+        const indexOfLabel = _.findIndex(triggers, t => t.name === label);
+        // If there is an instance of the label, and the stringTriggers isn't empty then we want to remove this instance of the label
         // When stringTriggers doesn't have a length, we might be using the label as a shorthand for writing down the string trigger as well
         if (indexOfLabel !== -1 && stringTriggers.length !== 0) {
             // We only splice out this one instance of it in case the string trigger itself happens to match the label
             // In this case there will be two instances of the label in our list and we want to remove one of them
             // In the case where there is just one instance, then we can remove it safely
-            triggers.splice(indexOfLabel, 1)
-        } 
+            triggers.splice(indexOfLabel, 1);
+        }
         return triggers;
     }
 
