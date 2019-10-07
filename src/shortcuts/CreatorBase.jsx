@@ -31,7 +31,6 @@ export default class CreatorBase extends EntryShortcut {
     get potentialParents() {
         const knownParent = this.metadata["knownParentContexts"];
         if (knownParent === 'Patient' || knownParent === undefined) return [];
-        console.log(knownParent);
         if (_.isArray(knownParent)) {
             return knownParent;
         } else if (_.isString(knownParent)) {

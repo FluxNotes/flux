@@ -342,6 +342,7 @@ class ShortcutManager {
                     }
                     let numberOfValidTriggers;
                     if (this.triggersPerShortcut[shortcutId]) {
+                        // If the shortcut has a label defined, don't include in in the list of valid triggers per shortcut
                         numberOfValidTriggers = this.triggersPerShortcut[shortcutId].length - (shortcut.label ? 1 : 0);
                     } else {
                         numberOfValidTriggers = shortcut.label ? 1 : 0;
