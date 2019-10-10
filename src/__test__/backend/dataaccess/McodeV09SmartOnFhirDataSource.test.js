@@ -37,6 +37,11 @@ const sampleObservationSearchData = {
     entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Observation')
 };
 
+const sampleReferenceResult = {
+    resourceType: 'Bundle',
+    entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Condition')
+}
+
 
 describe('SMART on FHIR data source', function() {
     const originalWindowFHIR = window.FHIR;
@@ -83,7 +88,9 @@ describe('SMART on FHIR data source', function() {
           .get('/fhir/Patient?_id=1078857')
           .reply(200, samplePatientSearchData)
           .get('/fhir/Observation?patient=1078857')
-          .reply(200, sampleObservationSearchData);
+          .reply(200, sampleObservationSearchData)
+          .get('/fhir/Encounter/6a8bc97e-3ba1-4fb5-a478-4b5bd888c793') // reference retrieval
+          .reply(200, sampleReferenceResult);
           // in this case it doesn't need to fetch the metadata since the resourceTypes are manually specified
 
         const dataSource = new McodeV09SmartOnFhirDataSource({ resourceTypes: ['Patient', 'Observation'] });

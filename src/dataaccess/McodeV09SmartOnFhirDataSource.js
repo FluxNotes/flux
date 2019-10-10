@@ -114,7 +114,10 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
 
     // Filter out resources that can only support searching based on patient/subject. Also include the Patient resource type.
     resourceTypeFilter = (res) => {
-        return res.searchInclude.includes(`${res.type}:patient`) || res.searchInclude.includes(`${res.type}:subject`) || res.type === 'Patient';
+        if (res && res.searchInclude) {
+            return res.searchInclude.includes(`${res.type}:patient`) || res.searchInclude.includes(`${res.type}:subject`) || res.type === 'Patient';
+        }
+        return true;
     }
 
     fetchResources() {
