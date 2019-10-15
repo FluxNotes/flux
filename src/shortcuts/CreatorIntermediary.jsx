@@ -128,7 +128,6 @@ export default class CreatorIntermediary extends Shortcut {
     get potentialParents() {
         const knownParent = this.metadata["knownParentContexts"];
         if (knownParent === 'Patient' || knownParent === undefined) return [];
-        console.log(knownParent);
         if (_.isArray(knownParent)) {
             return knownParent;
         } else if (_.isString(knownParent)) {
