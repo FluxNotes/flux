@@ -1,5 +1,4 @@
 import MetadataSection from "./MetadataSection";
-import ActiveConditionsSection from './ActiveConditionsSection';
 import AllergiesSection from './AllergiesSection';
 import DiseaseStatusSection from './DiseaseStatusSection';
 import MedicationsSection from './MedicationsSection';
