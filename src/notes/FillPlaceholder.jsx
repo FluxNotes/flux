@@ -106,6 +106,7 @@ export default class FillPlaceholder extends Component {
 
     onSetValue = (source, attributeSpec, entryIndex, newValue) => {
         const { placeholder } = this.props;
+        placeholder.attributesSetByPoc = true;
         //if (entryIndex === -1) entryIndex = placeholder.entryShortcuts.length - 1;
         const attributes = placeholder.getAttributeValue(attributeSpec.name, entryIndex);
         let error;
@@ -362,7 +363,7 @@ export default class FillPlaceholder extends Component {
                     <Checkbox style={{ width: 26, height: 26 }} checked={done} value="done" onChange={this.onDone} color="primary" />
                 </span> */}
                 <span className="shortcut-name" key="0">
-                    {placeholder.shortcutDisplayText}
+                    {placeholder.getDisplayText()}
                 </span>
             </Grid>
         );

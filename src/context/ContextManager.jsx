@@ -209,6 +209,11 @@ class ContextManager {
         }
     }
 
+    // getPlaceholders returns all contexts that can be filled out by the POC panel
+    getPlaceholders() {
+        return this.contexts.filter(c => (!c.isComplete && !Lang.isUndefined(c.metadata.formSpec)) || c.attributesSetByPoc);
+    }
+
     clearContexts() {
         this.contexts = [];
         this.activeContexts = [];

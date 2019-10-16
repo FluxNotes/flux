@@ -21,6 +21,7 @@ export default class CreatorBase extends EntryShortcut {
     }
 
     get isComplete() {
+        if (this._attributesSetByPoc) return this.hasParentContext() && this.hasData();
         return this.hasParentContext() && this.hasChildren();
     }
 

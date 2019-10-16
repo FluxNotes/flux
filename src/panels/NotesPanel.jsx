@@ -269,7 +269,7 @@ export default class NotesPanel extends Component {
                             </Row>
                             <Row start="xs" style={{ marginLeft: '2px', marginRight: '10px' }}>
                                 <PointOfCare
-                                    placeholders={this.props.structuredFieldMapManager.placeholders}
+                                    placeholders={this.props.contextManager.getPlaceholders()}
                                     isAppBlurred={this.props.isAppBlurred}
                                     ref={(poc) => { this.pointOfCare = poc; }} />
                             </Row>

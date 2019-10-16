@@ -23,6 +23,8 @@ export default class EntryShortcut extends Shortcut {
             if (!this.object) {
                 this.object = FluxObjectFactory.createInstance({}, metadata["valueObject"], patient);
             }
+
+            if (dataObj.attributesSetByPoc) this._attributesSetByPoc = true;
         }
         this.setValueObject(this.object);
     }
@@ -249,7 +251,11 @@ export default class EntryShortcut extends Shortcut {
 
     serialize() {
         if (Lang.isUndefined(this.object.entryInfo)) return this.initiatingTrigger;
-        return `${this.initiatingTrigger}[[{"entryId":${this.getEntryId()}}]]`;
+        const obj = {
+            entryId: this.getEntryId()
+        };
+        if (this._attributesSetByPoc) obj.attributesSetByPoc = this._attributesSetByPoc;
+        return `${this.initiatingTrigger}[[${JSON.stringify(obj)}]]`;
     }
 
     getText() {
@@ -345,6 +351,18 @@ export default class EntryShortcut extends Shortcut {
             },
             children: []
         };
+    }
+
+    get attributes() {
+        return this.metadata.formSpec.attributes;
+    }
+
+    set attributesSetByPoc(val) {
+        this._attributesSetByPoc = val;
+    }
+
+    get attributesSetByPoc() {
+        return this._attributesSetByPoc;
     }
 
     onBeforeDeleted() {

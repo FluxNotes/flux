@@ -313,7 +313,7 @@ class ShortcutManager {
         let contextValueObjectEntryTypes;
         let result = this.childShortcuts[currentContextId], parentAttribute;
         let value, parentVOAs, voa, isSettable, isSet, parentIdVOAs;
-        if (_.isUndefined(result)) return [];
+        if (_.isUndefined(result) || context.attributesSetByPoc) return [];
 
         result = result.filter((shortcutId) => {
 

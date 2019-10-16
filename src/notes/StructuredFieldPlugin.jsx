@@ -256,6 +256,8 @@ function StructuredFieldPlugin(opts) {
                     return <span contentEditable={shortcut.metadata.isEditable && shortcut.isComplete ? '' : false} className={sfClass} {...props.attributes}>{props.children}</span>;
                 } else {
                     const sfClass = `structured-field-creator${shortcut.isComplete ? "" : "-incomplete"}`;
+
+                    if (shortcut.attributesSetByPoc) return <span contentEditable={false} className={sfClass} {...props.attributes}>{shortcut.getAsString().replace(/#/g, '')}</span>;
                     return <span contentEditable={false} className={sfClass} {...props.attributes}>{props.children}{safariSpacing}</span>;
                 }
             },

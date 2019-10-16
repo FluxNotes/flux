@@ -72,7 +72,7 @@ export default class ShortcutViewModeContent extends Component {
         } else {
             // const activeContextIndex = this.state.currentContextIndex;
             // const activeContext = activeContexts[activeContextIndex];
-            const listOfContextOptions = activeContexts.map((context, i) => {
+            const listOfContextOptions = activeContexts.filter(c => !c.attributesSetByPoc).map((context, i) => {
                 // Since contexts move down in the list as more get added, we need an invariant to describe the items location in the list
                 // Contexts come in stack order, so newest contexts are on the top, oldest on the bottom
                 // The first context we entered will always be the last one in the list, so we want the unique i.d. for the last item to be 0;
@@ -130,7 +130,7 @@ export default class ShortcutViewModeContent extends Component {
     }
 }
 
-ShortcutViewModeContent.propTypes= {
+ShortcutViewModeContent.propTypes = {
     contextManager: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     shortcutManager: PropTypes.object.isRequired,
