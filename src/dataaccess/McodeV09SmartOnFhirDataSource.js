@@ -74,7 +74,9 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
             .then(response => this._handleResponseBundle(response.data, prevBundle));
     }
 
+    // If we retrieve a single entry, wrap it in a bundle-like object so we can process it similarly to other bundles later
     _handleResponseEntry(entry) {
+        // If already a bundle, return as is
         if (entry.resourceType && entry.resourceType === 'Bundle') return entry;
         return { resourceType: 'Bundle', entry: [ { resource: entry } ] };
     }
@@ -93,7 +95,7 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
                     if (typeof entry.resource[key] === 'object' && entry.resource[key].reference) {
                         const referenceValue = entry.resource[key].reference;
                         // Only add new entries. Don't add the patient because we already have that.
-                        if (!this.referencedEntries.has(referenceValue) && referenceValue !== `Patient/${this._client.patient.id}`) {
+                        if (!this.referencedEntries.has(referenceValue) && !referenceValue.endsWith(`Patient/${this._client.patient.id}`)) {
                             this.referencedEntries.add(referenceValue);
                         }
                     }
@@ -153,8 +155,13 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
                         nonEmptyResources = nonEmptyResources.concat(resources.filter(res => res.entry));
                         this.referencedEntries.forEach((key) => {
                             const referenceArray = key.split('/');
-                            const resourceType = referenceArray[0];
-                            const resourceId = referenceArray[1];
+                            let resourceId = '';
+                            let resourceType = '';
+                            // Using the last two entries of the array supports getting the type and id from references
+                            // of types resourceType/resourceId and http://fhirserver/resourceType/resourceId
+                            if (referenceArray.length >= 2) {
+                                [ resourceType, resourceId ] = referenceArray.slice(referenceArray.length - 2);
+                            }
 
                             // Check if we have already fetched the referenced resource. Only fetch ones we don't yet have
                             const alreadyFetched = nonEmptyResources.some(res => res.entry.some(entry => entry.resource.id === resourceId));

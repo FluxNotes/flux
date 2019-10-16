@@ -37,10 +37,7 @@ const sampleObservationSearchData = {
     entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Observation')
 };
 
-const sampleReferenceResult = {
-    resourceType: 'Bundle',
-    entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Condition')
-}
+const sampleReferenceResult = hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === 'Encounter');
 
 
 describe('SMART on FHIR data source', function() {
