@@ -4,10 +4,10 @@ import moment from 'moment';
 export default class MostRecentVisitsSubsection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
-            name: "Most Recent Visit",
+            name: "Recent appointments",
             items: [
                 {
-                    name: "Date of Last Visit with You",
+                    name: "You last saw this patient",
                     value: (patient, currentConditionEntry, user) => {
                         const encounters = patient.getPreviousEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.practitioner === user.getUserName());
@@ -22,7 +22,7 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                     }
                 },
                 {
-                    name: "Date of Last Visit Here",
+                    name: "Last visit to this practice",
                     value: (patient, currentConditionEntry, user) => {
                         const encounters = patient.getPreviousEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.provider === user.provider);
@@ -37,7 +37,7 @@ export default class MostRecentVisitsSubsection extends MetadataSection {
                     }
                 },
                 {
-                    name: "Who Last Visited Here",
+                    name: "Clinician who saw patient",
                     value: (patient, currentConditionEntry, user) => {
                         const encounters = patient.getPreviousEncountersChronologicalOrder();
                         const filteredEncounters = encounters.filter(e => e.provider === user.provider);

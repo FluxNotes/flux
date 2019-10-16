@@ -21,7 +21,6 @@ export default class SarcomaMetadata extends MetadataSection {
             sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
                 SarcomaPatientSummarySection,
                 SarcomaConditionSummarySection,
-                ActiveConditionsSection,
                 MedicationsSection,
                 AllergiesSection,
                 ProceduresSection,
