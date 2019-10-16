@@ -131,10 +131,10 @@
           "text": "Prediabetes"
         },
         "patient": {
-          "reference": "urn:uuid:eb3cdde1-0f08-4ec3-b926-e071979ec7e1"
+          "reference": "Patient/eb3cdde1-0f08-4ec3-b926-e071979ec7e1"
         },
         "encounter": {
-          "reference": "urn:uuid:6a8bc97e-3ba1-4fb5-a478-4b5bd888c793"
+          "reference": "Encounter/6a8bc97e-3ba1-4fb5-a478-4b5bd888c793"
         },
         "onsetDateTime": "2011-07-12T11:19:32-04:00",
         "dateRecorded": "2011-07-12T11:19:32-04:00",
@@ -175,10 +175,10 @@
           "text": "Body Height"
         },
         "subject": {
-          "reference": "urn:uuid:eb3cdde1-0f08-4ec3-b926-e071979ec7e1"
+          "reference": "Patient/eb3cdde1-0f08-4ec3-b926-e071979ec7e1"
         },
         "encounter": {
-          "reference": "urn:uuid:6a8bc97e-3ba1-4fb5-a478-4b5bd888c793"
+          "reference": "Encounter/6a8bc97e-3ba1-4fb5-a478-4b5bd888c793"
         },
         "effectiveDateTime": "2011-07-12T11:19:32-04:00",
         "issued": "2011-07-12T11:19:32.283-04:00",

@@ -140,6 +140,12 @@ const mockSmartClient = {
                 };
                 return Promise.resolve({ data });
             },
+            read: function(type, id) {
+                const data = {
+                    entry: hardCodedFHIRPatient.entry.filter(e => e['resource']['resourceType'] === type && e['resource']['id'] === id)
+                };
+                return Promise.resolve({ data });
+            },
             conformance: function(_options) {
                 const data = {
                     rest: [{

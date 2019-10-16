@@ -26,6 +26,7 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
         };
 
         this.resourceTypes = props && props.resourceTypes;
+        this.referencedEntries = new Set();
     }
     getGestalt() {
         return this._gestalt;
@@ -48,6 +49,11 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
         });
     }
 
+    _fetchById(resourceType, resourceId) {
+        return this._client.patient.api.read({ type: resourceType, id: resourceId })
+            .then(response => this._handleResponseEntry(response.data));
+    }
+
     _fetchAll(resourceType) {
         // the FHIR server can return as many or as few results as it would like
         // so we have to follow links to get the "next" set of results.
@@ -68,11 +74,33 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
             .then(response => this._handleResponseBundle(response.data, prevBundle));
     }
 
+    // If we retrieve a single entry, wrap it in a bundle-like object so we can process it similarly to other bundles later
+    _handleResponseEntry(entry) {
+        // If already a bundle, return as is
+        if (entry.resourceType && entry.resourceType === 'Bundle') return entry;
+        return { resourceType: 'Bundle', entry: [ { resource: entry } ] };
+    }
+
     _handleResponseBundle(newBundle, prevBundle=null) {
         if (prevBundle && newBundle && newBundle.entry) {
             // merge the entries from the previous bundle into the new one
             newBundle.entry.unshift(...prevBundle.entry);
             newBundle.total = newBundle.entry.length;
+        }
+
+        if (newBundle && newBundle.entry) {
+            // Check for any value on an entry that is a reference
+            newBundle.entry.forEach(entry => {
+                for (const key in entry.resource) {
+                    if (typeof entry.resource[key] === 'object' && entry.resource[key].reference) {
+                        const referenceValue = entry.resource[key].reference;
+                        // Only add new entries. Don't add the patient because we already have that.
+                        if (!this.referencedEntries.has(referenceValue) && !referenceValue.endsWith(`Patient/${this._client.patient.id}`)) {
+                            this.referencedEntries.add(referenceValue);
+                        }
+                    }
+                }
+            });
         }
 
         const nextURL = newBundle.link && newBundle.link.find(l => l.relation === 'next');
@@ -86,6 +114,14 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
         }
     }
 
+    // Filter out resources that can only support searching based on patient/subject. Also include the Patient resource type.
+    resourceTypeFilter = (res) => {
+        if (res && res.searchInclude) {
+            return res.searchInclude.includes(`${res.type}:patient`) || res.searchInclude.includes(`${res.type}:subject`) || res.type === 'Patient';
+        }
+        return true;
+    }
+
     fetchResources() {
         let promise = this._getClientAsync(); // have to ensure the client is loaded first
 
@@ -94,7 +130,7 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
         } else {
             promise = promise
                 .then(client => client.patient.api.conformance({}))
-                .then(metadata => metadata.data.rest[0].resource.map(res => res.type));
+                .then(metadata => metadata.data.rest[0].resource.filter(this.resourceTypeFilter).map(res => res.type));
         }
 
         return promise
@@ -108,7 +144,34 @@ class McodeV09SmartOnFhirDataSource extends IDataSource {
                     queries.push(result);
                 }
 
-                return Promise.all(queries);
+                const referenceQueries = [];
+                let nonEmptyResources = [];
+                return Promise.all(queries)
+                    .then((resources) => {
+                        // After the first pass of queries are resolved, fetch any additional resources that were
+                        // referenced that have not yet been fetched.
+
+                        // Filter out any searchset bundles that don't have any entries
+                        nonEmptyResources = nonEmptyResources.concat(resources.filter(res => res.entry));
+                        this.referencedEntries.forEach((key) => {
+                            const referenceArray = key.split('/');
+                            let resourceId = '';
+                            let resourceType = '';
+                            // Using the last two entries of the array supports getting the type and id from references
+                            // of types resourceType/resourceId and http://fhirserver/resourceType/resourceId
+                            if (referenceArray.length >= 2) {
+                                [ resourceType, resourceId ] = referenceArray.slice(referenceArray.length - 2);
+                            }
+
+                            // Check if we have already fetched the referenced resource. Only fetch ones we don't yet have
+                            const alreadyFetched = nonEmptyResources.some(res => res.entry.some(entry => entry.resource.id === resourceId));
+                            if (!alreadyFetched) {
+                                const refResult = this._fetchById(resourceType, resourceId);
+                                referenceQueries.push(refResult);
+                            }
+                        });
+                        return Promise.all(referenceQueries);
+                    }).then(refResources => nonEmptyResources.concat(refResources));
             });
     }
 
