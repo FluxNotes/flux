@@ -20,7 +20,7 @@ class SuggestionPortalShortcutSearchIndex extends SuggestionPortalSearchIndex  {
         allShortcutObjs.forEach((shortcutObj) => {
             const shortcutId = shortcutObj.id;
             const shortcutMetadata = this.shortcutManager.getShortcutMetadata(shortcutId);
-            const triggers = this.shortcutManager.getTriggersForShortcut(shortcutId);
+            const triggers = this.shortcutManager.getTriggersWithoutLabelForShortcut(shortcutId);
             // Scores get sorted from smallest to greatest
             // ActiveContexts is sorted from most recent to least recent
             // We want shortcuts for the most recent shortcuts to have the smallest bonus score, so as to appear earlier

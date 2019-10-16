@@ -28,17 +28,19 @@ ul.context-get-help {
         margin-bottom: 5px;
 
         .context-get-help-text {
-            span {
+            span.fa-angle-up, span.fa-angle-down {
+                padding: 0;
                 padding-left: 15px;
+            }
+        }
+        .context-information-text { 
+            span.fa-info-circle {
+                padding: 0 5px 0 0;
             }
         }
     }
 
     .context-get-help-options {
-        li:first-child {
-            border-top: 1px solid $line-gray;
-        }
-
         li:last-child {
             margin-bottom: 5px;
         }

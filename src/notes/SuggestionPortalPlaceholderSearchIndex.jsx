@@ -15,7 +15,7 @@ class SuggestionPortalPlaceholderSearchIndex extends SuggestionPortalSearchIndex
         const relevantShortcuts = [];
 
         placeholders.forEach((placeholder) => {
-            const triggers = this.shortcutManager.getTriggersForShortcut(placeholder.id);
+            const triggers = this.shortcutManager.getTriggersWithoutLabelForShortcut(placeholder.id);
             triggers.forEach((trigger) => {
                 const triggerNoPrefix = trigger.name.substring(1);
                 relevantShortcuts.push({

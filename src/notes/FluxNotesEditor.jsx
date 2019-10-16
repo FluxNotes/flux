@@ -1787,6 +1787,7 @@ class FluxNotesEditor extends React.Component {
                                 onSelected={this.onCompletionComponentValueSelection}
                                 closePortal={this.closeCompletionPortal}
                                 shortcut={this.state.completionComponentShortcut}
+                                shortcutManager={this.props.shortcutManager}
                                 state={this.state.state}
                                 insertShortcut={this.insertShortcut}
                             />

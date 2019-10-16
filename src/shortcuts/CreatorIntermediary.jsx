@@ -1,5 +1,5 @@
 import Shortcut from './Shortcut';
-import Lang from 'lodash';
+import _ from 'lodash';
 
 export default class CreatorIntermediary extends Shortcut {
     constructor(onUpdate, metadata) {
@@ -15,11 +15,11 @@ export default class CreatorIntermediary extends Shortcut {
     initialize(contextManager, trigger = undefined, updatePatient = true) {
         super.initialize(contextManager, trigger, updatePatient);
 
-        if (Lang.isUndefined(this.parentContext)) {
+        if (_.isUndefined(this.parentContext)) {
             super.determineParentContext(contextManager, this.metadata["knownParentContexts"], this.metadata["parentAttribute"]);
         }
 
-        if (!Lang.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
+        if (!_.isUndefined(this.parentContext) && this.parentContext.children.indexOf(this) === -1) {
             this.parentContext.setAttributeValue(this.metadata["parentAttribute"], true, false, updatePatient);
             this.parentContext.addChild(this);
         }
@@ -115,10 +115,26 @@ export default class CreatorIntermediary extends Shortcut {
     }
 
     hasValueObjectAttributes() {
-        return !Lang.isEmpty(this.metadata["valueObjectAttributes"]);
+        return !_.isEmpty(this.metadata["valueObjectAttributes"]);
     }
 
     get isComplete() {
         return this.hasParentContext() && this.hasChildren();
+    }
+
+    get isMissingParent() {
+        return !this.hasParentContext();
+    }
+    get potentialParents() {
+        const knownParent = this.metadata["knownParentContexts"];
+        if (knownParent === 'Patient' || knownParent === undefined) return [];
+        if (_.isArray(knownParent)) {
+            return knownParent;
+        } else if (_.isString(knownParent)) {
+            return [knownParent];
+        } else {
+            console.warn("unknown type for knownParent: element looks like ", knownParent);
+            return [];
+        }
     }
 }
