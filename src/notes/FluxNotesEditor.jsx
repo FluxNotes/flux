@@ -88,6 +88,7 @@ class FluxNotesEditor extends React.Component {
     closeCompletionPortal = () => {
         if (this.state.completionComponentShortcut) {
             // Clean up some variables stored at the Editor level
+
             this.setState({
                 completionComponentShortcut: null,
                 portalOptions: [],
