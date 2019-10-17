@@ -1,7 +1,8 @@
-import MetadataSection from "./MetadataSection";
+import MetadataSection from './MetadataSection';
+import ActiveTreatmentsSubsection from './ActiveTreatmentsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
 import RecentToxicitiesSubsection from './RecentToxicitiesSubsection';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
 
 export default class SarcomaConditionSummarySection extends MetadataSection {
@@ -12,21 +13,14 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
             type: "NameValuePairs",
             /*eslint no-template-curly-in-string: "off"*/
             narrative: [
-                // yay this is broken
-
-                // {
-                //     defaultTemplate: "Patient has ${.Name} in ${.Location} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
-                // },
-                // {
-                //     defaultTemplate: "Summary of current treatment is: ${.Active Treatment Summary}."
-                // },
-
-                // add condition
                 {
-                    defaultTemplate: "Current status is ${.Status}.",
-                    dataMissingTemplate: "No current ${.Status}.",
+                    defaultTemplate: "Patient has ${.Name} in ${.Location} stage ${Diagnosis.Clinical stage} diagnosed on ${Diagnosis.Diagnosis date}."
+                },
+                {
+                    defaultTemplate: "Current status is ${.Clinical status}.",
+                    dataMissingTemplate: "No current ${.Clinical status}.",
                     useDataMissingTemplateCriteria: [
-                        ".Status"
+                        ".Clinical status"
                     ]
                 },
                 {
@@ -37,15 +31,18 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    defaultTemplate: "As of ${.As Of Date}, disease is ${.Disease Status} based on ${.Rationale}.",
+                    defaultTemplate: "As of ${Disease Status.As Of Date}, disease is ${Disease Status.Disease Status} based on ${Disease Status.Rationale}.",
                     dataMissingTemplate: "No recent ${disease status}.",
                     useDataMissingTemplateCriteria: [
-                        ".As Of Date",
-                        ".Disease Status",
-                        ".Rationale"
+                        "Disease Status.As Of Date",
+                        "Disease Status.Disease Status",
+                        "Disease Status.Rationale"
                     ]
                 },
                 // treatment section
+                // {
+                //     defaultTemplate: "Summary of current treatment is: ${.Active Treatment Summary}."
+                // },
                 {
                     defaultTemplate: "Recent toxicities include ${Recent Toxicities}.",
                     dataMissingTemplate: "No recent ${toxicities}.",
@@ -54,6 +51,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                     ]
                 },
                 // diagnosis section
+                // stage and diagnosis taken care of above
+                // Mitosis and tumor size taken care of below
                 {
                     defaultTemplate: "Most recent lab results include ${Most Recent Lab Results}.",
                     dataMissingTemplate: "No recent ${lab results}.",
@@ -131,7 +130,7 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                             name: "Disease Status",
                             value: (patient, currentConditionEntry) => {
                                 const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p) || !p.status) {
+                                if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
                                     return  {   value: p.status,
@@ -145,7 +144,7 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                             name: "As Of Date",
                             value: (patient, currentConditionEntry) => {
                                 const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p) || !p.status) {
+                                if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
                                     return  {   value: p.asOfDate,
@@ -159,7 +158,7 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                             name: "Rationale",
                             value: (patient, currentConditionEntry) => {
                                 const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p) || !p.status) {
+                                if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
                                     return  {   value: p.evidence.map(function (ev) {
@@ -173,28 +172,78 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                         },
                     ]
                 },
-                // treatment section
+                ActiveTreatmentsSubsection,
                 RecentToxicitiesSubsection,
-                // diagnosis section
+                {
+                    name: 'Diagnosis',
+                    items: [
+                        {
+                            name: "Diagnosis date",
+                            value: (patient, currentConditionEntry) => {
+                                return  {
+                                    value: currentConditionEntry.diagnosisDate,
+                                    isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                    source: this.determineSource(patient, currentConditionEntry)
+                                };
+                            }
+                        },
+                        {
+                            name: "Recurrence",
+                            value: (patient, currentConditionEntry) => {
+                                if (currentConditionEntry.clinicalStatus === "recurrence") {
+                                    return null;
+                                } else {
+                                    return  {   value: "N/A",
+                                        isUnsigned: patient.isUnsigned(currentConditionEntry),
+                                        source: this.determineSource(patient, currentConditionEntry)
+                                    };
+                                } // TODO: actually get date once we know where it is in SHR
+                            }
+                        },
+                        // Mitosis and Tumor size are hard coded for now until lab results have some sort of related condition flag
+                        // Both are also duplicated in lab results
+                        {
+                            name: "Mitosis",
+                            value: (patient, currentConditionEntry) => {
+                                const m = currentConditionEntry.getMostRecentLabResultByCode('7041004');
+                                if (m) {
+                                    return { value: `${m.quantity.number} ${m.quantity.unit} (${m.relevantTime})`};
+                                } else {
+                                    return null;
+                                }
+                            }
+                        },
+                        {
+                            name: "Tumor Size",
+                            value: (patient, currentConditionEntry) => {
+                                const t = currentConditionEntry.getMostRecentLabResultByCode('C0475440');
+                                if (t) {
+                                    return { value: `${t.quantity.number} ${t.quantity.unit} (${t.relevantTime})`};
+                                } else {
+                                    return null;
+                                }
+                            }
+                        },
+                        // histological grade
+                        {
+                            name: "Clinical stage",
+                            value: (patient, currentConditionEntry) => {
+                                const s = currentConditionEntry.getMostRecentStaging();
+                                if (s && s.stage && s.stage.length > 0) {
+                                    return  {   value: s.stage,
+                                        isUnsigned: patient.isUnsigned(s),
+                                        source: this.determineSource(patient, s)
+                                    };
+                                } else {
+                                    return null;
+                                }
+                            },
+                        }
+                        // pathological stage
+                    ]
+                },
                 RecentLabResultsSubsection
             ]
         };
-    }
-
-    getItemListForConditions = (patient, currentConditionEntry, subsection) => {
-        const conditions = patient.getActiveConditions();
-        return conditions.map((c, i) => {
-            return [
-                {    value: c.type,
-                    isUnsigned: patient.isUnsigned(c),
-                    source: this.determineSource(patient, c),
-                    shortcut: subsection.shortcut
-                },
-                {   value: c.diagnosisDate
-                },
-                {   value: c.bodySite
-                }
-            ];
-        });
     }
 }

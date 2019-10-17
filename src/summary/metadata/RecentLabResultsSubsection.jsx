@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash';
+import _ from 'lodash';
 // import moment from 'moment';
 
 export default class RecentLabResultsSubsection extends MetadataSection {
@@ -11,13 +11,8 @@ export default class RecentLabResultsSubsection extends MetadataSection {
     }
 
     getItemListForLabResults = (patient, currentConditionEntry) => {
-        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        if (_.isNull(patient) || _.isNull(currentConditionEntry)) return [];
 
-        // Set the max number of months prior to today that a lab result can be
-        //const numberOfMonths = 6;
-
-        // labResultsInOrder contains all lab results within a specified number of months from today
-        //const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
         const labResultsInOrder = currentConditionEntry.getMostRecentLabResultOfEachType();
 
         return labResultsInOrder.map((l, i) => {
