@@ -39,10 +39,13 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                         "Disease Status.Rationale"
                     ]
                 },
-                // treatment section
-                // {
-                //     defaultTemplate: "Summary of current treatment is: ${.Active Treatment Summary}."
-                // },
+                {
+                    defaultTemplate: "Summary of current treatment is: ${Treatment}.",
+                    dataMissingTemplate: "No recent ${treatments}.",
+                    useDataMissingTemplateCriteria: [
+                        "Treatment"
+                    ]
+                },
                 {
                     defaultTemplate: "Recent toxicities include ${Recent Toxicities}.",
                     dataMissingTemplate: "No recent ${toxicities}.",
