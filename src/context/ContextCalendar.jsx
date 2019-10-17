@@ -16,30 +16,30 @@ class ContextCalendar extends React.Component {
         this.props.onSelected(this.props.state, context);
     }
 
+    handleArrowKey = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
     onKeyDown = (e, data, state, editor) => {
         const keyCode = e.which;
         if (keyCode === ENTER_KEY) {
-            e.preventDefault();
-            e.stopPropagation();
+            this.handleArrowKey(e);
             if (_.isUndefined(this.refs.input.state.selectedValue)) {
                 this.refs.input.state.selectedValue = this.refs.input.state.value;
             }
             this.handleDateSelect(this.refs.input.state.selectedValue);
         } else if (keyCode === UP_ARROW_KEY) {
-            e.preventDefault();
-            e.stopPropagation();
+            this.handleArrowKey(e);
             this.refs.input.goTime(-1, 'weeks');
         } else if (keyCode === DOWN_ARROW_KEY) {
-            e.preventDefault();
-            e.stopPropagation();
+            this.handleArrowKey(e);
             this.refs.input.goTime(1, 'weeks');
         } else if (keyCode === LEFT_ARROW_KEY) {
-            e.preventDefault();
-            e.stopPropagation();
+            this.handleArrowKey(e);
             this.refs.input.goTime(-1, 'days');
         } else if (keyCode === RIGHT_ARROW_KEY) {
-            e.preventDefault();
-            e.stopPropagation();
+            this.handleArrowKey(e);
             this.refs.input.goTime(1, 'days');
         }
     }
