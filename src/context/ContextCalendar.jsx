@@ -13,7 +13,7 @@ class ContextCalendar extends React.Component {
     handleDateSelect = (date) => {
         this.props.closePortal();
         const context = { key: 'set-date-id', context: `${date.format('D MMM YYYY')}`, object: date };
-        this.props.onSelected(this.props.state, context);
+        return this.props.onSelected(this.props.state, context);
     }
 
     handleArrowKey = (e) => {
@@ -28,7 +28,7 @@ class ContextCalendar extends React.Component {
             if (_.isUndefined(this.refs.input.state.selectedValue)) {
                 this.refs.input.state.selectedValue = this.refs.input.state.value;
             }
-            this.handleDateSelect(this.refs.input.state.selectedValue);
+            return this.handleDateSelect(this.refs.input.state.selectedValue);
         } else if (keyCode === UP_ARROW_KEY) {
             this.handleArrowKey(e);
             this.refs.input.goTime(-1, 'weeks');
