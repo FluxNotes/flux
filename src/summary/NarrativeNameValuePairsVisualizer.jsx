@@ -214,7 +214,7 @@ class NarrativeNameValuePairsVisualizer extends Visualizer {
             value: [
                 snippet.value,
                 snippet.unsigned,
-                snippet.source,
+                snippet.source || snippet.value.source,
                 snippet.shortcutData
             ],
         };
