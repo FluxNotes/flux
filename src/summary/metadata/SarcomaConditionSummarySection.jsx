@@ -84,7 +84,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                         {
                             name: "Location",
                             value: (patient, currentConditionEntry) => {
-                                return  {   value: currentConditionEntry.bodySite,
+                                return  {
+                                    value: currentConditionEntry.bodySite,
                                     isUnsigned: patient.isUnsigned(currentConditionEntry),
                                     source: this.determineSource(patient, currentConditionEntry)
                                 };
@@ -95,7 +96,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 const status = currentConditionEntry.clinicalStatus;
                                 if (status) {
-                                    return  {   value: this.toFirstLetterCapital(status),
+                                    return  {
+                                        value: this.toFirstLetterCapital(status),
                                         isUnsigned: patient.isUnsigned(currentConditionEntry),
                                         source: this.determineSource(patient, currentConditionEntry)
                                     };
@@ -136,7 +138,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                                 if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
-                                    return  {   value: p.status,
+                                    return  {
+                                        value: p.status,
                                         isUnsigned: patient.isUnsigned(p),
                                         source: this.determineSource(patient, p)
                                     };
@@ -150,7 +153,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                                 if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
-                                    return  {   value: p.asOfDate,
+                                    return  {
+                                        value: p.asOfDate,
                                         isUnsigned: patient.isUnsigned(p),
                                         source: this.determineSource(patient, p)
                                     };
@@ -196,7 +200,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                                 if (currentConditionEntry.clinicalStatus === "recurrence") {
                                     return null;
                                 } else {
-                                    return  {   value: "N/A",
+                                    return  {
+                                        value: "N/A",
                                         isUnsigned: patient.isUnsigned(currentConditionEntry),
                                         source: this.determineSource(patient, currentConditionEntry)
                                     };
@@ -233,7 +238,8 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                             value: (patient, currentConditionEntry) => {
                                 const s = currentConditionEntry.getMostRecentStaging();
                                 if (s && s.stage && s.stage.length > 0) {
-                                    return  {   value: s.stage,
+                                    return  {
+                                        value: s.stage,
                                         isUnsigned: patient.isUnsigned(s),
                                         source: this.determineSource(patient, s)
                                     };
