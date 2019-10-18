@@ -53,9 +53,6 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                         "Recent Toxicities"
                     ]
                 },
-                // diagnosis section
-                // stage and diagnosis taken care of above
-                // Mitosis and tumor size taken care of below
                 {
                     defaultTemplate: "Most recent lab results include ${Most Recent Lab Results}.",
                     dataMissingTemplate: "No recent ${lab results}.",
@@ -125,7 +122,6 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                                 };
                             }
                         },
-                        // what is biomarkers
                     ]
                 },
                 {
@@ -232,7 +228,6 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                                 }
                             }
                         },
-                        // histological grade
                         {
                             name: "Clinical stage",
                             value: (patient, currentConditionEntry) => {
@@ -248,7 +243,6 @@ export default class SarcomaConditionSummarySection extends MetadataSection {
                                 }
                             },
                         }
-                        // pathological stage
                     ]
                 },
                 RecentLabResultsSubsection
