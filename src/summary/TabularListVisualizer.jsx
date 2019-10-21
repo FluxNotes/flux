@@ -265,6 +265,7 @@ export default class TabularListVisualizer extends Visualizer {
         let colText = _.isObject(col.value) ? col.value.value : col.value;
         const longElementText = colText;
 
+        // NOTE: Truncates any text blocks over 100 characters. It is unclear where the motivation for this number originally came from
         if (!_.isEmpty(colText) && colText.length > 100) colText = colText.substring(0, 100) + "...";
 
         let itemClass = isUnsigned ? 'list-unsigned' : 'list-captured';
