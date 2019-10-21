@@ -5,7 +5,7 @@ import MostRecentVisitsSubsection from './MostRecentVisitsSubsection';
 import RecentLabResultsSubsection from './RecentLabResultsSubsection';
 import RecentToxicitiesSubsection from './RecentToxicitiesSubsection';
 import ActiveTreatmentSummaryObjectFactory from '../activeTreatmentSummary/ActiveTreatmentSummaryObjectFactory';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
 
 export default class SarcomaSummarySection extends MetadataSection {
@@ -37,18 +37,18 @@ export default class SarcomaSummarySection extends MetadataSection {
                     ]
                 },
                 {
-                    defaultTemplate: "You last saw this patient on ${Most Recent Visit.Date of Last Visit with You}.",
+                    defaultTemplate: "You last saw this patient on ${Recent appointments.You last saw this patient}.",
                     dataMissingTemplate: "There are no recorded encounters for you with this patient.",
                     useDataMissingTemplateCriteria: [
-                        "Most Recent Visit.Date of Last Visit with You"
+                        "Recent appointments.You last saw this patient"
                     ]
                 },
                 {
-                    defaultTemplate: "This patient was last seen in your facility by ${Most Recent Visit.Who Last Visited Here} on ${Most Recent Visit.Date of Last Visit Here}.",
+                    defaultTemplate: "This patient was last seen in your facility by ${Recent appointments.Clinician who saw patient} on ${Recent appointments.Last visit to this practice}.",
                     dataMissingTemplate: "No recent visits to this facility are on record.",
                     useDataMissingTemplateCriteria: [
-                        "Most Recent Visit.Who Last Visited Here",
-                        "Most Recent Visit.Date of Last Visit Here"
+                        "Recent appointments.Clinician who saw patient",
+                        "Recent appointments.Last visit to this practice"
                     ]
                 },
                 {
@@ -82,7 +82,8 @@ export default class SarcomaSummarySection extends MetadataSection {
                         {
                             name: "Name",
                             value: (patient, currentConditionEntry) => {
-                                return  {   value: currentConditionEntry.type,
+                                return  {
+                                    value: currentConditionEntry.type,
                                     isUnsigned: patient.isUnsigned(currentConditionEntry),
                                     source: this.determineSource(patient, currentConditionEntry),
                                     shortcutData: {
@@ -134,7 +135,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             name: "Disease Status",
                             value: (patient, currentConditionEntry) => {
                                 const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p) || !p.status) {
+                                if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
                                     return  {   value: p.status,
@@ -148,7 +149,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             name: "As Of Date",
                             value: (patient, currentConditionEntry) => {
                                 const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p) || !p.status) {
+                                if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
                                     return  {   value: p.asOfDate,
@@ -162,7 +163,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                             name: "Rationale",
                             value: (patient, currentConditionEntry) => {
                                 const p = patient.getMostRecentProgressionForCondition(currentConditionEntry, moment().subtract(6, 'months'));
-                                if (Lang.isNull(p) || !p.status) {
+                                if (_.isNull(p) || !p.status) {
                                     return null;
                                 } else {
                                     return  {   value: p.evidence.map(function (ev) {
@@ -199,7 +200,7 @@ export default class SarcomaSummarySection extends MetadataSection {
                                 const activeTreatmentSummaryJson = activeTreatmentSummaryObject.getActiveTreatmentSummary(patient, currentConditionEntry);
                                 // If there is no activeTreatmentSummaryJSON, or if the JSON has an undefineddisplayText
                                 // Then return null
-                                if (Lang.isNull(activeTreatmentSummaryJson) || Lang.isUndefined(activeTreatmentSummaryJson.displayText)) return null;
+                                if (_.isNull(activeTreatmentSummaryJson) || _.isUndefined(activeTreatmentSummaryJson.displayText)) return null;
                                 // Always use the displayText provided back from the summaryObject
                                 let treatmentSummaryValue = activeTreatmentSummaryJson.displayText;
                                 // If there are medications, gather them into a single string
@@ -228,22 +229,5 @@ export default class SarcomaSummarySection extends MetadataSection {
                 MostRecentVisitsSubsection
             ]
         };
-    }
-
-    getItemListForConditions = (patient, currentConditionEntry, subsection) => {
-        const conditions = patient.getActiveConditions();
-        return conditions.map((c, i) => {
-            return [
-                {    value: c.type,
-                    isUnsigned: patient.isUnsigned(c),
-                    source: this.determineSource(patient, c),
-                    shortcut: subsection.shortcut
-                },
-                {   value: c.diagnosisDate
-                },
-                {   value: c.bodySite
-                }
-            ];
-        });
     }
 }

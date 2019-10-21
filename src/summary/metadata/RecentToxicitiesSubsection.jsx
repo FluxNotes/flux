@@ -1,5 +1,5 @@
 import MetadataSection from "./MetadataSection";
-import Lang from 'lodash';
+import _ from 'lodash';
 
 export default class RecentToxicitiesSubsection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
@@ -11,7 +11,7 @@ export default class RecentToxicitiesSubsection extends MetadataSection {
 
     // Returns toxicites in the correct format to be displayed in the summary section
     getItemListForToxicities = (patient, currentConditionEntry) => {
-        if (Lang.isNull(patient) || Lang.isNull(currentConditionEntry)) return [];
+        if (_.isNull(patient) || _.isNull(currentConditionEntry)) return [];
 
         const toxicities = currentConditionEntry.getMostRecentToxicities();
 

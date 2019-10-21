@@ -5,7 +5,7 @@ import FluxAdverseDrugReaction from './FluxAdverseDrugReaction';
 import FluxObservation from './FluxObservation';
 import FluxProcedureRequest from './FluxProcedureRequest';
 import hpiConfig from '../../hpi-configuration.json';
-import Lang from 'lodash';
+import _ from 'lodash';
 import moment from 'moment';
 import FluxEntry from '../base/FluxEntry';
 import FluxMedicationStatement from './FluxMedicationStatement';
@@ -240,7 +240,7 @@ class FluxCondition extends FluxEntry {
 
     getTests() {
         return this.getObservationsOfType(FluxObservation).filter((item) => {
-            return !Lang.isNull(item.quantity);
+            return !_.isNull(item.quantity);
         });
     }
 
@@ -249,7 +249,7 @@ class FluxCondition extends FluxEntry {
         let results = this.getTests();
         results.sort(this._observationsTimeSorter);
         let mostRecentLabResults = results;
-        if (sinceDate && !Lang.isNull(sinceDate)) {
+        if (sinceDate && !_.isNull(sinceDate)) {
             mostRecentLabResults = this.getMostRecentLabResults(results, sinceDate);
         }
 
@@ -297,6 +297,12 @@ class FluxCondition extends FluxEntry {
         }
 
         return mostRecentLabResultsArray;
+    }
+
+    getMostRecentLabResultByCode(code) {
+        const mostRecentLabResults = this.getMostRecentLabResultOfEachType();
+        const filteredLabResults = mostRecentLabResults.filter(lab => lab.codeableConceptCode === code);
+        return filteredLabResults.length > 0 ? filteredLabResults[0] : null;
     }
 
     getMostRecentLabResultsAsText() {
@@ -401,7 +407,7 @@ class FluxCondition extends FluxEntry {
         const procedure = patient.getProceduresForCondition(this).find((p) => {
             return (p.code === procedureCode);
         });
-        return !Lang.isEmpty(procedure);
+        return !_.isEmpty(procedure);
     }
 
     buildEventNarrative(hpiText, patient, conditionCode = null) {

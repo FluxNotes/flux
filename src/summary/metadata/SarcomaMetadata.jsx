@@ -1,16 +1,14 @@
 import MetadataSection from "./MetadataSection";
-import ActiveConditionsSection from './ActiveConditionsSection';
 import AllergiesSection from './AllergiesSection';
 import DiseaseStatusSection from './DiseaseStatusSection';
 import MedicationsSection from './MedicationsSection';
 import PathologySection from './PathologySection';
 import ProceduresSection from './ProceduresSection';
 import ReviewOfSystemsSection from './ReviewOfSystemsSection';
-import SarcomaSummarySection from './SarcomaSummarySection';
+import SarcomaPatientSummarySection from './SarcomaPatientSummarySection';
+import SarcomaConditionSummarySection from './SarcomaConditionSummarySection';
 import TimelineSection from './TimelineSection';
 import TreatmentOptionsSection from './TreatmentOptionsSection';
-import VisitReasonPostEncounterSection from './VisitReasonPostEncounterSection';
-import VisitReasonPreEncounterSection from './VisitReasonPreEncounterSection';
 import ImagingSection from "./ImagingSection";
 import VitalsSection from "./VitalsSection";
 import SarcomaLabsSection from "./SarcomaLabsSection";
@@ -20,10 +18,8 @@ export default class SarcomaMetadata extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return { // sarcoma
             sections: this.buildMetadataSections(preferencesManager, patient, condition, roleType, role, specialty,
-                VisitReasonPreEncounterSection,
-                VisitReasonPostEncounterSection,
-                SarcomaSummarySection,
-                ActiveConditionsSection,
+                SarcomaPatientSummarySection,
+                SarcomaConditionSummarySection,
                 MedicationsSection,
                 AllergiesSection,
                 ProceduresSection,

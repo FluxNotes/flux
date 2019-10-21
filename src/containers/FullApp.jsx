@@ -343,7 +343,8 @@ export class FullApp extends Component {
             });
         } else {
             const labelForItem = itemLabel; // (_.isArray(itemLabel) ? itemLabel[0] : itemLabel );
-            const title = "Source for " + (labelForItem === item.value ? labelForItem : labelForItem + " of " + item.value);
+            const valueForItem = _.isObject(item.value) ? item.value.value : item.value;
+            const title = "Source for " + (labelForItem === valueForItem ? labelForItem : labelForItem + " of " + valueForItem);
             this.setState({
                 isModalOpen: true,
                 modalTitle: title,

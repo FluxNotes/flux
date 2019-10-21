@@ -36,18 +36,18 @@ export default class BreastCancerMetadata extends MetadataSection {
                             defaultTemplate: "Patient has ${.Name} laterality ${.Laterality} stage ${.Stage} diagnosed on ${Key Dates.Diagnosis}."
                         },
                         {
-                            defaultTemplate: "You last saw this patient on ${Most Recent Visit.Date of Last Visit with You}.",
+                            defaultTemplate: "You last saw this patient on ${Recent appointments.You last saw this patient}.",
                             dataMissingTemplate: "There are no recorded encounters for you with this patient.",
                             useDataMissingTemplateCriteria: [
-                                "Most Recent Visit.Date of Last Visit with You"
+                                "Recent appointments.You last saw this patient"
                             ]
                         },
                         {
-                            defaultTemplate: "This patient was last seen in your facility by ${Most Recent Visit.Who Last Visited Here} on ${Most Recent Visit.Date of Last Visit Here}.",
+                            defaultTemplate: "This patient was last seen in your facility by ${Recent appointments.Clinician who saw patient} on ${Recent appointments.Last visit to this practice}.",
                             dataMissingTemplate: "No recent visits to this facility are on record.",
                             useDataMissingTemplateCriteria: [
-                                "Most Recent Visit.Who Last Visited Here",
-                                "Most Recent Visit.Date of Last Visit Here"
+                                "Recent appointments.Clinician who saw patient",
+                                "Recent appointments.Last visit to this practice"
                             ]
                         },
                         {
