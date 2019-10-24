@@ -1,11 +1,11 @@
-import MetadataSection from "./MetadataSection";
+import MetadataSection from './MetadataSection';
 import _ from 'lodash';
-// import moment from 'moment';
+import moment from 'moment';
 
 export default class RecentLabResultsSubsection extends MetadataSection {
     getMetadata(preferencesManager, patient, condition, roleType, role, specialty) {
         return {
-            name: "Most Recent Lab Results",
+            name: "Recent Labs (last 6 Months)",
             itemsFunction: this.getItemListForLabResults
         };
     }
@@ -13,7 +13,9 @@ export default class RecentLabResultsSubsection extends MetadataSection {
     getItemListForLabResults = (patient, currentConditionEntry) => {
         if (_.isNull(patient) || _.isNull(currentConditionEntry)) return [];
 
-        const labResultsInOrder = currentConditionEntry.getMostRecentLabResultOfEachType();
+        // set a const for the number of months that dictates most recent lab results
+        const numberOfMonths = 6;
+        const labResultsInOrder = currentConditionEntry.getLabResultsChronologicalOrder(moment().subtract(numberOfMonths, 'months'));
 
         return labResultsInOrder.map((l, i) => {
             const value = `${l.quantity.number} ${l.quantity.unit} (${l.relevantTime})`;
