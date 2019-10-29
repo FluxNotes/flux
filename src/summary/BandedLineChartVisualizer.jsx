@@ -1,14 +1,45 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer } from 'recharts';
 import Button from '../elements/Button';
 import moment from 'moment';
-import { scaleLinear } from "d3-scale";
+import { scaleLinear } from 'd3-scale';
 import Collection from 'lodash';
-import Lang from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import Visualizer from './Visualizer';
 
 import './BandedLineChartVisualizer.css';
+
+const CustomizedDot = (props) => {
+    const { subsection, tdpSearchSuggestions, highlightedSearchSuggestion, cx, cy } = props;
+    let { stroke, strokeWidth, fill } = props;
+
+    const highlightedData = tdpSearchSuggestions.find(s => {
+        const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`;
+        const dotValue = `${props.payload.start_time}: ${dotContent}`;
+        const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
+        return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
+    });
+    if (highlightedData) {
+        stroke = _.isEqual(highlightedData, highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
+        fill = 'rgb(255, 255, 70)';
+        strokeWidth = 5;
+    } else {
+        strokeWidth = 1.5;
+    }
+
+    // if no custom dots are defined, render the standard dot
+    if (_.isUndefined(subsection.dots)) {
+        return <circle cx={cx} cy={cy} r={3} stroke={stroke} strokeWidth={strokeWidth} fill={fill} />;
+    }
+
+    // else return a custom dot defined by the subsection
+    // return (
+    //   <svg x={cx - 10} y={cy - 10} width={20} height={20} fill="green" viewBox="0 0 1024 1024">
+    //     <path d="M517.12 53.248q95.232 0 179.2 36.352t145.92 98.304 98.304 145.92 36.352 179.2-36.352 179.2-98.304 145.92-145.92 98.304-179.2 36.352-179.2-36.352-145.92-98.304-98.304-145.92-36.352-179.2 36.352-179.2 98.304-145.92 145.92-98.304 179.2-36.352zM663.552 261.12q-15.36 0-28.16 6.656t-23.04 18.432-15.872 27.648-5.632 33.28q0 35.84 21.504 61.44t51.2 25.6 51.2-25.6 21.504-61.44q0-17.408-5.632-33.28t-15.872-27.648-23.04-18.432-28.16-6.656zM373.76 261.12q-29.696 0-50.688 25.088t-20.992 60.928 20.992 61.44 50.688 25.6 50.176-25.6 20.48-61.44-20.48-60.928-50.176-25.088zM520.192 602.112q-51.2 0-97.28 9.728t-82.944 27.648-62.464 41.472-35.84 51.2q-1.024 1.024-1.024 2.048-1.024 3.072-1.024 8.704t2.56 11.776 7.168 11.264 12.8 6.144q25.6-27.648 62.464-50.176 31.744-19.456 79.36-35.328t114.176-15.872q67.584 0 116.736 15.872t81.92 35.328q37.888 22.528 63.488 50.176 17.408-5.12 19.968-18.944t0.512-18.944-3.072-7.168-1.024-3.072q-26.624-55.296-100.352-88.576t-176.128-33.28z" />
+    //   </svg>
+    // );
+};
 
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
@@ -43,7 +74,7 @@ class BandedLineChartVisualizer extends Visualizer {
 
     // Turns dates into numeric representations for graphing
     processForGraphing = (data, xVar, xVarNumber) => {
-        const dataCopy = Lang.cloneDeep(data);
+        const dataCopy = _.cloneDeep(data);
 
         Collection.map(dataCopy, (d) => {
             d[xVarNumber] = Number(new Date(d[xVar]));
@@ -126,7 +157,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const data = subsection.data_cache;
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
-        if (Lang.isUndefined(processedData) || processedData.length === 0) {
+        if (_.isUndefined(processedData) || processedData.length === 0) {
             return (
                 <div key={yVar}>
                     <div className="subsection-heading">
@@ -224,30 +255,26 @@ class BandedLineChartVisualizer extends Visualizer {
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
                         {series.map(s => {
-                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot} />;
+                            return (
+                                <Line
+                                    type="monotone"
+                                    key={s}
+                                    dataKey={s}
+                                    stroke="#295677"
+                                    isAnimationActive={false}
+                                    yAxisId={0}
+                                    dot={<CustomizedDot
+                                        subsection={subsection}
+                                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion} />}
+                                />
+                            );
                         })}
                         {renderedBands}
                     </LineChart>
                 </ResponsiveContainer>
             </div>
         );
-    }
-
-    renderDot = (props) => {
-        const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`;
-            const dotValue = `${props.payload.start_time}: ${dotContent}`;
-            const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
-            return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
-        });
-        if (highlightedData) {
-            props.stroke = Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
-            props.fill = 'rgb(255, 255, 70)';
-            props.strokeWidth = 5;
-        } else {
-            props.strokeWidth = 1.5;
-        }
-        return <Dot {...props} />;
     }
 
     // Given the range and the color, render the band
