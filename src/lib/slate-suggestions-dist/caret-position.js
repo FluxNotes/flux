@@ -20,11 +20,11 @@ function position($node, offsetx, offsety) {
         const native = window.getSelection();
         const range = native.getRangeAt(0);
         const rect = range.getBoundingClientRect();
-        pos.top = rect.y
+        pos.top = rect.top
             + offsety
             + nodeTop;
 
-        pos.left = rect.x +
+        pos.left = rect.left +
           offsetx +
           nodeLeft +
           rect.width / 2;
