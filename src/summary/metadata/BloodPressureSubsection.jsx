@@ -28,8 +28,8 @@ export default class BloodPressureSubsection extends VitalsSubsection {
             displayChartLine: false,
             bands: [],
             dots: {
-                Systolic: "carat_down",
-                Diastolic: "carat_up"
+                Systolic: "caret_down",
+                Diastolic: "caret_up"
             }
         };
     }

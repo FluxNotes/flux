@@ -40,10 +40,10 @@ const CustomizedDot = (props) => {
 
     // return the correct dot shape and styling
     switch (dotShape) {
-        case 'carat_up':
+        case 'caret_up':
             const upPoints = `${cx} ${cy-2.6}, ${cx-3} ${cy+2.6}, ${cx+3} ${cy+2.6}`;
             return <polygon points={upPoints} stroke={stroke} strokeWidth={strokeWidth} fill={fill} />;
-        case 'carat_down':
+        case 'caret_down':
             const downPoints = `${cx} ${cy+2.6}, ${cx-3} ${cy-2.6}, ${cx+3} ${cy-2.6}`;
             return <polygon points={downPoints} stroke={stroke} strokeWidth={strokeWidth} fill={fill} />;
         default:
