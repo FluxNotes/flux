@@ -1,14 +1,55 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer, Dot } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ReferenceArea, ResponsiveContainer } from 'recharts';
 import Button from '../elements/Button';
 import moment from 'moment';
-import { scaleLinear } from "d3-scale";
+import { scaleLinear } from 'd3-scale';
 import Collection from 'lodash';
-import Lang from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import Visualizer from './Visualizer';
 
 import './BandedLineChartVisualizer.css';
+
+/*
+ A CustomDot class that allows for not just the traditional circle dot
+ */
+const CustomizedDot = (props) => {
+    const { subsection, tdpSearchSuggestions, highlightedSearchSuggestion, cx, cy, dataKey } = props;
+    let { stroke, strokeWidth, fill } = props;
+
+    // determine if the data should be highlighted by the search query
+    const highlightedData = tdpSearchSuggestions.find(s => {
+        const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`;
+        const dotValue = `${props.payload.start_time}: ${dotContent}`;
+        const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
+        return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
+    });
+    if (highlightedData) {
+        stroke = _.isEqual(highlightedData, highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
+        fill = 'rgb(255, 255, 70)';
+        strokeWidth = 5;
+    } else {
+        strokeWidth = 1.5;
+    }
+
+    // determine if there is a custom dot shape or if the standard should be used
+    let dotShape;
+    if (subsection.dots && _.isObject(subsection.dots)) {
+        dotShape = subsection.dots[dataKey];
+    }
+
+    // return the correct dot shape and styling
+    switch (dotShape) {
+        case 'caret_up':
+            const upPoints = `${cx} ${cy-2.6}, ${cx-3} ${cy+2.6}, ${cx+3} ${cy+2.6}`;
+            return <polygon points={upPoints} stroke={stroke} strokeWidth={strokeWidth} fill={fill} />;
+        case 'caret_down':
+            const downPoints = `${cx} ${cy+2.6}, ${cx-3} ${cy-2.6}, ${cx+3} ${cy-2.6}`;
+            return <polygon points={downPoints} stroke={stroke} strokeWidth={strokeWidth} fill={fill} />;
+        default:
+            return <circle cx={cx} cy={cy} r={3} stroke={stroke} strokeWidth={strokeWidth} fill={fill} />;
+    }
+};
 
 /*
  A BandedLineGraphVisualizer that graphs a set of data over time
@@ -43,7 +84,7 @@ class BandedLineChartVisualizer extends Visualizer {
 
     // Turns dates into numeric representations for graphing
     processForGraphing = (data, xVar, xVarNumber) => {
-        const dataCopy = Lang.cloneDeep(data);
+        const dataCopy = _.cloneDeep(data);
 
         Collection.map(dataCopy, (d) => {
             d[xVarNumber] = Number(new Date(d[xVar]));
@@ -126,7 +167,7 @@ class BandedLineChartVisualizer extends Visualizer {
         const data = subsection.data_cache;
         // process dates into numbers for graphing
         const processedData = this.processForGraphing(data, xVar, xVarNumber);
-        if (Lang.isUndefined(processedData) || processedData.length === 0) {
+        if (_.isUndefined(processedData) || processedData.length === 0) {
             return (
                 <div key={yVar}>
                     <div className="subsection-heading">
@@ -224,30 +265,26 @@ class BandedLineChartVisualizer extends Visualizer {
                             formatter={this.createYVarFormatFunctionWithUnit(yUnit)}
                         />
                         {series.map(s => {
-                            return <Line type="monotone" key={s} dataKey={s} stroke="#295677" isAnimationActive={false} yAxisId={0} dot={this.renderDot} />;
+                            return (
+                                <Line
+                                    type="monotone"
+                                    key={s}
+                                    dataKey={s}
+                                    stroke="#295677"
+                                    isAnimationActive={false}
+                                    yAxisId={0}
+                                    dot={<CustomizedDot
+                                        subsection={subsection}
+                                        tdpSearchSuggestions={this.props.tdpSearchSuggestions}
+                                        highlightedSearchSuggestion={this.props.highlightedSearchSuggestion} />}
+                                />
+                            );
                         })}
                         {renderedBands}
                     </LineChart>
                 </ResponsiveContainer>
             </div>
         );
-    }
-
-    renderDot = (props) => {
-        const highlightedData = this.props.tdpSearchSuggestions.find(s => {
-            const dotContent = props.payload.displayValue || `${props.payload[props.dataKey]} ${props.payload.unit}`;
-            const dotValue = `${props.payload.start_time}: ${dotContent}`;
-            const dataKey = props.payload.displayValue ? s.subsection : props.dataKey;
-            return s.valueTitle === dataKey && s.contentSnapshot === dotValue;
-        });
-        if (highlightedData) {
-            props.stroke = Lang.isEqual(highlightedData, this.props.highlightedSearchSuggestion) ? 'rgb(255, 150, 50)' : 'rgb(255, 210, 5)';
-            props.fill = 'rgb(255, 255, 70)';
-            props.strokeWidth = 5;
-        } else {
-            props.strokeWidth = 1.5;
-        }
-        return <Dot {...props} />;
     }
 
     // Given the range and the color, render the band

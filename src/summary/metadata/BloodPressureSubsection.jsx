@@ -25,9 +25,12 @@ export default class BloodPressureSubsection extends VitalsSubsection {
             name: "Blood Pressure",
             code: "55284-4",
             itemsFunction: this.getVitalsForSubsection,
-            displayChartLine: true,
-
-            bands: []
+            displayChartLine: false,
+            bands: [],
+            dots: {
+                Systolic: "caret_down",
+                Diastolic: "caret_up"
+            }
         };
     }
 }
