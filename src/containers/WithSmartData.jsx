@@ -7,9 +7,6 @@ import 'fhirclient';
     App container to display theoretical SMART patient.
     Upon successful authorization of EHR user, app will handle reading of patient and loads it.
     If user authorization fails or if selected patient is not in the usermap, app will load a fail screen.
-
-    NOTE: the redirect_url property used in the launchContext for the /launch endpoint
-          will need to be changed in different environments
 */
 export default function WithSmartData(WrappedAppComponent) {
     return class extends WrappedAppComponent {
