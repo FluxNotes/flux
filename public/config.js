@@ -65,6 +65,37 @@ CONFIG = {
     {
         path: '/smart',
         display: 'Flux Notes™',
+        app: "SmartPilot2MvpApp",
+        isExact: true,
+        dataSource: 'GenericSmartOnFhirDstu2DataSource',
+        shortcuts: [],
+        dataSourceProps: {
+            mapper: 'CernerSandboxMapper',
+            resourceTypes: ['Patient', 'Condition', 'Encounter', 'MedicationOrder', 'Observation', 'Procedure']
+        },
+    },
+    {
+        path: '/launchmcode',
+        display: 'Flux',
+        app: "LaunchPage",
+        isExact: true,
+        launchContext: {
+            client: {
+                client_id: '6c12dff4-24e7-4475-a742-b08972c4ea27',
+                scope: 'patient/*.read user/*.* openid profile',
+                // note: the redirect_uri below may need to change in different environments.
+                // a relative URL (ex. /smart or ../smart) won't work in IE
+                redirect_uri: 'http://localhost:3000/smartmcode'
+            },
+            // uncomment the 'server' field below
+            // to override the iss parameter from the SMART launch process
+            // (aka, the server listed here can be used as a 'shim')
+            // server: "http://localhost:3001/1_0_2"
+        }
+    },
+    {
+        path: '/smartmcode',
+        display: 'Flux Notes™',
         app: "SmartFullApp",
         isExact: true,
         dataSource: 'McodeV09SmartOnFhirDataSource',
@@ -289,7 +320,7 @@ CONFIG = {
     {
         path: '/mvp',
         display: 'Flux Notes™',
-        app: "Pilot2MvpApp",
+        app: "SmartPilot2MvpApp",
         isExact: true,
         dataSource: 'HardCodedMcodeV09DataSource',
         patientId: '788dcbc3-ed18-470c-89ef-35ff91854c7f',
