@@ -30,7 +30,7 @@
         "material-ui-icons": "1.0.0-beta.15",
         "mime": "1.4.1",
         "mkdirp": "0.5.1",
-        "moment": "2.22.0",
+        "moment": "2.29.4",
         "nock": "^10.0.6",
         "positions": "1.6.1",
         "prop-types": "15.5.10",
@@ -100,7 +100,7 @@
         "copy-webpack-plugin": "5.0.4"
     },
     "resolutions": {
-        "moment": "2.22.0",
+        "moment": "2.29.4",
         "ucum": "cmoesel/ucum.js#es5-friendly"
     },
     "scripts": {
