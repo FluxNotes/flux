@@ -1,0 +1,35 @@
+name: Deploy to GH Pages
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy-to-pages:
+        name: Deploy to GH Pages
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: "10.x"
+            - run: npm install -g yarn
+            - run: yarn install
+            - name: Update Debra encounter dates
+              run: yarn patient-date-update src/dataaccess/BreastMainTreatmentDebraV09.json 32
+            - name: Update Ella encounter dates
+              run: yarn patient-date-update src/dataaccess/BreastMainTreatmentTry3EllaV09.json 100
+            - name: Update Ihanos encounter dates
+              run: yarn patient-date-update src/dataaccess/GistAdjuvantIhanosV09.json 100
+            - name: Update Jane encounter dates
+              run: yarn patient-date-update src/dataaccess/BreastMainTreatmentDiabetesHypertensionJaneV09.json 33
+            - run: yarn run build
+            - name: Publish build to github pages
+              uses: peaceiris/actions-gh-pages@v3.5.7
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: build
+                  publish_branch: gh-pages
+                  user_name: "github-actions[bot]"
+                  user_email: "github-actions[bot]@users.noreply.github.com"

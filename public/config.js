@@ -1,5 +1,5 @@
 CONFIG = {
-    basename: '/',
+    basename: '/flux',
     apps: [{
         path: '/',
         display: 'Flux Notes™',
