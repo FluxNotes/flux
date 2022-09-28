@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import FontAwesome from 'react-fontawesome';
 import Paper from 'material-ui/Paper';
 import '../styles/LandingPage.css';
@@ -93,7 +94,7 @@ export default class LandingPage extends Component {
                 <div className="landing-products">
                     <div className="landing-products-full">
                         <Paper className="landing-products-interaction">
-                            <a href="/pilot1" id="link-to-full">
+                            <Link to="/pilot1" id="link-to-full">
                                 <div className="landing-products-image">
                                     <img src="./landing/fluxnotes_full.gif" alt="Flux Notes Full" />
                                 </div>
@@ -102,7 +103,7 @@ export default class LandingPage extends Component {
                                     <span>Flux Notes™ for sarcoma</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
-                            </a>
+                            </Link>
                         </Paper>
 
                         <div className="landing-products-description">
@@ -143,7 +144,7 @@ export default class LandingPage extends Component {
                 <div className="landing-products">
                     <div className="landing-products-full">
                         <Paper className="landing-products-interaction">
-                            <a href="/ccp" id="link-to-compass">
+                            <Link to="/ccp" id="link-to-compass">
                                 <div className="landing-products-image">
                                     <img src="./landing/fluxnotes_compass.gif" alt="Flux Notes Compass" />
                                 </div>
@@ -152,7 +153,7 @@ export default class LandingPage extends Component {
                                     <span>Flux Notes™ for Compass™</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
-                            </a>
+                            </Link>
                         </Paper>
 
                         <div className="landing-products-description">
@@ -189,7 +190,7 @@ export default class LandingPage extends Component {
                 <div className="landing-products">
                     <div className="landing-products-full">
                         <Paper className="landing-products-interaction">
-                            <a href="/poc" id="link-to-tablet">
+                            <Link to="/poc" id="link-to-tablet">
                                 <div className="landing-products-image">
                                     <img src="./landing/fluxnotes_poc.gif" alt="Flux Notes Tablet" />
                                 </div>
@@ -198,7 +199,7 @@ export default class LandingPage extends Component {
                                     <span>Flux Notes™ for tablet</span>
                                     <FontAwesome name="arrow-right" />
                                 </div>
-                            </a>
+                            </Link>
                         </Paper>
 
                         <div className="landing-products-description">
