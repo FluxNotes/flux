@@ -1,5 +1,7 @@
 # Flux Notes&trade; Prototype
 
+![fluxnotes_full](https://user-images.githubusercontent.com/5703736/200033866-6ad88bee-25af-4c10-b6e4-0a2eb04f732a.gif)
+
 ## Features
 
 This prototype is designed to demonstrate the concept of a clinician entering or dictating a clinical note that includes structured data embedded within it. A patient summary is shown for reference during the authoring of new clinical notes and provide incentive to identifying structured data during note authoring and review. The clinician can leverage templates for note creation. When authoring a note and within a structured field, Flux Notes&trade; displays a simple "point-of-sale" inspired "form" for choosing values that are part of the current structured field.
