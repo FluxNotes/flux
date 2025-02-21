@@ -4,7 +4,7 @@
     "homepage": "http://fluxnotes.github.io/flux",
     "private": true,
     "dependencies": {
-        "axios": "0.19.0",
+        "axios": "0.21.2",
         "commander": "2.9.0",
         "cql-exec-fhir": "^1.0.1",
         "cql-exec-vsac": "^1.0.1",
